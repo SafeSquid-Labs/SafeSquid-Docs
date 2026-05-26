@@ -1,0 +1,13 @@
+{
+  "name": "safesquid-docs",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "cd public && npx mint dev",
+    "validate": "cd public && npx mint validate",
+    "broken-links": "cd public && npx mint broken-links"
+  },
+  "engines": {
+    "node": ">=20.17.0"
+  }
+}
