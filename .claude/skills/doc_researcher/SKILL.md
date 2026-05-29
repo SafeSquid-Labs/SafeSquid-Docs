@@ -13,8 +13,8 @@ Produce a structured research note that a writer can turn into SafeSquid documen
 
 ## Read first
 
-1. `/home/administrator/docs/.claude/skills/doc_program_standards/references/source_of_truth_policy.md`
-2. `/home/administrator/docs/.claude/skills/doc_program_standards/references/knowledge_integration_rules.md`
+1. `/home/administrator/Mintlify-Docs/.claude/skills/doc_program_standards/references/source_of_truth_policy.md`
+2. `/home/administrator/Mintlify-Docs/.claude/skills/doc_program_standards/references/knowledge_integration_rules.md`
 
 ## Inputs
 

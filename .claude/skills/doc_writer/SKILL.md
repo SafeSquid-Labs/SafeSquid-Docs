@@ -17,8 +17,8 @@ description: >
 1. `references/writing_standards.md` — CISO-grade bar, writing principles, document design, voice, format conventions, content patterns, admonitions, ambiguity rules, security rules.
 2. `references/page_templates.md` — frontmatter template, feature page structure, page type templates, good vs bad examples.
 3. `references/competitive_context.md` — ICP (Indian regulated enterprises: BFSI, Government/PSU, Critical Infrastructure), competitive displacement map (Zscaler, Netskope, Cisco, Forcepoint, Palo Alto, Blue Coat, custom Squid builds), documentation style benchmarks (Squid/OpenSSL/NoVNC), Indian regulatory compliance drivers (RBI, SEBI, IRDAI, NCIIPC, CERT-In), and ICP-aware writing rules.
-4. `/home/administrator/docs/.claude/skills/doc_program_standards/references/world_class_quality_rubric.md` — quality approval bar.
-5. `/home/administrator/docs/.claude/skills/doc_program_standards/references/source_of_truth_policy.md` — source hierarchy.
+4. `/home/administrator/Mintlify-Docs/.claude/skills/doc_program_standards/references/world_class_quality_rubric.md` — quality approval bar.
+5. `/home/administrator/Mintlify-Docs/.claude/skills/doc_program_standards/references/source_of_truth_policy.md` — source hierarchy.
 6. `public/docs.json` — current navigation; read before adding or moving pages.
 7. The target section and its `main.md` — match existing structure and tone.
 

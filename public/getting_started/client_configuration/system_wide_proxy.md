@@ -11,122 +11,136 @@ keywords:
 
 # Route One Host Through SafeSquid
 
-System-wide proxy settings help validate how a workstation behaves when most OS-aware applications use SafeSquid. This method is useful for controlled workstations, developer endpoints, and pilot hosts. It is not a substitute for enterprise policy enforcement unless settings are managed and protected.
+System-wide proxy settings help validate how a workstation behaves when OS-aware applications use SafeSquid. This method is useful for controlled workstations, developer endpoints, and pilot hosts. It is not a substitute for enterprise policy enforcement unless settings are managed and protected.
 
 ## Use this method when
 
-- One host must route browser and OS-aware application traffic through SafeSquid.
-- You need to test impact before GPO, MDM, or PAC rollout.
-- A developer or administrator workstation requires broader proxy coverage than one browser.
+Use system-wide proxy when:
 
-Some applications ignore OS proxy settings. Use [Application-Specific Configuration](/getting_started/client_configuration/application_specific_configuration) for those exceptions.
+- You need more coverage than one browser setting.
+- The host is managed by the organization.
+- Applications honor operating system proxy settings.
+- You can roll back quickly if business apps fail.
+
+Do not assume all applications will use these settings. Some tools need application-specific proxy configuration.
 
 ## Validate prerequisites
 
-Before changing a host:
+Confirm:
 
-- Record the current proxy state for rollback.
-- Confirm SafeSquid is reachable on `8080/tcp` or the configured listener port.
-- Confirm the user or administrator can change OS network settings.
-- Confirm internal bypass domains are approved.
-- Confirm Root CA deployment is ready before HTTPS inspection testing.
+- Explicit proxy pilot passed.
+- Proxy IP, port, and bypass entries are approved.
+- User or device is in a pilot group.
+- Root CA rollout is ready before HTTPS inspection tests.
+- Rollback commands are documented.
 
-## Configure Windows
+## Configure by operating system
 
-1. Open **Settings -> Network & Internet -> Proxy**.
-2. Enable **Use a proxy server**.
-3. Set **Address** to **SAFESQUID-IP**.
-4. Set **Port** to **8080**.
-5. Add approved bypass entries such as `localhost`, `127.0.0.1`, and internal domains.
-6. Click **Save**.
+<Tabs>
+  <Tab title="Windows">
 
-Verify the setting:
+Use approved endpoint management where possible. For a controlled pilot, set WinHTTP proxy from an elevated shell:
+
+```powershell
+netsh winhttp set proxy SAFESQUID-IP:8080 "localhost;*.internal.example.com"
+```
+
+Verify:
 
 ```powershell
 netsh winhttp show proxy
 ```
 
-If required for services that use WinHTTP, import the user proxy into WinHTTP after change approval:
+Expected result: the proxy and bypass list match the approved pilot values.
 
-```powershell
-netsh winhttp import proxy source=ie
-```
+  </Tab>
+  <Tab title="Linux">
 
-## Configure Linux
-
-For a temporary shell test:
+Set proxy variables for a pilot shell:
 
 ```bash
 export http_proxy=http://SAFESQUID-IP:8080
 export https_proxy=http://SAFESQUID-IP:8080
-export no_proxy=localhost,127.0.0.1,.example.internal
+export no_proxy=localhost,127.0.0.1,.internal.example.com
+```
+
+Persist settings only through the organization's approved profile, package-manager, or configuration-management process.
+
+Verify:
+
+```bash
 curl -I http://example.com
 ```
 
-For GNOME, use **Settings -> Network -> Network Proxy -> Manual** and set HTTP and HTTPS proxy to **SAFESQUID-IP** on port **8080**.
+Expected result: the request succeeds and appears in SafeSquid access logs.
 
-For package managers, configure only when package download traffic must traverse SafeSquid:
+  </Tab>
+  <Tab title="macOS">
 
-```bash
-sudo tee /etc/apt/apt.conf.d/95safesquid-proxy >/dev/null <<'EOF'
-Acquire::http::Proxy "http://SAFESQUID-IP:8080";
-Acquire::https::Proxy "http://SAFESQUID-IP:8080";
-EOF
-```
-
-## Configure macOS
-
-1. Open **System Settings -> Network**.
-2. Select the active network interface.
-3. Open **Details -> Proxies**.
-4. Enable **Web Proxy (HTTP)** and **Secure Web Proxy (HTTPS)**.
-5. Set both to **SAFESQUID-IP** and port **8080**.
-6. Add approved bypass domains.
-7. Click **OK -> Apply**.
-
-Verify the setting:
+Use MDM for managed rollout. For a pilot, configure the active network service:
 
 ```bash
-scutil --proxy
+networksetup -setwebproxy "Wi-Fi" SAFESQUID-IP 8080
+networksetup -setsecurewebproxy "Wi-Fi" SAFESQUID-IP 8080
 ```
+
+Verify:
+
+```bash
+networksetup -getwebproxy "Wi-Fi"
+```
+
+Expected result: proxy settings match the approved SafeSquid listener.
+
+  </Tab>
+</Tabs>
+
+<Accordion title="Advanced Windows registry method">
+
+Use registry-based proxy settings only through approved endpoint management or an administrator-controlled pilot. Manual registry edits are hard to audit and easy to leave behind.
+
+```powershell
+reg query "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings" /v ProxyServer
+```
+
+Expected result: the registry value matches the approved proxy or PAC deployment. Prefer GPO or MDM for production enforcement.
+
+</Accordion>
 
 ## Verify host coverage
 
-From the configured host, test HTTP traffic:
-
-```bash
-curl -I http://example.com
-```
-
-Then check SafeSquid logs:
+On the SafeSquid server:
 
 ```bash
 tail -20 /var/log/safesquid/access/extended.log
 ```
 
-For HTTPS, install the SafeSquid Root CA first. A valid HTTPS test must not require bypassing certificate warnings.
+Expected result: OS-aware applications from the pilot host generate log entries.
+
+Also test one internal destination that should bypass SafeSquid.
+
+## Capture deployment evidence
+
+Store:
+
+- Hostname and operating system.
+- Proxy settings and bypass list.
+- Management tool or manual pilot method.
+- Access-log sample.
+- Internal bypass test result.
+- Rollback command.
 
 ## Troubleshoot host routing
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| Browser routes but CLI does not | CLI ignores OS proxy | Set application-specific proxy variables or config |
-| CLI routes but browser does not | Browser has its own proxy mode | Configure the browser to use system settings |
-| Package manager fails | Proxy or certificate trust missing for package tool | Configure tool-specific proxy and trust store |
-| Internal sites break | Missing bypass entry | Add approved internal suffixes to bypass list |
-| No SafeSquid log entry | Traffic bypasses proxy | Check direct egress, app-specific settings, and OS proxy state |
-
-## Capture deployment evidence
-
-- Original proxy state and rollback command.
-- OS proxy setting after change.
-- Access-log entry for an HTTP test request.
-- HTTPS trust result after Root CA deployment.
-- List of applications that still require app-specific configuration.
+| Browser works but CLI bypasses proxy | Tool ignores OS proxy or environment is missing | Configure application-specific proxy settings |
+| Internal sites break | Missing bypass entry | Add approved internal suffixes |
+| Settings disappear | User or policy overwrote manual settings | Move rollout to GPO, MDM, or configuration management |
+| HTTPS warning appears | Root CA is missing | Install Root CA through approved trust path |
 
 ## Next steps
 
-- [Application-Specific Configuration](/getting_started/client_configuration/application_specific_configuration) - handle tools that ignore OS proxy settings.
-- [Enterprise Deployment](/getting_started/client_configuration/enterprise_deployment) - scale protected proxy settings across managed endpoints.
-- [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) - complete trusted HTTPS inspection.
-
+- [Enterprise Deployment](/getting_started/client_configuration/enterprise_deployment) - move from host pilot to managed rollout.
+- [Application-Specific Configuration](/getting_started/client_configuration/application_specific_configuration) - configure tools that bypass OS settings.
+- [Configure Web Security Policies](/getting_started/configure_web_security_policies) - apply controls after routing is proven.

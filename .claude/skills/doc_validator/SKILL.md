@@ -13,9 +13,9 @@ Decide whether the page is review-ready by checking structure, accuracy, and rep
 
 ## Read first
 
-1. `/home/administrator/docs/.claude/skills/doc_program_standards/references/world_class_quality_rubric.md`
-2. `/home/administrator/docs/.claude/skills/doc_program_standards/references/source_of_truth_policy.md`
-3. `/home/administrator/docs/.claude/skills/doc_program_standards/references/page_requirements.md`
+1. `/home/administrator/Mintlify-Docs/.claude/skills/doc_program_standards/references/world_class_quality_rubric.md`
+2. `/home/administrator/Mintlify-Docs/.claude/skills/doc_program_standards/references/source_of_truth_policy.md`
+3. `/home/administrator/Mintlify-Docs/.claude/skills/doc_program_standards/references/page_requirements.md`
 
 ## Validation gates
 

@@ -14,108 +14,114 @@ Explicit proxy configuration is the fastest way to prove that a client can reach
 
 ## Use this method when
 
-- You need to validate a new SafeSquid deployment from one managed test client.
-- You need to isolate client routing problems before PAC, GPO, MDM, or firewall changes.
-- You need a low-blast-radius test before enabling SSL inspection or access policy.
+Use explicit proxy when:
 
-Use [PAC File](/getting_started/client_configuration/pac_file) or [Enterprise Deployment](/getting_started/client_configuration/enterprise_deployment) when the setting must survive user changes or reach many endpoints.
+- You need a fast pilot before GPO, MDM, or PAC rollout.
+- You are testing one browser or workstation.
+- You are isolating routing, DNS, certificate, or policy behavior.
+
+Do not use manual explicit proxy as the final enterprise control. Users can remove it unless endpoint policy prevents changes.
 
 ## Validate prerequisites
 
-Before configuring the browser, confirm:
+Confirm:
 
-- SafeSquid is installed and listening on the proxy port, usually `8080/tcp`.
-- The test client can reach the SafeSquid IP on that port.
-- The browser proxy setting can be changed by the tester.
-- A rollback note records the original browser or system proxy settings.
-- HTTPS testing waits until [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) and Root CA trust are configured.
+- SafeSquid is installed and activated.
+- Proxy listener IP and port are known.
+- Pilot client can reach the proxy network.
+- Access-log review is available.
+- Root CA trust is planned before HTTPS inspection tests.
 
 ## Configure a pilot browser
 
-Use placeholders in change records. Replace `SAFESQUID-IP` with the management-approved proxy address.
+<Tabs>
+  <Tab title="Windows">
+    Open **Settings** > **Network & Internet** > **Proxy**, enable manual proxy, set HTTP proxy to `SAFESQUID-IP`, and set the port to `8080` or the approved listener port. Add only approved internal bypass entries.
+  </Tab>
+  <Tab title="Linux">
+    Use the desktop environment proxy settings for a browser pilot, or use a command-line test with `curl --proxy`. For production desktop rollout, prefer PAC, GPO-equivalent endpoint management, or configuration management instead of manual user settings.
+  </Tab>
+  <Tab title="macOS">
+    Open **System Settings** > **Network** > selected interface > **Details** > **Proxies**, enable Web Proxy and Secure Web Proxy, then enter `SAFESQUID-IP` and the approved listener port.
+  </Tab>
+  <Tab title="Browser">
+    Use browser proxy settings only for a controlled pilot or troubleshooting session. Apply the same proxy for HTTP and HTTPS traffic, save the settings, and browse to `http://example.com`.
+  </Tab>
+</Tabs>
 
-### Windows system proxy
+<Steps>
+  <Step title="Set proxy host and port">
+    Set HTTP proxy to `SAFESQUID-IP` and port `8080` or the approved listener port.
 
-1. Open **Settings -> Network & Internet -> Proxy**.
-2. Enable **Use a proxy server**.
-3. Set **Address** to **SAFESQUID-IP**.
-4. Set **Port** to **8080** or the configured SafeSquid listener port.
-5. Add internal bypasses such as `localhost`, `127.0.0.1`, and approved internal domains.
-6. Click **Save**.
+    Confirm the client setting uses the approved proxy IP and listener port.
 
-Chrome and Edge use the Windows system proxy. Firefox can use either system settings or its own manual proxy settings.
+    If the client cannot reach the proxy, confirm firewall policy, route, and listener state.
+  </Step>
+  <Step title="Apply HTTPS proxy settings">
+    Apply the same proxy for HTTPS traffic before testing encrypted destinations.
 
-### Firefox manual proxy
+    Confirm HTTPS destinations use SafeSquid rather than direct internet access.
 
-1. Open **Menu -> Settings -> Network Settings -> Settings**.
-2. Select **Manual proxy configuration**.
-3. Set **HTTP Proxy** to **SAFESQUID-IP** and **Port** to **8080**.
-4. Enable **Also use this proxy for HTTPS**.
-5. Add `localhost`, `127.0.0.1`, and approved internal domains under **No Proxy for**.
-6. Click **OK**.
+    If HTTPS produces certificate warnings, deploy the SafeSquid Root CA before production testing.
+  </Step>
+  <Step title="Add reviewed bypasses">
+    Add only approved internal bypass entries and record the owner for each exception.
 
-### Linux environment test
+    Confirm each bypass maps to an approved internal destination and owner.
 
-Use environment variables only for a temporary shell test. Do not treat this as managed endpoint deployment.
+    If internal sites fail, add exact reviewed bypasses instead of broad wildcard entries.
+  </Step>
+  <Step title="Save and test">
+    Save the settings and browse to `http://example.com`.
 
-```bash
-export http_proxy=http://SAFESQUID-IP:8080
-export https_proxy=http://SAFESQUID-IP:8080
-export no_proxy=localhost,127.0.0.1,.example.internal
-curl -I http://example.com
-```
+    Confirm the request returns an HTTP response through SafeSquid and appears in the access log.
 
-### macOS system proxy
+    If no log appears, retest with `curl --proxy http://SAFESQUID-IP:8080 http://example.com`.
+  </Step>
+</Steps>
 
-1. Open **System Settings -> Network**.
-2. Select the active interface.
-3. Open **Details -> Proxies**.
-4. Enable **Web Proxy (HTTP)** and **Secure Web Proxy (HTTPS)**.
-5. Set both proxy servers to **SAFESQUID-IP** and port **8080**.
-6. Add approved bypass domains.
-7. Click **OK -> Apply**.
-
-## Verify traffic evidence
-
-Run one HTTP request from the configured client:
+For command-line validation, run:
 
 ```bash
 curl -I --proxy http://SAFESQUID-IP:8080 http://example.com
 ```
 
-On the SafeSquid server, inspect the access log:
+Expected result: the request returns an HTTP response through SafeSquid.
+
+## Verify traffic evidence
+
+On the SafeSquid server:
 
 ```bash
 tail -20 /var/log/safesquid/access/extended.log
 ```
 
-A valid pilot result shows the client source, destination URL, timestamp, and action. After authentication is enabled, repeat the test and confirm user attribution appears in the log or Reporting Service.
+Expected result: the access log shows the pilot client, destination, timestamp, and action.
 
-For HTTPS, do not bypass certificate warnings. Install the SafeSquid Root CA through an approved trust path, then test an HTTPS site and confirm the browser shows a trusted connection.
+For a negative check, remove or bypass the proxy setting only in the test window and confirm the request no longer appears in SafeSquid logs. Restore the proxy setting immediately after the test.
+
+## Capture deployment evidence
+
+Store:
+
+- Pilot client hostname.
+- Proxy IP and port.
+- Browser or OS used.
+- Internal bypass list.
+- Access-log sample.
+- Rollback steps.
 
 ## Troubleshoot pilot failures
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| Browser reports proxy refused | SafeSquid service is stopped or firewall blocks `8080/tcp` | Check `systemctl status safesquid` and test `SAFESQUID-IP:8080` from the client network |
-| Direct internet works but proxied traffic fails | Wrong proxy IP, port, or routing path | Confirm the listener address and security policy before retesting |
-| Firefox ignores Windows or macOS settings | Firefox uses manual proxy settings | Configure Firefox manually or set it to use system proxy settings |
-| HTTPS shows certificate warnings | Root CA trust is missing or SSL inspection is incomplete | Install the SafeSquid Root CA and retest; never bypass browser warnings |
-| No access-log entry appears | Client traffic bypasses SafeSquid | Recheck browser settings, PAC/WPAD settings, and direct internet routes |
-
-## Capture deployment evidence
-
-Record these artifacts before moving to managed rollout:
-
-- Screenshot or change record of the pilot proxy setting.
-- SafeSquid service status and listener check.
-- Access-log entry for the pilot HTTP request.
-- Root CA deployment result before HTTPS testing.
-- Rollback steps that restore the original client proxy setting.
+| Browser cannot browse | Wrong proxy IP, port, or firewall rule | Confirm listener with `ss -lntp` and test reachability |
+| Request does not appear in logs | Browser is not using the proxy | Reopen proxy settings and retest with `curl --proxy` |
+| Internal site breaks | Missing bypass entry | Add exact internal host or suffix approved by the network owner |
+| HTTPS warning appears | Root CA is not trusted | Deploy the SafeSquid Root CA before testing HTTPS inspection |
 
 ## Next steps
 
-- [PAC File](/getting_started/client_configuration/pac_file) - move from manual testing to managed browser routing.
-- [Enterprise Deployment](/getting_started/client_configuration/enterprise_deployment) - roll proxy settings to managed endpoints.
-- [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) - enable trusted HTTPS inspection after client routing works.
-
+- [PAC File Configuration](/getting_started/client_configuration/pac_file) - automate browser routing.
+- [System-Wide Proxy Settings](/getting_started/client_configuration/system_wide_proxy) - test host-level settings.
+- [Enterprise Deployment](/getting_started/client_configuration/enterprise_deployment) - roll out through endpoint management.

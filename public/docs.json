@@ -1,7 +1,7 @@
 {
   "theme": "mint",
   "name": "SafeSquid SWG",
-  "description": "Deploy Zero-Trust Web Security — SafeSquid Secure Web Gateway documentation.",
+  "description": "Deploy Zero-Trust Web Security \u2014 SafeSquid Secure Web Gateway documentation.",
   "colors": {
     "primary": "#0066CC",
     "light": "#3B82F6",
@@ -103,7 +103,8 @@
               },
               "getting_started/access_the_interface",
               "getting_started/activate",
-              "getting_started/configure_web_security_policies"
+              "getting_started/configure_web_security_policies",
+              "getting_started/verify_your_setup"
             ]
           }
         ]
@@ -112,25 +113,45 @@
         "tab": "SafeSquid SWG",
         "groups": [
           {
-            "group": "Architecture",
-            "root": "safesquid_swg/architecture/safesquid_swg",
+            "group": "Application Ecosystem",
+            "root": "safesquid_swg/application_ecosystem/main",
             "pages": [
-              "safesquid_swg/architecture/application_ecosystem",
-              "safesquid_swg/architecture/safesquid_proxy_cluster",
+              "safesquid_swg/application_ecosystem/proxy_service",
               "safesquid_swg/architecture/integrated_dns_security",
-              "safesquid_swg/architecture/architecture"
+              "safesquid_swg/application_ecosystem/remote_browser_isolation",
+              "safesquid_swg/interface/reporting_service",
+              "safesquid_swg/interface/self_service_portal",
+              "safesquid_swg/application_ecosystem/threat_intelligence_feeds"
             ]
           },
           {
-            "group": "Interface",
-            "root": "safesquid_swg/interface/configuration_portal",
+            "group": "Supporting Services",
+            "root": "safesquid_swg/interface/supporting_services",
             "pages": [
-              "safesquid_swg/interface/configuration_portal",
-              "safesquid_swg/interface/self_service_portal",
-              "safesquid_swg/interface/reporting_service",
               "safesquid_swg/interface/supporting_services_monit",
               "safesquid_swg/interface/bind",
               "safesquid_swg/interface/ntp"
+            ]
+          },
+          {
+            "group": "Policy Management Console",
+            "root": "safesquid_swg/policy_management_console/main",
+            "pages": [
+              "safesquid_swg/policy_management_console/reports",
+              "safesquid_swg/policy_management_console/configure",
+              "safesquid_swg/policy_management_console/support"
+            ]
+          },
+          {
+            "group": "Files and Folders",
+            "root": "safesquid_swg/files_and_folders/main",
+            "pages": [
+              "safesquid_swg/files_and_folders/files_and_folders",
+              "safesquid_swg/files_and_folders/service_and_startup_files",
+              "safesquid_swg/files_and_folders/application_binaries_and_modules",
+              "safesquid_swg/files_and_folders/policy_security_and_ui_files",
+              "safesquid_swg/files_and_folders/runtime_data_and_signatures",
+              "safesquid_swg/files_and_folders/logs_and_audit_evidence"
             ]
           }
         ]
@@ -164,6 +185,7 @@
               "use_cases/authentication/basic",
               "use_cases/authentication/pam",
               "use_cases/authentication/internal_users",
+              "use_cases/authentication/network_signature",
               "use_cases/authentication/user_identities",
               "use_cases/authentication/user_groups",
               "use_cases/authentication/bypass_authentication"
@@ -174,6 +196,7 @@
             "root": "use_cases/profiling_engine/profiling_engine",
             "pages": [
               "use_cases/profiling_engine/profiling_engine",
+              "use_cases/profiling_engine/application_signatures",
               "use_cases/profiling_engine/request_profiles",
               "use_cases/profiling_engine/response_profiles",
               "use_cases/profiling_engine/time_profiles"
@@ -353,7 +376,25 @@
         "tab": "Troubleshooting",
         "pages": [
           "troubleshooting/troubleshooting",
-          "troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log"
+          "troubleshooting/blank_report_page",
+          "troubleshooting/connection_failure_on_websites",
+          "troubleshooting/custom_categorisation_not_working",
+          "troubleshooting/disk_space_and_ram_are_full",
+          "troubleshooting/dns_failure",
+          "troubleshooting/failed_to_fetch_ldap_entries",
+          "troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log",
+          "troubleshooting/installation_issues",
+          "troubleshooting/interface_access_denied",
+          "troubleshooting/no_tar_ball_support",
+          "troubleshooting/not_generating_performance_plot",
+          "troubleshooting/product_failure",
+          "troubleshooting/proxy_server_refusing_connection_error",
+          "troubleshooting/safesearch_not_working",
+          "troubleshooting/ssl_inspection_issues",
+          "troubleshooting/sso_authentication_fail",
+          "troubleshooting/unable_to_login_specific_website",
+          "troubleshooting/website_not_accessible",
+          "troubleshooting/whitelisted_website_blocked"
         ]
       },
       {

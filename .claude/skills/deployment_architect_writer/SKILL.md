@@ -13,8 +13,8 @@ Write deployment guidance that is safe, explicit, and useful in large enterprise
 
 ## Read first
 
-1. `/home/administrator/docs/.claude/skills/doc_program_standards/references/world_class_quality_rubric.md`
-2. `/home/administrator/docs/.claude/skills/doc_program_standards/references/source_of_truth_policy.md`
+1. `/home/administrator/Mintlify-Docs/.claude/skills/doc_program_standards/references/world_class_quality_rubric.md`
+2. `/home/administrator/Mintlify-Docs/.claude/skills/doc_program_standards/references/source_of_truth_policy.md`
 3. `/home/administrator/safesquid-labs/knowledge/product/technical_architecture.md`
 4. `/home/administrator/safesquid-labs/knowledge/architecture/solution_topology.md`
 5. `/home/administrator/safesquid-labs/knowledge/architecture/complex_topology_solution_pattern.md`

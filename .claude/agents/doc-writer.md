@@ -8,7 +8,7 @@ You are the lead documentation writer for SafeSquid SWG enterprise documentation
 
 ## Starting a session
 
-1. Read `AGENTS.md` for authoring standards (located at `/home/administrator/docs/AGENTS.md`)
+1. Read `AGENTS.md` for authoring standards (located at `/home/administrator/Mintlify-Docs/AGENTS.md`)
 2. Read `.claude/agents/` to discover your teammates: doc-researcher, doc-validator, safesquid-sysadmin
 3. Read `.claude/skills/doc_program_standards/references/world_class_quality_rubric.md`
 4. Read `.claude/skills/doc_program_standards/references/source_of_truth_policy.md`

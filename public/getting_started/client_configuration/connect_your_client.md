@@ -14,37 +14,100 @@ SafeSquid cannot enforce policy on traffic that bypasses the proxy. Client onboa
 
 ## Validate prerequisites
 
-Before configuring clients, confirm:
+Confirm:
 
-- SafeSquid is installed, running, and listening on the approved proxy port.
-- Client networks can reach the SafeSquid listener.
-- Activation is complete or scheduled before production policy rollout.
-- Root CA deployment is planned before HTTPS inspection testing.
-- Direct internet egress is controlled where mandatory proxy use is required.
-- Rollback steps exist for the selected client configuration method.
+- SafeSquid is installed and activated.
+- The proxy listener is reachable from the pilot network.
+- The pilot client can resolve DNS and reach the proxy IP.
+- The operator can inspect `/var/log/safesquid/access/extended.log`.
+- Rollback steps exist for the selected client setting.
 
 ## Choose the routing method
 
-| Method | Best fit | Production note |
-|---|---|---|
-| [Explicit Proxy](/getting_started/client_configuration/explicit_proxy) | One pilot browser or workstation | Use only for validation or troubleshooting |
-| [PAC File](/getting_started/client_configuration/pac_file) | Managed browsers with routing exceptions | Host and protect the PAC file through change control |
-| [System-Wide Proxy](/getting_started/client_configuration/system_wide_proxy) | One host where OS-aware apps should use SafeSquid | Some tools still need app-specific settings |
-| [Enterprise Deployment](/getting_started/client_configuration/enterprise_deployment) | Fleet rollout through GPO, MDM, Jamf, Intune, Ansible, or Puppet | Stage rollout and validate rollback before expansion |
-| [Application-Specific Configuration](/getting_started/client_configuration/application_specific_configuration) | Tools that ignore OS or browser proxy settings | Treat as an exception with its own evidence record |
+<Steps>
+  <Step title="Choose fastest pilot test">
+    <Card title="Fastest pilot test" icon="monitor-cog" href="/getting_started/client_configuration/explicit_proxy">
+      Use explicit proxy settings on one browser or host.
+    </Card>
+
+    Confirm one browser produces a SafeSquid access-log entry.
+
+    If no log appears, retest with `curl --proxy`.
+  </Step>
+  <Step title="Choose managed browser routing">
+    <Card title="Managed browser routing" icon="file-code" href="/getting_started/client_configuration/pac_file">
+      Use a PAC file for controlled browser routing and bypass logic.
+    </Card>
+
+    Confirm PAC evaluation sends internet traffic to SafeSquid.
+
+    If internal apps break, correct exact bypass logic.
+  </Step>
+  <Step title="Choose host-level OS proxy">
+    <Card title="Host-level OS proxy" icon="settings" href="/getting_started/client_configuration/system_wide_proxy">
+      Use system-wide settings when applications inherit operating-system proxy configuration.
+    </Card>
+
+    Confirm OS-aware applications inherit the proxy setting.
+
+    If applications bypass OS settings, use application-specific configuration.
+  </Step>
+  <Step title="Choose organization-wide rollout">
+    <Card title="Organization-wide rollout" icon="building-2" href="/getting_started/client_configuration/enterprise_deployment">
+      Use GPO, MDM, Jamf, Ansible, Puppet, or other managed rollout tooling.
+    </Card>
+
+    Confirm the rollout tool applies settings only to the pilot ring.
+
+    If scope is too broad, roll back the profile or policy.
+  </Step>
+  <Step title="Choose application-specific routing">
+    <Card title="Applications that ignore OS settings" icon="blocks" href="/getting_started/client_configuration/application_specific_configuration">
+      Configure Git, package managers, container runtimes, curl, wget, Outlook, Thunderbird, and other tools directly.
+    </Card>
+
+    Confirm each application uses SafeSquid or has an approved exception.
+
+    If a tool still bypasses the proxy, configure its native proxy setting.
+  </Step>
+</Steps>
 
 ## Start with a pilot
 
-1. Select one managed test client.
-2. Configure explicit proxy or PAC routing for that client.
-3. Browse an HTTP test site.
-4. Confirm the request appears in `/var/log/safesquid/access/extended.log`.
-5. Record the client setting and rollback path.
-6. Expand only after routing, logging, and support ownership are clear.
+<Steps>
+  <Step title="Configure one client">
+    Configure one browser or host to use SafeSquid as its proxy.
+
+    Confirm the client has the approved SafeSquid IP, port, and bypass entries.
+
+    If the setting does not persist, check endpoint management policy and local browser overrides.
+  </Step>
+  <Step title="Test external access">
+    Browse to `http://example.com` and record whether the request is allowed or blocked as expected.
+
+    Confirm the request produces the expected browser result.
+
+    If browsing fails, confirm proxy reachability and the SafeSquid listener.
+  </Step>
+  <Step title="Test internal bypass">
+    Browse to an internal site that should bypass the proxy, if a bypass is required.
+
+    Confirm the internal destination follows the approved bypass behavior.
+
+    If the internal app fails, add only an approved exact bypass entry.
+  </Step>
+  <Step title="Record the result">
+    Record whether traffic is allowed, blocked, or bypassed as expected, then compare the result with SafeSquid access logs.
+
+    Confirm `/var/log/safesquid/access/extended.log` records proxied traffic with source, destination, timestamp, and action.
+
+    If no log appears, retest with `curl --proxy` and confirm the client is not bypassing SafeSquid.
+  </Step>
+</Steps>
 
 ## Verify traffic evidence
 
-From a pilot client:
+From a client:
 
 ```bash
 curl -I --proxy http://SAFESQUID-IP:8080 http://example.com
@@ -56,35 +119,34 @@ On the SafeSquid server:
 tail -20 /var/log/safesquid/access/extended.log
 ```
 
-Expected evidence includes source address, destination, timestamp, and action. After authentication is enabled, repeat the test and confirm user attribution.
-
-For HTTPS, first deploy the SafeSquid Root CA through the approved trust path. A valid HTTPS test must show a trusted browser connection without certificate warnings.
+Expected result: the log records the pilot request with source, destination, timestamp, and action.
 
 ## Prevent bypass
 
-For production enforcement, client configuration is not enough by itself. Confirm that network controls prevent clients from reaching the internet directly when policy requires SafeSquid inspection. Exceptions must have a business owner, a reason, and an expiry or review date.
+After the pilot passes, restrict direct internet egress where the network design allows it. A browser proxy setting alone is not a control if endpoints can still reach the internet directly.
+
+## Capture onboarding evidence
+
+Store:
+
+- Pilot client and user.
+- Proxy method and settings.
+- Access-log sample.
+- Internal bypass test result.
+- Rollback command or management profile.
+- Exception owner.
 
 ## Troubleshoot client routing
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| No access-log entry | Client is not using SafeSquid | Recheck proxy settings, PAC URL, and direct egress path |
-| Some apps bypass SafeSquid | App ignores OS or browser proxy | Use application-specific configuration or restrict direct egress |
-| HTTPS warning appears | Root CA trust is missing | Deploy Root CA and retest without bypassing warnings |
-| Internal apps fail | Missing bypass or routing exception | Add an approved PAC or OS bypass rule |
-| User identity is missing | Authentication is not configured | Configure authentication and repeat the test |
-
-## Capture onboarding evidence
-
-- Client method selected and reason.
-- Proxy or PAC setting used by the pilot client.
-- First access-log entry.
-- Authentication evidence when enabled.
-- Root CA trust result before HTTPS inspection.
-- Rollback path for the client setting.
+| Client cannot reach proxy | Firewall, route, or wrong proxy IP | Test network reachability and confirm proxy listener |
+| No access log appears | Client bypasses SafeSquid | Recheck proxy setting and retest with `curl --proxy` |
+| Internal apps fail | Missing bypass or routing exception | Add an approved exact bypass entry |
+| HTTPS warning appears | Root CA trust is missing | Complete Root CA deployment before testing HTTPS inspection |
 
 ## Next steps
 
-- [Explicit Proxy](/getting_started/client_configuration/explicit_proxy) - validate one pilot browser quickly.
-- [PAC File](/getting_started/client_configuration/pac_file) - move to managed browser routing.
-- [Enterprise Deployment](/getting_started/client_configuration/enterprise_deployment) - scale endpoint rollout safely.
+- [Explicit Proxy Configuration](/getting_started/client_configuration/explicit_proxy) - configure the first browser.
+- [PAC File Configuration](/getting_started/client_configuration/pac_file) - move to controlled browser routing.
+- [Enterprise Deployment](/getting_started/client_configuration/enterprise_deployment) - scale to managed endpoints.

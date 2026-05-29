@@ -105,7 +105,7 @@ If the dev server is not running, note this and skip the browser check for local
 
 This repo requires `npm run validate` before PRs, but the repository instructions also say agents should not run build commands unless explicitly ticketed.
 
-- If the task explicitly authorizes validation, run `cd /home/administrator/docs && npm run validate`.
+- If the task explicitly authorizes validation, run `cd /home/administrator/Mintlify-Docs && npm run validate`.
 - If the task does not authorize validation, record Gate 3 as not run and report that limitation clearly.
 
 ---

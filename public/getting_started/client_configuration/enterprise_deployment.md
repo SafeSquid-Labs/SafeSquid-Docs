@@ -15,141 +15,226 @@ Enterprise proxy deployment turns a working pilot into enforceable web security.
 
 ## Use this method when
 
-- Proxy settings must reach many managed endpoints.
-- Users must not control the production proxy configuration.
-- Security teams need consistent traffic flow, user attribution, and audit evidence.
-- Rollout must be tracked through change control.
+Use enterprise deployment when:
 
-Complete [Explicit Proxy](/getting_started/client_configuration/explicit_proxy) or [PAC File](/getting_started/client_configuration/pac_file) validation before enterprise rollout.
+- Explicit proxy or PAC pilot has passed.
+- Endpoint management can enforce settings.
+- The organization needs consistent routing and bypass control.
+- Rollback can be applied quickly to the same scope.
+
+Do not deploy to all users before testing a small representative pilot group.
 
 ## Validate prerequisites
 
-Before touching fleet policy, confirm:
+Confirm:
 
-- SafeSquid nodes are sized and reachable from target networks.
-- The chosen method is owned by the endpoint team: GPO, Intune, Jamf, MDM, Ansible, Puppet, or equivalent.
-- Pilot users, pilot devices, and rollback owners are named in the change record.
-- SSL inspection Root CA deployment is ready before HTTPS inspection is enforced.
-- Authentication and reporting owners know how to verify user attribution.
-- Direct internet egress is restricted where policy requires mandatory proxy use.
+- Proxy method and settings are approved.
+- PAC URL or proxy IP/port is stable.
+- Internal bypass list is reviewed.
+- Pilot group, expansion rings, and rollback owner are named.
+- Helpdesk and operations teams know expected symptoms and rollback steps.
 
 ## Choose the rollout method
 
-| Managed estate | Recommended method | Evidence to capture |
-|---|---|---|
-| Windows domain endpoints | Group Policy Object (GPO) | GPO link, scope, `gpresult`, client proxy state |
-| Windows cloud-managed endpoints | Intune device configuration | Assignment group, profile status, client proxy state |
-| macOS endpoints | Jamf or MDM profile | Profile scope, installation status, proxy state |
-| Linux servers or workstations | Ansible or Puppet | Inventory scope, task output, config file diff |
-| Mixed browser estate | PAC URL through endpoint management | PAC URL, checksum, bypass approval, client fetch result |
+<Steps>
+  <Step title="Choose Windows GPO">
+    <Card title="Windows GPO" href="#deploy-with-gpo">
+      Use for domain-joined Windows endpoints. Evidence is linked GPO scope, resultant settings, and pilot access logs.
+    </Card>
+
+    Confirm GPO scope and resultant settings match the pilot ring.
+
+    If settings do not apply, inspect OU link, security filtering, and replication.
+  </Step>
+  <Step title="Choose MDM profiles">
+    <Card title="MDM Profiles" href="#deploy-with-mdm">
+      Use for macOS, Windows, and mobile fleets. Evidence is profile assignment, compliance state, and test traffic.
+    </Card>
+
+    Confirm profile assignment and compliance state match the approved device group.
+
+    If devices miss the profile, verify enrollment, assignment filters, and sync state.
+  </Step>
+  <Step title="Choose configuration management">
+    <Card title="Configuration Management" href="#deploy-with-configuration-management">
+      Use for Linux and mixed fleets. Evidence is job output, managed file state, and SafeSquid log entries.
+    </Card>
+
+    Confirm job output shows the managed proxy file or setting was applied.
+
+    If drift remains, rerun the job and inspect local configuration precedence.
+  </Step>
+  <Step title="Choose browser policy">
+    <Card title="Browser Policy">
+      Use when only managed browsers need PAC or proxy enforcement. Evidence is policy result pages and controlled tests.
+    </Card>
+
+    Confirm browser policy pages show the approved proxy or PAC setting.
+
+    If browser policy is ignored, check local overrides and policy precedence.
+  </Step>
+</Steps>
 
 ## Stage the deployment
 
-Use staged rollout for every production change:
-
-1. **Lab group** - one administrator-owned endpoint per operating system.
-2. **Pilot group** - 5 to 20 users from one business function.
-3. **Department group** - one department or branch with support coverage.
-4. **Production group** - broad rollout after evidence and support readiness are complete.
-
-Do not expand stages until the previous stage shows successful traffic flow, acceptable user impact, and working rollback.
+1. Deploy to IT pilot users.
+2. Validate access logs, internal bypasses, and business apps.
+3. Expand to one department or site.
+4. Monitor helpdesk issues and SafeSquid logs.
+5. Expand by rings only after evidence is clean.
+6. Keep rollback active until the rollout is stable.
 
 ## Deploy with GPO
 
-For Windows domain environments:
+Use Group Policy to set proxy or PAC settings for a scoped pilot group.
 
-1. Create a dedicated GPO, such as **SafeSquid Proxy - Pilot**.
-2. Scope it to the pilot organizational unit or security group only.
-3. Configure proxy settings or PAC URL under the approved Windows policy path used by your endpoint standard.
-4. Link the GPO to the pilot scope.
-5. Run a policy refresh on one test endpoint.
+<Steps>
+  <Step title="Create the GPO">
+    Create a dedicated GPO for the pilot scope. Name it with the proxy method, site or group, and change record ID.
 
-```powershell
-gpupdate /force
-gpresult /h C:\Temp\safesquid_proxy_gpresult.html
-netsh winhttp show proxy
-```
+    Confirm the GPO name and scope match the approved pilot ring.
 
-Confirm browser proxy state and run a proxied HTTP test before adding more users.
+    If ownership is unclear, pause rollout until the change owner approves the scope.
+  </Step>
+  <Step title="Configure proxy settings">
+    Configure the explicit proxy address or PAC URL. Keep internal bypasses reviewed and exact.
+
+    Confirm the proxy address, PAC URL, and bypass list match the deployment record.
+
+    If users receive wrong settings, check policy precedence and inherited browser settings.
+  </Step>
+  <Step title="Link and apply">
+    Link the GPO only to the pilot organizational unit or security-filtered group.
+
+    Confirm only pilot endpoints receive the setting.
+
+    If scope is too broad, unlink the GPO or tighten security filtering before retrying.
+  </Step>
+  <Step title="Verify on a pilot endpoint">
+    Run the checks below and confirm the pilot user appears in SafeSquid logs.
+
+    ```powershell
+    gpresult /r
+    netsh winhttp show proxy
+    ```
+
+    Confirm the intended GPO applies and the proxy settings match approved values.
+
+    If the endpoint does not apply the GPO, refresh policy and inspect OU link, security filtering, and replication.
+  </Step>
+</Steps>
 
 ## Deploy with MDM
 
-For Intune, Jamf, or another MDM:
+Use MDM to deliver proxy or PAC profiles. Apply to a scoped pilot device group before broad assignment.
 
-1. Create a dedicated pilot profile.
-2. Set the manual proxy or PAC URL.
-3. Assign the profile to the pilot device group.
-4. Wait for device check-in and profile installation.
-5. Verify proxy state on one endpoint before expanding assignment.
+<Tabs>
+  <Tab title="Microsoft Intune">
+    Create or update a device configuration profile that sets the approved proxy or PAC URL. Assign it to a pilot group, then verify device compliance and browser traffic.
+  </Tab>
+  <Tab title="Jamf Pro">
+    Deliver a configuration profile for the approved network service or browser policy. Scope it to pilot Macs before production devices.
+  </Tab>
+</Tabs>
 
-For macOS, verify locally:
+Verify on a managed macOS endpoint:
 
 ```bash
-scutil --proxy
+profiles status -type enrollment
 ```
+
+Expected result: the device is managed and the assigned profile is present.
 
 ## Deploy with configuration management
 
-For Linux or mixed server estates, deploy a minimal proxy configuration first. Keep the inventory group small.
+Use configuration management for Linux or mixed fleets. Keep settings explicit:
+
+<Tabs>
+  <Tab title="Ansible">
 
 ```yaml
-- name: Configure SafeSquid proxy environment
-  hosts: safesquid_proxy_pilot
-  become: true
-  tasks:
-    - name: Write proxy environment file
-      copy:
-        dest: /etc/profile.d/safesquid_proxy.sh
-        mode: '0644'
-        content: |
-          export http_proxy=http://SAFESQUID-IP:8080
-          export https_proxy=http://SAFESQUID-IP:8080
-          export no_proxy=localhost,127.0.0.1,.example.internal
+proxy:
+  http: "http://SAFESQUID-IP:8080"
+  https: "http://SAFESQUID-IP:8080"
+  bypass:
+    - "localhost"
+    - ".internal.example.com"
 ```
 
-Test one host before broad deployment:
+Capture the playbook run ID and managed host list.
+
+  </Tab>
+  <Tab title="Puppet">
+
+```puppet
+file { '/etc/profile.d/proxy.sh':
+  ensure  => file,
+  content => "export http_proxy=http://SAFESQUID-IP:8080\nexport https_proxy=http://SAFESQUID-IP:8080\n",
+}
+```
+
+Capture the catalog report and changed resources.
+
+  </Tab>
+</Tabs>
+
+For any tool, verify with a managed job output or local state check:
 
 ```bash
-ansible-playbook safesquid_proxy.yml --limit pilot-host.example.internal --check
-ansible-playbook safesquid_proxy.yml --limit pilot-host.example.internal
+env | grep -i proxy
+```
+
+Expected result: the endpoint receives the intended proxy values and generates SafeSquid access-log entries.
+
+{/* Keep this generic schema as a compact reference for teams that use a different configuration-management platform. */}
+```yaml
+proxy:
+  http: "http://SAFESQUID-IP:8080"
+  https: "http://SAFESQUID-IP:8080"
+  bypass:
+    - "localhost"
+    - ".internal.example.com"
 ```
 
 ## Verify rollout evidence
 
-For each stage, prove:
+On SafeSquid:
 
-- Client setting points to the approved SafeSquid proxy or PAC URL.
-- A public HTTP request appears in `/var/log/safesquid/access/extended.log`.
-- HTTPS works without certificate warnings after Root CA deployment.
-- Authentication maps the request to the expected user or group.
-- Reporting Service or SIEM receives the transaction if forwarding is enabled.
-- Blocked-category test shows matched rule, action, user, URL, and timestamp.
+```bash
+tail -20 /var/log/safesquid/access/extended.log
+```
+
+Expected result: pilot users generate logs from intended source networks, and internal bypasses behave as designed.
 
 ## Roll back safely
 
-Document rollback before rollout starts:
+Rollback must remove the same setting mechanism used for rollout:
 
-- GPO: unlink or disable the pilot GPO, then run `gpupdate /force`.
-- Intune or Jamf: remove the assignment or deploy a replacement profile.
-- PAC: restore the previous PAC URL or file version.
-- Ansible or Puppet: apply the previous config and verify removal.
-- Firewall: restore pre-change egress only if security leadership approves bypass risk.
+- Disable or unlink the GPO.
+- Remove the MDM profile.
+- Revert the configuration-management state.
+- Restore the previous PAC file version.
+- Confirm clients stop receiving the failed setting.
 
-Rollback is complete only after the endpoint proxy state and SafeSquid logs confirm traffic returned to the expected path.
+## Monitor the rollout
+
+Track SafeSquid access logs, helpdesk tickets, endpoint policy compliance, and business-app failures during every rollout ring. Pause expansion when logs show direct bypass, repeated authentication failures, or policy matches that block required business workflows.
+
+<Tip>
+  Keep the PAC file URL stable and version the file contents. This lets endpoint policies stay unchanged while rollback restores a known-good PAC body.
+</Tip>
 
 ## Troubleshoot rollout failures
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| Some users do not receive settings | Scope, group membership, or device check-in issue | Verify policy assignment and endpoint management status |
-| Settings apply but traffic bypasses SafeSquid | Direct egress remains open or app ignores proxy | Restrict direct egress and configure app-specific proxy settings |
-| HTTPS fails after rollout | Root CA not installed or wrong trust store | Deploy Root CA through endpoint management and retest |
-| Logs show IP but no user | Authentication not enabled or user mapping failed | Configure authentication and repeat test from known users |
+| Users lose all web access | Proxy host, port, or PAC URL is wrong | Roll back the policy scope and fix the setting |
+| Some users bypass SafeSquid | Scope or policy inheritance is incomplete | Check endpoint policy result and group assignment |
 | Business app breaks | Missing PAC bypass or proxy incompatibility | Add a reviewed bypass or application-specific exception |
+| Logs lack user context | Authentication is not configured or not matching | Verify authentication before expanding rollout |
 
 ## Next steps
 
-- [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) - complete HTTPS visibility with managed Root CA deployment.
-- [Authentication](/use_cases/authentication/authentication) - add user and group attribution.
-- [Configure Web Security Policies](/getting_started/configure_web_security_policies) - enforce baseline controls after routing is stable.
-
+- [Application-Specific Configuration](/getting_started/client_configuration/application_specific_configuration) - handle tools that ignore managed proxy settings.
+- [Configure Web Security Policies](/getting_started/configure_web_security_policies) - enforce controls after routing is stable.
+- [Reporting Service](/safesquid_swg/interface/reporting_service) - preserve rollout and access evidence.

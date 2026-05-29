@@ -14,104 +14,108 @@ keywords:
 
 # Turn Proxy Traffic Into Enforced Controls
 
-A deployed proxy is not a control until SafeSquid can inspect encrypted traffic, resolve identity, apply policy, and produce evidence. Configure the baseline controls in the order below so each layer has the visibility and context it needs.
+Routing traffic through SafeSquid proves reachability, but it does not finish the deployment. Production value starts when SafeSquid decrypts approved HTTPS sessions, attributes requests to users, applies policy, blocks unsafe activity, and records evidence for operations, audit, and incident response.
+
+## Validate prerequisites
+
+Before enabling baseline controls, confirm:
+
+- SafeSquid is installed and activated.
+- A pilot client generates access-log entries.
+- Root CA rollout ownership is assigned.
+- Authentication source and group mapping are known.
+- Log retention or forwarding is approved.
+- A rollback path exists for each policy stage.
+
+## Apply controls in order
+
+Use this sequence to reduce outage risk and preserve evidence quality.
+
+| Step | Control | Why it comes here |
+|---|---|---|
+| 1 | SSL inspection readiness | HTTPS must be visible before content controls can inspect encrypted traffic |
+| 2 | Authentication | User attribution improves policy scope and audit value |
+| 3 | DNS security | Name-resolution controls reduce exposure before HTTP policy decisions |
+| 4 | Access restriction | Category and application rules enforce acceptable use |
+| 5 | Malware scanning | Downloads and content streams are inspected before delivery |
+| 6 | DLP | Uploads and posts are inspected after identity and inspection are stable |
+| 7 | Reporting | Logs and reports prove control effectiveness |
 
 ## Start with inspection
 
-### 1. SSL Inspection
+Deploy Root CA trust before enabling broad HTTPS inspection. Do not ask users to bypass certificate warnings; that normalizes man-in-the-middle risk and weakens audit defensibility.
 
-**Risk:** Without SSL inspection, SafeSquid sees the destination domain but not request paths, POST bodies, uploaded files, response content, or true file types. Encrypted traffic can bypass URL filtering, DLP, and malware scanning.
+Verification:
 
-**Control outcome:** SafeSquid decrypts, inspects, applies policy, and re-encrypts HTTPS traffic for managed clients that trust the SafeSquid Root CA.
-
-**Evidence:** Root CA deployment record, test HTTPS transaction in `/var/log/safesquid/access/extended.log`, and a blocked or allowed policy result for an inspected HTTPS request.
-
-Configure [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) before enforcing content-aware policies.
+- A pilot HTTPS site loads without browser certificate warnings.
+- SafeSquid logs the HTTPS transaction.
+- Excluded destinations are documented with business justification.
 
 ## Add user context
 
-### 2. Authentication
+Connect authentication before writing broad user or group policies. Use directory integration where possible so logs identify the user, group, source, destination, policy, and action.
 
-**Risk:** IP-only policy breaks user attribution on shared workstations, NAT networks, and roaming endpoints. Audit teams cannot prove who accessed a destination or triggered a block.
+Verification:
 
-**Control outcome:** SafeSquid ties web transactions to users, groups, or approved fallback identities.
-
-**Evidence:** Access logs show user identity, source, destination, timestamp, matched rule, and action.
-
-Configure [Authentication](/use_cases/authentication/authentication) before broad access restriction or DLP rollout.
-
-## Protect name resolution
-
-### 3. Integrated DNS Security
-
-**Risk:** DNS tunneling, malicious resolution, and lookalike domains can occur before HTTP policy sees a request.
-
-**Control outcome:** SafeSquid blocks malicious DNS activity, enforces policy-aware resolution, and provides DNS-layer evidence.
-
-**Evidence:** DNS policy result, resolver logs, blocked malicious or prohibited domain test, and Reporting Service export where available.
-
-Configure [Integrated DNS Security](/use_cases/dns_security/dns_security) for environments that use SafeSquid DNS controls.
-
-## Scope policy precisely
-
-### 4. Profiling Engine
-
-**Risk:** Flat policies apply the same controls to executives, contractors, guests, and administrators. Overbroad rules cause business disruption; underbroad rules create bypass paths.
-
-**Control outcome:** SafeSquid evaluates requests by identity, application, content type, destination, and time window.
-
-**Evidence:** Test traffic matches the expected profile and shows the profile or policy match in logs or reports.
-
-Configure the [Profiling Engine](/use_cases/profiling_engine/profiling_engine) before role-based enforcement.
+- A test user appears in the access log.
+- Group-scoped policy applies only to the intended pilot group.
+- Failed authentication has a clear user-facing and operator-facing signal.
 
 ## Enforce acceptable use
 
-### 5. Access Restriction
+Start with pilot groups and high-confidence categories. Block only what the business has approved, and keep a documented exception path for business-critical sites.
 
-**Risk:** Users can reach malware-hosting sites, prohibited categories, unsanctioned remote-access tools, and non-business applications without a web-layer control point.
+Verification:
 
-**Control outcome:** SafeSquid allows or blocks traffic by URL category, application signature, authenticated user or group, and time profile.
-
-**Evidence:** A blocked-category test from a pilot client shows the matched rule, action, user, source IP, URL, and timestamp.
-
-Configure [Access Restriction](/use_cases/access_restriction/access_restriction) after inspection and identity are working.
+- A blocked category produces the expected block page.
+- An allowed business site remains reachable.
+- The access log records the matched policy and action.
 
 ## Scan content before delivery
 
-### 6. Malware Scanners
+Enable malware scanning and content controls after routing, activation, inspection, and identity are stable. This prevents noisy troubleshooting where certificate, routing, and scanning failures overlap.
 
-**Risk:** Malware delivered as downloads or embedded web content can reach endpoints if scanning is left to endpoint controls alone.
+Verification:
 
-**Control outcome:** SafeSquid scans downloads and content streams before delivery where malware scanning is enabled.
-
-**Evidence:** Scanner status, update status, policy result, and blocked test artifact outcome in logs or reports.
-
-Configure [Malware Scanners](/use_cases/malware_scanning/malware_scanners) before production file-download inspection.
+- A safe test download is allowed and logged.
+- A controlled malware-test file or approved test pattern is blocked according to policy.
+- Scan failures produce actionable logs.
 
 ## Control outbound data
 
-### 7. Data Leakage Prevention
+Enable DLP only after HTTPS inspection and user attribution are validated. DLP without decrypted traffic and identity produces weak enforcement and weak evidence.
 
-**Risk:** Customer records, source code, financial documents, and regulated data can leave through uploads, webmail, SaaS storage, or form posts.
+Verification:
 
-**Control outcome:** SafeSquid inspects upload content and outbound web posts for sensitive patterns, content fingerprints, file types, and policy violations.
-
-**Evidence:** Test upload result, matched DLP rule, action taken, user attribution, and report export for audit review.
-
-Configure [Data Leakage Prevention](/use_cases/data_leakage_prevention/data_leakage_prevention) after SSL inspection and authentication are stable.
+- A test upload containing the approved test pattern is blocked.
+- The log records the source user, destination, matched control, and action.
+- Business-approved uploads still work.
 
 ## Prove the baseline
 
-Run these checks before expanding beyond the pilot group:
+Store:
 
-- Browse an allowed HTTP site and confirm it appears in `/var/log/safesquid/access/extended.log`.
-- Browse an inspected HTTPS site after Root CA deployment and confirm no certificate warning appears.
-- Trigger one blocked URL category and confirm the user, rule, action, URL, and timestamp are logged.
-- Confirm Reporting Service or SIEM forwarding receives the same transaction evidence.
-- Record rollback steps for SSL inspection, authentication rules, PAC or GPO settings, and access policies.
+- Root CA rollout evidence.
+- Authentication test result.
+- Allowed and blocked URL category tests.
+- Malware scanning test result.
+- DLP test result.
+- Access-log samples from `/var/log/safesquid/access/extended.log`.
+- Reporting Service or SIEM forwarding evidence.
+- Rollback steps for every enabled control.
+
+## Troubleshoot policy rollout
+
+| Symptom | Likely cause | Fix |
+|---|---|---|
+| HTTPS sites show warnings | Root CA trust is missing | Deploy Root CA through GPO, MDM, or approved trust process before retesting |
+| Policy does not match user | Authentication or group mapping is incomplete | Verify the user identity in access logs before changing policy |
+| Block rule affects business apps | Scope is too broad or bypass is missing | Narrow the rule to target categories, users, or destinations and document exceptions |
+| DLP does not trigger | HTTPS inspection is missing or test content does not match | Confirm decrypted traffic and use an approved test pattern |
+| Reports are empty | Traffic bypasses SafeSquid or reporting is not connected | Verify access logs first, then reporting integration |
 
 ## Next steps
 
-- [Reporting Service](/safesquid_swg/interface/reporting_service) - review audit logs, dashboards, and report exports.
-- [Troubleshooting](/troubleshooting/troubleshooting) - diagnose connectivity, certificate trust, and policy enforcement failures.
-- [Proxy Clustering](/admin_guide/scaling_and_high_availability/proxy_clustering) - prepare high availability before production scale-out.
+- [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) - deploy trusted HTTPS inspection.
+- [Authentication](/use_cases/authentication/authentication) - add user and group attribution.
+- [Reporting Service](/safesquid_swg/interface/reporting_service) - preserve operating and audit evidence.

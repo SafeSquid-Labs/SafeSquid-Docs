@@ -14,54 +14,64 @@ Management access controls who can activate SafeSquid, change policy, and affect
 
 ## Validate prerequisites
 
-Confirm:
+Before opening the Configuration Portal, confirm:
 
-- SafeSquid service is running.
-- The administrator is on an approved management or pilot client network.
-- The browser proxy setting points to SafeSquid when using `http://safesquid.cfg/`.
-- Direct management access, if used, is restricted by firewall policy.
-- Administrator credentials are handled through approved procedures.
+- SafeSquid is installed and running.
+- A pilot browser is configured to use SafeSquid as proxy.
+- The administrator is on an approved management network.
+- DNS can resolve the special interface name through the proxy path.
+- The change record identifies who is allowed to activate and configure the instance.
 
 ## Choose the access path
 
-| Access path | Use when | Notes |
-|---|---|---|
-| `http://safesquid.cfg/` | Browser is configured to use SafeSquid as proxy | Validates the proxy path and embedded management name |
-| `https://SAFESQUID-IP:8443/` | Direct admin network access is approved | Restrict to administrator networks only |
+Use a proxied browser for first access:
 
-Do not open management ports to the public internet.
+1. Configure a pilot browser to use the SafeSquid proxy listener.
+2. Open `http://safesquid.cfg/`.
+3. Sign in with the approved administrator account.
+4. Confirm the page is the SafeSquid Configuration Portal before entering credentials.
+
+Avoid direct broad network exposure of the management interface. The first access path should prove the same proxy path that pilot clients will use.
 
 ## Verify baseline state
 
-On the SafeSquid host:
+On the SafeSquid server, confirm the service is running:
 
 ```bash
 systemctl status safesquid --no-pager
-ss -lntp | grep -E ':8080|:8443'
 ```
 
-From the admin browser, open the chosen access URL and confirm the Configuration Portal loads.
+Expected result: service state is `active` or the platform-specific running state is clear from the output.
+
+From the pilot browser, confirm:
+
+- `http://safesquid.cfg/` loads.
+- The Configuration Portal signs in successfully.
+- The interface shows expected sections for activation, support, and configuration.
+- No certificate warning is used as a workaround for HTTPS testing.
 
 ## Capture access evidence
 
-- Approved management source network.
-- Interface URL used for onboarding.
+Store:
+
+- Administrator account or role used for first access.
+- Pilot client hostname or asset identifier.
+- Proxy listener used by the client.
+- Screenshot or change record confirming portal access.
 - Service status output.
-- Firewall rule or access policy for management traffic.
-- Administrator role or account owner.
+- Any access restriction applied to management networks.
 
 ## Troubleshoot access failures
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| `safesquid.cfg` does not resolve | Browser is not using SafeSquid as proxy | Configure pilot proxy settings and retry |
-| Direct URL fails | Management port blocked or service down | Verify firewall rules and service status |
-| Portal loads from unapproved network | Firewall too broad | Restrict management access immediately |
-| Login succeeds but changes are not allowed | Account role lacks permission | Use an approved administrator role |
+| `safesquid.cfg` does not load | Browser is not using SafeSquid as proxy | Configure explicit proxy and retry from the same browser |
+| Login page appears from the wrong network | Management path is too broad | Restrict access to approved admin networks before continuing |
+| Service is not running | Installation or restart failed | Check `systemctl status safesquid --no-pager` and service logs |
+| Interface loads but activation fails | Activation key or outbound subscription path is not ready | Continue with [Activate Your License](/getting_started/activate) troubleshooting |
 
 ## Next steps
 
 - [Activate Your License](/getting_started/activate) - apply the activation key.
-- [Connect Your Client](/getting_started/client_configuration/connect_your_client) - validate pilot traffic.
-- [Configure Web Security Policies](/getting_started/configure_web_security_policies) - apply baseline controls.
-
+- [Connect Your Client](/getting_started/client_configuration/connect_your_client) - prove pilot traffic flow.
+- [Configure Web Security Policies](/getting_started/configure_web_security_policies) - configure controls after activation.

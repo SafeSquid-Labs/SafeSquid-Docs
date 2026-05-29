@@ -25,6 +25,7 @@ Navigation hub for Authentication.
 - [BASIC](/use_cases/authentication/basic)
 - [PAM](/use_cases/authentication/pam)
 - [Internal Users](/use_cases/authentication/internal_users)
+- [Network Signature](/use_cases/authentication/network_signature)
 - [User Identities](/use_cases/authentication/user_identities)
 - [User Groups](/use_cases/authentication/user_groups)
 - [Bypass Authentication](/use_cases/authentication/bypass_authentication)
