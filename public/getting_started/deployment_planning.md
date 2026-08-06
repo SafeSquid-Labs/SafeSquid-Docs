@@ -1,12 +1,7 @@
 ---
-title: Deployment Planning
-description: Size and prepare SafeSquid SWG infrastructure, routing, resilience, and evidence retention before installation.
-keywords:
-  - SafeSquid deployment planning
-  - SafeSquid sizing
-  - SafeSquid hardware requirements
-  - proxy high availability
-  - secure web gateway planning
+title: "Deployment Planning"
+description: "Size and prepare SafeSquid SWG infrastructure, routing, resilience, and evidence retention before installation."
+keywords: ["SafeSquid deployment planning", "SafeSquid sizing", "SafeSquid hardware requirements", "proxy high availability", "secure web gateway planning"]
 ---
 
 # Plan the Control Path First
@@ -41,7 +36,7 @@ Record these inputs before choosing an installation path:
 Use the first deployment as a measured pilot, not a blind production cutover.
 
 | Deployment scale | Recommended planning focus |
-|---|---|
+| --- | --- |
 | Pilot or branch | Prove traffic flow, activation, logs, and certificate trust with limited users |
 | Single production node | Size CPU, RAM, disk I/O, NIC capacity, and log retention for peak sessions |
 | High availability | Plan shared routing, health checks, same activation key, and synchronized configuration |
@@ -195,7 +190,7 @@ Store these artifacts:
 ## Troubleshoot planning gaps
 
 | Symptom | Likely cause | Fix |
-|---|---|---|
+| --- | --- | --- |
 | Sizing cannot be approved | User, throughput, or inspection scope is unknown | Run a pilot and record peak concurrent connections before production sizing |
 | Logs cannot be retained | Disk or SIEM ownership is unclear | Assign retention owner and capacity target before installation |
 | HTTPS rollout stalls | Root CA deployment path is missing | Choose GPO, MDM, or approved manual trust deployment before enabling inspection |

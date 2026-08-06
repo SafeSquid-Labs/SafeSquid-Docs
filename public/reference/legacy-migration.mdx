@@ -1,0 +1,85 @@
+---
+title: "Legacy Documentation Migration"
+description: "How SafeSquid legacy documentation is inventoried, reconciled, redirected, and retired without losing operational knowledge."
+keywords: ["SafeSquid legacy documentation", "docs.safesquid.com migration", "help.safesquid.com migration"]
+content_type: "reference"
+applies_to: ["All documented releases"]
+verified_build: "Documentation system only"
+last_verified: "2026-08-07"
+owner: "SafeSquid Documentation"
+risk: "medium"
+verification_level: "documentation-review"
+sidebarTitle: "Legacy Migration"
+---
+
+# Legacy documentation migration
+
+SafeSquid is consolidating material from **docs.safesquid.com**, **help.safesquid.com**, and the current Mintlify project into one canonical topic set.
+
+The initial Mintlify audit found **182 navigation entries**, **164 unique page targets**, and **18 duplicate navigation references**. These counts are a baseline, not a completeness target.
+
+## Migration states
+
+| State | Meaning | Redirect allowed? |
+| --- | --- | --- |
+| Retain | The topic is current and already authoritative | Yes, after URL testing |
+| Merge | Several pages describe one task or concept | Yes, after every source section is accounted for |
+| Rewrite | The subject remains supported but the guidance is unsafe, incomplete, or release-ambiguous | Only after technical verification |
+| Generate | Product schema or interface evidence can create the reference | After generated output is reviewed against a build |
+| Archive | The topic applies only to an unsupported release | To a clearly marked archive page |
+| Remove | Duplicate, obsolete, or unsupported material has no enduring value | To the nearest explanatory replacement, never silently |
+
+## Redirect rule
+
+A redirect is published only when all of these statements are true:
+
+- The destination answers the same user intent.
+- All consequential steps and limitations from the source have been reconciled.
+- The destination identifies applicable releases.
+- Internal links and fragments have been tested.
+- The redirect does not create a loop or chain.
+- Traffic and failed-search monitoring are ready for the cutover.
+
+<Warning>
+  The old hostnames must remain available until their URL-level matrix and destination pages pass review. A similar title is not enough evidence that a redirect is safe.
+</Warning>
+
+## Canonical destination areas
+
+| Legacy subject | Canonical area |
+| --- | --- |
+| Getting started and registration | [Start Here](/start/choose-your-path) |
+| Architecture and deployment planning | [Plan and Architect](/plan/overview) |
+| Installation and activation | [Deploy](/deploy/overview) |
+| Client routing and authentication | [Connect and Identify](/connect/overview) |
+| Inspection and access policy | [Secure](/secure/overview) |
+| Monitoring, upgrade, backup, and recovery | [Operate and Recover](/operate/overview) |
+| Fault isolation | [Troubleshoot](/troubleshooting/troubleshooting) |
+| Fields, services, files, and FAQs | [Reference](/reference/overview) |
+| Controls and audit evidence | [Assurance and Evidence](/assurance/overview) |
+
+## URL matrix requirements
+
+The controlled migration ledger records:
+
+| Field | Purpose |
+| --- | --- |
+| Source host and URL | Preserves the exact inbound contract |
+| Source title and release | Prevents accidental cross-version merges |
+| Destination URL | Identifies the canonical replacement |
+| Disposition | Retain, merge, rewrite, generate, archive, or remove |
+| Content reconciliation | Records which source sections were preserved |
+| Reviewer and evidence | Makes technical approval auditable |
+| Redirect test | Captures status, fragments, loops, and final response |
+| Cutover and observation date | Supports rollback and post-launch monitoring |
+
+## Cutover verification
+
+After redirect publication:
+
+1. Request the original URL without a browser cache.
+2. Confirm one permanent redirect reaches the intended destination.
+3. Confirm the final page returns successfully and preserves useful fragments where possible.
+4. Test desktop, mobile, search results, and common external referrers.
+5. Watch failed requests and onsite searches for unmapped user intent.
+6. Roll back any redirect that conceals missing or release-specific guidance.

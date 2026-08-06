@@ -1,11 +1,7 @@
 ---
-title: Files and Folders
-description: Navigation hub for SafeSquid SWG server paths, service controls, policy files, runtime data, logs, and audit evidence.
-keywords:
-  - SafeSquid files
-  - SafeSquid folders
-  - SafeSquid logs
-  - SafeSquid support evidence
+title: "Files and Folders"
+description: "Navigation hub for SafeSquid SWG server paths, service controls, policy files, runtime data, logs, and audit evidence."
+keywords: ["SafeSquid files", "SafeSquid folders", "SafeSquid logs", "SafeSquid support evidence"]
 ---
 
 # Files and Folders

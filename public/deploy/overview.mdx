@@ -1,0 +1,103 @@
+---
+title: "Deploy SafeSquid"
+sidebarTitle: "Deployment Overview"
+description: "Choose and execute a supported SafeSquid deployment path with explicit inputs, checkpoints, evidence, and rollback."
+content_type: "how-to"
+applies_to: ["2026 Release Train", "2024 Release Train"]
+verified_build: "Pending platform-by-platform lab validation"
+last_verified: "2026-08-07"
+owner: "SafeSquid Deployment Engineering"
+risk: "high"
+verification_level: "documentation-review"
+keywords: ["deploy SafeSquid", "SafeSquid Appliance Builder", "SafeSquid cloud deployment", "SafeSquid Linux installation"]
+---
+
+# Select the Deployment Path You Can Operate
+
+The preferred deployment is not simply the fastest installation. Choose the path for which the organization can own operating-system maintenance, network changes, backups, monitoring, upgrades, and recovery.
+
+<CardGroup cols={2}>
+  <Card title="SafeSquid Appliance Builder" icon="compact-disc" href="/getting_started/install_safesquid/safesquid_appliance_builder">
+    Use the standard appliance-style path for a new physical or virtual deployment.
+  </Card>
+
+  <Card title="Managed Linux host" icon="terminal" href="/getting_started/install_safesquid/linux_server">
+    Use an existing supported Linux platform when the organization owns its lifecycle and hardening.
+  </Card>
+
+  <Card title="Cloud deployment" icon="cloud" href="/getting_started/install_safesquid/cloud_deployment">
+    Build a controlled cloud path with explicit routing, management, storage, and availability decisions.
+  </Card>
+
+  <Card title="Installation prerequisites" icon="list-check" href="/getting_started/install_safesquid/prerequisites">
+    Confirm platform, network, trust, licensing, time, evidence, and rollback readiness before starting.
+  </Card>
+</CardGroup>
+
+## Required inputs
+
+| Input | Where to obtain it | Safe example | Sensitive |
+| --- | --- | --- | --- |
+| Approved release and build | Product release record | `2026 Release Train / approved build` | No |
+| Management IP and network | Network change record | `192.0.2.10/24` | Treat internal values as restricted |
+| Default gateway | Network team | `192.0.2.1` | Treat internal values as restricted |
+| DNS and NTP services | Infrastructure team | `192.0.2.53`, `time.example.com` | Treat internal values as restricted |
+| Hostname and domain | Naming standard | `swg-pilot.example.com` | No in sanitized evidence |
+| Activation key | SafeSquid Self-Service Portal | Do not place a real key in documentation or tickets | Yes |
+| Log and evidence destination | SOC or platform owner | `siem.example.com` | Treat internal values as restricted |
+| Rollback authority | Approved change record | Named role, not a personal credential | No |
+
+Use reserved documentation addresses and synthetic domains in screenshots and examples. Never paste activation keys, private keys, directory passwords, session cookies, or unredacted customer traffic into documentation evidence.
+
+## Deployment sequence
+
+<Steps>
+  <Step title="Approve the design">
+    Complete [Plan and Architect SafeSquid](/plan/overview) and the [Deployment Readiness Workbook](/plan/deployment-readiness-workbook).
+
+    **Checkpoint:** The change record contains topology, input ownership, test cases, rollback trigger, and evidence destination.
+  </Step>
+  <Step title="Confirm installation prerequisites">
+    Run [Installation Prerequisites](/getting_started/install_safesquid/prerequisites) against the target host and selected release.
+
+    **Checkpoint:** Every prerequisite has an owner and evidence. No critical item is recorded as assumed.
+  </Step>
+  <Step title="Install the selected platform">
+    Follow only the guide for the approved path. Record every deviation from the documented procedure.
+
+    **Checkpoint:** The SafeSquid service and required supporting services report the expected healthy state for the verified build.
+  </Step>
+  <Step title="Establish controlled management access">
+    Use [Access the Interface](/getting_started/access_the_interface) from the approved management path.
+
+    **Checkpoint:** An authorized administrator reaches the Configuration Portal; an unauthorized source does not.
+  </Step>
+  <Step title="Activate the instance">
+    Use [Activate Your License](/getting_started/activate) and protect the activation material.
+
+    **Checkpoint:** The portal reports the expected active license state and the evidence record contains no key material.
+  </Step>
+  <Step title="Connect one pilot client">
+    Continue to [Connect and Identify](/connect/overview). Do not migrate a production group until routing, trust, identity, policy, logging, and rollback tests pass.
+  </Step>
+</Steps>
+
+## Stop conditions
+
+Stop the rollout and invoke the approved rollback when:
+
+- The installed build differs from the approved build.
+- Management access is exposed outside the approved path.
+- DNS, NTP, update, activation, identity, or log destinations are unavailable.
+- Pilot traffic bypasses SafeSquid or cannot be attributed.
+- HTTPS inspection introduces unapproved trust failures.
+- A backup or recovery checkpoint cannot be demonstrated.
+- Expected logs or policy decisions cannot be reproduced.
+
+## Deployment evidence
+
+Capture the installed build, host identity, service state, listener state, management-path test, activation state, first proxied transaction, time synchronization, backup location, and rollback decision. Sanitize secrets and customer data before sharing evidence.
+
+<Note>
+  These deployment guides are being promoted through release-specific lab validation. Until a page identifies a verified build and date, use it for controlled review and testing rather than as the sole authority for a production change.
+</Note>

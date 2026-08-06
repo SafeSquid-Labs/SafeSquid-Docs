@@ -1,11 +1,7 @@
 ---
-title: Prerequisites
-description: Confirm host, network, trust, licensing, and evidence requirements before installing SafeSquid SWG.
-keywords:
-  - SafeSquid prerequisites
-  - SafeSquid installation readiness
-  - proxy deployment prerequisites
-  - SafeSquid network requirements
+title: "Prerequisites"
+description: "Confirm host, network, trust, licensing, and evidence requirements before installing SafeSquid SWG."
+keywords: ["SafeSquid prerequisites", "SafeSquid installation readiness", "proxy deployment prerequisites", "SafeSquid network requirements"]
 ---
 
 # Confirm Readiness Before Install
@@ -101,7 +97,7 @@ Store:
 ## Troubleshoot readiness failures
 
 | Symptom | Likely cause | Fix |
-|---|---|---|
+| --- | --- | --- |
 | Host cannot resolve portal names | DNS is missing or blocked | Fix DNS before installation |
 | Time is wrong | NTP is blocked or unset | Configure NTP before activation and logging tests |
 | Proxy port is exposed too broadly | Firewall rule is unsafe | Restrict source networks before deployment |

@@ -1,0 +1,78 @@
+---
+title: "SafeSquid Technical Reference"
+sidebarTitle: "Reference Overview"
+description: "Find exact SafeSquid configuration, interface, service, file, log, command, protocol, limit, and version information."
+content_type: "reference"
+applies_to: ["2026 Release Train", "2024 Release Train"]
+verified_build: "Reference domains are being validated"
+last_verified: "2026-08-07"
+owner: "SafeSquid Documentation"
+risk: "medium"
+verification_level: "documentation-review"
+keywords: ["SafeSquid reference", "SafeSquid configuration fields", "SafeSquid logs", "SafeSquid files"]
+---
+
+# Use Reference While You Work
+
+Reference pages describe the product as it is. They do not prescribe a deployment or replace a task procedure. Start here when you need an exact field, allowed value, file, service, log, command, dependency, limit, or release difference.
+
+## Reference domains
+
+<CardGroup cols={2}>
+  <Card title="Policy Management Console" icon="sliders-horizontal" href="/safesquid_swg/policy_management_console/main">
+    Interface structure, policy areas, field behavior, validation, and administrative boundaries.
+  </Card>
+
+  <Card title="Supporting services" icon="blocks" href="/safesquid_swg/interface/supporting_services">
+    Services that support proxy operation, monitoring, name resolution, updates, and reporting.
+  </Card>
+
+  <Card title="Files and folders" icon="folder-tree" href="/safesquid_swg/files_and_folders/main">
+    Paths, ownership, purpose, sensitivity, retention, and safe diagnostic use.
+  </Card>
+
+  <Card title="Logs and evidence" icon="file-search" href="/use_cases/audit_and_forensics/audit_forensics">
+    Transaction, security, system, reporting, and forwarding evidence.
+  </Card>
+
+  <Card title="Startup parameters" icon="terminal-square" href="/admin_guide/customisation/startup_parameters">
+    Runtime settings, operational effects, dependencies, and restart requirements.
+  </Card>
+
+  <Card title="Common questions" icon="circle-help" href="/faqs/faqs">
+    Temporary index for legacy questions while answers move into their authoritative topics.
+  </Card>
+</CardGroup>
+
+## Required field format
+
+Configuration references will use this structure:
+
+| Field | Required information |
+| --- | --- |
+| Interface path | Exact navigation path and section |
+| Name | Exact UI, file, environment, or API name |
+| Purpose | What the setting controls |
+| Type and valid values | Boolean, number, string, list, profile, range, or enumerated values |
+| Default | Verified default for each supported release |
+| Dependencies | Required services, profiles, certificates, licenses, or other settings |
+| Security effect | What becomes allowed, denied, inspected, exposed, or recorded |
+| Runtime effect | Immediate, new sessions only, reload, restart, or unknown pending validation |
+| Evidence | Log, status, output, or behavior that proves the value took effect |
+| Failure behavior | Known error or degraded state when invalid or unavailable |
+| Version applicability | Release train, exact verified build, introduction, change, and deprecation |
+| Related tasks | Procedures that use the field safely |
+
+A blank default is not the same as a verified empty default. Unknown behavior is marked **Pending validation** and is excluded from high-risk production procedures.
+
+## How reference is generated
+
+Where a formal product schema or OpenAPI definition exists, it is the starting point for names, types, and allowed values. The rendered product and a versioned lab remain the acceptance authority for observable behavior. Generated reference cannot bypass technical review.
+
+## Version and trust indicators
+
+Every consequential page records its applicable release train, exact verified build, last verification date, owner, risk level, and verification level. Read [How to Trust This Documentation](/reference/documentation-trust) before using a page as production change evidence.
+
+<Note>
+  The documentation currently contains both revised and legacy material. A stable URL does not by itself mean that every statement has completed release-specific lab validation. Use the page verification metadata.
+</Note>

@@ -1,12 +1,7 @@
 ---
-title: Import Certificate into Chrome or Internet Explorer
-description: Step-by-step import of SafeSquid SSL certificate into Chrome or Internet Explorer for HTTPS inspection trust.
-keywords:
-  - import SafeSquid certificate Chrome
-  - import SafeSquid certificate IE
-  - SSL certificate install Chrome IE
-  - Trusted Root Certification Authorities
-  - HTTPS inspection client trust
+title: "Import Certificate into Chrome or Internet Explorer"
+description: "Step-by-step import of SafeSquid SSL certificate into Chrome or Internet Explorer for HTTPS inspection trust."
+keywords: ["import SafeSquid certificate Chrome", "import SafeSquid certificate IE", "SSL certificate install Chrome IE", "Trusted Root Certification Authorities", "HTTPS inspection client trust"]
 ---
 
 # Import SafeSquid Root CA into Chrome or Internet Explorer
@@ -19,18 +14,17 @@ Chrome, Edge, and Internet Explorer use the Windows certificate store. Follow th
 
 HTTPS inspection fails visibly on Windows clients if the SafeSquid Root CA is not trusted. The result is certificate warnings, failed browsing, and a rollout that looks broken even when the proxy-side configuration is correct.
 
-:::tip
-**Automated Deployment**
+:::tip **Automated Deployment**
 
 For enterprise environments, deploy the certificate via **Group Policy (GPO)** instead of manual installation:
+
 1. Copy certificate to `\\domain.com\SYSVOL\domain.com\Policies\`
 2. GPO → Computer Configuration → Policies → Windows Settings → Security Settings → Public Key Policies → Trusted Root Certification Authorities
 3. Import → Select SafeSquid certificate → Apply
 
 :::
 
-:::note
-**Firefox Users**
+:::note **Firefox Users**
 
 Firefox uses its own certificate store and ignores the Windows trust store. See [Import certificate into Firefox](/Configure_HTTPS_Inspection#import-certificate-into-firefox).
 
@@ -40,8 +34,7 @@ Firefox uses its own certificate store and ignores the Windows trust store. See 
 
 ## Prerequisites
 
-:::note
-**Before You Start**
+:::note **Before You Start**
 
 - SafeSquid Root CA certificate downloaded (from [Self-Service Portal](https://key.safesquid.com) or SafeSquid Configuration Portal)
 - Windows machine with administrative privileges
@@ -141,7 +134,7 @@ Click **OK**.
 
 ### Verify Certificate is in Trust Store
 
-1. **Press Windows + R** → Type `certmgr.msc` → **Enter**
+1. **Press Windows \+ R** → Type `certmgr.msc` → **Enter**
 2. **Expand** "Trusted Root Certification Authorities" → **Certificates**
 3. **Find** "SafeSquid" (or your organization name) in the list
 
@@ -156,7 +149,7 @@ For enterprise rollouts, GPO or another managed certificate-deployment path is s
 ## Troubleshooting
 
 | **Issue** | **Likely Cause** | **Fix** |
-|-----------|------------------|---------|
+| --- | --- | --- |
 | Still seeing certificate warnings | Certificate installed in wrong store | Verify certificate is in **Trusted Root Certification Authorities** (not Intermediate) |
 | "Windows cannot access the file" | No admin privileges | Right-click certificate → **Run as administrator** |
 | Import succeeds but warnings persist | Browser cache | Clear browser cache and restart browser: `chrome://settings/clearBrowserData` |
@@ -178,7 +171,7 @@ For enterprise rollouts, GPO or another managed certificate-deployment path is s
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ----- |
+| --- | --- | --- |
 | Windows Trusted Root import path | **Confirmed** | This guide, `certmgr.msc` |
 | GPO deployment (tip) | **Draft** | Standard Windows CA deployment pattern; validate against org GPO practice |
 
@@ -186,8 +179,8 @@ For enterprise rollouts, GPO or another managed certificate-deployment path is s
 
 ## Next Steps
 
-1. **[Configure HTTPS Inspection](/Configure_HTTPS_Inspection)** — Complete setup guide (if you haven't enabled inspection yet)
-2. **[Import certificate into Firefox](/Configure_HTTPS_Inspection#import-certificate-into-firefox)** — Firefox uses separate trust store
+1. [**Configure HTTPS Inspection**](/Configure_HTTPS_Inspection) — Complete setup guide (if you haven't enabled inspection yet)
+2. [**Import certificate into Firefox**](/Configure_HTTPS_Inspection#import-certificate-into-firefox) — Firefox uses separate trust store
 3. **Deploy to all clients:**
    - **Windows enterprise:** Use GPO (see tip at top of page)
    - **macOS:** Use MDM or manual Keychain import

@@ -1,13 +1,7 @@
 ---
 title: "Monit Service Governance"
 description: "Automated monitoring and self-healing for SafeSquid SWG processes and host resources"
-keywords:
-  - SafeSquid SWG
-  - Monit
-  - service monitoring
-  - self-healing
-  - auto-restart
-  - health checks
+keywords: ["SafeSquid SWG", "Monit", "service monitoring", "self-healing", "auto-restart", "health checks"]
 ---
 
 # Monit Service Governance
@@ -18,8 +12,7 @@ Monit automatically monitors SafeSquid and restarts it if it crashes or becomes 
 
 ## Prerequisites
 
-:::note
-**Before You Start**
+:::note **Before You Start**
 
 - Linux host with systemd
 - Root or sudo access
@@ -33,20 +26,24 @@ Monit automatically monitors SafeSquid and restarts it if it crashes or becomes 
 ### 1. Install Monit
 
 **Debian/Ubuntu:**
+
 ```bash
 sudo apt update
 sudo apt install -y monit
 ```
 
 **RHEL/Rocky/CentOS:**
+
 ```bash
 sudo dnf install -y monit
 ```
 
 **Verify installation:**
+
 ```bash
 monit -V
 ```
+
 Should print Monit version.
 
 ---
@@ -72,21 +69,25 @@ sudo nano /etc/monit/monitrc
 ```
 
 Add or uncomment:
-```
+
+```text
 set httpd port 2812 and
   use address localhost
   allow localhost
 ```
 
 **Save and reload:**
+
 ```bash
 sudo monit reload
 ```
 
 **Verify:**
+
 ```bash
 curl -s http://localhost:2812 | head -n1
 ```
+
 Should return HTML header.
 
 ---
@@ -100,7 +101,8 @@ sudo nano /etc/monit/conf.d/safesquid
 ```
 
 Add:
-```
+
+```text
 check process safesquid with pidfile /var/run/safesquid.pid
   start program = "/bin/systemctl start safesquid"
   stop  program = "/bin/systemctl stop safesquid"
@@ -109,12 +111,14 @@ check process safesquid with pidfile /var/run/safesquid.pid
 ```
 
 **Explanation:**
+
 - Monitors SafeSquid process via PID file
 - Checks port 8080 for HTTP responsiveness
 - Auto-restarts if port check fails
-- Alerts if SafeSquid restarts 3+ times in 5 cycles (possible persistent issue)
+- Alerts if SafeSquid restarts 3\+ times in 5 cycles (possible persistent issue)
 
 **Reload and verify:**
+
 ```bash
 sudo monit reload
 sudo monit status safesquid
@@ -135,7 +139,8 @@ sudo nano /etc/monit/conf.d/safesquid-logs
 ```
 
 Add:
-```
+
+```text
 check file ss-log-size with path /var/log/safesquid/access.log
   if size > 500 MB then exec "/usr/sbin/logrotate -f /etc/logrotate.d/safesquid"
 ```
@@ -143,19 +148,20 @@ check file ss-log-size with path /var/log/safesquid/access.log
 **Temporary Files Cleanup:**
 
 Add to the same file:
-```
+
+```text
 check directory ss-tmp with path /tmp
   if timestamp > 24 hours then exec "/usr/bin/find /tmp -type f -mtime +1 -delete"
 ```
 
-:::caution
-**Cleanup Script Risk**
+:::caution **Cleanup Script Risk**
 
 The temp file cleanup example deletes files older than 1 day in `/tmp`. Adjust the path and age to match your environment to avoid deleting needed files.
 
 :::
 
 **Reload:**
+
 ```bash
 sudo monit reload
 sudo monit status
@@ -174,7 +180,8 @@ sudo nano /etc/monit/conf.d/safesquid-upgrade
 ```
 
 Add:
-```
+
+```text
 check file ss-upgrade-flag with path /var/lib/safesquid/upgrade.flag
   if changed checksum then exec "/usr/local/bin/safesquid-upgrade"
 ```
@@ -192,6 +199,7 @@ sudo monit status
 ```
 
 **Expected:**
+
 - `monit summary` shows all checks
 - `monit status` shows all checks as `Running` and `OK`
 
@@ -222,7 +230,8 @@ sudo tail -20 /var/log/monit.log
 ```
 
 **Expected log entries:**
-```
+
+```text
 [UTC] info     : 'safesquid' process is not running
 [UTC] info     : 'safesquid' trying to restart
 [UTC] info     : 'safesquid' process started
@@ -247,11 +256,11 @@ Or open in a browser on the server (if GUI available): `http://localhost:2812`
 ## Troubleshooting
 
 | **Issue** | **Likely Cause** | **Fix** |
-|-----------|------------------|---------|
+| --- | --- | --- |
 | Monit won't start | Incorrect permissions on `/etc/monit/monitrc` | `sudo chmod 600 /etc/monit/monitrc && sudo monit reload` |
 | Checks not loading | Missing `include` directive | Add `include /etc/monit/conf.d/*` to `/etc/monit/monitrc` |
 | Port 8080 check fails | SafeSquid on different port | Update `if failed port` to actual port in config |
-| Frequent restarts (3+ in 5 cycles) | Resource exhaustion or dependency failure | Check `journalctl -u safesquid` and system resources (CPU, memory, disk) |
+| Frequent restarts (3\+ in 5 cycles) | Resource exhaustion or dependency failure | Check `journalctl -u safesquid` and system resources (CPU, memory, disk) |
 | Monit dashboard not accessible | HTTP interface not configured | Verify `set httpd port 2812` in `/etc/monit/monitrc` |
 
 **Still not working?**
@@ -261,12 +270,10 @@ Or open in a browser on the server (if GUI available): `http://localhost:2812`
    sudo monit -t
    ```
    Should return: `Control file syntax OK`
-
 2. **Check Monit logs:**
    ```bash
    sudo tail -50 /var/log/monit.log
    ```
-
 3. **Verify SafeSquid PID file location:**
    ```bash
    ps aux | grep safesquid
@@ -279,7 +286,7 @@ Or open in a browser on the server (if GUI available): `http://localhost:2812`
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+| --- | --- | --- |
 | Monit restart / port checks for SafeSquid | **Confirmed** | This guide, `monitrc` examples |
 | Threat-intelligence housekeeping mentions | **Draft** | **CTO:** confirm which jobs Monit triggers per product build |
 
@@ -287,9 +294,9 @@ Or open in a browser on the server (if GUI available): `http://localhost:2812`
 
 ## Next Steps
 
-1. **[BIND](/Bind)** — Configure local DNS resolver
-2. **[NTP](/NTP)** — Ensure accurate time synchronization
-3. **[Audit & Forensics](/Audit_Forensics)** — Monitor SafeSquid logs and events
-4. **[Troubleshooting](/Troubleshooting)** — Common issues and fixes
+1. [**BIND**](/Bind) — Configure local DNS resolver
+2. [**NTP**](/NTP) — Ensure accurate time synchronization
+3. [**Audit & Forensics**](/Audit_Forensics) — Monitor SafeSquid logs and events
+4. [**Troubleshooting**](/Troubleshooting) — Common issues and fixes
 
 **Related:** [Supporting Services Overview](/safesquid_swg/interface/supporting_services_monit)

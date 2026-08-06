@@ -1,13 +1,7 @@
 ---
-title: Web Categorization
-description: Review and refine SafeSquid website categorization so destination-based enforcement stays accurate, explainable, and safe for production use.
-keywords:
-  - SafeSquid website categorization
-  - SafeSquid categorize websites
-  - SafeSquid category editor
-  - SafeSquid custom web filtering
-  - SafeSquid category management
-  - SafeSquid URL categorization
+title: "Web Categorization"
+description: "Review and refine SafeSquid website categorization so destination-based enforcement stays accurate, explainable, and safe for production use."
+keywords: ["SafeSquid website categorization", "SafeSquid categorize websites", "SafeSquid category editor", "SafeSquid custom web filtering", "SafeSquid category management", "SafeSquid URL categorization"]
 ---
 
 # Correct destination logic before policy fails

@@ -1,10 +1,7 @@
 ---
-title: Interface Access Denied
-description: Diagnose and resolve SafeSquid interface access denied incidents with causes, recovery actions, and audit evidence.
-keywords:
-  - troubleshooting
-  - SafeSquid
-  - interface access denied
+title: "Interface Access Denied"
+description: "Diagnose and resolve SafeSquid interface access denied incidents with causes, recovery actions, and audit evidence."
+keywords: ["troubleshooting", "SafeSquid", "interface access denied"]
 ---
 
 # Interface Access Denied
@@ -24,9 +21,7 @@ SafeSquid evaluates Access Restrictions entries top to bottom and matches each e
 Scenario: three entries in the Allow list of Access Restrictions:
 
 1. First entry: access the web interface via SSH tunnel.
-
 2. Second entry: allow the AUTHENTICATION BYPASS profile.
-
 3. Third entry: the entry used for general internet access.
 
 A fourth entry is added with Web interface removed from the Access field, then moved up to third. The third position now matches the administrator's connection (the first is for SSH, the second for AUTHENTICATION BYPASS) and has Web interface disabled. The administrator is locked out and sees Access Denied. To avoid this, always keep at least one entry that allows access to the Web interface.

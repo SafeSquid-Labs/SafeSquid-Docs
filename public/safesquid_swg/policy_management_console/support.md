@@ -1,11 +1,7 @@
 ---
-title: Support
-description: Support entry point for SafeSquid SWG troubleshooting evidence, configuration context, and escalation readiness.
-keywords:
-  - SafeSquid support
-  - SafeSquid troubleshooting
-  - support evidence
-  - proxy diagnostics
+title: "Support"
+description: "Support entry point for SafeSquid SWG troubleshooting evidence, configuration context, and escalation readiness."
+keywords: ["SafeSquid support", "SafeSquid troubleshooting", "support evidence", "proxy diagnostics"]
 ---
 
 # Support

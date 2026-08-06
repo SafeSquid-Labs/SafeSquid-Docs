@@ -1,13 +1,7 @@
 ---
 title: "NTP Time Synchronization"
 description: "Accurate system time for SafeSquid SWG authentication, TLS, and logging integrity"
-keywords:
-  - SafeSquid SWG
-  - NTP
-  - time sync
-  - Active Directory
-  - TLS validation
-  - Kerberos
+keywords: ["SafeSquid SWG", "NTP", "time sync", "Active Directory", "TLS validation", "Kerberos"]
 ---
 
 # NTP Time Synchronization
@@ -18,8 +12,7 @@ NTP (Network Time Protocol) keeps your SafeSquid server's clock synchronized wit
 
 ## Prerequisites
 
-:::note
-**Before You Start**
+:::note **Before You Start**
 
 - Linux host with root/sudo access
 - Enterprise NTP servers or domain controllers providing time
@@ -35,30 +28,35 @@ NTP (Network Time Protocol) keeps your SafeSquid server's clock synchronized wit
 **Prefer chrony** (modern, faster sync):
 
 **Debian/Ubuntu:**
+
 ```bash
 sudo apt update
 sudo apt install -y chrony
 ```
 
 **RHEL/Rocky/CentOS:**
+
 ```bash
 sudo dnf install -y chrony
 ```
 
 **Verify installation:**
+
 ```bash
 chronyd -v
 ```
+
 Should print chrony version.
 
-:::tip
-**Alternative: ntpd**
+:::tip **Alternative: ntpd**
 
 If your environment uses `ntpd` instead of `chrony`, install with:
+
 ```bash
 sudo apt install -y ntp  # Debian/Ubuntu
 sudo dnf install -y ntp  # RHEL/CentOS
 ```
+
 Configuration is similar but uses `/etc/ntp.conf`.
 
 :::
@@ -78,7 +76,7 @@ sudo nano /etc/chrony/chrony.conf
 
 **Replace default pool servers with your enterprise NTP servers:**
 
-```
+```text
 # For Active Directory environments, prefer domain controllers:
 server dc1.company.com iburst
 server dc2.company.com iburst
@@ -101,8 +99,9 @@ logdir /var/log/chrony
 ```
 
 **Explanation:**
+
 - **server ... iburst** — Speeds up initial synchronization
-- **makestep 1.0 3** — Allows step (immediate) corrections if offset >1 second, up to 3 times
+- **makestep 1.0 3** — Allows step (immediate) corrections if offset \>1 second, up to 3 times
 - **driftfile** — Saves clock frequency for faster sync after restart
 - **logdir** — Where chrony logs are stored
 
@@ -125,12 +124,14 @@ systemctl is-enabled chronyd
 ### 4. Validate Synchronization
 
 **Check tracking status:**
+
 ```bash
 chronyc tracking
 ```
 
 **Expected output:**
-```
+
+```text
 Reference ID    : 192.168.1.10 (ntp1.company.com)
 Stratum         : 3
 System time     : 0.000123 seconds slow of NTP time
@@ -139,19 +140,22 @@ RMS offset      : 0.000123 seconds
 ```
 
 **Key fields:**
+
 - **Reference ID:** Your NTP server
 - **Stratum:** Lower is better (1-4 typical)
-- **System time offset:** Should be within milliseconds (< 0.1 seconds)
+- **System time offset:** Should be within milliseconds (\< 0.1 seconds)
 
 ---
 
 **Check source status:**
+
 ```bash
 chronyc sources -v
 ```
 
 **Expected output:**
-```
+
+```text
   .-- Source mode  '^' = server, '=' = peer
  / .- Source state '*' = current best, '+' = combined, '-' = not combined,
 | /             '?' = unreachable, 'x' = time may be in error
@@ -163,6 +167,7 @@ chronyc sources -v
 ```
 
 **Key fields:**
+
 - **\*** (asterisk) — Current best source (should have at least one)
 - **Reach** — Should be `377` (all recent polls successful)
 - **Last sample** — Time offset in microseconds/milliseconds
@@ -184,14 +189,14 @@ net time \\DC1.company.com /set /yes
 ```
 
 **Or use this to compare:**
+
 ```bash
 ntpdate -q dc1.company.com
 ```
 
 **Expected:** Offset less than 300 seconds (5 minutes).
 
-:::caution
-**Kerberos Requirement**
+:::caution **Kerberos Requirement**
 
 Kerberos authentication fails if time skew exceeds 5 minutes. For production Active Directory environments, keep skew under 1 minute.
 
@@ -208,8 +213,9 @@ chronyc tracking
 ```
 
 **Expected:**
+
 - **Reference ID:** Shows your NTP server (not `0.0.0.0`)
-- **System time offset:** < 0.1 seconds
+- **System time offset:** \< 0.1 seconds
 - **Stratum:** 2-4 (depending on your NTP server)
 
 ---
@@ -235,7 +241,8 @@ sudo tail -f /var/log/chrony/tracking.log
 ```
 
 **Expected log entries:**
-```
+
+```text
 Selected source 192.168.1.10
 System time wrong by 0.123 seconds
 Clock was stepped
@@ -246,11 +253,11 @@ Clock was stepped
 ## Troubleshooting
 
 | **Issue** | **Likely Cause** | **Fix** |
-|-----------|------------------|---------|
+| --- | --- | --- |
 | No synchronization | UDP 123 blocked or wrong server names | Allow UDP 123 outbound; verify server names resolve: `dig ntp1.company.com` |
 | Frequent step corrections | Unstable time source or VM host time interference | Use stable NTP sources; disable VM time sync if using NTP |
 | Stratum shows 16 | Can't reach any NTP server | Check firewall, network connectivity, server names |
-| SSO/Kerberos failures | Time skew >5 minutes | Force sync: `sudo chronyd -q 'server ntp1.company.com iburst'` |
+| SSO/Kerberos failures | Time skew \>5 minutes | Force sync: `sudo chronyd -q 'server ntp1.company.com iburst'` |
 | "System clock wrong" errors | Large initial offset | Run `sudo chronyd -q` to step clock, then restart chronyd |
 
 **Still not working?**
@@ -260,19 +267,16 @@ Clock was stepped
    ntpdate -q ntp1.company.com
    ```
    Should show offset.
-
 2. **Check chrony configuration:**
    ```bash
    chronyc sources
    chronyc tracking
    ```
-
 3. **Force time sync:**
    ```bash
    sudo chronyd -q 'server ntp1.company.com iburst'
    sudo systemctl restart chronyd
    ```
-
 4. **Check logs:**
    ```bash
    sudo journalctl -u chronyd -n 50
@@ -283,29 +287,24 @@ Clock was stepped
 ## Production Best Practices
 
 1. **Use at least 3 NTP sources** for redundancy:
-   ```
+   ```text
    server ntp1.company.com iburst
    server ntp2.company.com iburst
    server ntp3.company.com iburst
    ```
-
 2. **For Active Directory, prefer domain controllers:**
-   ```
+   ```text
    server dc1.company.com iburst prefer
    server dc2.company.com iburst
    ```
-
-3. **Monitor time drift with Monit:**
-   
-   Add to `/etc/monit/conf.d/chrony`:
-   ```
+3. **Monitor time drift with Monit:** Add to `/etc/monit/conf.d/chrony`:
+   ```text
    check process chronyd matching chronyd
      start program = "/bin/systemctl start chronyd"
      stop program = "/bin/systemctl stop chronyd"
    ```
-
 4. **Alert on large offsets:**
-   - Configure monitoring to alert if offset >1 second
+   - Configure monitoring to alert if offset \>1 second
    - Investigate VM host time sync conflicts
    - Check for network latency to NTP servers
 
@@ -314,7 +313,7 @@ Clock was stepped
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ----- |
+| --- | --- | --- |
 | Chrony / NTP for Kerberos and TLS | **Confirmed** | This guide, [Authentication](/Authentication) |
 | AD clock skew tolerance | **Draft** | **5 minutes** called out in the [Supporting Services hub](/safesquid_swg/interface/supporting_services_monit); **CTO** confirm max skew for supported builds |
 
@@ -322,9 +321,9 @@ Clock was stepped
 
 ## Next Steps
 
-1. **[Monit](/Supporting_Services_Monit)** — Monitor chronyd and auto-restart if needed
-2. **[BIND](/Bind)** — DNSSEC validation requires accurate time
-3. **[Authentication](/Authentication)** — Configure SSO/Kerberos (requires NTP)
-4. **[SSL Inspection](/SSL_Inspection)** — TLS certificate validation requires accurate time
+1. [**Monit**](/Supporting_Services_Monit) — Monitor chronyd and auto-restart if needed
+2. [**BIND**](/Bind) — DNSSEC validation requires accurate time
+3. [**Authentication**](/Authentication) — Configure SSO/Kerberos (requires NTP)
+4. [**SSL Inspection**](/SSL_Inspection) — TLS certificate validation requires accurate time
 
 **Related:** [Supporting Services Overview](/safesquid_swg/interface/supporting_services_monit)

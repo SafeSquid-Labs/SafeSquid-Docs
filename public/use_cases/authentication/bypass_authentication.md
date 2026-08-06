@@ -1,12 +1,7 @@
 ---
-title: Bypass Authentication
-description: Configure tightly scoped authentication bypass in SafeSquid for non-interactive destinations and applications that cannot complete proxy authentication.
-keywords:
-  - bypass authentication SafeSquid
-  - SafeSquid proxy authentication bypass
-  - bypass proxy authentication dropbox
-  - SafeSquid authentication policy
-  - allow application without authentication SafeSquid
+title: "Bypass Authentication"
+description: "Configure tightly scoped authentication bypass in SafeSquid for non-interactive destinations and applications that cannot complete proxy authentication."
+keywords: ["bypass authentication SafeSquid", "SafeSquid proxy authentication bypass", "bypass proxy authentication dropbox", "SafeSquid authentication policy", "allow application without authentication SafeSquid"]
 ---
 
 # Bypass authentication only where attribution is impossible
@@ -44,15 +39,13 @@ A narrow bypass policy lets SafeSquid preserve authentication for general web us
 ## When to use bypass
 
 | Use bypass when | Keep authentication instead |
-|---|---|
+| --- | --- |
 | application cannot prompt for credentials | interactive web browsing |
 | OS or security updates must run unattended | corporate apps needing user attribution |
 | background sync clients fail on auth prompts | sensitive-data access workflows |
 | trusted machine-driven traffic is well scoped | any broad internet access path |
 
-:::caution
-Bypassed traffic is not attributed to a specific authenticated user. Keep the bypass as narrow as possible and prefer specific destinations or request characteristics over broad domain patterns.
-:::
+:::caution Bypassed traffic is not attributed to a specific authenticated user. Keep the bypass as narrow as possible and prefer specific destinations or request characteristics over broad domain patterns. :::
 
 ## Setup instructions
 

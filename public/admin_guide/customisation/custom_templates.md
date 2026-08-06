@@ -1,64 +1,59 @@
 ---
-title: Custom Templates
-description: Create custom templates in SafeSquid for error pages, branding, and blocked-content replacement using HTML, images, or executables.
-
-keywords:
-  - SafeSquid custom templates
-  - SafeSquid template configuration
-  - SafeSquid error page customization
-  - Create HTML template SafeSquid
-  - SafeSquid UI template management
+title: "Custom Templates"
+description: "Create custom templates in SafeSquid for error pages, branding, and blocked-content replacement using HTML, images, or executables."
+keywords: ["SafeSquid custom templates", "SafeSquid template configuration", "SafeSquid error page customization", "Create HTML template SafeSquid", "SafeSquid UI template management"]
 ---
-
 
 # Replace blocked or error pages with custom content
 
-SafeSquid uses templates to replace pages that cannot be displayed (filtering, error, or other conditions). Custom templates support non-English messages, company logos, and contact text (e.g. "If this site was blocked in error, contact helpdesk@mycompany.com"). Templates can be HTML, images, audio, or executables. Built-in examples include tinygif, checkeredgif, and tinyswf; checkeredgif is the default replacement for images blocked by the pornographic image filter.
-
-
+SafeSquid uses templates to replace pages that cannot be displayed (filtering, error, or other conditions). Custom templates support non-English messages, company logos, and contact text (e.g. "If this site was blocked in error, contact [helpdesk@mycompany.com](mailto:helpdesk@mycompany.com)"). Templates can be HTML, images, audio, or executables. Built-in examples include tinygif, checkeredgif, and tinyswf; checkeredgif is the default replacement for images blocked by the pornographic image filter.
 
 ## Prerequisites
+
 Create your own html file and place that file in the below paths
 
 for windows version of SafeSquid:
 
-**c:ProgramDatausrlocalsafesquidui_roottemplates**
+**c:ProgramDatausrlocalsafesquidui\_roottemplates**
 
 The path for Linux version of SafeSquid is:
 
-**/usr/local/safesquid/ui_root/templates/**
+**/usr/local/safesquid/ui\_root/templates/**
 
 **Note**: If you want to use any images in the html file make sure that the image also exist in the same path.
 
-
-
 ## Example:
+
 Here i am creating below html page:
 
 ![Create Custom Templates or template list in SafeSquid interface](/images/How_To/Create_Custom_Templates/image1.webp)
 
 I Am saving this file with name:
 
-**Custom_template.html**
+**Custom\_template.html**
 
 I will use this file in the below configuration
 
-
-
 ## [Access the SafeSquid user interface](/Configuration_Portal)
+
 ### Go to Configure Page
+
 ![Clicking on configure in SafeSquid interface](/images/How_To/Create_Custom_Templates/image2.webp)
 
 ### Go to Custom Settings
+
 ![Clicking to custom settings](/images/How_To/Create_Custom_Templates/image3.webp)
 
 ### Go to Templates
+
 ![Clicking on templates ](/images/How_To/Create_Custom_Templates/image4.webp)
 
 ### Clone existing entry
+
 ![Cloning the existing entry by clicking on clone](/images/How_To/Create_Custom_Templates/image5.webp)
 
 ### Edit the original entry
+
 ![Clicking on edit to edit the policies](/images/How_To/Create_Custom_Templates/image6.webp)
 
 You must edit the original entry, because the entries in template section are processed from top to bottom
@@ -75,17 +70,13 @@ You must edit the original entry, because the entries in template section are pr
 
 ![Saved rule](/images/How_To/Create_Custom_Templates/image12.webp)
 
-
-
 ## Testing
+
 ![Testing the template](/images/How_To/Create_Custom_Templates/image13.webp)
 
-
-
 ## Saving the Configuration
+
 ![clicking on save config to save the policy](/images/How_To/Create_Custom_Templates/image14.webp)
-
-
 
 ## Verification and Evidence
 
@@ -94,4 +85,3 @@ You must edit the original entry, because the entries in template section are pr
 - **Performance Validation**: Trigger a block or use case that invokes the template; the custom message or page displays as designed.
 
 **Related**: [Startup Parameters](/Startup_Parameters), [Customisation](/Customisation), [Access Restriction](/Access_Restriction), [Troubleshooting](/Troubleshooting)
-

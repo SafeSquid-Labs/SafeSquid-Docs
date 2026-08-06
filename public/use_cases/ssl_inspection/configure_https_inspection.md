@@ -1,12 +1,7 @@
 ---
-title: Configure HTTPS Inspection
-description: Prerequisites, certificate generation, enabling SSL inspection, client certificate import, bypass rules, and verification for SafeSquid HTTPS inspection.
-keywords:
-  - configure SSL inspection SafeSquid
-  - HTTPS inspection setup
-  - SafeSquid certificate generation
-  - bypass SSL inspection
-  - Firefox certificate import
+title: "Configure HTTPS Inspection"
+description: "Prerequisites, certificate generation, enabling SSL inspection, client certificate import, bypass rules, and verification for SafeSquid HTTPS inspection."
+keywords: ["configure SSL inspection SafeSquid", "HTTPS inspection setup", "SafeSquid certificate generation", "bypass SSL inspection", "Firefox certificate import"]
 ---
 
 # Configure HTTPS Inspection
@@ -17,15 +12,16 @@ This guide covers the complete HTTPS inspection setup: generate or import a Root
 
 ## Prerequisites
 
-:::note
-**Before You Start**
+:::note **Before You Start**
 
 **SafeSquid side:**
+
 - SafeSquid installed and licensed
 - Access to [Self-Service Portal](https://key.safesquid.com) (for certificate generation)
 - Access to SafeSquid Configuration Portal (`http://safesquid.cfg/`—embedded Rest UI interface built into SafeSquid; accessible only when your client uses the proxy, but NOT resolved by SafeSquid's DNS resolver—or `https://SERVER-IP:8443/` for direct access)
 
 **Client side:**
+
 - List of domains to bypass (banking, healthcare, SSL-pinned apps)
 - Method to deploy Root CA to all clients (GPO, MDM, or manual)
 - Administrative access to client systems (for certificate import)
@@ -47,7 +43,7 @@ This guide covers the complete HTTPS inspection setup: generate or import a Root
 You have three options for the Root CA certificate:
 
 | **Option** | **When to Use** | **Pros** | **Cons** |
-|------------|-----------------|----------|----------|
+| --- | --- | --- | --- |
 | **Self-Signed** | Testing, small deployments | Quick, no external dependencies | Not trusted by default, harder to revoke |
 | **Enterprise CA (with passphrase)** | Production with existing CA | Centralized trust, auditable | Requires CA infrastructure |
 | **Enterprise CA (without passphrase)** | Production, new passphrase | Same as above | Need to set new passphrase |
@@ -60,96 +56,41 @@ Treat the passphrase and certificate material as recovery assets, not only as se
 
 ### Generate Certificate in Self-Service Portal
 
-1. **Log in** to the [Self-Service Portal](https://key.safesquid.com/)
-
-   ![Self-Service Portal login](/images/SSL_Inspection/image1.webp)
-
-2. **Navigate to Certificate Management**
-
-   In the dashboard → find your deployment → click **Manage Certificate**
-
-   ![Manage Certificate button](/images/SSL_Inspection/image2.webp)
+1. **Log in** to the [Self-Service Portal](https://key.safesquid.com/) <img src="/images/SSL_Inspection/image1.webp" alt="Self-Service Portal login" />
+2. **Navigate to Certificate Management** In the dashboard → find your deployment → click **Manage Certificate** <img src="/images/SSL_Inspection/image2.webp" alt="Manage Certificate button" />
 
 ---
 
 ### Option A: Self-Signed Certificate
 
-3. **Click Generate** (appears if no certificate exists yet)
-
-   ![Generate button](/images/SSL_Inspection/image3.webp)
-
-4. **Select "General self-signed"** → **Enter passphrase** → **Generate**
-
-   :::caution
-   **Save Your Passphrase**
-   
-   The passphrase is **non-recoverable**. Save it securely—you'll need it to reuse the certificate with different activation keys.
-   
-   :::
-
-   ![Generate self-signed certificate](/images/SSL_Inspection/image4.webp)
-
-5. **Click Close** to continue
-
-   ![Certificate generated](/images/SSL_Inspection/image5.webp)
+3. **Click Generate** (appears if no certificate exists yet) <img src="/images/SSL_Inspection/image3.webp" alt="Generate button" />
+4. **Select "General self-signed"** → **Enter passphrase** → **Generate** :::caution **Save Your Passphrase** The passphrase is **non-recoverable**. Save it securely—you'll need it to reuse the certificate with different activation keys. ::: <img src="/images/SSL_Inspection/image4.webp" alt="Generate self-signed certificate" />
+5. **Click Close** to continue <img src="/images/SSL_Inspection/image5.webp" alt="Certificate generated" />
 
 ---
 
 ### Option B: Enterprise CA with Existing Passphrase
 
-3. **Click Regenerate** → **Upload enterprise CA files** → **Select "has passphrase"**
-
-   ![Upload enterprise CA with passphrase](/images/SSL_Inspection/image6.webp)
-
-4. **Select CA certificate files** (`.crt` and `.key`)
-
-   ![Select CA files](/images/SSL_Inspection/image7.webp)
-
-5. **Enter passphrase** → **Click "Validate private key"**
-
-   ![Enter passphrase](/images/SSL_Inspection/image8.webp)
-
-6. **Select "Retain password"** → **Upload**
-
-   ![Retain password and upload](/images/SSL_Inspection/image9.webp)
-
-7. **Click Close**
-
-   ![Upload complete](/images/SSL_Inspection/image10.webp)
+3. **Click Regenerate** → **Upload enterprise CA files** → **Select "has passphrase"** <img src="/images/SSL_Inspection/image6.webp" alt="Upload enterprise CA with passphrase" />
+4. **Select CA certificate files** (`.crt` and `.key`) <img src="/images/SSL_Inspection/image7.webp" alt="Select CA files" />
+5. **Enter passphrase** → **Click "Validate private key"** <img src="/images/SSL_Inspection/image8.webp" alt="Enter passphrase" />
+6. **Select "Retain password"** → **Upload** <img src="/images/SSL_Inspection/image9.webp" alt="Retain password and upload" />
+7. **Click Close** <img src="/images/SSL_Inspection/image10.webp" alt="Upload complete" />
 
 ---
 
 ### Option C: Enterprise CA Without Passphrase (Set New One)
 
-3. **Click Regenerate** → **Upload enterprise CA** → **Select "does not have passphrase"**
-
-   ![Upload enterprise CA without passphrase](/images/SSL_Inspection/image11.webp)
-
-4. **Select CA certificate files**
-
-   ![Select CA files](/images/SSL_Inspection/image12.webp)
-
-5. **Enter new passphrase** → **Upload**
-
-   :::caution
-   **Save Your Passphrase**
-   
-   This new passphrase is **non-recoverable**. Save it securely.
-   
-   :::
-
-   ![Enter new passphrase](/images/SSL_Inspection/image13.webp)
-
-6. **Click Close**
-
-   ![Upload complete](/images/SSL_Inspection/image14.webp)
+3. **Click Regenerate** → **Upload enterprise CA** → **Select "does not have passphrase"** <img src="/images/SSL_Inspection/image11.webp" alt="Upload enterprise CA without passphrase" />
+4. **Select CA certificate files** <img src="/images/SSL_Inspection/image12.webp" alt="Select CA files" />
+5. **Enter new passphrase** → **Upload** :::caution **Save Your Passphrase** This new passphrase is **non-recoverable**. Save it securely. ::: <img src="/images/SSL_Inspection/image13.webp" alt="Enter new passphrase" />
+6. **Click Close** <img src="/images/SSL_Inspection/image14.webp" alt="Upload complete" />
 
 ---
 
 ### Download Certificate
 
 7. **Enter passphrase** (if prompted) → **Click Download**
-
    ![Download certificate](/images/SSL_Inspection/image15.webp)
    ![Certificate download](/images/SSL_Inspection/image16.webp)
 
@@ -161,36 +102,18 @@ Treat the passphrase and certificate material as recovery assets, not only as se
 
 ### Access Configuration Portal
 
-1. **Open SafeSquid interface** → **Click "Configure"**
-
-   ![Click Configure](/images/SSL_Inspection/image17.webp)
-
-2. **Expand "Real Time Content Security"** in the sidebar
-
-   ![Real Time Content Security](/images/SSL_Inspection/image18.webp)
-
-3. **Click "HTTPS Inspection"**
-
-   ![HTTPS Inspection](/images/SSL_Inspection/image19.webp)
+1. **Open SafeSquid interface** → **Click "Configure"** <img src="/images/SSL_Inspection/image17.webp" alt="Click Configure" />
+2. **Expand "Real Time Content Security"** in the sidebar <img src="/images/SSL_Inspection/image18.webp" alt="Real Time Content Security" />
+3. **Click "HTTPS Inspection"** <img src="/images/SSL_Inspection/image19.webp" alt="HTTPS Inspection" />
 
 ---
 
 ### Enable Global HTTPS Inspection
 
-4. **Click the "Global" tab** → **Click Edit** (pencil icon)
-
-   :::note
-   **Version Change**
-   
-   SafeSquid versions after June 2017 have three tabs: **Global**, **Inspection Policies**, and **Bypass Policies**.
-   
-   :::
-
+4. **Click the "Global" tab** → **Click Edit** (pencil icon) :::note **Version Change** SafeSquid versions after June 2017 have three tabs: **Global**, **Inspection Policies**, and **Bypass Policies**. :::
    ![Global tab](/images/SSL_Inspection/image20.webp)
    ![Click Edit](/images/SSL_Inspection/image21.webp)
-
 5. **Set "Enabled" to "True"** → **Save Policy**
-
    ![Enable HTTPS Inspection](/images/SSL_Inspection/image22.webp)
    ![Save Policy](/images/SSL_Inspection/image23.webp)
 
@@ -198,20 +121,10 @@ Treat the passphrase and certificate material as recovery assets, not only as se
 
 ### Enable Inspection Policies
 
-6. **Click "Inspection Policies" tab**
-
-   ![Inspection Policies tab](/images/SSL_Inspection/image24.webp)
-
-7. **Verify default policies are enabled**
-
-   ![Default policies](/images/SSL_Inspection/image25.webp)
-
-8. **Find "Enforce SSL scanning for all websites"** → **Click Edit**
-
-   ![Edit enforce policy](/images/SSL_Inspection/image26.webp)
-
+6. **Click "Inspection Policies" tab** <img src="/images/SSL_Inspection/image24.webp" alt="Inspection Policies tab" />
+7. **Verify default policies are enabled** <img src="/images/SSL_Inspection/image25.webp" alt="Default policies" />
+8. **Find "Enforce SSL scanning for all websites"** → **Click Edit** <img src="/images/SSL_Inspection/image26.webp" alt="Edit enforce policy" />
 9. **Set "Enabled" to "True"** → **Save Policy**
-
    ![Enable enforce policy](/images/SSL_Inspection/image27.webp)
    ![Save Policy](/images/SSL_Inspection/image28.webp)
 
@@ -219,22 +132,10 @@ Treat the passphrase and certificate material as recovery assets, not only as se
 
 ### Save Configuration
 
-10. **Click "Save Configuration"** (floppy disk icon, bottom left)
-
-    ![Save Configuration](/images/SSL_Inspection/image29.webp)
-
-11. **Select "No"** (unless deploying to a cluster) → **Submit**
-
-    :::tip
-    **Cloud Config**
-    
-    Select "Yes" only if:
+10. **Click "Save Configuration"** (floppy disk icon, bottom left) <img src="/images/SSL_Inspection/image29.webp" alt="Save Configuration" />
+11. **Select "No"** (unless deploying to a cluster) → **Submit** :::tip **Cloud Config** Select "Yes" only if:
     - You're deploying the same config to multiple SafeSquid instances (cluster)
-    - All sections are fully configured for production
-    
-    Otherwise, select "No" to save locally only.
-    
-    :::
+    - All sections are fully configured for production Otherwise, select "No" to save locally only. :::
 
 ---
 
@@ -259,6 +160,7 @@ All clients must trust the SafeSquid Root CA to avoid certificate warnings.
 **See detailed guide:** [Import Certificate into Chrome/IE](/Import_Certificate_Chrome_IE)
 
 **Quick summary:**
+
 1. Double-click the downloaded certificate
 2. **Install Certificate** → **Local Machine** → **Next**
 3. **Browse** → **Trusted Root Certification Authorities** → **OK**
@@ -279,6 +181,7 @@ Firefox uses its own certificate store.
 5. **Check "Trust this CA to identify websites"** → **OK**
 
 **Verify:**
+
 - Visit `https://www.google.com` (via SafeSquid proxy)
 - Click padlock → **More information** → **View Certificate**
 - Certificate chain should show SafeSquid Root CA
@@ -288,6 +191,7 @@ Firefox uses its own certificate store.
 ### macOS
 
 **Via System Keychain:**
+
 1. Double-click the certificate file
 2. **Add** → Enter admin password
 3. **Open Keychain Access** → **System** keychain
@@ -301,6 +205,7 @@ Firefox uses its own certificate store.
 ### Mobile Devices
 
 **iOS/Android:**
+
 - Deploy via MDM (Jamf, Intune, Workspace ONE)
 - Manual: Email certificate → Open on device → Install
 
@@ -310,11 +215,8 @@ Firefox uses its own certificate store.
 
 Run both of these tests before broad rollout:
 
-1. **Positive inspection test**  
-   Visit a site that should be inspected and confirm the presented certificate is issued through the SafeSquid trust path.
-
-2. **Negative bypass test**  
-   Visit a destination that should be bypassed and confirm the original site certificate remains intact.
+1. **Positive inspection test**<br />Visit a site that should be inspected and confirm the presented certificate is issued through the SafeSquid trust path.
+2. **Negative bypass test**<br />Visit a destination that should be bypassed and confirm the original site certificate remains intact.
 
 Also confirm that a content-aware policy which could not previously see HTTPS traffic now triggers on an inspected flow.
 
@@ -323,6 +225,7 @@ Also confirm that a content-aware policy which could not previously see HTTPS tr
 ## Step 5: Configure Bypass Policies
 
 Bypass HTTPS inspection for:
+
 - Banking and financial sites (compliance)
 - Healthcare portals (HIPAA)
 - SSL-pinned applications (will break otherwise)
@@ -332,30 +235,14 @@ Bypass HTTPS inspection for:
 
 ### Enable Default Bypass Policy
 
-1. **Click "Configure"** in SafeSquid interface
-
-   ![Click Configure](/images/SSL_Inspection/image30.webp)
-
-2. **Click Search** (magnifying glass icon, top right)
-
-   ![Click Search](/images/SSL_Inspection/image31.webp)
-
-3. **Type "BYPASS SSL INSPECTION"** → **Enter**
-
-   ![Search bypass](/images/SSL_Inspection/image32.webp)
-
-4. **Click Edit** on the bypass policy
-
-   ![Edit bypass policy](/images/SSL_Inspection/image33.webp)
-
+1. **Click "Configure"** in SafeSquid interface <img src="/images/SSL_Inspection/image30.webp" alt="Click Configure" />
+2. **Click Search** (magnifying glass icon, top right) <img src="/images/SSL_Inspection/image31.webp" alt="Click Search" />
+3. **Type "BYPASS SSL INSPECTION"** → **Enter** <img src="/images/SSL_Inspection/image32.webp" alt="Search bypass" />
+4. **Click Edit** on the bypass policy <img src="/images/SSL_Inspection/image33.webp" alt="Edit bypass policy" />
 5. **Set "Enabled" to "True"** → **Save Policy**
-
    ![Enable bypass](/images/SSL_Inspection/image34.webp)
    ![Save bypass policy](/images/SSL_Inspection/image35.webp)
-
-6. **Review and enable related bypass policies** (for banking apps, Windows Update, etc.)
-
-   ![Review bypass policies](/images/SSL_Inspection/image36.webp)
+6. **Review and enable related bypass policies** (for banking apps, Windows Update, etc.) <img src="/images/SSL_Inspection/image36.webp" alt="Review bypass policies" />
 
 ---
 
@@ -368,33 +255,17 @@ Bypass HTTPS inspection for:
 **Step 1: Define Request Type**
 
 1. **Sidebar** → **Profiling Engine** → **Request Types** → **Add New**
-
    ![Request Types](/images/SSL_Inspection/image38.webp)
    ![Add New](/images/SSL_Inspection/image39.webp)
-
-2. **Comment:** "Dropbox domains"  
-   **Match pattern:** `.*dropbox.*`  
-   **Smart TLD:** True
-
+2. **Comment:** "Dropbox domains"<br />**Match pattern:** `.*dropbox.*`<br />**Smart TLD:** True
    ![Define Dropbox pattern](/images/SSL_Inspection/image40.webp)
    ![Enable Smart TLD](/images/SSL_Inspection/image41.webp)
 
 **Step 2: Create Access Policy**
 
-3. **Sidebar** → **Access Policies** → **Access Profiles** → **Add New**
-
-   ![Access Profiles](/images/SSL_Inspection/image42.webp)
-
-4. **Comment:** "Bypass SSL for Dropbox"  
-   **Request Type:** Select "Dropbox domains" (from Step 1)  
-   **Added profiles:** Select "BYPASS SSL INSPECTION"
-
-   ![Create bypass policy](/images/SSL_Inspection/image43.webp)
-
-5. **Save Policy**
-
-   ![Save bypass](/images/SSL_Inspection/image44.webp)
-
+3. **Sidebar** → **Access Policies** → **Access Profiles** → **Add New** <img src="/images/SSL_Inspection/image42.webp" alt="Access Profiles" />
+4. **Comment:** "Bypass SSL for Dropbox"<br />**Request Type:** Select "Dropbox domains" (from Step 1)<br />**Added profiles:** Select "BYPASS SSL INSPECTION" <img src="/images/SSL_Inspection/image43.webp" alt="Create bypass policy" />
+5. **Save Policy** <img src="/images/SSL_Inspection/image44.webp" alt="Save bypass" />
 6. **Save Configuration** (floppy disk icon, bottom left)
 
 **Test:** Upload/download files via Dropbox to verify bypass works.
@@ -413,7 +284,8 @@ Bypass HTTPS inspection for:
 4. **No certificate warnings** should appear
 
 **Expected certificate chain:**
-```
+
+```text
 www.google.com (issued by SafeSquid Root CA)
   └─ SafeSquid Root CA (self-signed or your enterprise CA)
 ```
@@ -441,10 +313,12 @@ tail -f /var/log/safesquid/access/extended.log
 ```
 
 **Expected for inspected sites:**
+
 - Full URL logged (including path, not just domain)
 - `200 OK` or similar HTTP status
 
 **Expected for bypassed sites:**
+
 - Only `CONNECT` method logged
 - No detailed path information
 
@@ -453,12 +327,12 @@ tail -f /var/log/safesquid/access/extended.log
 ## Troubleshooting
 
 | **Issue** | **Likely Cause** | **Fix** |
-|-----------|------------------|---------|
+| --- | --- | --- |
 | Certificate warnings on all HTTPS sites | Root CA not installed on client | Install SafeSquid Root CA in Trusted Root store (see Step 3) |
 | Firefox shows warnings, Chrome works | Firefox uses separate cert store | Import certificate into Firefox separately (see above) |
 | Banking/healthcare sites broken | HTTPS inspection enabled, no bypass | Add sites to bypass policy (Step 4) |
 | Mobile apps not working | SSL pinning | Add app's domains to bypass policy |
-| "NET::ERR_CERT_AUTHORITY_INVALID" | Root CA not trusted | Verify certificate installed in **Trusted Root Certification Authorities** (not Intermediate) |
+| "NET::ERR\_CERT\_AUTHORITY\_INVALID" | Root CA not trusted | Verify certificate installed in **Trusted Root Certification Authorities** (not Intermediate) |
 | Inspection works, then stops | SafeSquid restart cleared config | Re-save configuration; check if config was saved to cloud |
 | Some sites work, others don't | Partial bypass or incorrect policy | Review bypass policies; check logs for CONNECT vs full requests |
 
@@ -466,18 +340,15 @@ tail -f /var/log/safesquid/access/extended.log
 
 1. **Verify HTTPS Inspection is enabled:**
    - Configuration Portal → Real-time Content Security → HTTPS Inspection → Global = True
-
 2. **Check certificate is deployed:**
    - Windows: Run `certmgr.msc` → Trusted Root Certification Authorities → Certificates
    - Firefox: Settings → Privacy & Security → Certificates → View Certificates → Authorities
    - macOS: Keychain Access → System → Find SafeSquid cert
-
 3. **Test with curl:**
    ```bash
    # Should work without cert if bypass is correct:
    curl --proxy http://SAFESQUID-IP:8080 https://www.google.com
    ```
-
 4. **Check SafeSquid logs:**
    ```bash
    tail -50 /var/log/safesquid/safesquid.log
@@ -489,7 +360,7 @@ tail -f /var/log/safesquid/access/extended.log
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+| --- | --- | --- |
 | Root CA via Self-Service Portal | **Confirmed** | This guide, [Self-Service Portal](/Self-Service_Portal) |
 | Enable inspection UI path | **Confirmed** | Steps in this guide |
 | Client trust stores (Windows, Firefox, macOS) | **Confirmed** | This guide, [Import Certificate Chrome/IE](/Import_Certificate_Chrome_IE) |
@@ -499,11 +370,12 @@ tail -f /var/log/safesquid/access/extended.log
 
 ## Next Steps
 
-1. **[Authentication](/Authentication)** — Enable user-aware policies (SSL Inspection must be working first)
-2. **[Access Restriction](/Access_Restriction)** — Configure URL filtering (now works on HTTPS)
-3. **[Data Leakage Prevention](/Data_Leakage_Prevention)** — Scan HTTPS uploads for sensitive data
-4. **[Troubleshooting](/Troubleshooting)** — SSL-specific issues and diagnostics
+1. [**Authentication**](/Authentication) — Enable user-aware policies (SSL Inspection must be working first)
+2. [**Access Restriction**](/Access_Restriction) — Configure URL filtering (now works on HTTPS)
+3. [**Data Leakage Prevention**](/Data_Leakage_Prevention) — Scan HTTPS uploads for sensitive data
+4. [**Troubleshooting**](/Troubleshooting) — SSL-specific issues and diagnostics
 
 **Related:**
+
 - [Self-Service Portal](/Self-Service_Portal) — Manage certificates
 - [Import Certificate into Chrome/IE](/Import_Certificate_Chrome_IE) — Detailed Windows guide

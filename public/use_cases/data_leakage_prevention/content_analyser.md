@@ -1,14 +1,8 @@
 ---
-title: Content Moderation
-slug: /Profiling_Engine/Content_Analyser
-description: Combine SafeSquid categorization, text analysis, and image analysis to control inappropriate or risky web content with validation-ready policy design.
-keywords:
-  - SafeSquid content moderation
-  - image filtering proxy
-  - text content analysis
-  - inappropriate content blocking
-  - content categorization
-  - web content filtering
+title: "Content Moderation"
+slug: "/Profiling_Engine/Content_Analyser"
+description: "Combine SafeSquid categorization, text analysis, and image analysis to control inappropriate or risky web content with validation-ready policy design."
+keywords: ["SafeSquid content moderation", "image filtering proxy", "text content analysis", "inappropriate content blocking", "content categorization", "web content filtering"]
 ---
 
 # Combine category and content controls

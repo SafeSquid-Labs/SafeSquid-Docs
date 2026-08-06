@@ -1,21 +1,12 @@
 ---
-title: Rewriting Policies Reference
-description: Field-by-field reference for SafeSquid Content Modifier rewriting policies including pattern matching, replacement, MIME types, and applies-to targets.
-keywords:
-  - SafeSquid content modifier reference
-  - rewriting policies configuration
-  - content modifier fields
-  - regex content rewriting
-  - SafeSquid body modification
-  - HTTP header rewriting
+title: "Rewriting Policies Reference"
+description: "Field-by-field reference for SafeSquid Content Modifier rewriting policies including pattern matching, replacement, MIME types, and applies-to targets."
+keywords: ["SafeSquid content modifier reference", "rewriting policies configuration", "content modifier fields", "regex content rewriting", "SafeSquid body modification", "HTTP header rewriting"]
 ---
-
 
 # Rewriting policies control what SafeSquid modifies
 
 Content Modifier uses regex-based rewriting policies to modify web page body content, client request headers, server response headers, and POST data in real time. Each policy defines a match pattern, a replacement, a MIME scope, and a target (body, client header, server header, or POST data). Policies are ordered; SafeSquid evaluates them top-to-bottom and applies all matching rules to each connection.
-
-
 
 ## Global section enables or disables all rewriting
 
@@ -27,8 +18,6 @@ Enable or disable the entire Content Modifier section.
 
 - **TRUE**: SafeSquid applies rewriting policies to matching connections.
 - **FALSE**: SafeSquid skips all content modification. No policies are evaluated.
-
-
 
 ## Policy fields define match conditions and actions
 
@@ -56,6 +45,7 @@ Specify a regular expression matching the MIME types for which this entry applie
 Set this field to limit the scope. If left blank, SafeSquid checks all file types — a significant performance cost.
 
 **Examples:**
+
 - `text/html` — HTML pages only
 - `^image/` — all image types
 - `^application/` — all application types
@@ -76,13 +66,11 @@ Specify the replacement text to substitute in place of the matched text. The rep
 Select what the rewrite entry targets:
 
 | Value | Target | Notes |
-|---|---|---|
+| --- | --- | --- |
 | **BODY** | Response body (HTML, JavaScript, CSS, etc.) | Modifies web page content before delivery to the client. |
 | **CLIENT** | Client request header | Rewrites the client HTTP header before SafeSquid parses it. Take care not to remove headers required for request handling. |
 | **SERVER** | Server response header | Rewrites the response header from the remote web server. Same caution as CLIENT applies. |
 | **POST** | POST/PUT request body | Rewrites POST or PUT data sent when submitting a form or uploading a file. |
-
-
 
 ## Examples demonstrate common rewriting scenarios
 
@@ -109,8 +97,6 @@ SafeSquid buffers chunked responses to ensure the complete title tag is matched 
 
 SafeSquid strips the AVIF and WEBP entries from the Accept header, causing the server to fall back to PNG or JPG formats that the Image Analyser can inspect.
 
-
-
 ## Verification and evidence
 
 - **Interface Checks**: In the [Configuration Portal](/Configuration_Portal), confirm Content Modifier → Global is enabled. Verify each policy shows the correct Pattern, Replace, Mime type, and Applies to values.
@@ -118,4 +104,3 @@ SafeSquid strips the AVIF and WEBP entries from the Accept header, causing the s
 - **Performance Validation**: Load a target page in the browser and inspect the page source (or response headers) to verify the expected modification. For body rewrites, view source to confirm substituted text. For header rewrites, use browser developer tools or SafeSquid logs.
 
 **Next steps:** [Content Modifier overview](/Content_Modifier) for prerequisites, implementation actions, and troubleshooting. [Header Obfuscation](/Header_Obfuscation) for header-specific filtering. [Cookie Inspection](/Cookie_Inspection) for cookie-level policies.
-

@@ -1,10 +1,7 @@
 ---
-title: Proxy Server Refusing Connections Error
-description: Diagnose and resolve SafeSquid proxy server refusing connections error incidents with causes, recovery actions, and audit evidence.
-keywords:
-  - troubleshooting
-  - SafeSquid
-  - proxy server refusing connection error
+title: "Proxy Server Refusing Connections Error"
+description: "Diagnose and resolve SafeSquid proxy server refusing connections error incidents with causes, recovery actions, and audit evidence."
+keywords: ["troubleshooting", "SafeSquid", "proxy server refusing connection error"]
 ---
 
 # Proxy Server Refusing Connections Error
@@ -14,18 +11,14 @@ Proxy Server Refusing Connections Error can interrupt web access, policy enforce
 ## Issues
 
 1. I am trying to access the web through the proxy server and suddenly getting the error "Proxy server refusing connections".
-
 2. When I go to Restart the SafeSquid service from the SafeSquid interface, it displays the error "Proxy server refusing connections".
 
 ## Root Causes
 
 1. SafeSquid Process is not running.
-
 2. SafeSquid is not listening on the specific IP (or) port, where you configured in the client browsers.
-
 3. Monit service is not running on SafeSquid Server. (When you restart SafeSquid from the Interface, the monit service will start the SafeSquid service. If the Monit is not running, then SafeSquid is not going to start, till you start the Monit service manually).
-
-1. Check the status of the monit service whether it is up or down.
+4. Check the status of the monit service whether it is up or down.
 
 ```text
 pidof monit
@@ -61,11 +54,11 @@ grep
 "safesquid"
 ```
 
-**tcp6 0 0 :::8080 :::* LISTEN 2741/safesquid**
+_tcp6 0 0 :::8080 ::: LISTEN 2741/safesquid_\*
 
-**tcp6 0 0 :::8081 :::* LISTEN 2741/safesquid**
+_tcp6 0 0 :::8081 ::: LISTEN 2741/safesquid_\*
 
-**tcp6 0 0 :::8443 :::* LISTEN 2741/safesquid**
+_tcp6 0 0 :::8443 ::: LISTEN 2741/safesquid_\*
 
 1. Check the IP configured and Port in your browser and compare it with the above output.
 

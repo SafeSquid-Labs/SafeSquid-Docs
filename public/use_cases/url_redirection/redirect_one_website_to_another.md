@@ -1,22 +1,18 @@
 ---
-title: Redirect One Website to Another
-description: Configure SafeSquid to redirect one URL to another using Real Time Content Security Redirect policies.
-keywords:
-  - URL redirection SafeSquid
-  - redirect website to another
-  - redirection policies
-  - Real Time Content Security Redirect
+title: "Redirect One Website to Another"
+description: "Configure SafeSquid to redirect one URL to another using Real Time Content Security Redirect policies."
+keywords: ["URL redirection SafeSquid", "redirect website to another", "redirection policies", "Real Time Content Security Redirect"]
 ---
-
 
 # Redirect One Website to Another
 
 ### [Access the SafeSquid User Interface ](/Configuration_Portal)
+
 SafeSquid includes sample policies to support policy creation. The sample policy "Enable interface access through authentication" is already present. Enable those policies to make them applicable.
 
 Click on 'Configure' which is at top right of the SafeSquid Interface.
 
-On the left side bar of SafeSquid Interface click on** Real Time Content Security   >> Redirect**
+On the left side bar of SafeSquid Interface click on\*\* Real Time Content Security   \>\> Redirect\*\*
 
 Make the Global Section Enabled to TRUE.
 
@@ -33,9 +29,9 @@ Create a policy in **Configure** → **Access Profiles** (or **Templates**) with
 Click on save (Save button is placed at right bottom)
 
 ### Verify redirect
+
 In this the URL value 'rediff.com' is redirect to 'SafeSquid.com' and the port to redirect to 80.
 
-In a browser, open https://www.rediff.com/, it must redirect to SafeSquid.com; verify in SafeSquid under Native logs on SafeSquid interface Reports >> Native logs as like below.
+In a browser, open [https://www.rediff.com/](https://www.rediff.com/), it must redirect to SafeSquid.com; verify in SafeSquid under Native logs on SafeSquid interface Reports \>\> Native logs as like below.
 
 ![Verify Redirect One Website To Another Website in Native logs on](/images/How_To/Redirect_One_Website_To_Another_Website/image4.webp)
-

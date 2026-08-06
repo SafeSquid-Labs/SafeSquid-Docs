@@ -1,12 +1,7 @@
 ---
-title: SSO Authentication
-description: Configure Kerberos-based Single Sign-On (SSO) with Active Directory for transparent user authentication in SafeSquid.
-keywords:
-  - active directory sso SafeSquid
-  - integrate ldap with SafeSquid
-  - kerberos authentication SafeSquid
-  - sso setup SafeSquid
-  - SafeSquid active directory authentication
+title: "SSO Authentication"
+description: "Configure Kerberos-based Single Sign-On (SSO) with Active Directory for transparent user authentication in SafeSquid."
+keywords: ["active directory sso SafeSquid", "integrate ldap with SafeSquid", "kerberos authentication SafeSquid", "sso setup SafeSquid", "SafeSquid active directory authentication"]
 ---
 
 # AD SSO Authentication (Kerberos)
@@ -31,14 +26,13 @@ sequenceDiagram
     SafeSquid-->>Client: Allow / Deny
 ```
 
-:::note
-**Prerequisites**
+:::note **Prerequisites**
+
 - [Setup Active Directory Integration](/Setup_Active_Directory_Integration) completed.
 - **Time Sync:** SafeSquid and AD server time must match (max skew 5 mins).
 - **DNS:** SafeSquid must resolve the AD domain; AD must have a DNS entry for SafeSquid.
 - **Monit:** The Monit service must be running (`pidof monit`).
-- Clients must actually be domain-joined and eligible for Kerberos-based transparent authentication.
-:::
+- Clients must actually be domain-joined and eligible for Kerberos-based transparent authentication. :::
 
 ## Configure SSO Authentication
 
@@ -47,12 +41,10 @@ sequenceDiagram
    - Go to **LDAP Servers** tab and edit your entry.
    - **LDAP Bind Method:** Select **NEGOTIATE** (this enables Kerberos SSO).
    - **Bind DN:** Ensure this is a domain admin or account with high privileges to create the keytab.
-3. **Automatic Keytab Generation:** 
-   When you save with **NEGOTIATE**, SafeSquid automatically generates:
+3. **Automatic Keytab Generation:** When you save with **NEGOTIATE**, SafeSquid automatically generates:
    - `HTTP.keytab`
    - `krb5.conf`
-   - `krb.tkt`
-   Verify these in `/usr/local/safesquid/security/`.
+   - `krb.tkt` Verify these in `/usr/local/safesquid/security/`.
 
 ![selecting negotiate from the drop down menu](/images/How_To/Integrate_Active_Directory_For_SSO_Authentication/image14.webp)
 
@@ -75,7 +67,7 @@ sequenceDiagram
 ## Verification
 
 | Action | Method | Expected Result |
-|--------|--------|-----------------|
+| --- | --- | --- |
 | **Transparent Login** | Access a website from a domain-joined client. | Website loads immediately without a credential prompt. |
 | **Check Keytab** | `ls -l /usr/local/safesquid/security/HTTP.keytab` | File exists and has recent timestamp. |
 | **Identity Log** | `tail -f /var/log/safesquid/identity.log` | Shows authenticated usernames in `user@DOMAIN` format. |
@@ -84,22 +76,18 @@ sequenceDiagram
 ## Troubleshooting
 
 | Symptom | Likely Cause | Fix |
-|---------|--------------|-----|
+| --- | --- | --- |
 | Repeated prompts (SSO fail) | Time skew | Run `date` on AD and SafeSquid; sync via NTP if they differ by more than 5 minutes. |
 | Prompt on some browsers | Browser config or client eligibility | Ensure the client is domain-joined and the SafeSquid host is treated as an intranet or delegated target where required. |
 | Keytab not generated | Permission or Bind issue | Ensure the bind account has sufficient AD permissions; check `/var/log/safesquid/safesquid.log` for Kerberos errors. |
 | DNS resolution fail | Missing or wrong stub zone | Verify `/etc/bind/safesquid.dns.conf` contains the correct AD server IP and is included in your BIND config. |
 
-:::tip
-**Browser Configuration**
-For Chrome and Edge to send Kerberos tickets, the SafeSquid proxy URL must be recognized as an intranet site. You can enforce this via GPO:
-**Administrative Templates** → **Google Chrome** → **Kerberos delegation server allowlist**
-:::
+:::tip **Browser Configuration** For Chrome and Edge to send Kerberos tickets, the SafeSquid proxy URL must be recognized as an intranet site. You can enforce this via GPO: **Administrative Templates** → **Google Chrome** → **Kerberos delegation server allowlist** :::
 
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ----- |
+| --- | --- | --- |
 | Kerberos SSO, keytab, time skew | **Confirmed** | This page, [NTP](/NTP) |
 | BIND stub for AD DNS | **Confirmed** | This page, [BIND](/Bind) |
 | Chrome/Edge intranet zone for Kerberos | **Confirmed** | Tip above (browser behavior) |

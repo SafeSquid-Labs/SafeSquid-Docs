@@ -1,0 +1,113 @@
+---
+title: "Operate and Recover SafeSquid"
+sidebarTitle: "Operations Overview"
+description: "Run SafeSquid as a production security service with baselines, monitoring, backups, controlled change, upgrades, failover, and recovery."
+content_type: "concept"
+applies_to: ["2026 Release Train", "2024 Release Train"]
+verified_build: "Pending operations lab validation"
+last_verified: "2026-08-07"
+owner: "SafeSquid Operations"
+risk: "high"
+verification_level: "documentation-review"
+keywords: ["SafeSquid operations", "SafeSquid monitoring", "SafeSquid backup restore", "SafeSquid high availability"]
+---
+
+# Operate the Security Path as a Service
+
+Production ownership begins after the first successful request. Operators need a normal-state baseline, health signals, capacity thresholds, protected evidence, known recovery points, controlled changes, and an escalation package that another technician can understand.
+
+## Establish the operating baseline
+
+Record these values while the service is healthy:
+
+| Area | Baseline evidence |
+| --- | --- |
+| Product | Release train, exact build, activation state, enabled security processors, and configuration checksum or archive |
+| Service | Process and supporting-service state, listener state, start time, restart behavior, and health-check result |
+| Traffic | Typical concurrent connections, request rate, response time, error rate, bandwidth, and bypass volume |
+| Resources | CPU, memory, disk use, file descriptors, queue pressure, and storage growth |
+| Dependencies | DNS, NTP, directory, update, scanner, SIEM, load balancer, and cloud service reachability |
+| Evidence | Log paths, event fields, forwarding status, retention, rotation, time accuracy, and access control |
+| Recovery | Last successful backup, restoration test, rollback package, RTO, RPO, and decision owner |
+
+A troubleshooting comparison is useful only when the baseline identifies the same release, topology, workload, and enabled controls.
+
+## Operating rhythm
+
+<Tabs>
+  <Tab title="Continuous">
+    Monitor service health, listener reachability, disk pressure, dependency failures, log forwarding, update state, certificate expiry, and load-balancer health.
+  </Tab>
+  <Tab title="Daily">
+    Review policy errors, authentication failures, inspection exceptions, scanner failures, evidence gaps, abnormal resource growth, and unresolved alerts.
+  </Tab>
+  <Tab title="Weekly">
+    Test representative allow and deny paths, inspect backup success, review bypass changes, analyze failed documentation searches and recurring support cases, and close stale operational actions.
+  </Tab>
+  <Tab title="Per release">
+    Read release impact, reproduce critical tests in the lab, validate backup and rollback, update version applicability, rehearse the change, and preserve pre-change evidence.
+  </Tab>
+</Tabs>
+
+## Lifecycle workflows
+
+<CardGroup cols={2}>
+  <Card title="Production readiness" icon="badge-check" href="/getting_started/verify_your_setup">
+    Prove service, routing, activation, HTTPS, DNS, policy, logging, and evidence before rollout.
+  </Card>
+
+  <Card title="Scaling and availability" icon="git-branch" href="/admin_guide/scaling_and_high_availability/proxy_clustering">
+    Design node roles, configuration consistency, health checks, failover, and reporting continuity.
+  </Card>
+
+  <Card title="Performance" icon="gauge" href="/admin_guide/performance_acceleration/performance_accelerators">
+    Compare measured load with a known baseline before changing acceleration or limits.
+  </Card>
+
+  <Card title="Backup and recovery" icon="rotate-ccw" href="/admin_guide/scaling_and_high_availability/disaster_recovery">
+    Protect configuration and trust material, test restoration, and prove the recovered policy path.
+  </Card>
+
+  <Card title="Upgrade" icon="arrow-up-circle" href="/admin_guide/upgrade/upgrade_safesquid">
+    Review compatibility, rehearse, back up, upgrade, validate, and roll back when a stop condition occurs.
+  </Card>
+
+  <Card title="Troubleshoot" icon="stethoscope" href="/troubleshooting/troubleshooting">
+    Preserve evidence, isolate the failing layer, recover service, and re-run the production test matrix.
+  </Card>
+</CardGroup>
+
+## Change record minimum
+
+Every production change must identify:
+
+- Current and target builds
+- Affected nodes, users, networks, applications, and controls
+- Prerequisites and dependency owners
+- Pre-change baseline and backup evidence
+- Positive, negative, failure, and rollback tests
+- Expected client, log, report, and SIEM results
+- Stop conditions and rollback authority
+- Post-change observation period
+- Technical reviewer and independent operator
+
+## Recovery priorities
+
+<Steps>
+  <Step title="Protect people and evidence">
+    Prevent further unsafe exposure, preserve relevant logs and configuration state, and avoid destructive cleanup before collection.
+  </Step>
+  <Step title="Restore a known security path">
+    Prefer the approved rollback or standby path over improvised policy bypass.
+  </Step>
+  <Step title="Verify end to end">
+    Prove client routing, identity, TLS behavior, policy action, upstream reachability, and evidence receipt.
+  </Step>
+  <Step title="Close the control gap">
+    Record the failure boundary, affected scope, temporary exceptions, root cause, corrective action, and documentation update.
+  </Step>
+</Steps>
+
+<Warning>
+  A service restart is not a root-cause analysis. Record what failed, why the restart was selected, what state it changed, and which tests proved the security path recovered.
+</Warning>

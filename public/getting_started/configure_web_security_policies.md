@@ -1,15 +1,7 @@
 ---
-title: Configure Web Security Policies
-description: Production sequence for turning SafeSquid proxy traffic into inspected, attributed, logged, and auditable web security controls.
-keywords:
-  - SafeSquid policy
-  - web security configuration
-  - SSL inspection
-  - authentication
-  - access restriction
-  - DLP
-  - malware scanning
-  - audit evidence
+title: "Configure Web Security Policies"
+description: "Production sequence for turning SafeSquid proxy traffic into inspected, attributed, logged, and auditable web security controls."
+keywords: ["SafeSquid policy", "web security configuration", "SSL inspection", "authentication", "access restriction", "DLP", "malware scanning", "audit evidence"]
 ---
 
 # Turn Proxy Traffic Into Enforced Controls
@@ -32,7 +24,7 @@ Before enabling baseline controls, confirm:
 Use this sequence to reduce outage risk and preserve evidence quality.
 
 | Step | Control | Why it comes here |
-|---|---|---|
+| --- | --- | --- |
 | 1 | SSL inspection readiness | HTTPS must be visible before content controls can inspect encrypted traffic |
 | 2 | Authentication | User attribution improves policy scope and audit value |
 | 3 | DNS security | Name-resolution controls reduce exposure before HTTP policy decisions |
@@ -107,7 +99,7 @@ Store:
 ## Troubleshoot policy rollout
 
 | Symptom | Likely cause | Fix |
-|---|---|---|
+| --- | --- | --- |
 | HTTPS sites show warnings | Root CA trust is missing | Deploy Root CA through GPO, MDM, or approved trust process before retesting |
 | Policy does not match user | Authentication or group mapping is incomplete | Verify the user identity in access logs before changing policy |
 | Block rule affects business apps | Scope is too broad or bypass is missing | Narrow the rule to target categories, users, or destinations and document exceptions |

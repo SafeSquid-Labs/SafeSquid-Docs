@@ -1,11 +1,7 @@
 ---
 title: "Explicit Proxy Configuration"
-description: Use explicit proxy settings to validate SafeSquid traffic flow on one pilot browser or workstation before managed rollout.
-keywords:
-  - SafeSquid explicit proxy
-  - pilot proxy configuration
-  - browser proxy setup
-  - SafeSquid client routing
+description: "Use explicit proxy settings to validate SafeSquid traffic flow on one pilot browser or workstation before managed rollout."
+keywords: ["SafeSquid explicit proxy", "pilot proxy configuration", "browser proxy setup", "SafeSquid client routing"]
 ---
 
 # Validate One Client First
@@ -36,13 +32,13 @@ Confirm:
 
 <Tabs>
   <Tab title="Windows">
-    Open **Settings** > **Network & Internet** > **Proxy**, enable manual proxy, set HTTP proxy to `SAFESQUID-IP`, and set the port to `8080` or the approved listener port. Add only approved internal bypass entries.
+    Open **Settings** \> **Network & Internet** \> **Proxy**, enable manual proxy, set HTTP proxy to `SAFESQUID-IP`, and set the port to `8080` or the approved listener port. Add only approved internal bypass entries.
   </Tab>
   <Tab title="Linux">
     Use the desktop environment proxy settings for a browser pilot, or use a command-line test with `curl --proxy`. For production desktop rollout, prefer PAC, GPO-equivalent endpoint management, or configuration management instead of manual user settings.
   </Tab>
   <Tab title="macOS">
-    Open **System Settings** > **Network** > selected interface > **Details** > **Proxies**, enable Web Proxy and Secure Web Proxy, then enter `SAFESQUID-IP` and the approved listener port.
+    Open **System Settings** \> **Network** \> selected interface \> **Details** \> **Proxies**, enable Web Proxy and Secure Web Proxy, then enter `SAFESQUID-IP` and the approved listener port.
   </Tab>
   <Tab title="Browser">
     Use browser proxy settings only for a controlled pilot or troubleshooting session. Apply the same proxy for HTTP and HTTPS traffic, save the settings, and browse to `http://example.com`.
@@ -114,7 +110,7 @@ Store:
 ## Troubleshoot pilot failures
 
 | Symptom | Likely cause | Fix |
-|---|---|---|
+| --- | --- | --- |
 | Browser cannot browse | Wrong proxy IP, port, or firewall rule | Confirm listener with `ss -lntp` and test reachability |
 | Request does not appear in logs | Browser is not using the proxy | Reopen proxy settings and retest with `curl --proxy` |
 | Internal site breaks | Missing bypass entry | Add exact internal host or suffix approved by the network owner |

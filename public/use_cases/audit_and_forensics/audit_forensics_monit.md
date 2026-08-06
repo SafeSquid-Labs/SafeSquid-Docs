@@ -1,12 +1,7 @@
 ---
-title: Monit
-description: Install and verify Monit so SafeSquid restarts automatically after local service failure and operators can detect monitoring gaps early.
-keywords:
-  - monit SafeSquid setup
-  - SafeSquid monit service
-  - monit auto restart SafeSquid
-  - SafeSquid monitoring daemon
-  - SafeSquid service recovery
+title: "Monit"
+description: "Install and verify Monit so SafeSquid restarts automatically after local service failure and operators can detect monitoring gaps early."
+keywords: ["monit SafeSquid setup", "SafeSquid monit service", "monit auto restart SafeSquid", "SafeSquid monitoring daemon", "SafeSquid service recovery"]
 ---
 
 # Keep SafeSquid under service watch

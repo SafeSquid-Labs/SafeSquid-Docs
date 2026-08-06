@@ -1,12 +1,7 @@
 ---
-title: Threat Intelligence Feeds
-description: SafeSquid threat-intelligence feed role for URL classification, malware signatures, SSL updates, GeoIP, and content-aware enforcement.
-keywords:
-  - SafeSquid threat intelligence feeds
-  - URL classification
-  - malware signatures
-  - GeoIP
-  - SSL updates
+title: "Threat Intelligence Feeds"
+description: "SafeSquid threat-intelligence feed role for URL classification, malware signatures, SSL updates, GeoIP, and content-aware enforcement."
+keywords: ["SafeSquid threat intelligence feeds", "URL classification", "malware signatures", "GeoIP", "SSL updates"]
 ---
 
 # Threat Intelligence Feeds

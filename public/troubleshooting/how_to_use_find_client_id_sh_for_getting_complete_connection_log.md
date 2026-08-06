@@ -1,31 +1,28 @@
 ---
-title: Using find_client_id.sh for Connection Logs
-description: Use the find_client_id.sh script to extract complete connection details from SafeSquid logs for troubleshooting and forensic analysis.
-keywords:
-  - SafeSquid connection logs
-  - find_client_id.sh script
-  - SafeSquid log analysis
-  - proxy troubleshooting tools
-  - connection forensics
-  - SafeSquid debugging
+title: "Using find_client_id.sh for Connection Logs"
+description: "Use the find_client_id.sh script to extract complete connection details from SafeSquid logs for troubleshooting and forensic analysis."
+keywords: ["SafeSquid connection logs", "find_client_id.sh script", "SafeSquid log analysis", "proxy troubleshooting tools", "connection forensics", "SafeSquid debugging"]
 ---
 
-
 ## Problem
+
 Service interruptions and policy failures increase operational risk when root cause is unclear.
 
 ## Benefits
+
 You can diagnose faster with repeatable checks, reduce downtime, and restore expected protection.
 
 ## Advantages
+
 You get symptom-first guidance that supports incident response and produces evidence for audit and postmortem review.
 
 ## Call to action
+
 Follow the checks in order, capture the observed output, and apply the fix that matches your failure pattern.
 
-# Get complete connection log with find_client_id.sh
+# Get complete connection log with find\_client\_id.sh
 
-Native logs are written in real time by response; entries for one connection can be scattered. To analyze a single connection from start to finish (profiles, categories, headers, errors), use the client id to pull all log lines for that connection. find_client_id.sh extracts complete connection details for a given client id. Below: how to obtain the client id and run the script.
+Native logs are written in real time by response; entries for one connection can be scattered. To analyze a single connection from start to finish (profiles, categories, headers, errors), use the client id to pull all log lines for that connection. find\_client\_id.sh extracts complete connection details for a given client id. Below: how to obtain the client id and run the script.
 
 To use find\_client\_id.sh you are first required to get your connection's client id.
 
@@ -33,7 +30,6 @@ Client id can be extracted from the response headers section in browsers network
 
 (Note: we are assuming that you know how to open developer tools in a browser)
 
-![find_client_id script output or connection log example](/images/picture1.jpg)
+![find\_client\_id script output or connection log example](/images/picture1.jpg)
 
 Also, client id can be extracted from SafeSquid's native logs
-

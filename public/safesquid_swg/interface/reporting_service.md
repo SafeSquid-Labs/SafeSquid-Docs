@@ -1,13 +1,8 @@
 ---
-title: Reporting & Forensics
-description: Reporting and forensics in SafeSquid — centralized visibility, SIEM-ready logging, audit evidence, and operational investigation workflows for proxy deployments.
-keywords:
-  - Secure Web Gateway Components
-  - Reporting
-  - SafeSquid logging
-  - proxy forensics
+title: "Reporting & Forensics"
+description: "Reporting and forensics in SafeSquid — centralized visibility, SIEM-ready logging, audit evidence, and operational investigation workflows for proxy deployments."
+keywords: ["Secure Web Gateway Components", "Reporting", "SafeSquid logging", "proxy forensics"]
 ---
-
 
 # Reporting & Forensics
 
@@ -41,14 +36,9 @@ The Reporting Service is the centralized visibility layer for SafeSquid traffic 
 
 ### SIEM-ready log forwarding
 
-Internal product knowledge confirms that SafeSquid generates detailed access logs consumable by SIEM tools that accept UDP log input. Confirmed compatible destinations include:
+Legacy material describes external consumption of SafeSquid access logs, including a UDP forwarding path. The transport, event schema, delivery behavior, and destination compatibility have not yet been reproduced for the named release trains.
 
-- Splunk
-- IBM QRadar
-- ArcSight
-- ELG-based reporting stacks
-
-This matters because many enterprises already standardize on a SIEM. SafeSquid should fit the existing investigation workflow rather than forcing the SOC to use only the proxy-local interface.
+Treat Splunk, IBM QRadar, ArcSight, and Elasticsearch-based stacks as integration validation targets, not confirmed compatibility claims. Before production use, prove that the selected collector receives, parses, timestamps, and correlates controlled SafeSquid events, including behavior during collector or network failure.
 
 ### Forensic log classes
 
@@ -61,13 +51,13 @@ SafeSquid documents several log classes that are directly relevant to investigat
 - `privacy.log` for privacy-related records
 - native logs for functional and debugging detail
 
-The security posture knowledge base also confirms these evidence-relevant record types:
+Legacy pages also name the following evidence domains. Verify the exact event source, field set, location, retention behavior, and build availability before relying on any of them:
 
-- UI Access Logs
-- Privileged Access Logs
-- Bypass Logs
-- Deep Content Security Logs
-- Content Security Policy Violation Logs
+- UI access
+- Privileged access
+- Bypass activity
+- Deep content security
+- Content-security policy violations
 
 ### Evidence value
 
@@ -117,23 +107,11 @@ Useful evidence includes:
 
 ## Troubleshooting guide
 
-**Symptom:** Traffic works, but no events appear in the SIEM.  
-**Likely cause:** Log forwarding path, destination listener, or network allowlist is wrong.  
-**Isolation:** Confirm local log generation first, then trace the forwarding path to the SIEM collector.  
-**Remediation:** Correct forwarding configuration or network access.  
-**Retest:** Trigger a fresh test request and confirm it appears in the destination.
+**Symptom:** Traffic works, but no events appear in the SIEM.<br />**Likely cause:** Log forwarding path, destination listener, or network allowlist is wrong.<br />**Isolation:** Confirm local log generation first, then trace the forwarding path to the SIEM collector.<br />**Remediation:** Correct forwarding configuration or network access.<br />**Retest:** Trigger a fresh test request and confirm it appears in the destination.
 
-**Symptom:** Logs exist, but user attribution is missing.  
-**Likely cause:** Authentication is not active for the tested flow, or the request used a bypass path.  
-**Isolation:** Compare the request path against authentication policy and identity logs.  
-**Remediation:** Correct authentication scope or remove unintended bypass.  
-**Retest:** Repeat the same request with an authenticated user and confirm attribution.
+**Symptom:** Logs exist, but user attribution is missing.<br />**Likely cause:** Authentication is not active for the tested flow, or the request used a bypass path.<br />**Isolation:** Compare the request path against authentication policy and identity logs.<br />**Remediation:** Correct authentication scope or remove unintended bypass.<br />**Retest:** Repeat the same request with an authenticated user and confirm attribution.
 
-**Symptom:** Audit trails do not show who changed policy.  
-**Likely cause:** Configuration logging or interface access review is incomplete.  
-**Isolation:** Check `config.log`, UI access logs, and privileged-access records.  
-**Remediation:** Enable or retain the required evidence path.  
-**Retest:** Make a controlled change and confirm it is recorded.
+**Symptom:** Audit trails do not show who changed policy.<br />**Likely cause:** Configuration logging or interface access review is incomplete.<br />**Isolation:** Check `config.log`, UI access logs, and privileged-access records.<br />**Remediation:** Enable or retain the required evidence path.<br />**Retest:** Make a controlled change and confirm it is recorded.
 
 ## Related controls / next steps
 

@@ -1,10 +1,7 @@
 ---
-title: Verify Your Setup
-description: Verify SafeSquid installation, activation, proxy connectivity, policy enforcement, and log evidence before production rollout.
-keywords:
-  - verify your setup
-  - SafeSquid
-  - get_started
+title: "Verify Your Setup"
+description: "Verify SafeSquid installation, activation, proxy connectivity, policy enforcement, and log evidence before production rollout."
+keywords: ["verify your setup", "SafeSquid", "get_started"]
 ---
 
 # Verify Your Setup
@@ -201,8 +198,8 @@ This evidence supports SOC 2 change management, ISO 27001 operational control re
 ## Troubleshoot failed checks
 
 | Symptom | Likely cause | Fix | Verify |
-|---|---|---|---|
-| Port `8080` is not listening | SafeSquid service is stopped or failed | Start SafeSquid and review service logs | `ss -lntp | grep ':8080'` returns a listener |
+| --- | --- | --- | --- |
+| Port `8080` is not listening | SafeSquid service is stopped or failed | Start SafeSquid and review service logs | \`ss -lntp | grep ':8080'\` returns a listener |
 | `safesquid.cfg` does not load | Pilot browser is not using SafeSquid | Configure explicit proxy and retry | Configuration Portal loads through proxy |
 | License is inactive | Key was not uploaded or subscription path is blocked | Re-upload `activation_key`; allow HTTPS to `api.safesquid.net` | Activation details show active state |
 | HTTP request succeeds but no log appears | Client bypasses proxy or wrong log path checked | Confirm proxy settings and inspect `/var/log/safesquid/access/extended.log` | New request appears in access log |

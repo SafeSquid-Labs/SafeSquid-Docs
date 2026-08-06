@@ -1,11 +1,7 @@
 ---
-title: Runtime Data and Signatures
-description: SafeSquid SWG temporary files, cache, reporting databases, SSL runtime data, user data, and signature store path reference.
-keywords:
-  - SafeSquid runtime data
-  - SafeSquid signatures
-  - SafeSquid report database
-  - SafeSquid cache
+title: "Runtime Data and Signatures"
+description: "SafeSquid SWG temporary files, cache, reporting databases, SSL runtime data, user data, and signature store path reference."
+keywords: ["SafeSquid runtime data", "SafeSquid signatures", "SafeSquid report database", "SafeSquid cache"]
 ---
 
 # Runtime Data and Signatures

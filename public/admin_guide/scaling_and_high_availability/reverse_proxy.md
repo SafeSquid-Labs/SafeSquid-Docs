@@ -1,22 +1,15 @@
 ---
-title: Reverse Proxy
-description: Configure SafeSquid as reverse proxy for performance, SSL termination, security, and caching without client proxy settings.
-keywords:
-  - SafeSquid reverse proxy setup
-  - Configure SafeSquid SSL termination
-  - SafeSquid web acceleration
-  - Reverse proxy caching SafeSquid
-  - SafeSquid reverse proxy authentication
+title: "Reverse Proxy"
+description: "Configure SafeSquid as reverse proxy for performance, SSL termination, security, and caching without client proxy settings."
+keywords: ["SafeSquid reverse proxy setup", "Configure SafeSquid SSL termination", "SafeSquid web acceleration", "Reverse proxy caching SafeSquid", "SafeSquid reverse proxy authentication"]
 ---
-
 
 # Reverse proxy protects and accelerates backend servers
 
 A reverse proxy sits in front of backend web servers and accepts client requests. It forwards requests to the appropriate backend and returns responses. Clients connect to the reverse proxy; they do not need proxy configuration. SafeSquid as reverse proxy provides a single point for SSL termination, authentication, caching, and load distribution while hiding backend server identities.
 
-
-
 ## Benefits of SafeSquid reverse proxy
+
 **Web acceleration**
 
 SafeSquid Reverse proxies can compress inbound and outbound data, as well as cache commonly requested content, both of which speed up the flow of traffic between clients and servers. They can also perform additional tasks such as SSL encryption to take load off the web servers, thereby boosting their performance.
@@ -76,22 +69,25 @@ You can verify it by using below command:
 ```bash
 netstat -tulnp
 ```
+
 ![Check port 80 is free in proxy server by using netstat command](/images/How_To/How_to_configure_reverse_proxy/image1.webp)
 
 No service is allocated to port 80
 
 Enable forwarding option in **/etc/sysctl.conf file**
 
-Replace this line as**: net.ipv4.ip_forward=0 to net.ipv4.ip_forward=1**
+Replace this line as\*\*: net.ipv4.ip\_forward=0 to net.ipv4.ip\_forward=1\*\*
 
 ```bash
 net.ipv4.ip_forward=1
 ```
+
 Then add the Iptables rule to redirect the traffic from 80 to 8080:
 
 ```bash
 iptables -A PREROUTING -t nat -p tcp --dport 80 -j REDIRECT --to 8080
 ```
+
 On the proxy, block all websites except the target website so the proxy does not act as an open proxy.
 
 See how to allow single website
@@ -104,11 +100,8 @@ Access the website from a client machine without configuring proxy settings in t
 
 ![In Server logs, view which the website is access with proxy IP](/images/How_To/How_to_configure_reverse_proxy/image3.webp)
 
-
-
 ## Next steps
 
 - [Forward Proxy](/Forward_Proxy) for client-facing explicit proxy.
 - [SSL Inspection](/Configure_HTTPS_Inspection) for HTTPS termination.
 - [Proxy Clustering](/Proxy_Clustering) for high availability.
-

@@ -1,11 +1,7 @@
 ---
-title: Logs and Audit Evidence
-description: SafeSquid SWG config, extended, native, performance, privacy, and process evidence path reference.
-keywords:
-  - SafeSquid logs
-  - SafeSquid audit evidence
-  - SafeSquid extended log
-  - SafeSquid performance log
+title: "Logs and Audit Evidence"
+description: "SafeSquid SWG config, extended, native, performance, privacy, and process evidence path reference."
+keywords: ["SafeSquid logs", "SafeSquid audit evidence", "SafeSquid extended log", "SafeSquid performance log"]
 ---
 
 # Logs and Audit Evidence

@@ -1,10 +1,7 @@
 ---
-title: SSL Certification Errors
-description: Diagnose and resolve SafeSquid ssl certification errors incidents with causes, recovery actions, and audit evidence.
-keywords:
-  - troubleshooting
-  - SafeSquid
-  - ssl inspection issues
+title: "SSL Certification Errors"
+description: "Diagnose and resolve SafeSquid ssl certification errors incidents with causes, recovery actions, and audit evidence."
+keywords: ["troubleshooting", "SafeSquid", "ssl inspection issues"]
 ---
 
 # SSL Certification Errors
@@ -15,34 +12,34 @@ SSL Certification Errors can interrupt web access, policy enforcement, or eviden
 
 | Symptom | Likely cause | Resolution | Verification |
 | --- | --- | --- | --- |
-| Browser shows "Your connection is not private" after certificate import | HTTPS Inspection policies not configured correctly | Configure Enforce SSL scanning and Bypass rules in Configure -> Real-time content security -> HTTPS Inspection | Reload HTTPS site; confirm no certificate warning |
-| youtube.com (or one site) fails; other HTTPS sites work | Global subsection not set to Enabled TRUE | Set HTTPS Inspection -> Global -> Enabled to TRUE | Access the previously failing site |
+| Browser shows "Your connection is not private" after certificate import | HTTPS Inspection policies not configured correctly | Configure Enforce SSL scanning and Bypass rules in Configure -\> Real-time content security -\> HTTPS Inspection | Reload HTTPS site; confirm no certificate warning |
+| youtube.com (or one site) fails; other HTTPS sites work | Global subsection not set to Enabled TRUE | Set HTTPS Inspection -\> Global -\> Enabled to TRUE | Access the previously failing site |
 | "Secured connection fail" after certificate installed in browser | Passphrase mismatch or password encryption failed | Re-enter correct passphrase; ensure password encryption step completed | Retry HTTPS; confirm connection succeeds |
 | Certificate file downloaded with 0 bytes | Certificate downloaded without password encryption | Download certificate with encryption enabled in Self-Service Portal | Check file size; re-import in browser |
-| ERROR S_X509_DNS_MISMATCH or "SSL Certificate has DNS errors" | Stale or wrong cert in SafeSquid SSL cache | Remove affected site from SSL Certs/Cache or clear /var/db/safesquid/ssl/certs for that host | Retry connection; check logs for ssl_ctx :NULL or failed reading key |
+| ERROR S\_X509\_DNS\_MISMATCH or "SSL Certificate has DNS errors" | Stale or wrong cert in SafeSquid SSL cache | Remove affected site from SSL Certs/Cache or clear /var/db/safesquid/ssl/certs for that host | Retry connection; check logs for ssl\_ctx :NULL or failed reading key |
 | Some HTTPS sites work, others do not | Mixed cert or cache state after key/cert change | Clear SSL cache; remove old activation key data; ensure new cert deployed to clients | Test previously failing and working sites |
 
 **Details (numbered items):**
 
 1. When the SSL certificate is imported into the Chrome browser and the browser still shows **Your connection is not private** (or similar) for HTTPS sites.
 
-->Policies in the HTTPS Inspection subsection may not be configured correctly.
+-\>Policies in the HTTPS Inspection subsection may not be configured correctly.
 
 1. While the **successful configuration of HTTPS Inspection**, accessing youtube.com shows an error while all other HTTPS sites work fine.
 
-->In the HTTPS inspection section, if the Global subsection is not set to Enabled as TRUE then this problem may arise.
+-\>In the HTTPS inspection section, if the Global subsection is not set to Enabled as TRUE then this problem may arise.
 
 1. While the SafeSquid certificate is installed inside the browser however HTTPS sites show the error **Secured connection fail**.
 
-->Either passphrases were not matched or Password encryption failed due to inappropriate input being given.
+-\>Either passphrases were not matched or Password encryption failed due to inappropriate input being given.
 
 1. SSL certificate downloaded with size 0 bytes.
 
-->When the certificate is downloaded without encryption of the password then the certificate will be downloaded with 0 bytes.
+-\>When the certificate is downloaded without encryption of the password then the certificate will be downloaded with 0 bytes.
 
-1. Displaying ERROR "SSL Connection to webmail.safesquid.net:2096 denied S_X509_DNS_MISMATCH: SSL Certificate has DNS errors."
+1. Displaying ERROR "SSL Connection to webmail.safesquid.net:2096 denied S\_X509\_DNS\_MISMATCH: SSL Certificate has DNS errors."
 
-->Remove HTTPS websites from SSL Certs/Cache when **Secured connection fails** appears on HTTPS websites.
+-\>Remove HTTPS websites from SSL Certs/Cache when **Secured connection fails** appears on HTTPS websites.
 
 1. Or some of the **HTTPS websites are working without error** but some of the **HTTPS websites are not working**.
 
@@ -56,15 +53,15 @@ SafeSquid certificate is imported in the browser but a secured connection still 
 
 Native Logs
 
-2018 03 17 10:15:38.084 [119] network: IP:192.168.0.10 fd:20 normal client disconnected after making 1 requests
+2018 03 17 10:15:38.084 \[119\] network: IP:192.168.0.10 fd:20 normal client disconnected after making 1 requests
 
-2018 03 17 10:15:38.084 [119] warn: advice: [IP:192.168.0.10] process: transfer failed
+2018 03 17 10:15:38.084 \[119\] warn: advice: \[IP:192.168.0.10\] process: transfer failed
 
-2018 03 17 10:15:38.084 [119] error: ssl: ClientEncrypt: failed encryption :anonymous @192.168.0.10 for [www.irctc.co.in:443](http://www.irctc.co.in:443)
+2018 03 17 10:15:38.084 \[119\] error: ssl: ClientEncrypt: failed encryption :anonymous @192.168.0.10 for [www.irctc.co.in:443](http://www.irctc.co.in:443)
 
-2018 03 17 10:15:38.083 [119] error: ssl: EncryptC:987 ssl_ctx :NULL
+2018 03 17 10:15:38.083 \[119\] error: ssl: EncryptC:987 ssl\_ctx :NULL
 
-**2018 03 17 10:15:38.083 [119] error: ssl: failed : reading key from /var/db/safesquid/ssl/certs/irctc.co.in/[www.irctc.co.in](http://www.irctc.co.in)**
+**2018 03 17 10:15:38.083 \[119\] error: ssl: failed : reading key from /var/db/safesquid/ssl/certs/irctc.co.in/[www.irctc.co.in](http://www.irctc.co.in)**
 
 When facing the above issues, remove all HTTPS website data from **/var/db/safesquid/ssl**
 
@@ -92,13 +89,13 @@ drwxrwxr-- 2 ssquid root 4096 Jul 28 17:06 serials/
 
 root@sabproxy:/var/db/safesquid/ssl# cd certs/
 
-root@sabproxy:/var/db/safesquid/ssl/certs#rm -rf *
+root@sabproxy:/var/db/safesquid/ssl/certs#rm -rf \*
 
 Repeat the above step for **goodcerts**/ and **badcerts**/ **and access those websites from the browser.**
 
-### S_X509_DNS_MISMATCH: SSL certificate has DNS errors
+### S\_X509\_DNS\_MISMATCH: SSL certificate has DNS errors
 
-When the browser shows "S_X509_DNS_MISMATCH: SSL Certificate has DNS errors" via proxy despite a correct certificate in the browser, the origin website's certificate is broken. SafeSquid stores such sites under **/var/db/safesquid/ssl/badcerts/**. Locate the domain in that path.
+When the browser shows "S\_X509\_DNS\_MISMATCH: SSL Certificate has DNS errors" via proxy despite a correct certificate in the browser, the origin website's certificate is broken. SafeSquid stores such sites under **/var/db/safesquid/ssl/badcerts/**. Locate the domain in that path.
 
 Go to that domain name folder by command:
 
@@ -154,7 +151,7 @@ total 8
 
 root@dev:/var/db/safesquid/ssl/badcerts/safesquid.net# vi webmail.safesquid.net
 
-**S_X509_DNS_MISMATCH: SSL Certificate has DNS errors**.
+**S\_X509\_DNS\_MISMATCH: SSL Certificate has DNS errors**.
 
 Certificate:
 
@@ -207,17 +204,13 @@ To allow domain mismatch errors for specific HTTPS websites, create a policy:
 ## Verification and Evidence
 
 - **Interface Checks**: Confirm the SafeSquid Root CA is installed in the browser trust store ([Import Certificate into Chrome or IE](/use_cases/ssl_inspection/import_certificate_chrome_ie)). In Configuration Portal, HTTPS Inspection policies match the intended bypass/enforce rules; SSL Certs/Cache cleared if DNS mismatch was the issue.
-
 - **Log Analysis**: Native logs show successful client encryption for previously failing domains; no `S_X509_DNS_MISMATCH` or transfer failed errors for the fixed cases.
-
 - **Performance Validation**: Previously failing HTTPS sites load without "connection not secured" or "secured connection fail"; YouTube and other sites work per policy.
 
 ## Next steps
 
 - [Configure HTTPS Inspection](/use_cases/ssl_inspection/ssl_inspection) for setup and bypass rules.
-
 - [Import Certificate into Chrome or IE](/use_cases/ssl_inspection/import_certificate_chrome_ie) for client certificate import.
-
 - [Troubleshooting](/troubleshooting/main) for other diagnostic guides.
 
 ## Capture useful evidence

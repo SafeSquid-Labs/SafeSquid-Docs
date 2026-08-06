@@ -1,69 +1,130 @@
 ---
 title: "Troubleshooting"
-slug: /Troubleshooting
+slug: "/Troubleshooting"
 description: "Comprehensive diagnostic procedures and resolution guides for common SafeSquid proxy issues, connection failures, and configuration problems"
-keywords:
-  - SafeSquid troubleshooting guide
-  - proxy connection issues
-  - SafeSquid diagnostic procedures
-  - proxy error resolution
-  - SafeSquid logs analysis
-  - network connectivity issues
-  - proxy configuration problems
-  - SafeSquid support procedures
+keywords: ["SafeSquid troubleshooting guide", "proxy connection issues", "SafeSquid diagnostic procedures", "proxy error resolution", "SafeSquid logs analysis", "network connectivity issues", "proxy configuration problems", "SafeSquid support procedures"]
 ---
 
+# Start With the Symptom, Not a Restart
 
-# Diagnose and resolve SafeSquid proxy issues
+A production incident often appears at the browser while the actual failure is in routing, DNS, TLS trust, identity, policy, a supporting service, an upstream dependency, or resource exhaustion. Preserve the failing state long enough to collect useful evidence, then test one boundary at a time.
 
-## Problem
+<Warning>
+  Do not disable inspection, authentication, access policy, malware scanning, DLP, or logging as an unrecorded troubleshooting shortcut. If a temporary exception is necessary, define its scope, owner, expiry, monitoring, and rollback in the incident record.
+</Warning>
 
-Operators lose productivity when the SafeSquid UI is unreachable, activation fails, clients cannot browse, or policy behaves unexpectedly. Long outages increase security and compliance risk when the proxy is the default egress path.
+## Stabilize the incident
 
-## Benefits
+<Steps>
+  <Step title="Protect users, data, and evidence">
+    Determine whether the failure creates unsafe direct access, loss of inspection, missing logs, data exposure, or broad service disruption. Preserve relevant logs, configuration state, timestamps, and recent changes.
+  </Step>
+  <Step title="Define the exact symptom">
+    Record who is affected, what action fails, where it fails, when it began, whether it ever worked, whether it is reproducible, and what changed.
+  </Step>
+  <Step title="Compare with a known-good path">
+    Test a known-good user, endpoint, destination, protocol, node, and policy. Change one variable at a time.
+  </Step>
+  <Step title="Identify the failing layer">
+    Follow the diagnostic order below. Stop when the first failed checkpoint explains the symptom.
+  </Step>
+  <Step title="Apply the smallest reversible correction">
+    Prefer a documented repair or approved rollback. Record the exact action and starting state.
+  </Step>
+  <Step title="Verify the complete security path">
+    Re-run routing, identity, TLS, policy, content, logging, and upstream tests. A browser loading one page is not sufficient recovery evidence.
+  </Step>
+</Steps>
 
-Symptom-first guides shorten mean time to resolution. Each document lists diagnostics, likely causes, and verification steps aligned to SafeSquid logging and interface paths.
+## Diagnostic order
 
-## Advantages
+```mermaid
+flowchart TD
+    A["Physical or virtual host"] --> B["Interface, route, and listener"]
+    B --> C["DNS and time"]
+    C --> D["Client steering and return path"]
+    D --> E["TLS trust and inspection"]
+    E --> F["Identity and authentication"]
+    F --> G["Policy and profile match"]
+    G --> H["Security processor and supporting service"]
+    H --> I["Upstream website or application"]
+    I --> J["Logs, reports, and SIEM evidence"]
+```
 
-**Confirmed:** Troubleshooting guides map to major SafeSquid subsystems documented in [Getting Started](/Getting_Started), [SSL Inspection](/SSL_Inspection), [Authentication](/Authentication), [DNS Security](/DNS_Security), and [Access Restriction](/Access_Restriction).
+| Layer | First checkpoint | Typical evidence |
+| --- | --- | --- |
+| Host | Node is running and resources are not exhausted | Hypervisor or hardware state, CPU, memory, disk, system events |
+| Network | Expected interfaces, routes, listeners, and health checks are active | Interface state, route table, listener output, load-balancer result |
+| DNS and time | Names resolve through the approved path and clocks agree | Resolver output, NTP state, certificate timestamps, log timestamps |
+| Client steering | The affected request reaches the intended SafeSquid node | Proxy settings, PAC result, packet path, access-log entry |
+| TLS | The endpoint trusts the approved CA and the destination follows inspection policy | Certificate chain, fingerprint, client error, SSL event |
+| Identity | The request has the intended user, device, group, and source | Authentication event, directory lookup, transaction fields |
+| Policy | The expected rule and profiles match in the intended order | Policy trace, event fields, comparison request |
+| Processor | Required scanner, feed, parser, or integration is healthy | Service status, update state, processor-specific log |
+| Upstream | SafeSquid can resolve, connect, negotiate, and receive a valid response | Connection error, DNS result, TLS result, upstream status |
+| Evidence | The final action reaches required logs, reports, and SIEM | Local event, forwarding status, destination receipt |
 
-**Missing:** Browser-specific and OS-specific behavior matrices are not yet documented as a complete compatibility reference. Current coverage is symptom-based; add version-scoped follow-up docs as new client-specific failures are confirmed.
+## Symptom guides
 
-## Call to action
+<CardGroup cols={2}>
+  <Card title="Proxy refuses connections" icon="plug-zap" href="/troubleshooting/proxy_server_refusing_connection_error">
+    Check node health, listener state, routing, firewall controls, and capacity.
+  </Card>
 
-Match the failure symptom to a section below, open the linked guide, execute diagnostics in order, and record log excerpts before escalating to support.
+  <Card title="Website is not accessible" icon="globe-x" href="/troubleshooting/website_not_accessible">
+    Separate global connectivity, destination-specific, TLS, policy, and upstream failures.
+  </Card>
 
-When the UI doesn't load, activation fails, or clients can't reach the proxy, use the documents below to diagnose and fix. Each document covers a symptom area: installation, interface access, SSL, authentication, DNS, connectivity, policy, reporting, and advanced diagnostics. Pick the document that matches your symptom.
+  <Card title="DNS failure" icon="circle-off" href="/troubleshooting/dns_failure">
+    Confirm resolver path, service state, recursion, forwarding, network reachability, and time.
+  </Card>
 
+  <Card title="SSL certificate error" icon="shield-alert" href="/troubleshooting/ssl_inspection_issues">
+    Compare trust, validity, hostname, chain, pinning, time, and inspection scope.
+  </Card>
 
+  <Card title="SSO authentication fails" icon="user-x" href="/troubleshooting/sso_authentication_fail">
+    Validate time, name resolution, directory reachability, credentials, browser behavior, and policy order.
+  </Card>
 
-## Troubleshooting workflow
+  <Card title="Disk or RAM is full" icon="hard-drive" href="/troubleshooting/disk_space_and_ram_are_full">
+    Preserve evidence, identify growth, protect current logs, restore capacity, and verify service health.
+  </Card>
 
-Start with the symptom category rather than a subsystem guess. That reduces false leads when a DNS issue looks like a policy issue or a time-sync issue looks like an authentication failure.
+  <Card title="Whitelisted website is blocked" icon="list-x" href="/troubleshooting/whitelisted_website_blocked">
+    Prove the request context, rule order, category, identity, inspection, and matching profile.
+  </Card>
 
-### Installation and access
-Use this page together with [Getting Started](/getting_started/introduction) when the product does not install cleanly, the web interface is unreachable, or activation cannot be completed.
+  <Card title="Installation fails" icon="package-x" href="/troubleshooting/installation_issues">
+    Capture the installer message and logs before retrying or changing the host.
+  </Card>
+</CardGroup>
 
-### Identity and SSL
-Use [Authentication](/Authentication), [SSL Inspection](/SSL_Inspection), and [Supporting Services Monit](/safesquid_swg/interface/supporting_services_monit) when user login, certificate trust, or directory-backed access starts failing.
+## Build the escalation package
 
-### Performance and stability
-Use [Performance Plot](/Performance_Plot), [Audit & Forensics](/Audit_Forensics), and [Architecture](/safesquid_swg/architecture/safesquid_swg) when the proxy becomes slow, unstable, or inconsistent under load.
+Collect only what is relevant and sanitize it before transfer:
 
-### Connectivity and policy
-Use [Access Restriction](/Access_Restriction), [DNS Security](/DNS_Security), [Header Obfuscation](/Header_Obfuscation), and [Cookie Inspection](/Cookie_Inspection) when websites fail to load or behave incorrectly through the proxy.
+- Incident start time, timezone, severity, affected scope, and business impact
+- Release train, exact build, node role, topology, and deployment method
+- Expected behavior, observed behavior, and exact reproduction steps
+- Recent configuration, certificate, network, identity, update, or infrastructure changes
+- Relevant configuration export or checksum
+- Narrow log window containing a correlation or client identifier
+- Service, listener, dependency, resource, and time state
+- Client, proxy, and upstream error text
+- Tests already run and their results
+- Temporary mitigations, exceptions, and rollback status
 
-### Reporting and evidence
-Use [Audit & Forensics](/Audit_Forensics), [Reporting Module](/Reporting_Module), and the SafeSquid interface pages when logs, reports, or evidence exports are incomplete.
+Do not include activation keys, private keys, passwords, session cookies, unrestricted packet captures, or unrelated customer traffic.
 
-When failures are broad and not isolated to one control, review [Architecture](/safesquid_swg/architecture/safesquid_swg), [Audit & Forensics](/Audit_Forensics), and [Supporting Services Monit](/safesquid_swg/interface/supporting_services_monit) together before escalating.
+## Recovery acceptance
 
-## Advanced diagnostic tools
+Recovery is complete only when:
 
-### [How to use find_client_id.sh for getting complete connection log](/How_to_use_find_client_id.sh_for_getting_complete_connection_log)
-Administrators need advanced diagnostic tools to analyze specific connection issues and obtain detailed logs for troubleshooting complex proxy problems. find_client_id.sh provides connection analysis including detailed log extraction, connection tracing, and diagnostic information for specific client connections. Use this document to obtain detailed connection logs and perform connection analysis for complex troubleshooting.
-
-## Next steps
-
-After resolving the issue, verify with [Getting Started](/getting_started/introduction); for configuration changes see [Configuration Portal](/safesquid_swg/interface/configuration_portal).
+1. The original symptom no longer occurs.
+2. A known allow and deny decision match the approved policy.
+3. Identity and TLS behavior are correct.
+4. Required security processors and dependencies are healthy.
+5. Logs, reports, and SIEM receive complete events with correct time.
+6. Temporary exceptions are removed or have an approved owner and expiry.
+7. The incident record identifies the failing boundary and documentation correction.

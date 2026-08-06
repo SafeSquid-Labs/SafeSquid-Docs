@@ -1,10 +1,7 @@
 ---
-title: Blank Report Page
-description: Diagnose and resolve SafeSquid blank report page incidents with causes, recovery actions, and audit evidence.
-keywords:
-  - troubleshooting
-  - SafeSquid
-  - blank report page
+title: "Blank Report Page"
+description: "Diagnose and resolve SafeSquid blank report page incidents with causes, recovery actions, and audit evidence."
+keywords: ["troubleshooting", "SafeSquid", "blank report page"]
 ---
 
 # Blank Report Page

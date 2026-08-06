@@ -1,12 +1,7 @@
 ---
-title: Simple Authentication
-description: Configure Active Directory simple (LDAP) authentication in SafeSquid for browser-prompted user identification.
-keywords:
-  - active directory integration
-  - ldap authentication SafeSquid
-  - simple authentication SafeSquid
-  - ldap configuration
-  - sso authentication SafeSquid
+title: "Simple Authentication"
+description: "Configure Active Directory simple (LDAP) authentication in SafeSquid for browser-prompted user identification."
+keywords: ["active directory integration", "ldap authentication SafeSquid", "simple authentication SafeSquid", "ldap configuration", "sso authentication SafeSquid"]
 ---
 
 # AD Simple Authentication
@@ -20,17 +15,16 @@ Not every device can participate in Kerberos SSO. Guest devices, non-domain syst
 ## When to use Simple Authentication
 
 | Use Simple Auth When | Use SSO (Kerberos) Instead |
-|----------------------|----------------------------|
+| --- | --- |
 | Client devices are not joined to the domain | Corporate workstations are domain-joined |
 | Fast setup is required (no Kerberos config) | Best user experience (no prompt) is required |
 | Troubleshooting authentication issues | Production environment for domain users |
 
-:::note
-**Prerequisites**
+:::note **Prerequisites**
+
 - [Setup Active Directory Integration](/Setup_Active_Directory_Integration) must be completed.
 - SafeSquid must be able to fetch LDAP entities (verify in **LDAP Entities** tab).
-- DNS and NTP must be healthy, even for prompt-based AD-backed authentication, because directory reachability and environment consistency still matter.
-:::
+- DNS and NTP must be healthy, even for prompt-based AD-backed authentication, because directory reachability and environment consistency still matter. :::
 
 ## Configure Simple Authentication
 
@@ -62,7 +56,7 @@ Not every device can participate in Kerberos SSO. Guest devices, non-domain syst
 ## Verification
 
 | Action | Method | Expected Result |
-|--------|--------|-----------------|
+| --- | --- | --- |
 | **Browser Test** | Access any website from a client. | A browser login prompt should appear. |
 | **Login Test** | Enter valid AD credentials. | Access is granted; the website loads. |
 | **Identity Log** | `tail -f /var/log/safesquid/identity.log` | The log shows the authenticated AD username. |
@@ -73,7 +67,7 @@ Not every device can participate in Kerberos SSO. Guest devices, non-domain syst
 ## Troubleshooting
 
 | Symptom | Likely Cause | Fix |
-|---------|--------------|-----|
+| --- | --- | --- |
 | No login prompt | Rule order or IP mismatch | Ensure the authentication rule is above general allow rules; verify client IP matches rule scope. |
 | Prompt keeps reappearing | Incorrect AD credentials or Bind DN | Verify user password in AD; ensure the bind account in LDAP integration has read access. |
 | Authentication fails | Directory reachability, DNS, or time issue | Verify AD reachability, sync time with AD, and ensure AD FQDN resolution works. |
@@ -82,8 +76,8 @@ Not every device can participate in Kerberos SSO. Guest devices, non-domain syst
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
-| Browser prompt + AD bind | **Confirmed** | This page |
+| --- | --- | --- |
+| Browser prompt \+ AD bind | **Confirmed** | This page |
 | Time skew / DNS with AD | **Confirmed** | Troubleshooting, [NTP](/NTP) |
 
 ## Next steps

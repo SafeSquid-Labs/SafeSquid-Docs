@@ -1,0 +1,107 @@
+---
+title: "Documentation Content Standard"
+sidebarTitle: "Content Standard"
+description: "Author SafeSquid tutorials, procedures, references, troubleshooting guides, and assurance pages with consistent evidence and review gates."
+content_type: "reference"
+applies_to: ["Documentation program"]
+verified_build: "Not product-behavior dependent"
+last_verified: "2026-08-07"
+owner: "SafeSquid Documentation"
+risk: "low"
+verification_level: "editorial-review"
+keywords: ["SafeSquid documentation standard", "SafeSquid page template", "technical writing", "documentation governance"]
+---
+
+# Write for a Decision or Task
+
+Each page has one primary purpose. Tutorials build skill in a controlled environment. How-to guides complete a goal. Concepts explain why the system behaves as it does. Reference describes exact facts. Troubleshooting isolates and corrects a symptom. Assurance connects control objectives to mechanisms, limitations, and evidence.
+
+Do not mix a long architecture lecture into the middle of an urgent procedure. Link to the explanation and keep the operator's task moving.
+
+## Required metadata
+
+```yaml
+---
+title: "Verb-led or question-led title"
+description: "One sentence defining outcome and scope"
+content_type: "tutorial | how-to | concept | reference | troubleshooting | assurance"
+applies_to:
+  - "Supported release train"
+verified_build: "Exact build or Pending validation"
+last_verified: "YYYY-MM-DD or Pending"
+owner: "Accountable team"
+risk: "low | medium | high"
+verification_level: "lab-verified | operator-verified | sme-reviewed | documentation-review | editorial-review | pending-validation"
+keywords:
+  - "Product term"
+  - "Legacy term"
+  - "Symptom or error text"
+---
+```
+
+## Procedure template
+
+1. **Outcome:** State what the reader will have or prove.
+2. **Audience and use:** Identify intended operator, when to use the procedure, and when not to.
+3. **Time and impact:** Estimate duration, affected service, disruption, and restart behavior.
+4. **Prerequisites:** List permissions, dependencies, backup, test client, and rollback authority.
+5. **Input worksheet:** Name each value, source, valid form, safe example, and sensitivity.
+6. **Diagram:** Show traffic, trust, identity, or data flow when order and boundaries matter.
+7. **Steps:** One reversible action per step.
+8. **Checkpoint:** Place expected screen, output, event, or behavior immediately after the action.
+9. **Failure branch:** Explain what to inspect when the checkpoint differs.
+10. **End-to-end verification:** Reproduce the complete intended outcome and a negative test.
+11. **Evidence:** List the minimum sanitized record.
+12. **Rollback:** State trigger, exact reversal, authority, and recovery verification.
+13. **Escalation:** List the narrow diagnostic package and prohibited sensitive material.
+14. **Next action:** Link only to the natural continuation.
+
+## Input table
+
+| Input | Where to obtain it | Valid form | Safe example | Sensitive |
+| --- | --- | --- | --- | --- |
+| Exact product value | Authoritative owner or product surface | Type, range, or format | Reserved or synthetic value | Yes, no, or handling rule |
+
+A placeholder such as `SERVER_IP` is incomplete unless the page explains which interface or owner supplies it, whether it is reachable from the client, and how to verify it.
+
+## Checkpoint format
+
+Use this sequence inside each step:
+
+- **Action:** The exact change or command.
+- **Why:** One sentence only when the reason prevents misuse.
+- **Expected:** The precise output, screen, event, or traffic behavior.
+- **If different:** The first discriminating checks, not a generic troubleshooting link.
+- **Evidence:** What to retain after sanitization.
+
+## Troubleshooting template
+
+1. Observable symptom and operational impact
+2. Safety and evidence-preservation warning
+3. Exact scope and recent changes
+4. Known-good comparison
+5. Layered diagnostic decision tree
+6. Test, expected result, interpretation, and next branch
+7. Smallest reversible correction
+8. Complete recovery verification
+9. Temporary exception removal
+10. Sanitized escalation package
+11. Root-cause and documentation update
+
+## Reference template
+
+Document the exact name, location, purpose, type, valid values, verified default, dependencies, security effect, runtime effect, evidence, failure behavior, limits, version history, and related tasks. Never infer a default from a blank UI field.
+
+## Language and examples
+
+- Use short declarative sentences and exact product terminology.
+- Match the current UI label, then provide a clearer explanation.
+- Use reserved IP address ranges and `example.com` domains.
+- Use synthetic identities and benign test data.
+- State limitations and uncertainty directly.
+- Avoid hype, fear, unexplained jargon, and unsupported comparisons.
+- Never publish secrets, customer data, private keys, activation material, or unrestricted packet captures.
+
+## Publication gate
+
+High-risk pages require an exact build, lab evidence, product SME approval, and an independent operator result. Automated checks catch structure and consistency; they do not approve product truth.

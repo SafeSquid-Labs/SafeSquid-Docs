@@ -1,11 +1,7 @@
 ---
-title: Reports
-description: Reports entry point for SafeSquid SWG policy evidence, forensic investigation, SIEM forwarding, and operational review.
-keywords:
-  - SafeSquid reports
-  - SafeSquid SIEM
-  - proxy reporting
-  - audit evidence
+title: "Reports"
+description: "Reports entry point for SafeSquid SWG policy evidence, forensic investigation, SIEM forwarding, and operational review."
+keywords: ["SafeSquid reports", "SafeSquid SIEM", "proxy reporting", "audit evidence"]
 ---
 
 # Reports

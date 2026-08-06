@@ -1,21 +1,11 @@
 ---
-title: User Identification
-slug: /Profiling_Engine/User_Identities
-description: Configure user identity recognition methods in SafeSquid including IP-based authentication, directory service integration, and credential management for policy enforcement.
-keywords:
-  - SafeSquid user identification
-  - proxy user authentication
-  - IP-based authentication
-  - directory service integration
-  - Kerberos SSO proxy
-  - LDAP authentication proxy
-  - network signature authentication
+title: "User Identification"
+slug: "/Profiling_Engine/User_Identities"
+description: "Configure user identity recognition methods in SafeSquid including IP-based authentication, directory service integration, and credential management for policy enforcement."
+keywords: ["SafeSquid user identification", "proxy user authentication", "IP-based authentication", "directory service integration", "Kerberos SSO proxy", "LDAP authentication proxy", "network signature authentication"]
 ---
 
-
 # User identity drives policy and reporting
-
-
 
 ## User identity recognition methods
 
@@ -30,7 +20,6 @@ In static networks, identity begins with IP. SafeSquid maps static IP addresses 
 As environments adopt directory services, OpenLDAP introduces structured identity. SafeSquid supports two authentication paths:
 
 - **Kerberos SSO** System login provides identity. No user prompts. SafeSquid reads the Kerberos ticket from the session and authenticates silently. Suitable for managed, domain-aware environments.
-
 - **Simple** Where SSO isn't feasible, SafeSquid prompts for credentials. User input is validated against OpenLDAP. Interaction is explicit, but effective for guest or unmanaged devices.
 
 ### [Active Directory Integration](/Active_Directory)
@@ -45,10 +34,10 @@ For enterprise environments, Active Directory too offers seamless integration wi
 Where directories are absent, SafeSquid provides internal mechanisms:
 
 - [Credential-Based Authentication](/BASIC) User accounts and encrypted credentials are stored locally. SafeSquid presents a login prompt, validates inputs internally, and applies identity-based policies. Entirely self-contained.
-
 - **PAM Authentication** In Linux-based environments, SafeSquid leverages the Pluggable Authentication Module (PAM) framework for user identification. PAM enables SafeSquid to authenticate users through the host system's authentication stack, which may include system accounts, RADIUS, smartcards, biometric modules, or custom PAM configurations.
 
 ### [User Groups](/User_Groups)
+
 Configure user groups for group-based web access policies. User groups enable differentiated security controls for departments, roles, and teams.
 
 ### Multifactor Authentication

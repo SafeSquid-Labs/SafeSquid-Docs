@@ -1,11 +1,7 @@
 ---
-title: Configure
-description: Configure entry point for SafeSquid SWG policy, authentication, SSL inspection, DLP, DNS security, and operational settings.
-keywords:
-  - SafeSquid configure
-  - SafeSquid policy
-  - SSL inspection
-  - DLP policy
+title: "Configure"
+description: "Configure entry point for SafeSquid SWG policy, authentication, SSL inspection, DLP, DNS security, and operational settings."
+keywords: ["SafeSquid configure", "SafeSquid policy", "SSL inspection", "DLP policy"]
 ---
 
 # Configure

@@ -1,13 +1,8 @@
 ---
-title: Configure Cloud Restore
-description: Required setup, how Cloud Restore works, and step-by-step configuration to restore SafeSquid configuration and SSL certificates from the cloud.
-keywords:
-  - SafeSquid cloud restore setup
-  - configure cloud restore
-  - restore configuration SSL
-  - disaster recovery procedure
+title: "Configure Cloud Restore"
+description: "Required setup, how Cloud Restore works, and step-by-step configuration to restore SafeSquid configuration and SSL certificates from the cloud."
+keywords: ["SafeSquid cloud restore setup", "configure cloud restore", "restore configuration SSL", "disaster recovery procedure"]
 ---
-
 
 # Configure Cloud Restore
 
@@ -16,11 +11,13 @@ Cloud Restore links backup and restore behavior to the SafeSquid activation key.
 ## How Cloud Restore works
 
 **Backup process:**
+
 1. You make configuration changes in SafeSquid Configuration Portal
 2. Click **Support → Restart SafeSquid** and select **Yes** for cloud backup
 3. SafeSquid uploads `config.xml` and SSL certificates to cloud storage (linked to your activation key)
 
 **Restore process:**
+
 1. Install SafeSquid on new or rebuilt appliance
 2. Activate with the same activation key used for backup
 3. Click **Cloud Restore** in Configuration Portal
@@ -28,13 +25,12 @@ Cloud Restore links backup and restore behavior to the SafeSquid activation key.
 5. Restart SafeSquid to apply restored settings
 
 **Files restored:**
+
 - `/usr/local/safesquid/security/policies/config.xml` (all policies and settings)
 - `/usr/local/safesquid/security/ssl/ROOT_X509File.cer` (SSL root certificate)
 - `/usr/local/safesquid/security/ssl/ROOT_PrivateKeyFile.pem` (SSL private key)
 
 The restore prompt appears only when SafeSquid finds a cloud backup matching your activation key.
-
-
 
 ## Prerequisites
 
@@ -44,23 +40,22 @@ The restore prompt appears only when SafeSquid finds a cloud backup matching you
 - A recovery runbook for settings Cloud Restore does **not** restore, such as network configuration and third-party integration secrets
 
 **Check Monit status:**
+
 ```bash
 systemctl status monit
 ```
 
 If Monit is not running:
+
 ```bash
 systemctl start monit
 systemctl enable monit
 ```
 
-
-
 ## Configure Cloud Restore
 
-
-
 ## [Access the SafeSquid User Interface](/Configuration_Portal)
+
 ![Access the SafeSquid User Interface to configure cloud restore](/images/How_To/Setup_Cloud_Restore/image1.webp)
 
 ![verify same Activation key before configure cloud restore ](/images/How_To/Setup_Cloud_Restore/image2.webp)
@@ -103,16 +98,19 @@ This creates a restore point you can revert to if changes cause issues.
 ## Troubleshooting
 
 **"No cloud backup found" error:**
+
 - Verify you're using the same activation key that was used for backup
 - Check internet connectivity: `ping cloud.safesquid.com` (or SafeSquid cloud endpoint)
 - Ensure a backup was actually created (restart with "Yes" for cloud backup on original appliance)
 
 **Restore completes but policies missing:**
+
 - Verify you restarted SafeSquid after restore: Configuration Portal → Support → Restart SafeSquid
 - Check file permissions: `ls -l /usr/local/safesquid/security/policies/config.xml` (should be owned by safesquid user)
 - Check logs: `tail -f /var/log/safesquid/extended.log` (look for restore errors)
 
 **SSL certificates not working after restore:**
+
 - Verify certificate files exist:
   ```bash
   ls -l /usr/local/safesquid/security/ssl/ROOT_X509File.cer
@@ -121,6 +119,7 @@ This creates a restore point you can revert to if changes cause issues.
 - Reimport SSL certificate to client browsers if needed: [Import Certificate](/Import_Certificate_Chrome_IE)
 
 **Monit not restarting SafeSquid automatically:**
+
 - Check Monit status: `systemctl status monit`
 - Verify Monit configuration includes SafeSquid: `monit status`
 - Manually restart if needed: `systemctl restart safesquid`

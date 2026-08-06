@@ -1,10 +1,7 @@
 ---
-title: DNS Failure
-description: Diagnose and resolve SafeSquid dns failure incidents with causes, recovery actions, and audit evidence.
-keywords:
-  - troubleshooting
-  - SafeSquid
-  - dns failure
+title: "DNS Failure"
+description: "Diagnose and resolve SafeSquid dns failure incidents with causes, recovery actions, and audit evidence."
+keywords: ["troubleshooting", "SafeSquid", "dns failure"]
 ---
 
 # DNS Failure
@@ -20,11 +17,8 @@ Via proxy sometimes occur an error "DNS Lookup for safesqddns.com failed".
 ## Root Causes
 
 1. The FQDN of the website is incorrect.
-
 2. The local DNS server service is not running.
-
 3. The forwarder DNS server is not able to resolve the query.
-
 4. The network service is down.
 
 ## Solution

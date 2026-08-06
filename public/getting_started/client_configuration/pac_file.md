@@ -1,11 +1,7 @@
 ---
 title: "PAC File Configuration"
-description: Deploy a Proxy Auto-Configuration file so managed browsers route approved web traffic through SafeSquid with controlled exceptions.
-keywords:
-  - SafeSquid PAC file
-  - proxy auto configuration
-  - managed browser proxy
-  - SafeSquid client rollout
+description: "Deploy a Proxy Auto-Configuration file so managed browsers route approved web traffic through SafeSquid with controlled exceptions."
+keywords: ["SafeSquid PAC file", "proxy auto configuration", "managed browser proxy", "SafeSquid client rollout"]
 ---
 
 # Route Browsers With PAC
@@ -86,39 +82,33 @@ Expected result: the server returns a successful response and the PAC file conte
 5. Confirm the internal request does not create unwanted proxy traffic.
 
 <Accordion title="Common PAC functions">
+  Use simple PAC functions first. Keep logic short enough for operations to review during incidents.
 
-Use simple PAC functions first. Keep logic short enough for operations to review during incidents.
+  ```javascript
+  isPlainHostName(host)
+  dnsDomainIs(host, ".internal.example.com")
+  shExpMatch(host, "*.trusted.example.com")
+  isInNet(host, "10.0.0.0", "255.0.0.0")
+  ```
 
-```javascript
-isPlainHostName(host)
-dnsDomainIs(host, ".internal.example.com")
-shExpMatch(host, "*.trusted.example.com")
-isInNet(host, "10.0.0.0", "255.0.0.0")
-```
-
-Avoid broad `DIRECT` matches for public domains unless the exception has a business owner and review date.
-
+  Avoid broad `DIRECT` matches for public domains unless the exception has a business owner and review date.
 </Accordion>
 
 <Accordion title="Debug PAC behavior">
+  Test PAC retrieval and browser behavior before assigning the file broadly.
 
-Test PAC retrieval and browser behavior before assigning the file broadly.
+  ```bash
+  curl -I http://proxy-config.example.com/proxy.pac
+  curl http://proxy-config.example.com/proxy.pac
+  ```
 
-```bash
-curl -I http://proxy-config.example.com/proxy.pac
-curl http://proxy-config.example.com/proxy.pac
-```
-
-Use browser proxy diagnostics such as `chrome://net-export` or Firefox `about:networking` only on approved pilot endpoints. Store the export with the change record if it proves a routing defect.
-
+  Use browser proxy diagnostics such as `chrome://net-export` or Firefox `about:networking` only on approved pilot endpoints. Store the export with the change record if it proves a routing defect.
 </Accordion>
 
 <Accordion title="Plan WPAD carefully">
+  Web Proxy Auto-Discovery (WPAD) can reduce manual configuration, but it expands the trust boundary to DNS and DHCP discovery. Use WPAD only when DNS, DHCP, and endpoint teams approve ownership, spoofing controls, and rollback.
 
-Web Proxy Auto-Discovery (WPAD) can reduce manual configuration, but it expands the trust boundary to DNS and DHCP discovery. Use WPAD only when DNS, DHCP, and endpoint teams approve ownership, spoofing controls, and rollback.
-
-Required evidence includes the WPAD DNS or DHCP record, PAC file checksum, pilot endpoint result, and rollback record.
-
+  Required evidence includes the WPAD DNS or DHCP record, PAC file checksum, pilot endpoint result, and rollback record.
 </Accordion>
 
 ## Verify routing decisions
@@ -146,7 +136,7 @@ Store:
 ## Troubleshoot PAC rollout
 
 | Symptom | Likely cause | Fix |
-|---|---|---|
+| --- | --- | --- |
 | Browser ignores PAC | PAC URL is wrong or blocked | Confirm URL retrieval from the client network |
 | All traffic goes direct | PAC logic returns `DIRECT` too broadly | Narrow bypass rules and retest |
 | Internal sites route to SafeSquid | Missing internal bypass rule | Add exact internal suffixes and avoid broad public-domain bypasses |

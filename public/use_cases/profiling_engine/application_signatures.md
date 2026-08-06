@@ -1,10 +1,7 @@
 ---
-title: Application Signatures
-description: Application Signatures reference and operational guidance for SafeSquid SWG administrators.
-keywords:
-  - application signatures
-  - SafeSquid
-  - reference
+title: "Application Signatures"
+description: "Application Signatures reference and operational guidance for SafeSquid SWG administrators."
+keywords: ["application signatures", "SafeSquid", "reference"]
 ---
 
 # Application Signatures

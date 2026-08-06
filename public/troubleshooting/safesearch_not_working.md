@@ -1,10 +1,7 @@
 ---
-title: SafeSearch Not Working
-description: Diagnose and resolve SafeSquid safesearch not working incidents with causes, recovery actions, and audit evidence.
-keywords:
-  - troubleshooting
-  - SafeSquid
-  - safesearch not working
+title: "SafeSearch Not Working"
+description: "Diagnose and resolve SafeSquid safesearch not working incidents with causes, recovery actions, and audit evidence."
+keywords: ["troubleshooting", "SafeSquid", "safesearch not working"]
 ---
 
 # SafeSearch Not Working

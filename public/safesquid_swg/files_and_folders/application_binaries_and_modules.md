@@ -1,11 +1,7 @@
 ---
-title: Application Binaries and Modules
-description: SafeSquid SWG binary, module, feature library, section XML, and default startup file path reference.
-keywords:
-  - SafeSquid modules
-  - SafeSquid binaries
-  - SafeSquid startup.ini
-  - SafeSquid setup.ini
+title: "Application Binaries and Modules"
+description: "SafeSquid SWG binary, module, feature library, section XML, and default startup file path reference."
+keywords: ["SafeSquid modules", "SafeSquid binaries", "SafeSquid startup.ini", "SafeSquid setup.ini"]
 ---
 
 # Application Binaries and Modules

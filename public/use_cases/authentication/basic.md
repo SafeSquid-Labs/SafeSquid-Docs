@@ -1,15 +1,8 @@
 ---
-title: Local Credential Store
-description: Configure SafeSquid for browser-based user authentication without Active Directory using local credential storage.
-keywords:
-  - browser-based authentication
-  - SafeSquid user login
-  - local credential proxy
-  - SafeSquid access control
-  - local user authentication
-  - credential management
+title: "Local Credential Store"
+description: "Configure SafeSquid for browser-based user authentication without Active Directory using local credential storage."
+keywords: ["browser-based authentication", "SafeSquid user login", "local credential proxy", "SafeSquid access control", "local user authentication", "credential management"]
 ---
-
 
 # BASIC Authentication
 
@@ -35,58 +28,38 @@ Follow **Enable browser authentication** through **Verification**; then combine 
 ## When to use BASIC authentication
 
 | Use BASIC When | Use Directory Services Instead |
-|----------------|--------------------------------|
+| --- | --- |
 | No Active Directory or LDAP | Enterprise with existing AD/LDAP |
-| Small organization (&lt;50 users) | Need centralized identity management |
+| Small organization (\<50 users) | Need centralized identity management |
 | Isolated environment | SSO requirement |
 | Quick proof of concept | Audit requires directory-backed auth |
 
-:::caution
-**Security consideration**
-BASIC authentication sends credentials in base64 encoding (not encrypted). Use only on:
+:::caution **Security consideration** BASIC authentication sends credentials in base64 encoding (not encrypted). Use only on:
+
 - Internal networks, or
-- HTTPS proxy connections, or  
+- HTTPS proxy connections, or
 - With SSL inspection enabled
 
-For production deployments with external access, use [Directory Services](/Directory_Services) with TLS.
-:::
+For production deployments with external access, use [Directory Services](/Directory_Services) with TLS. :::
 
-:::note
-**Prerequisites**
+:::note **Prerequisites**
+
 - SafeSquid deployed and operational
 - Admin access to SafeSquid configuration interface (`http://safesquid.cfg/` — embedded Rest UI, NOT DNS-resolved)
-- Browser configured to use SafeSquid as proxy (see [Connect Your Client](/Connect_Your_Client))
-:::
+- Browser configured to use SafeSquid as proxy (see [Connect Your Client](/Connect_Your_Client)) :::
 
 ## Enable browser authentication
 
-1. **Access SafeSquid Configuration**  
-   Open `http://safesquid.cfg/` through a browser using the SafeSquid proxy.
-
-2. **Navigate to Access Restrictions**  
-   **Application Setup** → **Access Restrictions** → **Allow List**  
-   Click the orange **+** icon to add a new entry.
-
-   ![Going in the access restrictions section in application setup](/images/How_To/Setup_Authentication/image2.webp)
-
-3. **Configure Authentication**  
-   In the new rule window:
+1. **Access SafeSquid Configuration**<br />Open `http://safesquid.cfg/` through a browser using the SafeSquid proxy.
+2. **Navigate to Access Restrictions**<br />**Application Setup** → **Access Restrictions** → **Allow List**<br />Click the orange **\+** icon to add a new entry. <img src="/images/How_To/Setup_Authentication/image2.webp" alt="Going in the access restrictions section in application setup" />
+3. **Configure Authentication**<br />In the new rule window:
    - Set **PAM Authentication** to **FALSE** (we're using local credentials, not OS PAM)
-   - Leave **Username** and **Password** empty to apply authentication to all users (or enter specific username/password to restrict this rule to a single user)
+   - Leave **Username** and **Password** empty to apply authentication to all users (or enter specific username/password to restrict this rule to a single user) <img src="/images/How_To/Setup_Authentication/image3.webp" alt="Making the PAM authentication false and adding username and password in the username password field" />
+4. **Save the Configuration**<br />Click the checkmark to save the rule.
 
-   ![Making the PAM authentication false and adding username and password in the username password field](/images/How_To/Setup_Authentication/image3.webp)
+:::tip This creates the authentication requirement. Users will be prompted for credentials when browsing. Next step: add users. :::
 
-4. **Save the Configuration**  
-   Click the checkmark to save the rule.
-
-:::tip
-This creates the authentication requirement. Users will be prompted for credentials when browsing. Next step: add users.
-:::
-
-:::tip
-**Apply changes**
-After adding users or modifying access rules, click **Apply** in the Access Restrictions section to activate the changes immediately without restarting SafeSquid.
-:::
+:::tip **Apply changes** After adding users or modifying access rules, click **Apply** in the Access Restrictions section to activate the changes immediately without restarting SafeSquid. :::
 
 ## Add users
 
@@ -94,69 +67,46 @@ After adding users or modifying access rules, click **Apply** in the Access Rest
   <Tab title="SafeSquid Credential Store">
     **Best for:** Adding individual users with SafeSquid-only access
 
-    1. **Navigate to Access Profiles**  
-       Click **Configure** → **Search** → **Access Profiles**
-
+    1. **Navigate to Access Profiles**<br />Click **Configure** → **Search** → **Access Profiles**
        ![Click Configure in the SafeSquid interface](/images/How_To/Adding_users_using_SafeSquid_interface_for_authentication/image1.webp)
        ![Click Search in Access Profiles](/images/How_To/Adding_users_using_SafeSquid_interface_for_authentication/image2.webp)
-
-    2. **Create User Entry**  
-       Click **Add New** → Select **BASIC** authentication type
-
+    2. **Create User Entry**<br />Click **Add New** → Select **BASIC** authentication type
        ![Access profiles search or policy list](/images/How_To/Adding_users_using_SafeSquid_interface_for_authentication/image4.webp)
        ![Edit or add BASIC auth user entry](/images/How_To/Adding_users_using_SafeSquid_interface_for_authentication/image6.webp)
-
-    3. **Enter Credentials**  
-       Add username and password for the user
-
-       ![BASIC authentication user form or credentials](/images/How_To/Adding_users_using_SafeSquid_interface_for_authentication/image8.webp)
-
-    4. **Save and Apply**  
-       Save the user entry and apply to the access restriction rule
-
+    3. **Enter Credentials**<br />Add username and password for the user <img src="/images/How_To/Adding_users_using_SafeSquid_interface_for_authentication/image8.webp" alt="BASIC authentication user form or credentials" />
+    4. **Save and Apply**<br />Save the user entry and apply to the access restriction rule
        ![Save BASIC auth user or policy](/images/How_To/Adding_users_using_SafeSquid_interface_for_authentication/image10.webp)
        ![BASIC auth profile applied to access restriction](/images/How_To/Adding_users_using_SafeSquid_interface_for_authentication/image12.webp)
        ![Configuration saved for BASIC authentication](/images/How_To/Adding_users_using_SafeSquid_interface_for_authentication/image14.webp)
   </Tab>
-
   <Tab title="OS User Accounts (PAM)">
     **Best for:** Users who also need OS login access
 
-    1. **Create a New User**  
+    1. **Create a New User**
        ```bash
        useradd name_of_the_user
        ```
-
-    2. **Set the Password**  
+    2. **Set the Password**
        ```bash
        passwd name_of_the_user
        ```
-       Enter and confirm the new password when prompted.
+       Enter and confirm the new password when prompted. <img src="/images/How_To/Setup_Authentication/image4.webp" alt="Changing the password" />
+    3. **Enable PAM in Access Rule**<br />In SafeSquid **Access Restrictions** → **Allow List**, edit your access rule and set **PAM Authentication** to **TRUE**. This allows SafeSquid to validate against OS users.
 
-       ![Changing the password](/images/How_To/Setup_Authentication/image4.webp)
-
-    3. **Enable PAM in Access Rule**  
-       In SafeSquid **Access Restrictions** → **Allow List**, edit your access rule and set **PAM Authentication** to **TRUE**. This allows SafeSquid to validate against OS users.
-
-    :::tip
-    Use this method when you want proxy credentials to match OS login credentials (single credential set).
-    :::
+    :::tip Use this method when you want proxy credentials to match OS login credentials (single credential set). :::
   </Tab>
 </Tabs>
 
 ## Verification
 
-1. **Test Authentication Flow**  
+1. **Test Authentication Flow**
    - Open a browser configured to use SafeSquid as proxy
    - Browse to any external site (e.g., `http://example.com`)
    - Authentication prompt should appear
    - Enter configured credentials
    - Access is granted when authentication succeeds
-
-2. **Verify in Interface**  
-   **Access Restrictions** → **Allow List** shows the rule with authentication enabled
-
-3. **Check Logs**  
+2. **Verify in Interface**<br />**Access Restrictions** → **Allow List** shows the rule with authentication enabled
+3. **Check Logs**
    ```bash
    tail -f /var/log/safesquid/identity.log
    ```
@@ -165,7 +115,7 @@ After adding users or modifying access rules, click **Apply** in the Access Rest
 ## Troubleshooting
 
 | Symptom | Likely Cause | Fix |
-|---------|--------------|-----|
+| --- | --- | --- |
 | No login prompt appears | Authentication not enabled in access rule | Set PAM Authentication to TRUE (for OS users) or FALSE (for SafeSquid credential store); ensure rule matches client IP |
 | Login fails repeatedly | Incorrect credentials or misconfigured rule | Verify username/password; check if using PAM (OS users) vs SafeSquid credential store |
 | Some users can't login | User not added or wrong method | Confirm user exists (OS or SafeSquid interface) and matches the authentication method configured (PAM vs BASIC) |
@@ -174,6 +124,7 @@ After adding users or modifying access rules, click **Apply** in the Access Rest
 ## Credential management best practices
 
 SafeSquid's local credential store does not enforce password policies automatically. Implement these manually:
+
 - **Password strength:** Require min 12 chars with complexity when creating accounts
 - **Rotation:** Manually update credentials every 90 days for compliance
 - **Audit:** Review `/var/log/safesquid/identity.log` monthly for unauthorized attempts
@@ -184,7 +135,7 @@ For automated password policy enforcement, migrate to [Directory Services](/Dire
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+| --- | --- | --- |
 | RFC 7617 BASIC flow | **Confirmed** | This page, UI paths |
 | Local credential store vs PAM toggle | **Confirmed** | This page |
 | `identity.log` evidence | **Confirmed** | Verification section above |

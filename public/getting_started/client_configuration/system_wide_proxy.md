@@ -1,12 +1,7 @@
 ---
 title: "System-Wide Proxy Settings"
-description: Configure one managed operating system to send browser and supported application traffic through SafeSquid.
-keywords:
-  - SafeSquid system proxy
-  - operating system proxy
-  - Windows proxy settings
-  - Linux proxy settings
-  - macOS proxy settings
+description: "Configure one managed operating system to send browser and supported application traffic through SafeSquid."
+keywords: ["SafeSquid system proxy", "operating system proxy", "Windows proxy settings", "Linux proxy settings", "macOS proxy settings"]
 ---
 
 # Route One Host Through SafeSquid
@@ -38,73 +33,65 @@ Confirm:
 
 <Tabs>
   <Tab title="Windows">
+    Use approved endpoint management where possible. For a controlled pilot, set WinHTTP proxy from an elevated shell:
 
-Use approved endpoint management where possible. For a controlled pilot, set WinHTTP proxy from an elevated shell:
+    ```powershell
+    netsh winhttp set proxy SAFESQUID-IP:8080 "localhost;*.internal.example.com"
+    ```
 
-```powershell
-netsh winhttp set proxy SAFESQUID-IP:8080 "localhost;*.internal.example.com"
-```
+    Verify:
 
-Verify:
+    ```powershell
+    netsh winhttp show proxy
+    ```
 
-```powershell
-netsh winhttp show proxy
-```
-
-Expected result: the proxy and bypass list match the approved pilot values.
-
+    Expected result: the proxy and bypass list match the approved pilot values.
   </Tab>
   <Tab title="Linux">
+    Set proxy variables for a pilot shell:
 
-Set proxy variables for a pilot shell:
+    ```bash
+    export http_proxy=http://SAFESQUID-IP:8080
+    export https_proxy=http://SAFESQUID-IP:8080
+    export no_proxy=localhost,127.0.0.1,.internal.example.com
+    ```
 
-```bash
-export http_proxy=http://SAFESQUID-IP:8080
-export https_proxy=http://SAFESQUID-IP:8080
-export no_proxy=localhost,127.0.0.1,.internal.example.com
-```
+    Persist settings only through the organization's approved profile, package-manager, or configuration-management process.
 
-Persist settings only through the organization's approved profile, package-manager, or configuration-management process.
+    Verify:
 
-Verify:
+    ```bash
+    curl -I http://example.com
+    ```
 
-```bash
-curl -I http://example.com
-```
-
-Expected result: the request succeeds and appears in SafeSquid access logs.
-
+    Expected result: the request succeeds and appears in SafeSquid access logs.
   </Tab>
   <Tab title="macOS">
+    Use MDM for managed rollout. For a pilot, configure the active network service:
 
-Use MDM for managed rollout. For a pilot, configure the active network service:
+    ```bash
+    networksetup -setwebproxy "Wi-Fi" SAFESQUID-IP 8080
+    networksetup -setsecurewebproxy "Wi-Fi" SAFESQUID-IP 8080
+    ```
 
-```bash
-networksetup -setwebproxy "Wi-Fi" SAFESQUID-IP 8080
-networksetup -setsecurewebproxy "Wi-Fi" SAFESQUID-IP 8080
-```
+    Verify:
 
-Verify:
+    ```bash
+    networksetup -getwebproxy "Wi-Fi"
+    ```
 
-```bash
-networksetup -getwebproxy "Wi-Fi"
-```
-
-Expected result: proxy settings match the approved SafeSquid listener.
-
+    Expected result: proxy settings match the approved SafeSquid listener.
   </Tab>
 </Tabs>
 
 <Accordion title="Advanced Windows registry method">
+  Use registry-based proxy settings only through approved endpoint management or an administrator-controlled pilot. Manual registry edits are hard to audit and easy to leave behind.
 
-Use registry-based proxy settings only through approved endpoint management or an administrator-controlled pilot. Manual registry edits are hard to audit and easy to leave behind.
+  ```powershell
+  reg query "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings" /v ProxyServer
+  ```
 
-```powershell
-reg query "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings" /v ProxyServer
-```
-
-Expected result: the registry value matches the approved proxy or PAC deployment. Prefer GPO or MDM for production enforcement.
-
+  Expected result: the registry value matches the approved proxy or PAC deployment. Prefer GPO or MDM for production enforcement.
 </Accordion>
 
 ## Verify host coverage
@@ -133,7 +120,7 @@ Store:
 ## Troubleshoot host routing
 
 | Symptom | Likely cause | Fix |
-|---|---|---|
+| --- | --- | --- |
 | Browser works but CLI bypasses proxy | Tool ignores OS proxy or environment is missing | Configure application-specific proxy settings |
 | Internal sites break | Missing bypass entry | Add approved internal suffixes |
 | Settings disappear | User or policy overwrote manual settings | Move rollout to GPO, MDM, or configuration management |

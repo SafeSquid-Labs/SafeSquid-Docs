@@ -1,11 +1,7 @@
 ---
-title: Access the Interface
-description: Access the SafeSquid Configuration Portal from an approved management path during onboarding.
-keywords:
-  - SafeSquid interface
-  - Configuration Portal
-  - safesquid.cfg
-  - SafeSquid management access
+title: "Access the Interface"
+description: "Access the SafeSquid Configuration Portal from an approved management path during onboarding."
+keywords: ["SafeSquid interface", "Configuration Portal", "safesquid.cfg", "SafeSquid management access"]
 ---
 
 # Access the Management Interface Safely
@@ -64,7 +60,7 @@ Store:
 ## Troubleshoot access failures
 
 | Symptom | Likely cause | Fix |
-|---|---|---|
+| --- | --- | --- |
 | `safesquid.cfg` does not load | Browser is not using SafeSquid as proxy | Configure explicit proxy and retry from the same browser |
 | Login page appears from the wrong network | Management path is too broad | Restrict access to approved admin networks before continuing |
 | Service is not running | Installation or restart failed | Check `systemctl status safesquid --no-pager` and service logs |

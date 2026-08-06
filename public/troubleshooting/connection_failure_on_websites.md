@@ -1,10 +1,7 @@
 ---
-title: Connection Failure to Websites
-description: Diagnose and resolve SafeSquid connection failure to websites incidents with causes, recovery actions, and audit evidence.
-keywords:
-  - troubleshooting
-  - SafeSquid
-  - connection failure on websites
+title: "Connection Failure to Websites"
+description: "Diagnose and resolve SafeSquid connection failure to websites incidents with causes, recovery actions, and audit evidence."
+keywords: ["troubleshooting", "SafeSquid", "connection failure on websites"]
 ---
 
 # Connection Failure to Websites
@@ -35,7 +32,7 @@ Command: nslookup 192.168.27.30
 
 **To check SafeSquid server is connecting to** 192.168.27.30 on port 80
 
-Command: telnet WEBSITE PORT_TO_CONNECTON
+Command: telnet WEBSITE PORT\_TO\_CONNECTON
 
 When the website cannot be reached, example output:
 
@@ -63,7 +60,7 @@ Trying 192.168.27.30...
 
 Connected to 192.168.27.30.
 
-Escape character is '^]'.
+Escape character is '^\]'.
 
 ### Case 2
 
@@ -99,7 +96,7 @@ root@swg:/etc/bind# vim named.conf
 
 // Please read /usr/share/doc/bind9/README.Debian.gz for information on the
 
-// structure of BIND configuration files in Debian, *BEFORE* you customize
+// structure of BIND configuration files in Debian, _BEFORE_ you customize
 
 // this configuration file.
 

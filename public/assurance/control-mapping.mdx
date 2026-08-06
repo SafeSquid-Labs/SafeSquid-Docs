@@ -1,0 +1,83 @@
+---
+title: "Control and Evidence Mapping"
+sidebarTitle: "Control Mapping"
+description: "Relate SafeSquid control mechanisms and evidence to India-first and global assurance objectives without claiming automatic compliance."
+content_type: "assurance"
+applies_to: ["2026 Release Train", "2024 Release Train"]
+verified_build: "Framework mapping; product mechanisms require page-level verification"
+last_verified: "2026-08-07"
+owner: "SafeSquid Security Assurance"
+risk: "high"
+verification_level: "documentation-review"
+keywords: ["SafeSquid compliance mapping", "CERT-In directions", "RBI IT governance", "SEBI CSCRF", "DPDP Rules 2025", "NIST 800-53"]
+---
+
+# Map Evidence, Not Marketing Claims
+
+This page helps security and assurance teams identify where a SafeSquid control may contribute evidence. It is not legal advice, a statement of applicability, an audit conclusion, or certification. Verify the current authoritative requirement, implementation scope, operating effectiveness, and evidence period with the responsible legal, risk, and audit teams.
+
+## Authoritative sources
+
+### India
+
+- [CERT-In directions under section 70B](https://cert-in.org.in/Directions70B.jsp)
+- [RBI Information Technology Governance, Risk, Controls and Assurance Practices Directions, 2023](https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12562)
+- [SEBI Cybersecurity and Cyber Resilience Framework](https://www.sebi.gov.in/legal/circulars/aug-2024/cybersecurity-and-cyber-resilience-framework-cscrf-for-sebi-regulated-entities-res-_85964.html)
+- [SEBI CSCRF frequently asked questions](https://www.sebi.gov.in/sebi_data/faqfiles/jun-2025/1749647139924.pdf)
+- [Digital Personal Data Protection Rules, 2025](https://www.meity.gov.in/documents/act-and-policies/digital-personal-data-protection-rules-2025-gDOxUjMtQWa)
+
+### Global reference frameworks
+
+- [NIST SP 800-53 Rev. 5, including current updates](https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final)
+- [NIST SP 800-207 Zero Trust Architecture](https://csrc.nist.gov/pubs/sp/800/207/final)
+- [ISO/IEC 27001:2022](https://www.iso.org/standard/27001)
+- [PCI Security Standards Council document library](https://www.pcisecuritystandards.org/document_library/)
+- [AICPA System and Organization Controls](https://www.aicpa-cima.com/resources/landing/system-and-organization-controls-soc-suite-of-services)
+
+<Warning>
+  Requirements, implementation dates, applicability, and regulator guidance change. Confirm the current source and effective date before relying on a mapping.
+</Warning>
+
+## Control contribution matrix
+
+| Assurance objective | SafeSquid contribution to evaluate | Evidence to collect | External dependencies and limitations |
+| --- | --- | --- | --- |
+| Govern web access | Identity-aware policy, profiling, destination and application controls | Approved policy, owner, positive and negative tests, change history, decision logs | Identity quality, endpoint steering, bypass governance, direct egress controls |
+| Protect encrypted web traffic | Authorized TLS inspection, certificate validation, managed bypass | Inspection scope, CA fingerprint, trust rollout, inspect and bypass tests, certificate events | PKI, endpoint trust, application pinning, privacy and legal restrictions |
+| Prevent malicious content | Malware scanners, threat intelligence, DNS and content controls | Update state, benign test result, action, alert, event, failure test | Feed and scanner availability, encrypted or unsupported traffic, tuning |
+| Reduce data leakage | Upload, content, MIME, text, image, and destination controls | Synthetic positive and negative tests, matched policy, action, event, exception | Data classification, approved destinations, encryption, archives, unsupported formats |
+| Attribute activity | User, device, network, time, request, and action context | Authentication result, group mapping, synchronized event, exception record | Directory, time, endpoint identity, shared devices, service accounts |
+| Preserve audit evidence | Transaction logs, security events, reports, and forwarding | Field completeness, timestamp accuracy, forwarding receipt, retention and access review | Storage, SIEM, integrity protection, capacity, privacy, review process |
+| Detect and respond | Alerts, logs, diagnostics, support bundle, policy and service state | Incident timeline, correlation data, affected scope, correction and recovery tests | SOC process, monitoring coverage, escalation, evidence handling |
+| Maintain resilience | Clustering, backups, restoration, configuration sync, monitored dependencies | Health and failover tests, backup result, restore test, RTO and RPO result | Load balancing, capacity, storage, network, runbooks, release compatibility |
+| Manage change | Configuration archive, test matrix, approvals, rollback | Before and after state, reviewer, successful tests, rollback result | Change process, segregation of duties, source control, privileged access |
+| Protect personal data | Access, inspection scope, DLP, logging minimization, retention controls | Purpose and scope decision, data-flow record, access review, retention and deletion evidence | Lawful basis, notices, data-principal rights, processor contracts, legal interpretation |
+
+## Mapping method
+
+<Steps>
+  <Step title="Confirm applicability">
+    The legal, risk, or audit owner identifies the current requirement and affected systems. Do not begin with a product feature.
+  </Step>
+  <Step title="State the control objective">
+    Write an outcome that can be tested, including scope and expected failure behavior.
+  </Step>
+  <Step title="Identify the complete mechanism">
+    Include SafeSquid policy, endpoint steering, identity, PKI, dependencies, logging, monitoring, and human process.
+  </Step>
+  <Step title="Run positive, negative, and failure tests">
+    Prove both the intended decision and the boundary where the control does not apply.
+  </Step>
+  <Step title="Protect and review evidence">
+    Confirm time, completeness, integrity, access, retention, and independent review.
+  </Step>
+  <Step title="Record residual gaps">
+    Document exceptions, unsupported traffic, unverified behavior, temporary measures, owner, expiry, and risk acceptance.
+  </Step>
+</Steps>
+
+## Wording for assurance records
+
+Use: **SafeSquid contributes to this control objective when the documented configuration, dependencies, scope, tests, and evidence are operating as approved.**
+
+Avoid: **Enabling SafeSquid makes the organization compliant.**

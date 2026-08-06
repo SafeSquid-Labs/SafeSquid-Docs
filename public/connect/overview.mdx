@@ -1,0 +1,97 @@
+---
+title: "Connect Clients and Establish Identity"
+sidebarTitle: "Connection Overview"
+description: "Route a controlled client through SafeSquid, establish certificate trust and identity, and prove attributable policy enforcement."
+content_type: "how-to"
+applies_to: ["2026 Release Train", "2024 Release Train"]
+verified_build: "Pending client and identity lab validation"
+last_verified: "2026-08-07"
+owner: "SafeSquid Identity and Endpoint Engineering"
+risk: "high"
+verification_level: "documentation-review"
+keywords: ["SafeSquid client configuration", "SafeSquid authentication", "SafeSquid proxy routing", "SafeSquid certificate trust"]
+---
+
+# Prove One Attributable Traffic Path
+
+A client is not onboarded when a browser merely opens a website. The production test must prove that the expected application uses the approved proxy path, the endpoint trusts the inspection certificate where inspection is authorized, the user or device is attributed correctly, policy is enforced, and a complete event reaches the evidence destination.
+
+## Choose the steering method
+
+| Method | Use when | Main verification |
+| --- | --- | --- |
+| Explicit proxy | Testing a browser or workstation directly | Browser or host names the approved proxy and a matching transaction appears in the access log |
+| PAC file | Routing browser traffic by destination or network condition | The delivered PAC content returns the expected proxy or direct decision for each test URL |
+| System-wide proxy | Managed applications inherit operating-system settings | Browser and supported application tests use the same approved path |
+| Enterprise policy | GPO, MDM, or configuration management owns endpoint settings | Pilot group receives the intended policy and rollback removes it cleanly |
+| Application-specific | A tool ignores browser and operating-system settings | The application's own diagnostic or request output proves proxy use |
+| Transparent, WCCP, or VPN | The network redirects traffic without local proxy configuration | Packet path, client attribution, return routing, and bypass behavior match the approved topology |
+
+Start with [Connect Your Client](/getting_started/client_configuration/connect_your_client), then use the guide for the selected method.
+
+## Required inputs
+
+| Input | Source | Example | Sensitive |
+| --- | --- | --- | --- |
+| Proxy hostname or address | Approved deployment record | `swg-pilot.example.com` or `192.0.2.10` | Internal production values may be restricted |
+| Proxy listener port | Verified build reference | Use the value approved for the deployed build | No |
+| Pilot client and owner | Endpoint inventory | `pilot-win-01` / Endpoint Operations | Internal identifier |
+| Steering method | Architecture decision | `PAC through managed browser policy` | No |
+| Root CA source and fingerprint | PKI owner | Record the approved certificate fingerprint | Public certificate; private key is secret |
+| Identity source and test group | Identity owner | `SWG-Pilot-Users` | Internal identifier |
+| Test destinations | Change test matrix | Approved benign allow, deny, bypass, and inspection targets | No |
+| Rollback action | Endpoint change record | Remove pilot policy and restore prior settings | No |
+
+## Onboarding sequence
+
+<Steps>
+  <Step title="Route one managed client">
+    Apply the selected steering method only to the pilot client.
+
+    **Checkpoint:** A new request from the expected source appears in the SafeSquid access log. If no event appears, inspect endpoint settings, PAC output, bypass entries, DNS, routing, and listener reachability before continuing.
+  </Step>
+  <Step title="Establish certificate trust">
+    Deploy only the approved public Root CA certificate through the managed trust channel. Never export or distribute its private key.
+
+    **Checkpoint:** An authorized inspected HTTPS session completes without an unexpected browser trust warning. A certificate-pinned or excluded service follows the approved bypass decision.
+  </Step>
+  <Step title="Establish identity">
+    Configure the approved device, directory, or credential method and use dedicated test identities.
+
+    **Checkpoint:** The event records the expected user or device. An unauthenticated or misattributed request follows the documented failure policy.
+  </Step>
+  <Step title="Run the policy matrix">
+    Test one known allow, deny, inspect, and bypass outcome. Include application-specific traffic when it is in scope.
+
+    **Checkpoint:** Each observed decision matches the approved policy rule and appears in logs with source, identity, destination, action, and timestamp.
+  </Step>
+  <Step title="Test rollback">
+    Remove the pilot steering or identity change using the approved endpoint process.
+
+    **Checkpoint:** The prior path is restored, the endpoint remains manageable, and the rollback event is recorded.
+  </Step>
+</Steps>
+
+## Common failure boundaries
+
+<AccordionGroup>
+  <Accordion title="Traffic bypasses SafeSquid">
+    Check browser and operating-system bypass lists, PAC return values, application-specific settings, transparent-routing scope, VPN split routing, and direct egress controls.
+  </Accordion>
+
+  <Accordion title="HTTPS fails after trust rollout">
+    Confirm the endpoint received the intended public CA, compare the certificate fingerprint, check system time, and determine whether the application uses certificate pinning or a private trust store.
+  </Accordion>
+
+  <Accordion title="Identity is missing or wrong">
+    Confirm the traffic path, authentication policy order, directory reachability, group resolution, time synchronization, cached credentials, and the exact test identity.
+  </Accordion>
+
+  <Accordion title="The browser works but another application fails">
+    Determine whether the application inherits system proxy settings, supports the selected authentication method, uses its own certificate store, or requires explicit proxy configuration.
+  </Accordion>
+</AccordionGroup>
+
+## Evidence required before expansion
+
+Record the deployed steering policy, proxy address, CA fingerprint, identity method, pilot group, allow and deny events, inspection and bypass results, application coverage, rollback result, and reviewer. Sanitize user data and internal topology before using evidence outside the approved team.

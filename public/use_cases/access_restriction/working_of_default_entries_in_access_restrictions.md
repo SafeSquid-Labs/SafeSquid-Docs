@@ -1,12 +1,7 @@
 ---
-title: Working of Default Entries in Access Restrictions
-description: Understand how default SafeSquid access-restriction entries behave so you can modify baseline policy safely without creating hidden enforcement gaps.
-keywords:
-  - SafeSquid default policies
-  - access restriction defaults
-  - default web access rules
-  - proxy policy configuration
-  - SafeSquid access control
+title: "Working of Default Entries in Access Restrictions"
+description: "Understand how default SafeSquid access-restriction entries behave so you can modify baseline policy safely without creating hidden enforcement gaps."
+keywords: ["SafeSquid default policies", "access restriction defaults", "default web access rules", "proxy policy configuration", "SafeSquid access control"]
 ---
 
 # Understand baseline rules before changing them

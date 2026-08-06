@@ -1,12 +1,7 @@
 ---
-title: Activate Your License
-description: Upload the SafeSquid activation key, verify licensed state, and capture evidence before configuring production policy.
-keywords:
-  - SafeSquid activation
-  - activation key
-  - SafeSquid license
-  - license verification
-  - deployment smoke test
+title: "Activate Your License"
+description: "Upload the SafeSquid activation key, verify licensed state, and capture evidence before configuring production policy."
+keywords: ["SafeSquid activation", "activation key", "SafeSquid license", "license verification", "deployment smoke test"]
 ---
 
 # Activate Before Policy Rollout
@@ -29,7 +24,7 @@ Before activation, confirm:
 Activation and subscription refresh require outbound reachability. Confirm the network team has reviewed the required paths for the installed release and subscription. The legacy activation guide identifies these common dependencies:
 
 | Host | Port | Purpose |
-|---|---:|---|
+| --- | --: | --- |
 | `api.safesquid.net` | `443` | License activation |
 | `swgupdates2.safesquid.net` | `443` | Subscription and update checks |
 | `swgupdates.safesquid.net` | `80` | Update services |
@@ -165,7 +160,7 @@ Store these artifacts with the deployment record:
 ## Troubleshoot activation
 
 | Symptom | Likely cause | Fix |
-|---|---|---|
+| --- | --- | --- |
 | `safesquid.cfg` does not load | Browser is not using SafeSquid as proxy | Recheck pilot proxy settings and retry `http://safesquid.cfg/` |
 | `Failed to set Subscription details` | Key file is missing, renamed, or not loaded | Verify `/usr/local/safesquid/security/activation_key` and re-upload the correct file |
 | Proxy refuses connections after upload | Service restart failed | Check service state and start SafeSquid from the server console if needed |

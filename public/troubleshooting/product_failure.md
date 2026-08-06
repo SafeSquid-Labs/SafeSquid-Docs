@@ -1,10 +1,7 @@
 ---
-title: Product Activation Failure
-description: Diagnose and resolve SafeSquid product activation failure incidents with causes, recovery actions, and audit evidence.
-keywords:
-  - troubleshooting
-  - SafeSquid
-  - product failure
+title: "Product Activation Failure"
+description: "Diagnose and resolve SafeSquid product activation failure incidents with causes, recovery actions, and audit evidence."
+keywords: ["troubleshooting", "SafeSquid", "product failure"]
 ---
 
 # Product Activation Failure
@@ -14,24 +11,18 @@ Product Activation Failure can interrupt web access, policy enforcement, or evid
 ## Issues
 
 1. I uploaded my activation key, but still SafeSquid UI is showing Failed to set Subscription details.
-
 2. After uploading the activation key, I am getting the template on the browser proxy server refusing connections.
-
 3. Unable to see subscription details on the support page from SafeSquid User Interface.
 
 ## Root Causes
 
 1. SafeSquid server is unable to contact the SafeSquid Subscription server.
-
 2. The file (activation key) was not uploaded correctly.
-
-3. The file name you uploaded is other than **activation_key.**
-
+3. The file name you uploaded is other than **activation\_key.**
 4. After uploading the activation key, the page shows the proxy server refusing connections.
-
 5. SafeSquid service restart was not done properly.
 
-### Case 1: Check for the activation_key file on the SafeSquid server
+### Case 1: Check for the activation\_key file on the SafeSquid server
 
 Run the below command and check for the file:
 
@@ -50,15 +41,15 @@ drwxrwxr-- 2 ssquid root 4096 Jul 10 11:55 dns
 
 -rw-rw-r-- 1 ssquid root 724 Jul 28 11:23 krb5.conf
 
--rw-rw-r-- 1 ssquid root 2111 Aug 3 18:52 activation_key
+-rw-rw-r-- 1 ssquid root 2111 Aug 3 18:52 activation\_key
 
 drwxrwxr-- 2 ssquid root 12288 Aug 4 16:04 policies
 
 drwxrwxr-- 5 ssquid root 4096 Aug 4 16:09 ssl
 
--rw-rw-r-- 1 ssquid root 15744 Aug 5 09:51 activation_key.updates.backup
+-rw-rw-r-- 1 ssquid root 15744 Aug 5 09:51 activation\_key.updates.backup
 
-## -rw-rw-r-- 1 ssquid root 15744 Aug 5 09:51 activation_key.updates
+## -rw-rw-r-- 1 ssquid root 15744 Aug 5 09:51 activation\_key.updates
 
 If the file was not found, then upload your activation key again and click on restart
 
@@ -80,9 +71,9 @@ Otherwise, you can directly restart the SafeSquid service from LINUX box by usin
 
 PING swgupdates2.safesquid.net (104.236.27.61) 56(84) bytes of data.
 
-64 bytes from 104.236.27.61: icmp_seq=1 ttl=52 time=309 ms
+64 bytes from 104.236.27.61: icmp\_seq=1 ttl=52 time=309 ms
 
-64 bytes from 104.236.27.61: icmp_seq=2 ttl=52 time=228 ms
+64 bytes from 104.236.27.61: icmp\_seq=2 ttl=52 time=228 ms
 
 --- swgupdates2.safesquid.net ping statistics ---
 

@@ -1,11 +1,7 @@
 ---
-title: SafeSquid Appliance Builder
-description: Deploy SafeSquid SWG with the standard Debian-based appliance path for new bare metal or virtual machine deployments.
-keywords:
-  - SafeSquid Appliance Builder
-  - SAB ISO
-  - SafeSquid appliance
-  - Debian SafeSquid deployment
+title: "SafeSquid Appliance Builder"
+description: "Deploy SafeSquid SWG with the standard Debian-based appliance path for new bare metal or virtual machine deployments."
+keywords: ["SafeSquid Appliance Builder", "SAB ISO", "SafeSquid appliance", "Debian SafeSquid deployment"]
 ---
 
 # Build the Standard Appliance
@@ -213,7 +209,7 @@ Store:
 ## Troubleshoot installation
 
 | Symptom | Likely cause | Fix |
-|---|---|---|
+| --- | --- | --- |
 | Host does not boot from ISO | Boot order or hypervisor media setting is wrong | Reattach ISO and set it as first boot device |
 | Installer cannot reach mirrors | DNS, gateway, or outbound firewall is blocked | Fix network settings and retry installation |
 | Service is not running after reboot | Installation did not complete cleanly | Check service logs and rebuild if the appliance baseline is incomplete |

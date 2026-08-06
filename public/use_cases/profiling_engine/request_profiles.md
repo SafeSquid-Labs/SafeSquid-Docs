@@ -1,13 +1,7 @@
 ---
-title: Request Profiles
-description: Use SafeSquid Request Profiles to classify traffic by method, protocol, host, headers, user agent, and request behavior before applying enforcement policies.
-keywords:
-  - SafeSquid request profiles
-  - configure request profiles SafeSquid
-  - user agent filtering
-  - hostname based profiling SafeSquid
-  - SafeSquid safe search
-  - SafeSquid request classification
+title: "Request Profiles"
+description: "Use SafeSquid Request Profiles to classify traffic by method, protocol, host, headers, user agent, and request behavior before applying enforcement policies."
+keywords: ["SafeSquid request profiles", "configure request profiles SafeSquid", "user agent filtering", "hostname based profiling SafeSquid", "SafeSquid safe search", "SafeSquid request classification"]
 ---
 
 # Classify traffic before you enforce it

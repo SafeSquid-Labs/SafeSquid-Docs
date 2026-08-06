@@ -1,17 +1,7 @@
 ---
-title: Elevated Privacy
-description: Use SafeSquid Elevated Privacy to block third-party cookies, suppress referrer data, and reduce user-agent exposure with profile-aware deployment.
-keywords:
-  - elevated privacy
-  - third-party cookies blocking
-  - block third-party tracking
-  - referrer header removal
-  - anonymize user agent
-  - SafeSquid privacy policy
-  - enforce privacy profiles
-  - hide referrer and user-agent
-  - privacy levels SafeSquid
-  - paranoid privacy mode
+title: "Elevated Privacy"
+description: "Use SafeSquid Elevated Privacy to block third-party cookies, suppress referrer data, and reduce user-agent exposure with profile-aware deployment."
+keywords: ["elevated privacy", "third-party cookies blocking", "block third-party tracking", "referrer header removal", "anonymize user agent", "SafeSquid privacy policy", "enforce privacy profiles", "hide referrer and user-agent", "privacy levels SafeSquid", "paranoid privacy mode"]
 ---
 
 # Reduce tracking without breaking everything

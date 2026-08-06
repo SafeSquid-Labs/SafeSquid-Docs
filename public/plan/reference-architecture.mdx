@@ -1,0 +1,133 @@
+---
+title: "Regulated Enterprise Reference Architecture"
+sidebarTitle: "Reference Architecture"
+description: "Use a SafeSquid reference design that makes traffic steering, trust, identity, policy, evidence, resilience, and recovery boundaries explicit."
+content_type: "concept"
+applies_to: ["2026 Release Train"]
+verified_build: "Conceptual architecture; exact product behavior pending lab validation"
+last_verified: "2026-08-07"
+owner: "SafeSquid Architecture"
+risk: "high"
+verification_level: "documentation-review"
+keywords: ["SafeSquid reference architecture", "SafeSquid high availability", "regulated enterprise proxy", "secure web gateway topology"]
+---
+
+# Reference Architecture for a Regulated Enterprise
+
+This design separates endpoint management, traffic enforcement, administration, identity, trust, evidence, and recovery. It is a starting point for review, not a universal topology. Replace every placeholder with an approved value and validate node roles, protocols, ports, health checks, and failure behavior for the selected build.
+
+```mermaid
+flowchart LR
+    subgraph Endpoints["Managed endpoint zones"]
+      Users["Users and applications"]
+      EDR["Endpoint management and trust deployment"]
+    end
+
+    subgraph Steering["Traffic steering"]
+      PAC["PAC or managed proxy policy"]
+      Net["Transparent, WCCP, VPN, or routed path where approved"]
+    end
+
+    subgraph Enforcement["SafeSquid enforcement tier"]
+      LB["Load balancer or approved failover mechanism"]
+      SWG1["Enforcement node A"]
+      SWG2["Enforcement node B"]
+    end
+
+    subgraph Management["Restricted management tier"]
+      Admin["Privileged administrator path"]
+      Console["Configuration and management services"]
+      Backup["Protected configuration and recovery store"]
+    end
+
+    subgraph Dependencies["Security dependencies"]
+      IdP["Directory and identity services"]
+      PKI["Enterprise PKI"]
+      DNS["Approved DNS"]
+      NTP["Authoritative time"]
+      Intel["Licensed updates and intelligence"]
+    end
+
+    subgraph Evidence["Evidence tier"]
+      Logs["Local protected logs"]
+      SIEM["SIEM or log platform"]
+      Reports["Reports and control review"]
+    end
+
+    Users --> PAC
+    Users --> Net
+    PAC --> LB
+    Net --> LB
+    LB --> SWG1
+    LB --> SWG2
+    SWG1 --> Internet["Internet and SaaS"]
+    SWG2 --> Internet
+    EDR --> Users
+    PKI --> EDR
+    IdP --> SWG1
+    IdP --> SWG2
+    DNS --> SWG1
+    DNS --> SWG2
+    NTP --> SWG1
+    NTP --> SWG2
+    Intel --> SWG1
+    Intel --> SWG2
+    Admin --> Console
+    Console --> SWG1
+    Console --> SWG2
+    Console --> Backup
+    SWG1 --> Logs
+    SWG2 --> Logs
+    Logs --> SIEM
+    SIEM --> Reports
+```
+
+## Trust boundaries
+
+| Boundary | Required decision |
+| --- | --- |
+| Endpoint to steering | Who controls proxy settings, PAC delivery, bypasses, VPN, and direct egress? |
+| Steering to enforcement | How are node health, distribution, source attribution, and return paths verified? |
+| Endpoint TLS trust | Which CA is approved, how is its public certificate deployed, and who protects the private key? |
+| Enforcement to origin | Which TLS versions, validation rules, exceptions, and upstream proxy paths are approved? |
+| Identity to enforcement | Which identities and groups are authoritative, and what happens when the directory is unavailable? |
+| Administration | Which networks and roles can change policy, retrieve evidence, or access recovery material? |
+| Evidence | How are logs transferred, time-aligned, protected, retained, reviewed, and disposed? |
+| Recovery | Who can restore configuration, rotate trust, invoke failover, or authorize temporary exceptions? |
+
+## Normal traffic outcome
+
+For an in-scope managed request, the expected evidence chain is:
+
+1. The endpoint receives the approved steering and trust configuration.
+2. The request reaches an approved enforcement node.
+3. SafeSquid records the expected source and identity context.
+4. TLS handling follows the approved inspect or bypass decision.
+5. Policy produces the expected allow, deny, transform, or log action.
+6. The client receives the expected response.
+7. Local and central evidence records the decision with synchronized time.
+8. The event can be traced from the client test to the retained evidence.
+
+## Failure design
+
+| Failure | Required production behavior to decide and test |
+| --- | --- |
+| One enforcement node fails | Health detection, removal from service, session effect, capacity margin, and evidence continuity |
+| Management service fails | Existing enforcement behavior, change restrictions, recovery path, and administrative evidence |
+| Directory fails | Authentication failure policy, cached context, exception boundary, alert, and recovery |
+| DNS fails | Resolver failover or stop behavior, alert, affected scope, and verification |
+| NTP drifts | Alert threshold, certificate and authentication impact, log reliability, and correction |
+| Update or intelligence service fails | Last-known state, expiry behavior, alert, risk acceptance, and recovery |
+| SIEM is unavailable | Local buffering or retention, loss boundary, alert, replay, and evidence reconciliation |
+| CA or certificate approaches expiry | Ownership, alert horizon, staged rotation, rollback, and client validation |
+| Capacity is exhausted | Thresholds, admission or degradation behavior, scaling action, and incident evidence |
+
+No failure behavior in this table is assumed to be a product default. The deployment owner must replace each item with a release-verified result.
+
+## Pilot variant
+
+The pilot may use one enforcement node and a small managed endpoint group. It must still use controlled administration, approved trust, identity, time, evidence, backup, and rollback. A smaller topology reduces scale; it does not remove security or evidence requirements.
+
+## Architecture acceptance
+
+The architecture review is complete when every component, data flow, trust boundary, dependency, failure response, evidence path, owner, and test is visible. Unresolved behavior remains an explicit risk and cannot be hidden in an implementation note.

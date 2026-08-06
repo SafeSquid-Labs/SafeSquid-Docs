@@ -1,7 +1,7 @@
 {
   "theme": "mint",
-  "name": "SafeSquid Documentation",
-  "description": "Deploy Zero-Trust Web Security \u2014 SafeSquid Secure Web Gateway documentation.",
+  "name": "SafeSquid SWG Documentation",
+  "description": "Verified deployment, security, operations, troubleshooting, and assurance guidance for SafeSquid Secure Web Gateway.",
   "colors": {
     "primary": "#0066CC",
     "light": "#3B82F6",
@@ -54,63 +54,42 @@
         },
         {
           "language": "es",
-          "href": "/?lang=es"
+          "href": "/?lang=es",
+          "hidden": true
         }
       ],
       "versions": [
         {
-          "version": "v2026.0312.1923",
+          "version": "2026 Release Train",
           "default": true,
           "href": "/"
         },
         {
-          "version": "v2024.0315.1413",
-          "href": "/?version=legacy"
+          "version": "2024 Release Train",
+          "href": "/?version=legacy",
+          "tag": "Legacy"
         }
       ]
     },
     "tabs": [
       {
-        "tab": "Overview",
-        "groups": [
+        "tab": "Start Here",
+        "icon": "play",
+        "pages": [
+          "start/choose-your-path",
           {
             "group": "Getting Started",
             "root": "getting_started/introduction",
-            "pages": [
-              "getting_started/introduction",
-              "getting_started/register",
-              "getting_started/deployment_planning",
-              {
-                "group": "Install SafeSquid",
-                "root": "getting_started/install_safesquid/prerequisites",
-                "pages": [
-                  "getting_started/install_safesquid/cloud_deployment",
-                  "getting_started/install_safesquid/safesquid_appliance_builder",
-                  "getting_started/install_safesquid/linux_server"
-                ]
-              },
-              {
-                "group": "Client Configuration",
-                "root": "getting_started/client_configuration/connect_your_client",
-                "pages": [
-                  "getting_started/client_configuration/explicit_proxy",
-                  "getting_started/client_configuration/pac_file",
-                  "getting_started/client_configuration/system_wide_proxy",
-                  "getting_started/client_configuration/enterprise_deployment",
-                  "getting_started/client_configuration/application_specific_configuration"
-                ]
-              },
-              "getting_started/access_the_interface",
-              "getting_started/activate",
-              "getting_started/configure_web_security_policies",
-              "getting_started/verify_your_setup"
-            ]
+            "pages": []
           }
         ]
       },
       {
-        "tab": "SafeSquid SWG",
-        "groups": [
+        "tab": "Plan and Architect",
+        "icon": "network",
+        "pages": [
+          "plan/overview",
+          "plan/reference-architecture",
           {
             "group": "Application Ecosystem",
             "root": "safesquid_swg/application_ecosystem/main",
@@ -123,55 +102,49 @@
               "safesquid_swg/application_ecosystem/threat_intelligence_feeds"
             ]
           },
-          {
-            "group": "Supporting Services",
-            "root": "safesquid_swg/interface/supporting_services",
-            "pages": [
-              "safesquid_swg/interface/supporting_services_monit",
-              "safesquid_swg/interface/bind",
-              "safesquid_swg/interface/ntp"
-            ]
-          },
-          {
-            "group": "Policy Management Console",
-            "root": "safesquid_swg/policy_management_console/main",
-            "pages": [
-              "safesquid_swg/policy_management_console/reports",
-              "safesquid_swg/policy_management_console/configure",
-              "safesquid_swg/policy_management_console/support"
-            ]
-          },
-          {
-            "group": "Files and Folders",
-            "root": "safesquid_swg/files_and_folders/main",
-            "pages": [
-              "safesquid_swg/files_and_folders/files_and_folders",
-              "safesquid_swg/files_and_folders/service_and_startup_files",
-              "safesquid_swg/files_and_folders/application_binaries_and_modules",
-              "safesquid_swg/files_and_folders/policy_security_and_ui_files",
-              "safesquid_swg/files_and_folders/runtime_data_and_signatures",
-              "safesquid_swg/files_and_folders/logs_and_audit_evidence"
-            ]
-          }
+          "getting_started/deployment_planning",
+          "plan/deployment-readiness-workbook"
         ]
       },
       {
-        "tab": "Use Cases",
-        "groups": [
+        "tab": "Deploy",
+        "icon": "server",
+        "pages": [
+          "deploy/overview",
+          "getting_started/register",
           {
-            "group": "SSL Inspection",
-            "root": "use_cases/ssl_inspection/ssl_inspection",
+            "group": "Install SafeSquid",
+            "root": "getting_started/install_safesquid/prerequisites",
             "pages": [
-              "use_cases/ssl_inspection/ssl_inspection",
-              "use_cases/ssl_inspection/configure_https_inspection",
-              "use_cases/ssl_inspection/import_certificate_chrome_ie"
+              "getting_started/install_safesquid/cloud_deployment",
+              "getting_started/install_safesquid/safesquid_appliance_builder",
+              "getting_started/install_safesquid/linux_server"
+            ]
+          },
+          "getting_started/access_the_interface",
+          "getting_started/activate"
+        ]
+      },
+      {
+        "tab": "Connect and Identify",
+        "icon": "users",
+        "pages": [
+          "connect/overview",
+          {
+            "group": "Client Configuration",
+            "root": "getting_started/client_configuration/connect_your_client",
+            "pages": [
+              "getting_started/client_configuration/explicit_proxy",
+              "getting_started/client_configuration/pac_file",
+              "getting_started/client_configuration/system_wide_proxy",
+              "getting_started/client_configuration/enterprise_deployment",
+              "getting_started/client_configuration/application_specific_configuration"
             ]
           },
           {
             "group": "Authentication",
             "root": "use_cases/authentication/authentication",
             "pages": [
-              "use_cases/authentication/authentication",
               "use_cases/authentication/directory_services",
               "use_cases/authentication/setup_active_directory_integration",
               "use_cases/authentication/active_directory",
@@ -189,12 +162,27 @@
               "use_cases/authentication/user_groups",
               "use_cases/authentication/bypass_authentication"
             ]
+          }
+        ]
+      },
+      {
+        "tab": "Secure",
+        "icon": "shield-check",
+        "pages": [
+          "secure/overview",
+          "getting_started/configure_web_security_policies",
+          {
+            "group": "SSL Inspection",
+            "root": "use_cases/ssl_inspection/ssl_inspection",
+            "pages": [
+              "use_cases/ssl_inspection/configure_https_inspection",
+              "use_cases/ssl_inspection/import_certificate_chrome_ie"
+            ]
           },
           {
             "group": "Profiling Engine",
             "root": "use_cases/profiling_engine/profiling_engine",
             "pages": [
-              "use_cases/profiling_engine/profiling_engine",
               "use_cases/profiling_engine/application_signatures",
               "use_cases/profiling_engine/request_profiles",
               "use_cases/profiling_engine/response_profiles",
@@ -205,7 +193,6 @@
             "group": "DNS Security",
             "root": "use_cases/dns_security/dns_security",
             "pages": [
-              "use_cases/dns_security/dns_security",
               "use_cases/dns_security/homograph_detection",
               "use_cases/dns_security/dnsbl",
               "use_cases/dns_security/geoip"
@@ -215,7 +202,6 @@
             "group": "Malware Scanning",
             "root": "use_cases/malware_scanning/malware_scanners",
             "pages": [
-              "use_cases/malware_scanning/malware_scanners",
               "use_cases/malware_scanning/clamav_malware_scanning",
               "use_cases/malware_scanning/malware_signatures",
               "use_cases/malware_scanning/sqscan",
@@ -227,7 +213,6 @@
             "group": "Access Restriction",
             "root": "use_cases/access_restriction/access_restriction",
             "pages": [
-              "use_cases/access_restriction/access_restriction",
               "use_cases/access_restriction/working_of_default_entries_in_access_restrictions",
               "use_cases/access_restriction/safesearch",
               "use_cases/access_restriction/web_categorization",
@@ -250,7 +235,6 @@
             "group": "Content Modifier",
             "root": "use_cases/content_modifier/content_modifier",
             "pages": [
-              "use_cases/content_modifier/content_modifier",
               "use_cases/content_modifier/block_advertisements_and_banners",
               "use_cases/content_modifier/allowing_specific_page_on_facebook",
               "use_cases/content_modifier/facebook_read_only_mode"
@@ -260,7 +244,6 @@
             "group": "Cookie Inspection",
             "root": "use_cases/cookie_inspection/cookie_inspection",
             "pages": [
-              "use_cases/cookie_inspection/cookie_inspection",
               "use_cases/cookie_inspection/cookie_filter_configuration"
             ]
           },
@@ -268,7 +251,6 @@
             "group": "Header Rewrite",
             "root": "use_cases/header_rewrite/header_obfuscation",
             "pages": [
-              "use_cases/header_rewrite/header_obfuscation",
               "use_cases/header_rewrite/header_filter_configuration",
               "use_cases/header_rewrite/rewriting_policies_reference",
               "use_cases/header_rewrite/block_personal_gmail_allow_google_corporate_accounts"
@@ -278,7 +260,6 @@
             "group": "URL Redirection",
             "root": "use_cases/url_redirection/url_redirection",
             "pages": [
-              "use_cases/url_redirection/url_redirection",
               "use_cases/url_redirection/redirect_one_website_to_another"
             ]
           },
@@ -286,7 +267,6 @@
             "group": "Data Leakage Prevention",
             "root": "use_cases/data_leakage_prevention/data_leakage_prevention",
             "pages": [
-              "use_cases/data_leakage_prevention/data_leakage_prevention",
               "use_cases/data_leakage_prevention/content_analyser",
               "use_cases/data_leakage_prevention/text_analyser",
               "use_cases/data_leakage_prevention/image_analyser_ai",
@@ -301,7 +281,6 @@
             "group": "Audit & Forensics",
             "root": "use_cases/audit_and_forensics/audit_forensics",
             "pages": [
-              "use_cases/audit_and_forensics/audit_forensics",
               "use_cases/audit_and_forensics/audit_forensics_monit",
               "use_cases/audit_and_forensics/reporting_module",
               "use_cases/audit_and_forensics/security_logs"
@@ -311,20 +290,21 @@
             "group": "Integrations",
             "root": "use_cases/integrations/integrations",
             "pages": [
-              "use_cases/integrations/integrations",
               "use_cases/integrations/icap"
             ]
           }
         ]
       },
       {
-        "tab": "Admin Guide",
-        "groups": [
+        "tab": "Operate and Recover",
+        "icon": "activity",
+        "pages": [
+          "operate/overview",
+          "getting_started/verify_your_setup",
           {
             "group": "Scaling & High Availability",
             "root": "admin_guide/scaling_and_high_availability/proxy_clustering",
             "pages": [
-              "admin_guide/scaling_and_high_availability/proxy_clustering",
               "admin_guide/scaling_and_high_availability/operational_modes",
               "admin_guide/scaling_and_high_availability/disaster_recovery",
               "admin_guide/scaling_and_high_availability/master_slave",
@@ -341,7 +321,6 @@
             "group": "Performance Acceleration",
             "root": "admin_guide/performance_acceleration/performance_accelerators",
             "pages": [
-              "admin_guide/performance_acceleration/performance_accelerators",
               "admin_guide/performance_acceleration/caching",
               "admin_guide/performance_acceleration/manage_bandwidth",
               "admin_guide/performance_acceleration/performance_plot",
@@ -353,7 +332,6 @@
             "group": "Customisation",
             "root": "admin_guide/customisation/customisation",
             "pages": [
-              "admin_guide/customisation/customisation",
               "admin_guide/customisation/configuration_sync",
               "admin_guide/customisation/configure_cloud_restore",
               "admin_guide/customisation/custom_templates",
@@ -364,7 +342,6 @@
             "group": "Upgrade",
             "root": "admin_guide/upgrade/upgrade_safesquid",
             "pages": [
-              "admin_guide/upgrade/upgrade_safesquid",
               "admin_guide/upgrade/os_upgrade",
               "admin_guide/upgrade/version_upgrade"
             ]
@@ -372,7 +349,7 @@
         ]
       },
       {
-        "tab": "Troubleshooting",
+        "tab": "Troubleshoot",
         "pages": [
           "troubleshooting/troubleshooting",
           "troubleshooting/blank_report_page",
@@ -394,12 +371,59 @@
           "troubleshooting/unable_to_login_specific_website",
           "troubleshooting/website_not_accessible",
           "troubleshooting/whitelisted_website_blocked"
+        ],
+        "icon": "stethoscope"
+      },
+      {
+        "tab": "Reference",
+        "icon": "book-open",
+        "pages": [
+          "reference/overview",
+          "reference/legacy-migration",
+          "reference/documentation-standard",
+          "reference/documentation-trust",
+          {
+            "group": "Supporting Services",
+            "root": "safesquid_swg/interface/supporting_services",
+            "pages": [
+              "safesquid_swg/interface/supporting_services_monit",
+              "safesquid_swg/interface/bind",
+              "safesquid_swg/interface/ntp"
+            ]
+          },
+          "reference/using-documentation-with-ai",
+          {
+            "group": "Policy Management Console",
+            "root": "safesquid_swg/policy_management_console/main",
+            "pages": [
+              "safesquid_swg/policy_management_console/reports",
+              "safesquid_swg/policy_management_console/configure",
+              "safesquid_swg/policy_management_console/support"
+            ]
+          },
+          {
+            "group": "Files and Folders",
+            "root": "safesquid_swg/files_and_folders/main",
+            "pages": [
+              "safesquid_swg/files_and_folders/files_and_folders",
+              "safesquid_swg/files_and_folders/service_and_startup_files",
+              "safesquid_swg/files_and_folders/application_binaries_and_modules",
+              "safesquid_swg/files_and_folders/policy_security_and_ui_files",
+              "safesquid_swg/files_and_folders/runtime_data_and_signatures",
+              "safesquid_swg/files_and_folders/logs_and_audit_evidence"
+            ]
+          },
+          "faqs/faqs",
+          "reference/verification-register"
         ]
       },
       {
-        "tab": "FAQs",
+        "tab": "Assurance and Evidence",
+        "icon": "clipboard-check",
         "pages": [
-          "faqs/faqs"
+          "assurance/overview",
+          "assurance/evidence-checklist",
+          "assurance/control-mapping"
         ]
       }
     ]

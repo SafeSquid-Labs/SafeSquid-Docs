@@ -1,0 +1,88 @@
+---
+title: "How to Trust This Documentation"
+sidebarTitle: "Documentation Trust"
+description: "Understand SafeSquid documentation verification levels, ownership, evidence, version scope, review gates, and correction process."
+content_type: "reference"
+applies_to: ["2026 Release Train", "2024 Release Train"]
+verified_build: "Not product-behavior dependent"
+last_verified: "2026-08-07"
+owner: "SafeSquid Documentation"
+risk: "low"
+verification_level: "editorial-review"
+keywords: ["SafeSquid documentation verification", "documentation trust", "verified build", "SafeSquid documentation governance"]
+---
+
+# Know What Has Been Proven
+
+SafeSquid documentation distinguishes observed product behavior from design guidance, external standards, and material awaiting validation. This distinction lets technicians use a page safely and lets reviewers identify exactly which evidence supports a claim.
+
+## Verification levels
+
+| Level | Meaning | Production use |
+| --- | --- | --- |
+| **Lab verified** | The procedure was reproduced on the stated build and evidence was reviewed by a product SME and an independent operator | Eligible for production change use within the documented scope |
+| **Operator verified** | An independent operator completed the task on the stated build, but one required product or domain approval remains | Use in a controlled environment; obtain the missing approval for high-risk changes |
+| **SME reviewed** | A product owner reviewed technical intent, but the complete procedure was not independently reproduced | Planning and lab use only |
+| **Documentation review** | Existing sources were reconciled and the content was structurally reviewed | Do not use as sole authority for a consequential production change |
+| **Editorial review** | The page describes navigation, governance, or non-product-specific guidance | Suitable for its stated informational purpose |
+| **Pending validation** | A behavior, default, output, limit, or failure path has not been reproduced | Treat as unknown |
+
+## Page metadata
+
+Every production page uses these fields:
+
+| Field | Purpose |
+| --- | --- |
+| `content_type` | Tutorial, how-to, concept, reference, troubleshooting, or assurance |
+| `applies_to` | Supported release trains covered by the page |
+| `verified_build` | Exact build or explicit statement that validation is pending |
+| `last_verified` | Date the documented behavior was last reproduced or reviewed |
+| `owner` | Team responsible for technical accuracy |
+| `risk` | Consequence of incorrect use: low, medium, or high |
+| `verification_level` | Evidence and review state from the table above |
+| `description` | Precise page scope for search and AI retrieval |
+| `keywords` | Product names, legacy terms, errors, and operator vocabulary |
+
+## Evidence required for consequential procedures
+
+A high-risk page reaches **Lab verified** only when its evidence record contains:
+
+- Release train and exact build
+- Starting topology and configuration state
+- Sanitized input set
+- Successful action and expected output
+- Negative or adjacent test
+- Reproduced failure condition
+- Recovery or rollback result
+- Relevant logs, status, screenshots, or traffic evidence
+- Product SME approval
+- Independent operator result
+- Verification date and evidence location
+
+The public page does not expose secrets, customer data, private keys, activation material, internal-only source, or restricted support records.
+
+## Claim discipline
+
+Documentation may describe:
+
+- Product behavior reproduced on a named build
+- Architecture confirmed by authoritative product design material
+- External standards linked to their authoritative publisher
+- Compliance evidence that a configured control can generate
+- Limitations, exclusions, dependencies, and failure behavior
+
+Documentation must not present an unverified internal belief, marketing superlative, unsupported performance comparison, undocumented default, or regulatory certification as product fact.
+
+<Warning>
+  A control mapping is not a compliance determination. Applicable law, organizational scope, operating effectiveness, evidence retention, and assessor judgment remain outside the documentation claim.
+</Warning>
+
+## Corrections and stale content
+
+Report a documentation error with the page URL, release and build, observed result, expected result, sanitized evidence, and operational impact. High-risk errors are triaged before editorial improvements.
+
+A page becomes stale when its supported release changes, its owner cannot confirm continued behavior, its verification date exceeds the review policy, or support evidence contradicts it. Stale high-risk instructions are marked or removed from production paths until revalidated.
+
+## AI use
+
+Mintlify exposes public pages as Markdown and through AI-oriented indexes. Precise descriptions, stable headings, version metadata, explicit expected results, and small authoritative sections help AI systems cite the correct scope. AI-generated answers remain secondary to the verification metadata on the cited page.

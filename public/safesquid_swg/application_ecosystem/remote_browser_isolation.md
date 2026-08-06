@@ -1,11 +1,7 @@
 ---
-title: Remote Browser Isolation
-description: Remote Browser Isolation role in the SafeSquid SWG ecosystem for separating risky browsing from trusted enterprise endpoints.
-keywords:
-  - Remote Browser Isolation
-  - RBI
-  - browser isolation
-  - SafeSquid SWG
+title: "Remote Browser Isolation"
+description: "Remote Browser Isolation role in the SafeSquid SWG ecosystem for separating risky browsing from trusted enterprise endpoints."
+keywords: ["Remote Browser Isolation", "RBI", "browser isolation", "SafeSquid SWG"]
 ---
 
 # Remote Browser Isolation

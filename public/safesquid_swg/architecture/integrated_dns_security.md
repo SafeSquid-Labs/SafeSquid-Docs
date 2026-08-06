@@ -1,14 +1,7 @@
 ---
-title: Integrated DNS Security
-description: Integrated DNS Security in SafeSquid — DNSBL, homograph detection, query accounting, GeoIP-aware controls, and DNS tunnelling risk reduction.
-keywords:
-  - Secure Web Gateway Components
-  - Integrated DNS Security
-  - DNSBL Service
-  - DNS threat protection
-  - DNS tunneling
-  - homograph detection
-  - GeoIP
+title: "Integrated DNS Security"
+description: "Integrated DNS Security in SafeSquid — DNSBL, homograph detection, query accounting, GeoIP-aware controls, and DNS tunnelling risk reduction."
+keywords: ["Secure Web Gateway Components", "Integrated DNS Security", "DNSBL Service", "DNS threat protection", "DNS tunneling", "homograph detection", "GeoIP"]
 ---
 
 # Integrated DNS Security
@@ -85,23 +78,11 @@ Useful evidence includes:
 
 ## Troubleshooting guide
 
-**Symptom:** Legitimate domains stop resolving.  
-**Likely cause:** Overbroad DNSBL or policy scope, or upstream DNS dependency failure.  
-**Isolation:** Compare blocked domains against the policy intent and verify upstream resolver health.  
-**Remediation:** Narrow the rule or restore the upstream DNS path.  
-**Retest:** Resolve a sanctioned destination and confirm success.
+**Symptom:** Legitimate domains stop resolving.<br />**Likely cause:** Overbroad DNSBL or policy scope, or upstream DNS dependency failure.<br />**Isolation:** Compare blocked domains against the policy intent and verify upstream resolver health.<br />**Remediation:** Narrow the rule or restore the upstream DNS path.<br />**Retest:** Resolve a sanctioned destination and confirm success.
 
-**Symptom:** Malicious test domains still resolve.  
-**Likely cause:** SafeSquid is not in the effective DNS path, or the DNSBL dependency is unreachable.  
-**Isolation:** Verify the actual resolver path and test DNSBL reachability.  
-**Remediation:** Correct the DNS flow or allowlist the required external dependency.  
-**Retest:** Repeat the same blocked-domain test and confirm prevention.
+**Symptom:** Malicious test domains still resolve.<br />**Likely cause:** SafeSquid is not in the effective DNS path, or the DNSBL dependency is unreachable.<br />**Isolation:** Verify the actual resolver path and test DNSBL reachability.<br />**Remediation:** Correct the DNS flow or allowlist the required external dependency.<br />**Retest:** Repeat the same blocked-domain test and confirm prevention.
 
-**Symptom:** DNS tunnelling indicators are not visible in logs.  
-**Likely cause:** Query accounting or the relevant DNS logging path is not enabled or retained.  
-**Isolation:** Review DNS logging configuration and retention behavior.  
-**Remediation:** Enable the required DNS evidence path.  
-**Retest:** Run a controlled test and confirm the event appears.
+**Symptom:** DNS tunnelling indicators are not visible in logs.<br />**Likely cause:** Query accounting or the relevant DNS logging path is not enabled or retained.<br />**Isolation:** Review DNS logging configuration and retention behavior.<br />**Remediation:** Enable the required DNS evidence path.<br />**Retest:** Run a controlled test and confirm the event appears.
 
 ## Related controls / next steps
 

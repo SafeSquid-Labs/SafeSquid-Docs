@@ -1,14 +1,8 @@
 ---
-title: Configuration Sync
-description: Discover how to enable configuration synchronization across a SafeSquid proxy cluster to ensure consistent policy deployment, reduce administrative overhead, and improve system reliability and security.
-keywords:
-  - SafeSquid configuration sync
-  - Proxy cluster synchronization
-  - SafeSquid master-slave sync
-  - Sync proxy configuration SafeSquid
-  - SafeSquid centralized policy update
+title: "Configuration Sync"
+description: "Discover how to enable configuration synchronization across a SafeSquid proxy cluster to ensure consistent policy deployment, reduce administrative overhead, and improve system reliability and security."
+keywords: ["SafeSquid configuration sync", "Proxy cluster synchronization", "SafeSquid master-slave sync", "Sync proxy configuration SafeSquid", "SafeSquid centralized policy update"]
 ---
-
 
 # Keep all proxy nodes in sync with master configuration
 
@@ -17,6 +11,7 @@ Without configuration synchronization, each proxy node must be updated manually.
 ## What gets synced
 
 **Synchronized from master to slaves:**
+
 - Access policies (Access Restriction, Content Security, etc.)
 - User groups and identity rules
 - SSL Inspection settings
@@ -24,6 +19,7 @@ Without configuration synchronization, each proxy node must be updated manually.
 - Extended policies (DLP, Anti-Virus, etc.)
 
 **NOT synchronized (local to each node):**
+
 - Network interface settings (IP, ports)
 - System logs (each node logs independently)
 - Performance counters
@@ -35,8 +31,6 @@ Without configuration synchronization, each proxy node must be updated manually.
 - **Frequency**: Near real-time (within ~1-5 minutes after applying changes on master)
 - **Mechanism**: Slaves poll master at regular intervals for configuration updates
 - **Restart required**: Some changes (e.g., startup params, network settings) require slave restart to apply
-
-
 
 ## Prerequisites
 
@@ -53,39 +47,32 @@ Below is an example of creating a user group for the slave proxy instance:
 
 Perform these steps on each slave server to enable configuration sync from the master.
 
-
-
 ## Access the web interface and go to Support
+
 ![accessing safesquid web interface and going to support ](/images/How_to_Setup_Configuration_Sync_in_a_SafeSquid_Proxy_Cluster/image2.webp)
 
-
-
 ## Select Startup Params
+
 ![selecting setup params option](/images/How_to_Setup_Configuration_Sync_in_a_SafeSquid_Proxy_Cluster/image3.webp)
 
-
-
 ## Click on the edit button.
+
 ![clicking on edit button](/images/How_to_Setup_Configuration_Sync_in_a_SafeSquid_Proxy_Cluster/image4.webp)
 
-
-
 ## Add the master proxy server IP address
+
 ![Adding the master proxy server IP address](/images/How_to_Setup_Configuration_Sync_in_a_SafeSquid_Proxy_Cluster/image5.webp)
 
-
-
 ## Add the master proxy server port number
+
 ![Adding the master proxy server port number](/images/How_to_Setup_Configuration_Sync_in_a_SafeSquid_Proxy_Cluster/image6.webp)
 
-
-
 ## Now click on the correct icon to save the configuration.
+
 ![clicking on the correct icon to save the configuration](/images/How_to_Setup_Configuration_Sync_in_a_SafeSquid_Proxy_Cluster/image7.webp)
 
-
-
 ## Now click on restart for applying changes.
+
 ![clicking on restart for applying changes](/images/How_to_Setup_Configuration_Sync_in_a_SafeSquid_Proxy_Cluster/image8.webp)
 
 Click **Yes** to back up SafeSquid configuration to the cloud, or **No** to skip cloud backup.
@@ -109,19 +96,21 @@ After restart, the slave begins syncing configuration from the master. Policy ch
 ## Troubleshooting
 
 **Policies not syncing to slave:**
+
 - Verify slave Startup params show correct master IP and port: Configuration Portal → Support → Startup Params
 - Check network connectivity from slave to master: `telnet <master-ip> 8888`
 - If authentication enabled, verify slave IP in master Access Restriction → Allow list
 - Restart slave: Configuration Portal → Support → Restart SafeSquid
 
-**Sync is slow (>10 minutes):**
+**Sync is slow (\>10 minutes):**
+
 - Check network latency between master and slave: `ping <master-ip>`
 - Verify master is not overloaded (CPU/memory usage)
 - Check slave logs for sync errors: `tail -f /var/log/safesquid/extended.log`
 
 **Changes sync but don't apply:**
+
 - Restart slave to apply configuration changes: Configuration Portal → Support → Restart SafeSquid
 - Some changes (network settings, startup params) require manual restart
 
 **Related**: [Master-Slave setup](/Master_Slave), [Configuration Portal](/Configuration_Portal), [Troubleshooting](/Troubleshooting)
-

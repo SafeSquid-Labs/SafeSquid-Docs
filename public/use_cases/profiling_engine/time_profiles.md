@@ -1,49 +1,26 @@
 ---
-title: Time Profiles
-description: Configure SafeSquid Time Profiler to implement time-based internet access control using customizable time ranges including month, day, weekday, hour, and minute.
-keywords:
-  - SafeSquid time profiler
-  - SafeSquid time-based access control
-  - SafeSquid internet scheduling
-  - SafeSquid weekday access policies
-  - SafeSquid hour range filtering
-  - SafeSquid minute range web control
-  - SafeSquid access policies by time
-  - SafeSquid time match modes
-  - SafeSquid allranges vs absolutetime
+title: "Time Profiles"
+description: "Configure SafeSquid Time Profiler to implement time-based internet access control using customizable time ranges including month, day, weekday, hour, and minute."
+keywords: ["SafeSquid time profiler", "SafeSquid time-based access control", "SafeSquid internet scheduling", "SafeSquid weekday access policies", "SafeSquid hour range filtering", "SafeSquid minute range web control", "SafeSquid access policies by time", "SafeSquid time match modes", "SafeSquid allranges vs absolutetime"]
 ---
-
 
 # Enforce access by time range
 
 Time Profiler enforces time-based internet access using configurable ranges: month, day, weekday, hour, and minute. Create Time Profile entries as combinations of these ranges; SafeSquid allows or blocks categories and websites according to the active profile.
 
-
-
 ## Enable Time Profiler
 
 1. Access the [SafeSquid interface](/Configuration_Portal).
-
-2. Navigate to **Configure** page.
-
-   ![Configure page](/images/Configure/Custom_Settings/Time_Profiler/image1.webp)
-
-3. Click **Custom Settings** in the sidebar.
-
-   ![Custom Settings](/images/Configure/Custom_Settings/Time_Profiler/image2.webp)
-
-4. Select **Time Profiler**.
-
-   ![Time Profiler section](/images/Configure/Custom_Settings/Time_Profiler/image3.webp)
-
-
+2. Navigate to **Configure** page. <img src="/images/Configure/Custom_Settings/Time_Profiler/image1.webp" alt="Configure page" />
+3. Click **Custom Settings** in the sidebar. <img src="/images/Configure/Custom_Settings/Time_Profiler/image2.webp" alt="Custom Settings" />
+4. Select **Time Profiler**. <img src="/images/Configure/Custom_Settings/Time_Profiler/image3.webp" alt="Time Profiler section" />
 
 ## Configuration Options
 
 ### Global Settings
 
 | Setting | Description |
-|---------|-------------|
+| --- | --- |
 | **Enabled** | TRUE: Enable time profiles. FALSE: Disable time profiles. |
 
 ![Global section](/images/Configure/Custom_Settings/Time_Profiler/image4.webp)
@@ -59,7 +36,7 @@ SafeSquid evaluates entries from top to bottom. All entries within the time rang
 ### Entry Settings
 
 | Field | Description |
-|-------|-------------|
+| --- | --- |
 | **Enabled** | TRUE/FALSE - Enable or disable this entry |
 | **Comment** | Documentation explaining the entry's purpose |
 | **Trace Entry** | TRUE/FALSE - Enable debugging in SafeSquid logs |
@@ -76,14 +53,14 @@ SafeSquid evaluates entries from top to bottom. All entries within the time rang
 ### Time Match Modes
 
 **ABSOLUTETIME:** Matches any time between starting and ending time only.
+
 - Example: Weekday Monday-Friday, Hour 9-17
 - Active from Monday 9 AM to Friday 5 PM continuously
 
 **ALLRANGES:** Matches time within all specified ranges.
+
 - Example: Weekday Monday-Friday, Hour 10-17
 - Active every day Monday-Friday between 10 AM and 5 PM
-
-
 
 ## Examples
 
@@ -92,7 +69,7 @@ SafeSquid evaluates entries from top to bottom. All entries within the time rang
 Office hours: 10 AM to 9 PM, Monday to Friday.
 
 | Field | Value |
-|-------|-------|
+| --- | --- |
 | Hour Range | 10 to 21 |
 | Weekday Range | Monday to Friday |
 | Added Time Profiles | STANDARD OFFICE HOURS |
@@ -104,11 +81,10 @@ Office hours: 10 AM to 9 PM, Monday to Friday.
 Lunch hours: 2 PM to 2:30 PM, Monday to Friday. Allow Social Media during lunch.
 
 | Field | Value |
-|-------|-------|
+| --- | --- |
 | Hour Range | 14 to 14 |
 | Minute Range | 0 to 30 |
 | Weekday Range | Monday to Friday |
 | Added Time Profiles | STANDARD LUNCH HOURS |
 
 ![Lunch hours rule](/images/Configure/Custom_Settings/Time_Profiler/image8.webp)
-

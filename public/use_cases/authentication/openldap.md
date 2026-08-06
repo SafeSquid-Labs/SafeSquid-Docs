@@ -1,11 +1,7 @@
 ---
-title: OpenLDAP
-description: Integrate SafeSquid with OpenLDAP for centralized user authentication and group-based access control in Linux/Unix environments.
-keywords:
-  - openldap integration
-  - SafeSquid ldap setup
-  - ldap authentication
-  - linux directory integration
+title: "OpenLDAP"
+description: "Integrate SafeSquid with OpenLDAP for centralized user authentication and group-based access control in Linux/Unix environments."
+keywords: ["openldap integration", "SafeSquid ldap setup", "ldap authentication", "linux directory integration"]
 ---
 
 # OpenLDAP Integration
@@ -19,7 +15,7 @@ Linux- and Unix-heavy environments still need attributable proxy identity and gr
 ## Integration Workflow
 
 | Step | Task | Goal |
-|------|------|------|
+| --- | --- | --- |
 | 1 | [Simple Authentication](/OpenLDAP_Simple_Authentication) | Configure LDAP server connection and enable browser-prompt authentication. |
 | 2 | [SSO Authentication](/OpenLDAP_SSO_Authentication) | Follow the documented access flow on that page and confirm the exact scope before describing it as transparent SSO in your environment. |
 
@@ -37,28 +33,21 @@ OpenLDAP is a confirmed directory integration path. Do not assume it provides th
 ## Verification
 
 After configuring OpenLDAP:
+
 1. **Fetch Entries:** Confirm that LDAP users and groups are listed in the **LDAP Entities** section of the SafeSquid interface.
 2. **Log Check:** Verify successful LDAP binds in `/var/log/safesquid/safesquid.log`.
 3. **Policy Test:** Ensure that a rule restricted to an LDAP group correctly allows members and blocks others.
 
 ## Troubleshooting
 
-**Symptom:** LDAP users exist, but authentication fails.  
-**Likely cause:** Bind settings, base DN, or server reachability are wrong.  
-**Isolation:** Check the connection details and bind-related logs.  
-**Remediation:** Correct the LDAP settings and retry.  
-**Retest:** Authenticate with a known-good LDAP user.
+**Symptom:** LDAP users exist, but authentication fails.<br />**Likely cause:** Bind settings, base DN, or server reachability are wrong.<br />**Isolation:** Check the connection details and bind-related logs.<br />**Remediation:** Correct the LDAP settings and retry.<br />**Retest:** Authenticate with a known-good LDAP user.
 
-**Symptom:** Group-based policy does not differentiate users.  
-**Likely cause:** Group retrieval or mapping is incomplete.  
-**Isolation:** Confirm LDAP groups are visible in the interface and compare the policy scope.  
-**Remediation:** Correct the group mapping.  
-**Retest:** Compare different LDAP users against the same protected target.
+**Symptom:** Group-based policy does not differentiate users.<br />**Likely cause:** Group retrieval or mapping is incomplete.<br />**Isolation:** Confirm LDAP groups are visible in the interface and compare the policy scope.<br />**Remediation:** Correct the group mapping.<br />**Retest:** Compare different LDAP users against the same protected target.
 
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+| --- | --- | --- |
 | Simple LDAP bind flow | **Confirmed** | [Simple Authentication](/OpenLDAP_Simple_Authentication) |
 | OpenLDAP “SSO” wording | **Needs scope check** | Keep the wording bounded to the implementation page unless transparent SSO is proven in the target design |
 

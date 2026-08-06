@@ -1,0 +1,68 @@
+---
+title: "Verification Register"
+description: "Public verification status for consequential SafeSquid documentation, including evidence required before release."
+keywords: ["SafeSquid documentation verification", "SafeSquid evidence register", "SafeSquid lab validation"]
+content_type: "reference"
+applies_to: ["2026 Release Train", "2024 Release Train"]
+verified_build: "Documentation system only"
+last_verified: "2026-08-07"
+owner: "SafeSquid Documentation"
+risk: "medium"
+verification_level: "documentation-review"
+sidebarTitle: "Verification Register"
+---
+
+# Verification register
+
+This register shows whether consequential guidance has been checked against a product build. It deliberately does not expose production data, support cases, reviewer identities, or restricted lab artifacts.
+
+<Warning>
+  A page marked **Documentation review** has been checked for structure and internal consistency, but its product behavior has not yet been reproduced in the release lab. Do not present it as build-verified.
+</Warning>
+
+## Status meanings
+
+| Public status | Meaning | Publication use |
+| --- | --- | --- |
+| Documentation review | Content and links were reviewed; product behavior is pending | Visible with an explicit warning |
+| Lab reproduced | One operator reproduced the procedure on the named build | Eligible for normal-risk publication |
+| Independently verified | A second operator reproduced the critical path | Required for high-risk publication |
+| Stale | The verification interval expired or a release changed the behavior | Must be reverified or withdrawn |
+| Archived | The release is unsupported | Kept outside current operational guidance |
+
+## Current program status
+
+| Documentation domain | Current level | Evidence still required | Accountable owner |
+| --- | --- | --- | --- |
+| Installation and activation | Documentation review | Build record, console output, first-traffic capture, rollback result | Product Engineering |
+| Client steering | Documentation review | Explicit, PAC, system, enterprise, and application test records | Network Engineering |
+| TLS inspection | Documentation review | Certificate chain, bypass behavior, failure reproduction, recovery evidence | Security Engineering |
+| Identity integration | Documentation review | Directory test data, authentication logs, fail-open or fail-closed behavior | Identity Engineering |
+| Malware and DLP | Documentation review | Safe test artifacts, policy results, logs, exception behavior | Threat Protection |
+| Logging and forensics | Documentation review | Event samples, time synchronization, export and retention checks | Security Operations |
+| High availability and recovery | Documentation review | Failure injection, state consistency, RTO/RPO observations, rollback | Reliability Engineering |
+| Upgrade and rollback | Documentation review | Supported upgrade path, preserved-state checks, downgrade or restore record | Release Engineering |
+| Troubleshooting | Documentation review | Symptom reproduction, discriminating tests, recovery confirmation | Support Engineering |
+
+## Evidence record required for each consequential page
+
+1. Page path, commit, content owner, and technical reviewers.
+2. Applicable release train and exact build identifier.
+3. Lab topology, sanitized inputs, and prerequisite state.
+4. Action transcript with timestamps and expected outputs.
+5. At least one deliberately reproduced failure where practical.
+6. Recovery and rollback observations.
+7. Sanitized screenshots, logs, packet evidence, or API responses.
+8. Open limitations, unresolved defects, and expiry date.
+
+The restricted evidence ledger stores the underlying artifacts. This public register exposes only status and accountability.
+
+## Release rule
+
+High-risk procedures require **Lab reproduced** plus independent operator approval before the warning can be removed. A product release, configuration change, or expired review returns affected pages to **Documentation review** until they are reverified.
+
+Related guidance:
+
+- [Documentation trust](/reference/documentation-trust)
+- [Content standard](/reference/documentation-standard)
+- [Evidence checklist](/assurance/evidence-checklist)

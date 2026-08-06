@@ -1,11 +1,7 @@
 ---
-title: Proxy Service
-description: SafeSquid proxy service role, startup dependency, policy enforcement path, and operational evidence for enterprise SWG deployments.
-keywords:
-  - SafeSquid proxy service
-  - SafeSquid startup parameters
-  - Secure Web Gateway enforcement
-  - proxy evidence
+title: "Proxy Service"
+description: "SafeSquid proxy service role, startup dependency, policy enforcement path, and operational evidence for enterprise SWG deployments."
+keywords: ["SafeSquid proxy service", "SafeSquid startup parameters", "Secure Web Gateway enforcement", "proxy evidence"]
 ---
 
 # Proxy Service

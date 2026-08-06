@@ -1,13 +1,7 @@
 ---
-title: Self-Service Portal
-description: SafeSquid Self-Service Portal — cloud-managed activation, licensing, backup, categorization, certificate, and related operational workflows for SafeSquid deployments.
-keywords:
-  - SafeSquid Self-Service Portal
-  - Manage SafeSquid activation key
-  - SafeSquid custom web categorization
-  - SafeSquid SSL certificate management
-  - SafeSquid Web Security Client VPN
-  - SafeSquid confidential data signatures
+title: "Self-Service Portal"
+description: "SafeSquid Self-Service Portal — cloud-managed activation, licensing, backup, categorization, certificate, and related operational workflows for SafeSquid deployments."
+keywords: ["SafeSquid Self-Service Portal", "Manage SafeSquid activation key", "SafeSquid custom web categorization", "SafeSquid SSL certificate management", "SafeSquid Web Security Client VPN", "SafeSquid confidential data signatures"]
 ---
 
 # Self-Service Portal
@@ -39,32 +33,20 @@ Use the portal when you need to:
 
 ## What the portal is used for
 
-Internal product knowledge confirms the portal is used for:
+The current documentation set attributes the following workflows to the portal. Activation-key retrieval is covered by the onboarding path; every additional workflow below still requires account, portal, and target-build verification:
 
-1. **Activation key distribution**  
-   Obtain and re-download the activation key used to bind a deployment to SafeSquid licensing workflows.
-
-2. **License management**  
-   Track subscription and activation status for SafeSquid instances.
-
-3. **Custom categorization and related cloud-managed settings**  
-   Support organization-specific categorization workflows tied to the activation context.
-
-4. **Certificate-related workflows**  
-   Support SSL inspection deployment workflows that depend on trusted certificate handling.
-
-5. **Configuration and policy synchronization functions**  
-   The knowledge base identifies the Self-Service Portal as part of the cloud path for licensing, activation-key distribution, threat-intelligence delivery, and policy or configuration synchronization across deployments.
-
-6. **Backup and restore support**  
-   The broader architecture model places configuration backup and restore as a peer operational service in the SafeSquid ecosystem.
+1. **Activation key distribution**<br />Obtain and re-download the activation key used to bind a deployment to SafeSquid licensing workflows.
+2. **License management**<br />Track subscription and activation status for SafeSquid instances.
+3. **Custom categorization and related cloud-managed settings**<br />Support organization-specific categorization workflows tied to the activation context.
+4. **Certificate-related workflows**<br />Determine which certificate operations the current portal actually exposes, then pair them with endpoint trust deployment and SafeSquid-side inspection controls.
+5. **Configuration or policy synchronization**<br />Do not assume cross-instance replication. Verify the source of truth, scope, conflict behavior, timing, failure handling, and audit record for the target build and account.
+6. **Backup or restore assistance**<br />Do not treat a portal-visible backup as a proven recovery mechanism until a controlled restore meets the documented recovery objective.
 
 ---
 
 ## Prerequisites
 
-:::note
-**Before You Start**
+:::note **Before You Start**
 
 - SafeSquid account (see [Register and Get Your Key](/Register) if you haven't registered yet)
 - Use your business/corporate email for enterprise benefits
@@ -79,14 +61,12 @@ Internal product knowledge confirms the portal is used for:
 **Direct link:** [https://key.safesquid.com](https://key.safesquid.com)
 
 **From SafeSquid.com:**
+
 1. Visit [https://www.safesquid.com](https://www.safesquid.com)
 2. Click **Self-Service Portal** in the top menu
 3. Login with your registered email and password
 
-:::tip
-**First-Time Users**
-If you haven't created an account yet, see [Register and Get Your Key](/Register) for registration steps.
-:::
+:::tip **First-Time Users** If you haven't created an account yet, see [Register and Get Your Key](/Register) for registration steps. :::
 
 ---
 
@@ -143,7 +123,7 @@ After using the portal, verify all of the following:
 ## Troubleshooting
 
 | **Issue** | **Likely Cause** | **Fix** |
-|-----------|------------------|---------|
+| --- | --- | --- |
 | Cannot login | Wrong credentials or account not activated | Reset password; check email for activation link |
 | Activation key download fails | Browser cache or session expired | Clear cache, logout/login, try different browser |
 | SSL-related workflow fails | Missing organization details or incomplete certificate workflow | Verify the portal state and then complete the SafeSquid-side SSL steps |

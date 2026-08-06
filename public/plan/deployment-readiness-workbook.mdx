@@ -1,0 +1,148 @@
+---
+title: "Deployment Readiness Workbook"
+sidebarTitle: "Readiness Workbook"
+description: "Collect SafeSquid deployment inputs, ownership, test, evidence, and recovery decisions locally in your browser."
+content_type: "how-to"
+applies_to: ["2026 Release Train", "2024 Release Train"]
+verified_build: "Not product-behavior dependent"
+last_verified: "2026-08-07"
+owner: "SafeSquid Architecture"
+risk: "medium"
+verification_level: "editorial-review"
+keywords: ["SafeSquid deployment worksheet", "SafeSquid sizing inputs", "proxy topology planner", "SafeSquid readiness checklist"]
+---
+
+export const DeploymentWorkbook = () => {
+  const initial = {
+    name: "",
+    owner: "",
+    release: "",
+    users: "",
+    concurrency: "",
+    topology: "",
+    steering: "",
+    identity: "",
+    certificate: "",
+    dnsNtp: "",
+    evidence: "",
+    retention: "",
+    rto: "",
+    rpo: "",
+    rollback: ""
+  }
+
+  const [data, setData] = useState(initial)
+  const [copied, setCopied] = useState(false)
+  const required = Object.keys(initial)
+  const complete = required.filter((key) => String(data[key]).trim().length > 0).length
+  const percentage = Math.round((complete / required.length) * 100)
+
+  const setField = (key, value) => {
+    setData({ ...data, [key]: value })
+    setCopied(false)
+  }
+
+  const summary = [
+    "# SafeSquid deployment brief",
+    "",
+    "- Deployment: " + (data.name || "[not recorded]"),
+    "- Accountable owner: " + (data.owner || "[not recorded]"),
+    "- Release and build: " + (data.release || "[not recorded]"),
+    "- Managed users: " + (data.users || "[not recorded]"),
+    "- Peak concurrent sessions or connections: " + (data.concurrency || "[not recorded]"),
+    "- Topology: " + (data.topology || "[not recorded]"),
+    "- Traffic steering: " + (data.steering || "[not recorded]"),
+    "- Identity method: " + (data.identity || "[not recorded]"),
+    "- Certificate authority and rollout owner: " + (data.certificate || "[not recorded]"),
+    "- DNS and NTP owners: " + (data.dnsNtp || "[not recorded]"),
+    "- Evidence destination: " + (data.evidence || "[not recorded]"),
+    "- Retention requirement: " + (data.retention || "[not recorded]"),
+    "- Recovery time objective: " + (data.rto || "[not recorded]"),
+    "- Recovery point objective: " + (data.rpo || "[not recorded]"),
+    "- Rollback trigger and authority: " + (data.rollback || "[not recorded]"),
+    "",
+    "Readiness completeness: " + percentage + "%",
+    "",
+    "This workbook records planning inputs. It does not calculate or approve production sizing."
+  ].join("\n")
+
+  const copySummary = async () => {
+    await navigator.clipboard.writeText(summary)
+    setCopied(true)
+  }
+
+  const fields = [
+    ["name", "Deployment name", "Example: SWG regulated-enterprise pilot"],
+    ["owner", "Accountable owner", "Role or team responsible for the service"],
+    ["release", "Approved release and exact build", "Copy from the approved release record"],
+    ["users", "Users and locations in scope", "Use counts and groups, not personal data"],
+    ["concurrency", "Measured peak concurrency", "Record the measurement source and period"],
+    ["topology", "Topology", "Single-node pilot, HA cluster, cloud, hybrid, or other approved design"],
+    ["steering", "Traffic steering", "Explicit, PAC, system policy, transparent, WCCP, VPN, or combination"],
+    ["identity", "Identity method and owner", "Directory, credential, IP, device, or approved combination"],
+    ["certificate", "CA and trust rollout owner", "Do not enter private keys or secrets"],
+    ["dnsNtp", "DNS and NTP services and owners", "Use sanitized names in shared exports"],
+    ["evidence", "Log, report, and SIEM destination", "Do not enter credentials"],
+    ["retention", "Evidence retention", "Duration, protection, access, and disposal owner"],
+    ["rto", "Recovery time objective", "Maximum accepted restoration time"],
+    ["rpo", "Recovery point objective", "Maximum accepted configuration or evidence loss"],
+    ["rollback", "Rollback trigger and authority", "State the stop condition and approving role"]
+  ]
+
+  return (
+    <div style={{ border: "1px solid var(--gray-300)", padding: "20px", borderRadius: "8px" }}>
+      <div style={{ marginBottom: "16px" }}>
+        <strong>Readiness: {complete} of {required.length} inputs recorded ({percentage}%)</strong>
+        <div style={{ height: "8px", background: "var(--gray-200)", marginTop: "8px", borderRadius: "4px" }}>
+          <div style={{ width: percentage + "%", height: "8px", background: percentage === 100 ? "#16803a" : "#2563eb", borderRadius: "4px" }} />
+        </div>
+      </div>
+      {fields.map(([key, label, hint]) => (
+        <label key={key} style={{ display: "block", marginBottom: "14px" }}>
+          <strong>{label}</strong>
+          <span style={{ display: "block", fontSize: "14px", margin: "3px 0 6px" }}>{hint}</span>
+          <input
+            value={data[key]}
+            onChange={(event) => setField(key, event.target.value)}
+            style={{ width: "100%", padding: "9px", border: "1px solid var(--gray-400)", borderRadius: "4px" }}
+          />
+        </label>
+      ))}
+      <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+        <button onClick={copySummary} style={{ padding: "9px 14px" }}>{copied ? "Copied" : "Copy deployment brief"}</button>
+        <button onClick={() => { setData(initial); setCopied(false) }} style={{ padding: "9px 14px" }}>Clear</button>
+      </div>
+    </div>
+  )
+}
+
+# Record the Inputs Before You Size or Install
+
+This workbook converts architecture discussions into a reviewable deployment brief. It runs entirely in your browser memory. It does not send, save, or calculate with the values you enter.
+
+<Warning>
+  Do not enter activation keys, passwords, private keys, access tokens, customer records, or unrestricted internal topology. Use sanitized identifiers in any copied brief.
+</Warning>
+
+<DeploymentWorkbook />
+
+## How to use the result
+
+<Steps>
+  <Step title="Complete every field with its owner">
+    Unknown values must remain visibly unresolved. Do not substitute assumptions for measurements.
+  </Step>
+  <Step title="Copy the deployment brief">
+    Attach the sanitized brief to the architecture or change review.
+  </Step>
+  <Step title="Add diagrams and evidence">
+    Attach the traffic path, trust boundaries, dependency matrix, measured workload, test matrix, and rollback procedure.
+  </Step>
+  <Step title="Obtain release-specific review">
+    Infrastructure, network, identity, PKI, SOC, product, and service owners approve the values relevant to them.
+  </Step>
+</Steps>
+
+## Sizing boundary
+
+The workbook records users and measured peak concurrency because both affect the design discussion. It does not convert them into CPU, memory, storage, or node counts. Production sizing must account for the selected build, enabled controls, traffic mix, object sizes, TLS behavior, logging, retention, availability, growth, and lab or performance evidence.

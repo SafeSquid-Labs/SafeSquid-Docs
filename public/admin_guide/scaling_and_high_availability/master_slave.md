@@ -1,21 +1,15 @@
 ---
-title: Master-Slave
-description: Configure SafeSquid master-slave architecture for centralized policy sync and reporting across slave instances.
-keywords:
-  - SafeSquid master-slave configuration
-  - Configure SafeSquid slave server
-  - Centralized policy management SafeSquid
-  - SafeSquid multi-instance setup
-  - SafeSquid synchronization
+title: "Master-Slave"
+description: "Configure SafeSquid master-slave architecture for centralized policy sync and reporting across slave instances."
+keywords: ["SafeSquid master-slave configuration", "Configure SafeSquid slave server", "Centralized policy management SafeSquid", "SafeSquid multi-instance setup", "SafeSquid synchronization"]
 ---
-
-
 
 ## How master-slave works
 
 In a master-slave configuration, one SafeSquid instance (the master) manages policy and reporting for multiple slave instances. Slaves enforce policy and process traffic; master provides centralized control.
 
 **Data flow:**
+
 - **Master → Slaves**: Policies, configuration, tasks
 - **Slaves → Master**: Reporting data, logs, statistics
 
@@ -33,11 +27,13 @@ flowchart TB
 ```
 
 **Slave behavior:**
+
 - Processes client traffic and enforces policy synced from master
 - Forwards reporting data to master for centralized analysis
 - Operates independently if master is temporarily unavailable (uses last synced policy)
 
 **Master behavior:**
+
 - Does not process client traffic directly
 - Aggregates reporting data from all slaves into unified reports
 - Pushes policy updates to slaves automatically
@@ -49,8 +45,6 @@ flowchart TB
 - Network access from slaves to master Configuration Portal (port 8888 by default)
 - If authentication is enabled on master, slaves must be allowed in Access Restriction → Allow list
 
-
-
 ## Configure master-slave relationship
 
 Follow these steps to connect a slave instance to a master. Perform slave configuration first, then (if authentication is enabled) configure the master to allow the slave.
@@ -59,14 +53,12 @@ Follow these steps to connect a slave instance to a master. Perform slave config
 
 ### [Access the SafeSquid User Interface](/Configuration_Portal) on the slave server
 
-
-
 ## Go to Support
+
 ![clicking on support in safesquid interface in top right corner ](/images/How_To/Master_Slave_configuration/image1.webp)
 
-
-
 ## Go to Startup params
+
 ![clicking on start up params](/images/How_To/Master_Slave_configuration/image2.webp)
 
 ![clicking on edit button](/images/How_To/Master_Slave_configuration/image3.webp)
@@ -81,8 +73,6 @@ Follow these steps to connect a slave instance to a master. Perform slave config
 
 ![clicking on yes for backup current configuration to cloud](/images/How_To/Master_Slave_configuration/image8.webp)
 
-
-
 ## Step 2: Configure master server (if authentication is enabled)
 
 If your master requires authentication, add the slave IP to the Allow list so the slave can access the Configuration Portal and sync policies.
@@ -91,9 +81,8 @@ If your master requires authentication, add the slave IP to the Allow list so th
 
 ![Going to Access Restriction under Application Setup](/images/How_To/Master_Slave_configuration/image9.webp)
 
-
-
 ## Go to Allow list
+
 ![going to allow list tab in access restrictions](/images/How_To/Master_Slave_configuration/image10.webp)
 
 ![enabling the policy as true](/images/How_To/Master_Slave_configuration/image11.webp)
@@ -103,8 +92,6 @@ If your master requires authentication, add the slave IP to the Allow list so th
 ![clicking on save to save the policy](/images/How_To/Master_Slave_configuration/image13.webp)
 
 ![policy saved](/images/How_To/Master_Slave_configuration/image14.webp)
-
-
 
 ## Step 3: Verify synchronization
 
@@ -129,19 +116,21 @@ On the master, open [Reporting Service](/Reporting_Service) and confirm logs fro
 ## Troubleshooting
 
 **Slave not syncing policies:**
+
 - Verify network connectivity from slave to master port 8888: `telnet <master-ip> 8888`
 - Check master firewall allows incoming connections on port 8888
 - If authentication enabled, verify slave IP in master Access Restriction → Allow list
 - Check slave logs: `tail -f /var/log/safesquid/extended.log` (look for sync errors)
 
 **Slave traffic not appearing in master reports:**
+
 - Verify reporting data path is not blocked by firewall
 - Check slave Configuration Portal → Support → Startup params has correct master IP
 - Restart slave: Configuration Portal → Support → Restart SafeSquid
 
 **Policies syncing but not applying:**
+
 - After policy changes on master, restart slave to apply: Configuration Portal → Support → Restart SafeSquid
 - Verify slave activation key matches master (same license)
 
 **Related**: [Configuration Sync](/Configuration_Sync), [Configuration Portal](/Configuration_Portal), [Reporting Service](/Reporting_Service), [Troubleshooting](/Troubleshooting)
-

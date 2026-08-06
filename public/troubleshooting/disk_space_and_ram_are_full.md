@@ -1,10 +1,7 @@
 ---
-title: Free disk and RAM to restore proxy operation
-description: Diagnose and resolve SafeSquid free disk and ram to restore proxy operation incidents with causes, recovery actions, and audit evidence.
-keywords:
-  - troubleshooting
-  - SafeSquid
-  - disk space and ram are full
+title: "Free disk and RAM to restore proxy operation"
+description: "Diagnose and resolve SafeSquid free disk and ram to restore proxy operation incidents with causes, recovery actions, and audit evidence."
+keywords: ["troubleshooting", "SafeSquid", "disk space and ram are full"]
 ---
 
 # Free disk and RAM to restore proxy operation
@@ -51,13 +48,13 @@ none 100M 0 100M 0% /run/user
 
 /dev/sda1 232M 37M 179M 17% /boot
 
-/dev/mapper/dev--vg-var+cache+safesquid 1.8G 2.8M 1.7G 1% /var/cache/safesquid
+/dev/mapper/dev--vg-var\+cache\+safesquid 1.8G 2.8M 1.7G 1% /var/cache/safesquid
 
-/dev/mapper/dev--vg-usr+local+safesquid 1.8G 44M 1.7G 3% /usr/local/safesquid
+/dev/mapper/dev--vg-usr\+local\+safesquid 1.8G 44M 1.7G 3% /usr/local/safesquid
 
-/dev/mapper/dev--vg-var+db+safesquid 15G 193M 14G 2% /var/db/safesquid
+/dev/mapper/dev--vg-var\+db\+safesquid 15G 193M 14G 2% /var/db/safesquid
 
-/dev/mapper/dev--vg-var+log+safesquid 15G 171M 14G 2% /var/log/safesquid
+/dev/mapper/dev--vg-var\+log\+safesquid 15G 171M 14G 2% /var/log/safesquid
 
 ## /dev/ram1 62M 1.3M 58M 3% /tmp/safesquid
 
@@ -84,9 +81,9 @@ sections
 
 modules
 
-safesquid -> safesquid-2017.0518.2110.3-swg-concept*
+safesquid -\> safesquid-2017.0518.2110.3-swg-concept\*
 
-You should not delete the tar file which is soft-linked to the SafeSquid file. In the above image, it is: safesquid-2017.0518.2110.3-swg-concept*
+You should not delete the tar file which is soft-linked to the SafeSquid file. In the above image, it is: safesquid-2017.0518.2110.3-swg-concept\*
 
 ### /var/log
 

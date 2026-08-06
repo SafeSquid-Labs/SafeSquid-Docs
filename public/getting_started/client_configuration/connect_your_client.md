@@ -1,11 +1,7 @@
 ---
-title: Connect Your Client
-description: Choose the right client routing method and prove that pilot traffic reaches SafeSquid before production rollout.
-keywords:
-  - SafeSquid client configuration
-  - proxy client routing
-  - SafeSquid proxy setup
-  - managed proxy rollout
+title: "Connect Your Client"
+description: "Choose the right client routing method and prove that pilot traffic reaches SafeSquid before production rollout."
+keywords: ["SafeSquid client configuration", "proxy client routing", "SafeSquid proxy setup", "managed proxy rollout"]
 ---
 
 # Prove Client Traffic Reaches SafeSquid
@@ -139,7 +135,7 @@ Store:
 ## Troubleshoot client routing
 
 | Symptom | Likely cause | Fix |
-|---|---|---|
+| --- | --- | --- |
 | Client cannot reach proxy | Firewall, route, or wrong proxy IP | Test network reachability and confirm proxy listener |
 | No access log appears | Client bypasses SafeSquid | Recheck proxy setting and retest with `curl --proxy` |
 | Internal apps fail | Missing bypass or routing exception | Add an approved exact bypass entry |

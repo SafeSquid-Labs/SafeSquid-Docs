@@ -1,41 +1,38 @@
 ---
-title: YouTube API Integration
-description: Integrate YouTube API with SafeSquid to allow or block YouTube videos by category for productivity and bandwidth control.
-keywords:
-  - youtube api SafeSquid
-  - SafeSquid youtube category restriction
-  - block youtube videos SafeSquid
-  - integrate youtube api SafeSquid
-  - SafeSquid content filtering youtube
+title: "YouTube API Integration"
+description: "Integrate YouTube API with SafeSquid to allow or block YouTube videos by category for productivity and bandwidth control."
+keywords: ["youtube api SafeSquid", "SafeSquid youtube category restriction", "block youtube videos SafeSquid", "integrate youtube api SafeSquid", "SafeSquid content filtering youtube"]
 ---
 
-
 ## Problem
+
 Security teams need predictable control over app and web usage to reduce policy bypass and data-risk exposure.
 
 ## Benefits
+
 You can enforce policy decisions consistently with SafeSquid while preserving legitimate business workflows.
 
 ## Advantages
+
 You keep actionable policy control close to operations, with verifiable outcomes in logs and policy behavior.
 
 ## Call to action
+
 Use the steps in this guide to implement the control, then validate behavior with a real user-flow test.
 
 # Allow or block YouTube by category via YouTube API
 
 YouTube offers entertainment and educational content; unrestricted viewing can reduce productivity and bandwidth. SafeSquid integrates with the YouTube API to identify video categories. Policies can allow or block specific categories so organizations permit learning and marketing content while blocking unrelated videos.
 
-
-
 ## Client scenario (case study)
+
 Ganpat University provides graduate programs to various colleges. All the staff's PC/Laptop traffic is going via SafeSquid SWG.
 
 Ganpat University wants to block entire youtube.com for faculty and students, but wants some of the YouTube channels allowed which are helpful for faculty/students.
 
 Ganpat University challenges are:
 
-All staff/Students should not be allowed to access www.youtube.com. If any faculty/student try to access YouTube then he/she should get blocked template.
+All staff/Students should not be allowed to access [www.youtube.com](http://www.youtube.com). If any faculty/student try to access YouTube then he/she should get blocked template.
 
 Only few of the specified YouTube channel and its playlist should be allowed. These YouTube channel contains educational and knowledge sharing videos.
 
@@ -61,25 +58,21 @@ You can now allow/block specific category of videos on YouTube.
 
 ![Find category to allow or block Youtube video](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image1.webp)
 
-
-
 ## Prerequisites
+
 HTTPS Inspection should be enabled in SafeSquid. If not enabled, you can check our document - How to enable HTTPS Inspection
 
-
-
 ## Create a YouTube V3 API using your Google Account.
+
 To Request the Category of Specific Video
 
 To extract Video Category from Video ID
 
-Go To https://console.developers.google.com/apis/library [Link](https://console.cloud.google.com/apis/library)
+Go To [https://console.developers.google.com/apis/library](https://console.developers.google.com/apis/library) [Link](https://console.cloud.google.com/apis/library)
 
 ![Create a Youtube V3 API using google account for Youtube API integration with safesquid](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image2.webp)
 
-:::note
-What happens over here is If you don't Create a Project over here, Google will Automatically Create a new Project for you Named as "My First Project" when you ENABLE the YouTube Data API v3.
-:::
+:::note What happens over here is If you don't Create a Project over here, Google will Automatically Create a new Project for you Named as "My First Project" when you ENABLE the YouTube Data API v3. :::
 
 People doing it for the first time and have requirement to use YouTube Data API v3 to integrate it with SafeSquid-SWG.
 
@@ -89,19 +82,20 @@ Since they have specified Per Day Quota i.e. No of Request to find Information a
 
 Make sure that this Google Account is not using YouTube API for any other purposes as this will reduce the No of Request
 
-
-
 ## CREATE A NEW PROJECT
+
 ![Click on select a project to integrate Youtube API with safesquid](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image3.webp)
 
 ![Click on project to integrate Youtube API with safesquid](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image4.webp)
 
 ### Name as: YouTubeAPI-For-SafeSquid
+
 ![Name and create a project to integrate Youtube API with safesquid](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image5.webp)
 
 ![Redirect to API Library in API & Services section](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image6.webp)
 
 ### Select a project
+
 ![Select a project to integrate Youtube API with safesquid](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image7.webp)
 
 ![Get a access of API Library](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image8.webp)
@@ -109,21 +103,23 @@ Make sure that this Google Account is not using YouTube API for any other purpos
 ![Select YOUTUBE DATA API V3 to integrate Youtube API with safesquid](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image9.webp)
 
 ### Enable YouTube Data API V3
+
 ![ENABLE YOUTUBE DATA API V3 to](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image10.webp)
 
 ### Create credentials
+
 ![Select a Create credentials to integrate Youtube API with safesquid](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image11.webp)
 
 ![Click on Create credentials to integrate Youtube API with safesquid](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image12.webp)
 
 ### Select API key
+
 ![select API key to create API keys ](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image13.webp)
 
 ![Google generate Youtube API keys](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image14.webp)
 
-
-
 ## Integrate the YouTube API Key in SafeSquid.
+
 **To identify the category of the YouTube video**
 
 Now we are going to Integrating this Key in SafeSquid-SWG.
@@ -135,11 +131,13 @@ Go to the path using below command:
 ```bash
 cd /var/lib/safesquid/
 ```
+
 Create the directory using below command:
 
 ```bash
 mkdir youtube
 ```
+
 Give the permission using below command:
 
 chmod 774 youtube
@@ -154,11 +152,11 @@ drwxrwxr-- 12 ssquid root 4096 Aug 29 15:35 ./
 
 drwxr-xr-x 48 root root 4096 Jul 4 19:06 ../
 
-drwxrwxr-- 3 ssquid root 4096 Jan 21 2019 application_signatures/
+drwxrwxr-- 3 ssquid root 4096 Jan 21 2019 application\_signatures/
 
 drwxrwxr-- 2 ssquid root 4096 Sep 5 14:03 category/
 
-drwxrwxr-- 3 ssquid root 4096 Apr 2 18:44 content_signatures/
+drwxrwxr-- 3 ssquid root 4096 Apr 2 18:44 content\_signatures/
 
 drwxrwxr-- 2 ssquid root 4096 Jan 21 2019 imgfilter/
 
@@ -196,16 +194,15 @@ After adding key, the file will look like this
 
 root@safesquid-swg:cat /var/lib/safesquid/youtube/keys
 
-AIz******************************o
+AIz\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*o
 
 After adding the API key, **restart the SafeSquid service** from the SafeSquid Interface or via command line:
 
 ```bash
 /etc/init.d/safesquid restart
 ```
-:::note
-Please Restart SafeSquid Twice in order to Integrate YouTube API properly.
-:::
+
+:::note Please Restart SafeSquid Twice in order to Integrate YouTube API properly. :::
 
 You have successfully integrated YouTube API with SafeSquid-SWG.
 
@@ -220,4 +217,3 @@ To do so, I will help you out in creating a simple Policy which will only allow 
 ![Youtube Video policy to allow specific video](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image17.webp)
 
 ![Youtube Video policy to allow specific video](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image18.webp)
-

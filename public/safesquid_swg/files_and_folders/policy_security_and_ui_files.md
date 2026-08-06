@@ -1,11 +1,7 @@
 ---
-title: Policy, Security, and UI Files
-description: SafeSquid SWG activation, policy, SSL, SQLite, user interface, CGI, template, CSS, JavaScript, image, and font path reference.
-keywords:
-  - SafeSquid policy files
-  - SafeSquid SSL files
-  - SafeSquid activation files
-  - SafeSquid UI files
+title: "Policy, Security, and UI Files"
+description: "SafeSquid SWG activation, policy, SSL, SQLite, user interface, CGI, template, CSS, JavaScript, image, and font path reference."
+keywords: ["SafeSquid policy files", "SafeSquid SSL files", "SafeSquid activation files", "SafeSquid UI files"]
 ---
 
 # Policy, Security, and UI Files

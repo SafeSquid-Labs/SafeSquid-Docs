@@ -1,16 +1,9 @@
 ---
-title: Disaster Recovery
-slug: /Disaster_Recovery
-description: Restore SafeSquid configuration and SSL certificates after failure or in clusters using Cloud Restore and the same activation key.
-
-keywords:
-  - SafeSquid disaster recovery
-  - SafeSquid cloud restore
-  - Restore SafeSquid configuration
-  - SafeSquid backup and recovery
-  - SafeSquid SSL recovery
+title: "Disaster Recovery"
+slug: "/Disaster_Recovery"
+description: "Restore SafeSquid configuration and SSL certificates after failure or in clusters using Cloud Restore and the same activation key."
+keywords: ["SafeSquid disaster recovery", "SafeSquid cloud restore", "Restore SafeSquid configuration", "SafeSquid backup and recovery", "SafeSquid SSL recovery"]
 ---
-
 
 # Disaster Recovery
 
@@ -40,12 +33,10 @@ The broader SafeSquid architecture also treats backup and restore as a cloud-bac
 
 Configure Cloud Restore and Monit per [Configure Cloud Restore](/Configure_Cloud_Restore). After changes, use Support → Restart SafeSquid with cloud backup when prompted. Store the activation key in secure recovery runbooks. Test a restore on a non-production appliance before production reliance.
 
-
-
 ## When to use Cloud Restore
 
 | Scenario | Solution | Benefit |
-|---|---|---|
+| --- | --- | --- |
 | Hardware failure destroys proxy server | Restore from cloud to new appliance | Resume operations within minutes |
 | Accidental policy deletion or misconfiguration | Restore previous version from cloud | Rollback to last known-good state |
 | Deploying clustered proxies | Restore master config to new slaves | Replicate policies across nodes |
@@ -54,12 +45,14 @@ Configure Cloud Restore and Monit per [Configure Cloud Restore](/Configure_Cloud
 ## What gets backed up
 
 **Included in cloud backup:**
+
 - All policy configuration (`config.xml`)
 - SSL root certificate and private key
 - User groups, identity rules, access policies
 - Extended policies (DLP, Anti-Virus, etc.)
 
 **NOT included:**
+
 - System logs
 - Network interface settings (IP, hostname)
 - Operating system configuration
@@ -83,11 +76,10 @@ Validate DR readiness on a non-production restore target:
 
 The document below covers Cloud Restore configuration and usage.
 
-
-
 ## Disaster recovery configuration guides
 
 ### [Configure Cloud Restore](/Configure_Cloud_Restore)
+
 Recovery requires Cloud Restore to be configured and the same activation key. The document covers how Cloud Restore works, required setup (Monit), and step-by-step configuration in the SafeSquid interface. Restoring configuration and SSL certificates from the cloud reduces downtime and rework. Use this document to implement and run disaster recovery.
 
 ## Next steps

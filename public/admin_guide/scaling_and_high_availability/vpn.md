@@ -1,77 +1,57 @@
 ---
-title: VPN Integration
-slug: /Integrations/VPN
-description: Configure and manage VPN settings for SafeSquid Web Security Clients via Self-Service Portal, including FQDN setup and verification.
-
-keywords:
-  - SafeSquid VPN configuration
-  - Web Security Client VPN settings
-  - Manage VPN SafeSquid portal
-  - SafeSquid remote client setup
-  - Configure FQDN for SafeSquid VPN
+title: "VPN Integration"
+slug: "/Integrations/VPN"
+description: "Configure and manage VPN settings for SafeSquid Web Security Clients via Self-Service Portal, including FQDN setup and verification."
+keywords: ["SafeSquid VPN configuration", "Web Security Client VPN settings", "Manage VPN SafeSquid portal", "SafeSquid remote client setup", "Configure FQDN for SafeSquid VPN"]
 ---
-
-
 
 # Secure proxy access with WireGuard VPN
 
 Directly exposing a SafeSquid proxy in the cloud to office or remote users is insecure. A dedicated, encrypted [WireGuard](https://www.wireguard.com/) VPN tunnel enables secure transport from enterprise networks or remote endpoints to the cloud without public exposure. This isolates the proxy, limits attack surface, and supports zero-trust connectivity with SafeSquid inspection and access control.
 
-The following diagram depicts the VPN tunnel:
-![WireGuard VPN tunnel and SafeSquid proxy architecture](/images/wireguard/image1.webp)
-
-
+The following diagram depicts the VPN tunnel: <img src="/images/wireguard/image1.webp" alt="WireGuard VPN tunnel and SafeSquid proxy architecture" />
 
 ## Prerequisites
+
 <Tabs>
-<Tab title="Cloud VPS">
+  <Tab title="Cloud VPS">
+    **Cloud VPS (WireGuard \+ SafeSquid Host)**
 
-**Cloud VPS (WireGuard + SafeSquid Host)**
+    - Ubuntu 24.04 LTS
+    - Public IPv4 address (e.g., 203.0.113.10)
+    - UDP port 51820 open in the cloud firewall
+    - Root or sudo privileges
+    - curl utility installed
+  </Tab>
+  <Tab title="Office LAN or Remote Endpoint">
+    **Office LAN or Remote Endpoint (WireGuard Client)**
 
--   Ubuntu 24.04 LTS
--   Public IPv4 address (e.g., 203.0.113.10)
--   UDP port 51820 open in the cloud firewall
--   Root or sudo privileges
--   curl utility installed
-</Tab>
-<Tab title="Office LAN or Remote Endpoint">
-
-**Office LAN or Remote Endpoint (WireGuard Client)**
-
--   WireGuard installed
--   Root or sudo-level access
--   Access to client configuration files
--   Internet connectivity to initiate outbound VPN tunnel
-
-</Tab>
+    - WireGuard installed
+    - Root or sudo-level access
+    - Access to client configuration files
+    - Internet connectivity to initiate outbound VPN tunnel
+  </Tab>
 </Tabs>
-
-
 
 ## Example cloud and office network topology
+
 <Tabs>
-<Tab title="Cloud Environment">
-
-  | Element                                | Address         | Description                                      |
-|----------------------------------------|-----------------|--------------------------------------------------|
-| Public IP                              | 203.0.113.10    | External IP of Cloud VPS                         |
-| Private Subnet                         | 10.0.0.0/24     | Internal cloud network                           |
-| WireGuard Server / SafeSquid Proxy IP  | 10.0.0.100      | Internal IP of cloud VPS running WireGuard and SafeSquid |
-| VPN Tunnel Subnet                      | 10.66.66.1/24   | IP pool for WireGuard interfaces                 |
-
-</Tab>
-<Tab title="Office Environment">
-
-  | Element               | Address         | Description                                               |
-|-----------------------|-----------------|-----------------------------------------------------------|
-| Office Subnet         | 10.200.2.0/24   | Internal network of office LAN                            |
-| WireGuard Client1 IP  | 10.200.2.100    | Office client behind NAT, initiates VPN tunnel to cloud   |
-| VPN Tunnel Subnet     | 10.66.66.2/24   | IP pool for WireGuard interfaces                          |
-
-</Tab>
+  <Tab title="Cloud Environment">
+    | Element | Address | Description |
+    | --- | --- | --- |
+    | Public IP | 203.0.113.10 | External IP of Cloud VPS |
+    | Private Subnet | 10.0.0.0/24 | Internal cloud network |
+    | WireGuard Server / SafeSquid Proxy IP | 10.0.0.100 | Internal IP of cloud VPS running WireGuard and SafeSquid |
+    | VPN Tunnel Subnet | 10.66.66.1/24 | IP pool for WireGuard interfaces |
+  </Tab>
+  <Tab title="Office Environment">
+    | Element | Address | Description |
+    | --- | --- | --- |
+    | Office Subnet | 10.200.2.0/24 | Internal network of office LAN |
+    | WireGuard Client1 IP | 10.200.2.100 | Office client behind NAT, initiates VPN tunnel to cloud |
+    | VPN Tunnel Subnet | 10.66.66.2/24 | IP pool for WireGuard interfaces |
+  </Tab>
 </Tabs>
-
-
 
 ## Setup Procedure
 
@@ -84,6 +64,7 @@ Fetch the automated installation script provided by SafeSquid to simplify WireGu
 ```bash
 curl -O https://raw.githubusercontent.com/SafeSquid-Github/wireguard/refs/heads/main/wireguard-setup.sh
 ```
+
 #### Execute Script
 
 Run the script to initiate the WireGuard server configuration.
@@ -91,17 +72,18 @@ Run the script to initiate the WireGuard server configuration.
 ```bash
 bash wireguard-setup.sh --install
 ```
+
 **During execution, provide:**
 
--   Public IP: 203.0.113.10
--   Port: 51820
--   VPN Subnet: 10.66.66.0/24
--   Peer Name: Client1
+- Public IP: 203.0.113.10
+- Port: 51820
+- VPN Subnet: 10.66.66.0/24
+- Peer Name: Client1
 
 **Outputs:**
 
--   Server config: **/etc/wireguard/wg0.conf**
--   Client config: **/etc/wireguard/wg0-client-client1.conf**
+- Server config: **/etc/wireguard/wg0.conf**
+- Client config: **/etc/wireguard/wg0-client-client1.conf**
 
 ### 2. Install WireGuard on the office endpoint
 
@@ -110,9 +92,11 @@ Install WireGuard on the office client to enable VPN connectivity.
 ```bash
 apt update
 ```
+
 ```bash
 apt install wireguard -y
 ```
+
 This provides the necessary tools: wg for tunnel management and wg-quick for service control.
 
 ### 3. Configure office endpoint
@@ -124,6 +108,7 @@ Display the client configuration generated by the cloud-side script.
 ```bash
 cat /etc/wireguard/wg0-client-client1.conf
 ```
+
 Copy the output.
 
 #### Save Configuration Locally
@@ -133,9 +118,11 @@ Create the required directory and apply the configuration on the office client.
 ```bash
 mkdir -p /etc/wireguard
 ```
+
 ```bash
 vim /etc/wireguard/wg0.conf
 ```
+
 Paste the copied output from the previous step and save the file.
 
 ### 4. Set peer routing rules
@@ -146,8 +133,8 @@ Modify the peer section in wg0.conf to allow routing to the office subnet and th
 
 **AllowedIPs = 10.66.66.2/32,10.200.2.0/24**
 
--   10.66.66.2/32: IP assigned to Client1
--   10.200.2.0/24: Entire office LAN behind Client1
+- 10.66.66.2/32: IP assigned to Client1
+- 10.200.2.0/24: Entire office LAN behind Client1
 
 #### On Office Client
 
@@ -155,8 +142,8 @@ Ensure routing towards the server and internal cloud subnet.
 
 **AllowedIPs = 10.66.66.1/32,10.0.0.0/24**
 
--   10.66.66.1/32: Server tunnel endpoint
--   10.0.0.0/24: Internal cloud LAN accessible via VPN
+- 10.66.66.1/32: Server tunnel endpoint
+- 10.0.0.0/24: Internal cloud LAN accessible via VPN
 
 ### 5. Restart and enable services
 
@@ -167,9 +154,11 @@ Restart the interface to apply changes and enable persistence at boot.
 ```bash
 systemctl restart wg-quick@wg0
 ```
+
 ```bash
 systemctl enable wg-quick@wg0
 ```
+
 #### Office Client
 
 Restart the VPN tunnel with updated config and ensure service autostarts.
@@ -177,9 +166,11 @@ Restart the VPN tunnel with updated config and ensure service autostarts.
 ```bash
 wg-quick down wg0 && wg-quick up wg0
 ```
+
 ```bash
 systemctl enable wg-quick@wg0
 ```
+
 ### 6. Enable IP Forwarding
 
 Edit the system control file to enable IPv4 packet forwarding.
@@ -187,16 +178,19 @@ Edit the system control file to enable IPv4 packet forwarding.
 ```bash
 vim /etc/sysctl.conf
 ```
+
 Uncomment or append:
 
 ```bash
 net.ipv4.ip_forward = 1
 ```
+
 Apply the new setting:
 
 ```bash
 sysctl -p
 ```
+
 ### 7. Configure Routing
 
 #### Cloud VPS Route
@@ -206,6 +200,7 @@ Route traffic destined for the office LAN via the WireGuard server's internal IP
 ```bash
 ip route add 10.200.2.0/24 via 10.0.0.100
 ```
+
 This ensures cloud workloads can reach the office network securely via VPN.
 
 #### Office Router Configuration
@@ -215,6 +210,7 @@ Direct cloud-bound traffic from office LAN through Client1 (WireGuard client).
 ```bash
 ip route add 10.0.0.0/24 via 10.200.2.100
 ```
+
 Guarantees LAN devices access cloud services routed through the VPN tunnel.
 
 ### 8. Enforce One-Way Tunnel Security
@@ -226,6 +222,7 @@ Insert a firewall rule to drop unsolicited packets targeting the office subnet f
 ```bash
 iptables -A FORWARD -i wg0 -d 10.200.2.0/24 -j DROP
 ```
+
 #### Persist Firewall Rules Across Reboots
 
 Install the persistence utility and save the current rule set.
@@ -233,47 +230,44 @@ Install the persistence utility and save the current rule set.
 ```bash
 apt install iptables-persistent -y
 ```
+
 ```bash
 netfilter-persistent save
 ```
 
-
-
 ## Validate VPN Connectivity
+
 <Tabs>
-<Tab title="Cloud VPS Ping Test">
+  <Tab title="Cloud VPS Ping Test">
+    Confirm tunnel and office endpoint reachability.
 
-Confirm tunnel and office endpoint reachability.
+    ```bash
+    ping 10.66.66.2
+    ```
 
-```bash
-ping 10.66.66.2
-```
-```bash
-ping 10.200.2.100
-```
-</Tab>
-<Tab title="Office Client Ping Tests">
+    ```bash
+    ping 10.200.2.100
+    ```
+  </Tab>
+  <Tab title="Office Client Ping Tests">
+    Ensure reverse reachability to server and cloud LAN.
 
-Ensure reverse reachability to server and cloud LAN.
+    ```bash
+    ping 10.66.66.1
+    ```
 
-```bash
-ping 10.66.66.1
-```
-```bash
-ping 10.0.0.100
-```
-</Tab>
-<Tab title="Tunnel Status Inspection">
+    ```bash
+    ping 10.0.0.100
+    ```
+  </Tab>
+  <Tab title="Tunnel Status Inspection">
+    Display active peers and session statistics.
 
-Display active peers and session statistics.
-
-```bash
-wg show
-```
-</Tab>
+    ```bash
+    wg show
+    ```
+  </Tab>
 </Tabs>
-
-
 
 ## Post-Deployment Considerations
 
@@ -283,13 +277,12 @@ If you plan to support **remote employees**, not just a single office, you must
 
 #### On the WireGuard Server:
 
--   Generate separate peer configurations for each user or location
-
--   Assign **unique tunnel IPs** to each client (e.g., 10.66.66.3/32, 10.66.66.4/32, etc.)
-
--   Use a separate AllowedIPs per peer
+- Generate separate peer configurations for each user or location
+- Assign **unique tunnel IPs** to each client (e.g., 10.66.66.3/32, 10.66.66.4/32, etc.)
+- Use a separate AllowedIPs per peer
 
 Example server config for two clients:
+
 ```bash
 [Peer]
 
@@ -307,17 +300,18 @@ PublicKey = REMOTE_USER1_KEY
 
 AllowedIPs = 10.66.66.3/32
 ```
+
 #### On the Remote User
 
--   Use AllowedIPs = 0.0.0.0/0 if they want **all their traffic** routed through the VPN
--   Or use 10.0.0.0/24 if they only need access to internal cloud resources
+- Use AllowedIPs = 0.0.0.0/0 if they want **all their traffic** routed through the VPN
+- Or use 10.0.0.0/24 if they only need access to internal cloud resources
 
 ### 2. Directory Server Integration
 
 SafeSquid requires directory services (e.g., Active Directory) for identity-based policy enforcement. Ensure:
 
--   Proxy initiates LDAP/LDAPS requests from its WireGuard tunnel IP
--   Directory server accepts and routes responses to VPN subnet (e.g., 10.66.66.1)
+- Proxy initiates LDAP/LDAPS requests from its WireGuard tunnel IP
+- Directory server accepts and routes responses to VPN subnet (e.g., 10.66.66.1)
 
 This guarantees seamless identity resolution and policy mapping inside the VPN-secured cloud perimeter.
 
@@ -325,10 +319,10 @@ This guarantees seamless identity resolution and policy mapping inside the VPN-s
 
 When deploying multiple SafeSquid instances as a cluster:
 
--   Place a central load balancer between the office VPN ingress and the proxy layer
--   The load balancer handles all incoming WireGuard traffic
--   Distributes requests to proxy nodes for inspection and filtering
--   Routes sanitized output to the internet
+- Place a central load balancer between the office VPN ingress and the proxy layer
+- The load balancer handles all incoming WireGuard traffic
+- Distributes requests to proxy nodes for inspection and filtering
+- Routes sanitized output to the internet
 
 The architecture shown in maintains performance, simplifies scale-out, and centralizes VPN and external access controls.
 
@@ -342,15 +336,12 @@ Each peer device must independently generate cryptographic keys:
 wg genkey | tee privatekey | wg pubkey > publickey
 ```
 
--   Only the public key is shared with the server
--   The private key is stored securely on the client system
--   Key rotation is recommended for long-term deployments
-
-
+- Only the public key is shared with the server
+- The private key is stored securely on the client system
+- Key rotation is recommended for long-term deployments
 
 ## Verification and Evidence
 
 - **Interface Checks**: Confirm [WireGuard](https://www.wireguard.com/) interface is up (`wg show`); SafeSquid listens on the expected ports and is reachable over the VPN tunnel from clients.
 - **Log Analysis**: VPN peer handshakes and traffic appear in system logs; SafeSquid access logs show requests from VPN client IPs when traffic is routed through the proxy.
 - **Performance Validation**: From a client connected via VPN, browse through SafeSquid; traffic is inspected and policies apply. Load balancer (if used) distributes connections correctly.
-

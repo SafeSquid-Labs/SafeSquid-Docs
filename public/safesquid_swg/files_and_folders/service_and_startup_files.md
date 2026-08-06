@@ -1,11 +1,7 @@
 ---
-title: Service and Startup Files
-description: SafeSquid SWG service control, startup, TCP tuning, log rotation, Monit, PAM, and system tuning path reference.
-keywords:
-  - SafeSquid startup files
-  - SafeSquid service control
-  - SafeSquid logrotate
-  - SafeSquid Monit
+title: "Service and Startup Files"
+description: "SafeSquid SWG service control, startup, TCP tuning, log rotation, Monit, PAM, and system tuning path reference."
+keywords: ["SafeSquid startup files", "SafeSquid service control", "SafeSquid logrotate", "SafeSquid Monit"]
 ---
 
 # Service and Startup Files

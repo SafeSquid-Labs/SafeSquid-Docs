@@ -1,12 +1,7 @@
 ---
 title: "Enterprise Deployment"
-description: Roll out SafeSquid proxy settings through central endpoint management with staged validation, rollback, and audit evidence.
-keywords:
-  - SafeSquid enterprise deployment
-  - proxy GPO
-  - proxy MDM
-  - managed endpoint proxy
-  - SafeSquid rollout
+description: "Roll out SafeSquid proxy settings through central endpoint management with staged validation, rollback, and audit evidence."
+keywords: ["SafeSquid enterprise deployment", "proxy GPO", "proxy MDM", "managed endpoint proxy", "SafeSquid rollout"]
 ---
 
 # Roll Out Proxy Settings Safely
@@ -151,30 +146,26 @@ Use configuration management for Linux or mixed fleets. Keep settings explicit:
 
 <Tabs>
   <Tab title="Ansible">
+    ```yaml
+    proxy:
+      http: "http://SAFESQUID-IP:8080"
+      https: "http://SAFESQUID-IP:8080"
+      bypass:
+        - "localhost"
+        - ".internal.example.com"
+    ```
 
-```yaml
-proxy:
-  http: "http://SAFESQUID-IP:8080"
-  https: "http://SAFESQUID-IP:8080"
-  bypass:
-    - "localhost"
-    - ".internal.example.com"
-```
-
-Capture the playbook run ID and managed host list.
-
+    Capture the playbook run ID and managed host list.
   </Tab>
   <Tab title="Puppet">
+    ```puppet
+    file { '/etc/profile.d/proxy.sh':
+      ensure  => file,
+      content => "export http_proxy=http://SAFESQUID-IP:8080\nexport https_proxy=http://SAFESQUID-IP:8080\n",
+    }
+    ```
 
-```puppet
-file { '/etc/profile.d/proxy.sh':
-  ensure  => file,
-  content => "export http_proxy=http://SAFESQUID-IP:8080\nexport https_proxy=http://SAFESQUID-IP:8080\n",
-}
-```
-
-Capture the catalog report and changed resources.
-
+    Capture the catalog report and changed resources.
   </Tab>
 </Tabs>
 
@@ -187,6 +178,7 @@ env | grep -i proxy
 Expected result: the endpoint receives the intended proxy values and generates SafeSquid access-log entries.
 
 {/* Keep this generic schema as a compact reference for teams that use a different configuration-management platform. */}
+
 ```yaml
 proxy:
   http: "http://SAFESQUID-IP:8080"
@@ -227,7 +219,7 @@ Track SafeSquid access logs, helpdesk tickets, endpoint policy compliance, and b
 ## Troubleshoot rollout failures
 
 | Symptom | Likely cause | Fix |
-|---|---|---|
+| --- | --- | --- |
 | Users lose all web access | Proxy host, port, or PAC URL is wrong | Roll back the policy scope and fix the setting |
 | Some users bypass SafeSquid | Scope or policy inheritance is incomplete | Check endpoint policy result and group assignment |
 | Business app breaks | Missing PAC bypass or proxy incompatibility | Add a reviewed bypass or application-specific exception |

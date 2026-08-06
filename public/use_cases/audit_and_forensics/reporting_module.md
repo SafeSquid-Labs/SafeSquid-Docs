@@ -1,12 +1,7 @@
 ---
-title: Reporting Module
-description: Use SafeSquid reporting to investigate activity, drill into users and destinations, and export time-bounded evidence for operations and audit review.
-keywords:
-  - SafeSquid dashboard
-  - SafeSquid reporting
-  - realtime proxy reports
-  - SafeSquid analytics
-  - proxy traffic monitoring
+title: "Reporting Module"
+description: "Use SafeSquid reporting to investigate activity, drill into users and destinations, and export time-bounded evidence for operations and audit review."
+keywords: ["SafeSquid dashboard", "SafeSquid reporting", "realtime proxy reports", "SafeSquid analytics", "proxy traffic monitoring"]
 ---
 
 # Turn dashboard data into evidence

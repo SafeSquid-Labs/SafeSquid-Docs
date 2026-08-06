@@ -1,11 +1,7 @@
 ---
-title: Application Ecosystem
-description: Navigation hub for SafeSquid SWG enforcement, DNS security, browser isolation, reporting, self-service operations, and intelligence feeds.
-keywords:
-  - SafeSquid application ecosystem
-  - SafeSquid proxy service
-  - SafeSquid reporting service
-  - SafeSquid threat intelligence
+title: "Application Ecosystem"
+description: "Navigation hub for SafeSquid SWG enforcement, DNS security, browser isolation, reporting, self-service operations, and intelligence feeds."
+keywords: ["SafeSquid application ecosystem", "SafeSquid proxy service", "SafeSquid reporting service", "SafeSquid threat intelligence"]
 ---
 
 # Application Ecosystem

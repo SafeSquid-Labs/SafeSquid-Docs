@@ -1,12 +1,7 @@
 ---
-title: Simple Authentication
-description: Configure OpenLDAP simple bind authentication in SafeSquid for directory-backed user identification.
-keywords:
-  - openldap integration
-  - simple authentication with openldap
-  - SafeSquid ldap authentication
-  - configure openldap for SafeSquid
-  - openldap setup for SafeSquid
+title: "Simple Authentication"
+description: "Configure OpenLDAP simple bind authentication in SafeSquid for directory-backed user identification."
+keywords: ["openldap integration", "simple authentication with openldap", "SafeSquid ldap authentication", "configure openldap for SafeSquid", "openldap setup for SafeSquid"]
 ---
 
 # OpenLDAP Simple Authentication
@@ -17,13 +12,12 @@ Simple authentication validates users against OpenLDAP using standard LDAP bind.
 
 OpenLDAP environments still need directory-backed user identity on the proxy path, especially where group-based policy or audit attribution is required.
 
-:::note
-**Prerequisites**
+:::note **Prerequisites**
+
 - SafeSquid installed and operational.
 - OpenLDAP server reachable from the SafeSquid server (default port 389).
 - Admin access to the SafeSquid [Configuration Portal](/Configuration_Portal).
-- A known-good bind account and correct Base DN.
-:::
+- A known-good bind account and correct Base DN. :::
 
 ## Configure OpenLDAP Connection
 
@@ -50,7 +44,7 @@ OpenLDAP environments still need directory-backed user identity on the proxy pat
 ## Verification
 
 | Step | Action | Expected Result |
-|------|--------|-----------------|
+| --- | --- | --- |
 | **Test User Extraction** | Go to **LDAP Entities** tab. | You should see all users and groups from your OpenLDAP server. |
 | **Check Logs** | `tail -f /var/log/safesquid/safesquid.log` | Look for "LDAP bind successful" messages. |
 | **Network Test** | `ldapsearch -h <IP> -D "<BindDN>" -W` | Successful response from the LDAP server confirms credentials and connectivity. |
@@ -60,7 +54,7 @@ OpenLDAP environments still need directory-backed user identity on the proxy pat
 ## Troubleshooting
 
 | Symptom | Likely Cause | Fix |
-|---------|--------------|-----|
+| --- | --- | --- |
 | No LDAP entries fetched | Incorrect Base DN or Bind DN | Verify your DN syntax and confirm the directory structure with an LDAP browser or `ldapsearch`. |
 | Connection refused | Firewall, port, or routing issue | Ensure the LDAP path is open between SafeSquid and the LDAP server. |
 | Authentication fails | Password mismatch | Re-enter the password in SafeSquid and ensure it is stored correctly. |
@@ -69,7 +63,7 @@ OpenLDAP environments still need directory-backed user identity on the proxy pat
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ----- |
+| --- | --- | --- |
 | OpenLDAP bind, **LDAP Entities** | **Confirmed** | This page |
 | Port **389** | **Confirmed** | Troubleshooting (standard LDAP) |
 

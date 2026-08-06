@@ -1,12 +1,7 @@
 ---
-title: Performance Plot
-description: Generate SafeSquid performance plots to investigate load, capacity, and timing issues with evidence that supports troubleshooting and operations review.
-keywords:
-  - SafeSquid performance plot
-  - generate performance graph
-  - SafeSquid proxy stats
-  - network traffic graph SafeSquid
-  - proxy server analytics
+title: "Performance Plot"
+description: "Generate SafeSquid performance plots to investigate load, capacity, and timing issues with evidence that supports troubleshooting and operations review."
+keywords: ["SafeSquid performance plot", "generate performance graph", "SafeSquid proxy stats", "network traffic graph SafeSquid", "proxy server analytics"]
 ---
 
 # Turn performance data into operating evidence

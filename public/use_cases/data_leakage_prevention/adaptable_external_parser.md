@@ -1,12 +1,7 @@
 ---
-title: External Parser
-description: Use SafeSquid External Parser to send request or response content to a custom program for specialized inspection, transformation, or policy decisions.
-keywords:
-  - SafeSquid external parser
-  - custom content inspection
-  - SafeSquid executable filter
-  - request response parser
-  - custom DLP integration
+title: "External Parser"
+description: "Use SafeSquid External Parser to send request or response content to a custom program for specialized inspection, transformation, or policy decisions."
+keywords: ["SafeSquid external parser", "custom content inspection", "SafeSquid executable filter", "request response parser", "custom DLP integration"]
 ---
 
 # Invoke custom inspection logic safely

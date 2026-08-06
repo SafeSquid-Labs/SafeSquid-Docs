@@ -1,12 +1,7 @@
 ---
-title: Content Fingerprints
-description: Use SafeSquid content fingerprinting and true MIME detection to identify disguised files, reduce spoofing risk, and improve content-control accuracy.
-keywords:
-  - SafeSquid content fingerprints
-  - true MIME detection
-  - file type spoofing prevention
-  - disguised malware detection
-  - SafeSquid DLP file validation
+title: "Content Fingerprints"
+description: "Use SafeSquid content fingerprinting and true MIME detection to identify disguised files, reduce spoofing risk, and improve content-control accuracy."
+keywords: ["SafeSquid content fingerprints", "true MIME detection", "file type spoofing prevention", "disguised malware detection", "SafeSquid DLP file validation"]
 ---
 
 # Trust file content, not file names

@@ -1,11 +1,7 @@
 ---
-title: Internal User Authentication
-description: Authenticate users by assigning usernames and passwords via the SafeSquid interface when no Active Directory is available.
-keywords:
-  - SafeSquid user authentication
-  - add users SafeSquid proxy
-  - internal user database safesquid
-  - local authentication safesquid
+title: "Internal User Authentication"
+description: "Authenticate users by assigning usernames and passwords via the SafeSquid interface when no Active Directory is available."
+keywords: ["SafeSquid user authentication", "add users SafeSquid proxy", "internal user database safesquid", "local authentication safesquid"]
 ---
 
 # Internal user authentication
@@ -33,7 +29,7 @@ When no Active Directory (AD) server is available for SafeSquid LDAP, administra
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ----- |
+| --- | --- | --- |
 | Internal user database via UI | **Confirmed** | Procedure screenshots on this page |
 | Parity with [BASIC](/BASIC) / credential store | **Draft** | Treat as overlapping capability; align narrative with engineering if titles differ |
 

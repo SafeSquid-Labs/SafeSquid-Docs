@@ -1,11 +1,7 @@
 ---
-title: Files and Folders
-description: SafeSquid SWG server path reference for service control, policy storage, runtime data, logs, audit evidence, backup, and rollback.
-keywords:
-  - SafeSquid files and folders
-  - SafeSquid server paths
-  - SafeSquid audit evidence
-  - SafeSquid configuration files
+title: "Files and Folders"
+description: "SafeSquid SWG server path reference for service control, policy storage, runtime data, logs, audit evidence, backup, and rollback."
+keywords: ["SafeSquid files and folders", "SafeSquid server paths", "SafeSquid audit evidence", "SafeSquid configuration files"]
 ---
 
 # Files and Folders

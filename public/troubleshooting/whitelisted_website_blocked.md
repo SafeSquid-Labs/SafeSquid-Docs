@@ -1,10 +1,7 @@
 ---
-title: Whitelisted Websites Blocked
-description: Diagnose and resolve SafeSquid whitelisted websites blocked incidents with causes, recovery actions, and audit evidence.
-keywords:
-  - troubleshooting
-  - SafeSquid
-  - whitelisted website blocked
+title: "Whitelisted Websites Blocked"
+description: "Diagnose and resolve SafeSquid whitelisted websites blocked incidents with causes, recovery actions, and audit evidence."
+keywords: ["troubleshooting", "SafeSquid", "whitelisted website blocked"]
 ---
 
 # Whitelisted Websites Blocked
@@ -24,18 +21,16 @@ Note: Whitelist category is the category to allow. Blacklist category is the cat
 
 ## Enable sscore and add site to whitelist category
 
-Ensure the **sscore** section is enabled and the categorization engine is loaded. Verify from the SafeSquid Statistics page in the interface. See [the Reporting Module](/use_cases/audit_and_forensics/reporting_module). Add the corporate website to the whitelist category from Custom Settings -> Categorize Web-sites in the SafeSquid UI.
+Ensure the **sscore** section is enabled and the categorization engine is loaded. Verify from the SafeSquid Statistics page in the interface. See [the Reporting Module](/use_cases/audit_and_forensics/reporting_module). Add the corporate website to the whitelist category from Custom Settings -\> Categorize Web-sites in the SafeSquid UI.
 
 ## Procedure
 
 1. [Access the SafeSquid interface](/safesquid_swg/interface/configuration_portal)
-
 2. Go to configure page
 
 ![click on configure in SafeSquid Interface](/images/troubleshooting/whitelisted_website_blocked_01_click_on_configure_in_safesquid_interface.webp)
 
 1. Go to the **Categorize Web-sites section under Custom Settings** and search website/domain from the **search for category** option.
-
 2. Modify that website with a whitelist category. (A whitelist is a custom category that is made to allow blocked websites)
 
 ![Go to categorize web-sites under custom settings section](/images/troubleshooting/whitelisted_website_blocked_02_go_to_categorize_web_sites_under_custom_settings.webp)
@@ -62,10 +57,8 @@ Use Categorize websites to Create and add websites to the "whitelist category".
 
 ## Verification and Evidence
 
-- **Interface Checks**: In [Configuration Portal](/safesquid_swg/interface/configuration_portal), Custom Settings -> Categorize Web-sites: site shows whitelist category. Restriction Policies -> Access profiles: default whitelist policy is enabled and above GLOBAL BLOCK.
-
+- **Interface Checks**: In [Configuration Portal](/safesquid_swg/interface/configuration_portal), Custom Settings -\> Categorize Web-sites: site shows whitelist category. Restriction Policies -\> Access profiles: default whitelist policy is enabled and above GLOBAL BLOCK.
 - **Log Analysis**: Access logs show allowed response for the whitelisted URL; no block template or category block for that domain.
-
 - **Performance Validation**: From a client, open the whitelisted site; page loads without block template.
 
 **Related**: [Web Categorization](/use_cases/access_restriction/web_categorization), [Access Restriction](/use_cases/access_restriction/access_restriction), [Reporting](/use_cases/audit_and_forensics/reporting_module), [Troubleshooting](/troubleshooting/main)

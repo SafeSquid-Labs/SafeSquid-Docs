@@ -1,12 +1,7 @@
 ---
-title: Cloud Deployment
-description: Deploy SafeSquid SWG in a cloud network with controlled ingress, resilient storage, and production evidence checks.
-keywords:
-  - SafeSquid cloud deployment
-  - SafeSquid AWS
-  - SafeSquid Azure
-  - SafeSquid cloud-init
-  - cloud secure web gateway
+title: "Cloud Deployment"
+description: "Deploy SafeSquid SWG in a cloud network with controlled ingress, resilient storage, and production evidence checks."
+keywords: ["SafeSquid cloud deployment", "SafeSquid AWS", "SafeSquid Azure", "SafeSquid cloud-init", "cloud secure web gateway"]
 ---
 
 # Deploy SafeSquid in Cloud
@@ -129,7 +124,7 @@ Store:
 ## Troubleshoot cloud issues
 
 | Symptom | Likely cause | Fix |
-|---|---|---|
+| --- | --- | --- |
 | Proxy is reachable publicly | Security group source is too broad | Restrict source CIDRs before continuing |
 | Activation fails | Egress or DNS is blocked | Restore DNS and outbound subscription reachability |
 | Clients cannot reach proxy | Route table or security group is wrong | Verify source network, route, and listener port |

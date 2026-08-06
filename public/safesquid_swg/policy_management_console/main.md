@@ -1,11 +1,7 @@
 ---
-title: Policy Management Console
-description: Navigation hub for SafeSquid SWG reports, configuration, and support workflows in the policy management console.
-keywords:
-  - SafeSquid policy management console
-  - SafeSquid reports
-  - SafeSquid configure
-  - SafeSquid support
+title: "Policy Management Console"
+description: "Navigation hub for SafeSquid SWG reports, configuration, and support workflows in the policy management console."
+keywords: ["SafeSquid policy management console", "SafeSquid reports", "SafeSquid configure", "SafeSquid support"]
 ---
 
 # Policy Management Console

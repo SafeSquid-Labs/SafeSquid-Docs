@@ -1,11 +1,7 @@
 ---
-title: Linux Server Install
-description: Install SafeSquid SWG on an existing supported Linux server when the appliance path is not suitable.
-keywords:
-  - SafeSquid Linux install
-  - SafeSquid TAR package
-  - existing Linux server
-  - SafeSquid deployment
+title: "Linux Server Install"
+description: "Install SafeSquid SWG on an existing supported Linux server when the appliance path is not suitable."
+keywords: ["SafeSquid Linux install", "SafeSquid TAR package", "existing Linux server", "SafeSquid deployment"]
 ---
 
 # Install on a Managed Linux Host
@@ -62,20 +58,20 @@ Expected result: disk and memory match the sizing plan, with enough free space f
   <Tab title="Debian and Ubuntu">
     Use the organization's approved package repositories and change window:
 
-```bash
-sudo apt update
-sudo apt install -y bind9 monit
-```
+    ```bash
+    sudo apt update
+    sudo apt install -y bind9 monit
+    ```
 
     Confirm that local hardening does not block SafeSquid, Monit, or BIND9 service management.
   </Tab>
   <Tab title="RHEL family">
     Use the organization's approved repository and package names for the target distribution:
 
-```bash
-sudo dnf makecache
-sudo dnf install -y bind monit
-```
+    ```bash
+    sudo dnf makecache
+    sudo dnf install -y bind monit
+    ```
 
     Confirm SELinux, firewalld, and local hardening rules before starting SafeSquid.
   </Tab>
@@ -172,7 +168,7 @@ Store:
 ## Troubleshoot installation
 
 | Symptom | Likely cause | Fix |
-|---|---|---|
+| --- | --- | --- |
 | Package installation fails | Dependency or repository issue | Resolve package source and dependency errors before retrying |
 | Service does not start | Port conflict or incomplete install | Check service logs and confirm no service owns the proxy port |
 | Listener is missing | SafeSquid is stopped or bound differently | Verify service status and configured listener |

@@ -1,10 +1,7 @@
 ---
-title: Troubleshooting Installation Issues
-description: Diagnose and resolve SafeSquid troubleshooting installation issues incidents with causes, recovery actions, and audit evidence.
-keywords:
-  - troubleshooting
-  - SafeSquid
-  - installation issues
+title: "Troubleshooting Installation Issues"
+description: "Diagnose and resolve SafeSquid troubleshooting installation issues incidents with causes, recovery actions, and audit evidence."
+keywords: ["troubleshooting", "SafeSquid", "installation issues"]
 ---
 
 # Troubleshooting Installation Issues
@@ -33,15 +30,13 @@ Network issues can significantly impact the installation and functionality of Sa
 
 Administrators can perform various checks to identify and resolve network-related problems:
 
-1. **Network Configuration**: Review and modify network settings using the `ip` commands. `ip addr show # Display all interface IP addresses ip route show # Display routing table` **What to check:** IP address is assigned to the correct interface (e.g., `eth0: inet 192.168.1.100/24`) Default gateway is present in routing table (e.g., `default via 192.168.1.1 dev eth0`) **Common issues:** No IP address shown -> interface not configured or DHCP failed No default route -> gateway not set during network configuration step
-
-2. **DNS Resolution and Ping check**: Since busybox is a minimal Linux environment, use `ping` to verify both DNS resolution and connectivity. `ping -c 3 google.com` **Expected success output:** `PING google.com (142.250.x.x): 56 data bytes 64 bytes from 142.250.x.x: icmp_seq=0 ttl=xx time=x.x ms` **Failure symptoms:** `ping: bad address 'google.com'` -> DNS resolution failed (check `/etc/resolv.conf` for nameserver entries) `Network is unreachable` -> No default gateway configured `Request timeout` or 100% packet loss -> Firewall blocking ICMP, or no internet connectivity
-
+1. **Network Configuration**: Review and modify network settings using the `ip` commands. `ip addr show # Display all interface IP addresses ip route show # Display routing table` **What to check:** IP address is assigned to the correct interface (e.g., `eth0: inet 192.168.1.100/24`) Default gateway is present in routing table (e.g., `default via 192.168.1.1 dev eth0`) **Common issues:** No IP address shown -\> interface not configured or DHCP failed No default route -\> gateway not set during network configuration step
+2. **DNS Resolution and Ping check**: Since busybox is a minimal Linux environment, use `ping` to verify both DNS resolution and connectivity. `ping -c 3 google.com` **Expected success output:** `PING google.com (142.250.x.x): 56 data bytes 64 bytes from 142.250.x.x: icmp_seq=0 ttl=xx time=x.x ms` **Failure symptoms:** `ping: bad address 'google.com'` -\> DNS resolution failed (check `/etc/resolv.conf` for nameserver entries) `Network is unreachable` -\> No default gateway configured `Request timeout` or 100% packet loss -\> Firewall blocking ICMP, or no internet connectivity
 3. **Firewall Rules**: check your network firewall rules for possible port blocking.
 
 By performing these network checks and using the available networking commands, administrators can pinpoint network-related problems and take corrective actions.
 
-Once you have identified and solved your network problem, come back to the installer tty using ctrl + alt + F1 and select continue.
+Once you have identified and solved your network problem, come back to the installer tty using ctrl \+ alt \+ F1 and select continue.
 
 Select continue again.
 
@@ -62,22 +57,17 @@ For additional assistance, consult the SafeSquid forums and community resources.
 **"Bad archive mirror"** Appears when the installer cannot reach Debian package repositories. This indicates:
 
 - Firewall blocking outbound HTTP/HTTPS on the assigned proxy IP
-
 - No default gateway configured
-
 - DNS resolution failure for `deb.debian.org` or `downloads.safesquid.net`
 
 ### Root Causes
 
 - **DNS misconfiguration:** Wrong DNS server IP, or DNS server is unreachable
-
 - **Gateway misconfiguration:** No default route, or gateway IP is incorrect
-
 - **NIC configuration:** Wrong interface selected, or interface is down
-
 - **Firewall rules:** Network firewall blocking installation traffic from the SafeSquid server's IP
 
-If you face any error while installing SafeSquid Appliance Builder (SAB-ISO), you will get debugging logs information by pressing **ALT+F4**. To return to the previous screen press **ALT+F1**.
+If you face any error while installing SafeSquid Appliance Builder (SAB-ISO), you will get debugging logs information by pressing **ALT\+F4**. To return to the previous screen press **ALT\+F1**.
 
 ![Bad Archive Mirror Template](/images/troubleshooting/installation_issues_05_bad_archive_mirror_template.webp)
 

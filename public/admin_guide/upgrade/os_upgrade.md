@@ -1,23 +1,11 @@
 ---
-title: SafeSquid Ubuntu OS Upgrade from 20.04 to 24.04 Guide
-slug: /Upgrade_SafeSquid/OS_Upgrade
+title: "SafeSquid Ubuntu OS Upgrade from 20.04 to 24.04 Guide"
+slug: "/Upgrade_SafeSquid/OS_Upgrade"
 description: "Non-interactive upgrade of SafeSquid SWG from Ubuntu 20.04 LTS to 24.04 LTS: prerequisites, OS upgrade, DNS, Netplan, and verification."
-
-keywords:
-  - SafeSquid upgrade guide
-  - Upgrade Ubuntu for SafeSquid
-  - SafeSquid 2025 installation
-  - SafeSquid SWG OS compatibility
-  - Non-interactive SafeSquid upgrade
-  - SafeSquid service continuity
-  - SafeSquid system prerequisites
-  - SafeSquid DNS and Netplan setup
+keywords: ["SafeSquid upgrade guide", "Upgrade Ubuntu for SafeSquid", "SafeSquid 2025 installation", "SafeSquid SWG OS compatibility", "Non-interactive SafeSquid upgrade", "SafeSquid service continuity", "SafeSquid system prerequisites", "SafeSquid DNS and Netplan setup"]
 ---
 
-
 # Upgrade Ubuntu 20.04 to 24.04 for SafeSquid compatibility
-
-
 
 ## OS upgrade scope and procedure
 
@@ -26,8 +14,6 @@ Use this step-by-step, non-interactive procedure to upgrade the SafeSquid Secure
 The steps ensure **compatibility**, **security**, and **service continuity** for SafeSquid deployments running in production environments.
 
 ---
-
-
 
 ## Why This Upgrade Is Required
 
@@ -45,15 +31,13 @@ Ubuntu **20.04 LTS** includes:
 - Kernel up to **5.15**
 - glibc **2.31**
 
-These versions are **too old** for SafeSquid verion 2025.1001.1232.3, which requires newer kernel APIs and library functions available only in **Ubuntu 24.04 LTS**.
-Attempting to install the new version on 20.04 will cause dependency and runtime failures.
+These versions are **too old** for SafeSquid verion 2025.1001.1232.3, which requires newer kernel APIs and library functions available only in **Ubuntu 24.04 LTS**. Attempting to install the new version on 20.04 will cause dependency and runtime failures.
 
 ---
 
 ### **2. Ubuntu 20.04 End of Life (EoL)**
 
-Ubuntu **20.04 LTS** reaches **End of Standard Support in April 2025**.
-After this date:
+Ubuntu **20.04 LTS** reaches **End of Standard Support in April 2025**. After this date:
 
 - No further security patches or OS updates will be provided
 - Package repositories may become unavailable
@@ -62,8 +46,6 @@ After this date:
 Upgrading to **Ubuntu 24.04 LTS (Noble Numbat)** ensures long-term security and system support until **2034** under extended maintenance.
 
 ---
-
-
 
 ## Important Pre-Requisite
 
@@ -89,12 +71,7 @@ If you see this, you can proceed safely with the upgrade process
 
 ---
 
-1. **Free Storage in `/root`:**
-
-    The `/root` partition must have **more than 15 GB of free space** to accommodate upgrade files, temporary packages, and extracted data.
-
-    Check available space:
-
+1. **Free Storage in `/root`:** The `/root` partition must have **more than 15 GB of free space** to accommodate upgrade files, temporary packages, and extracted data. Check available space:
 
 ```bash
 df -h
@@ -102,7 +79,7 @@ df -h
 
 **Expected output for sufficient free space:**
 
-```
+```text
 Filesystem                                     Size  Used Avail Use% Mounted on
 /dev/mapper/vgsab--ubantu-root                  20G  4.0G  16G  20% /
 tmpfs                                          392M  900K  391M   1% /run
@@ -122,14 +99,12 @@ tmpfs                                          392M  8.0K  392M   1% /run/user/0
 ```
 
 > Note: If free space is below 15 GB, clean up unnecessary files or resize the /root partition before proceeding.
->
 
 ---
 
 1. Check Current OS Version
 
-**Purpose:**
-This step confirms the current OS version before proceeding, ensuring the system is actually running **Ubuntu 20.04**. The upgrade procedure must be followed sequentially, so the version check prevents applying incorrect upgrade steps.
+**Purpose:** This step confirms the current OS version before proceeding, ensuring the system is actually running **Ubuntu 20.04**. The upgrade procedure must be followed sequentially, so the version check prevents applying incorrect upgrade steps.
 
 **Command:**
 
@@ -139,7 +114,7 @@ lsb_release -a
 
 **Expected Output:**
 
-```
+```text
 description:    Ubuntu 20.04 LTS
 ```
 
@@ -147,12 +122,9 @@ If the version shows **18.04**, perform an upgrade to **20.04** first before con
 
 ---
 
-
-
 ## Step 1: Upgrade Ubuntu from 20.04 → 24.04 (Two-Step Process)
 
-Ubuntu LTS upgrades must be done **sequentially** (20.04 → 22.04 → 24.04).
-This ensures all intermediate packages, kernel modules, and libraries are properly migrated.
+Ubuntu LTS upgrades must be done **sequentially** (20.04 → 22.04 → 24.04). This ensures all intermediate packages, kernel modules, and libraries are properly migrated.
 
 ---
 
@@ -176,8 +148,7 @@ do-release-upgrade -f DistUpgradeViewNonInteractive
 - `apt autoremove` clears unused dependencies to prevent clutter
 - `apt-get clean`: Removes cached packages to free space and avoid conflicts
 - `apt update && apt upgrade -y`: Ensures the system is fully patched before upgrading
-- `do-release-upgrade -f DistUpgradeViewNonInteractive`: Initiates the upgrade to Ubuntu 22.04 in non-interactive mode,
-This upgrades Ubuntu to the next LTS version **without stopping to ask questions**, ensuring a fully automated process suitable for remote servers or critical systems.
+- `do-release-upgrade -f DistUpgradeViewNonInteractive`: Initiates the upgrade to Ubuntu 22.04 in non-interactive mode, This upgrades Ubuntu to the next LTS version **without stopping to ask questions**, ensuring a fully automated process suitable for remote servers or critical systems.
 
 **After completion:**
 
@@ -191,8 +162,7 @@ Reboot is required to boot into the new kernel and load updated system libraries
 
 ### **Phase 2 – Upgrade from 22.04 to 24.04**
 
-**Why:**
-This phase upgrades the system to the final target OS, **Ubuntu 24.04 LTS**, which provides:
+**Why:** This phase upgrades the system to the final target OS, **Ubuntu 24.04 LTS**, which provides:
 
 - Kernel **6.8**
 - glibc **2.39**
@@ -227,8 +197,6 @@ reboot
 - Reboot ensures the system loads the new kernel and environment
 
 ---
-
-
 
 ## Step 2: Update BIND Configuration
 
@@ -265,8 +233,6 @@ This restarts the DNS service with updated configuration.
 
 ---
 
-
-
 ## Step 3: Rename `msktutil` Binary
 
 **Why:**`msktutil` is a tool used for managing machine accounts in Active Directory.
@@ -283,13 +249,9 @@ mv /usr/local/bin/msktutil /usr/local/bin/msktutil_
 
 ---
 
-
-
 ## Step 4: Update Netplan Configuration
 
-**Why:**
-During OS upgrades, network settings may change or revert.
-Updating Netplan ensures the system uses the **local DNS resolver (127.0.0.1)**, allowing proper DNS resolution through your AD-integrated BIND server.
+**Why:** During OS upgrades, network settings may change or revert. Updating Netplan ensures the system uses the **local DNS resolver (127.0.0.1)**, allowing proper DNS resolution through your AD-integrated BIND server.
 
 **Commands:**
 
@@ -314,13 +276,9 @@ This ensures DNS resolution functions correctly with BIND post-upgrade.
 
 ---
 
-
-
 ## Step 5: Upgrade SafeSquid Application
 
-**Why:**
-Once the OS environment is compatible (kernel 6.8, glibc 2.39), install the new SafeSquid version.
-The latest release provides updated filtering features, enhanced TLS handling, and improved performance.
+**Why:** Once the OS environment is compatible (kernel 6.8, glibc 2.39), install the new SafeSquid version. The latest release provides updated filtering features, enhanced TLS handling, and improved performance.
 
 **Commands:**
 
@@ -346,13 +304,9 @@ This ensures SafeSquid starts automatically after system reboots.
 
 ---
 
-
-
 ## Step 6: Post-Upgrade Cleanup and Verification
 
-**Why:**
-Cleaning residual packages prevents storage bloat and ensures a consistent, stable environment.
-Verification confirms that both OS and SafeSquid versions are upgraded successfully.
+**Why:** Cleaning residual packages prevents storage bloat and ensures a consistent, stable environment. Verification confirms that both OS and SafeSquid versions are upgraded successfully.
 
 **Commands:**
 
@@ -369,7 +323,7 @@ lsb_release -a
 
 **Expected:**
 
-```
+```text
 description:    Ubuntu 24.04 LTS
 ```
 
@@ -386,4 +340,3 @@ ls -rlt /opt/safesquid/bin/safesquid
 ```bash
 lrwxrwxrwx 1 ssquid root 39 Oct 13 22:22 /opt/safesquid/bin/safesquid -> safesquid-2025.1001.1232.3-swg-standard
 ```
-

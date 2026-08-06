@@ -1,12 +1,7 @@
 ---
-title: Enforce SafeSearch
-description: Enforce SafeSearch on Google, Yahoo, and Bing through SafeSquid so users cannot disable search-result filtering locally.
-keywords:
-  - enforce safesearch SafeSquid
-  - google safesearch SafeSquid
-  - yahoo safesearch SafeSquid
-  - bing safesearch SafeSquid
-  - filter explicit content SafeSquid
+title: "Enforce SafeSearch"
+description: "Enforce SafeSearch on Google, Yahoo, and Bing through SafeSquid so users cannot disable search-result filtering locally."
+keywords: ["enforce safesearch SafeSquid", "google safesearch SafeSquid", "yahoo safesearch SafeSquid", "bing safesearch SafeSquid", "filter explicit content SafeSquid"]
 ---
 
 # Keep search filtering enforced at the proxy

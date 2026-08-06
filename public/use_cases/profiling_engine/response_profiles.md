@@ -1,13 +1,7 @@
 ---
-title: Response Profiles
-description: Use SafeSquid Response Profiles to classify downloads and server responses by MIME type, file extension, size, and headers before applying controls.
-keywords:
-  - SafeSquid response profiles
-  - SafeSquid MIME filtering
-  - SafeSquid file extension block
-  - SafeSquid content length rules
-  - SafeSquid response header filtering
-  - configure SafeSquid response profiles
+title: "Response Profiles"
+description: "Use SafeSquid Response Profiles to classify downloads and server responses by MIME type, file extension, size, and headers before applying controls."
+keywords: ["SafeSquid response profiles", "SafeSquid MIME filtering", "SafeSquid file extension block", "SafeSquid content length rules", "SafeSquid response header filtering", "configure SafeSquid response profiles"]
 ---
 
 # Classify downloads by what they return

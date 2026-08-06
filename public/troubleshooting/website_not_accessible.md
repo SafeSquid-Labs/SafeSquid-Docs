@@ -1,10 +1,7 @@
 ---
-title: Website Not Accessible
-description: Diagnose and resolve SafeSquid website not accessible incidents with causes, recovery actions, and audit evidence.
-keywords:
-  - troubleshooting
-  - SafeSquid
-  - website not accessible
+title: "Website Not Accessible"
+description: "Diagnose and resolve SafeSquid website not accessible incidents with causes, recovery actions, and audit evidence."
+keywords: ["troubleshooting", "SafeSquid", "website not accessible"]
 ---
 
 # Website Not Accessible
@@ -55,7 +52,7 @@ telnet: Unable to connect to remote host: No route to host
 
 When the website is reachable, the output is:
 
-telnet WEBSITE PORT_TO_CONNECTON
+telnet WEBSITE PORT\_TO\_CONNECTON
 
 When the website cannot be reached:
 
@@ -76,7 +73,7 @@ Trying 192.168.27.30...
 
 Connected to 192.168.27.30.
 
-Escape character is '^]'.
+Escape character is '^\]'.
 
 ### On-premises with directory services (conditional DNS)
 
@@ -116,7 +113,7 @@ root@swg:/etc/bind# vim named.conf
 
 // Please read /usr/share/doc/bind9/README.Debian.gz for information on the
 
-// structure of BIND configuration files in Debian, *BEFORE* you customize
+// structure of BIND configuration files in Debian, _BEFORE_ you customize
 
 // this configuration file.
 

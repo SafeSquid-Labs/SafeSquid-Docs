@@ -1,0 +1,118 @@
+---
+title: "Production Evidence Checklist"
+sidebarTitle: "Evidence Checklist"
+description: "Track SafeSquid deployment, policy, operations, recovery, and review evidence locally without transmitting production information."
+content_type: "assurance"
+applies_to: ["2026 Release Train", "2024 Release Train"]
+verified_build: "Not product-behavior dependent"
+last_verified: "2026-08-07"
+owner: "SafeSquid Security Assurance"
+risk: "medium"
+verification_level: "editorial-review"
+keywords: ["SafeSquid evidence checklist", "SafeSquid audit", "SafeSquid production readiness", "SafeSquid compliance evidence"]
+---
+
+export const EvidenceChecklist = () => {
+  const items = [
+    ["design", "Approved topology and trust-boundary diagram"],
+    ["scope", "Users, devices, networks, applications, and locations in scope"],
+    ["build", "Release train, exact build, node role, and activation state"],
+    ["inputs", "Sanitized deployment inputs and named owners"],
+    ["services", "Service, listener, dependency, DNS, and time health"],
+    ["routing", "Pilot routing and bypass test results"],
+    ["trust", "Approved CA fingerprint and managed trust rollout result"],
+    ["identity", "Expected user or device attribution and failure test"],
+    ["allow", "Known allow decision with complete event context"],
+    ["deny", "Known deny decision with complete event context"],
+    ["inspection", "Authorized inspection and approved bypass results"],
+    ["malware", "Approved benign malware-control test and update state"],
+    ["dlp", "Synthetic DLP positive and negative tests"],
+    ["logs", "Local log, report, and SIEM receipt with synchronized time"],
+    ["backup", "Protected backup and configuration archive result"],
+    ["restore", "Restoration or recovery test result"],
+    ["failover", "Required availability or failover test result"],
+    ["rollback", "Rollback trigger, authority, action, and successful result"],
+    ["exceptions", "Exceptions, owners, expiry, monitoring, and residual risk"],
+    ["review", "Product SME and independent operator approvals"]
+  ]
+
+  const [selected, setSelected] = useState([])
+  const [copied, setCopied] = useState(false)
+
+  const toggle = (id) => {
+    setSelected(selected.includes(id) ? selected.filter((item) => item !== id) : [...selected, id])
+    setCopied(false)
+  }
+
+  const summary = [
+    "# SafeSquid production evidence status",
+    "",
+    "Completed:",
+    ...items.filter(([id]) => selected.includes(id)).map(([, label]) => "- [x] " + label),
+    "",
+    "Pending:",
+    ...items.filter(([id]) => !selected.includes(id)).map(([, label]) => "- [ ] " + label),
+    "",
+    "This status contains no evidence files or secrets. Attach approved sanitized records separately."
+  ].join("\n")
+
+  const copySummary = async () => {
+    await navigator.clipboard.writeText(summary)
+    setCopied(true)
+  }
+
+  const percentage = Math.round((selected.length / items.length) * 100)
+
+  return (
+    <div style={{ border: "1px solid var(--gray-300)", padding: "20px", borderRadius: "8px" }}>
+      <strong>{selected.length} of {items.length} evidence categories recorded ({percentage}%)</strong>
+      <div style={{ height: "8px", background: "var(--gray-200)", margin: "8px 0 16px", borderRadius: "4px" }}>
+        <div style={{ width: percentage + "%", height: "8px", background: percentage === 100 ? "#16803a" : "#2563eb", borderRadius: "4px" }} />
+      </div>
+      {items.map(([id, label]) => (
+        <label key={id} style={{ display: "flex", gap: "9px", alignItems: "flex-start", marginBottom: "10px" }}>
+          <input type="checkbox" checked={selected.includes(id)} onChange={() => toggle(id)} />
+          <span>{label}</span>
+        </label>
+      ))}
+      <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginTop: "16px" }}>
+        <button onClick={copySummary} style={{ padding: "9px 14px" }}>{copied ? "Copied" : "Copy status"}</button>
+        <button onClick={() => { setSelected([]); setCopied(false) }} style={{ padding: "9px 14px" }}>Clear</button>
+      </div>
+    </div>
+  )
+}
+
+# Track Evidence Without Exposing It
+
+This checklist runs in browser memory. It does not upload, save, or inspect evidence. Use it to track whether required proof exists, then store the actual sanitized records in the approved evidence system.
+
+<EvidenceChecklist />
+
+## Evidence quality rules
+
+Evidence must identify the applicable build, time, source, test, expected result, observed result, reviewer, and storage location. A screenshot without the tested action and result is context, not complete proof.
+
+<Warning>
+  Do not paste activation keys, passwords, private keys, access tokens, session cookies, customer content, or unrestricted packet captures into this page, copied status, public documentation, or public AI tools.
+</Warning>
+
+## Acceptance sequence
+
+<Steps>
+  <Step title="Collect the minimum sufficient record">
+    Capture only the outputs necessary to prove the control or recovery result.
+  </Step>
+  <Step title="Sanitize before transfer">
+    Remove secrets, personal data, customer content, internal-only topology, and unrelated traffic.
+  </Step>
+  <Step title="Protect integrity and time">
+    Store evidence where access, retention, modification, deletion, and time accuracy are controlled.
+  </Step>
+  <Step title="Obtain independent review">
+    A reviewer confirms the evidence proves the stated result for the named build and scope.
+  </Step>
+  <Step title="Record gaps honestly">
+    A missing category remains pending with an owner and due date. It is not converted into a compliance claim.
+  </Step>
+</Steps>

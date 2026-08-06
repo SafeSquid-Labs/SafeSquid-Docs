@@ -1,12 +1,7 @@
 ---
-title: Register and Get Your Key
-description: Create a SafeSquid Self-Service Portal account, activate it by email, and download the activation_key file required for deployment.
-keywords:
-  - SafeSquid registration
-  - SafeSquid activation key
-  - Self-Service Portal
-  - SafeSquid onboarding
-  - SafeSquid license activation
+title: "Register and Get Your Key"
+description: "Create a SafeSquid Self-Service Portal account, activate it by email, and download the activation_key file required for deployment."
+keywords: ["SafeSquid registration", "SafeSquid activation key", "Self-Service Portal", "SafeSquid onboarding", "SafeSquid license activation"]
 ---
 
 # Register and Download the Activation Key
@@ -206,7 +201,7 @@ When SafeSquid is installed, use [Activate Your License](/getting_started/activa
 ## Troubleshoot key and activation failures
 
 | Symptom | Likely cause | Fix |
-|---|---|---|
+| --- | --- | --- |
 | Activation email does not arrive | Mail filtering, quarantine, or wrong address | Confirm the registered email address, check spam and quarantine, then retry registration if needed |
 | Cannot sign in | Account was not activated or password is wrong | Open the activation email first; if already activated, use the portal password reset workflow |
 | Activation key is not visible | Profile is incomplete or subscription/account state is not ready | Complete the profile, save it, and confirm the selected subscription option |

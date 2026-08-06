@@ -1,11 +1,7 @@
 ---
-title: Directory Services
-description: Integrate SafeSquid with Active Directory or OpenLDAP for centralized user authentication and group-based access control.
-keywords:
-  - SafeSquid directory services
-  - LDAP integration
-  - Active Directory proxy
-  - OpenLDAP proxy
+title: "Directory Services"
+description: "Integrate SafeSquid with Active Directory or OpenLDAP for centralized user authentication and group-based access control."
+keywords: ["SafeSquid directory services", "LDAP integration", "Active Directory proxy", "OpenLDAP proxy"]
 ---
 
 # Centralized Identity and Group-Based Policy
@@ -19,7 +15,7 @@ IP-based proxy control is not enough for enterprise governance. Administrators n
 ## Supported Directory Services
 
 | Directory Service | Integration Type | Key Features |
-|-------------------|------------------|--------------|
+| --- | --- | --- |
 | [Active Directory](/Active_Directory) | Kerberos SSO / LDAP | Seamless SSO for domain users, group sync |
 | [OpenLDAP](/OpenLDAP) | Simple LDAP | Centralized identity for Linux/Unix environments |
 
@@ -50,9 +46,11 @@ Do not document these as current shipping directory capabilities:
 ## Choose your integration method
 
 ### [Active Directory (AD)](/Active_Directory)
+
 Best for Windows-centric environments. Supports **SSO Authentication** for the best user experience and **Simple Authentication** for non-domain devices or specific use cases.
 
 ### [OpenLDAP](/OpenLDAP)
+
 Best for Linux/Unix-heavy environments or organizations using OpenLDAP for identity. Supports **Simple Authentication** (LDAP bind) to validate credentials against the directory.
 
 ## Verification and validation
@@ -67,8 +65,8 @@ After integration, confirm:
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
-| AD: SSO + Simple paths | **Confirmed** | [Active Directory hub](/Active_Directory) |
+| --- | --- | --- |
+| AD: SSO \+ Simple paths | **Confirmed** | [Active Directory hub](/Active_Directory) |
 | OpenLDAP: Simple LDAP integration | **Confirmed** | [OpenLDAP hub](/OpenLDAP) |
 | Group-based policy linkage | **Confirmed** | [Access Restriction](/Access_Restriction) |
 

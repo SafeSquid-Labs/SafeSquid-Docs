@@ -1,0 +1,89 @@
+---
+title: "Choose Your SafeSquid Path"
+sidebarTitle: "Choose Your Path"
+description: "Start with the SafeSquid documentation path that matches your role, task, and operational risk."
+content_type: "tutorial"
+applies_to: ["2026 Release Train", "2024 Release Train"]
+verified_build: "Not product-behavior dependent"
+last_verified: "2026-08-07"
+owner: "SafeSquid Documentation"
+risk: "low"
+verification_level: "editorial-review"
+keywords: ["SafeSquid documentation", "SafeSquid getting started", "CISO", "network security architect", "SafeSquid administrator"]
+---
+
+# Start With the Outcome You Need
+
+You do not need to read this documentation from beginning to end. Choose the path that matches the decision or task in front of you. Each path leads to the same authoritative procedures and references, so terminology, expected results, and version information remain consistent.
+
+<Cards cols={2}>
+  <Card title="New to secure web gateways" icon="graduation-cap" href="/getting_started/introduction">
+    Build a controlled pilot, learn the traffic path, and verify one working client before adding security controls.
+  </Card>
+
+  <Card title="Deploy or administer SafeSquid" icon="server" href="/getting_started/deployment_planning">
+    Plan inputs, install a supported platform, connect clients, activate the service, and collect production evidence.
+  </Card>
+
+  <Card title="Design an enterprise deployment" icon="network" href="/plan/reference-architecture">
+    Define trust boundaries, routing, identity, inspection, resilience, logging, and recovery before change approval.
+  </Card>
+
+  <Card title="Evaluate risk and assurance" icon="clipboard-check" href="/assurance/overview">
+    Review control mechanisms, limitations, evidence sources, ownership, and regulatory mappings without treating configuration as automatic compliance.
+  </Card>
+
+  <Card title="Resolve an incident" icon="stethoscope" href="/troubleshooting/troubleshooting">
+    Start from the observable symptom, preserve evidence, isolate the failing layer, recover service, and verify the security path.
+  </Card>
+
+  <Card title="Find an exact value" icon="book-open" href="/reference/overview">
+    Look up fields, files, services, logs, ports, defaults, dependencies, limits, and version applicability.
+  </Card>
+</Cards>
+
+## The production path
+
+Use this sequence for a first deployment:
+
+<Steps>
+  <Step title="Plan the control path">
+    Complete [Deployment Planning](/getting_started/deployment_planning). Record topology, capacity, routing, DNS, NTP, identity, certificate trust, logging, rollback, and ownership decisions.
+  </Step>
+  <Step title="Install one approved platform">
+    Select the documented appliance, Linux, cloud, virtual, or hybrid path. Do not route production users until the installation checks pass.
+  </Step>
+  <Step title="Connect one pilot client">
+    Use [Connect Your Client](/getting_started/client_configuration/connect_your_client) and confirm a new transaction appears in the expected SafeSquid access log.
+  </Step>
+  <Step title="Activate and establish trust">
+    Activate the instance, deploy the approved Root CA to managed pilot endpoints, and verify HTTPS browsing without certificate warnings.
+  </Step>
+  <Step title="Apply controls in a known order">
+    Add inspection, identity, access, malware, and data controls one stage at a time. Run an allow and deny test after each stage.
+  </Step>
+  <Step title="Prove readiness">
+    Complete [Verify Your Setup](/getting_started/verify_your_setup). Attach the resulting evidence and rollback record to the approved change.
+  </Step>
+</Steps>
+
+## How to read a procedure
+
+Every production procedure distinguishes between four things:
+
+| Element | What it tells you |
+| --- | --- |
+| **Input** | The value required, where to obtain it, its valid form, and whether it is sensitive |
+| **Action** | The smallest safe change to make |
+| **Checkpoint** | The screen, output, log entry, or traffic behavior that proves the action worked |
+| **Recovery** | What to inspect, reverse, or escalate when the checkpoint differs |
+
+<Warning>
+  A page marked **Pending lab validation** is useful for planning and review, but it is not approved evidence for a production change. Use only procedures that identify a verified build and review date for consequential deployment work.
+</Warning>
+
+## Documentation trust
+
+SafeSquid documentation separates verified product behavior from architecture guidance and external standards. Product claims require reproducible evidence. Regulatory mappings describe how a control may produce evidence; they do not certify compliance.
+
+See [How to Trust This Documentation](/reference/documentation-trust) for verification levels, ownership, update rules, and how to report an error.

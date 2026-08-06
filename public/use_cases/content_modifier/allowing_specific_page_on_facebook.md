@@ -1,39 +1,35 @@
 ---
-title: Allow Specific Page on Facebook
-description: Allow specific Facebook pages and block the rest in SafeSquid for controlled social media usage.
-keywords:
-  - allow specific facebook page SafeSquid
-  - SafeSquid block facebook except page
-  - facebook page access SafeSquid
-  - SafeSquid social media filtering
-  - specific facebook page access policy
+title: "Allow Specific Page on Facebook"
+description: "Allow specific Facebook pages and block the rest in SafeSquid for controlled social media usage."
+keywords: ["allow specific facebook page SafeSquid", "SafeSquid block facebook except page", "facebook page access SafeSquid", "SafeSquid social media filtering", "specific facebook page access policy"]
 ---
 
-
 ## Problem
+
 Security teams need predictable control over app and web usage to reduce policy bypass and data-risk exposure.
 
 ## Benefits
+
 You can enforce policy decisions consistently with SafeSquid while preserving legitimate business workflows.
 
 ## Advantages
+
 You keep actionable policy control close to operations, with verifiable outcomes in logs and policy behavior.
 
 ## Call to action
+
 Use the steps in this guide to implement the control, then validate behavior with a real user-flow test.
 
 # Allow one Facebook page and block the rest
 
 Many organizations block Facebook but need to allow a specific page (e.g. company page). SafeSquid SWG can allow a particular page for selected groups (e.g. social media team), partial or read-only for others, and by time of day. In the example below, only the SafeSquid page is allowed; other pages show a block template.
 
-
-
 ## Prerequisites
+
 HTTPS Inspection should be enabled in SafeSquid. If not enabled, refer to the document - [How to enable HTTPS Inspection](/SSL_Inspection).
 
-
-
 ## Steps
+
 [Access the SafeSquid User Interface](/Configuration_Portal)
 
 ![Select Configure section from safesquid user interface to allow only specific page of Facebook ](/images/How_To/Allowing_Specific_Page_on_Facebook/image1.webp)
@@ -105,4 +101,3 @@ HTTPS Inspection should be enabled in SafeSquid. If not enabled, refer to the do
 ![Save policy that allow only that allow only specific page of Facebook ](/images/How_To/Allowing_Specific_Page_on_Facebook/image33.webp)
 
 ![Save configuration that allow only that allow only specific page of Facebook ](/images/How_To/Allowing_Specific_Page_on_Facebook/image34.webp)
-
