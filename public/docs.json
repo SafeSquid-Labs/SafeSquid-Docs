@@ -77,6 +77,7 @@
         "icon": "play",
         "pages": [
           "start/choose-your-path",
+          "getting_started/main",
           {
             "group": "Getting Started",
             "root": "getting_started/introduction",
@@ -90,6 +91,15 @@
         "pages": [
           "plan/overview",
           "plan/reference-architecture",
+          {
+            "group": "Architecture and Components",
+            "icon": "network",
+            "pages": [
+              "safesquid_swg/architecture/safesquid_swg",
+              "safesquid_swg/architecture/application_ecosystem",
+              "safesquid_swg/architecture/safesquid_proxy_cluster"
+            ]
+          },
           {
             "group": "Application Ecosystem",
             "root": "safesquid_swg/application_ecosystem/main",
@@ -116,6 +126,7 @@
             "group": "Install SafeSquid",
             "root": "getting_started/install_safesquid/prerequisites",
             "pages": [
+              "getting_started/install_safesquid/main",
               "getting_started/install_safesquid/cloud_deployment",
               "getting_started/install_safesquid/safesquid_appliance_builder",
               "getting_started/install_safesquid/linux_server"
@@ -134,6 +145,7 @@
             "group": "Client Configuration",
             "root": "getting_started/client_configuration/connect_your_client",
             "pages": [
+              "getting_started/client_configuration/main",
               "getting_started/client_configuration/explicit_proxy",
               "getting_started/client_configuration/pac_file",
               "getting_started/client_configuration/system_wide_proxy",
@@ -396,6 +408,7 @@
             "group": "Policy Management Console",
             "root": "safesquid_swg/policy_management_console/main",
             "pages": [
+              "safesquid_swg/interface/configuration_portal",
               "safesquid_swg/policy_management_console/reports",
               "safesquid_swg/policy_management_console/configure",
               "safesquid_swg/policy_management_console/support"
@@ -406,6 +419,7 @@
             "root": "safesquid_swg/files_and_folders/main",
             "pages": [
               "safesquid_swg/files_and_folders/files_and_folders",
+              "use_cases/audit_and_forensics/directory_structure",
               "safesquid_swg/files_and_folders/service_and_startup_files",
               "safesquid_swg/files_and_folders/application_binaries_and_modules",
               "safesquid_swg/files_and_folders/policy_security_and_ui_files",
@@ -430,5 +444,137 @@
   },
   "icons": {
     "library": "fontawesome"
-  }
+  },
+  "redirects": [
+    {
+      "source": "/admin_guide/customisation/main",
+      "destination": "/admin_guide/customisation/customisation",
+      "permanent": true
+    },
+    {
+      "source": "/admin_guide/main",
+      "destination": "/operate/overview",
+      "permanent": true
+    },
+    {
+      "source": "/admin_guide/performance_acceleration/main",
+      "destination": "/admin_guide/performance_acceleration/performance_accelerators",
+      "permanent": true
+    },
+    {
+      "source": "/admin_guide/scaling_and_high_availability/main",
+      "destination": "/admin_guide/scaling_and_high_availability/proxy_clustering",
+      "permanent": true
+    },
+    {
+      "source": "/admin_guide/upgrade/main",
+      "destination": "/admin_guide/upgrade/upgrade_safesquid",
+      "permanent": true
+    },
+    {
+      "source": "/faqs/main",
+      "destination": "/faqs/faqs",
+      "permanent": true
+    },
+    {
+      "source": "/safesquid_swg/architecture/architecture",
+      "destination": "/plan/overview",
+      "permanent": true
+    },
+    {
+      "source": "/safesquid_swg/architecture/main",
+      "destination": "/plan/overview",
+      "permanent": true
+    },
+    {
+      "source": "/safesquid_swg/interface/main",
+      "destination": "/reference/overview",
+      "permanent": true
+    },
+    {
+      "source": "/safesquid_swg/main",
+      "destination": "/plan/overview",
+      "permanent": true
+    },
+    {
+      "source": "/safesquid_swg/what_is_safesquid_swg",
+      "destination": "/safesquid_swg/architecture/safesquid_swg",
+      "permanent": true
+    },
+    {
+      "source": "/troubleshooting/main",
+      "destination": "/troubleshooting/troubleshooting",
+      "permanent": true
+    },
+    {
+      "source": "/use_cases/access_restriction/main",
+      "destination": "/use_cases/access_restriction/access_restriction",
+      "permanent": true
+    },
+    {
+      "source": "/use_cases/audit_and_forensics/main",
+      "destination": "/use_cases/audit_and_forensics/audit_forensics",
+      "permanent": true
+    },
+    {
+      "source": "/use_cases/authentication/main",
+      "destination": "/use_cases/authentication/authentication",
+      "permanent": true
+    },
+    {
+      "source": "/use_cases/content_modifier/main",
+      "destination": "/use_cases/content_modifier/content_modifier",
+      "permanent": true
+    },
+    {
+      "source": "/use_cases/cookie_inspection/main",
+      "destination": "/use_cases/cookie_inspection/cookie_inspection",
+      "permanent": true
+    },
+    {
+      "source": "/use_cases/data_leakage_prevention/main",
+      "destination": "/use_cases/data_leakage_prevention/data_leakage_prevention",
+      "permanent": true
+    },
+    {
+      "source": "/use_cases/dns_security/main",
+      "destination": "/use_cases/dns_security/dns_security",
+      "permanent": true
+    },
+    {
+      "source": "/use_cases/header_rewrite/main",
+      "destination": "/use_cases/header_rewrite/header_obfuscation",
+      "permanent": true
+    },
+    {
+      "source": "/use_cases/integrations/main",
+      "destination": "/use_cases/integrations/integrations",
+      "permanent": true
+    },
+    {
+      "source": "/use_cases/main",
+      "destination": "/secure/overview",
+      "permanent": true
+    },
+    {
+      "source": "/use_cases/malware_scanning/main",
+      "destination": "/use_cases/malware_scanning/malware_scanners",
+      "permanent": true
+    },
+    {
+      "source": "/use_cases/profiling_engine/main",
+      "destination": "/use_cases/profiling_engine/profiling_engine",
+      "permanent": true
+    },
+    {
+      "source": "/use_cases/ssl_inspection/main",
+      "destination": "/use_cases/ssl_inspection/ssl_inspection",
+      "permanent": true
+    },
+    {
+      "source": "/use_cases/url_redirection/main",
+      "destination": "/use_cases/url_redirection/url_redirection",
+      "permanent": true
+    }
+  ]
 }
