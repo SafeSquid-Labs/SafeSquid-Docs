@@ -1,6 +1,6 @@
 {
   "theme": "mint",
-  "name": "SafeSquid SWG",
+  "name": "SafeSquid Documentation",
   "description": "Deploy Zero-Trust Web Security \u2014 SafeSquid Secure Web Gateway documentation.",
   "colors": {
     "primary": "#0066CC",
@@ -22,11 +22,6 @@
       {
         "label": "Forum",
         "href": "https://help.safesquid.com/portal/en/community/safesquid-labs"
-      },
-      {
-        "label": "",
-        "href": "https://github.com/SafeSquid-GitHub",
-        "icon": "github"
       }
     ],
     "primary": {
@@ -37,7 +32,11 @@
   },
   "footer": {
     "socials": {
-      "website": "https://www.safesquid.com/"
+      "website": "https://www.safesquid.com/",
+      "github": "https://github.com/SafeSquid-GitHub",
+      "x": "https://x.com/safesquid",
+      "linkedin": "https://in.linkedin.com/company/safesquid",
+      "youtube": "https://www.youtube.com/@securewebgateway"
     }
   },
   "integrations": {
@@ -404,5 +403,8 @@
         ]
       }
     ]
+  },
+  "icons": {
+    "library": "fontawesome"
   }
 }
