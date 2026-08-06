@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "cd public && npx mint dev",
+    "build": "cd public && npx mint export --output ../build.zip",
     "validate": "cd public && npx mint validate",
     "broken-links": "cd public && npx mint broken-links"
   },
