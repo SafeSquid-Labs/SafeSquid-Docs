@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 380" width="480" height="380" role="img" aria-label="Access check flow for policy Deny">
+<style>
+    .box { fill: #f5f8fa; stroke: #0066aa; stroke-width: 1.5; }
+    .boxWarn { fill: #fdf6f0; stroke: #c45c26; stroke-width: 1.5; }
+    .boxOk { fill: #f0f7f0; stroke: #2d6a2d; stroke-width: 1.5; }
+    .arrow { stroke: #444; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+    .yn { font-size: 11px; fill: #555; font-weight: 600; }
+    text { font-size: 12px; font-family: system-ui, sans-serif; fill: #222; }
+    text.label { font-weight: 600; }
+</style>
+<rect x="0" y="0" width="480" height="380" fill="#ffffff"/>
+<defs>
+				<marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+					<polygon points="0 0, 8 3, 0 6" fill="#444"/>
+				</marker>
+			</defs>
+			<rect class="box" x="140" y="8" width="200" height="36" rx="4"/>
+			<text class="label" x="240" y="30" text-anchor="middle">New connection</text>
+			<line class="arrow" x1="240" y1="44" x2="240" y2="58"/>
+			<rect class="box" x="100" y="58" width="280" height="36" rx="4"/>
+			<text x="240" y="80" text-anchor="middle">policy=DENY: walk Allow list</text>
+			<line class="arrow" x1="240" y1="94" x2="240" y2="108"/>
+			<rect class="box" x="60" y="108" width="360" height="44" rx="4"/>
+			<text x="240" y="126" text-anchor="middle">Gates: profiles → interface → ip → ldap_profiles</text>
+			<text x="240" y="142" text-anchor="middle">(all configured gates must pass)</text>
+			<line class="arrow" x1="240" y1="152" x2="240" y2="166"/>
+			<rect class="boxWarn" x="80" y="166" width="320" height="36" rx="4"/>
+			<text x="240" y="188" text-anchor="middle">username NULL? → goto done (match or challenge)</text>
+			<line class="arrow" x1="240" y1="202" x2="240" y2="216"/>
+			<rect class="box" x="70" y="216" width="340" height="44" rx="4"/>
+			<text x="240" y="234" text-anchor="middle">pamauth=TRUE: cache → PAM → LDAP bind</text>
+			<text x="240" y="250" text-anchor="middle">then PCRE username; FALSE: exact user/pass</text>
+			<line class="arrow" x1="240" y1="260" x2="240" y2="274"/>
+			<rect class="boxOk" x="90" y="274" width="300" height="36" rx="4"/>
+			<text x="240" y="296" text-anchor="middle">Apply access, groups, bypass, concurrency</text>
+			<line class="arrow" x1="240" y1="310" x2="240" y2="324"/>
+			<rect class="boxWarn" x="100" y="324" width="280" height="36" rx="4"/>
+			<text x="240" y="346" text-anchor="middle">Walk Deny list — match revokes access</text>
+</svg>

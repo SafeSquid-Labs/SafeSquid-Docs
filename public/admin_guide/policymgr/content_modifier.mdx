@@ -1,0 +1,89 @@
+---
+title: "Content rewrite"
+---
+
+<Note>
+  CLI man page: `safesquid-rewrite(5)`
+</Note>
+
+<Frame caption="Rewrite hook flow">
+  <img src="/images/admin_guide/content_modifier_flowchart.svg" alt="Rewrite hook flow" />
+</Frame>
+
+## Overview
+
+The `Rewrite` section (`safesquid-rewrite(5)`) performs PCRE search-and-replace on HTTP headers and bodies. Use it to inject cookies, strip sensitive header values, or modify response body content before it reaches the client.
+
+## Core Mechanics (C++ Source Validation)
+
+Source: `sources/modules/rewrite/rewrite.cpp` — `RewriteSection::check_match()`, `rewrite_do()`.
+
+### Hook points
+
+- **Client header** (`REWRITE_CLIENT`) — outgoing request headers via `rewrite_reqheader` hook.
+- **Server header** (`REWRITE_SERVER`) — response headers via `rewrite_respheader` hook.
+- **Body** (`REWRITE_BODY`) — response body via `PROCESS_BUFFCHECK`; MIME regex tested against `Content-Type`.
+- **Post body** (`REWRITE_POST`) — upload body modification.
+
+### First applicable row per pass
+
+Rows walked top to bottom. Row skipped when: disabled, Applies to flag mismatch, profiles fail, blank pattern, or MIME regex fails (body only).
+
+### MIME gate on body
+
+For `REWRITE_BODY`, non-empty Mime type regex must match `connection->rheader->content_type`. Empty mime matches any body when other gates pass.
+
+## Processing flow
+
+```mermaid
+flowchart TD
+msg[Request or response] --> flags{Applies to matches hook?}
+flags -->|No| skip[Skip row]
+flags -->|Yes| prof{Profiles match?}
+prof -->|No| skip
+prof -->|Yes| mime{Body: MIME matches?}
+mime -->|No| skip
+mime -->|Yes| pcre[PCRE replace on header or body]
+pcre --> done[Modified stream continues]
+```
+
+## Schema Fields
+
+### Global fields
+
+- **Enabled (enabled)** — Master switch for all rewrite hooks.
+
+### Policy rows
+
+- **Profiles (profiles)** — Connection must match tags. Blank matches all.
+- **Mime type (mime)** — POSIX regex on Content-Type for body rewrites only.
+- **Pattern (pattern)** — PCRE search pattern (required).
+- **Replace (replace)** — Replacement string; supports capture groups.
+- **Applies to (which)** — CLIENT HEADER, SERVER HEADER, BODY, POST BODY flags.
+
+## Examples
+
+### YouTube SafeSearch cookie injection
+
+- **Configuration:** Profiles UNSAFE\_YOUTUBE, Pattern `Cookie: ([^\r\n]*)`, Replace `Cookie: ; PREF=f2=8000000;\r\n`, Applies to CLIENT HEADER.
+- **Result:** matching request Cookie header rewritten to inject SafeSearch preference before origin fetch.
+
+### Strip Server banner
+
+- **Configuration:** Pattern on response Server header, Applies to SERVER HEADER.
+- **Result:** Server field value replaced or removed per pattern.
+
+### Body HTML substitution
+
+- **Configuration:** Mime `text/html`, Pattern/Replace on body, Applies to BODY.
+- **Result:** response HTML modified in buffered body before client delivery.
+
+## Code note
+
+Header rewrite uses hooks; body rewrite uses buffcheck. Both share the same policy list walk order.
+
+## How to verify
+
+1. Enable REWRITE in `LOG_LEVEL` for `processing:` lines showing hook target.
+2. Capture before/after with View headers or raw response inspection.
+3. Detailed logs on blocked connections if rewrite triggers downstream policy.

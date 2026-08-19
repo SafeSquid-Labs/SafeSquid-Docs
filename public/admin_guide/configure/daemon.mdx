@@ -1,0 +1,58 @@
+---
+title: "SafeSquid daemon"
+---
+
+<Note>
+  CLI man page: `safesquid(8)`
+</Note>
+
+SafeSquid is the main proxy process on the Secure Web Gateway appliance. It accepts client connections, applies policies from the Web UI, and forwards allowed traffic.
+
+## Binary and service
+
+- **Binary** — `/opt/safesquid/bin/safesquid`
+- **Service user** — `ssquid` (group `root` on the appliance)
+- **PID file** — `/var/run/safesquid/safesquid.pid`
+- **Init script** — `/etc/init.d/safesquid`
+- **systemd unit** — `/etc/systemd/system/safesquid.service`
+
+## Command-line options
+
+- **`-f`** — Run in the foreground (no double-fork). Use for debugging.
+- **`-v`** — Print the build version and exit.
+
+Most tunables (listen address, thread limits, log levels) are set in `/opt/safesquid/startup.ini`, not on the command line.
+
+## Service control
+
+```
+/etc/init.d/safesquid start
+/etc/init.d/safesquid stop
+/etc/init.d/safesquid restart
+/etc/init.d/safesquid status
+/etc/init.d/safesquid foreground
+```
+
+## Important paths
+
+- **Policy** — `/usr/local/safesquid/security/policies/config.xml`
+- **Web UI** — `/usr/local/safesquid/ui_root/` — browse at `http://safesquid.cfg/`
+- **Logs** — `/var/log/safesquid/` (native, extended, config, performance, …)
+- **Cache** — `/var/cache/safesquid/`
+- **Startup settings** — `/opt/safesquid/startup.ini`, `/opt/safesquid/setup.ini` — see [startup.ini tunables](/admin_guide/configure/startup_ini) (not in sectionMaster)
+
+## CLI manual
+
+After the package installs man pages: `man safesquid`
+
+## Subscription and updates
+
+Background UPDATE hooks refresh application signatures, content signatures, categorisation feeds, and related databases. License state is managed under [Subscription](/admin_guide/infrastructure/subscription) in the Web UI; see [Cloud / categorisation feeds](/admin_guide/infrastructure/cloud_feeds) for paths under `/var/lib/safesquid/`.
+
+## See also
+
+- [First configuration](/admin_guide/configure/first_configuration)
+- [Architecture and request pipeline](/admin_guide/configure/architecture)
+- [Access restrictions](/admin_guide/infrastructure/access_restrictions)
+- [Subscription](/admin_guide/infrastructure/subscription)
+- [Logging and troubleshooting](/admin_guide/reporting/logging)

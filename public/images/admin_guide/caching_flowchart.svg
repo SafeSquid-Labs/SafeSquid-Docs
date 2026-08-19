@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" width="480" height="320" role="img" aria-label="Cache open flow">
+<style>
+    .box { fill: #f5f8fa; stroke: #0066aa; stroke-width: 1.5; }
+    .boxWarn { fill: #fdf6f0; stroke: #c45c26; stroke-width: 1.5; }
+    .boxOk { fill: #f0f7f0; stroke: #2d6a2d; stroke-width: 1.5; }
+    .arrow { stroke: #444; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+    .yn { font-size: 11px; fill: #555; font-weight: 600; }
+    text { font-size: 12px; font-family: system-ui, sans-serif; fill: #222; }
+    text.label { font-weight: 600; }
+</style>
+<rect x="0" y="0" width="480" height="320" fill="#ffffff"/>
+<defs><marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#444"/></marker></defs>
+<rect class="box" x="120" y="8" width="240" height="36" rx="4"/>
+			<text x="240" y="30" text-anchor="middle">cache_open read</text>
+			<line class="arrow" x1="240" y1="44" x2="240" y2="58"/>
+			<rect class="box" x="80" y="58" width="320" height="36" rx="4"/>
+			<text x="240" y="80" text-anchor="middle">Enabled and not INVALID?</text>
+			<line class="arrow" x1="240" y1="94" x2="240" y2="108"/>
+			<rect class="boxWarn" x="60" y="108" width="360" height="44" rx="4"/>
+			<text x="240" y="126" text-anchor="middle">violaterfc off and CACHE_VIOLATION?</text>
+			<text x="240" y="142" text-anchor="middle">→ close, return NULL</text>
+			<line class="arrow" x1="240" y1="152" x2="240" y2="166"/>
+			<rect class="boxOk" x="90" y="166" width="300" height="36" rx="4"/>
+			<text x="240" y="188" text-anchor="middle">Serve from memory map</text>
+</svg>

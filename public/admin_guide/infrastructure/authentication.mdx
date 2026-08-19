@@ -1,0 +1,128 @@
+---
+title: "Authentication"
+---
+
+<Note>
+  CLI man page: `safesquid-auth(7)`
+</Note>
+
+SafeSquid identifies users for logging, Access Profiles, and LDAP-based rules. Without authentication, many deployments still work by IP — but Detailed logs show anonymous users and group-based policy is harder.
+
+<Note>
+Configure authentication switches in **Access restrictions**. Configure the directory in **Integrate LDAP**. New users: finish [First configuration](/admin_guide/configure/first_configuration) (IP allow) before adding auth.
+</Note>
+
+## Three mechanisms
+
+- **Kerberos / SSO** — Global setting in Access restrictions. When enabled, the browser can sign in with Kerberos Single Sign-On — users do not type credentials in Access entries. Requires a valid keytab at `/usr/local/safesquid/security/HTTP.keytab` and correct domain setup.
+- **System authentication** — Per-entry setting. The browser prompts for username and password; SafeSquid validates through PAM (`/etc/pam.d/safesquid`) and optionally LDAP. Use when Kerberos / SSO is off.
+- **User name / Password (entry)** — Fixed credentials on an Access row when neither Kerberos / SSO nor System authentication is used for that entry. Fine for a lab admin account; avoid for large user populations.
+
+## Which should I choose?
+
+- **Active Directory domain, browsers joined** — prefer Kerberos / SSO
+- **No SSO yet, local or LDAP passwords** — System authentication on Allow entries
+- **Single test account** — entry User name / Password
+
+## Kerberos / SSO
+
+The Web UI shows **Kerberos / SSO** (internal tag `ntlm`).
+
+- When enabled, SafeSquid offers Negotiate (GSSAPI/Kerberos) on authenticated connections.
+- After success, the username comes from the Kerberos ticket and is logged in Detailed logs.
+- When `SUBSCRIPTION_EXPIRED` is set, some modules (Application Signatures, SSqore) skip processing — see [Subscription](/admin_guide/infrastructure/subscription).
+- If the keytab is missing at startup, Negotiate is not offered even when the UI setting is on.
+
+<Tip>
+**Example — turn on SSO after IP allow works**
+
+1. Confirm clients already work with an IP-based Allow entry.
+2. Install and verify `HTTP.keytab`; restart SafeSquid if needed.
+3. Enable **Kerberos / SSO** globally in Access restrictions.
+4. Browse again; Detailed logs should show the domain username instead of anonymous.
+</Tip>
+
+## System authentication
+
+Enable **System authentication** on an Access Restrictions entry (internal tag `pamauth`). For each login attempt SafeSquid tries, in order:
+
+1. Password cache (recent successful or failed attempts)
+2. PAM — typically local Unix accounts via `pam_unix`
+3. LDAP bind — when Integrate LDAP is configured and the user DN is known
+
+Cache size and expiry: `PASSWORD_CACHE_SIZE` and `PASSWORD_CACHE_EXPIRE_TIME` in `startup.ini`. View entries under **Reports → Password Cache**.
+
+<Tip>
+**Example — PAM login for the office range**
+
+- Allow entry: IP `192.168.10.0-192.168.10.255` (hyphen range, not CIDR)
+- **System authentication** — on
+- **User name** — blank (any PAM user) or a regex of allowed names
+- **Password** — leave blank so PAM checks the secret
+
+**Result:** browser shows a proxy login; success populates username in logs and policies.
+</Tip>
+
+## Entry username and password
+
+- **Kerberos / SSO off, System authentication off** — set User name and Password on the entry; the challenge must match exactly.
+- **System authentication on** — list allowed usernames (regex allowed); leave Password blank so PAM or LDAP checks the secret.
+- **Kerberos / SSO on** — leave credentials blank on entries; the browser handles sign-in.
+
+## Integrate LDAP
+
+1. Add and enable at least one **LDAP servers** entry.
+2. Confirm users and groups in **LDAP Entries**.
+3. Use **LDAP Profiles** on Access Restrictions or other policy rows.
+
+LDAP matches directory users and groups to rules, and acts as an authenticator after PAM when System authentication is enabled.
+
+<Tip>
+**Example — allow only the “ProxyUsers” LDAP group**
+
+- Default Access Policy: Deny
+- Allow entry: LDAP Profiles match your ProxyUsers profile, System authentication or Kerberos as appropriate
+
+**Result:** only directory members of that group get through, even if they are on the office IP range.
+</Tip>
+
+## When is a login prompt shown?
+
+SafeSquid challenges the browser when the matching Access entry has:
+
+- Kerberos / SSO enabled globally and Negotiate has not succeeded yet, or
+- System authentication enabled, or
+- User name filled in on the entry.
+
+If the entry matches only by IP or interface and none of the above apply, the connection may proceed without a prompt.
+
+## Username without a prompt
+
+SafeSquid can assign a username when:
+
+- Kerberos / SSO succeeds
+- An IP-to-user map applies (for example VPN clients)
+- The client already sent matching Basic credentials for a fixed User name / Password entry
+
+The username appears in Detailed logs; **Add to User-Groups** on the Access entry feeds downstream policies.
+
+## Where authentication runs
+
+Authentication runs early in the pipeline (after Time Profiler and Request Types, before Speed Limits and content filters). Until it completes, SafeSquid may reply with HTTP 407 (proxy) or 401 with `Proxy-Authenticate` or `WWW-Authenticate`. After success, Access rights, Bypass, and User Groups from the matching entry are applied.
+
+## Common problems
+
+- **Repeated login prompts** — Check Kerberos / SSO, SPN, keytab, and clock skew. Clear Password Cache.
+- **Valid user denied** — Confirm Allow list match, LDAP Profiles, Interface, and IP. In Detailed logs look for access-related `filter_name`.
+- **PAM failures** — Review `/etc/pam.d/safesquid`. Native log lines start with `pam:`.
+- **LDAP failures** — Enable LDAP in LOG\_LEVEL. Verify Integrate LDAP and LDAP Entries.
+
+## See also
+
+- [First configuration](/admin_guide/configure/first_configuration)
+- [Access restrictions](/admin_guide/infrastructure/access_restrictions)
+- [Logging and troubleshooting](/admin_guide/reporting/logging)
+- [Integrate LDAP](/admin_guide/infrastructure/integrate_ldap)
+- [Access Profiles](/admin_guide/policymgr/access_profiles)
+
+CLI: `man safesquid-auth`

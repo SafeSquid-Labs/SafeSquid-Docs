@@ -1,7 +1,7 @@
 {
   "theme": "mint",
   "name": "SafeSquid Documentation",
-  "description": "Deploy Zero-Trust Web Security \u2014 SafeSquid Secure Web Gateway documentation.",
+  "description": "Deploy Zero-Trust Web Security — SafeSquid Secure Web Gateway documentation.",
   "colors": {
     "primary": "#0066CC",
     "light": "#3B82F6",
@@ -370,84 +370,102 @@
         "tab": "Admin Guide",
         "groups": [
           {
-            "group": "Start here",
-            "root": "admin_guide/start_here/main",
+            "group": "Configure",
+            "root": "admin_guide/configure/main",
             "pages": [
-              "admin_guide/start_here/architecture_and_request_pipeline",
-              "admin_guide/start_here/safesquid_daemon",
-              "admin_guide/start_here/debug_response_headers",
-              "admin_guide/start_here/startup_ini_tunables",
-              "admin_guide/start_here/cloud_categorisation_feeds",
-              "admin_guide/start_here/integrations",
-              "admin_guide/start_here/tools_and_reports",
-              "admin_guide/start_here/first_configuration",
-              "admin_guide/start_here/logging_and_troubleshooting"
+              "admin_guide/configure/first_configuration",
+              "admin_guide/configure/architecture",
+              "admin_guide/configure/daemon",
+              "admin_guide/configure/startup_ini"
             ]
           },
           {
-            "group": "Infrastructure and access",
-            "root": "admin_guide/infrastructure_and_access/main",
+            "group": "Application Setup",
+            "root": "admin_guide/infrastructure/main",
             "pages": [
-              "admin_guide/infrastructure_and_access/access_restrictions",
-              "admin_guide/infrastructure_and_access/authentication",
-              "admin_guide/infrastructure_and_access/network_settings",
-              "admin_guide/infrastructure_and_access/system_configuration_general",
-              "admin_guide/infrastructure_and_access/integrate_ldap",
-              "admin_guide/infrastructure_and_access/https_inspection_ssl_cert",
-              "admin_guide/infrastructure_and_access/forward_proxy",
-              "admin_guide/infrastructure_and_access/ftp_browsing",
-              "admin_guide/infrastructure_and_access/wccp",
-              "admin_guide/infrastructure_and_access/subscription",
-              "admin_guide/infrastructure_and_access/ssqore"
+              "admin_guide/infrastructure/access_restrictions",
+              "admin_guide/infrastructure/authentication",
+              "admin_guide/infrastructure/network_settings",
+              "admin_guide/infrastructure/system_configuration",
+              "admin_guide/infrastructure/integrate_ldap",
+              "admin_guide/infrastructure/https_inspection",
+              "admin_guide/infrastructure/proxy_chain",
+              "admin_guide/infrastructure/ftp_browsing",
+              "admin_guide/infrastructure/wccp",
+              "admin_guide/infrastructure/cloud_feeds",
+              "admin_guide/infrastructure/ssqore",
+              "admin_guide/infrastructure/integrations",
+              "admin_guide/infrastructure/subscription"
             ]
           },
           {
-            "group": "Policies and profiles",
-            "root": "admin_guide/policies_and_profiles/main",
+            "group": "Restriction Policies",
+            "root": "admin_guide/policymgr/main",
             "pages": [
-              "admin_guide/policies_and_profiles/access_profiles",
-              "admin_guide/policies_and_profiles/request_types",
-              "admin_guide/policies_and_profiles/response_types",
-              "admin_guide/policies_and_profiles/time_profiler",
-              "admin_guide/policies_and_profiles/templates",
-              "admin_guide/policies_and_profiles/application_signatures",
-              "admin_guide/policies_and_profiles/content_signatures",
-              "admin_guide/policies_and_profiles/suggested_profiles",
-              "admin_guide/policies_and_profiles/categorize_web_sites"
+              "admin_guide/policymgr/access_profiles",
+              "admin_guide/policymgr/speed_limits",
+              "admin_guide/policymgr/dns_blacklist",
+              "admin_guide/policymgr/text_analyzer",
+              "admin_guide/policymgr/redirect",
+              "admin_guide/policymgr/content_modifier",
+              "admin_guide/policymgr/external_applications"
             ]
           },
           {
-            "group": "Filtering and privacy",
-            "root": "admin_guide/filtering_and_privacy/main",
+            "group": "Custom Settings",
+            "root": "admin_guide/profilesdef/main",
             "pages": [
-              "admin_guide/filtering_and_privacy/cookie_filter",
-              "admin_guide/filtering_and_privacy/header_filter",
-              "admin_guide/filtering_and_privacy/text_analyzer",
-              "admin_guide/filtering_and_privacy/dns_blacklist",
-              "admin_guide/filtering_and_privacy/url_redirect",
-              "admin_guide/filtering_and_privacy/content_modifier_rewrite",
-              "admin_guide/filtering_and_privacy/elevated_privacy",
-              "admin_guide/filtering_and_privacy/external_applications"
+              "admin_guide/profilesdef/request_types",
+              "admin_guide/profilesdef/response_types",
+              "admin_guide/profilesdef/time_profiler",
+              "admin_guide/profilesdef/templates",
+              "admin_guide/profilesdef/application_signatures",
+              "admin_guide/profilesdef/content_signatures",
+              "admin_guide/profilesdef/suggested_profiles",
+              "admin_guide/profilesdef/categorize_web_sites"
             ]
           },
           {
-            "group": "Performance",
-            "root": "admin_guide/performance/main",
+            "group": "Privacy control",
+            "root": "admin_guide/filter/main",
             "pages": [
-              "admin_guide/performance/speed_limits",
-              "admin_guide/performance/caching",
-              "admin_guide/performance/prefetching"
+              "admin_guide/filter/cookie_filter",
+              "admin_guide/filter/header_filter",
+              "admin_guide/filter/elevated_privacy"
             ]
           },
           {
-            "group": "Security scanners",
-            "root": "admin_guide/security_scanners/main",
+            "group": "Real time content security",
+            "root": "admin_guide/antivirus/main",
             "pages": [
-              "admin_guide/security_scanners/clam_antivirus",
-              "admin_guide/security_scanners/sqscan",
-              "admin_guide/security_scanners/image_analyzer",
-              "admin_guide/security_scanners/dlp",
-              "admin_guide/security_scanners/icap"
+              "admin_guide/antivirus/clam_antivirus",
+              "admin_guide/antivirus/sqscan",
+              "admin_guide/antivirus/image_analyzer",
+              "admin_guide/antivirus/dlp",
+              "admin_guide/antivirus/icap"
+            ]
+          },
+          {
+            "group": "Accelerators",
+            "root": "admin_guide/accelerator/main",
+            "pages": [
+              "admin_guide/accelerator/caching",
+              "admin_guide/accelerator/prefetching"
+            ]
+          },
+          {
+            "group": "Reports",
+            "root": "admin_guide/reporting/main",
+            "pages": [
+              "admin_guide/reporting/logging",
+              "admin_guide/reporting/debug_response_headers"
+            ]
+          },
+          {
+            "group": "Support",
+            "root": "admin_guide/utilities/main",
+            "pages": [
+              "admin_guide/utilities/tools_and_reports"
             ]
           }
         ]

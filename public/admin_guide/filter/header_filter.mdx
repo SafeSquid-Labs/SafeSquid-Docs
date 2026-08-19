@@ -1,0 +1,103 @@
+---
+title: "Header filter"
+---
+
+<Note>
+  CLI man page: `safesquid-header-filtering(5)`
+</Note>
+
+<Frame caption="Header filter flow">
+  <img src="/images/admin_guide/header_filter_flowchart.svg" alt="Header filter flow" />
+</Frame>
+
+## Overview
+
+The `Header-filtering` section (`safesquid-header-filtering(5)`) allows administrators to strip out or inject HTTP headers into client requests or server responses.
+
+## Core Mechanics (C++ Source Validation)
+
+Source: `sources/src/header.cpp` — Allow/Deny list order, Insert with variable expansion.
+
+- **Dual-List Policy Engine**: Header filtering utilizes a global Allow/Deny switch. If the global policy is set to `Allow`, SafeSquid first scans the Deny List to strip headers (`action = FALSE`), then evaluates the Allow List to preserve exceptions.
+- **Insertion Engine**: Independent of the filter list, the `Insert` list injects entirely new headers into the stream. The inserted headers undergo variable expansion, meaning runtime variables (like usernames or IP addresses) can be dynamically injected into the header value.
+- **Flags Targeting**: Both filter and insert rules target either the Request, Response, or Both (`which & flags`).
+
+## Schema Fields
+
+### Global Fields
+
+- **Enabled (enabled)**: Turn Header filter on or off for all connections (unless bypassed on the Access entry).
+- **Policy (policy)**: Default when no allow/deny row matches a header field: Deny strips it; Allow forwards it. List walk order depends on this setting (see section help).
+
+### Rule-Based Fields (Per Connection Tuning)
+
+- **Enabled (enabled)**: Skip this row when disabled. Enabled rows participate in matching.
+- **Comment (comment)**: Notes for operators. Shown only in configuration, not to end users.
+- **Profiles (profiles)**: Apply only when the connection has one of these profiles. Blank = all connections. Prefix ! to skip connections that have a profile (for example !Guest ).
+- **Type (type)**: Regex on the header field name (for example Referer , User-Agent ). Blank matches any header name. On Insert rows this is the literal header name to add, not a regex.
+- **Value (value)**: Regex on the header field value for Allow/Deny rows. Blank matches any value. On Insert rows this is the header body (variables expanded). Both Type and Value must be set for Insert to apply.
+- **Applies to (which)**: Choose request headers (client), response headers (server), or both. Must include the direction being filtered.
+
+## How SafeSquid processes the lists
+
+1. For each header field on the message being filtered:
+2. If Policy is **Deny**, SafeSquid walks **Allow** first, then **Deny**.
+3. If Policy is **Allow**, SafeSquid walks **Deny** first, then **Allow** (Allow can restore a field Deny removed, and vice versa on the second pass).
+4. Within each list pass, the **first** matching row decides allow or strip for that field.
+5. Stripped fields are removed and logged as `removed` in native header logs.
+6. Insert runs after allow/deny. Both **Type** and **Value** must be non-empty; Value supports connection variables.
+
+<Warning>
+**Order matters.** On Allow/Deny rows, put specific regexes above broad ones — first match in that list pass wins for each field.
+</Warning>
+
+## Important entry fields
+
+- **Profiles** — Apply only when the connection has one of these profiles. Blank = all connections. Prefix `!` to skip connections that have a profile (for example `!Guest`).
+- **Type** — On Allow/Deny: regex on the header field name (for example `Referer`, `User-Agent`); blank matches any name. On Insert: literal header name to add (not a regex).
+- **Value** — On Allow/Deny: regex on the field value; blank matches any value. On Insert: header body with variables expanded.
+- **Applies to** — **CLIENT HEADER** — request headers (browser → origin). **SERVER HEADER** — response headers (origin → browser). Row must include the direction being filtered.
+
+## Examples
+
+<Tip>
+**1 — Strip Referer on all users except marketing**
+
+- Policy: **Deny**
+- Allow row: Profiles `Marketing`, Type `Referer`, Applies to CLIENT HEADER
+
+**Result:** every client request loses the `Referer` field except connections with the Marketing profile, which keep it.
+</Tip>
+
+<Tip>
+**2 — Allow all headers, remove Server banner**
+
+- Policy: **Allow**
+- Deny row: Type `Server`, Applies to SERVER HEADER
+
+**Result:** response `Server` fields are stripped; all other response and request fields pass unless another Deny row matches.
+</Tip>
+
+<Tip>
+**3 — Insert a custom request header**
+
+- Insert row: Type `X-Proxy-User`, Value `$_USERNAME_$`, Applies to CLIENT HEADER
+
+**Result:** after filtering, matching connections get `X-Proxy-User` added to the forwarded request with the expanded username variable.
+</Tip>
+
+<Tip>
+**4 — Match value regex only for old User-Agent strings**
+
+- Policy: **Allow**
+- Deny row: Type `User-Agent`, Value `MSIE [1-8]\.`, Applies to CLIENT HEADER
+
+**Result:** requests whose User-Agent matches the legacy IE pattern lose that header field; modern browsers keep User-Agent.
+</Tip>
+
+## How to verify
+
+1. Use **View headers** in the Web UI to capture real header names and values before writing regexes.
+2. Enable HEADER in `LOG_LEVEL` and read native `removed:` / `added:` lines.
+3. Open **Reports → Detailed logs** while reproducing from a known client.
+4. Enable System configuration debug response headers (see [Debug response headers](/admin_guide/reporting/debug_response_headers)) to inspect policy outcomes on the wire.

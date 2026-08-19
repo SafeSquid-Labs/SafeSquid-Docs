@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" width="480" height="320" role="img" aria-label="Time Profiler match flow">
+<style>
+    .box { fill: #f5f8fa; stroke: #0066aa; stroke-width: 1.5; }
+    .boxWarn { fill: #fdf6f0; stroke: #c45c26; stroke-width: 1.5; }
+    .boxOk { fill: #f0f7f0; stroke: #2d6a2d; stroke-width: 1.5; }
+    .arrow { stroke: #444; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+    .yn { font-size: 11px; fill: #555; font-weight: 600; }
+    text { font-size: 12px; font-family: system-ui, sans-serif; fill: #222; }
+    text.label { font-weight: 600; }
+</style>
+<rect x="0" y="0" width="480" height="320" fill="#ffffff"/>
+<defs>
+				<marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+					<polygon points="0 0, 8 3, 0 6" fill="#444"/>
+				</marker>
+			</defs>
+			<rect class="box" x="130" y="8" width="220" height="36" rx="4"/>
+			<text class="label" x="240" y="30" text-anchor="middle">Read local time once</text>
+			<line class="arrow" x1="240" y1="44" x2="240" y2="58"/>
+			<rect class="box" x="100" y="58" width="280" height="36" rx="4"/>
+			<text x="240" y="80" text-anchor="middle">timeprofiles prerequisite</text>
+			<line class="arrow" x1="240" y1="94" x2="240" y2="108"/>
+			<rect class="box" x="90" y="108" width="300" height="36" rx="4"/>
+			<text x="240" y="130" text-anchor="middle">Weekday range (always)</text>
+			<line class="arrow" x1="240" y1="142" x2="240" y2="156"/>
+			<rect class="box" x="70" y="156" width="340" height="44" rx="4"/>
+			<text x="240" y="174" text-anchor="middle">ABSOLUTE: abs_from … abs_to</text>
+			<text x="240" y="190" text-anchor="middle">ALL RANGES: month + day + hour×60+minute</text>
+			<line class="arrow" x1="240" y1="200" x2="240" y2="214"/>
+			<rect class="boxOk" x="100" y="214" width="280" height="36" rx="4"/>
+			<text x="240" y="236" text-anchor="middle">Add/remove time_schedules tags</text>
+</svg>

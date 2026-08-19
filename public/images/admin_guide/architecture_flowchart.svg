@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 240" width="480" height="240" role="img" aria-label="What to configure first">
+<style>
+    .box { fill: #f5f8fa; stroke: #0066aa; stroke-width: 1.5; }
+    .boxWarn { fill: #fdf6f0; stroke: #c45c26; stroke-width: 1.5; }
+    .boxOk { fill: #f0f7f0; stroke: #2d6a2d; stroke-width: 1.5; }
+    .arrow { stroke: #444; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+    .yn { font-size: 11px; fill: #555; font-weight: 600; }
+    text { font-size: 12px; font-family: system-ui, sans-serif; fill: #222; }
+    text.label { font-weight: 600; }
+</style>
+<rect x="0" y="0" width="480" height="240" fill="#ffffff"/>
+<defs>
+				<marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+					<polygon points="0 0, 8 3, 0 6" fill="#444"/>
+				</marker>
+			</defs>
+			<rect class="box" x="70" y="8" width="340" height="36" rx="4"/>
+			<text class="label" x="240" y="30" text-anchor="middle">Network settings — listen port</text>
+			<line class="arrow" x1="240" y1="44" x2="240" y2="58"/>
+			<rect class="box" x="70" y="58" width="340" height="44" rx="4"/>
+			<text class="label" x="240" y="76" text-anchor="middle">Access restrictions — who may use the proxy</text>
+			<text x="240" y="92" text-anchor="middle">including login if you require it</text>
+			<line class="arrow" x1="240" y1="102" x2="240" y2="116"/>
+			<rect class="box" x="70" y="116" width="340" height="36" rx="4"/>
+			<text class="label" x="240" y="138" text-anchor="middle">Access Profiles — which sites and content</text>
+			<line class="arrow" x1="240" y1="152" x2="240" y2="166"/>
+			<rect class="boxOk" x="70" y="166" width="340" height="44" rx="4"/>
+			<text x="240" y="184" text-anchor="middle">Then HTTPS Inspection, antivirus, filters, Caching</text>
+			<text x="240" y="200" text-anchor="middle">These use the people and labels from the steps above</text>
+</svg>

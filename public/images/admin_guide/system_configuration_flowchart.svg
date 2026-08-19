@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" width="480" height="300" role="img" aria-label="General find flow">
+<style>
+    .box { fill: #f5f8fa; stroke: #0066aa; stroke-width: 1.5; }
+    .boxWarn { fill: #fdf6f0; stroke: #c45c26; stroke-width: 1.5; }
+    .boxOk { fill: #f0f7f0; stroke: #2d6a2d; stroke-width: 1.5; }
+    .arrow { stroke: #444; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+    .yn { font-size: 11px; fill: #555; font-weight: 600; }
+    text { font-size: 12px; font-family: system-ui, sans-serif; fill: #222; }
+    text.label { font-weight: 600; }
+</style>
+<rect x="0" y="0" width="480" height="300" fill="#ffffff"/>
+<defs><marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#444"/></marker></defs>
+<rect class="box" x="100" y="8" width="280" height="36" rx="4"/>
+			<text x="240" y="30" text-anchor="middle">Connection with profiles</text>
+			<line class="arrow" x1="240" y1="44" x2="240" y2="58"/>
+			<rect class="box" x="80" y="58" width="320" height="36" rx="4"/>
+			<text x="240" y="80" text-anchor="middle">Walk general_list top-down</text>
+			<line class="arrow" x1="240" y1="94" x2="240" y2="108"/>
+			<rect class="box" x="60" y="108" width="360" height="44" rx="4"/>
+			<text x="240" y="126" text-anchor="middle">Enabled and profile_find passes?</text>
+			<text x="240" y="142" text-anchor="middle">Blank profiles = match all</text>
+			<line class="arrow" x1="240" y1="152" x2="240" y2="166"/>
+			<rect class="boxOk" x="70" y="166" width="340" height="36" rx="4"/>
+			<text x="240" y="188" text-anchor="middle">Apply timeouts buffers cportrange headers</text>
+			<line class="arrow" x1="240" y1="202" x2="240" y2="216"/>
+			<rect class="box" x="110" y="216" width="260" height="36" rx="4"/>
+			<text x="240" y="238" text-anchor="middle">No match → defaults</text>
+</svg>
