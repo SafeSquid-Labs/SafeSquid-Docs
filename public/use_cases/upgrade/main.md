@@ -13,6 +13,6 @@ Procedures for upgrading SafeSquid SWG and the underlying operating system.
 
 ## Available items
 
-- [Upgrade SafeSquid](/admin_guide/upgrade/upgrade_safesquid)
-- [OS Upgrade](/admin_guide/upgrade/os_upgrade)
-- [Version Upgrade](/admin_guide/upgrade/version_upgrade)
+- [Upgrade SafeSquid](/use_cases/upgrade/upgrade_safesquid)
+- [OS Upgrade](/use_cases/upgrade/os_upgrade)
+- [Version Upgrade](/use_cases/upgrade/version_upgrade)

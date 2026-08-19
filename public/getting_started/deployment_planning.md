@@ -140,7 +140,7 @@ SafeSquid deployment evidence must survive troubleshooting and audit review. Pla
     If dependency drift is likely, use Appliance Builder for a cleaner baseline.
   </Step>
   <Step title="Choose cluster or DR design">
-    <Card title="Cluster or DR design" icon="refresh-cw" href="/admin_guide/scaling_and_high_availability/proxy_clustering">
+    <Card title="Cluster or DR design" icon="refresh-cw" href="/use_cases/scaling_and_high_availability/proxy_clustering">
       Add HA or DR planning when uptime requirements need failover, configuration sync, and tested restore.
     </Card>
 
