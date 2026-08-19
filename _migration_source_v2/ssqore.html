@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SSqore</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a></nav>
+	<h1>SSqore</h1>
+	<p><strong>SSqore</strong> categorizes websites by the likely nature of their content. It queries SafeSquid's Content Categorisation Service (CCS) and adds category names to the connection so <a href="profiles.html">Access Profiles</a> and filters can match on them.</p>
+	<div class="note">
+		SSqore has globals only — no policy list. See <a href="feeds.html">Cloud / categorisation feeds</a> for CCS connectivity and offline behaviour.
+	</div>
+
+	<h2>Global settings</h2>
+	<dl>
+		<dt>Enabled</dt>
+		<dd>When off, URL categorization is skipped and no CCS categories are added to connections. When on, host names are looked up and categories are merged into the connection profile list for policy matching.</dd>
+		<dt>Heuristic</dt>
+		<dd>Stored in configuration but <strong>not read</strong> by <code>ssqore.cpp</code> in the current codebase. Toggling Heuristic does not change URL lookup behaviour today.</dd>
+	</dl>
+
+	<h2>How categorization works</h2>
+	<ol>
+		<li>During request profiling, SSqore resolves the request host (and referer host where applicable) against CCS.</li>
+		<li>Returned category names are added to <code>website_categories</code> / connection profiles used by Access Profiles and other sections.</li>
+		<li>Results are cached under <code>/var/lib/safesquid/ssqore/cache</code> to reduce repeat lookups.</li>
+		<li>URLs that cannot be categorized may be queued as uncategorized for later retry.</li>
+		<li>When SSqore is disabled, categorization hooks exit without adding categories.</li>
+	</ol>
+	<div class="warn">
+		<strong>Code quirk — Heuristic unused:</strong> The Heuristic global is persisted in config XML but the runtime module does not consult <code>heuristic</code> when calling CCS. Enable/disable behaviour is controlled only by the Enabled switch.
+	</div>
+
+	<h2>Using categories in policies</h2>
+	<p>Access Profiles Secondary Policies typically match SSqore category tags (for example block Social Networking). Categories appear as profile strings on the connection after lookup — design profiles to reference the exact category names CCS returns.</p>
+	<p>Custom or local categories may also come from the <a href="category-editor.html">Categorize Web-Sites</a> tool and DNS category zone settings in startup.ini; SSqore is the cloud lookup path.</p>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>1 — Enable cloud categorization</h3>
+		<ul>
+			<li>Enabled: on</li>
+			<li>Valid subscription and network path to CCS (see feeds documentation)</li>
+		</ul>
+		<p><strong>Result:</strong> browsing adds category tags to each connection; Access Profiles can ALLOW or DENY by category.</p>
+	</div>
+	<div class="example">
+		<h3>2 — Offline appliance</h3>
+		<ul>
+			<li>Enabled: on</li>
+			<li>No CCS reachability</li>
+		</ul>
+		<p><strong>Result:</strong> lookups fail or use cache only; uncategorized hosts may receive Uncategorized Web-Sites or no new categories until connectivity returns.</p>
+	</div>
+
+	<h2>Recommended practice</h2>
+	<ul>
+		<li>Keep SSqore enabled when Access Profiles depend on cloud categories.</li>
+		<li>Do not rely on Heuristic until wired in code — treat it as a stored placeholder.</li>
+		<li>Monitor subscription and feed status under Support / feeds documentation.</li>
+	</ul>
+
+	<h2>How to verify</h2>
+	<ol>
+		<li>Enable CATEGORY log level; look for <code>SSqoreSection::</code> and category assignment lines.</li>
+		<li>Open Detailed logs for a browsed URL; confirm category tags on the connection.</li>
+		<li>Test an Access Profile that matches a known SSqore category (allow or deny).</li>
+	</ol>
+
+	<h2>See also</h2>
+	<ul>
+		<li><a href="feeds.html">Cloud / categorisation feeds</a></li>
+		<li><a href="profiles.html">Access Profiles</a></li>
+		<li><a href="category-editor.html">Categorize Web-Sites</a></li>
+		<li><a href="subscription.html">Subscription</a></li>
+		<li><a href="logging.html">Logging and troubleshooting</a></li>
+	</ul>
+	<p>CLI: <code>man safesquid-ssqore</code></p>
+</body>
+</html>

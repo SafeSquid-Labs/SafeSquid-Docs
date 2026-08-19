@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SafeSquid daemon</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a></nav>
+	<h1>SafeSquid daemon</h1>
+	<p>SafeSquid is the main proxy process on the Secure Web Gateway appliance. It accepts client connections, applies policies from the Web UI, and forwards allowed traffic.</p>
+
+	<h2>Binary and service</h2>
+	<dl>
+		<dt>Binary</dt>
+		<dd><code>/opt/safesquid/bin/safesquid</code></dd>
+		<dt>Service user</dt>
+		<dd><code>ssquid</code> (group <code>root</code> on the appliance)</dd>
+		<dt>PID file</dt>
+		<dd><code>/var/run/safesquid/safesquid.pid</code></dd>
+		<dt>Init script</dt>
+		<dd><code>/etc/init.d/safesquid</code></dd>
+		<dt>systemd unit</dt>
+		<dd><code>/etc/systemd/system/safesquid.service</code></dd>
+	</dl>
+
+	<h2>Command-line options</h2>
+	<dl>
+		<dt><code>-f</code></dt>
+		<dd>Run in the foreground (no double-fork). Use for debugging.</dd>
+		<dt><code>-v</code></dt>
+		<dd>Print the build version and exit.</dd>
+	</dl>
+	<p>Most tunables (listen address, thread limits, log levels) are set in <code>/opt/safesquid/startup.ini</code>, not on the command line.</p>
+
+	<h2>Service control</h2>
+	<pre>/etc/init.d/safesquid start
+/etc/init.d/safesquid stop
+/etc/init.d/safesquid restart
+/etc/init.d/safesquid status
+/etc/init.d/safesquid foreground</pre>
+
+	<h2>Important paths</h2>
+	<dl>
+		<dt>Policy</dt>
+		<dd><code>/usr/local/safesquid/security/policies/config.xml</code></dd>
+		<dt>Web UI</dt>
+		<dd><code>/usr/local/safesquid/ui_root/</code> — browse at <code>http://safesquid.cfg/</code></dd>
+		<dt>Logs</dt>
+		<dd><code>/var/log/safesquid/</code> (native, extended, config, performance, …)</dd>
+		<dt>Cache</dt>
+		<dd><code>/var/cache/safesquid/</code></dd>
+		<dt>Startup settings</dt>
+		<dd><code>/opt/safesquid/startup.ini</code>, <code>/opt/safesquid/setup.ini</code> — see <a href="startup.html">startup.ini tunables</a> (not in sectionMaster)</dd>
+	</dl>
+
+	<h2>CLI manual</h2>
+	<p>After the package installs man pages: <code>man safesquid</code></p>
+
+	<h2>Subscription and updates</h2>
+	<p>Background UPDATE hooks refresh application signatures, content signatures, categorisation feeds, and related databases. License state is managed under <a href="subscription.html">Subscription</a> in the Web UI; see <a href="feeds.html">Cloud / categorisation feeds</a> for paths under <code>/var/lib/safesquid/</code>.</p>
+
+	<h2>See also</h2>
+	<ul>
+		<li><a href="first-configuration.html">First configuration</a></li>
+		<li><a href="architecture.html">Architecture and request pipeline</a></li>
+		<li><a href="access.html">Access restrictions</a></li>
+		<li><a href="subscription.html">Subscription</a></li>
+		<li><a href="logging.html">Logging and troubleshooting</a></li>
+	</ul>
+</body>
+</html>

@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Content Signatures</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a> · <a href="respProfiles.html">Response Types</a> · <a href="dlp.html">DLP</a></nav>
+	<h1>Content Signatures</h1>
+	<p>The <strong>Content Signatures</strong> section (<code>safesquid-contentSignatures(5)</code>) maintains the content-signature database and libmagic MIME detection used across SafeSquid. It helps identify actual file types, bypassing deceptive file extensions — but live connection tagging for policy uses <a href="respProfiles.html">Response Types</a> in current code.</p>
+	<div class="note">
+		Custom rows are merged into <code>content4.xml</code> under <code>/var/lib/safesquid/content_signatures/</code>. Tag names still appear in DLP and UI pickers even when request-time hooks are stubbed.
+	</div>
+
+	<h2>Core mechanics</h2>
+	<p>Validated against <code>sources/src/content_signatures.cpp</code> — <code>content_signatures_update()</code>, <code>content_signatures_update_post()</code>, <code>update_content_signatures()</code>.</p>
+
+	<h3>What runs at runtime today</h3>
+	<ol>
+		<li>On config load and on scheduled update, SafeSquid may download vendor <code>content4.xml</code> and reload the merged database.</li>
+		<li>Custom rows from the Web UI are saved to the dev copy of <code>content4.xml</code> when the section is displayable.</li>
+		<li>The internal MIME engine uses the libmagic database from this directory for body type detection (also used by DLP, logging, and Response Types).</li>
+		<li><code>content_signatures_update()</code> and <code>content_signatures_update_post()</code> are <strong>empty stubs</strong> — list rows do not add or remove connection tags at request time in current code.</li>
+	</ol>
+	<div class="warn">
+		For live response labelling by MIME or extension, use <a href="respProfiles.html">Response Types</a>. Content Signatures rows still matter for database maintenance, autocomplete in other sections (for example DLP), and libmagic setup.
+	</div>
+
+	<h3>Global Enabled</h3>
+	<p>When off, <code>Content_Signatures_Section::is_enabled()</code> returns FALSE — signature database download/reload and MIME library setup are affected. List rows are still persisted even when hooks are stubbed.</p>
+
+	<h3>Subsections</h3>
+	<dl>
+		<dt>Content Signatures List</dt>
+		<dd>MIME regex rows plus tags to add. Stored in config; not applied on connections at request time today.</dd>
+		<dt>Content Categories List</dt>
+		<dd>Category names for autocomplete and grouping in signature rows.</dd>
+		<dt>Content File Extensions</dt>
+		<dd>Extension regex rows plus extension tags. <code>content_signatures_update_post()</code> is an empty stub.</dd>
+	</dl>
+
+	<h3>Legacy UI options</h3>
+	<p>Selectors such as <strong>Transfer Encoding Chunk</strong>, <strong>multi-part byte-range</strong>, and <strong>Trace Entry</strong> under Content Signatures are not bound to any template field in this tree — they have no effect here (the same labels on Response Types do affect matching).</p>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>Maintain a custom MIME tag for DLP autocomplete</h3>
+		<ul>
+			<li>Content Signatures List: Mime type <code>^application/x-custom</code>, Added Content Signatures <code>CustomApp</code></li>
+		</ul>
+		<p><strong>Result:</strong> tag name appears in DLP and UI pickers. Connection tags are not added automatically — pair with a Response Types row if policy must match live traffic.</p>
+	</div>
+	<div class="example">
+		<h3>Policy on detected downloads (use Response Types)</h3>
+		<ul>
+			<li>Response Types: Content type <code>^application/zip</code>, Added Response Types <code>archive-download</code></li>
+		</ul>
+		<p><strong>Result:</strong> live traffic is tagged using response headers and libmagic-detected type; Access Profiles can match <code>archive-download</code>.</p>
+	</div>
+
+	<h2>How to verify</h2>
+	<ol>
+		<li>Check module stats / Reports for content signature load or download status.</li>
+		<li>After editing rows, confirm <code>content4.xml</code> under <code>/var/lib/safesquid/content_signatures/</code> updates.</li>
+		<li>For live tagging, verify <code>response_profiles</code> in Detailed logs, not content signature hooks.</li>
+	</ol>
+
+	<h2>See also</h2>
+	<ul>
+		<li><a href="respProfiles.html">Response Types</a></li>
+		<li><a href="dlp.html">DLP</a></li>
+		<li><a href="applicationSignatures.html">Application Signatures</a></li>
+		<li><a href="feeds.html">Cloud / categorisation feeds</a></li>
+		<li><a href="logging.html">Logging and troubleshooting</a></li>
+	</ul>
+	<p>CLI: <code>man safesquid-contentSignatures</code></p>
+</body>
+</html>

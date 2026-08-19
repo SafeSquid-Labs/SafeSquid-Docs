@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Application Signatures</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a> · <a href="reqProfiles.html">Request Types</a> · <a href="profiles.html">Access Profiles</a></nav>
+	<h1>Application Signatures</h1>
+	<p>The <strong>Application Signatures</strong> section (<code>safesquid-applicationSignatures(5)</code>) tags each HTTP request with application signature strings (for example Webmail, BitTorrent, Chrome). Other sections match those tags with exact string compare — especially <a href="profiles.html">Access Profiles</a> (Request Types field) and <a href="reqProfiles.html">Request Types</a>.</p>
+	<div class="note">
+		Vendor signature databases download on the appliance update schedule. See <a href="startup.html">startup.ini</a> UPDATE settings, <a href="feeds.html">Cloud / categorisation feeds</a>, and <a href="subscription.html">Subscription</a> (expired subscription skips all signature processing).
+	</div>
+
+	<h2>Core mechanics</h2>
+	<p>Validated against <code>sources/src/application_signatures.cpp</code> — <code>do_application_signatures()</code>, <code>application_signatures_update()</code>.</p>
+
+	<h3>Processing order</h3>
+	<ol>
+		<li>If <code>SUBSCRIPTION_EXPIRED</code> is set, processing is skipped entirely for that connection.</li>
+		<li>Prior application-signature and request-type tags are cleared.</li>
+		<li>Built-in tags may be added: <code>IPV4 Host</code>, <code>IPV6 Host</code>, <code>Cross Site Request</code>.</li>
+		<li><strong>Application Signatures List</strong> is walked top to bottom. <strong>Every</strong> enabled rule whose tests pass may add or remove tags — there is no first-match stop.</li>
+		<li>Tags from earlier rules in the same pass are visible to later rules via the <strong>Application signatures</strong> prerequisite field.</li>
+		<li>Final tags are copied to <code>request_types</code> and logged as application signatures.</li>
+	</ol>
+
+	<h3>Global Enabled quirk</h3>
+	<p>The section global <strong>Enabled</strong> switch is stored in configuration but request-time matching checks only each rule's own <strong>Enabled</strong> flag. Per-rule Enabled off skips that row; global off does not stop the signature loop by itself.</p>
+
+	<h3>Inner filter order (per row)</h3>
+	<p>For each enabled row, filters run in fixed order; any failure skips to the next row:</p>
+	<ol>
+		<li><strong>Application signatures</strong> — prerequisite tags (exact / <code>!</code> match, same engine as Access Profiles).</li>
+		<li><strong>Method</strong>, <strong>Protocol</strong> — exact; missing header when field set → skip row.</li>
+		<li><strong>Mime type</strong> — regex on request <code>Content-Type</code>.</li>
+		<li><strong>Port range list</strong>, post data size gates, <strong>File</strong>, host/referer regex fields, <strong>User Agent</strong>, <strong>X-Forwarded-For</strong>, <strong>Request header pattern</strong>.</li>
+		<li>On match: add <strong>Added application signatures</strong> and <strong>category</strong> tags; remove listed <strong>Removed application signatures</strong>.</li>
+	</ol>
+	<div class="warn">
+		<strong>Post data size:</strong> when <code>Content-Length</code> is present, the rule is <em>skipped</em> when <code>content_length &gt; minimum</code> or <code>content_length &lt; maximum</code> (optional fields must be active). No Content-Length → min/max checks are not applied.
+	</div>
+	<div class="warn">
+		<strong>URL commands</strong> are loaded from configuration but not evaluated — leave blank.
+	</div>
+
+	<h3>Application Categories List</h3>
+	<p>Category definition rows are saved to the local dev XML for UI autocomplete. Runtime category tags come from the <strong>category</strong> field on Application Signatures List rules, not from the Categories list alone.</p>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>Tag webmail from vendor rule</h3>
+		<p>Vendor database row matches host and User-Agent; adds <code>Webmail</code>.</p>
+		<p><strong>Result:</strong> Access Profiles matching Request Types or application signature <code>Webmail</code> apply webmail policy.</p>
+	</div>
+	<div class="example">
+		<h3>Custom rule on top of vendor tags</h3>
+		<ul>
+			<li>Prerequisite <code>Webmail</code>, Host Name <code>mail\.partner\.com</code></li>
+			<li>Added application signatures <code>Partner-Webmail</code></li>
+		</ul>
+		<p><strong>Result:</strong> only partner webmail gets the extra tag; generic webmail keeps <code>Webmail</code> only.</p>
+	</div>
+	<div class="example">
+		<h3>Category tag for reporting</h3>
+		<p>On match, <strong>category</strong> <code>SocialMedia</code> is added to application signatures (same tag list).</p>
+		<p><strong>Result:</strong> policies and logs can match category name <code>SocialMedia</code> without a separate Categories list row.</p>
+	</div>
+
+	<h2>How to verify</h2>
+	<ol>
+		<li>Check <strong>Reports → Modules Status</strong> for application signature load/download state.</li>
+		<li>Reproduce a request; read Detailed logs column <code>application_signatures</code>.</li>
+		<li>Enable <strong>Trace Entry</strong> on a rule where available; confirm tags in Native PROFILE logs.</li>
+		<li>Debug header <code>X-SafeSquid-Application-Signatures</code> when Send Debugging Headers To includes CLIENT — see <a href="debug-headers.html">Debug response headers</a>.</li>
+	</ol>
+
+	<h2>See also</h2>
+	<ul>
+		<li><a href="reqProfiles.html">Request Types</a></li>
+		<li><a href="profiles.html">Access Profiles</a></li>
+		<li><a href="subscription.html">Subscription</a></li>
+		<li><a href="feeds.html">Cloud / categorisation feeds</a></li>
+		<li><a href="logging.html">Logging and troubleshooting</a></li>
+	</ul>
+	<p>CLI: <code>man safesquid-applicationSignatures</code></p>
+</body>
+</html>

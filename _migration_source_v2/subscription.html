@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Subscription</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a></nav>
+	<h1>Subscription</h1>
+	<p><strong>Subscription</strong> is a Web UI application for license status and activation key management. It does not define proxy policy rows; it controls whether the appliance considers the subscription valid and whether update feeds and signature modules can run.</p>
+
+	<h2>What you can do here</h2>
+	<ul>
+		<li>View current subscription and license information (also under <strong>Reports → License/Users Info</strong>).</li>
+		<li>Upload an activation key file when renewing or registering the appliance.</li>
+	</ul>
+
+	<h2>How subscription affects the proxy</h2>
+	<ol>
+		<li>On each request, SafeSquid sets or clears <code>SUBSCRIPTION_EXPIRED</code> on the connection from subscription validity checks.</li>
+		<li>When expired, <a href="applicationSignatures.html">Application Signatures</a> processing is skipped for that connection and security logging records filter <code>subscription</code>.</li>
+		<li>Background subscription accounting talks to the vendor service, refreshes entitlement, and drives scheduled update hooks (signatures, categorisation feeds, trusted CA updates, and similar).</li>
+		<li>Activation key upload is accepted only when the current subscription state allows upload; uploaded files are handled by the security subsystem.</li>
+	</ol>
+	<div class="warn">
+		An expired subscription is not the same as Access restrictions DENY — users may still connect while signature-dependent labelling and some update paths stop. Check Reports and Native SECURITY logs when behaviour changes after expiry.
+	</div>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>1 — Renew after expiry</h3>
+		<ol>
+			<li>Open Subscription → upload activation key from vendor.</li>
+			<li>Wait for subscription refresh (or restart if your procedure requires it).</li>
+			<li>Confirm <strong>License/Users Info</strong> shows valid dates and application signature updates resume.</li>
+		</ol>
+		<p><strong>Result:</strong> <code>SUBSCRIPTION_EXPIRED</code> clears on new connections; application signature tags apply again.</p>
+	</div>
+
+	<h2>How to verify</h2>
+	<ol>
+		<li><strong>Reports → License/Users Info</strong> and <strong>Modules Status</strong>.</li>
+		<li>Native SECURITY logs for <code>subscription: expired</code> on test requests.</li>
+		<li>Application signature stats after a successful update cycle.</li>
+	</ol>
+
+	<h2>See also</h2>
+	<ul>
+		<li><a href="daemon.html">SafeSquid daemon</a></li>
+		<li><a href="tools.html">Tools</a></li>
+		<li><a href="feeds.html">Cloud / categorisation feeds</a></li>
+		<li><a href="applicationSignatures.html">Application Signatures</a></li>
+		<li><a href="architecture.html">Architecture</a></li>
+		<li><a href="logging.html">Logging</a></li>
+	</ul>
+	<p>CLI: <code>man safesquid-subscription</code></p>
+</body>
+</html>

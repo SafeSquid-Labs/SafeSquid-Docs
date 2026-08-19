@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ICAP</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a> Â· <a href="clamav.html">Clam antivirus</a> Â· <a href="sqscan.html">SqScan</a></nav>
+	<h1>ICAP</h1>
+	<figure class="flowchart">
+		<figcaption>ICAP row walk</figcaption>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 160" class="flowchart" role="img" aria-label="ICAP row walk">
+			<defs>
+				<marker id="arrowhead-ICAP row walk" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+					<polygon points="0 0, 8 3, 0 6" fill="#444"/>
+				</marker>
+			</defs>
+			<rect class="box" x="100" y="8" width="280" height="36" rx="4"/><text x="240" y="30" text-anchor="middle">REQMOD / RESPMOD</text><line class="arrow" x1="240" y1="44" x2="240" y2="58"/><rect class="box" x="60" y="58" width="360" height="44" rx="4"/><text x="240" y="76" text-anchor="middle">204 clean; 200 threat; fallback</text>
+		</svg>
+	</figure>
+ <h2 id="overview">Overview</h2> <p>The <code>ICAP</code> section (<code>safesquid-icap(5)</code>) sends HTTP request or response bodies to an external ICAP server for scanning or modification. Typical uses include antivirus ICAP services, DLP adapters, and content adaptation.</p> <p>Access <strong>Bypass</strong> with ICAP skips all ICAP processing for matching clients.</p> <h2 id="core-mechanics-c-source-validation">Core Mechanics (C++ Source Validation)</h2> <p>Source: <code>sources/modules/icap/icap.cpp</code> ΓÇö policy walk, ICAP response handling.</p> <h3 id="row-walk-with-fallback">Row walk with fallback</h3> <p>For each REQMOD or RESPMOD hook, enabled rows are walked top to bottom. Row must match Profiles, include the Applies to flag, and have a valid ICAP Service URL.</p> <h3 id="response-codes">Response codes</h3> <ul> <li><strong>204 No Content</strong> ΓÇö clean; processing stops; later rows not tried.</li> <li><strong>200 OK</strong> with configured threat header ΓÇö block or content replacement; stops on first successful 200.</li> <li><strong>5xx</strong> ΓÇö <code>error</code> template, log <code>server failed</code>.</li> <li>Timeout or connection failure ΓÇö try next matching row.</li> </ul> <h2 id="processing-flow">Processing flow</h2> <pre class="mermaid"><code>flowchart TD   hook[REQMOD or RESPMOD hook] --&gt; walk[Walk ICAP rows top-down]   walk --&gt; row{Match profiles flags URL?}   row --&gt;|No| next[Next row]   row --&gt;|Yes| call[Call ICAP server]   call --&gt; code{Response code?}   code --&gt;|204| clean[Allow stop]   code --&gt;|200 + threat| block[Block or replace stop]   code --&gt;|5xx| error[Error template]   code --&gt;|timeout| next</code></pre> <h2 id="schema-fields">Schema Fields</h2> <h3 id="global-fields">Global fields</h3> <ul> <li><strong>Enabled (enabled)</strong> ΓÇö Master switch for ICAP REQMOD and RESPMOD.</li> </ul> <h3 id="policy-rows">Policy rows</h3> <ul> <li><strong>ICAP Service URL (icapurl)</strong> ΓÇö Full URI: host, port, service path (e.g.┬á<code>icap://127.0.0.1:1344/avscan</code>).</li> <li><strong>ICAP Timeout (timeout)</strong> ΓÇö Seconds for connect and read/write.</li> <li><strong>Applies to (flags)</strong> ΓÇö REQUESTS (REQMOD) and/or RESPONSES (RESPMOD).</li> <li><strong>Threat ID Header (threatheader)</strong> ΓÇö Header name(s) on ICAP 200 response for threat name.</li> <li><strong>Profiles (profiles)</strong> ΓÇö Limit to connections with these tags. Blank matches all.</li> </ul> <h2 id="examples">Examples</h2> <h3 id="scan-downloads-only">Scan downloads only</h3> <ul> <li><strong>Configuration:</strong> Applies to RESPONSES, Service URL <code>icap://10.0.0.5:1344/respmod</code>.</li> <li><strong>Result:</strong> response bodies sent to ICAP RESPMOD; 204 allows; 200 with threat header blocks.</li> </ul> <h3 id="reqmod-for-uploads">REQMOD for uploads</h3> <ul> <li><strong>Configuration:</strong> Applies to REQUESTS, Service URL <code>icap://127.0.0.1:1344/reqmod</code>.</li> <li><strong>Result:</strong> uploaded content scanned before forwarding to origin.</li> </ul> <h3 id="fallback-server">Fallback server</h3> <ul> <li><strong>Configuration:</strong> Row A primary URL Timeout 30; Row B backup below Timeout 60.</li> <li><strong>Result:</strong> row A timeout tries row B; 204 from row A stops before row B.</li> </ul> <h2 id="how-to-verify">How to verify</h2> <ol type="1"> <li>Enable ICAP log level; look for <code>ICAPSection::</code> lines and response codes.</li> <li>Detailed logs show filter name ICAP on block.</li> <li>Test EICAR through ICAP-enabled profile.</li> </ol>
+
+</body>
+</html>

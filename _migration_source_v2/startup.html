@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>startup.ini tunables</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a></nav>
+	<h1>startup.ini tunables</h1>
+	<p>Many appliance behaviours are set in <code>/opt/safesquid/startup.ini</code> (defaults in <code>/opt/safesquid/default/startup.ini</code>). These values are loaded before SafeSquid starts. They are <strong>not</strong> edited in Web UI sections from <code>sectionMaster.xml</code>.</p>
+	<p>After edits, restart SafeSquid (<code>/etc/init.d/safesquid restart</code>). Path layout comes from <code>/opt/safesquid/setup.ini</code>.</p>
+
+	<div class="note">
+		<strong>Two layers:</strong> Web UI / <code>sectionMaster</code> = policy XML. <code>startup.ini</code> = process and host tunables (listen, threads, logs, TLS, sync, DNS categorisation zone, and similar).
+	</div>
+
+	<h2>Listen and identity</h2>
+	<dl>
+		<dt>LISTEN_IP / LISTEN_PORT</dt>
+		<dd>Default bind address and port if no Network settings Listen entry is enabled. See <a href="network.html">Network settings</a>.</dd>
+		<dt>HOSTNAME / DOMAIN</dt>
+		<dd>Appliance hostname and domain.</dd>
+	</dl>
+
+	<h2>Threads, memory, sockets</h2>
+	<ul>
+		<li><code>MAXTHREADS</code>, <code>MAX_FDS</code> (about 4× threads), <code>STACKSIZE</code>, <code>OVERLOAD_FACTOR</code></li>
+		<li><code>SOCKET_TIMEOUT</code>, <code>THREAD_TIMEOUT</code>, <code>MAX_CONCURRENT</code></li>
+		<li><code>HEAP_MEM</code>, <code>SOCK_MEM</code> — lower if the host is memory-starved</li>
+		<li><code>SEND_SOCKET_BUFFERS</code>, <code>RECEIVE_SOCKET_BUFFERS</code> — <code>0</code> = no artificial limit</li>
+		<li><code>TCP_KEEPIDLE_TIME</code>, <code>TCP_KEEPINTVL_TIME</code>, <code>TCP_KEEPCNT_COUNTS</code>, <code>CLIENT_DEFER_ACCEPT</code></li>
+	</ul>
+
+	<h2>CPU placement</h2>
+	<dl>
+		<dt>LISTEN_CPUS</dt>
+		<dd>Cores reserved for accepting clients (default <code>0,1</code>)</dd>
+		<dt>CPU_RESERVATION</dt>
+		<dd>Reservation strategy (default <code>1</code>)</dd>
+	</dl>
+
+	<h2>Authentication cache</h2>
+	<p><code>PASSWORD_CACHE_SIZE</code> and <code>PASSWORD_CACHE_EXPIRE_TIME</code> — see <a href="auth.html">Authentication</a>.</p>
+
+	<h2>Logging</h2>
+	<p><code>LOG_LEVEL</code>, <code>LOG_SIZE_LIMIT</code>, <code>PROCESS_OLD_LOGS</code>, <code>DATE_TIME_FORMAT</code>, and optional <code>NATIVE_UDP_*</code> / <code>EXTENDED_UDP_*</code> / <code>CONFIG_UDP_*</code> — see <a href="logging.html">Logging</a>.</p>
+
+	<h2>Master sync</h2>
+	<dl>
+		<dt>MASTER_IP / MASTER_PORT</dt>
+		<dd>Master appliance for configuration sync</dd>
+		<dt>NEVER_SYNC / ALWAYS_SYNC</dt>
+		<dd>Comma-separated section names that must never / always sync (default <code>NEVER_SYNC=cache</code>)</dd>
+		<dt>SYNCTIME</dt>
+		<dd>Sync interval toward the master</dd>
+	</dl>
+
+	<h2>Updates and HTTPS</h2>
+	<ul>
+		<li><code>UPDATE_INTVL</code>, <code>UPDATE_RETRY_DELAY</code></li>
+		<li><code>FORCE_SNI</code> — use SNI for client certs in HTTPS Inspection</li>
+		<li><code>USE_SESSION_TICKETS</code></li>
+		<li><code>CLIENT_CIPHERS_LIST</code> / <code>SERVER_CIPHERS_LIST</code> (TLS ≤ 1.2)</li>
+		<li><code>CLIENT_CIPHERS_SUITE</code> / <code>SERVER_CIPHERS_SUITE</code> (TLS 1.3)</li>
+	</ul>
+
+	<h2>Categorisation and identity side channels</h2>
+	<dl>
+		<dt>DNS_CAT_ZONE</dt>
+		<dd>DNS categorisation zone (default <code>.c.ssquid.in</code>). Set to <code>.</code> to disable.</dd>
+		<dt>USER_IP_DB_FILE</dt>
+		<dd>SQLite map of IP → username (for example VPN clients)</dd>
+		<dt>OPENVPN_CLIENT_HEAD</dt>
+		<dd>OpenVPN client head file path when that integration is used</dd>
+		<dt>IPV6_DETECT_SITE</dt>
+		<dd>FQDN:PORT used to test IPv6 reachability</dd>
+	</dl>
+
+	<h2>Reporting database</h2>
+	<p><code>REAL_TIME_DB_WRITE</code>, <code>STATEMENT_COUNT</code>, <code>MAX_MAIL_THRESHOLD</code>, <code>MIN_MAIL_THRESHOLD</code>, <code>KEEP_DATA</code>.</p>
+
+	<h2>Debugging</h2>
+	<p><code>MALLOC_CHECKING</code> — glibc <code>MALLOC_CHECK_</code> mode (see comments in the default file).</p>
+
+	<h2>See also</h2>
+	<ul>
+		<li><a href="daemon.html">Daemon and service</a></li>
+		<li><a href="logging.html">Logging</a></li>
+		<li><a href="auth.html">Authentication</a></li>
+		<li><a href="sslcert.html">HTTPS Inspection</a></li>
+		<li><a href="feeds.html">Cloud / categorisation feeds</a></li>
+		<li><a href="subscription.html">Subscription</a></li>
+	</ul>
+	<p>CLI: <code>man safesquid-startup</code></p>
+</body>
+</html>

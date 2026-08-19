@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Logging and troubleshooting</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a></nav>
+	<h1>Logging and troubleshooting</h1>
+	<p>When a user says “the proxy blocked me” or “nothing loads,” logs are how you prove what SafeSquid did. You do not need every log family on day one — start with Detailed logs, then add Native families only for the module you are debugging.</p>
+
+	<h2>Which log should I open?</h2>
+	<table>
+		<thead><tr><th>Symptom</th><th>Open first</th></tr></thead>
+		<tbody>
+			<tr><td>One user or URL blocked or allowed wrongly</td><td><strong>Reports → Detailed logs</strong></td></tr>
+			<tr><td>Login / Kerberos / PAM / LDAP</td><td>Detailed logs, then Native (<code>security:</code>, <code>ldap:</code>, <code>pam:</code>)</td></tr>
+			<tr><td>“It worked yesterday”</td><td><strong>Config logs</strong> for who changed policy</td></tr>
+			<tr><td>Unsure which profile matched</td><td>Detailed logs + <a href="debug-headers.html">debug headers</a> on a test client</td></tr>
+		</tbody>
+	</table>
+
+	<h2>Log families</h2>
+	<dl>
+		<dt>Native logs</dt>
+		<dd>Internal diagnostics from <code>putlog()</code>. Each line is timestamped and tagged (for example <code>security:</code>, <code>ldap:</code>, <code>cache:</code>). File: <code>/var/log/safesquid/native/safesquid.log</code></dd>
+		<dt>Detailed logs</dt>
+		<dd>One row per client transaction (tab-separated). Includes username, URL, status, <strong>filter_name</strong>, <strong>filtering_reason</strong>, profiles, categories, and user groups. Start here for user-facing issues. File: <code>/var/log/safesquid/extended/extended.log</code></dd>
+		<dt>Config logs</dt>
+		<dd>Who changed what in the Web UI: section, action, arguments, URL, reason. File: <code>/var/log/safesquid/config/config.log</code></dd>
+		<dt>Performance log</dt>
+		<dd>Resource and throughput statistics. File: <code>/var/log/safesquid/performance/performance.log</code></dd>
+		<dt>Syslog</dt>
+		<dd>Native messages also go to syslog when running in foreground or when the native logger is unavailable. Init script messages use ident <code>safesquid.init</code>.</dd>
+	</dl>
+
+	<h2>Viewing logs in the Web UI</h2>
+	<p>Open <strong>Reports</strong>:</p>
+	<ul>
+		<li><strong>Native logs</strong> — live diagnostic tail</li>
+		<li><strong>Detailed logs</strong> — search transactions by user, URL, filter, date</li>
+		<li><strong>Config logs</strong> — configuration audit trail</li>
+		<li><strong>Dashboard / Statistics</strong> — traffic overview</li>
+		<li><strong>Active Connections, Password Cache, SSL Certs/Cache</strong> — live state alongside historical logs</li>
+	</ul>
+
+	<h2>Log level (native / putlog)</h2>
+	<p>Set <code>LOG_LEVEL</code> in <code>/opt/safesquid/startup.ini</code>. It is a bitmask — add family values for more detail.</p>
+	<dl>
+		<dt>SECURITY (8388608)</dt>
+		<dd>Access, authentication, blocks — essential for auth and perimeter issues</dd>
+		<dt>LDAP (4)</dt>
+		<dd>Directory lookups and LDAP authentication</dd>
+		<dt>PROFILES (67108864)</dt>
+		<dd>Access Profiles and profile tags</dd>
+		<dt>REQUEST (1), NETWORK (2)</dt>
+		<dd>Request flow and connections</dd>
+		<dt>WARN (16777216), ERROR (33554432)</dt>
+		<dd>Review on every incident</dd>
+		<dt>DEBUG (134217728)</dt>
+		<dd>Very verbose. Enable only temporarily; default install excludes DEBUG (<code>134217727</code>). Full debug: <code>268435455</code>.</dd>
+	</dl>
+	<p>Other families include HEADER, COOKIE, REDIRECT, REWRITE, CACHE, FORWARD, SSL, CATEGORY, ANTIVIRUS, ICAP, and MODULE — enable the one that matches <code>filter_name</code> in Detailed logs.</p>
+	<div class="warn">
+		Do not leave full DEBUG enabled in production. It grows disks quickly and makes logs harder to read.
+	</div>
+
+	<h2>Detailed log — key columns</h2>
+	<ul>
+		<li><code>client_id</code>, <code>request_id</code> — correlate lines for one client</li>
+		<li><code>client_ip</code>, <code>username</code>, <code>interface</code></li>
+		<li><code>method</code>, <code>url</code>, <code>status</code>, <code>size</code></li>
+		<li><code>filter_name</code>, <code>filtering_reason</code> — which module decided the outcome</li>
+		<li><code>profiles</code>, <code>user_groups</code>, <code>categories</code>, <code>request_profiles</code>, <code>application_signatures</code></li>
+		<li><code>bypassed</code> — whether bypass was active on that request</li>
+	</ul>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>1 — “I cannot browse at all”</h3>
+		<ol>
+			<li>Confirm proxy host/port and <a href="network.html">Listen</a>.</li>
+			<li>Search Detailed logs for the client IP. If there are no rows, the request never reached SafeSquid (firewall, wrong proxy, or service down).</li>
+			<li>If rows show access deny, fix <a href="access.html">Access restrictions</a> (subnet, Interface, Default Access Policy).</li>
+		</ol>
+	</div>
+	<div class="example">
+		<h3>2 — “Only one site is blocked”</h3>
+		<ol>
+			<li>Find the URL in Detailed logs.</li>
+			<li>Read <code>filter_name</code> and <code>filtering_reason</code> (often Access Profiles, redirect, or a scanner).</li>
+			<li>Check profiles and categories on that row; adjust the matching <a href="profiles.html">Access Profiles</a> entry or enable Trace Entry on the suspect rule.</li>
+		</ol>
+	</div>
+	<div class="example">
+		<h3>3 — “Login keeps asking for a password”</h3>
+		<ol>
+			<li>Note whether Kerberos / SSO or System authentication is enabled (<a href="auth.html">Authentication</a>).</li>
+			<li>Watch Native logs for <code>security:</code>, <code>pam:</code>, <code>ldap:</code>.</li>
+			<li>Clear <strong>Reports → Password Cache</strong> after fixing credentials or PAM.</li>
+		</ol>
+	</div>
+
+	<h2>Rotation and remote copy</h2>
+	<dl>
+		<dt>LOG_SIZE_LIMIT</dt>
+		<dd>Max log size before rotation (default <code>1G</code>)</dd>
+		<dt>PROCESS_OLD_LOGS</dt>
+		<dd><code>0</code> delete, <code>1</code> compress, <code>2</code> close only (appliance default)</dd>
+		<dt>UDP forwarding</dt>
+		<dd>Optional <code>NATIVE_UDP_*</code>, <code>EXTENDED_UDP_*</code>, <code>CONFIG_UDP_*</code> in startup.ini send copies to a remote collector</dd>
+	</dl>
+
+	<h2>Debug response headers</h2>
+	<p>For live policy visibility on a single request, enable <strong>System configuration → Send Debugging Headers To → CLIENT</strong> (test networks only). Browser tools show <code>X-SafeSquid-Profiles</code>, categories, user, and module headers. See <a href="debug-headers.html">Debug response headers</a>.</p>
+
+	<h2>Policy trace</h2>
+	<p>On a single policy row in the Web UI, enable <strong>Trace Entry</strong> to log when that entry is evaluated — without turning on global DEBUG.</p>
+
+	<h2>Troubleshooting workflow</h2>
+	<ol class="steps">
+		<li>Note time, client IP, username, and URL.</li>
+		<li>Search <strong>Detailed logs</strong> for <code>filter_name</code> and <code>filtering_reason</code>.</li>
+		<li>Enable the matching native family (usually SECURITY) in LOG_LEVEL; reproduce once.</li>
+		<li>For auth issues, look for <code>security:</code> and <code>ldap:</code> in Native logs.</li>
+		<li>For surprise policy changes, check <strong>Config logs</strong> in the same time window.</li>
+		<li>Turn DEBUG and CLIENT debug headers off when finished.</li>
+	</ol>
+
+	<h2>See also</h2>
+	<ul>
+		<li><a href="first-configuration.html">First configuration</a></li>
+		<li><a href="access.html">Access restrictions</a></li>
+		<li><a href="auth.html">Authentication</a></li>
+		<li><a href="profiles.html">Access Profiles</a></li>
+		<li><a href="architecture.html">Architecture</a></li>
+		<li><a href="debug-headers.html">Debug response headers</a></li>
+	</ul>
+	<p>CLI: <code>man safesquid-logging</code></p>
+</body>
+</html>

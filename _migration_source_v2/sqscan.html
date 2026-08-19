@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SqScan</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a> Â· <a href="clamav.html">Clam antivirus</a> Â· <a href="icap.html">ICAP</a></nav>
+	<h1>SqScan</h1>
+	<figure class="flowchart">
+		<figcaption>SqScan policy flow</figcaption>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 160" class="flowchart" role="img" aria-label="SqScan policy flow">
+			<defs>
+				<marker id="arrowhead-SqScan policy flow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+					<polygon points="0 0, 8 3, 0 6" fill="#444"/>
+				</marker>
+			</defs>
+			<rect class="box" x="100" y="8" width="280" height="36" rx="4"/><text x="240" y="30" text-anchor="middle">First policy match</text><line class="arrow" x1="240" y1="44" x2="240" y2="58"/><rect class="boxWarn" x="80" y="58" width="320" height="36" rx="4"/><text x="240" y="80" text-anchor="middle">BYPASS skip else scan</text>
+		</svg>
+	</figure>
+ <h2 id="overview">Overview</h2> <p>The <code>SqScan</code> section (<code>safesquid-sqscan(5)</code>) is SafeSquidΓÇÖs built-in in-memory antivirus scanner. It scans buffered uploads and downloads without an external <code>clamd</code> process. When malware is detected, the connection is blocked with <strong>DO NOT BYPASS</strong>.</p> <p>Use <strong>sqscan status</strong> in the Web UI to confirm Ready state and signature currency. See also ClamAV and ICAP for defense in depth.</p> <h2 id="core-mechanics-c-source-validation">Core Mechanics (C++ Source Validation)</h2> <p>Source: <code>sources/modules/sqscan/sqscan.cpp</code> ΓÇö <code>SqScanSection::find()</code>, scan level handling.</p> <h3 id="first-match-wins">First match wins</h3> <p>Enabled virus scanning policy rows are walked top to bottom. The <strong>first</strong> row whose Profiles match applies for that connection.</p> <h3 id="scan-levels-bypass-only">Scan levels ΓÇö BYPASS only</h3> <p>Malware Security Level <strong>BYPASS</strong> skips scanning (<code>SQSCAN_BYPASS</code>). Values STANDARD, HIGH, and PARANOID are stored but the engine uses fixed scan options ΓÇö only <strong>BYPASS</strong> changes runtime behaviour today.</p> <h3 id="malware-types-unused">Malware Types unused</h3> <p>Malware Types checkboxes set bit flags on the policy but are not passed to the scanner API. Detection uses the engineΓÇÖs built-in signature set.</p> <h3 id="enforcement">Enforcement</h3> <p>Virus detection (<code>QH_API_VIRUS_FOUND</code>) sets <code>POLICY_DO_NOT_BYPASS</code>. Access restrictions <strong>Bypass</strong> with antivirus skips SqScan entirely.</p> <h2 id="processing-flow">Processing flow</h2> <pre class="mermaid"><code>flowchart TD   part[Buffered upload/download] --&gt; walk[Walk policy rows top-down]   walk --&gt; match{First profile match?}   match --&gt;|No| skip[No SqScan]   match --&gt;|Yes| bypass{BYPASS level?}   bypass --&gt;|Yes| skip   bypass --&gt;|No| scan[In-memory scan]   scan --&gt; virus{Virus found?}   virus --&gt;|Yes| block[DO NOT BYPASS block]   virus --&gt;|No| pass[Continue]</code></pre> <h2 id="schema-fields">Schema Fields</h2> <h3 id="global-fields">Global fields</h3> <ul> <li><strong>Enabled (enabled)</strong> ΓÇö Master switch. When off, hooks exit immediately. When on, scanning requires successful engine init (Ready in sqscan status).</li> </ul> <h3 id="policy-rows">Policy rows</h3> <ul> <li><strong>Profiles (profiles)</strong> ΓÇö Limit row to connections with these Access Profile tags. Blank matches all.</li> <li><strong>Malware Security Level (scan_flag)</strong> ΓÇö BYPASS skips SqScan. Other levels label the row but do not alter scan depth in current code.</li> <li><strong>Malware Types (malware_types)</strong> ΓÇö Stored for operator reference; not forwarded to scan API.</li> </ul> <h2 id="examples">Examples</h2> <h3 id="scan-all-users">Scan all users</h3> <ul> <li><strong>Configuration:</strong> Enabled on; one row Profiles blank, Malware Security Level STANDARD.</li> <li><strong>Result:</strong> all buffered content on matching connections is scanned in memory.</li> </ul> <h3 id="skip-scanning-for-admins">Skip scanning for admins</h3> <ul> <li><strong>Configuration:</strong> Row A (top) Profiles ADMIN, Malware Security Level BYPASS; Row B Profiles blank, STANDARD.</li> <li><strong>Result:</strong> ADMIN connections hit row A first and skip; everyone else scanned via row B.</li> </ul> <h3 id="eicar-verification">EICAR verification</h3> <ul> <li><strong>Configuration:</strong> sqscan status shows Ready; download EICAR through scanned profile.</li> <li><strong>Result:</strong> block with DO NOT BYPASS; Detailed logs show virus detection.</li> </ul> <h2 id="how-to-verify">How to verify</h2> <ol type="1"> <li><strong>sqscan status</strong> ΓÇö module Ready, signatures current.</li> <li>Download EICAR test file through proxy.</li> <li>Enable ANTIVIRUS log level for native <code>sqscan:</code> lines.</li> <li>Dashboard counters: Objects Scanned, Threats Detected, Scan bypassed.</li> </ol>
+
+</body>
+</html>

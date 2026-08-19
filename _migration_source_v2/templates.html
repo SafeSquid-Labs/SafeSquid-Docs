@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Templates</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a> · <a href="profiles.html">Access Profiles</a> · <a href="tools.html">Tools</a></nav>
+	<h1>Templates</h1>
+	<p>The <strong>Templates</strong> section (<code>safesquid-templates(5)</code>) configures block pages and error bodies served when SafeSquid denies traffic or returns configured errors.</p>
+
+	<h2>Core mechanics</h2>
+	<p>Validated against <code>sources/src/template.cpp</code> — <code>TemplateSection::get()</code>, <code>send()</code>, preload in <code>Template</code> copy constructor.</p>
+
+	<h3>Resolution order</h3>
+	<ol>
+		<li>Walk configured rows top-down.</li>
+		<li>Skip disabled or empty Name.</li>
+		<li><strong>Profiles</strong> gate must pass (blank = any).</li>
+		<li>Case-insensitive Name match — <strong>first match wins</strong>.</li>
+		<li>Else built-in <code>PAGES[]</code> defaults.</li>
+		<li>Else log undefined template error.</li>
+	</ol>
+
+	<figure class="flowchart">
+		<figcaption>Template resolution</figcaption>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" class="flowchart" role="img" aria-label="Template get flow">
+			<defs>
+				<marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+					<polygon points="0 0, 8 3, 0 6" fill="#444"/>
+				</marker>
+			</defs>
+			<rect class="box" x="120" y="8" width="240" height="36" rx="4"/>
+			<text class="label" x="240" y="30" text-anchor="middle">get(connection, name)</text>
+			<line class="arrow" x1="240" y1="44" x2="240" y2="58"/>
+			<rect class="box" x="80" y="58" width="320" height="36" rx="4"/>
+			<text x="240" y="80" text-anchor="middle">Profiles gate → Name match</text>
+			<line class="arrow" x1="240" y1="94" x2="240" y2="108"/>
+			<rect class="boxOk" x="100" y="108" width="280" height="36" rx="4"/>
+			<text x="240" y="130" text-anchor="middle">First match — FILE cache or EXEC</text>
+			<line class="arrow" x1="240" y1="142" x2="240" y2="156"/>
+			<rect class="box" x="90" y="156" width="300" height="36" rx="4"/>
+			<text x="240" y="178" text-anchor="middle">Parsable? → variables_parse</text>
+			<line class="arrow" x1="240" y1="190" x2="240" y2="204"/>
+			<rect class="boxWarn" x="80" y="204" width="320" height="36" rx="4"/>
+			<text x="240" y="226" text-anchor="middle">No match → PAGES[] or error</text>
+		</svg>
+	</figure>
+
+	<h3>FILE vs EXECUTABLE</h3>
+	<dl>
+		<dt>FILE</dt>
+		<dd>Preloaded at config load from Name path or File fallback. MIME blank → <code>application/octet-stream</code>.</dd>
+		<dt>EXECUTABLE</dt>
+		<dd>Run at send time; stdout must be HTTP response (<code>ENABLE_EXTERNAL</code> required).</dd>
+	</dl>
+
+	<h3>Send</h3>
+	<p><code>send_block_template()</code> uses caller status or row Response code. Adds <code>X-SafeSquid-Template</code> header. HTML built-ins may inject stylesheet.</p>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>Branded block page</h3>
+		<p><strong>Config:</strong> Name <code>company-block</code>, FILE, Parsable on, code 403.</p>
+		<p><strong>Result:</strong> Access Profiles Deny serves HTML with substituted variables.</p>
+	</div>
+	<div class="example">
+		<h3>Profile-specific block</h3>
+		<p><strong>Config:</strong> two rows same Name <code>block</code>; row A Profiles <code>staff</code> above row B blank profiles.</p>
+		<p><strong>Result:</strong> staff connections get staff template first.</p>
+	</div>
+
+	<h2>How to verify</h2>
+	<ol>
+		<li>Trigger block referencing template name.</li>
+		<li>DEBUG + TEMPLATE native logs.</li>
+		<li>Check <code>X-SafeSquid-Template</code> response header.</li>
+	</ol>
+
+</body>
+</html>

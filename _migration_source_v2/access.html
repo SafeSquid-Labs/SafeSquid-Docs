@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Access restrictions</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a> · <a href="auth.html">Authentication</a></nav>
+	<h1>Access restrictions</h1>
+	<p>The <strong>Access</strong> section (<code>safesquid-access(5)</code>) defines the primary security perimeter: who may connect, whether they authenticate, which proxy features they may use, and which User-Groups and bypass flags attach to the connection.</p>
+	<div class="note">
+		Configure authentication mechanisms in <a href="auth.html">Authentication</a>. LDAP directory setup is in <a href="ldap.html">Integrate LDAP</a>. Content allow/deny is in <a href="profiles.html">Access Profiles</a>.
+	</div>
+
+	<h2>Core mechanics</h2>
+	<p>Validated against <code>sources/src/access.cpp</code> — <code>AccessSection::check()</code>, <code>check_and_setup()</code>, <code>set_auth_methods_supported()</code>.</p>
+
+	<h3>Default policy and list order</h3>
+	<p>With <strong>Default Access Policy = Deny</strong> (recommended):</p>
+	<ol>
+		<li>Walk the <strong>Allow</strong> list top-down; first enabled row whose gates pass wins for that pass.</li>
+		<li>If an Allow row matched, walk the <strong>Deny</strong> list; a Deny match revokes access.</li>
+		<li>If no Allow row matched, access is denied.</li>
+	</ol>
+	<p>With Default Allow, Deny is walked first, then Allow. Within one list, <strong>first match wins</strong> — lower rows are not evaluated for that pass.</p>
+
+	<figure class="flowchart">
+		<figcaption>Processing flow — policy Deny, Allow list pass</figcaption>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 380" class="flowchart" role="img" aria-label="Access check flow for policy Deny">
+			<defs>
+				<marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+					<polygon points="0 0, 8 3, 0 6" fill="#444"/>
+				</marker>
+			</defs>
+			<rect class="box" x="140" y="8" width="200" height="36" rx="4"/>
+			<text class="label" x="240" y="30" text-anchor="middle">New connection</text>
+			<line class="arrow" x1="240" y1="44" x2="240" y2="58"/>
+			<rect class="box" x="100" y="58" width="280" height="36" rx="4"/>
+			<text x="240" y="80" text-anchor="middle">policy=DENY: walk Allow list</text>
+			<line class="arrow" x1="240" y1="94" x2="240" y2="108"/>
+			<rect class="box" x="60" y="108" width="360" height="44" rx="4"/>
+			<text x="240" y="126" text-anchor="middle">Gates: profiles → interface → ip → ldap_profiles</text>
+			<text x="240" y="142" text-anchor="middle">(all configured gates must pass)</text>
+			<line class="arrow" x1="240" y1="152" x2="240" y2="166"/>
+			<rect class="boxWarn" x="80" y="166" width="320" height="36" rx="4"/>
+			<text x="240" y="188" text-anchor="middle">username NULL? → goto done (match or challenge)</text>
+			<line class="arrow" x1="240" y1="202" x2="240" y2="216"/>
+			<rect class="box" x="70" y="216" width="340" height="44" rx="4"/>
+			<text x="240" y="234" text-anchor="middle">pamauth=TRUE: cache → PAM → LDAP bind</text>
+			<text x="240" y="250" text-anchor="middle">then PCRE username; FALSE: exact user/pass</text>
+			<line class="arrow" x1="240" y1="260" x2="240" y2="274"/>
+			<rect class="boxOk" x="90" y="274" width="300" height="36" rx="4"/>
+			<text x="240" y="296" text-anchor="middle">Apply access, groups, bypass, concurrency</text>
+			<line class="arrow" x1="240" y1="310" x2="240" y2="324"/>
+			<rect class="boxWarn" x="100" y="324" width="280" height="36" rx="4"/>
+			<text x="240" y="346" text-anchor="middle">Walk Deny list — match revokes access</text>
+		</svg>
+	</figure>
+
+	<h3>Inner gate order</h3>
+	<p>For each enabled row: <strong>Profiles</strong> → <strong>Interface</strong> → <strong>IP</strong> → <strong>LDAP Profiles</strong>. Any failure skips to the next row.</p>
+
+	<h3>Client IP and X-Forwarded-For</h3>
+	<p>When <code>X-Forwarded-For</code> is present, it replaces the TCP client IP for <code>ip</code> matching (<code>access.cpp:357</code>).</p>
+	<div class="warn">
+		<strong>Spoofing risk:</strong> a client sending <code>X-Forwarded-For: 127.0.0.1</code> can match localhost IP rows and receive CONFIG (Web UI) access. Expose the proxy only on trusted networks.
+	</div>
+
+	<h3>Two-pass authentication</h3>
+	<dl>
+		<dt>First pass (no credentials)</dt>
+		<dd>If gates pass and <code>pamauth=TRUE</code> or User name is set, the row matches and issues a 407/401 challenge. If <code>pamauth=FALSE</code> and User name is blank, the row matches immediately — unauthenticated access.</dd>
+		<dt>Second pass (credentials present)</dt>
+		<dd><code>set_dn()</code> populates <code>connection->dn</code> with LDAP group strings (commas stored as spaces). LDAP Profiles rows can match; PAM validation runs in <code>check_and_setup()</code>.</dd>
+	</dl>
+
+	<h3>Kerberos / SSO (<code>ntlm_authentication</code>)</h3>
+	<p>UI label <strong>Kerberos / SSO</strong>; internal field <code>ntlm_authentication</code>. When TRUE, SafeSquid offers <strong>Negotiate</strong> (GSSAPI/Kerberos). When FALSE, Negotiate is not advertised. Requires <code>HTTP.keytab</code> for SSO to succeed. See <a href="auth.html">Authentication</a>.</p>
+
+	<h3>DLP bypass</h3>
+	<p>Requires both the <strong>Allow bypassing</strong> access right (<code>BYPASS</code>) and the <strong>DLP</strong> bypass checkbox. Either alone leaves DLP active.</p>
+
+	<h2>Recommended entry ordering</h2>
+	<ol class="steps">
+		<li>IP/interface no-auth rows (specific addresses first)</li>
+		<li>Profile-bypass rows (e.g. BYPASS AUTHENTICATION) — before auth rows</li>
+		<li>LDAP Profiles — before PAM regex (group beats username pattern)</li>
+		<li>PAM regex and entry-credential rows</li>
+		<li>Profile-gated showcase rows (each has a <code>profiles</code> constraint)</li>
+		<li>PAM catch-all — last Allow row</li>
+		<li>Deny exceptions — paired with an Allow range to demonstrate revoke</li>
+	</ol>
+
+	<h2>Global fields</h2>
+	<dl>
+		<dt>Default Access Policy</dt>
+		<dd>Deny recommended. Controls default when no row matches and which list is walked first.</dd>
+		<dt>Kerberos / SSO</dt>
+		<dd>Enables Negotiate when keytab is present.</dd>
+	</dl>
+
+	<h2>Rule fields</h2>
+	<p>All configured criteria on a row must match. Blank means any.</p>
+	<dl>
+		<dt>IP Address</dt>
+		<dd>Single IP, comma list, or hyphen range. CIDR not supported. Uses XFF when present.</dd>
+		<dt>Interface</dt>
+		<dd>Listen socket IP:port of the accept.</dd>
+		<dt>System authentication</dt>
+		<dd>Cache → PAM → LDAP bind; User name is a regex filter; Password ignored.</dd>
+		<dt>User name / Password</dt>
+		<dd>With System auth off: exact case-sensitive match. Non-empty User name still triggers challenge on first pass.</dd>
+		<dt>LDAP Profiles</dt>
+		<dd>Exact match against <code>connection->dn</code>; write DNs with spaces not commas.</dd>
+		<dt>Access</dt>
+		<dd>CONFIG, PROXY, HTTP, TRANSPARENT, CONNECT, BYPASS — independent rights.</dd>
+		<dt>MAX Concurrent Connections</dt>
+		<dd>Keyed <code>username@client-ip</code>; 0 = no cap.</dd>
+	</dl>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>Localhost Web UI and proxy</h3>
+		<p><strong>Config:</strong> IP <code>127.0.0.1</code>, Access CONFIG,PROXY,HTTP,TRANSPARENT,CONNECT, pamauth off, no username.</p>
+		<p><strong>Result:</strong> Immediate match; User-Group LOCALHOST. Beware XFF spoofing on untrusted networks.</p>
+	</div>
+	<div class="example">
+		<h3>Hyphen IP range without auth</h3>
+		<p><strong>Config:</strong> IP <code>203.0.113.0-203.0.113.255</code> (TEST-NET-3), pamauth off.</p>
+		<p><strong>Result:</strong> Any address in range matches first pass; no challenge.</p>
+	</div>
+	<div class="example">
+		<h3>LDAP group after login</h3>
+		<p><strong>Config:</strong> ldap_profiles with Sales group DN, pamauth off, above PAM catch-all.</p>
+		<p><strong>Result:</strong> First pass: ldap gate fails (empty dn), challenge from PAM row. Second pass: group match grants LDAP_SALES; password not rechecked unless pamauth=TRUE.</p>
+	</div>
+	<div class="example">
+		<h3>DLP bypass</h3>
+		<p><strong>Config:</strong> Access BYPASS + bypass DLP checkbox + profiles constraint.</p>
+		<p><strong>Result:</strong> DLP skipped. Missing either condition — DLP still runs.</p>
+	</div>
+	<div class="example">
+		<h3>Deny exception</h3>
+		<p><strong>Config:</strong> Allow range 203.0.113.0–255 + Deny 203.0.113.50; policy Deny.</p>
+		<p><strong>Result:</strong> Allow matches, then Deny revokes. Deny row rights/groups not applied.</p>
+	</div>
+
+	<h2>How to verify</h2>
+	<ol>
+		<li>Test from a known client IP without spoofed XFF (unless testing that path).</li>
+		<li><strong>Reports → Detailed logs</strong> — username, IP, access filter.</li>
+		<li>Enable <strong>Trace Entry</strong> on one row; check native logs.</li>
+		<li>SECURITY log family for authentication outcomes.</li>
+	</ol>
+
+</body>
+</html>

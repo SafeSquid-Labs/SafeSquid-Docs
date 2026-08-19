@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Integrations</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a></nav>
+	<h1>Integrations</h1>
+	<p>SafeSquid works with external systems and bundled services. Configure most integrations in the Web UI; some host paths and daemons are appliance packages.</p>
+
+	<h2>Directory and identity</h2>
+	<ul>
+		<li><a href="ldap.html">Integrate LDAP</a> / Active Directory — users, groups, LDAP Profiles on Access rows.</li>
+		<li><a href="auth.html">Kerberos / SSO</a> — keytab at <code>/usr/local/safesquid/security/HTTP.keytab</code>.</li>
+		<li>PAM stack <code>/etc/pam.d/safesquid</code> for System authentication.</li>
+		<li>IP-to-user map: <code>USER_IP_DB_FILE</code> in <a href="startup.html">startup.ini</a> (for example VPN clients).</li>
+	</ul>
+
+	<h2>Scanning and adaptation</h2>
+	<ul>
+		<li><a href="clamav.html">Clam antivirus</a> — local <code>clamd</code> socket.</li>
+		<li><a href="sqscan.html">SqScan</a> — built-in in-memory scanner.</li>
+		<li><a href="icap.html">ICAP</a> — third-party REQMOD/RESPMOD services.</li>
+		<li><a href="dlp.html">DLP</a> — upload inspection and OCR scoring.</li>
+		<li><a href="imgfilter.html">Image analyzer</a> — optional image scoring module.</li>
+	</ul>
+
+	<h2>Categorisation and feeds</h2>
+	<ul>
+		<li><a href="ssqore.html">SSqore</a> — cloud URL categorisation (CCS).</li>
+		<li><a href="category-editor.html">Categorize Web-Sites</a> — local category overrides.</li>
+		<li><a href="applicationSignatures.html">Application Signatures</a> / <a href="contentSignatures.html">Content Signatures</a> — vendor signature databases.</li>
+		<li><a href="subscription.html">Subscription</a> — license and activation; gates cloud signature processing.</li>
+		<li>See <a href="feeds.html">Cloud / categorisation feeds</a> for UPDATE schedule and offline behaviour.</li>
+	</ul>
+
+	<h2>Network services</h2>
+	<ul>
+		<li><a href="wccp.html">WCCP</a> — transparent redirection to the proxy.</li>
+		<li><a href="forward.html">Proxy chain</a> — upstream peers and CARP.</li>
+		<li>BIND / DNS stubs under the security DNS directory (appliance).</li>
+		<li>rbldnsd-style DNS blacklists used with <a href="dnsbl.html">DNS Blacklist</a>.</li>
+		<li>DNS categorisation zone: <code>DNS_CAT_ZONE</code> in startup.ini.</li>
+	</ul>
+
+	<h2>Operations</h2>
+	<ul>
+		<li>Monit: <code>/etc/monit/conf.d/safesquid.monit</code></li>
+		<li>systemd / init: see <a href="daemon.html">Daemon</a></li>
+		<li>logrotate: <code>/etc/logrotate.d/safesquid</code></li>
+		<li>Master sync: <code>MASTER_IP</code>, <code>NEVER_SYNC</code>, <code>ALWAYS_SYNC</code> in startup.ini</li>
+	</ul>
+
+	<h2>See also</h2>
+	<ul>
+		<li><a href="architecture.html">Architecture</a></li>
+		<li><a href="logging.html">Logging and troubleshooting</a></li>
+		<li><a href="index.html">Full section index</a></li>
+	</ul>
+	<p>CLI: <code>man safesquid-integrations</code></p>
+</body>
+</html>

@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Response Types</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a> · <a href="profiles.html">Access Profiles</a></nav>
+	<h1>Response Types</h1>
+	<p>The <strong>Response Types</strong> section (<code>safesquid-respProfiles(5)</code>) labels HTTP responses for <a href="profiles.html">Access Profiles</a> and content filters. It does not block by itself.</p>
+
+	<h2>Core mechanics</h2>
+	<p>Validated against <code>sources/src/response_profiles.cpp</code> — <code>response_profiles_update()</code>, response hook.</p>
+
+	<h3>Two-pass evaluation</h3>
+	<ol>
+		<li>On response headers — <code>do_response_profile()</code> with no body buffer.</li>
+		<li>On buffered body — hook runs again with detected MIME and size.</li>
+	</ol>
+	<p>Every matching enabled row applies; no first-match stop.</p>
+
+	<figure class="flowchart">
+		<figcaption>Response Types — row gate order</figcaption>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 340" class="flowchart" role="img" aria-label="Response Types gate flow">
+			<defs>
+				<marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+					<polygon points="0 0, 8 3, 0 6" fill="#444"/>
+				</marker>
+			</defs>
+			<rect class="box" x="120" y="8" width="240" height="36" rx="4"/>
+			<text class="label" x="240" y="30" text-anchor="middle">Response headers / body</text>
+			<line class="arrow" x1="240" y1="44" x2="240" y2="58"/>
+			<rect class="box" x="50" y="58" width="380" height="44" rx="4"/>
+			<text x="240" y="76" text-anchor="middle">respprofiles → chunk → content size</text>
+			<text x="240" y="92" text-anchor="middle">→ MIME regex → extension → response headers</text>
+			<line class="arrow" x1="240" y1="102" x2="240" y2="116"/>
+			<rect class="boxOk" x="100" y="116" width="280" height="36" rx="4"/>
+			<text x="240" y="138" text-anchor="middle">Add/remove response_types</text>
+			<line class="arrow" x1="240" y1="152" x2="240" y2="166"/>
+			<rect class="box" x="80" y="166" width="320" height="36" rx="4"/>
+			<text x="240" y="188" text-anchor="middle">Next row — cumulative</text>
+			<line class="arrow" x1="240" y1="202" x2="240" y2="216"/>
+			<rect class="boxWarn" x="90" y="216" width="300" height="36" rx="4"/>
+			<text x="240" y="238" text-anchor="middle">multipart/byterange UI — no effect in code</text>
+		</svg>
+	</figure>
+
+	<h3>Content size</h3>
+	<p>Non-zero min/max tested against body buffer size when present, and against Content-Length when CL flag set. Zero disables each test.</p>
+
+	<h3>MIME and extension</h3>
+	<p>MIME regex tries response Content-Type header, then detected body type. Extension regex tries URL (query stripped), then attachment filename.</p>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>Text for keyword filter</h3>
+		<p><strong>Config:</strong> MIME <code>(^text/|script$)</code>, add <code>text_res</code>.</p>
+		<p><strong>Result:</strong> HTML/JS/text responses tagged.</p>
+	</div>
+	<div class="example">
+		<h3>Images</h3>
+		<p><strong>Config:</strong> MIME <code>^image/</code>, add <code>image_res</code>.</p>
+		<p><strong>Result:</strong> image Content-Types tagged for image filter policies.</p>
+	</div>
+	<div class="example">
+		<h3>Large images</h3>
+		<p><strong>Config:</strong> MIME <code>^image/</code>, min size 1048576, add <code>large-image</code>.</p>
+		<p><strong>Result:</strong> skipped below 1 MiB; tagged at or above threshold.</p>
+	</div>
+
+	<h2>How to verify</h2>
+	<ol>
+		<li><strong>Trace Entry</strong>; fetch test URL; check native logs.</li>
+		<li>Detailed logs — <code>response_profiles</code>, <code>download_content_types</code>.</li>
+	</ol>
+
+</body>
+</html>

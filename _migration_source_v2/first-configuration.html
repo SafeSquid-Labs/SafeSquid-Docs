@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>First configuration</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a></nav>
+	<h1>First configuration</h1>
+	<p>This page is for a new administrator who has a working SafeSquid appliance and needs a safe, minimal setup: browsers can use the proxy, only intended clients are allowed, and you can see why a request was allowed or blocked.</p>
+
+	<div class="note">
+		Open the Web UI at <code>http://safesquid.cfg/</code> from a machine that can reach the appliance.
+		Policy lives in the Web UI; process tunables live in <a href="startup.html">startup.ini</a>.
+	</div>
+
+	<h2>What you will set up</h2>
+	<ol class="steps">
+		<li>Confirm the service is running</li>
+		<li>Confirm how clients reach SafeSquid (listen address)</li>
+		<li>Lock down who may use the proxy (Access restrictions)</li>
+		<li>Point a browser at the proxy and test</li>
+		<li>Add a simple content rule (Access Profiles)</li>
+		<li>Learn where to look when something fails (logs)</li>
+	</ol>
+
+	<h2>1. Confirm the service</h2>
+	<p>On the appliance:</p>
+	<pre>/etc/init.d/safesquid status</pre>
+	<p>If it is not running: <code>/etc/init.d/safesquid start</code>. Details: <a href="daemon.html">Daemon, service, and files</a>.</p>
+
+	<h2>2. Confirm listen address</h2>
+	<p>In the Web UI open <strong>Network settings → Listen</strong>.</p>
+	<ul>
+		<li>You should see at least one enabled listener (IP and port), often port <strong>8080</strong>.</li>
+		<li>If Listen is empty, SafeSquid falls back to <code>LISTEN_IP</code> / <code>LISTEN_PORT</code> in <a href="startup.html">startup.ini</a>.</li>
+	</ul>
+	<div class="example">
+		<h3>Example — dual listeners</h3>
+		<ul>
+			<li><strong>0.0.0.0:8080</strong> — proxy traffic from the LAN</li>
+			<li><strong>10.0.0.5:80</strong> — Web UI only on a management address (optional)</li>
+		</ul>
+		<p>Later you can restrict Web UI access in Access restrictions using the <strong>Interface</strong> field so only the management listener may open <code>http://safesquid.cfg/</code>.</p>
+	</div>
+	<p>More detail: <a href="network.html">Network settings</a>.</p>
+
+	<h2>3. Lock down Access restrictions</h2>
+	<p>Open <strong>Access restrictions</strong>. This is the security perimeter: who may connect and what they may do.</p>
+	<ol>
+		<li>Set <strong>Default Access Policy</strong> to <strong>Deny</strong> (recommended).</li>
+		<li>Leave <strong>Kerberos / SSO</strong> off for this first pass (add it later; see <a href="auth.html">Authentication</a>).</li>
+		<li>Add one <strong>Allow list</strong> entry for your office or lab network.</li>
+	</ol>
+	<div class="example">
+		<h3>Example — allow the LAN to use the proxy</h3>
+		<p>On the Allow list entry:</p>
+		<ul>
+			<li><strong>Enabled</strong> — on</li>
+			<li><strong>Comment</strong> — <code>LAN proxy users</code></li>
+			<li><strong>IP Address</strong> — <code>10.0.0.0-10.255.255.255</code> (use your real range; SafeSquid does not use CIDR like <code>10.0.0.0/8</code>)</li>
+			<li><strong>Access</strong> — enable at least proxy / HTTP rights your deployment needs (Web interface only if this entry should also reach the UI)</li>
+			<li>Leave Profiles, LDAP, username blank so the rule matches by IP only</li>
+		</ul>
+		<p><strong>Expected result:</strong> a PC in <code>10.0.0.0</code>–<code>10.255.255.255</code> can use the proxy; a client outside that range is denied.</p>
+	</div>
+	<div class="warn">
+		Blank match fields mean “match any.” An Allow entry with nothing filled in can open the proxy to everyone. Always set IP, Interface, or identity criteria.
+	</div>
+	<p>Full guide: <a href="access.html">Access restrictions</a>.</p>
+
+	<h2>4. Point a browser and test</h2>
+	<ol>
+		<li>On a PC inside the allowed range, set the HTTP/HTTPS proxy to the appliance IP and listen port (for example <code>10.0.0.5:8080</code>).</li>
+		<li>Browse to a simple HTTP site (or HTTPS if your clients already trust the appliance for inspection — skip HTTPS Inspection for day one if unsure).</li>
+		<li>Open <strong>Reports → Detailed logs</strong>. You should see your request with username (or anonymous), URL, and status.</li>
+	</ol>
+	<div class="example">
+		<h3>Example — quick deny check</h3>
+		<p>Temporarily change the Allow entry IP to a range that does <em>not</em> include your PC, save, and reload a page. The browser should fail to use the proxy. Restore the correct range afterward.</p>
+	</div>
+
+	<h2>5. Add a simple Access Profiles rule</h2>
+	<p><strong>Access restrictions</strong> decides who may use SafeSquid. <strong>Access Profiles</strong> decides what those users may fetch (categories, sites, profiles).</p>
+	<ol>
+		<li>Open <strong>Access Profiles → Default Policies</strong> (or Secondary Policies).</li>
+		<li>Add a DENY rule for a category you can test safely (or a specific host if categories are not ready yet).</li>
+	</ol>
+	<div class="example">
+		<h3>Example — block one test site for everyone</h3>
+		<ul>
+			<li><strong>Enabled</strong> — on</li>
+			<li><strong>Comment</strong> — <code>Block example test host</code></li>
+			<li>Match the host or category your lab uses</li>
+			<li><strong>Action</strong> — <strong>DENY</strong> (use <strong>DO NOT BYPASS</strong> if you do not want a temporary bypass cookie)</li>
+		</ul>
+		<p><strong>Expected result:</strong> matching requests show a block page; Detailed logs show a profiles-related <code>filter_name</code> / reason. See <a href="profiles.html">Access Profiles</a>.</p>
+	</div>
+
+	<h2>6. When something fails</h2>
+	<ol>
+		<li>Note the time, client IP, and URL.</li>
+		<li>Search <strong>Reports → Detailed logs</strong> for <code>filter_name</code> and <code>filtering_reason</code>.</li>
+		<li>On a test network only, set <strong>System configuration → Send Debugging Headers To → CLIENT</strong> and inspect response headers in the browser. See <a href="debug-headers.html">Debug response headers</a>.</li>
+		<li>Turn debugging headers back to <strong>NONE</strong> when finished.</li>
+	</ol>
+	<p>Full workflow: <a href="logging.html">Logging and troubleshooting</a>.</p>
+
+	<h2>What to do next</h2>
+	<ul>
+		<li><a href="auth.html">Authentication</a> — Kerberos / SSO or System authentication so logs show real usernames</li>
+		<li><a href="ldap.html">Integrate LDAP</a> — groups for policy</li>
+		<li><a href="sslcert.html">HTTPS Inspection</a> — decrypt HTTPS when your policy requires it (plan client trust carefully)</li>
+		<li><a href="ssqore.html">SSqore</a> and <a href="category-editor.html">Categorize Web-Sites</a> — category-based Access Profiles</li>
+		<li><a href="applicationSignatures.html">Application Signatures</a> — tag client applications for policy</li>
+		<li><a href="sqscan.html">SqScan</a> or <a href="clamav.html">Clam antivirus</a> — malware scanning</li>
+		<li><a href="subscription.html">Subscription</a> — license and feed updates</li>
+		<li><a href="architecture.html">Architecture</a> — how sections fit together</li>
+	</ul>
+
+	<h2>See also</h2>
+	<ul>
+		<li><a href="index.html">Full documentation index</a></li>
+		<li><a href="daemon.html">Daemon, service, and files</a></li>
+	</ul>
+</body>
+</html>

@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Suggested Profiles</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a> · <a href="cookies-filtering.html">Cookie filter</a> · <a href="profiles.html">Access Profiles</a></nav>
+	<h1>Suggested Profiles</h1>
+	<p><strong>Suggested Profiles</strong> (<code>safesquid-buitins(5)</code>) shows built-in profile ideas you can pick when configuring cookie-related policy. It is a <strong>UI-only</strong> naming aid — no C++ section loads this configuration at runtime.</p>
+	<div class="note">
+		To enforce cookie behaviour, configure <a href="cookies-filtering.html">Cookie filter</a> and reference the same tag names in <a href="profiles.html">Access Profiles</a> where <code>cookie_profiles</code> is used.
+	</div>
+
+	<h2>What it does and does not do</h2>
+	<dl>
+		<dt>Does</dt>
+		<dd>Show labels administrators can pick when configuring Cookie filtering or Access Profiles <code>cookie_profiles</code> fields.</dd>
+		<dt>Does not</dt>
+		<dd>Enforce policy, add connection tags, or appear in the request pipeline.</dd>
+	</dl>
+
+	<h2>Subsections</h2>
+	<dl>
+		<dt>Default Policies</dt>
+		<dd>Suggested starting entries under <strong>Suggested cookie profile tags</strong>. Each row defines an example tag name (for example <code>READ ONLY</code>) for the Web UI picker.</dd>
+	</dl>
+
+	<h2>Entry fields</h2>
+	<dl>
+		<dt>Enabled</dt>
+		<dd>UI-only row visibility in the suggested list. Does not affect proxy behaviour.</dd>
+		<dt>Comment</dt>
+		<dd>Label shown in the Cookie Filtering profile-tag picker.</dd>
+		<dt>Suggested cookie profile tags</dt>
+		<dd>Example tag name for the dropdown. Pair with deny rows under Cookie filter and Access Profiles <code>cookie_profiles</code>.</dd>
+	</dl>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>READ ONLY cookie hint</h3>
+		<ul>
+			<li>Suggested Profiles lists <code>READ ONLY</code></li>
+			<li>Cookie filter Deny row uses cookie profile tag <code>READ ONLY</code> for outbound cookies you want blocked</li>
+			<li>Access Profiles assigns users the matching <code>cookie_profiles</code> tag</li>
+		</ul>
+		<p><strong>Result:</strong> the suggestion is only a naming aid; effective block comes from Cookie filter + Access Profiles, not from Suggested Profiles alone.</p>
+	</div>
+
+	<h2>How to verify</h2>
+	<ol>
+		<li>Open Cookie filter — confirm the tag appears in the cookie profile picker after you add it under Suggested Profiles.</li>
+		<li>Configure a Deny row and Access Profiles <code>cookie_profiles</code> with the same tag; reproduce a request with matching cookies.</li>
+		<li>Detailed logs should show cookie filter outcome — Suggested Profiles alone produces no log lines.</li>
+	</ol>
+
+	<h2>See also</h2>
+	<ul>
+		<li><a href="cookies-filtering.html">Cookie filter</a></li>
+		<li><a href="profiles.html">Access Profiles</a></li>
+		<li><a href="architecture.html">Architecture</a></li>
+	</ul>
+	<p>CLI: <code>man safesquid-buitins</code></p>
+</body>
+</html>

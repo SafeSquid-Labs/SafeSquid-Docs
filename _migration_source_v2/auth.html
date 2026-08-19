@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Authentication</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a></nav>
+	<h1>Authentication</h1>
+	<p>SafeSquid identifies users for logging, Access Profiles, and LDAP-based rules. Without authentication, many deployments still work by IP — but Detailed logs show anonymous users and group-based policy is harder.</p>
+	<div class="note">
+		Configure authentication switches in <strong>Access restrictions</strong>. Configure the directory in <strong>Integrate LDAP</strong>. New users: finish <a href="first-configuration.html">First configuration</a> (IP allow) before adding auth.
+	</div>
+
+	<h2>Three mechanisms</h2>
+	<dl>
+		<dt>Kerberos / SSO</dt>
+		<dd>Global setting in Access restrictions. When enabled, the browser can sign in with Kerberos Single Sign-On — users do not type credentials in Access entries. Requires a valid keytab at <code>/usr/local/safesquid/security/HTTP.keytab</code> and correct domain setup.</dd>
+		<dt>System authentication</dt>
+		<dd>Per-entry setting. The browser prompts for username and password; SafeSquid validates through PAM (<code>/etc/pam.d/safesquid</code>) and optionally LDAP. Use when Kerberos / SSO is off.</dd>
+		<dt>User name / Password (entry)</dt>
+		<dd>Fixed credentials on an Access row when neither Kerberos / SSO nor System authentication is used for that entry. Fine for a lab admin account; avoid for large user populations.</dd>
+	</dl>
+
+	<h2>Which should I choose?</h2>
+	<ul>
+		<li><strong>Active Directory domain, browsers joined</strong> — prefer Kerberos / SSO</li>
+		<li><strong>No SSO yet, local or LDAP passwords</strong> — System authentication on Allow entries</li>
+		<li><strong>Single test account</strong> — entry User name / Password</li>
+	</ul>
+
+	<h2>Kerberos / SSO</h2>
+	<p>The Web UI shows <strong>Kerberos / SSO</strong> (internal tag <code>ntlm</code>).</p>
+	<ul>
+		<li>When enabled, SafeSquid offers Negotiate (GSSAPI/Kerberos) on authenticated connections.</li>
+		<li>After success, the username comes from the Kerberos ticket and is logged in Detailed logs.</li>
+		<li>When <code>SUBSCRIPTION_EXPIRED</code> is set, some modules (Application Signatures, SSqore) skip processing — see <a href="subscription.html">Subscription</a>.</li>
+		<li>If the keytab is missing at startup, Negotiate is not offered even when the UI setting is on.</li>
+	</ul>
+	<div class="example">
+		<h3>Example — turn on SSO after IP allow works</h3>
+		<ol>
+			<li>Confirm clients already work with an IP-based Allow entry.</li>
+			<li>Install and verify <code>HTTP.keytab</code>; restart SafeSquid if needed.</li>
+			<li>Enable <strong>Kerberos / SSO</strong> globally in Access restrictions.</li>
+			<li>Browse again; Detailed logs should show the domain username instead of anonymous.</li>
+		</ol>
+	</div>
+
+	<h2>System authentication</h2>
+	<p>Enable <strong>System authentication</strong> on an Access Restrictions entry (internal tag <code>pamauth</code>). For each login attempt SafeSquid tries, in order:</p>
+	<ol>
+		<li>Password cache (recent successful or failed attempts)</li>
+		<li>PAM — typically local Unix accounts via <code>pam_unix</code></li>
+		<li>LDAP bind — when Integrate LDAP is configured and the user DN is known</li>
+	</ol>
+	<p>Cache size and expiry: <code>PASSWORD_CACHE_SIZE</code> and <code>PASSWORD_CACHE_EXPIRE_TIME</code> in <code>startup.ini</code>. View entries under <strong>Reports → Password Cache</strong>.</p>
+	<div class="example">
+		<h3>Example — PAM login for the office range</h3>
+		<ul>
+			<li>Allow entry: IP <code>192.168.10.0-192.168.10.255</code> (hyphen range, not CIDR)</li>
+			<li><strong>System authentication</strong> — on</li>
+			<li><strong>User name</strong> — blank (any PAM user) or a regex of allowed names</li>
+			<li><strong>Password</strong> — leave blank so PAM checks the secret</li>
+		</ul>
+		<p><strong>Result:</strong> browser shows a proxy login; success populates username in logs and policies.</p>
+	</div>
+
+	<h2>Entry username and password</h2>
+	<ul>
+		<li><strong>Kerberos / SSO off, System authentication off</strong> — set User name and Password on the entry; the challenge must match exactly.</li>
+		<li><strong>System authentication on</strong> — list allowed usernames (regex allowed); leave Password blank so PAM or LDAP checks the secret.</li>
+		<li><strong>Kerberos / SSO on</strong> — leave credentials blank on entries; the browser handles sign-in.</li>
+	</ul>
+
+	<h2>Integrate LDAP</h2>
+	<ol>
+		<li>Add and enable at least one <strong>LDAP servers</strong> entry.</li>
+		<li>Confirm users and groups in <strong>LDAP Entries</strong>.</li>
+		<li>Use <strong>LDAP Profiles</strong> on Access Restrictions or other policy rows.</li>
+	</ol>
+	<p>LDAP matches directory users and groups to rules, and acts as an authenticator after PAM when System authentication is enabled.</p>
+	<div class="example">
+		<h3>Example — allow only the “ProxyUsers” LDAP group</h3>
+		<ul>
+			<li>Default Access Policy: Deny</li>
+			<li>Allow entry: LDAP Profiles match your ProxyUsers profile, System authentication or Kerberos as appropriate</li>
+		</ul>
+		<p><strong>Result:</strong> only directory members of that group get through, even if they are on the office IP range.</p>
+	</div>
+
+	<h2>When is a login prompt shown?</h2>
+	<p>SafeSquid challenges the browser when the matching Access entry has:</p>
+	<ul>
+		<li>Kerberos / SSO enabled globally and Negotiate has not succeeded yet, or</li>
+		<li>System authentication enabled, or</li>
+		<li>User name filled in on the entry.</li>
+	</ul>
+	<p>If the entry matches only by IP or interface and none of the above apply, the connection may proceed without a prompt.</p>
+
+	<h2>Username without a prompt</h2>
+	<p>SafeSquid can assign a username when:</p>
+	<ul>
+		<li>Kerberos / SSO succeeds</li>
+		<li>An IP-to-user map applies (for example VPN clients)</li>
+		<li>The client already sent matching Basic credentials for a fixed User name / Password entry</li>
+	</ul>
+	<p>The username appears in Detailed logs; <strong>Add to User-Groups</strong> on the Access entry feeds downstream policies.</p>
+
+	<h2>Where authentication runs</h2>
+	<p>Authentication runs early in the pipeline (after Time Profiler and Request Types, before Speed Limits and content filters). Until it completes, SafeSquid may reply with HTTP 407 (proxy) or 401 with <code>Proxy-Authenticate</code> or <code>WWW-Authenticate</code>. After success, Access rights, Bypass, and User Groups from the matching entry are applied.</p>
+
+	<h2>Common problems</h2>
+	<dl>
+		<dt>Repeated login prompts</dt>
+		<dd>Check Kerberos / SSO, SPN, keytab, and clock skew. Clear Password Cache.</dd>
+		<dt>Valid user denied</dt>
+		<dd>Confirm Allow list match, LDAP Profiles, Interface, and IP. In Detailed logs look for access-related <code>filter_name</code>.</dd>
+		<dt>PAM failures</dt>
+		<dd>Review <code>/etc/pam.d/safesquid</code>. Native log lines start with <code>pam:</code>.</dd>
+		<dt>LDAP failures</dt>
+		<dd>Enable LDAP in LOG_LEVEL. Verify Integrate LDAP and LDAP Entries.</dd>
+	</dl>
+
+	<h2>See also</h2>
+	<ul>
+		<li><a href="first-configuration.html">First configuration</a></li>
+		<li><a href="access.html">Access restrictions</a></li>
+		<li><a href="logging.html">Logging and troubleshooting</a></li>
+		<li><a href="ldap.html">Integrate LDAP</a></li>
+		<li><a href="profiles.html">Access Profiles</a></li>
+	</ul>
+	<p>CLI: <code>man safesquid-auth</code></p>
+</body>
+</html>

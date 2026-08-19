@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Debug response headers</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a></nav>
+	<h1>Debug response headers</h1>
+	<p>SafeSquid can attach diagnostic information to HTTP messages as <code>X-SafeSquid-*</code> and module-specific headers. Modules push entries onto the connection <code>dheader</code> list; when headers are sent, SafeSquid may insert a fixed identity block plus every marked <code>dheader</code> entry.</p>
+	<p>This is the supported way to see which profiles, categories, and filters applied to a request.</p>
+
+	<h2>Enable or disable</h2>
+	<p>In <strong>System configuration</strong>, set <strong>Send Debugging Headers To</strong>:</p>
+	<dl>
+		<dt>NONE</dt>
+		<dd>Do not send debugging headers (production default).</dd>
+		<dt>CLIENT</dt>
+		<dd>Add debugging headers on responses to the browser.</dd>
+		<dt>SERVER</dt>
+		<dd>Add debugging headers on requests to the origin or upstream proxy.</dd>
+		<dt>BOTH</dt>
+		<dd>Send to client and server.</dd>
+	</dl>
+	<div class="note">Enable CLIENT or BOTH only on a test profile or management network. These headers can reveal usernames, groups, and policy decisions.</div>
+
+	<h2>Always included (when enabled)</h2>
+	<ul>
+		<li><code>X-Powered-By</code> — product name</li>
+		<li><code>X-SafeSquid-Client-ID</code> — <code>clientid.request</code> (match Detailed logs)</li>
+		<li><code>X-SafeSquid-User</code> — username</li>
+		<li><code>X-SafeSquid-User-Groups</code> — groups from Access restrictions</li>
+		<li><code>X-SafeSquid-Profiles</code> — Access Profiles tags</li>
+		<li><code>X-SafeSquid-Categories</code> / <code>X-SafeSquid-Ref-Categories</code></li>
+		<li><code>X-SafeSquid-Request-Types</code>, <code>X-SafeSquid-Response-Types</code></li>
+		<li><code>X-SafeSquid-Application-Signatures</code></li>
+		<li><code>X-SafeSquid-Time-Profiles</code></li>
+	</ul>
+
+	<h2>Module and policy headers</h2>
+	<p>During processing, modules append named headers to <code>dheader</code>. Common examples:</p>
+	<ul>
+		<li><code>X-SafeSquid-Instance</code>, <code>X-SafeSquid-Subscription</code>, <code>X-Registered-Domain</code></li>
+		<li><code>X-SafeSquid-Access-Policy</code> — Access Profiles reason</li>
+		<li><code>X-SafeSquid-Template</code> — block or info template name</li>
+		<li><code>X-Cookie-Filter</code>, <code>X-Text-Analyzer</code>, <code>X-DNSBL-Filter</code></li>
+		<li><code>X-Clam-AV</code>, <code>X-Virus-Scan</code>, <code>X-DLP-Check</code>, <code>X-Image-Filter</code></li>
+		<li><code>X-Elevated-Privacy</code>, <code>X-URL-Cat</code>, <code>X-REF-Cat</code></li>
+	</ul>
+	<p>Use browser developer tools (Network → response headers) or a capture. Correlate <code>X-SafeSquid-Client-ID</code> with Detailed logs <code>client_id</code> / <code>request_id</code>.</p>
+
+	<h2>Bypass</h2>
+	<p>To skip filters for a role, use the Access restrictions <strong>Bypass</strong> field. Keep <strong>Allow bypassing</strong> when you want temporary Access Profiles DENY bypass (cookie).</p>
+
+	<h2>See also</h2>
+	<ul>
+		<li><a href="logging.html">Logging and troubleshooting</a></li>
+		<li><a href="architecture.html">Architecture</a></li>
+		<li><a href="access.html">Access restrictions</a></li>
+		<li><a href="general.html">System configuration</a></li>
+	</ul>
+	<p>CLI: <code>man safesquid-debug-headers</code></p>
+</body>
+</html>

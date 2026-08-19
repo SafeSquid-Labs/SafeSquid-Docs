@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>System configuration</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a> · <a href="access.html">Access restrictions</a></nav>
+	<h1>System configuration</h1>
+	<p>The <strong>General</strong> section (<code>safesquid-general(5)</code>) sets global hostname, connection pool, debug headers, and per-connection compression/buffering policy rows.</p>
+
+	<h2>Core mechanics</h2>
+	<p>Validated against <code>sources/src/global.cpp</code> — <code>GeneralSection::find()</code>, <code>cportrange_check()</code>, <code>compressin_get()</code>, <code>bufferchunked_get()</code>.</p>
+
+	<h3>First matching policy row</h3>
+	<p>Each getter walks <strong>Compression and buffering policies</strong> top-down. First enabled row whose <code>profiles</code> pass <code>profile_find()</code> wins. Empty profiles match all. No match → built-in defaults.</p>
+
+	<h3>CONNECT ports (cportrange)</h3>
+	<p><code>cportrange_check()</code> applies only when a row matched. Port must be in the row list or CONNECT is blocked. When no row matched, all CONNECT ports are allowed (unless blocked elsewhere).</p>
+
+	<h3>Compression and chunked buffering</h3>
+	<p><code>compressin</code> zero → identity-only upstream Accept-Encoding; non-zero → full encodings (TRUE and AUTO behave the same today). <code>bufferchunked</code>: 0 never, 2 always, 1 encoded-only when Content-Encoding is identity.</p>
+
+	<figure class="flowchart">
+		<figcaption>General policy row selection</figcaption>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" class="flowchart" role="img" aria-label="General find flow">
+			<rect class="box" x="100" y="8" width="280" height="36" rx="4"/>
+			<text x="240" y="30" text-anchor="middle">Connection with profiles</text>
+			<line class="arrow" x1="240" y1="44" x2="240" y2="58"/>
+			<rect class="box" x="80" y="58" width="320" height="36" rx="4"/>
+			<text x="240" y="80" text-anchor="middle">Walk general_list top-down</text>
+			<line class="arrow" x1="240" y1="94" x2="240" y2="108"/>
+			<rect class="box" x="60" y="108" width="360" height="44" rx="4"/>
+			<text x="240" y="126" text-anchor="middle">Enabled and profile_find passes?</text>
+			<text x="240" y="142" text-anchor="middle">Blank profiles = match all</text>
+			<line class="arrow" x1="240" y1="152" x2="240" y2="166"/>
+			<rect class="boxOk" x="70" y="166" width="340" height="36" rx="4"/>
+			<text x="240" y="188" text-anchor="middle">Apply timeouts buffers cportrange headers</text>
+			<line class="arrow" x1="240" y1="202" x2="240" y2="216"/>
+			<rect class="box" x="110" y="216" width="260" height="36" rx="4"/>
+			<text x="240" y="238" text-anchor="middle">No match → defaults</text>
+		</svg>
+	</figure>
+
+	<h2>Global fields</h2>
+	<dl>
+		<dt>Proxy hostname</dt>
+		<dd>Identity in Via and Kerberos scripts; blank uses system hostname.</dd>
+		<dt>Connection pool size / timeout</dt>
+		<dd>Resizes upstream <code>serverpool</code> immediately on config update.</dd>
+		<dt>Send Debugging Headers To</dt>
+		<dd>CLIENT, SERVER, BOTH, or NONE — see <a href="debug-headers.html">Debug headers</a>.</dd>
+		<dt>Dynamic Categorization</dt>
+		<dd>Referer categories applied to dependency requests.</dd>
+	</dl>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>CONNECT HTTPS only</h3>
+		<p><strong>Config:</strong> First matching row cportrange <code>443</code> only.</p>
+		<p><strong>Result:</strong> CONNECT to 443 allowed; other ports blocked with security-restrictions template.</p>
+	</div>
+	<div class="example">
+		<h3>Profile-specific buffering</h3>
+		<p><strong>Config:</strong> Row 1 profiles <code>text-filter</code>, maxdbuffer 128K above catch-all maxdbuffer 0.</p>
+		<p><strong>Result:</strong> Text-filter connections buffer up to 128K; others stream without full download buffer.</p>
+	</div>
+	<div class="example">
+		<h3>No row match</h3>
+		<p><strong>Config:</strong> All policy rows disabled for connection.</p>
+		<p><strong>Result:</strong> CONNECT port check allows any port; default timeouts apply.</p>
+	</div>
+
+	<h2>How to verify</h2>
+	<ol>
+		<li>Test CONNECT to allowed and blocked ports.</li>
+		<li>Enable Trace Entry on a policy row; check native logs.</li>
+		<li>Debug headers CLIENT in browser devtools when enabled.</li>
+	</ol>
+
+</body>
+</html>
