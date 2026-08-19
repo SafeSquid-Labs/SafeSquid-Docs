@@ -1,0 +1,29 @@
+---
+title: "Application Signatures"
+description: "Tags requests with application strings via exact string compare, gated by subscription validity."
+keywords:
+  - application signatures
+  - webmail
+  - bittorrent
+  - subscription
+---
+
+<Note>
+**Migrated from the legacy documentation site.** Source: [https://www.safesquid.com/docs/applicationSignatures.html](https://www.safesquid.com/docs/applicationSignatures.html) — snapshot retrieved 2026-08-19.
+This page carries the **legacy runtime mechanics and code quirks** for this feature. Conceptual and how-to coverage lives in the pages linked under Related pages — this page supplements them rather than replacing them.
+</Note>
+
+Tags requests with application strings (Webmail, BitTorrent, Chrome, etc.) via exact string compare, especially by Access Profiles (Request Types field) and Request Types.
+
+If `SUBSCRIPTION_EXPIRED` is set, **processing is skipped entirely** for that connection.
+
+<Warning>
+**Code quirk: global Enabled switch is stored but request-time matching only checks each rule's own Enabled flag** — global off does NOT stop the signature loop by itself; per-rule Enabled off does.
+</Warning>
+
+Rows walked top-to-bottom, no first-match stop — every enabled rule whose tests pass may add/remove tags. Tags from earlier rules in the same pass are visible to later rules via the "Application signatures" prerequisite field. `urlcommand` fields are loaded but not evaluated — leave blank.
+
+## Related pages
+
+- [Application signatures](/use_cases/profiling_engine/application_signatures)
+- [Subscription](/admin_guide/infrastructure_and_access/subscription)

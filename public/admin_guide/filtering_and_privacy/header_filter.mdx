@@ -1,0 +1,22 @@
+---
+title: "Header filter"
+description: "Allow/Deny header filtering with first-match semantics plus an independent Insert list."
+keywords:
+  - header filter
+  - insert headers
+  - variable expansion
+---
+
+<Note>
+**Migrated from the legacy documentation site.** Source: [https://www.safesquid.com/docs/header-filtering.html](https://www.safesquid.com/docs/header-filtering.html) — snapshot retrieved 2026-08-19.
+This page carries the **legacy runtime mechanics and code quirks** for this feature. Conceptual and how-to coverage lives in the pages linked under Related pages — this page supplements them rather than replacing them.
+</Note>
+
+Source: sources/src/header.cpp. Global Allow/Deny switch; **first match in list pass wins** (contrast with Cookie filter's last-match). If Policy Deny: walk Allow then Deny. If Allow: walk Deny then Allow (second pass can restore what first pass removed).
+
+**Insert list** is independent of the filter list — injects new headers with variable expansion (e.g. `$_USERNAME_$`). Both Type and Value must be non-empty for Insert to apply. On Allow/Deny rows, Type is a regex on header name; on Insert rows, Type is the literal header name to add.
+
+## Related pages
+
+- [Header filter configuration](/use_cases/header_rewrite/header_filter_configuration)
+- [Header obfuscation](/use_cases/header_rewrite/header_obfuscation)

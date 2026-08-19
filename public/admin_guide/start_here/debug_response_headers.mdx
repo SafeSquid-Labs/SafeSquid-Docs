@@ -1,0 +1,34 @@
+---
+title: "Debug response headers"
+description: "X-SafeSquid-* diagnostic headers that expose which profiles, categories, and filters applied to a request."
+keywords:
+  - debug headers
+  - X-SafeSquid
+  - diagnostics
+  - troubleshooting
+---
+
+<Note>
+**Migrated from the legacy documentation site.** Source: [https://www.safesquid.com/docs/debug-headers.html](https://www.safesquid.com/docs/debug-headers.html) — snapshot retrieved 2026-08-19.
+This page has **no equivalent elsewhere in this documentation set**. It is migrated legacy content and has not yet been re-verified against a current build.
+</Note>
+
+SafeSquid can attach diagnostic info as `X-SafeSquid-*` and module-specific headers. This is the supported way to see which profiles, categories, and filters applied to a request.
+
+## Enable/disable (System configuration → Send Debugging Headers To)
+- **NONE** — production default. **CLIENT** — headers on responses to browser. **SERVER** — headers on requests to origin/upstream. **BOTH.**
+
+Enable CLIENT or BOTH only on a test profile or management network — these headers can reveal usernames, groups, and policy decisions.
+
+## Always included when enabled
+`X-Powered-By`, `X-SafeSquid-Client-ID`, `X-SafeSquid-User`, `X-SafeSquid-User-Groups`, `X-SafeSquid-Profiles`, `X-SafeSquid-Categories`/`X-SafeSquid-Ref-Categories`, `X-SafeSquid-Request-Types`, `X-SafeSquid-Response-Types`, `X-SafeSquid-Application-Signatures`, `X-SafeSquid-Time-Profiles`.
+
+## Module/policy headers (examples)
+`X-SafeSquid-Instance`, `X-SafeSquid-Subscription`, `X-Registered-Domain`, `X-SafeSquid-Access-Policy`, `X-SafeSquid-Template`, `X-Cookie-Filter`, `X-Text-Analyzer`, `X-DNSBL-Filter`, `X-Clam-AV`, `X-Virus-Scan`, `X-DLP-Check`, `X-Image-Filter`, `X-Elevated-Privacy`, `X-URL-Cat`, `X-REF-Cat`.
+
+Correlate `X-SafeSquid-Client-ID` with Detailed logs client_id/request_id. CLI: `man safesquid-debug-headers`.
+
+## Related pages
+
+- [Logging and troubleshooting](/admin_guide/start_here/logging_and_troubleshooting)
+- [System configuration (General)](/admin_guide/infrastructure_and_access/system_configuration_general)

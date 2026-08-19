@@ -1,0 +1,27 @@
+---
+title: "Content Signatures"
+description: "Content-signature database and libmagic MIME detection — database maintenance, not live tagging."
+keywords:
+  - content signatures
+  - libmagic
+  - MIME detection
+  - content4.xml
+---
+
+<Note>
+**Migrated from the legacy documentation site.** Source: [https://www.safesquid.com/docs/contentSignatures.html](https://www.safesquid.com/docs/contentSignatures.html) — snapshot retrieved 2026-08-19.
+This page carries the **legacy runtime mechanics and code quirks** for this feature. Conceptual and how-to coverage lives in the pages linked under Related pages — this page supplements them rather than replacing them.
+</Note>
+
+Maintains the content-signature database and libmagic MIME detection used across SafeSquid — helps identify actual file types past deceptive extensions. **For live response labelling by MIME/extension, use Response Types instead.**
+
+<Warning>
+**Major code quirk: `content_signatures_update()` and `content_signatures_update_post()` are empty stubs — list rows do NOT add or remove connection tags at request time in current code.** Custom rows still merge into `content4.xml` and matter for database maintenance, autocomplete in other sections (e.g. DLP), and libmagic setup — but not live traffic tagging.
+</Warning>
+
+Legacy UI options (Transfer Encoding Chunk, multipart byte-range, Trace Entry) are not bound to any template field here — no effect (same labels on Response Types DO affect matching there).
+
+## Related pages
+
+- [True MIME fingerprints](/use_cases/data_leakage_prevention/true_mime_fingerprints)
+- [Response Types](/admin_guide/policies_and_profiles/response_types)

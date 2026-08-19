@@ -1,0 +1,38 @@
+---
+title: "FTP browsing"
+description: "Global FTP-over-HTTP gateway behaviour, anonymous credentials, and passive mode."
+keywords:
+  - FTP
+  - passive mode
+  - anonymous login
+  - gateway
+---
+
+<Note>
+**Migrated from the legacy documentation site.** Source: [https://www.safesquid.com/docs/ftp.html](https://www.safesquid.com/docs/ftp.html) — snapshot retrieved 2026-08-19.
+This page has **no equivalent elsewhere in this documentation set**. It is migrated legacy content and has not yet been re-verified against a current build.
+</Note>
+
+The FTP section (safesquid-ftp(5)) configures global FTP-over-HTTP gateway behaviour. No policy list — only global fields.
+
+## Core mechanics
+Validated against sources/src/proto_ftp.cpp and FtpSection in sources/src/global.cpp.
+
+- **Anonymous credentials** — when client sends no username, SafeSquid substitutes configured Username/Password before USER/PASS.
+- **Passive mode** — on: PASV data connections. Off: PORT/active with local bind on the same interface as the control connection.
+- **Sort defaults** — directory HTML listings use Sort field/order when client omits CGI sort parameters.
+
+## Global fields
+Passive mode, Timeout (0 uses OS TCP keepalive interval), Username/Password (anonymous defaults), Sort order/field.
+
+## Examples
+1. **Anonymous behind firewall** — passive on, anonlogin anonymous. Result: PASV data channel; listing/download without client credentials.
+2. **Access denies FTP** — Access lacks proxy/FTP right for client. Result: denied before FTP settings apply.
+
+## How to verify
+Open an ftp:// URL through the proxy. Toggle passive if LIST works but RETR fails. Check Detailed logs and REQUEST native logs.
+
+## Related pages
+
+- [Network settings](/admin_guide/infrastructure_and_access/network_settings)
+- [Access restrictions](/admin_guide/infrastructure_and_access/access_restrictions)

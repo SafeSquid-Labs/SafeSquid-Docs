@@ -1,0 +1,39 @@
+---
+title: "startup.ini tunables"
+description: "Process and host tunables loaded from /opt/safesquid/startup.ini before SafeSquid starts."
+keywords:
+  - startup.ini
+  - tunables
+  - threads
+  - LOG_LEVEL
+  - ciphers
+---
+
+<Note>
+**Migrated from the legacy documentation site.** Source: [https://www.safesquid.com/docs/startup.html](https://www.safesquid.com/docs/startup.html) — snapshot retrieved 2026-08-19.
+This page carries the **legacy runtime mechanics and code quirks** for this feature. Related pages cover part of the same ground; this page adds detail that is not documented elsewhere.
+</Note>
+
+**No equivalent structure found in current Mintlify site.** Many appliance behaviours are set in `/opt/safesquid/startup.ini` (defaults in `/opt/safesquid/default/startup.ini`), loaded before SafeSquid starts — not edited via Web UI sections. Restart required after edits.
+
+**Two layers:** Web UI/sectionMaster = policy XML. startup.ini = process and host tunables.
+
+## Key tunable groups
+- **Listen/identity:** `LISTEN_IP`/`LISTEN_PORT` (fallback default), `HOSTNAME`/`DOMAIN`
+- **Threads/memory/sockets:** `MAXTHREADS`, `MAX_FDS` (~4× threads), `STACKSIZE`, `OVERLOAD_FACTOR`, `SOCKET_TIMEOUT`, `THREAD_TIMEOUT`, `MAX_CONCURRENT`, `HEAP_MEM`, `SOCK_MEM`, `SEND_SOCKET_BUFFERS`/`RECEIVE_SOCKET_BUFFERS` (0 = no limit), `TCP_KEEPIDLE_TIME`, `TCP_KEEPINTVL_TIME`, `TCP_KEEPCNT_COUNTS`, `CLIENT_DEFER_ACCEPT`
+- **CPU placement:** `LISTEN_CPUS` (default 0,1), `CPU_RESERVATION` (default 1)
+- **Auth cache:** `PASSWORD_CACHE_SIZE`, `PASSWORD_CACHE_EXPIRE_TIME`
+- **Logging:** `LOG_LEVEL`, `LOG_SIZE_LIMIT`, `PROCESS_OLD_LOGS`, `DATE_TIME_FORMAT`, `NATIVE_UDP_*`/`EXTENDED_UDP_*`/`CONFIG_UDP_*`
+- **Master sync:** `MASTER_IP`/`MASTER_PORT`, `NEVER_SYNC`/`ALWAYS_SYNC` (default `NEVER_SYNC=cache`), `SYNCTIME`
+- **Updates/HTTPS:** `UPDATE_INTVL`, `UPDATE_RETRY_DELAY`, `FORCE_SNI`, `USE_SESSION_TICKETS`, `CLIENT_CIPHERS_LIST`/`SERVER_CIPHERS_LIST` (TLS ≤1.2), `CLIENT_CIPHERS_SUITE`/`SERVER_CIPHERS_SUITE` (TLS 1.3)
+- **Categorisation/identity side channels:** `DNS_CAT_ZONE` (default `.c.ssquid.in`, set to `.` to disable), `USER_IP_DB_FILE` (SQLite IP→username map, e.g. VPN clients), `OPENVPN_CLIENT_HEAD`, `IPV6_DETECT_SITE`
+- **Reporting DB:** `REAL_TIME_DB_WRITE`, `STATEMENT_COUNT`, `MAX_MAIL_THRESHOLD`, `MIN_MAIL_THRESHOLD`, `KEEP_DATA`
+- **Debugging:** `MALLOC_CHECKING` (glibc MALLOC_CHECK_ mode)
+
+CLI: `man safesquid-startup`.
+
+## Related pages
+
+- [Startup Parameters (field reference)](/use_cases/customisation/startup_parameters)
+- [SafeSquid daemon](/admin_guide/start_here/safesquid_daemon)
+- [Logging and troubleshooting](/admin_guide/start_here/logging_and_troubleshooting)

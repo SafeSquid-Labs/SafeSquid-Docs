@@ -1,0 +1,36 @@
+---
+title: "Cloud / categorisation feeds"
+description: "Cloud categorisation and signature refresh services, their caches, and offline behaviour."
+keywords:
+  - categorisation feeds
+  - SSqore
+  - application signatures
+  - updates
+---
+
+<Note>
+**Migrated from the legacy documentation site.** Source: [https://www.safesquid.com/docs/feeds.html](https://www.safesquid.com/docs/feeds.html) — snapshot retrieved 2026-08-19.
+This page carries the **legacy runtime mechanics and code quirks** for this feature. Conceptual and how-to coverage lives in the pages linked under Related pages — this page supplements them rather than replacing them.
+</Note>
+
+SafeSquid categorises websites and refreshes signature databases using cloud services, scheduled updates, and local caches. **Valid Subscription is required** for cloud signature downloads and for Application Signatures/SSqore processing per connection.
+
+## Pieces
+- **SSqore** — CCS URL categorisation during request profiling.
+- **Categorize Web-Sites** — local overrides, take precedence over cloud results for matching hosts on the hot path.
+- **Application Signatures** — vendor `applications4` database plus custom rules; downloaded on UPDATE schedule, skipped when subscription expired.
+- **Content Signatures** — vendor `content4.xml` plus libmagic MIME database under `/var/lib/safesquid/content_signatures/`.
+- **DNS_CAT_ZONE** (startup.ini, default `.c.ssquid.in`)
+- **UPDATE_INTVL / UPDATE_RETRY_DELAY** (startup.ini)
+
+## Offline behaviour
+When cloud lookups/downloads fail, SafeSquid relies on last-loaded on-disk databases and SSqore cache entries. New hosts may get no categories until connectivity returns.
+
+## How to verify
+Reports → Modules Status. Detailed logs categories/application_signatures columns. Native logs with CATEGORY enabled. CLI: `man safesquid-feeds`.
+
+## Related pages
+
+- [Threat intelligence feeds](/use_cases/malware_scanning/threat_intelligence_feeds)
+- [Threat intelligence feeds (ecosystem)](/safesquid_swg/application_ecosystem/threat_intelligence_feeds)
+- [SSqore](/admin_guide/infrastructure_and_access/ssqore)

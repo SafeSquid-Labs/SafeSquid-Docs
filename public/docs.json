@@ -367,6 +367,92 @@
         ]
       },
       {
+        "tab": "Admin Guide",
+        "groups": [
+          {
+            "group": "Start here",
+            "root": "admin_guide/start_here/main",
+            "pages": [
+              "admin_guide/start_here/architecture_and_request_pipeline",
+              "admin_guide/start_here/safesquid_daemon",
+              "admin_guide/start_here/debug_response_headers",
+              "admin_guide/start_here/startup_ini_tunables",
+              "admin_guide/start_here/cloud_categorisation_feeds",
+              "admin_guide/start_here/integrations",
+              "admin_guide/start_here/tools_and_reports",
+              "admin_guide/start_here/first_configuration",
+              "admin_guide/start_here/logging_and_troubleshooting"
+            ]
+          },
+          {
+            "group": "Infrastructure and access",
+            "root": "admin_guide/infrastructure_and_access/main",
+            "pages": [
+              "admin_guide/infrastructure_and_access/access_restrictions",
+              "admin_guide/infrastructure_and_access/authentication",
+              "admin_guide/infrastructure_and_access/network_settings",
+              "admin_guide/infrastructure_and_access/system_configuration_general",
+              "admin_guide/infrastructure_and_access/integrate_ldap",
+              "admin_guide/infrastructure_and_access/https_inspection_ssl_cert",
+              "admin_guide/infrastructure_and_access/forward_proxy",
+              "admin_guide/infrastructure_and_access/ftp_browsing",
+              "admin_guide/infrastructure_and_access/wccp",
+              "admin_guide/infrastructure_and_access/subscription",
+              "admin_guide/infrastructure_and_access/ssqore"
+            ]
+          },
+          {
+            "group": "Policies and profiles",
+            "root": "admin_guide/policies_and_profiles/main",
+            "pages": [
+              "admin_guide/policies_and_profiles/access_profiles",
+              "admin_guide/policies_and_profiles/request_types",
+              "admin_guide/policies_and_profiles/response_types",
+              "admin_guide/policies_and_profiles/time_profiler",
+              "admin_guide/policies_and_profiles/templates",
+              "admin_guide/policies_and_profiles/application_signatures",
+              "admin_guide/policies_and_profiles/content_signatures",
+              "admin_guide/policies_and_profiles/suggested_profiles",
+              "admin_guide/policies_and_profiles/categorize_web_sites"
+            ]
+          },
+          {
+            "group": "Filtering and privacy",
+            "root": "admin_guide/filtering_and_privacy/main",
+            "pages": [
+              "admin_guide/filtering_and_privacy/cookie_filter",
+              "admin_guide/filtering_and_privacy/header_filter",
+              "admin_guide/filtering_and_privacy/text_analyzer",
+              "admin_guide/filtering_and_privacy/dns_blacklist",
+              "admin_guide/filtering_and_privacy/url_redirect",
+              "admin_guide/filtering_and_privacy/content_modifier_rewrite",
+              "admin_guide/filtering_and_privacy/elevated_privacy",
+              "admin_guide/filtering_and_privacy/external_applications"
+            ]
+          },
+          {
+            "group": "Performance",
+            "root": "admin_guide/performance/main",
+            "pages": [
+              "admin_guide/performance/speed_limits",
+              "admin_guide/performance/caching",
+              "admin_guide/performance/prefetching"
+            ]
+          },
+          {
+            "group": "Security scanners",
+            "root": "admin_guide/security_scanners/main",
+            "pages": [
+              "admin_guide/security_scanners/clam_antivirus",
+              "admin_guide/security_scanners/sqscan",
+              "admin_guide/security_scanners/image_analyzer",
+              "admin_guide/security_scanners/dlp",
+              "admin_guide/security_scanners/icap"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Troubleshooting",
         "pages": [
           "troubleshooting/troubleshooting",
@@ -403,10 +489,6 @@
     "library": "fontawesome"
   },
   "redirects": [
-    {
-      "source": "/admin_guide/main",
-      "destination": "/use_cases/main"
-    },
     {
       "source": "/admin_guide/scaling_and_high_availability/disaster_recovery",
       "destination": "/use_cases/scaling_and_high_availability/disaster_recovery"
