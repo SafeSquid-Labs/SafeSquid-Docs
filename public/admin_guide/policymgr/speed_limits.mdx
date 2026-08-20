@@ -71,7 +71,8 @@ Check `/var/log/safesquid/native/safesquid.log` for limit enforcement messages. 
 ## Examples
 
 <Tip>
-**1 — Guest download cap and throttle**
+
+### 1 — Guest download cap and throttle
 
 - Profiles: `Guest`
 - Download transfer limit: 50 MB, Download rate: 512000 bytes/sec
@@ -80,7 +81,8 @@ Check `/var/log/safesquid/native/safesquid.log` for limit enforcement messages. 
 </Tip>
 
 <Tip>
-**2 — Request flood cap**
+
+### 2 — Request flood cap
 
 - Request limit: **100**, Template: `too-many-requests`
 
@@ -88,7 +90,8 @@ Check `/var/log/safesquid/native/safesquid.log` for limit enforcement messages. 
 </Tip>
 
 <Tip>
-**3 — Per-request 5 MB (not shared window)**
+
+### 3 — Per-request 5 MB (not shared window)
 
 - Download transfer limit: 5 MB, Adjust Transfer Limits: **Per-request limit**
 
@@ -96,7 +99,8 @@ Check `/var/log/safesquid/native/safesquid.log` for limit enforcement messages. 
 </Tip>
 
 <Tip>
-**4 — Two matching rows tighten together**
+
+### 4 — Two matching rows tighten together
 
 - Row A: Download rate 1 MB/s
 - Row B: Download rate 256 KB/s, same profiles

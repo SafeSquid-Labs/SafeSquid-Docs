@@ -85,7 +85,8 @@ All configured criteria on a row must match. Blank means any.
 ## Examples
 
 <Tip>
-**Localhost Web UI and proxy**
+
+### Localhost Web UI and proxy
 
 **Config:** IP `127.0.0.1`, Access CONFIG,PROXY,HTTP,TRANSPARENT,CONNECT, pamauth off, no username.
 
@@ -93,7 +94,8 @@ All configured criteria on a row must match. Blank means any.
 </Tip>
 
 <Tip>
-**Hyphen IP range without auth**
+
+### Hyphen IP range without auth
 
 **Config:** IP `203.0.113.0-203.0.113.255` (TEST-NET-3), pamauth off.
 
@@ -101,7 +103,8 @@ All configured criteria on a row must match. Blank means any.
 </Tip>
 
 <Tip>
-**LDAP group after login**
+
+### LDAP group after login
 
 **Config:** ldap\_profiles with Sales group DN, pamauth off, above PAM catch-all.
 
@@ -109,7 +112,8 @@ All configured criteria on a row must match. Blank means any.
 </Tip>
 
 <Tip>
-**DLP bypass**
+
+### DLP bypass
 
 **Config:** Access BYPASS + bypass DLP checkbox + profiles constraint.
 
@@ -117,7 +121,8 @@ All configured criteria on a row must match. Blank means any.
 </Tip>
 
 <Tip>
-**Deny exception**
+
+### Deny exception
 
 **Config:** Allow range 203.0.113.0–255 + Deny 203.0.113.50; policy Deny.
 

@@ -62,7 +62,8 @@ Source: `sources/src/external.cpp` — exit code 0 replaces content; non-zero pr
 ## Examples
 
 <Tip>
-**1 — Sanitize HTML responses**
+
+### 1 — Sanitize HTML responses
 
 - Executable: `/opt/safesquid/bin/sanitize.pl`
 - Type: Pipe, Applies to: RESPONSES
@@ -71,7 +72,8 @@ Source: `sources/src/external.cpp` — exit code 0 replaces content; non-zero pr
 </Tip>
 
 <Tip>
-**2 — External auth assigns username**
+
+### 2 — External auth assigns username
 
 - Run once per session: **Yes**
 - Executable returns headers including `X-username: jane@corp.com` (exit code may be non-zero)
@@ -80,7 +82,8 @@ Source: `sources/src/external.cpp` — exit code 0 replaces content; non-zero pr
 </Tip>
 
 <Tip>
-**3 — Request filter returns block response**
+
+### 3 — Request filter returns block response
 
 - Applies to: REQUESTS
 - Script exit 0 with full HTTP response header (403) and optional body
@@ -89,7 +92,8 @@ Source: `sources/src/external.cpp` — exit code 0 replaces content; non-zero pr
 </Tip>
 
 <Tip>
-**4 — First matching row wins**
+
+### 4 — First matching row wins
 
 - Row 1 (top): broad profile match, Executable empty — skipped
 - Row 2: Profiles `Developers`, valid script, exit 0

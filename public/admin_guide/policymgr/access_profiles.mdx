@@ -60,7 +60,8 @@ All configured criteria on a row must match. Blank = any. Use `!` to negate tags
 ## Examples
 
 <Tip>
-**LAN users + category deny**
+
+### LAN users + category deny
 
 **Config:** Default: User Groups `LAN_USERS`, add `users`, Inherit. Secondary: Categories `Social`, profiles `users`, Deny.
 
@@ -68,7 +69,8 @@ All configured criteria on a row must match. Blank = any. Use `!` to negate tags
 </Tip>
 
 <Tip>
-**Time-gated exception**
+
+### Time-gated exception
 
 **Config:** Time Profiler adds `LUNCH_TIME`; Secondary matches Time Schedule `LUNCH_TIME`, Allow streaming.
 
@@ -76,7 +78,8 @@ All configured criteria on a row must match. Blank = any. Use `!` to negate tags
 </Tip>
 
 <Tip>
-**Response-side deny**
+
+### Response-side deny
 
 **Config:** Response Types adds `executable_download`; Secondary matches that tag, Deny.
 

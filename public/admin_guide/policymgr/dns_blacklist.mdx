@@ -63,7 +63,8 @@ Source: `sources/src/dnsbl.cpp` — `DnsblSection::check_and_block()`, category/
 ## Examples
 
 <Tip>
-**1 — Block malware category without DNS**
+
+### 1 — Block malware category without DNS
 
 - Policy row: Threatful Categories includes `Malware`
 
@@ -71,7 +72,8 @@ Source: `sources/src/dnsbl.cpp` — `DnsblSection::check_and_block()`, category/
 </Tip>
 
 <Tip>
-**2 — DNSBL listed host**
+
+### 2 — DNSBL listed host
 
 - DNSBL Domain: `.in.dnsbl.org`
 - Blocked IP addresses: `0.0.0.0,127.0.0.1-127.0.0.6`
@@ -80,7 +82,8 @@ Source: `sources/src/dnsbl.cpp` — `DnsblSection::check_and_block()`, category/
 </Tip>
 
 <Tip>
-**3 — Long hostname on uncategorized site**
+
+### 3 — Long hostname on uncategorized site
 
 - Maximum host name length: **5**
 - Site has no categories yet; host `verylonglabel.example`
@@ -89,7 +92,8 @@ Source: `sources/src/dnsbl.cpp` — `DnsblSection::check_and_block()`, category/
 </Tip>
 
 <Tip>
-**4 — Trusted users skip DNSBL**
+
+### 4 — Trusted users skip DNSBL
 
 - Access Allow entry with **Bypass → DNS Blacklist**
 

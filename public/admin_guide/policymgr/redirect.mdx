@@ -65,7 +65,8 @@ Source: `sources/src/redirect.cpp` — first-match URL/Location rewrite, send302
 ## Examples
 
 <Tip>
-**1 — Force Google safe search (internal rewrite)**
+
+### 1 — Force Google safe search (internal rewrite)
 
 - URL: `^https://(www\.)?google\.com/search\?(.*)`
 - Redirect: `https://www.google.com/search?safe=active&$2`
@@ -75,7 +76,8 @@ Source: `sources/src/redirect.cpp` — first-match URL/Location rewrite, send302
 </Tip>
 
 <Tip>
-**2 — Send users to a block info page (302)**
+
+### 2 — Send users to a block info page (302)
 
 - URL: `^https://old-portal\.example\.com/`
 - Redirect: `https://intranet.example.com/moved.html`
@@ -85,7 +87,8 @@ Source: `sources/src/redirect.cpp` — first-match URL/Location rewrite, send302
 </Tip>
 
 <Tip>
-**3 — Rewrite outbound redirect Location**
+
+### 3 — Rewrite outbound redirect Location
 
 - Applies to: LOCATION HEADER
 - URL: `^http://cdn\.example\.com/(.*)`
@@ -95,7 +98,8 @@ Source: `sources/src/redirect.cpp` — first-match URL/Location rewrite, send302
 </Tip>
 
 <Tip>
-**4 — Profile-gated redirect only for guests**
+
+### 4 — Profile-gated redirect only for guests
 
 - Profiles: `Guest`
 - URL: `^https://mail\.example\.com/`

@@ -61,7 +61,8 @@ Source: `sources/src/header.cpp` — Allow/Deny list order, Insert with variable
 ## Examples
 
 <Tip>
-**1 — Strip Referer on all users except marketing**
+
+### 1 — Strip Referer on all users except marketing
 
 - Policy: **Deny**
 - Allow row: Profiles `Marketing`, Type `Referer`, Applies to CLIENT HEADER
@@ -70,7 +71,8 @@ Source: `sources/src/header.cpp` — Allow/Deny list order, Insert with variable
 </Tip>
 
 <Tip>
-**2 — Allow all headers, remove Server banner**
+
+### 2 — Allow all headers, remove Server banner
 
 - Policy: **Allow**
 - Deny row: Type `Server`, Applies to SERVER HEADER
@@ -79,7 +81,8 @@ Source: `sources/src/header.cpp` — Allow/Deny list order, Insert with variable
 </Tip>
 
 <Tip>
-**3 — Insert a custom request header**
+
+### 3 — Insert a custom request header
 
 - Insert row: Type `X-Proxy-User`, Value `$_USERNAME_$`, Applies to CLIENT HEADER
 
@@ -87,7 +90,8 @@ Source: `sources/src/header.cpp` — Allow/Deny list order, Insert with variable
 </Tip>
 
 <Tip>
-**4 — Match value regex only for old User-Agent strings**
+
+### 4 — Match value regex only for old User-Agent strings
 
 - Policy: **Allow**
 - Deny row: Type `User-Agent`, Value `MSIE [1-8]\.`, Applies to CLIENT HEADER

@@ -60,7 +60,8 @@ Source: `sources/src/clamav.cpp` — policy walk, `ClamavPool`, results cache.
 ## Examples
 
 <Tip>
-**1 — Scan everyone via local clamd**
+
+### 1 — Scan everyone via local clamd
 
 - Enabled: on
 - ClamAV hostname or socket path: `/var/run/clamav/clamd.ctl`
@@ -70,7 +71,8 @@ Source: `sources/src/clamav.cpp` — policy walk, `ClamavPool`, results cache.
 </Tip>
 
 <Tip>
-**2 — Scan staff, skip guests**
+
+### 2 — Scan staff, skip guests
 
 - Row A (top): Profiles `!BYPASS CLAMAV SCANNING`, Enabled on
 - Row B: Profiles `BYPASS CLAMAV SCANNING`, Enabled off or omitted — guests tagged with bypass never hit row A
@@ -79,7 +81,8 @@ Source: `sources/src/clamav.cpp` — policy walk, `ClamavPool`, results cache.
 </Tip>
 
 <Tip>
-**3 — Remote clamd on TCP**
+
+### 3 — Remote clamd on TCP
 
 - ClamAV hostname or socket path: `10.0.0.20`
 - ClamAV port: `3310`

@@ -371,7 +371,6 @@
         "groups": [
           {
             "group": "Configure",
-            "root": "admin_guide/configure/main",
             "pages": [
               "admin_guide/configure/first_configuration",
               "admin_guide/configure/architecture",
@@ -381,7 +380,6 @@
           },
           {
             "group": "Application Setup",
-            "root": "admin_guide/infrastructure/main",
             "pages": [
               "admin_guide/infrastructure/access_restrictions",
               "admin_guide/infrastructure/authentication",
@@ -400,7 +398,6 @@
           },
           {
             "group": "Restriction Policies",
-            "root": "admin_guide/policymgr/main",
             "pages": [
               "admin_guide/policymgr/access_profiles",
               "admin_guide/policymgr/speed_limits",
@@ -413,7 +410,6 @@
           },
           {
             "group": "Custom Settings",
-            "root": "admin_guide/profilesdef/main",
             "pages": [
               "admin_guide/profilesdef/request_types",
               "admin_guide/profilesdef/response_types",
@@ -427,7 +423,6 @@
           },
           {
             "group": "Privacy control",
-            "root": "admin_guide/filter/main",
             "pages": [
               "admin_guide/filter/cookie_filter",
               "admin_guide/filter/header_filter",
@@ -436,7 +431,6 @@
           },
           {
             "group": "Real time content security",
-            "root": "admin_guide/antivirus/main",
             "pages": [
               "admin_guide/antivirus/clam_antivirus",
               "admin_guide/antivirus/sqscan",
@@ -447,7 +441,6 @@
           },
           {
             "group": "Accelerators",
-            "root": "admin_guide/accelerator/main",
             "pages": [
               "admin_guide/accelerator/caching",
               "admin_guide/accelerator/prefetching"
@@ -455,7 +448,6 @@
           },
           {
             "group": "Reports",
-            "root": "admin_guide/reporting/main",
             "pages": [
               "admin_guide/reporting/logging",
               "admin_guide/reporting/debug_response_headers"
@@ -463,7 +455,6 @@
           },
           {
             "group": "Support",
-            "root": "admin_guide/utilities/main",
             "pages": [
               "admin_guide/utilities/tools_and_reports"
             ]

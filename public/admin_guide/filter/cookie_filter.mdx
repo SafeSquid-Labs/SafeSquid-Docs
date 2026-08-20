@@ -67,7 +67,8 @@ Source: `sources/src/cookies.cpp` — dual-list Allow/Deny walk, last match in p
 ## Examples
 
 <Tip>
-**1 — Deny by default, allow intranet SSO cookies**
+
+### 1 — Deny by default, allow intranet SSO cookies
 
 - Policy: **Deny**
 - Allow row: Profiles `Staff`, Direction OUT, Domain `corp\.example\.com`
@@ -76,7 +77,8 @@ Source: `sources/src/cookies.cpp` — dual-list Allow/Deny walk, last match in p
 </Tip>
 
 <Tip>
-**2 — Allow by default, block ad trackers**
+
+### 2 — Allow by default, block ad trackers
 
 - Policy: **Allow**
 - Deny row: Direction OUT, Domain `doubleclick\.net|ads\.example\.com`
@@ -85,7 +87,8 @@ Source: `sources/src/cookies.cpp` — dual-list Allow/Deny walk, last match in p
 </Tip>
 
 <Tip>
-**3 — IT bypasses cookie filter entirely**
+
+### 3 — IT bypasses cookie filter entirely
 
 - Access Allow entry for IT with **Bypass → Cookie filtering**
 
@@ -93,7 +96,8 @@ Source: `sources/src/cookies.cpp` — dual-list Allow/Deny walk, last match in p
 </Tip>
 
 <Tip>
-**4 — Last match in Allow list wins**
+
+### 4 — Last match in Allow list wins
 
 - Policy: **Deny**
 - Allow row 1 (top): Domain `.*` — permits all

@@ -172,7 +172,8 @@ Open the Web UI at `http://safesquid.cfg/` from a machine that Access restrictio
 </Note>
 
 <Tip>
-**Example — one blocked HTTPS visit**
+
+### Example — one blocked HTTPS visit
 
 A user on the LAN opens `https://social.example/` through the proxy:
 
@@ -185,7 +186,8 @@ A user on the LAN opens `https://social.example/` through the proxy:
 </Tip>
 
 <Tip>
-**Example — DLP on upload, malware on download**
+
+### Example — DLP on upload, malware on download
 
 1. A user POSTs a spreadsheet. After Access Profiles Allow, the upload body is inspected: **Clam antivirus**, **SqScan**, **Image analyzer**, then **DLP**. A DLP MIME policy match sends **Templates** and stops — Caching and the origin never see that body.
 2. A later GET of an executable is Allowed by Access Profiles. Caching misses, DNS Blacklist passes, Proxy chain fetches it. **SqScan** or **Clam antivirus** on the downloaded body match: **Templates** block page. DLP does not run on that download.

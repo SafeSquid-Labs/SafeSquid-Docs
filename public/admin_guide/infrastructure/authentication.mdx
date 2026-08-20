@@ -34,7 +34,8 @@ The Web UI shows **Kerberos / SSO** (internal tag `ntlm`).
 - If the keytab is missing at startup, Negotiate is not offered even when the UI setting is on.
 
 <Tip>
-**Example — turn on SSO after IP allow works**
+
+### Example — turn on SSO after IP allow works
 
 1. Confirm clients already work with an IP-based Allow entry.
 2. Install and verify `HTTP.keytab`; restart SafeSquid if needed.
@@ -53,7 +54,8 @@ Enable **System authentication** on an Access Restrictions entry (internal tag `
 Cache size and expiry: `PASSWORD_CACHE_SIZE` and `PASSWORD_CACHE_EXPIRE_TIME` in `startup.ini`. View entries under **Reports → Password Cache**.
 
 <Tip>
-**Example — PAM login for the office range**
+
+### Example — PAM login for the office range
 
 - Allow entry: IP `192.168.10.0-192.168.10.255` (hyphen range, not CIDR)
 - **System authentication** — on
@@ -78,7 +80,8 @@ Cache size and expiry: `PASSWORD_CACHE_SIZE` and `PASSWORD_CACHE_EXPIRE_TIME` in
 LDAP matches directory users and groups to rules, and acts as an authenticator after PAM when System authentication is enabled.
 
 <Tip>
-**Example — allow only the “ProxyUsers” LDAP group**
+
+### Example — allow only the “ProxyUsers” LDAP group
 
 - Default Access Policy: Deny
 - Allow entry: LDAP Profiles match your ProxyUsers profile, System authentication or Kerberos as appropriate

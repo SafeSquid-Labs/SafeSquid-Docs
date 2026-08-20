@@ -35,7 +35,8 @@ In the Web UI open **Network settings → Listen**.
 - If Listen is empty, SafeSquid falls back to `LISTEN_IP` / `LISTEN_PORT` in [startup.ini](/admin_guide/configure/startup_ini).
 
 <Tip>
-**Example — dual listeners**
+
+### Example — dual listeners
 
 - **0.0.0.0:8080** — proxy traffic from the LAN
 - **10.0.0.5:80** — Web UI only on a management address (optional)
@@ -54,7 +55,8 @@ Open **Access restrictions**. This is the security perimeter: who may connect an
 3. Add one **Allow list** entry for your office or lab network.
 
 <Tip>
-**Example — allow the LAN to use the proxy**
+
+### Example — allow the LAN to use the proxy
 
 On the Allow list entry:
 
@@ -80,7 +82,8 @@ Full guide: [Access restrictions](/admin_guide/infrastructure/access_restriction
 3. Open **Reports → Detailed logs**. You should see your request with username (or anonymous), URL, and status.
 
 <Tip>
-**Example — quick deny check**
+
+### Example — quick deny check
 
 Temporarily change the Allow entry IP to a range that does *not* include your PC, save, and reload a page. The browser should fail to use the proxy. Restore the correct range afterward.
 </Tip>
@@ -93,7 +96,8 @@ Temporarily change the Allow entry IP to a range that does *not* include your PC
 2. Add a DENY rule for a category you can test safely (or a specific host if categories are not ready yet).
 
 <Tip>
-**Example — block one test site for everyone**
+
+### Example — block one test site for everyone
 
 - **Enabled** — on
 - **Comment** — `Block example test host`

@@ -64,7 +64,8 @@ Do not leave full DEBUG enabled in production. It grows disks quickly and makes 
 ## Examples
 
 <Tip>
-**1 — “I cannot browse at all”**
+
+### 1 — “I cannot browse at all”
 
 1. Confirm proxy host/port and [Listen](/admin_guide/infrastructure/network_settings).
 2. Search Detailed logs for the client IP. If there are no rows, the request never reached SafeSquid (firewall, wrong proxy, or service down).
@@ -72,7 +73,8 @@ Do not leave full DEBUG enabled in production. It grows disks quickly and makes 
 </Tip>
 
 <Tip>
-**2 — “Only one site is blocked”**
+
+### 2 — “Only one site is blocked”
 
 1. Find the URL in Detailed logs.
 2. Read `filter_name` and `filtering_reason` (often Access Profiles, redirect, or a scanner).
@@ -80,7 +82,8 @@ Do not leave full DEBUG enabled in production. It grows disks quickly and makes 
 </Tip>
 
 <Tip>
-**3 — “Login keeps asking for a password”**
+
+### 3 — “Login keeps asking for a password”
 
 1. Note whether Kerberos / SSO or System authentication is enabled ([Authentication](/admin_guide/infrastructure/authentication)).
 2. Watch Native logs for `security:`, `pam:`, `ldap:`.

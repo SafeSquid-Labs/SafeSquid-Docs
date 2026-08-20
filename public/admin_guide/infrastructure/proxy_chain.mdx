@@ -74,7 +74,8 @@ Source: `sources/src/forward.cpp` — CARP hash, blank Proxy stop, ICP peer sele
 ## Examples
 
 <Tip>
-**1 — All HTTP through one upstream**
+
+### 1 — All HTTP through one upstream
 
 - Enabled: on
 - Row: Proxy `upstream.example.com`, Port `3128`, Type HTTP, Applies to HTTP + CONNECT
@@ -83,7 +84,8 @@ Source: `sources/src/forward.cpp` — CARP hash, blank Proxy stop, ICP peer sele
 </Tip>
 
 <Tip>
-**2 — Profile-specific upstream with direct stop**
+
+### 2 — Profile-specific upstream with direct stop
 
 - Row 1: Profiles `USE PARENT PROXY`, Proxy `parent.internal:8080`
 - Row 2: Profiles blank, Proxy blank
@@ -92,7 +94,8 @@ Source: `sources/src/forward.cpp` — CARP hash, blank Proxy stop, ICP peer sele
 </Tip>
 
 <Tip>
-**3 — CARP among two peers**
+
+### 3 — CARP among two peers
 
 - Enable CARP on; two rows with different Proxy hosts, both match profiles/protocols
 
