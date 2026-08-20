@@ -41,3 +41,12 @@ Navigation hub for the Use Cases section.
 ## Integrations
 
 - [Integrations](/use_cases/integrations/integrations)
+
+## Operations & Lifecycle
+
+Day-2 operations for SafeSquid SWG — scaling, performance tuning, customisation, and upgrade lifecycle.
+
+- [Scaling & High Availability](/use_cases/scaling_and_high_availability/proxy_clustering)
+- [Performance Acceleration](/use_cases/performance_acceleration/performance_accelerators)
+- [Customisation](/use_cases/customisation/customisation)
+- [Upgrade](/use_cases/upgrade/upgrade_safesquid)

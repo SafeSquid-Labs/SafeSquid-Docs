@@ -314,59 +314,54 @@
               "use_cases/integrations/integrations",
               "use_cases/integrations/icap"
             ]
-          }
-        ]
-      },
-      {
-        "tab": "Admin Guide",
-        "groups": [
+          },
           {
             "group": "Scaling & High Availability",
-            "root": "admin_guide/scaling_and_high_availability/proxy_clustering",
+            "root": "use_cases/scaling_and_high_availability/proxy_clustering",
             "pages": [
-              "admin_guide/scaling_and_high_availability/proxy_clustering",
-              "admin_guide/scaling_and_high_availability/operational_modes",
-              "admin_guide/scaling_and_high_availability/disaster_recovery",
-              "admin_guide/scaling_and_high_availability/master_slave",
-              "admin_guide/scaling_and_high_availability/vpn",
-              "admin_guide/scaling_and_high_availability/wccp",
-              "admin_guide/scaling_and_high_availability/forward_proxy",
-              "admin_guide/scaling_and_high_availability/proxy_chain",
-              "admin_guide/scaling_and_high_availability/reverse_proxy",
-              "admin_guide/scaling_and_high_availability/tcp_proxy",
-              "admin_guide/scaling_and_high_availability/transparent_proxy"
+              "use_cases/scaling_and_high_availability/proxy_clustering",
+              "use_cases/scaling_and_high_availability/operational_modes",
+              "use_cases/scaling_and_high_availability/disaster_recovery",
+              "use_cases/scaling_and_high_availability/master_slave",
+              "use_cases/scaling_and_high_availability/vpn",
+              "use_cases/scaling_and_high_availability/wccp",
+              "use_cases/scaling_and_high_availability/forward_proxy",
+              "use_cases/scaling_and_high_availability/proxy_chain",
+              "use_cases/scaling_and_high_availability/reverse_proxy",
+              "use_cases/scaling_and_high_availability/tcp_proxy",
+              "use_cases/scaling_and_high_availability/transparent_proxy"
             ]
           },
           {
             "group": "Performance Acceleration",
-            "root": "admin_guide/performance_acceleration/performance_accelerators",
+            "root": "use_cases/performance_acceleration/performance_accelerators",
             "pages": [
-              "admin_guide/performance_acceleration/performance_accelerators",
-              "admin_guide/performance_acceleration/caching",
-              "admin_guide/performance_acceleration/manage_bandwidth",
-              "admin_guide/performance_acceleration/performance_plot",
-              "admin_guide/performance_acceleration/pre_fetching",
-              "admin_guide/performance_acceleration/speed_limits"
+              "use_cases/performance_acceleration/performance_accelerators",
+              "use_cases/performance_acceleration/caching",
+              "use_cases/performance_acceleration/manage_bandwidth",
+              "use_cases/performance_acceleration/performance_plot",
+              "use_cases/performance_acceleration/pre_fetching",
+              "use_cases/performance_acceleration/speed_limits"
             ]
           },
           {
             "group": "Customisation",
-            "root": "admin_guide/customisation/customisation",
+            "root": "use_cases/customisation/customisation",
             "pages": [
-              "admin_guide/customisation/customisation",
-              "admin_guide/customisation/configuration_sync",
-              "admin_guide/customisation/configure_cloud_restore",
-              "admin_guide/customisation/custom_templates",
-              "admin_guide/customisation/startup_parameters"
+              "use_cases/customisation/customisation",
+              "use_cases/customisation/configuration_sync",
+              "use_cases/customisation/configure_cloud_restore",
+              "use_cases/customisation/custom_templates",
+              "use_cases/customisation/startup_parameters"
             ]
           },
           {
             "group": "Upgrade",
-            "root": "admin_guide/upgrade/upgrade_safesquid",
+            "root": "use_cases/upgrade/upgrade_safesquid",
             "pages": [
-              "admin_guide/upgrade/upgrade_safesquid",
-              "admin_guide/upgrade/os_upgrade",
-              "admin_guide/upgrade/version_upgrade"
+              "use_cases/upgrade/upgrade_safesquid",
+              "use_cases/upgrade/os_upgrade",
+              "use_cases/upgrade/version_upgrade"
             ]
           }
         ]
@@ -406,5 +401,127 @@
   },
   "icons": {
     "library": "fontawesome"
-  }
+  },
+  "redirects": [
+    {
+      "source": "/admin_guide/main",
+      "destination": "/use_cases/main"
+    },
+    {
+      "source": "/admin_guide/scaling_and_high_availability/disaster_recovery",
+      "destination": "/use_cases/scaling_and_high_availability/disaster_recovery"
+    },
+    {
+      "source": "/admin_guide/scaling_and_high_availability/forward_proxy",
+      "destination": "/use_cases/scaling_and_high_availability/forward_proxy"
+    },
+    {
+      "source": "/admin_guide/scaling_and_high_availability/main",
+      "destination": "/use_cases/scaling_and_high_availability/main"
+    },
+    {
+      "source": "/admin_guide/scaling_and_high_availability/master_slave",
+      "destination": "/use_cases/scaling_and_high_availability/master_slave"
+    },
+    {
+      "source": "/admin_guide/scaling_and_high_availability/operational_modes",
+      "destination": "/use_cases/scaling_and_high_availability/operational_modes"
+    },
+    {
+      "source": "/admin_guide/scaling_and_high_availability/proxy_chain",
+      "destination": "/use_cases/scaling_and_high_availability/proxy_chain"
+    },
+    {
+      "source": "/admin_guide/scaling_and_high_availability/proxy_clustering",
+      "destination": "/use_cases/scaling_and_high_availability/proxy_clustering"
+    },
+    {
+      "source": "/admin_guide/scaling_and_high_availability/reverse_proxy",
+      "destination": "/use_cases/scaling_and_high_availability/reverse_proxy"
+    },
+    {
+      "source": "/admin_guide/scaling_and_high_availability/tcp_proxy",
+      "destination": "/use_cases/scaling_and_high_availability/tcp_proxy"
+    },
+    {
+      "source": "/admin_guide/scaling_and_high_availability/transparent_proxy",
+      "destination": "/use_cases/scaling_and_high_availability/transparent_proxy"
+    },
+    {
+      "source": "/admin_guide/scaling_and_high_availability/vpn",
+      "destination": "/use_cases/scaling_and_high_availability/vpn"
+    },
+    {
+      "source": "/admin_guide/scaling_and_high_availability/wccp",
+      "destination": "/use_cases/scaling_and_high_availability/wccp"
+    },
+    {
+      "source": "/admin_guide/performance_acceleration/caching",
+      "destination": "/use_cases/performance_acceleration/caching"
+    },
+    {
+      "source": "/admin_guide/performance_acceleration/main",
+      "destination": "/use_cases/performance_acceleration/main"
+    },
+    {
+      "source": "/admin_guide/performance_acceleration/manage_bandwidth",
+      "destination": "/use_cases/performance_acceleration/manage_bandwidth"
+    },
+    {
+      "source": "/admin_guide/performance_acceleration/performance_accelerators",
+      "destination": "/use_cases/performance_acceleration/performance_accelerators"
+    },
+    {
+      "source": "/admin_guide/performance_acceleration/performance_plot",
+      "destination": "/use_cases/performance_acceleration/performance_plot"
+    },
+    {
+      "source": "/admin_guide/performance_acceleration/pre_fetching",
+      "destination": "/use_cases/performance_acceleration/pre_fetching"
+    },
+    {
+      "source": "/admin_guide/performance_acceleration/speed_limits",
+      "destination": "/use_cases/performance_acceleration/speed_limits"
+    },
+    {
+      "source": "/admin_guide/customisation/configuration_sync",
+      "destination": "/use_cases/customisation/configuration_sync"
+    },
+    {
+      "source": "/admin_guide/customisation/configure_cloud_restore",
+      "destination": "/use_cases/customisation/configure_cloud_restore"
+    },
+    {
+      "source": "/admin_guide/customisation/custom_templates",
+      "destination": "/use_cases/customisation/custom_templates"
+    },
+    {
+      "source": "/admin_guide/customisation/customisation",
+      "destination": "/use_cases/customisation/customisation"
+    },
+    {
+      "source": "/admin_guide/customisation/main",
+      "destination": "/use_cases/customisation/main"
+    },
+    {
+      "source": "/admin_guide/customisation/startup_parameters",
+      "destination": "/use_cases/customisation/startup_parameters"
+    },
+    {
+      "source": "/admin_guide/upgrade/main",
+      "destination": "/use_cases/upgrade/main"
+    },
+    {
+      "source": "/admin_guide/upgrade/os_upgrade",
+      "destination": "/use_cases/upgrade/os_upgrade"
+    },
+    {
+      "source": "/admin_guide/upgrade/upgrade_safesquid",
+      "destination": "/use_cases/upgrade/upgrade_safesquid"
+    },
+    {
+      "source": "/admin_guide/upgrade/version_upgrade",
+      "destination": "/use_cases/upgrade/version_upgrade"
+    }
+  ]
 }

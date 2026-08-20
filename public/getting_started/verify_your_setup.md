@@ -219,7 +219,7 @@ Before routing broad user traffic, confirm these controls are planned or already
 - Authentication integrates with the approved identity source.
 - Baseline access policies block malware, high-risk categories, and unauthorized applications.
 - Reporting or log export captures access evidence for incident response.
-- High availability is planned with [Proxy Clustering](/admin_guide/scaling_and_high_availability/proxy_clustering) when uptime requirements demand it.
+- High availability is planned with [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering) when uptime requirements demand it.
 - Support and rollback owners are documented.
 
 ## Verification is complete
