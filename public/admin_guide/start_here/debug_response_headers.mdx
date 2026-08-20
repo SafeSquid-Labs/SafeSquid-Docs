@@ -1,0 +1,62 @@
+---
+title: "Debug response headers"
+---
+
+<Note>
+  CLI man page: `safesquid-debug-headers(7)`
+</Note>
+
+SafeSquid can attach diagnostic information to HTTP messages as `X-SafeSquid-*` and module-specific headers. Modules push entries onto the connection `dheader` list; when headers are sent, SafeSquid may insert a fixed identity block plus every marked `dheader` entry.
+
+This is the supported way to see which profiles, categories, and filters applied to a request.
+
+## Enable or disable
+
+In **System configuration**, set **Send Debugging Headers To**:
+
+- **NONE** — Do not send debugging headers (production default).
+- **CLIENT** — Add debugging headers on responses to the browser.
+- **SERVER** — Add debugging headers on requests to the origin or upstream proxy.
+- **BOTH** — Send to client and server.
+
+<Note>
+Enable CLIENT or BOTH only on a test profile or management network. These headers can reveal usernames, groups, and policy decisions.
+</Note>
+
+## Always included (when enabled)
+
+- `X-Powered-By` — product name
+- `X-SafeSquid-Client-ID` — `clientid.request` (match Detailed logs)
+- `X-SafeSquid-User` — username
+- `X-SafeSquid-User-Groups` — groups from Access restrictions
+- `X-SafeSquid-Profiles` — Access Profiles tags
+- `X-SafeSquid-Categories` / `X-SafeSquid-Ref-Categories`
+- `X-SafeSquid-Request-Types`, `X-SafeSquid-Response-Types`
+- `X-SafeSquid-Application-Signatures`
+- `X-SafeSquid-Time-Profiles`
+
+## Module and policy headers
+
+During processing, modules append named headers to `dheader`. Common examples:
+
+- `X-SafeSquid-Instance`, `X-SafeSquid-Subscription`, `X-Registered-Domain`
+- `X-SafeSquid-Access-Policy` — Access Profiles reason
+- `X-SafeSquid-Template` — block or info template name
+- `X-Cookie-Filter`, `X-Text-Analyzer`, `X-DNSBL-Filter`
+- `X-Clam-AV`, `X-Virus-Scan`, `X-DLP-Check`, `X-Image-Filter`
+- `X-Elevated-Privacy`, `X-URL-Cat`, `X-REF-Cat`
+
+Use browser developer tools (Network → response headers) or a capture. Correlate `X-SafeSquid-Client-ID` with Detailed logs `client_id` / `request_id`.
+
+## Bypass
+
+To skip filters for a role, use the Access restrictions **Bypass** field. Keep **Allow bypassing** when you want temporary Access Profiles DENY bypass (cookie).
+
+## See also
+
+- [Logging and troubleshooting](/admin_guide/start_here/logging)
+- [Architecture](/admin_guide/start_here/architecture)
+- [Access restrictions](/admin_guide/infrastructure_and_access/access_restrictions)
+- [System configuration](/admin_guide/infrastructure_and_access/system_configuration)
+
+CLI: `man safesquid-debug-headers`

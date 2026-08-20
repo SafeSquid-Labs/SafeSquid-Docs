@@ -1,0 +1,81 @@
+---
+title: "startup.ini tunables"
+---
+
+<Note>
+  CLI man page: `safesquid-startup(5)`
+</Note>
+
+Many appliance behaviours are set in `/opt/safesquid/startup.ini` (defaults in `/opt/safesquid/default/startup.ini`). These values are loaded before SafeSquid starts. They are **not** edited in Web UI sections from `sectionMaster.xml`.
+
+After edits, restart SafeSquid (`/etc/init.d/safesquid restart`). Path layout comes from `/opt/safesquid/setup.ini`.
+
+<Note>
+**Two layers:** Web UI / `sectionMaster` = policy XML. `startup.ini` = process and host tunables (listen, threads, logs, TLS, sync, DNS categorisation zone, and similar).
+</Note>
+
+## Listen and identity
+
+- **LISTEN\_IP / LISTEN\_PORT** — Default bind address and port if no Network settings Listen entry is enabled. See [Network settings](/admin_guide/infrastructure_and_access/network_settings).
+- **HOSTNAME / DOMAIN** — Appliance hostname and domain.
+
+## Threads, memory, sockets
+
+- `MAXTHREADS`, `MAX_FDS` (about 4× threads), `STACKSIZE`, `OVERLOAD_FACTOR`
+- `SOCKET_TIMEOUT`, `THREAD_TIMEOUT`, `MAX_CONCURRENT`
+- `HEAP_MEM`, `SOCK_MEM` — lower if the host is memory-starved
+- `SEND_SOCKET_BUFFERS`, `RECEIVE_SOCKET_BUFFERS` — `0` = no artificial limit
+- `TCP_KEEPIDLE_TIME`, `TCP_KEEPINTVL_TIME`, `TCP_KEEPCNT_COUNTS`, `CLIENT_DEFER_ACCEPT`
+
+## CPU placement
+
+- **LISTEN\_CPUS** — Cores reserved for accepting clients (default `0,1`)
+- **CPU\_RESERVATION** — Reservation strategy (default `1`)
+
+## Authentication cache
+
+`PASSWORD_CACHE_SIZE` and `PASSWORD_CACHE_EXPIRE_TIME` — see [Authentication](/admin_guide/start_here/authentication).
+
+## Logging
+
+`LOG_LEVEL`, `LOG_SIZE_LIMIT`, `PROCESS_OLD_LOGS`, `DATE_TIME_FORMAT`, and optional `NATIVE_UDP_*` / `EXTENDED_UDP_*` / `CONFIG_UDP_*` — see [Logging](/admin_guide/start_here/logging).
+
+## Master sync
+
+- **MASTER\_IP / MASTER\_PORT** — Master appliance for configuration sync
+- **NEVER\_SYNC / ALWAYS\_SYNC** — Comma-separated section names that must never / always sync (default `NEVER_SYNC=cache`)
+- **SYNCTIME** — Sync interval toward the master
+
+## Updates and HTTPS
+
+- `UPDATE_INTVL`, `UPDATE_RETRY_DELAY`
+- `FORCE_SNI` — use SNI for client certs in HTTPS Inspection
+- `USE_SESSION_TICKETS`
+- `CLIENT_CIPHERS_LIST` / `SERVER_CIPHERS_LIST` (TLS ≤ 1.2)
+- `CLIENT_CIPHERS_SUITE` / `SERVER_CIPHERS_SUITE` (TLS 1.3)
+
+## Categorisation and identity side channels
+
+- **DNS\_CAT\_ZONE** — DNS categorisation zone (default `.c.ssquid.in`). Set to `.` to disable.
+- **USER\_IP\_DB\_FILE** — SQLite map of IP → username (for example VPN clients)
+- **OPENVPN\_CLIENT\_HEAD** — OpenVPN client head file path when that integration is used
+- **IPV6\_DETECT\_SITE** — FQDN:PORT used to test IPv6 reachability
+
+## Reporting database
+
+`REAL_TIME_DB_WRITE`, `STATEMENT_COUNT`, `MAX_MAIL_THRESHOLD`, `MIN_MAIL_THRESHOLD`, `KEEP_DATA`.
+
+## Debugging
+
+`MALLOC_CHECKING` — glibc `MALLOC_CHECK_` mode (see comments in the default file).
+
+## See also
+
+- [Daemon and service](/admin_guide/start_here/daemon)
+- [Logging](/admin_guide/start_here/logging)
+- [Authentication](/admin_guide/start_here/authentication)
+- [HTTPS Inspection](/admin_guide/infrastructure_and_access/https_inspection)
+- [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds)
+- [Subscription](/admin_guide/infrastructure_and_access/subscription)
+
+CLI: `man safesquid-startup`

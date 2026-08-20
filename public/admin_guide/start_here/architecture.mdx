@@ -1,0 +1,227 @@
+---
+title: "Architecture and request pipeline"
+---
+
+<Note>
+  CLI man page: `safesquid(7)`
+</Note>
+
+SafeSquid sits between client browsers and the Internet (or upstream proxies). Each connection is handled by a worker that processes one HTTP transaction at a time, or a CONNECT tunnel for HTTPS.
+
+<Note>
+Setting up for the first time? Follow [First configuration](/admin_guide/start_here/first_configuration). This page explains how the pieces fit together.
+</Note>
+
+## Two configuration layers
+
+- **Web UI (policy)** — Access restrictions, Access Profiles, filters, scanners, and so on. Stored as sections in `config.xml`. This is what most administrators edit daily.
+- **startup.ini (process)** — Listen fallback, threads, log levels, TLS and sync tunables. Edited on the appliance filesystem — see [startup.ini](/admin_guide/start_here/startup_ini).
+
+## What to configure first
+
+This is setup order, not the order a live request is processed.
+
+<Frame caption="Chart A — configure in this order">
+  <img src="/images/admin_guide/architecture_flowchart.svg" alt="What to configure first" />
+</Frame>
+
+1. [Network settings](/admin_guide/infrastructure_and_access/network_settings) — where SafeSquid listens
+2. [Access restrictions](/admin_guide/infrastructure_and_access/access_restrictions) — who may connect, login if required, HTTP vs HTTPS rights
+3. [Access Profiles](/admin_guide/policies_and_profiles/access_profiles) — which sites and content to allow
+4. **Everything else** — HTTPS Inspection, scanners, cookie/header filters, Caching
+
+## What happens to a request
+
+Names below are the Web UI section titles, in the order SafeSquid calls them. A request is **either HTTPS or HTTP**, never both in sequence. Access Profiles Deny is remembered early and only enforced later. [DLP](/admin_guide/security_scanners/dlp), [Clam antivirus](/admin_guide/security_scanners/clam_antivirus), and [SqScan](/admin_guide/security_scanners/sqscan) are queued as their own steps (upload, then downloaded body). Chart B is drawn from this procedure.
+
+```
+When a browser uses the proxy:
+
+Network settings
+  already listening on the port the browser uses
+
+System configuration
+  timeouts, buffers, CONNECT port range (used later)
+
+Read the request
+  which site, which page, HTTP or HTTPS
+  (not a Web UI section)
+
+If the destination is unsafe or internal:
+  Templates → block page
+  STOP
+
+If the Host is the Web UI (safesquid.cfg):
+  skip Time Profiler, Application Signatures, Request Types,
+      Categorize Web-Sites, SSqore, and Access Profiles
+  Access restrictions
+    who may open the console; login if required
+    refuse or login challenge → STOP
+  show the Web UI
+  STOP
+  (Access Profiles Deny cannot lock you out of the console)
+
+Otherwise this is a normal visit:
+
+Time Profiler
+Application Signatures
+Request Types
+Categorize Web-Sites
+SSqore
+  SSqore runs only if the site is still uncategorized
+  these attach labels; they do not block
+
+Access Profiles
+  remember Allow or Deny
+  do not block yet
+
+Access restrictions
+  Integrate LDAP is consulted here if you configured it
+  External applications may assist login
+  must log in → prompt, STOP until they succeed
+  not allowed → Templates, STOP
+  remember HTTP, HTTPS, Bypass rights and User-Groups
+
+Access Profiles
+  run again (User-Groups from Access can change the match)
+
+Speed Limits
+  can delay or block
+  System configuration may hold a large upload
+
+Content modifier
+External applications
+ICAP
+HTTPS Inspection
+Subscription
+  request-modify stage; any of these can finish the request locally
+
+HTTPS or HTTP — not both:
+
+  HTTPS:
+    Access restrictions — CONNECT right, else Templates STOP
+    System configuration — CONNECT port range, else STOP
+    HTTPS Inspection — if it decrypts: start again at Read the request
+    else continue as a tunnel
+
+  HTTP:
+    Access restrictions — HTTP / proxy / transparent rights, else STOP
+    Redirect — first match → 302, STOP
+
+Access Profiles
+  now enforce Deny (unless temporary bypass) → Templates STOP
+  HTTPS Inspection can also block here
+
+If the request has an upload body:
+  Application Signatures
+  Request Types
+  Access Profiles
+  Clam antivirus
+  SqScan
+  Image analyzer
+  DLP
+    first of these that denies → Templates STOP
+    DLP inspects this upload only, not the page that comes back
+
+Caching
+
+DNS Blacklist
+  matching block policy → Templates STOP
+
+Proxy chain
+  upstream proxy or go direct
+
+Header filter
+Cookie filter
+Elevated Privacy
+Content modifier
+  on headers sent to the origin
+
+Fetch the response (cache hit or the Internet)
+
+Response Types
+Access Profiles
+  MIME / response labels; Deny → Templates STOP
+
+SqScan
+Clam antivirus
+Image analyzer
+Text analyzer
+ICAP
+  these inspect the downloaded body (malware and content)
+  match → Templates STOP
+  DLP does not run here
+
+Prefetching
+  linked objects in HTML
+FTP browsing
+  ftp:// only
+Templates if a block page is needed
+send the page to the browser
+write logs
+```
+
+Open a section: [Network settings](/admin_guide/infrastructure_and_access/network_settings) · [System configuration](/admin_guide/infrastructure_and_access/system_configuration) · [Templates](/admin_guide/policies_and_profiles/templates) · [Time Profiler](/admin_guide/policies_and_profiles/time_profiler) · [Application Signatures](/admin_guide/policies_and_profiles/application_signatures) · [Request Types](/admin_guide/policies_and_profiles/request_types) · [Categorize Web-Sites](/admin_guide/policies_and_profiles/categorize_web_sites) · [SSqore](/admin_guide/infrastructure_and_access/ssqore) · [Access Profiles](/admin_guide/policies_and_profiles/access_profiles) · [Access restrictions](/admin_guide/infrastructure_and_access/access_restrictions) · [Integrate LDAP](/admin_guide/infrastructure_and_access/integrate_ldap) · [External applications](/admin_guide/filtering_and_privacy/external_applications) · [Speed Limits](/admin_guide/policies_and_profiles/speed_limits) · [Content modifier](/admin_guide/filtering_and_privacy/content_modifier) · [ICAP](/admin_guide/security_scanners/icap) · [HTTPS Inspection](/admin_guide/infrastructure_and_access/https_inspection) · [Subscription](/admin_guide/infrastructure_and_access/subscription) · [Redirect](/admin_guide/filtering_and_privacy/redirect) · [DLP](/admin_guide/security_scanners/dlp) · [Caching](/admin_guide/performance/caching) · [DNS Blacklist](/admin_guide/filtering_and_privacy/dns_blacklist) · [Proxy chain](/admin_guide/infrastructure_and_access/proxy_chain) · [Header filter](/admin_guide/filtering_and_privacy/header_filter) · [Cookie filter](/admin_guide/filtering_and_privacy/cookie_filter) · [Elevated Privacy](/admin_guide/filtering_and_privacy/elevated_privacy) · [Response Types](/admin_guide/policies_and_profiles/response_types) · [Clam antivirus](/admin_guide/security_scanners/clam_antivirus) · [SqScan](/admin_guide/security_scanners/sqscan) · [Image analyzer](/admin_guide/security_scanners/image_analyzer) · [Text analyzer](/admin_guide/filtering_and_privacy/text_analyzer) · [Prefetching](/admin_guide/performance/prefetching) · [FTP browsing](/admin_guide/infrastructure_and_access/ftp_browsing)
+
+<Frame caption="Chart B — same procedure, Web UI section names in call order. Yes goes right and stops. No continues down. HTTPS and HTTP are a fork, then they meet again.">
+  <img src="/images/admin_guide/architecture_2_flowchart.svg" alt="Request pipeline using Web UI section names" />
+</Frame>
+
+<Note>
+Open the Web UI at `http://safesquid.cfg/` from a machine that Access restrictions allows. That path skips Access Profiles so you can still fix a mistaken Deny. HTTPS Inspection does not continue this HTTPS request — it decrypts and runs the inner HTTP from Read the request again. **DLP** inspects upload bodies only. **Clam antivirus** and **SqScan** inspect uploads and downloaded bodies. Direct (unbuffered) downloads skip the downloaded-body scanners.
+</Note>
+
+<Tip>
+
+### Example — one blocked HTTPS visit
+
+A user on the LAN opens `https://social.example/` through the proxy:
+
+1. Network settings, Read the request, and the host check pass (public site).
+2. Not the Web UI. Time Profiler, Application Signatures, Request Types, then Categorize Web-Sites / SSqore: category may be Social.
+3. Access Profiles remembers Deny for Social — no block page yet.
+4. Access restrictions already allows this person; they have the HTTPS right.
+5. The **HTTPS** branch only (not Redirect). Permission and System configuration CONNECT ports pass. Inspection off: stay on the tunnel.
+6. Access Profiles now enforces Deny: **Templates** block page. Detailed logs show which rule fired.
+</Tip>
+
+<Tip>
+
+### Example — DLP on upload, malware on download
+
+1. A user POSTs a spreadsheet. After Access Profiles Allow, the upload body is inspected: **Clam antivirus**, **SqScan**, **Image analyzer**, then **DLP**. A DLP MIME policy match sends **Templates** and stops — Caching and the origin never see that body.
+2. A later GET of an executable is Allowed by Access Profiles. Caching misses, DNS Blacklist passes, Proxy chain fetches it. **SqScan** or **Clam antivirus** on the downloaded body match: **Templates** block page. DLP does not run on that download.
+</Tip>
+
+## Policy matching styles
+
+- **Dual allow/deny lists** — Access restrictions, Cookie filter, Header filter. List order depends on the section default policy.
+- **First match** — Clam antivirus, HTTPS Inspection, Redirect, DNS Blacklist block policies, and several scanners.
+- **All matches** — Access Profiles (secondary), Speed Limits, Content modifier, [Application Signatures](/admin_guide/policies_and_profiles/application_signatures).
+- **Last match** — [DLP](/admin_guide/security_scanners/dlp) MIME policies (OCR uses cumulative score vs Threshold).
+- **Groups** — Menu groups (Accelerators, Real time content security) contain child sections only; they have no policy lists of their own.
+
+## Bypass
+
+Access restrictions entries can grant **Bypass** for Header filter, Cookie filter, Redirect, Content modifier, Proxy chain, Text analyzer, DNS Blacklist, antivirus, ICAP, and DLP. That skips those modules for matching clients. Separate from Access Profiles temporary bypass cookies (**Allow bypassing**).
+
+## Debug headers
+
+When **System configuration → Send Debugging Headers To** is CLIENT, SERVER, or BOTH, SafeSquid adds identity and policy headers. Prefer CLIENT only on a test network. See [Debug response headers](/admin_guide/start_here/debug_response_headers).
+
+## See also
+
+- [First configuration](/admin_guide/start_here/first_configuration)
+- [Daemon and service](/admin_guide/start_here/daemon)
+- [Access restrictions](/admin_guide/infrastructure_and_access/access_restrictions)
+- [Access Profiles](/admin_guide/policies_and_profiles/access_profiles)
+- [Logging](/admin_guide/start_here/logging)
+- [Application Signatures](/admin_guide/policies_and_profiles/application_signatures)
+- [Clam antivirus](/admin_guide/security_scanners/clam_antivirus)
+- [SqScan](/admin_guide/security_scanners/sqscan)
+- [DLP](/admin_guide/security_scanners/dlp)
+- [SSqore](/admin_guide/infrastructure_and_access/ssqore)
+- [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds)
+- [Full section index](/admin_guide/main)
+
+CLI: `man safesquid` (section 7)

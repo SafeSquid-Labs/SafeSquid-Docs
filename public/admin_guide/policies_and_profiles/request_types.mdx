@@ -1,0 +1,73 @@
+---
+title: "Request Types"
+---
+
+<Note>
+  CLI man page: `safesquid-reqProfiles(5)`
+</Note>
+
+The **Request Types** section (`safesquid-reqProfiles(5)`) labels HTTP requests with tags consumed by [Access Profiles](/admin_guide/policies_and_profiles/access_profiles) and other filters. It does not block traffic.
+
+## Core mechanics
+
+Validated against `sources/src/request_profiles.cpp` — `do_request_profile()`, `match_host_list()`, `req_profiles_update()`.
+
+### Processing order
+
+1. Application Signatures (unless subscription expired).
+2. **Domains and Urls** — substring match; every matching row applies.
+3. **Request Types** rows — all gates must pass; every match applies.
+
+<Frame caption="Request Types — row gate order">
+  <img src="/images/admin_guide/request_types_flowchart.svg" alt="Request Types gate flow" />
+</Frame>
+
+### Domains and Urls
+
+Tab-prefixed host+path substring find — not regex. Empty domain list or empty add/remove → row skipped. **Match:** Host, Referer, or Both.
+
+### Smart TLD
+
+When Host Name regex misses and Smart TLD is on, same regex retried against site name (host without public suffix).
+
+<Warning>
+**urlcommand field:** parsed in config but not evaluated in `req_profiles_update()`. Use **Protocol** or **File** instead.
+</Warning>
+
+<Warning>
+**Post Data Size:** runtime logic inverts UI labels (uses Content-Length only). Treat as experimental.
+</Warning>
+
+## Examples
+
+<Tip>
+
+### Uncachable query URLs
+
+**Config:** File `(cgi-bin|\?)`, add `uncachable_req`.
+
+**Result:** URLs with query string tagged; cache policies can skip storage.
+</Tip>
+
+<Tip>
+
+### CONNECT method
+
+**Config:** Method CONNECT, add `uncachable_req`.
+
+**Result:** tunnel requests tagged.
+</Tip>
+
+<Tip>
+
+### Skip categorization
+
+**Config:** Domains needle `partner.example`, Bypass DNSBL and Categorization on.
+
+**Result:** matching host bypasses DNSBL and category lookup.
+</Tip>
+
+## How to verify
+
+1. **Trace Entry** on one row; native logs show Added/Removed tags.
+2. Detailed logs `request_profiles` column.

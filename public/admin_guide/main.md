@@ -8,74 +8,74 @@ title: "Admin Guide"
 
 Administrator guides for the Secure Web Gateway. Start with the first-configuration path if you are new; use the section pages when you need detail, code-validated examples, and how to verify a change.
 
-Topic pages ([Architecture](/admin_guide/configure/architecture), [Authentication](/admin_guide/infrastructure/authentication), [Feeds](/admin_guide/infrastructure/cloud_feeds), [Logging](/admin_guide/reporting/logging), …) explain cross-cutting behaviour. Section pages document one Web UI configuration list each.
+Topic pages ([Architecture](/admin_guide/start_here/architecture), [Authentication](/admin_guide/start_here/authentication), [Feeds](/admin_guide/start_here/cloud_feeds), [Logging](/admin_guide/start_here/logging), …) explain cross-cutting behaviour. Section pages document one Web UI configuration list each.
 
 <Note>
-**New here?** Open [First configuration](/admin_guide/configure/first_configuration) — a short path from service check to a working Allow rule and your first content policy. Two config layers: Web UI (policy) and [startup.ini](/admin_guide/configure/startup_ini) (process tunables). CLI: `man safesquid`, `man safesquid-access`, etc. (after package install).
+**New here?** Open [First configuration](/admin_guide/start_here/first_configuration) — a short path from service check to a working Allow rule and your first content policy. Two config layers: Web UI (policy) and [startup.ini](/admin_guide/start_here/startup_ini) (process tunables). CLI: `man safesquid`, `man safesquid-access`, etc. (after package install).
 </Note>
 
 ## Start here
 
-- [First configuration](/admin_guide/configure/first_configuration) — recommended for new administrators
-- [Architecture and request pipeline](/admin_guide/configure/architecture)
-- [Daemon, service, and files](/admin_guide/configure/daemon)
-- [Network settings](/admin_guide/infrastructure/network_settings)
-- [Access restrictions](/admin_guide/infrastructure/access_restrictions)
-- [Authentication](/admin_guide/infrastructure/authentication)
-- [Access Profiles](/admin_guide/policymgr/access_profiles)
-- [Logging and troubleshooting](/admin_guide/reporting/logging)
-- [Debug response headers](/admin_guide/reporting/debug_response_headers)
-- [startup.ini tunables](/admin_guide/configure/startup_ini)
-- [Cloud / categorisation feeds](/admin_guide/infrastructure/cloud_feeds)
-- [Integrations](/admin_guide/infrastructure/integrations)
-- [Tools and Reports](/admin_guide/utilities/tools_and_reports)
+- [First configuration](/admin_guide/start_here/first_configuration) — recommended for new administrators
+- [Architecture and request pipeline](/admin_guide/start_here/architecture)
+- [Daemon, service, and files](/admin_guide/start_here/daemon)
+- [Network settings](/admin_guide/infrastructure_and_access/network_settings)
+- [Access restrictions](/admin_guide/infrastructure_and_access/access_restrictions)
+- [Authentication](/admin_guide/start_here/authentication)
+- [Access Profiles](/admin_guide/policies_and_profiles/access_profiles)
+- [Logging and troubleshooting](/admin_guide/start_here/logging)
+- [Debug response headers](/admin_guide/start_here/debug_response_headers)
+- [startup.ini tunables](/admin_guide/start_here/startup_ini)
+- [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds)
+- [Integrations](/admin_guide/start_here/integrations)
+- [Tools and Reports](/admin_guide/start_here/tools_and_reports)
 
 ## Infrastructure and access
 
-- [Access restrictions](/admin_guide/infrastructure/access_restrictions)
-- [Network settings](/admin_guide/infrastructure/network_settings)
-- [System configuration](/admin_guide/infrastructure/system_configuration)
-- [Integrate LDAP](/admin_guide/infrastructure/integrate_ldap)
-- [HTTPS Inspection](/admin_guide/infrastructure/https_inspection)
-- [Proxy chain](/admin_guide/infrastructure/proxy_chain)
-- [FTP browsing](/admin_guide/infrastructure/ftp_browsing)
-- [WCCP](/admin_guide/infrastructure/wccp)
-- [Subscription](/admin_guide/infrastructure/subscription)
-- [SSqore](/admin_guide/infrastructure/ssqore)
+- [Access restrictions](/admin_guide/infrastructure_and_access/access_restrictions)
+- [Network settings](/admin_guide/infrastructure_and_access/network_settings)
+- [System configuration](/admin_guide/infrastructure_and_access/system_configuration)
+- [Integrate LDAP](/admin_guide/infrastructure_and_access/integrate_ldap)
+- [HTTPS Inspection](/admin_guide/infrastructure_and_access/https_inspection)
+- [Proxy chain](/admin_guide/infrastructure_and_access/proxy_chain)
+- [FTP browsing](/admin_guide/infrastructure_and_access/ftp_browsing)
+- [WCCP](/admin_guide/infrastructure_and_access/wccp)
+- [Subscription](/admin_guide/infrastructure_and_access/subscription)
+- [SSqore](/admin_guide/infrastructure_and_access/ssqore)
 
 ## Policies and profiles
 
-- [Access Profiles](/admin_guide/policymgr/access_profiles)
-- [Speed Limits](/admin_guide/policymgr/speed_limits)
-- [Request Types](/admin_guide/profilesdef/request_types)
-- [Response Types](/admin_guide/profilesdef/response_types)
-- [Time Profiler](/admin_guide/profilesdef/time_profiler)
-- [Templates](/admin_guide/profilesdef/templates)
-- [Application Signatures](/admin_guide/profilesdef/application_signatures)
-- [Content Signatures](/admin_guide/profilesdef/content_signatures)
-- [Suggested Profiles](/admin_guide/profilesdef/suggested_profiles)
-- [Categorize Web-Sites](/admin_guide/profilesdef/categorize_web_sites)
+- [Access Profiles](/admin_guide/policies_and_profiles/access_profiles)
+- [Speed Limits](/admin_guide/policies_and_profiles/speed_limits)
+- [Request Types](/admin_guide/policies_and_profiles/request_types)
+- [Response Types](/admin_guide/policies_and_profiles/response_types)
+- [Time Profiler](/admin_guide/policies_and_profiles/time_profiler)
+- [Templates](/admin_guide/policies_and_profiles/templates)
+- [Application Signatures](/admin_guide/policies_and_profiles/application_signatures)
+- [Content Signatures](/admin_guide/policies_and_profiles/content_signatures)
+- [Suggested Profiles](/admin_guide/policies_and_profiles/suggested_profiles)
+- [Categorize Web-Sites](/admin_guide/policies_and_profiles/categorize_web_sites)
 
 ## Filtering and privacy
 
-- [Cookie filter](/admin_guide/filter/cookie_filter)
-- [Header filter](/admin_guide/filter/header_filter)
-- [Text analyzer](/admin_guide/policymgr/text_analyzer)
-- [DNS Blacklist](/admin_guide/policymgr/dns_blacklist)
-- [Redirect](/admin_guide/policymgr/redirect)
-- [Content modifier](/admin_guide/policymgr/content_modifier)
-- [Elevated Privacy](/admin_guide/filter/elevated_privacy)
-- [External applications](/admin_guide/policymgr/external_applications)
+- [Cookie filter](/admin_guide/filtering_and_privacy/cookie_filter)
+- [Header filter](/admin_guide/filtering_and_privacy/header_filter)
+- [Text analyzer](/admin_guide/filtering_and_privacy/text_analyzer)
+- [DNS Blacklist](/admin_guide/filtering_and_privacy/dns_blacklist)
+- [Redirect](/admin_guide/filtering_and_privacy/redirect)
+- [Content modifier](/admin_guide/filtering_and_privacy/content_modifier)
+- [Elevated Privacy](/admin_guide/filtering_and_privacy/elevated_privacy)
+- [External applications](/admin_guide/filtering_and_privacy/external_applications)
 
 ## Performance
 
-- [Caching](/admin_guide/accelerator/caching)
-- [Prefetching](/admin_guide/accelerator/prefetching)
+- [Caching](/admin_guide/performance/caching)
+- [Prefetching](/admin_guide/performance/prefetching)
 
 ## Security scanners
 
-- [Clam antivirus](/admin_guide/antivirus/clam_antivirus)
-- [SqScan](/admin_guide/antivirus/sqscan)
-- [Image analyzer](/admin_guide/antivirus/image_analyzer)
-- [DLP](/admin_guide/antivirus/dlp)
-- [ICAP](/admin_guide/antivirus/icap)
+- [Clam antivirus](/admin_guide/security_scanners/clam_antivirus)
+- [SqScan](/admin_guide/security_scanners/sqscan)
+- [Image analyzer](/admin_guide/security_scanners/image_analyzer)
+- [DLP](/admin_guide/security_scanners/dlp)
+- [ICAP](/admin_guide/security_scanners/icap)

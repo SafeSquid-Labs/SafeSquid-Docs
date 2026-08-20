@@ -1,0 +1,55 @@
+---
+title: "Subscription"
+---
+
+<Note>
+  CLI man page: `safesquid-subscription(5)`
+</Note>
+
+**Subscription** is a Web UI application for license status and activation key management. It does not define proxy policy rows; it controls whether the appliance considers the subscription valid and whether update feeds and signature modules can run.
+
+## What you can do here
+
+- View current subscription and license information (also under **Reports → License/Users Info**).
+- Upload an activation key file when renewing or registering the appliance.
+
+## How subscription affects the proxy
+
+1. On each request, SafeSquid sets or clears `SUBSCRIPTION_EXPIRED` on the connection from subscription validity checks.
+2. When expired, [Application Signatures](/admin_guide/policies_and_profiles/application_signatures) processing is skipped for that connection and security logging records filter `subscription`.
+3. Background subscription accounting talks to the vendor service, refreshes entitlement, and drives scheduled update hooks (signatures, categorisation feeds, trusted CA updates, and similar).
+4. Activation key upload is accepted only when the current subscription state allows upload; uploaded files are handled by the security subsystem.
+
+<Warning>
+An expired subscription is not the same as Access restrictions DENY — users may still connect while signature-dependent labelling and some update paths stop. Check Reports and Native SECURITY logs when behaviour changes after expiry.
+</Warning>
+
+## Examples
+
+<Tip>
+
+### 1 — Renew after expiry
+
+1. Open Subscription → upload activation key from vendor.
+2. Wait for subscription refresh (or restart if your procedure requires it).
+3. Confirm **License/Users Info** shows valid dates and application signature updates resume.
+
+**Result:** `SUBSCRIPTION_EXPIRED` clears on new connections; application signature tags apply again.
+</Tip>
+
+## How to verify
+
+1. **Reports → License/Users Info** and **Modules Status**.
+2. Native SECURITY logs for `subscription: expired` on test requests.
+3. Application signature stats after a successful update cycle.
+
+## See also
+
+- [SafeSquid daemon](/admin_guide/start_here/daemon)
+- [Tools](/admin_guide/start_here/tools_and_reports)
+- [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds)
+- [Application Signatures](/admin_guide/policies_and_profiles/application_signatures)
+- [Architecture](/admin_guide/start_here/architecture)
+- [Logging](/admin_guide/start_here/logging)
+
+CLI: `man safesquid-subscription`

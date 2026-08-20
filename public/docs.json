@@ -370,93 +370,81 @@
         "tab": "Admin Guide",
         "groups": [
           {
-            "group": "Configure",
+            "group": "Start here",
             "pages": [
-              "admin_guide/configure/first_configuration",
-              "admin_guide/configure/architecture",
-              "admin_guide/configure/daemon",
-              "admin_guide/configure/startup_ini"
+              "admin_guide/start_here/first_configuration",
+              "admin_guide/start_here/architecture",
+              "admin_guide/start_here/daemon",
+              "admin_guide/infrastructure_and_access/network_settings",
+              "admin_guide/infrastructure_and_access/access_restrictions",
+              "admin_guide/start_here/authentication",
+              "admin_guide/policies_and_profiles/access_profiles",
+              "admin_guide/start_here/logging",
+              "admin_guide/start_here/debug_response_headers",
+              "admin_guide/start_here/startup_ini",
+              "admin_guide/start_here/cloud_feeds",
+              "admin_guide/start_here/integrations",
+              "admin_guide/start_here/tools_and_reports"
             ]
           },
           {
-            "group": "Application Setup",
+            "group": "Infrastructure and access",
             "pages": [
-              "admin_guide/infrastructure/access_restrictions",
-              "admin_guide/infrastructure/authentication",
-              "admin_guide/infrastructure/network_settings",
-              "admin_guide/infrastructure/system_configuration",
-              "admin_guide/infrastructure/integrate_ldap",
-              "admin_guide/infrastructure/https_inspection",
-              "admin_guide/infrastructure/proxy_chain",
-              "admin_guide/infrastructure/ftp_browsing",
-              "admin_guide/infrastructure/wccp",
-              "admin_guide/infrastructure/cloud_feeds",
-              "admin_guide/infrastructure/ssqore",
-              "admin_guide/infrastructure/integrations",
-              "admin_guide/infrastructure/subscription"
+              "admin_guide/infrastructure_and_access/access_restrictions",
+              "admin_guide/infrastructure_and_access/network_settings",
+              "admin_guide/infrastructure_and_access/system_configuration",
+              "admin_guide/infrastructure_and_access/integrate_ldap",
+              "admin_guide/infrastructure_and_access/https_inspection",
+              "admin_guide/infrastructure_and_access/proxy_chain",
+              "admin_guide/infrastructure_and_access/ftp_browsing",
+              "admin_guide/infrastructure_and_access/wccp",
+              "admin_guide/infrastructure_and_access/subscription",
+              "admin_guide/infrastructure_and_access/ssqore"
             ]
           },
           {
-            "group": "Restriction Policies",
+            "group": "Policies and profiles",
             "pages": [
-              "admin_guide/policymgr/access_profiles",
-              "admin_guide/policymgr/speed_limits",
-              "admin_guide/policymgr/dns_blacklist",
-              "admin_guide/policymgr/text_analyzer",
-              "admin_guide/policymgr/redirect",
-              "admin_guide/policymgr/content_modifier",
-              "admin_guide/policymgr/external_applications"
+              "admin_guide/policies_and_profiles/access_profiles",
+              "admin_guide/policies_and_profiles/speed_limits",
+              "admin_guide/policies_and_profiles/request_types",
+              "admin_guide/policies_and_profiles/response_types",
+              "admin_guide/policies_and_profiles/time_profiler",
+              "admin_guide/policies_and_profiles/templates",
+              "admin_guide/policies_and_profiles/application_signatures",
+              "admin_guide/policies_and_profiles/content_signatures",
+              "admin_guide/policies_and_profiles/suggested_profiles",
+              "admin_guide/policies_and_profiles/categorize_web_sites"
             ]
           },
           {
-            "group": "Custom Settings",
+            "group": "Filtering and privacy",
             "pages": [
-              "admin_guide/profilesdef/request_types",
-              "admin_guide/profilesdef/response_types",
-              "admin_guide/profilesdef/time_profiler",
-              "admin_guide/profilesdef/templates",
-              "admin_guide/profilesdef/application_signatures",
-              "admin_guide/profilesdef/content_signatures",
-              "admin_guide/profilesdef/suggested_profiles",
-              "admin_guide/profilesdef/categorize_web_sites"
+              "admin_guide/filtering_and_privacy/cookie_filter",
+              "admin_guide/filtering_and_privacy/header_filter",
+              "admin_guide/filtering_and_privacy/text_analyzer",
+              "admin_guide/filtering_and_privacy/dns_blacklist",
+              "admin_guide/filtering_and_privacy/redirect",
+              "admin_guide/filtering_and_privacy/content_modifier",
+              "admin_guide/filtering_and_privacy/elevated_privacy",
+              "admin_guide/filtering_and_privacy/external_applications"
             ]
           },
           {
-            "group": "Privacy control",
+            "group": "Performance",
             "pages": [
-              "admin_guide/filter/cookie_filter",
-              "admin_guide/filter/header_filter",
-              "admin_guide/filter/elevated_privacy"
+              "admin_guide/performance/caching",
+              "admin_guide/performance/prefetching"
             ]
           },
           {
-            "group": "Real time content security",
+            "group": "Security scanners",
             "pages": [
-              "admin_guide/antivirus/clam_antivirus",
-              "admin_guide/antivirus/sqscan",
-              "admin_guide/antivirus/image_analyzer",
-              "admin_guide/antivirus/dlp",
-              "admin_guide/antivirus/icap"
-            ]
-          },
-          {
-            "group": "Accelerators",
-            "pages": [
-              "admin_guide/accelerator/caching",
-              "admin_guide/accelerator/prefetching"
-            ]
-          },
-          {
-            "group": "Reports",
-            "pages": [
-              "admin_guide/reporting/logging",
-              "admin_guide/reporting/debug_response_headers"
-            ]
-          },
-          {
-            "group": "Support",
-            "pages": [
-              "admin_guide/utilities/tools_and_reports"
+              "admin_guide/security_scanners/clam_antivirus",
+              "admin_guide/security_scanners/sqscan",
+              "admin_guide/security_scanners/image_analyzer",
+              "admin_guide/security_scanners/dlp",
+              "admin_guide/security_scanners/icap"
             ]
           }
         ]

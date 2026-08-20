@@ -1,0 +1,80 @@
+---
+title: "SSqore"
+---
+
+<Note>
+  CLI man page: `safesquid-ssqore(5)`
+</Note>
+
+**SSqore** categorizes websites by the likely nature of their content. It queries SafeSquid's Content Categorisation Service (CCS) and adds category names to the connection so [Access Profiles](/admin_guide/policies_and_profiles/access_profiles) and filters can match on them.
+
+<Note>
+SSqore has globals only — no policy list. See [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds) for CCS connectivity and offline behaviour.
+</Note>
+
+## Global settings
+
+- **Enabled** — When off, URL categorization is skipped and no CCS categories are added to connections. When on, host names are looked up and categories are merged into the connection profile list for policy matching.
+- **Heuristic** — Stored in configuration but **not read** by `ssqore.cpp` in the current codebase. Toggling Heuristic does not change URL lookup behaviour today.
+
+## How categorization works
+
+1. During request profiling, SSqore resolves the request host (and referer host where applicable) against CCS.
+2. Returned category names are added to `website_categories` / connection profiles used by Access Profiles and other sections.
+3. Results are cached under `/var/lib/safesquid/ssqore/cache` to reduce repeat lookups.
+4. URLs that cannot be categorized may be queued as uncategorized for later retry.
+5. When SSqore is disabled, categorization hooks exit without adding categories.
+
+<Warning>
+**Code quirk — Heuristic unused:** The Heuristic global is persisted in config XML but the runtime module does not consult `heuristic` when calling CCS. Enable/disable behaviour is controlled only by the Enabled switch.
+</Warning>
+
+## Using categories in policies
+
+Access Profiles Secondary Policies typically match SSqore category tags (for example block Social Networking). Categories appear as profile strings on the connection after lookup — design profiles to reference the exact category names CCS returns.
+
+Custom or local categories may also come from the [Categorize Web-Sites](/admin_guide/policies_and_profiles/categorize_web_sites) tool and DNS category zone settings in startup.ini; SSqore is the cloud lookup path.
+
+## Examples
+
+<Tip>
+
+### 1 — Enable cloud categorization
+
+- Enabled: on
+- Valid subscription and network path to CCS (see feeds documentation)
+
+**Result:** browsing adds category tags to each connection; Access Profiles can ALLOW or DENY by category.
+</Tip>
+
+<Tip>
+
+### 2 — Offline appliance
+
+- Enabled: on
+- No CCS reachability
+
+**Result:** lookups fail or use cache only; uncategorized hosts may receive Uncategorized Web-Sites or no new categories until connectivity returns.
+</Tip>
+
+## Recommended practice
+
+- Keep SSqore enabled when Access Profiles depend on cloud categories.
+- Do not rely on Heuristic until wired in code — treat it as a stored placeholder.
+- Monitor subscription and feed status under Support / feeds documentation.
+
+## How to verify
+
+1. Enable CATEGORY log level; look for `SSqoreSection::` and category assignment lines.
+2. Open Detailed logs for a browsed URL; confirm category tags on the connection.
+3. Test an Access Profile that matches a known SSqore category (allow or deny).
+
+## See also
+
+- [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds)
+- [Access Profiles](/admin_guide/policies_and_profiles/access_profiles)
+- [Categorize Web-Sites](/admin_guide/policies_and_profiles/categorize_web_sites)
+- [Subscription](/admin_guide/infrastructure_and_access/subscription)
+- [Logging and troubleshooting](/admin_guide/start_here/logging)
+
+CLI: `man safesquid-ssqore`
