@@ -43,7 +43,7 @@ When the UI doesn't load, activation fails, or clients can't reach the proxy, us
 Start with the symptom category rather than a subsystem guess. That reduces false leads when a DNS issue looks like a policy issue or a time-sync issue looks like an authentication failure.
 
 ### Installation and access
-Use this page together with [Getting Started](/getting_started/introduction) when the product does not install cleanly, the web interface is unreachable, or activation cannot be completed.
+Use this page together with [Getting Started](/getting_started/welcome) when the product does not install cleanly, the web interface is unreachable, or activation cannot be completed.
 
 ### Identity and SSL
 Use [Authentication](/Authentication), [SSL Inspection](/SSL_Inspection), and [Supporting Services Monit](/safesquid_swg/interface/supporting_services_monit) when user login, certificate trust, or directory-backed access starts failing.
@@ -66,4 +66,4 @@ Administrators need advanced diagnostic tools to analyze specific connection iss
 
 ## Next steps
 
-After resolving the issue, verify with [Getting Started](/getting_started/introduction); for configuration changes see [Configuration Portal](/safesquid_swg/interface/configuration_portal).
+After resolving the issue, verify with [Getting Started](/getting_started/welcome); for configuration changes see [Configuration Portal](/safesquid_swg/interface/configuration_portal).

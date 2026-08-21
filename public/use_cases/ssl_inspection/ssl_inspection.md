@@ -201,7 +201,7 @@ A: Yes, use bypass policies to exclude specific domains (e.g., banking sites).
 A: Add those apps' domains to the bypass list. They cannot be inspected.
 
 **Q: Does this slow down HTTPS traffic?**  
-**A (Draft — pending engineering SSOT):** Inspection adds CPU-bound TLS work. [Deployment Planning](/Deployment_Planning) covers **AES-NI** and sizing. Do **not** treat fixed millisecond figures as verified product facts until CTO publishes benchmarks in-docs.
+**A (Draft — pending engineering SSOT):** Inspection adds CPU-bound TLS work. [Deployment Planning](/deployment/deployment_planning) covers **AES-NI** and sizing. Do **not** treat fixed millisecond figures as verified product facts until CTO publishes benchmarks in-docs.
 
 ---
 

@@ -19,7 +19,7 @@ SafeSquid SWG becomes a security control only after traffic is deliberately rout
 
 <Steps>
   <Step title="Understand the control path">
-    Read [Understand SafeSquid SWG](/getting_started/introduction) to confirm why HTTP and HTTPS traffic must pass through a Layer 7 proxy before internet access.
+    Read [Understand SafeSquid SWG](/getting_started/welcome) to confirm why HTTP and HTTPS traffic must pass through a Layer 7 proxy before internet access.
 
     Confirm the deployment record states which traffic must traverse SafeSquid.
 
@@ -33,7 +33,7 @@ SafeSquid SWG becomes a security control only after traffic is deliberately rout
     If the key was copied into tickets or chat, treat it as secret exposure and replace it through the approved process.
   </Step>
   <Step title="Plan deployment and prerequisites">
-    Complete [Deployment Planning](/getting_started/deployment_planning) and [Prerequisites](/getting_started/install_safesquid/prerequisites) before installing. Record CPU, RAM, disk, NIC, DNS, NTP, firewall, HA, and evidence-retention decisions.
+    Complete [Deployment Planning](/deployment/deployment_planning) and [Prerequisites](/getting_started/install_safesquid/prerequisites) before installing. Record CPU, RAM, disk, NIC, DNS, NTP, firewall, HA, and evidence-retention decisions.
 
     Confirm the change record includes sizing, network, DNS, NTP, firewall, rollback, and log-retention decisions.
 
@@ -73,7 +73,7 @@ SafeSquid SWG becomes a security control only after traffic is deliberately rout
 
 <Steps>
   <Step title="Choose the pilot planning path">
-    <Card title="First production pilot" icon="route" href="/getting_started/deployment_planning">
+    <Card title="First production pilot" icon="route" href="/deployment/deployment_planning">
       Start here when you need a controlled first deployment with sizing, firewall, DNS, logging, and rollback evidence.
     </Card>
 
@@ -146,7 +146,7 @@ Store these artifacts with the deployment record:
 
 ## Next steps
 
-- [Deployment Planning](/getting_started/deployment_planning) - size the first production-ready node or cluster.
+- [Deployment Planning](/deployment/deployment_planning) - size the first production-ready node or cluster.
 - [Connect Your Client](/getting_started/client_configuration/connect_your_client) - select the right client onboarding method.
 - [Configure Web Security Policies](/getting_started/configure_web_security_policies) - turn proxy traffic into enforceable controls.
 - [Verify Your Setup](/getting_started/verify_your_setup) - confirm the pilot is ready for production review.

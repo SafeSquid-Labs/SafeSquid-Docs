@@ -19,7 +19,7 @@ SafeSquid SWG operations span the enforcement service, cloud-linked ecosystem se
 
 ## Related tabs
 
-- [Getting Started](/getting_started/introduction) — deploy and validate SafeSquid in production
+- [Getting Started](/getting_started/welcome) — deploy and validate SafeSquid in production
 - [What is SafeSquid SWG](/safesquid_swg/what_is_safesquid_swg) — product role, inspection model, and positioning (Getting Started path)
 - [Zero-Trust Web Security](/blog/zero-trust-web-security) — Layer-7 threat model and Zero-Trust architecture
 

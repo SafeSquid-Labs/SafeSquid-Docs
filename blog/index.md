@@ -33,5 +33,5 @@ Threat research and architecture articles on Layer-7 web security, the MITRE kil
 
 ## Documentation
 
-- [Getting Started](/getting_started/introduction) — deploy SafeSquid SWG
+- [Getting Started](/getting_started/welcome) — deploy SafeSquid SWG
 - [What is SafeSquid SWG](/safesquid_swg/what_is_safesquid_swg) — product architecture

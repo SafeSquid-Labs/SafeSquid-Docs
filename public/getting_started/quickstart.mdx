@@ -1,48 +1,14 @@
 ---
-title: "Getting Started with SafeSquid SWG"
+title: "Quickstart"
 description: "Start SafeSquid with a controlled pilot that restores legacy onboarding essentials and produces production-ready evidence."
 keywords:
-  - SafeSquid introduction
+  - SafeSquid quickstart
   - getting started
-  - zero trust web security
+  - controlled pilot
+  - system requisites
+  - production readiness
   - secure web gateway
-  - HTTPS inspection
-  - on-premise web security
-  - RBI compliance
-  - SEBI CSCRF
-  - India sovereign proxy
-  - squid replacement
 ---
-
-# Web Sessions Carry Business-Critical Risk
-
-Phishing, ransomware delivery, command-and-control callbacks, credential theft, and data exfiltration now arrive through approved HTTP and HTTPS traffic. If that traffic is trusted by default, organizations face operational disruption, legal exposure, and reportable incidents.
-
-Layer 3 and Layer 4 controls block unauthorized network paths, but they do not enforce user-intent and content-risk policy inside approved web sessions. Production web security requires an inline Layer 7 proxy that can terminate sessions, inspect payloads, enforce policy, and produce auditable evidence.
-
-## SafeSquid Enforces Inline Web Control
-
-SafeSquid runs as an inline HTTP/HTTPS proxy at the perimeter. Enrolled clients send web traffic through SafeSquid before internet access. This control path lets teams:
-
-- Block phishing destinations and credential-harvesting pages before credential submission
-- Disrupt malware download and command-and-control traffic
-- Enforce data-loss prevention controls on outbound HTTP and HTTPS channels
-- Isolate high-risk browsing through Remote Browser Isolation (RBI)
-- Record per-transaction logs for incident response and audit workflows
-
-SafeSquid supports evidence-oriented controls mapped to [NIST SP 800-53](https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final), [PCI-DSS](https://www.pcisecuritystandards.org/document_library/), [HIPAA](https://www.hhs.gov/hipaa/index.html), [ISO 27001](https://www.iso.org/standard/27001), [SOC 2](https://www.aicpa-cima.com/resources/landing/system-and-organization-controls-soc-suite-of-services), [RBI Master Direction on IT Governance 2023](https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12562), [SEBI CSCRF](https://www.sebi.gov.in/legal/circulars/aug-2024/cybersecurity-and-cyber-resilience-framework-cscrf-for-sebi-regulated-entities-res-_85964.html), and the [DPDP Act](https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf).
-
-## SafeSquid Inspects Every Transaction
-
-For HTTPS traffic, SafeSquid terminates the client-side TLS session, inspects headers and payload, applies policy, then re-encrypts traffic to the origin server. Security processors evaluate the same transaction context, which reduces fragmented controls and improves decision consistency.
-
-```mermaid
-flowchart LR
-    UserEndpoints[User_Endpoints] -->|HTTP_HTTPS| SafeSquidProxy[SafeSquid_Inline_Proxy]
-    SafeSquidProxy -->|Policy_Decision| ControlPlane[Policy_And_Reporting]
-    SafeSquidProxy -->|Re_Encrypted_Traffic| InternetServices[Internet_Services]
-    ControlPlane --> Evidence[Logs_Reports_Audit_Evidence]
-```
 
 ## Confirm System Requisites
 
@@ -53,7 +19,7 @@ Before installation, confirm the platform choice and pilot capacity baseline:
 - Minimum pilot hardware: `4` CPU cores, `4 GB` RAM, `160 GB` storage
 - Recommended production starting point: `8` CPU cores and `8 GB` RAM
 
-For full platform prerequisites, sizing decisions, and network dependencies, use [Install Prerequisites](/getting_started/install_safesquid/prerequisites) and [Deployment Planning](/getting_started/deployment_planning).
+For full platform prerequisites, sizing decisions, and network dependencies, use [Install Prerequisites](/getting_started/install_safesquid/prerequisites) and [Deployment Planning](/deployment/deployment_planning).
 
 ## Prepare A Controlled Pilot
 
@@ -65,7 +31,7 @@ Before onboarding users, confirm:
 - A Root CA rollout path exists for managed endpoints
 - Log retention and reporting ownership are assigned
 
-Use [Deployment Planning](/getting_started/deployment_planning) and [Install Prerequisites](/getting_started/install_safesquid/prerequisites) to complete these controls before installation.
+Use [Deployment Planning](/deployment/deployment_planning) and [Install Prerequisites](/getting_started/install_safesquid/prerequisites) to complete these controls before installation.
 
 <Steps>
   <Step title="Register and secure the activation key">
@@ -191,7 +157,7 @@ If a pilot check fails, use the matching symptom below and capture corrected evi
 
 ## Next steps
 
-- [Deployment Planning](/getting_started/deployment_planning) - finalize ownership, topology, and rollback decisions.
+- [Deployment Planning](/deployment/deployment_planning) - finalize ownership, topology, and rollback decisions.
 - [Install SafeSquid](/getting_started/install_safesquid) - deploy the approved platform path.
 - [Verify Your Setup](/getting_started/verify_your_setup) - run production-readiness checks before expansion.
 - [Troubleshooting](/troubleshooting/troubleshooting) - diagnose routing, certificate trust, and policy enforcement failures.

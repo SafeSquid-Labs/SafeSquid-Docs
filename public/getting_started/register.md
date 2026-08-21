@@ -219,6 +219,6 @@ For detailed post-install activation steps, service checks, listener checks, and
 
 ## Next steps
 
-- [Deployment Planning](/getting_started/deployment_planning) - size and prepare the deployment.
+- [Deployment Planning](/deployment/deployment_planning) - size and prepare the deployment.
 - [Prerequisites](/getting_started/install_safesquid/prerequisites) - confirm host, network, and trust readiness.
 - [Activate Your License](/getting_started/activate) - upload the key after SafeSquid is installed.
