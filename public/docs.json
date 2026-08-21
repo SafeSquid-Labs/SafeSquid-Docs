@@ -27,6 +27,10 @@
       {
         "label": "Forum",
         "href": "https://help.safesquid.com/portal/en/community/safesquid-labs"
+      },
+      {
+        "type": "github",
+        "href": "https://github.com/SafeSquid-Labs/SafeSquid-Docs"
       }
     ],
     "primary": {
@@ -82,7 +86,39 @@
             "group": "Getting Started",
             "pages": [
               "getting_started/welcome",
-              "getting_started/quickstart",
+              "getting_started/quickstart"
+            ]
+          },
+          {
+            "group": "Core Features",
+            "pages": [
+              "core_features/dns_blacklisting",
+              "core_features/homograph_detection",
+              "core_features/ssl_inspection",
+              "core_features/proxy_authentication",
+              "core_features/profiling_engine",
+              "core_features/web_categorization",
+              "core_features/application_identification",
+              "core_features/access_restriction",
+              "core_features/url_redirection",
+              "core_features/header_rewrite",
+              "core_features/cookie_filtering",
+              "core_features/content_modifier",
+              "core_features/malware_scanning",
+              "core_features/data_leakage_prevention",
+              "core_features/text_analyzer",
+              "core_features/image_analyzer"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Deployment",
+        "groups": [
+          {
+            "group": "Deployment Planning",
+            "pages": [
+              "deployment/deployment_planning",
               "getting_started/register",
               "getting_started/access_the_interface",
               "getting_started/activate",
@@ -109,13 +145,52 @@
               "getting_started/client_configuration/enterprise_deployment",
               "getting_started/client_configuration/application_specific_configuration"
             ]
+          },
+          {
+            "group": "Scaling & High Availability",
+            "pages": [
+              "use_cases/scaling_and_high_availability/proxy_clustering",
+              "use_cases/scaling_and_high_availability/operational_modes",
+              "use_cases/scaling_and_high_availability/disaster_recovery",
+              "use_cases/scaling_and_high_availability/master_slave",
+              "use_cases/scaling_and_high_availability/vpn",
+              "use_cases/scaling_and_high_availability/wccp",
+              "use_cases/scaling_and_high_availability/forward_proxy",
+              "use_cases/scaling_and_high_availability/proxy_chain",
+              "use_cases/scaling_and_high_availability/reverse_proxy",
+              "use_cases/scaling_and_high_availability/tcp_proxy",
+              "use_cases/scaling_and_high_availability/transparent_proxy"
+            ]
+          },
+          {
+            "group": "Performance Acceleration",
+            "pages": [
+              "use_cases/performance_acceleration/performance_accelerators",
+              "use_cases/performance_acceleration/caching",
+              "use_cases/performance_acceleration/manage_bandwidth",
+              "use_cases/performance_acceleration/performance_plot",
+              "use_cases/performance_acceleration/pre_fetching",
+              "use_cases/performance_acceleration/speed_limits"
+            ]
+          },
+          {
+            "group": "Customisation",
+            "pages": [
+              "use_cases/customisation/customisation",
+              "use_cases/customisation/configuration_sync",
+              "use_cases/customisation/configure_cloud_restore",
+              "use_cases/customisation/custom_templates",
+              "use_cases/customisation/startup_parameters"
+            ]
+          },
+          {
+            "group": "Upgrade",
+            "pages": [
+              "use_cases/upgrade/upgrade_safesquid",
+              "use_cases/upgrade/os_upgrade",
+              "use_cases/upgrade/version_upgrade"
+            ]
           }
-        ]
-      },
-      {
-        "tab": "Deployment",
-        "pages": [
-          "deployment/deployment_planning"
         ]
       },
       {
@@ -310,51 +385,6 @@
             "pages": [
               "use_cases/integrations/integrations",
               "use_cases/integrations/icap"
-            ]
-          },
-          {
-            "group": "Scaling & High Availability",
-            "pages": [
-              "use_cases/scaling_and_high_availability/proxy_clustering",
-              "use_cases/scaling_and_high_availability/operational_modes",
-              "use_cases/scaling_and_high_availability/disaster_recovery",
-              "use_cases/scaling_and_high_availability/master_slave",
-              "use_cases/scaling_and_high_availability/vpn",
-              "use_cases/scaling_and_high_availability/wccp",
-              "use_cases/scaling_and_high_availability/forward_proxy",
-              "use_cases/scaling_and_high_availability/proxy_chain",
-              "use_cases/scaling_and_high_availability/reverse_proxy",
-              "use_cases/scaling_and_high_availability/tcp_proxy",
-              "use_cases/scaling_and_high_availability/transparent_proxy"
-            ]
-          },
-          {
-            "group": "Performance Acceleration",
-            "pages": [
-              "use_cases/performance_acceleration/performance_accelerators",
-              "use_cases/performance_acceleration/caching",
-              "use_cases/performance_acceleration/manage_bandwidth",
-              "use_cases/performance_acceleration/performance_plot",
-              "use_cases/performance_acceleration/pre_fetching",
-              "use_cases/performance_acceleration/speed_limits"
-            ]
-          },
-          {
-            "group": "Customisation",
-            "pages": [
-              "use_cases/customisation/customisation",
-              "use_cases/customisation/configuration_sync",
-              "use_cases/customisation/configure_cloud_restore",
-              "use_cases/customisation/custom_templates",
-              "use_cases/customisation/startup_parameters"
-            ]
-          },
-          {
-            "group": "Upgrade",
-            "pages": [
-              "use_cases/upgrade/upgrade_safesquid",
-              "use_cases/upgrade/os_upgrade",
-              "use_cases/upgrade/version_upgrade"
             ]
           }
         ]
