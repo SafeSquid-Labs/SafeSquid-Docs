@@ -16,14 +16,12 @@ The `Rewrite` section (`safesquid-rewrite(5)`) performs PCRE search-and-replace 
 
 ## Core Mechanics (C++ Source Validation)
 
-Source: `sources/modules/rewrite/rewrite.cpp` — `RewriteSection::check_match()`, `rewrite_do()`.
-
 ### Hook points
 
-- **Client header** (`REWRITE_CLIENT`) — outgoing request headers via `rewrite_reqheader` hook.
-- **Server header** (`REWRITE_SERVER`) — response headers via `rewrite_respheader` hook.
-- **Body** (`REWRITE_BODY`) — response body via `PROCESS_BUFFCHECK`; MIME regex tested against `Content-Type`.
-- **Post body** (`REWRITE_POST`) — upload body modification.
+- **Client header** — outgoing request headers.
+- **Server header** — response headers.
+- **Body** — response body during buffering; MIME regex tested against `Content-Type`.
+- **Post body** — upload body modification.
 
 ### First applicable row per pass
 
@@ -31,7 +29,7 @@ Rows walked top to bottom. Row skipped when: disabled, Applies to flag mismatch,
 
 ### MIME gate on body
 
-For `REWRITE_BODY`, non-empty Mime type regex must match `connection->rheader->content_type`. Empty mime matches any body when other gates pass.
+For **BODY** rewrites, a non-empty Mime type regex must match the response `Content-Type`. Empty mime matches any body when other gates pass.
 
 ## Processing flow
 

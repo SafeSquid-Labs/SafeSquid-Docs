@@ -16,11 +16,9 @@ The `Elevated` section (`safesquid-elevated(5)`) reduces cross-site tracking by 
 
 ## Core Mechanics (C++ Source Validation)
 
-Source: `sources/modules/elevated/elevated.cpp` — `elevatedSection::match()`, request/response header processors.
-
 ### First match wins
 
-On each request and response header pass, enabled Elevated policy rows are walked top to bottom. The **first** matching row sets the privacy level for that connection (`break` after first match).
+On each request and response header pass, enabled Elevated policy rows are walked top to bottom. The **first** matching row sets the privacy level for that connection; later rows are skipped.
 
 ### Privacy levels (action field)
 

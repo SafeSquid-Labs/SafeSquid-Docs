@@ -16,8 +16,6 @@ The `Imgfilter` section (`safesquid-imgfilter(5)`) scores `image/*` response and
 
 ## Core Mechanics (C++ Source Validation)
 
-Source: `sources/modules/imgfilter/imgfilter.cpp` — `ImgfilterSection::find()`, `check_and_block()`, `scan_image()`.
-
 ### First match wins
 
 Walk enabled filtering policy rows top to bottom; first profile match sets threshold, bypass, debug, and template.

@@ -10,15 +10,13 @@ The **General** section (`safesquid-general(5)`) sets global hostname, connectio
 
 ## Core mechanics
 
-Validated against `sources/src/global.cpp` — `GeneralSection::find()`, `cportrange_check()`, `compressin_get()`, `bufferchunked_get()`.
-
 ### First matching policy row
 
-Each getter walks **Compression and buffering policies** top-down. First enabled row whose `profiles` pass `profile_find()` wins. Empty profiles match all. No match → built-in defaults.
+Each getter walks **Compression and buffering policies** top-down. The first enabled row whose `profiles` match wins. Empty profiles match all. No match → built-in defaults.
 
 ### CONNECT ports (cportrange)
 
-`cportrange_check()` applies only when a row matched. Port must be in the row list or CONNECT is blocked. When no row matched, all CONNECT ports are allowed (unless blocked elsewhere).
+The CONNECT port check applies only when a row matched. Port must be in the row list or CONNECT is blocked. When no row matched, all CONNECT ports are allowed (unless blocked elsewhere).
 
 ### Compression and chunked buffering
 

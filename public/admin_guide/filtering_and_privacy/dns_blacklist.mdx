@@ -16,11 +16,9 @@ The `Dnsbl` section (`safesquid-dnsbl(5)`) provides domain blocking, category-ba
 
 ## Core Mechanics (C++ Source Validation)
 
-Source: `sources/src/dnsbl.cpp` — `DnsblSection::check_and_block()`, category/request/DNSBL passes.
-
 - **Sequential Heuristics**: The DNSBL module does not just check lists; it runs a sequence of heuristic checks on the HTTP `Host` header (including length validation, homograph detection, and category/request structural checks).
-- **Enforcement & Block Status**: If any heuristic or blocklist check fails, the connection action is instantly set to `POLICY_DO_NOT_BYPASS`. SafeSquid sets the HTTP status to `LMS_MALICIOUS_SERVER`, terminates the forward connection, and serves the specified `Template` to the client.
-- **Bypass Checking**: The entire module execution is skipped if the connection carries the `FEATURE_DNSBL` bypass right, or if the request is destined for the SafeSquid interface itself (`CONNECTION_INTERFACE_REQUEST`).
+- **Enforcement & Block Status**: If any heuristic or blocklist check fails, the connection action is instantly set to **DO NOT BYPASS**. SafeSquid sets the HTTP status to `LMS_MALICIOUS_SERVER`, terminates the forward connection, and serves the specified `Template` to the client.
+- **Bypass Checking**: The entire module execution is skipped if the connection carries the `FEATURE_DNSBL` bypass right, or if the request is destined for the SafeSquid interface itself.
 
 ## Schema Fields
 
@@ -49,7 +47,7 @@ Source: `sources/src/dnsbl.cpp` — `DnsblSection::check_and_block()`, category/
 3. Request type check: same first-match walk against Threatful Requests.
 4. DNSBL check: append DNSBL Domain suffix to the request host, resolve A record, compare to Blocked IP addresses. Failed lookups are treated as `0.0.0.0` — include that address to block lookup failures.
 5. IP check: compare host A record, reverse DNSBL answer, and GeoIP country (Threatful Countries) against Blocked IP addresses / country list — first block in each sub-pass wins.
-6. On block: `POLICY_DO_NOT_BYPASS`, block template, debug header `X-DNSBL-Filter` with match detail.
+6. On block: action **DO NOT BYPASS**, block template, debug header `X-DNSBL-Filter` with match detail.
 
 ## Important entry fields
 

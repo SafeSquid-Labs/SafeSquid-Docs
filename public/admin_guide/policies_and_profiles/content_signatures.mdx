@@ -6,22 +6,20 @@ title: "Content Signatures"
   CLI man page: `safesquid-contentSignatures(5)`
 </Note>
 
-The **Content Signatures** section (`safesquid-contentSignatures(5)`) maintains the content-signature database and libmagic MIME detection used across SafeSquid. It helps identify actual file types, bypassing deceptive file extensions — but live connection tagging for policy uses [Response Types](/admin_guide/policies_and_profiles/response_types) in current code.
+The **Content Signatures** section (`safesquid-contentSignatures(5)`) maintains the content-signature database and libmagic MIME detection used across SafeSquid. It helps identify actual file types, bypassing deceptive file extensions — but live connection tagging for policy uses [Response Types](/admin_guide/policies_and_profiles/response_types) in the current build.
 
 <Note>
-Custom rows are merged into `content4.xml` under `/var/lib/safesquid/content_signatures/`. Tag names still appear in DLP and UI pickers even when request-time hooks are stubbed.
+Custom rows are merged into `content4.xml` under `/var/lib/safesquid/content_signatures/`. Tag names still appear in DLP and UI pickers even when the request-time hooks are inactive.
 </Note>
 
 ## Core mechanics
-
-Validated against `sources/src/content_signatures.cpp` — `content_signatures_update()`, `content_signatures_update_post()`, `update_content_signatures()`.
 
 ### What runs at runtime today
 
 1. On config load and on scheduled update, SafeSquid may download vendor `content4.xml` and reload the merged database.
 2. Custom rows from the Web UI are saved to the dev copy of `content4.xml` when the section is displayable.
 3. The internal MIME engine uses the libmagic database from this directory for body type detection (also used by DLP, logging, and Response Types).
-4. `content_signatures_update()` and `content_signatures_update_post()` are **empty stubs** — list rows do not add or remove connection tags at request time in current code.
+4. The request-time hooks are **not implemented** — list rows do not add or remove connection tags at request time in the current build.
 
 <Warning>
 For live response labelling by MIME or extension, use [Response Types](/admin_guide/policies_and_profiles/response_types). Content Signatures rows still matter for database maintenance, autocomplete in other sections (for example DLP), and libmagic setup.
@@ -29,13 +27,13 @@ For live response labelling by MIME or extension, use [Response Types](/admin_gu
 
 ### Global Enabled
 
-When off, `Content_Signatures_Section::is_enabled()` returns FALSE — signature database download/reload and MIME library setup are affected. List rows are still persisted even when hooks are stubbed.
+When off, the section reports itself disabled — signature database download/reload and MIME library setup are affected. List rows are still persisted even when the request-time hooks are inactive.
 
 ### Subsections
 
 - **Content Signatures List** — MIME regex rows plus tags to add. Stored in config; not applied on connections at request time today.
 - **Content Categories List** — Category names for autocomplete and grouping in signature rows.
-- **Content File Extensions** — Extension regex rows plus extension tags. `content_signatures_update_post()` is an empty stub.
+- **Content File Extensions** — Extension regex rows plus extension tags. The matching request-time hook is not implemented.
 
 ### Legacy UI options
 

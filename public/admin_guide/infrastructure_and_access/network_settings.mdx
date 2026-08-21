@@ -10,15 +10,13 @@ The **Network** section (`safesquid-network(5)`) defines client listen sockets a
 
 ## Core mechanics
 
-Validated against `sources/src/network.cpp` — `NetworkSection::check()`, `interface_select()`, `Interface` constructor.
-
 ### Listen — startup bind
 
 Every enabled Listen row with `port != -1` binds at startup. If no enabled row matches startup.ini `LISTEN_IP` and `LISTEN_PORT`, an additional fallback bind runs on those defaults. Restart required after Listen changes.
 
 ### Interface — first match wins
 
-Outbound walks Interface rows top-down: skip disabled; skip empty Source IP after load; skip when destination is in **Excluded Destination IPs**; require `profile_find()` (connection profiles plus hostname/service tags). First match picks `source_ips[clientid % N]`.
+Outbound walks Interface rows top-down: skip disabled; skip empty Source IP after load; skip when destination is in **Excluded Destination IPs**; require a profile match (connection profiles plus hostname/service tags). The first match picks a source IP from the row's list, keyed by client ID.
 
 ### Source IP on host only
 

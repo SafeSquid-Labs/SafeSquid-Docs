@@ -10,19 +10,17 @@ The **LDAP** section (`safesquid-ldap(5)`) syncs directory users and groups into
 
 ## Core mechanics
 
-Validated against `sources/src/ldap_profile.cpp` — `init_routine_unlocked()`, `set_default_domain()`, `set_dn()`, `do_auth()`.
-
 ### Full sync — all valid servers
 
-Each enabled valid **LDAP servers** row binds and runs paged `to_cache()` in one update cycle. Maps accumulate entries from every successful server.
+Each enabled valid **LDAP servers** row binds and runs a paged cache load in one update cycle. Maps accumulate entries from every successful server.
 
 ### Default @domain
 
-First valid row's **Ldap Domain** becomes default via `set_default_domain()`. Logins without `@` get `@domain` appended and uppercased for map keys.
+First valid row's **Ldap Domain** becomes the default domain. Logins without `@` get `@domain` appended and uppercased for map keys.
 
 ### Auth — first matching server
 
-`do_auth()` walks servers until domain (and optional base DN) match; stops on bind success or invalid credentials.
+Authentication walks servers until the domain (and optional base DN) match; stops on bind success or invalid credentials.
 
 ### ldapgroupfilter
 

@@ -16,7 +16,7 @@ The `Prefetch` section (`safesquid-prefetch(5)`) configures SafeSquid to proacti
 
 ## Core Mechanics (C++ Source Validation)
 
-Source: `sources/src/prefetch.cpp` — async queue, cache pre-check, HTML parser first-match.
+Async queue, cache pre-check, HTML parser first-match.
 
 - **Asynchronous Queue**: Prefetching is driven by an asynchronous, background worker thread (`prefetch_thread`) that monitors a `PREFETCH_QUEUE`. It does not block the primary client connection.
 - **Cache Pre-Validation**: Before initiating a prefetch download, the thread checks if the object exists in the cache. If the object is already cached, the prefetch is aborted to save bandwidth.
@@ -27,7 +27,7 @@ Source: `sources/src/prefetch.cpp` — async queue, cache pre-check, HTML parser
 ### Global Fields
 
 - **Enabled (enabled)**: When off, setup\_callbacks does not register HTML parsers — no automatic prefetch.
-- **Threads (threads)**: Configured worker count for prefetch queue processing. In current source, init\_threads is compiled out ( #if 0 ) — see ambiguities doc.
+- **Threads (threads)**: Configured worker count for prefetch queue processing. This value is not applied in the current build.
 - **Queue size (queuesize)**: Maximum URLs waiting in the prefetch queue; full queue rejects new URLs. Already-cached URLs are not queued.
 - **Host limit (hostlimit)**: Maximum queued prefetches per host name ( 0 disables per-host cap). Duplicate URLs are never queued twice.
 

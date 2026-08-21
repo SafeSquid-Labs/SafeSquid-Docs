@@ -26,11 +26,9 @@ Access restrictions **User-Groups** populate `user_groups` (not `profiles`). Acc
 
 ## Core mechanics
 
-Validated against `sources/src/profiles.cpp` — `ProfileSection::profiles_update()`, `profiles_check()`, `check_allow_deny_request()`.
-
 ### List order
 
-1. Clear `connection->profiles`; set `action = ALLOW`.
+1. Clear the connection's profile tags; set the action to **ALLOW**.
 2. Walk **Default Policies** top-down — every match applies.
 3. Walk **Secondary Policies** top-down — same cumulative rules.
 4. Final action not Allow → block (bypass cookie may apply).
@@ -83,7 +81,7 @@ All configured criteria on a row must match. Blank = any. Use `!` to negate tags
 
 **Config:** Response Types adds `executable_download`; Secondary matches that tag, Deny.
 
-**Result:** may not match until response headers arrive and `profiles_update()` runs again.
+**Result:** may not match until response headers arrive and profile matching runs again.
 </Tip>
 
 ## How to verify

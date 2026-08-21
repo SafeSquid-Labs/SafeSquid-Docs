@@ -16,7 +16,7 @@ The `Redirect` section (`safesquid-redirect(5)`) allows SafeSquid to intercept r
 
 ## Core Mechanics (C++ Source Validation)
 
-Source: `sources/src/redirect.cpp` — first-match URL/Location rewrite, send302 branching.
+First-match URL/Location rewrite, send302 branching.
 
 - **Evaluation Order**: Rules are evaluated top to bottom. The first matching rule takes effect and evaluation stops for that pass.
 - **PCRE Matching**: The `URL` field accepts Perl Compatible Regular Expressions (PCRE) with capture groups (e.g., `(.*)`), which can be referenced in the `Redirect` field using `$1`, `$2`, etc.

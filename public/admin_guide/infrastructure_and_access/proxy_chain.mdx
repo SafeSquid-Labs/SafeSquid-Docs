@@ -16,7 +16,7 @@ The `Forward` section (`safesquid-forward(5)`) configures upstream proxy routing
 
 ## Core Mechanics (C++ Source Validation)
 
-Source: `sources/src/forward.cpp` — CARP hash, blank Proxy stop, ICP peer selection.
+CARP hash, blank Proxy stop, ICP peer selection.
 
 - **CARP Hashing**: When routing requests through an array of proxies, the routing engine performs a deterministic 32-bit bitwise rotation hash combining the requested URL and the peer’s hostname. The peer generating the highest hash score receives the request.
 - **Self-Resolution (Loop Prevention)**: If SafeSquid calculates that its *own* hostname generates the highest CARP hash (`op >= hp`), it drops the forwarding requirement and resolves the request directly.

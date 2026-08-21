@@ -18,15 +18,13 @@ Use **sqscan status** in the Web UI to confirm Ready state and signature currenc
 
 ## Core Mechanics (C++ Source Validation)
 
-Source: `sources/modules/sqscan/sqscan.cpp` — `SqScanSection::find()`, scan level handling.
-
 ### First match wins
 
 Enabled virus scanning policy rows are walked top to bottom. The **first** row whose Profiles match applies for that connection.
 
 ### Scan levels — BYPASS only
 
-Malware Security Level **BYPASS** skips scanning (`SQSCAN_BYPASS`). Values STANDARD, HIGH, and PARANOID are stored but the engine uses fixed scan options — only **BYPASS** changes runtime behaviour today.
+Malware Security Level **BYPASS** skips scanning. Values STANDARD, HIGH, and PARANOID are stored but the engine uses fixed scan options — only **BYPASS** changes runtime behaviour today.
 
 ### Malware Types unused
 
@@ -34,7 +32,7 @@ Malware Types checkboxes set bit flags on the policy but are not passed to the s
 
 ### Enforcement
 
-Virus detection (`QH_API_VIRUS_FOUND`) sets `POLICY_DO_NOT_BYPASS`. Access restrictions **Bypass** with antivirus skips SqScan entirely.
+Virus detection sets the action to **DO NOT BYPASS**. Access restrictions **Bypass** with antivirus skips SqScan entirely.
 
 ## Processing flow
 
@@ -60,7 +58,7 @@ virus -->|No| pass[Continue]
 ### Policy rows
 
 - **Profiles (profiles)** — Limit row to connections with these Access Profile tags. Blank matches all.
-- **Malware Security Level (scan\_flag)** — BYPASS skips SqScan. Other levels label the row but do not alter scan depth in current code.
+- **Malware Security Level (scan\_flag)** — BYPASS skips SqScan. Other levels label the row but do not alter scan depth in the current build.
 - **Malware Types (malware\_types)** — Stored for operator reference; not forwarded to scan API.
 
 ## Examples

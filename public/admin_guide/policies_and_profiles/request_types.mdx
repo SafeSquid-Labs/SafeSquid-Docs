@@ -10,8 +10,6 @@ The **Request Types** section (`safesquid-reqProfiles(5)`) labels HTTP requests 
 
 ## Core mechanics
 
-Validated against `sources/src/request_profiles.cpp` — `do_request_profile()`, `match_host_list()`, `req_profiles_update()`.
-
 ### Processing order
 
 1. Application Signatures (unless subscription expired).
@@ -31,7 +29,7 @@ Tab-prefixed host+path substring find — not regex. Empty domain list or empty 
 When Host Name regex misses and Smart TLD is on, same regex retried against site name (host without public suffix).
 
 <Warning>
-**urlcommand field:** parsed in config but not evaluated in `req_profiles_update()`. Use **Protocol** or **File** instead.
+**urlcommand field:** parsed in configuration but never evaluated at runtime. Use **Protocol** or **File** instead.
 </Warning>
 
 <Warning>

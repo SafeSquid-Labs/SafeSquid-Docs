@@ -16,7 +16,7 @@ The `Header-filtering` section (`safesquid-header-filtering(5)`) allows administ
 
 ## Core Mechanics (C++ Source Validation)
 
-Source: `sources/src/header.cpp` — Allow/Deny list order, Insert with variable expansion.
+Allow/Deny list order, Insert with variable expansion.
 
 - **Dual-List Policy Engine**: Header filtering utilizes a global Allow/Deny switch. If the global policy is set to `Allow`, SafeSquid first scans the Deny List to strip headers (`action = FALSE`), then evaluates the Allow List to preserve exceptions.
 - **Insertion Engine**: Independent of the filter list, the `Insert` list injects entirely new headers into the stream. The inserted headers undergo variable expansion, meaning runtime variables (like usernames or IP addresses) can be dynamically injected into the header value.

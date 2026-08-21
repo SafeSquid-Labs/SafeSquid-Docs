@@ -18,11 +18,11 @@ DLP runs on the request (upload) path only — not on downloaded responses. Acce
 
 ## Core Mechanics (C++ Source Validation)
 
-Source: `sources/modules/dlp/dlp.cpp` — MIME regex compile (commas → `|`), policy walk, OCR scoring.
+MIME regex compile (commas → `|`), policy walk, OCR scoring.
 
 ### MIME policy — last match wins
 
-Unlike most SafeSquid lists, DLP MIME rows use **last matching enabled row wins**. Each row whose POSIX regex matches `filebuf->type` overwrites the action as the walk continues top to bottom.
+Unlike most SafeSquid lists, DLP MIME rows use **last matching enabled row wins**. Each row whose POSIX regex matches the uploaded part's MIME type overwrites the action as the walk continues top to bottom.
 
 ### OCR scoring
 

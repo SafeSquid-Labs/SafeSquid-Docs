@@ -16,13 +16,13 @@ The `ClamAV` section (`safesquid-clamav(5)`) configures integration with a clamd
 
 ## Core Mechanics (C++ Source Validation)
 
-Source: `sources/src/clamav.cpp` — policy walk, `ClamavPool`, results cache.
+Policy walk, results cache.
 
 - **Evaluation Order**: Rules are evaluated top-to-bottom. The first rule whose `Profiles` condition matches the connection is selected, and execution stops.
 - **Cache Optimization**: If an object is already stored in the SafeSquid cache and marked as `CACHE_CLEAN`, the ClamAV subsystem will completely bypass scanning to improve performance.
 - **Results Caching**: SafeSquid maintains an internal `ResultsCache` to avoid repeatedly sending identical in-memory payloads to clamd.
 - **Connection Pool**: A `ClamavPool` mechanism manages idle TCP/Unix sockets to the `clamd` daemon to prevent socket exhaustion during high concurrency.
-- **Enforcement**: If a virus is detected, the subsystem immediately changes the connection action to `POLICY_DO_NOT_BYPASS`, dropping the payload and returning the configured block template, populating variables like `_VIRUSNAME_`.
+- **Enforcement**: If a virus is detected, the subsystem immediately changes the connection action to **DO NOT BYPASS**, dropping the payload and returning the configured block template, populating variables like `_VIRUSNAME_`.
 
 ## Schema Fields
 

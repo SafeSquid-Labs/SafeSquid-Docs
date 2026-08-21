@@ -16,7 +16,7 @@ The `Limits` section (`safesquid-limits(5)`) allows administrators to constrain 
 
 ## Core Mechanics (C++ Source Validation)
 
-Source: `sources/src/limits.cpp` — token-bucket rate, quota counters, request cap enforcement.
+Token-bucket rate, quota counters, request cap enforcement.
 
 - **Bandwidth Shaping**: SafeSquid utilizes a token-bucket mechanism. Connections are assigned to a specific `LimitGroup`. The traffic shaper enforces the `downloadrate` throttle globally across all connections in that group.
 - **Quota Tracking**: Global and per-user transfer quotas (`maxdbytes`, `maxubytes`, `maxrequests`) are updated incrementally as payloads are flushed. Cached payloads (`CONNECTION_CACHING`) can be configured to bypass quota deductions (`LIMIT_CACHE`).

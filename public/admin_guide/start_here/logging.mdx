@@ -19,7 +19,7 @@ When a user says “the proxy blocked me” or “nothing loads,” logs are how
 
 ## Log families
 
-- **Native logs** — Internal diagnostics from `putlog()`. Each line is timestamped and tagged (for example `security:`, `ldap:`, `cache:`). File: `/var/log/safesquid/native/safesquid.log`
+- **Native logs** — Internal diagnostics from the native logger. Each line is timestamped and tagged (for example `security:`, `ldap:`, `cache:`). File: `/var/log/safesquid/native/safesquid.log`
 - **Detailed logs** — One row per client transaction (tab-separated). Includes username, URL, status, **filter\_name**, **filtering\_reason**, profiles, categories, and user groups. Start here for user-facing issues. File: `/var/log/safesquid/extended/extended.log`
 - **Config logs** — Who changed what in the Web UI: section, action, arguments, URL, reason. File: `/var/log/safesquid/config/config.log`
 - **Performance log** — Resource and throughput statistics. File: `/var/log/safesquid/performance/performance.log`

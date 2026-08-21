@@ -14,8 +14,6 @@ Configure authentication mechanisms in [Authentication](/admin_guide/start_here/
 
 ## Core mechanics
 
-Validated against `sources/src/access.cpp` — `AccessSection::check()`, `check_and_setup()`, `set_auth_methods_supported()`.
-
 ### Default policy and list order
 
 With **Default Access Policy = Deny** (recommended):
@@ -36,7 +34,7 @@ For each enabled row: **Profiles** → **Interface** → **IP** → **LDAP Profi
 
 ### Client IP and X-Forwarded-For
 
-When `X-Forwarded-For` is present, it replaces the TCP client IP for `ip` matching (`access.cpp:357`).
+When `X-Forwarded-For` is present, it replaces the TCP client IP for `ip` matching.
 
 <Warning>
 **Spoofing risk:** a client sending `X-Forwarded-For: 127.0.0.1` can match localhost IP rows and receive CONFIG (Web UI) access. Expose the proxy only on trusted networks.
@@ -45,7 +43,7 @@ When `X-Forwarded-For` is present, it replaces the TCP client IP for `ip` matchi
 ### Two-pass authentication
 
 - **First pass (no credentials)** — If gates pass and `pamauth=TRUE` or User name is set, the row matches and issues a 407/401 challenge. If `pamauth=FALSE` and User name is blank, the row matches immediately — unauthenticated access.
-- **Second pass (credentials present)** — `set_dn()` populates `connection->dn` with LDAP group strings (commas stored as spaces). LDAP Profiles rows can match; PAM validation runs in `check_and_setup()`.
+- **Second pass (credentials present)** — SafeSquid populates the connection's LDAP distinguished name with group strings (commas stored as spaces). LDAP Profiles rows can match; PAM validation runs during the access check.
 
 ### Kerberos / SSO (`ntlm_authentication`)
 
@@ -78,7 +76,7 @@ All configured criteria on a row must match. Blank means any.
 - **Interface** — Listen socket IP:port of the accept.
 - **System authentication** — Cache → PAM → LDAP bind; User name is a regex filter; Password ignored.
 - **User name / Password** — With System auth off: exact case-sensitive match. Non-empty User name still triggers challenge on first pass.
-- **LDAP Profiles** — Exact match against `connection->dn`; write DNs with spaces not commas.
+- **LDAP Profiles** — Exact match against the connection's LDAP distinguished name; write DNs with spaces not commas.
 - **Access** — CONFIG, PROXY, HTTP, TRANSPARENT, CONNECT, BYPASS — independent rights.
 - **MAX Concurrent Connections** — Keyed `username@client-ip`; 0 = no cap.
 

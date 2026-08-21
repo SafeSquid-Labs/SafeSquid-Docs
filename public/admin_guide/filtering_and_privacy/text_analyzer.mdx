@@ -16,12 +16,12 @@ The `Keywords-filtering` section (`safesquid-keywords-filtering(5)`) scans the t
 
 ## Core Mechanics (C++ Source Validation)
 
-Source: `sources/src/keywords.cpp` — `keyword_buffcheck()`, cumulative scoring, early exit at threshold.
+Cumulative scoring, early exit at threshold.
 
 - **Cumulative Scoring Engine**: Unlike standard first-match modules, the keyword filter evaluates *all* enabled rules matching the connection profile. When a Regex keyword is matched, its defined `Score` is added to a cumulative tally for that connection.
 - **Early Exit**: If the cumulative score breaches the Global Threshold (`if (x >= threshold)`), scanning immediately stops to save CPU.
 - **MIME Filtering**: SafeSquid will only scan payloads whose `Content-Type` matches the specified `Mime type` regular expression.
-- **Enforcement**: Once the threshold is breached, the connection action becomes `POLICY_DO_NOT_BYPASS`, serving the specified block template and populating the `_SCORE_` and `_REASON_` template variables.
+- **Enforcement**: Once the threshold is breached, the connection action becomes **DO NOT BYPASS**, serving the specified block template and populating the `_SCORE_` and `_REASON_` template variables.
 
 ## Schema Fields
 
@@ -42,12 +42,12 @@ Source: `sources/src/keywords.cpp` — `keyword_buffcheck()`, cumulative scoring
 
 ## How SafeSquid processes the list
 
-1. During response processing, if any enabled row matches the response `Content-Type`, SafeSquid buffers the body (`keyword_buffcheck`).
+1. During response processing, if any enabled row matches the response `Content-Type`, SafeSquid buffers the body.
 2. After the body is available, rows are walked top to bottom.
 3. Mime type regex must match `Content-Type`. Blank mime defaults to matching `text` (same family as text/css/javascript/xml/json).
 4. Keyword regex is searched in the buffered body; each match adds that row's Score (negative scores reduce the total).
 5. Rows with Score 0 or blank Keyword are never applied.
-6. At or above Threshold: HTTP 451 block page, bypass disallowed (`POLICY_DO_NOT_BYPASS`), cache code `TCP_DENIED`.
+6. At or above Threshold: HTTP 451 block page, bypass disallowed, cache code `TCP_DENIED`.
 
 ## Important entry fields
 

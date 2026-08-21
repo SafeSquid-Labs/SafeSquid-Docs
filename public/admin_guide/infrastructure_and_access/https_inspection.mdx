@@ -16,10 +16,8 @@ HTTPS Inspection controls CONNECT handling and optional TLS man-in-the-middle (D
 
 ## Core Mechanics (C++ Source Validation)
 
-Source: `sources/src/sslcert.cpp` — `SSLcertSection::find()`, `check()`, `deep_scan_check()`.
-
 - **Deep Scan (MITM)**: The connection evaluator determines if `deepscan` is enabled for the connection. If true, SafeSquid performs full Man-in-the-Middle interception by generating a forged, trusted certificate for the client using the defined Root CA, enabling inspection of the encrypted payload.
-- **Upstream Validation**: SafeSquid builds an OpenSSL `X509_STORE` and uses `X509_VERIFY_PARAM` to validate the upstream origin server’s certificate against known CA authorities.
+- **Upstream Validation**: SafeSquid builds an OpenSSL certificate store and verification parameters to validate the upstream origin server’s certificate against known CA authorities.
 - **Strict Error Handling**: Handlers validate domain mismatches (`block_domain_mismatch`), missing certificates (`block_no_cert`), and maximum allowable OpenSSL error levels (`max_error_level`). Failures drop the connection to prevent MITM attacks from malicious servers.
 
 ## Schema Fields
@@ -40,7 +38,7 @@ Source: `sources/src/sslcert.cpp` — `SSLcertSection::find()`, `check()`, `deep
 - **Enabled (enabled)**: When disabled, this Setup row is skipped when the list is rebuilt on config reload. Note: rows are loaded into server\_config\_list but no runtime code in this tree reads that list (see ambiguities).
 - **Comment (comment)**: Operator note only; not referenced by SSL setup code.
 - **Proxy Host (proxy\_server)**: Intended to match this SafeSquid instance (hostname from startup parameters) so the row applies on the correct node.
-- **Encrypted Password (enc\_pwd)**: Encrypted passphrase for the RCSC private key, stored per Setup row. Runtime RCSC load uses the global activation password, not this field, in the current codebase.
+- **Encrypted Password (enc\_pwd)**: Encrypted passphrase for the RCSC private key, stored per Setup row. Runtime RCSC load uses the global activation password, not this field, in the current build.
 - **SSL Cache Store Size (ssl\_cache\_store\_size)**: Intended cap for outbound SSL context/session cache entries ( CTXcacheOUT ). Stored on each server\_config row but not applied by current cache code (cache sizing is internal to CTXcacheOUT ). Changing cache behaviour requires a restart when supported.
 - **appcontent (appcontent)**: No description provided.
 
@@ -56,7 +54,7 @@ Source: `sources/src/sslcert.cpp` — `SSLcertSection::find()`, `check()`, `deep
 
 - **DeepScan** — TRUE enables client TLS handshake and HTTP inspection. FALSE tunnels HTTPS without decrypting.
 - **Block Access to Sites that do not have an SSL Certificate** — When TRUE (default), block if upstream presents no certificate.
-- **Acceptable Errors in SSL Verification** — Maximum OpenSSL verification error tolerated on the upstream chain. Level 0 (`X509_V_OK`) is strictest. Hostname/IP mismatch is gated separately by Block domain mismatch.
+- **Acceptable Errors in SSL Verification** — Maximum OpenSSL verification error tolerated on the upstream chain. Level 0 is strictest. Hostname/IP mismatch is gated separately by Block domain mismatch.
 - **Block domain mismatch in the web-site SSL certificate** — When TRUE (default), hostname or IP mismatch errors block. When FALSE, mismatch errors are allowed even if they exceed the acceptable error level.
 - **Profiles** — First matching enabled row from the top applies. Blank matches all connections.
 

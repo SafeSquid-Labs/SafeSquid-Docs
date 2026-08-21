@@ -10,11 +10,9 @@ The **Response Types** section (`safesquid-respProfiles(5)`) labels HTTP respons
 
 ## Core mechanics
 
-Validated against `sources/src/response_profiles.cpp` — `response_profiles_update()`, response hook.
-
 ### Two-pass evaluation
 
-1. On response headers — `do_response_profile()` with no body buffer.
+1. On response headers — response profiling runs with no body buffer.
 2. On buffered body — hook runs again with detected MIME and size.
 
 Every matching enabled row applies; no first-match stop.

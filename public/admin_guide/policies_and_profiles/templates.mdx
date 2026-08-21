@@ -10,8 +10,6 @@ The **Templates** section (`safesquid-templates(5)`) configures block pages and 
 
 ## Core mechanics
 
-Validated against `sources/src/template.cpp` — `TemplateSection::get()`, `send()`, preload in `Template` copy constructor.
-
 ### Resolution order
 
 1. Walk configured rows top-down.
@@ -32,7 +30,7 @@ Validated against `sources/src/template.cpp` — `TemplateSection::get()`, `send
 
 ### Send
 
-`send_block_template()` uses caller status or row Response code. Adds `X-SafeSquid-Template` header. HTML built-ins may inject stylesheet.
+The block template uses the caller status or the row Response code. Adds `X-SafeSquid-Template` header. HTML built-ins may inject stylesheet.
 
 ## Examples
 

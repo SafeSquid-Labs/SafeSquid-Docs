@@ -14,7 +14,7 @@ Valid [Subscription](/admin_guide/infrastructure_and_access/subscription) is req
 
 ## Pieces
 
-- **[SSqore](/admin_guide/infrastructure_and_access/ssqore)** — CCS URL categorisation during request profiling. Globals: Enabled (Heuristic is stored but unused in current code).
+- **[SSqore](/admin_guide/infrastructure_and_access/ssqore)** — CCS URL categorisation during request profiling. Globals: Enabled (Heuristic is stored but unused in the current build).
 - **[Categorize Web-Sites](/admin_guide/policies_and_profiles/categorize_web_sites)** — Local category overrides you maintain. Takes precedence over cloud results for matching hosts on the hot path.
 - **[Application Signatures](/admin_guide/policies_and_profiles/application_signatures)** — Vendor `applications4` database plus custom rules. Downloaded on UPDATE schedule; skipped when subscription expired.
 - **[Content Signatures](/admin_guide/policies_and_profiles/content_signatures)** — Vendor `content4.xml` plus libmagic MIME database under `/var/lib/safesquid/content_signatures/`.

@@ -16,7 +16,7 @@ The `Cookies-filtering` section (`safesquid-cookies-filtering(5)`) provides gran
 
 ## Core Mechanics (C++ Source Validation)
 
-Source: `sources/src/cookies.cpp` — dual-list Allow/Deny walk, last match in pass wins.
+Dual-list Allow/Deny walk, last match in pass wins.
 
 - **Dual-List Policy Engine**: Cookie filtering operates on a Global Policy (Allow or Deny) combined with Allow/Deny override lists. If the global policy is set to `Allow`, SafeSquid first scans the Deny List (to block matching cookies) and then scans the Allow List (to explicitly permit exceptions).
 - **Time-Based Evaluation**: Unlike other modules, the time profiles here (`limitmonths`, `limitdays`, etc.) are checked against the cookie’s literal `Expires` attribute (`COOKIE_HAS_EXPIRES`), not the proxy’s current system time.
