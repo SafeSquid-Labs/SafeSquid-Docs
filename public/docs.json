@@ -150,16 +150,29 @@
             "group": "Scaling & High Availability",
             "pages": [
               "use_cases/scaling_and_high_availability/proxy_clustering",
-              "use_cases/scaling_and_high_availability/operational_modes",
-              "use_cases/scaling_and_high_availability/disaster_recovery",
               "use_cases/scaling_and_high_availability/master_slave",
+              "use_cases/customisation/configuration_sync",
+              "use_cases/scaling_and_high_availability/ha_monit_keepalived",
               "use_cases/scaling_and_high_availability/vpn",
-              "use_cases/scaling_and_high_availability/wccp",
+              "use_cases/scaling_and_high_availability/wccp"
+            ]
+          },
+          {
+            "group": "Operational Modes",
+            "pages": [
+              "use_cases/scaling_and_high_availability/operational_modes",
               "use_cases/scaling_and_high_availability/forward_proxy",
-              "use_cases/scaling_and_high_availability/proxy_chain",
-              "use_cases/scaling_and_high_availability/reverse_proxy",
+              "use_cases/scaling_and_high_availability/transparent_proxy",
               "use_cases/scaling_and_high_availability/tcp_proxy",
-              "use_cases/scaling_and_high_availability/transparent_proxy"
+              "use_cases/scaling_and_high_availability/reverse_proxy",
+              "use_cases/scaling_and_high_availability/proxy_chain"
+            ]
+          },
+          {
+            "group": "Disaster Recovery",
+            "pages": [
+              "use_cases/scaling_and_high_availability/disaster_recovery",
+              "use_cases/customisation/configure_cloud_restore"
             ]
           },
           {
@@ -177,8 +190,6 @@
             "group": "Customisation",
             "pages": [
               "use_cases/customisation/customisation",
-              "use_cases/customisation/configuration_sync",
-              "use_cases/customisation/configure_cloud_restore",
               "use_cases/customisation/custom_templates",
               "use_cases/customisation/startup_parameters"
             ]

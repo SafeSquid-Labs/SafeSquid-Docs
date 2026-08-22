@@ -1,0 +1,212 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #006699;
+  --ifm-color-primary-dark: #006699;
+  --ifm-color-primary-darker: #006699;
+  --ifm-color-primary-darkest: #006699;
+  --ifm-color-primary-light: #006699;
+  --ifm-color-primary-lighter: #006699;
+  --ifm-color-primary-lightest: #006699;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #006699;
+  --ifm-color-primary-dark: #006699;
+  --ifm-color-primary-darker: #006699;
+  --ifm-color-primary-darkest: #006699;
+  --ifm-color-primary-light: #006699;
+  --ifm-color-primary-lighter: #006699;
+  --ifm-color-primary-lightest: #006699;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+.hero--primary {
+  --ifm-hero-text-color: #FFFFFF;
+}
+
+element {
+  margin-top: 5px;
+}
+
+.safesquid-navbar-logo {
+  height: 20px !important; /* Adjust as needed */
+  margin-top: 5px;
+}
+
+/* ===== Enterprise Documentation Enhancements ===== */
+
+/* Full-Width Images in Documentation */
+.markdown img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem 0;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] .markdown img {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Improved Table Readability */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table thead {
+  position: sticky;
+  top: 0;
+  background: var(--ifm-background-surface-color);
+  z-index: 1;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme='dark'] table tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+table tbody tr:hover {
+  background-color: rgba(0, 102, 153, 0.08);
+  transition: background-color 0.2s ease;
+}
+
+/* CISO Callout Styling - Stronger Visual Hierarchy */
+.theme-admonition-info.alert--info {
+  border-left: 4px solid var(--ifm-color-primary);
+  background-color: rgba(0, 102, 153, 0.05);
+}
+
+[data-theme='dark'] .theme-admonition-info.alert--info {
+  background-color: rgba(0, 102, 153, 0.1);
+}
+
+.theme-admonition-info .admonition-heading {
+  font-weight: 700;
+  color: var(--ifm-color-primary-darkest);
+}
+
+[data-theme='dark'] .theme-admonition-info .admonition-heading {
+  color: var(--ifm-color-primary-lightest);
+}
+
+/* Print Styles for Compliance Documentation */
+@media print {
+  .navbar, 
+  .footer, 
+  .pagination-nav, 
+  .theme-doc-sidebar-container, 
+  .theme-doc-toc-desktop,
+  .theme-edit-this-page,
+  .theme-doc-breadcrumbs {
+    display: none !important;
+  }
+  
+  .main-wrapper {
+    margin: 0 !important;
+    padding: 20px !important;
+  }
+  
+  /* Force light mode for print */
+  :root {
+    --ifm-background-color: white;
+    --ifm-font-color-base: black;
+  }
+  
+  /* Ensure code blocks print well */
+  pre {
+    border: 1px solid #ccc;
+    page-break-inside: avoid;
+  }
+  
+  /* Keep tables together */
+  table {
+    page-break-inside: avoid;
+  }
+  
+  /* Admonitions */
+  .admonition {
+    border: 1px solid #ccc;
+    page-break-inside: avoid;
+  }
+}
+
+/* Responsive Table Improvements */
+@media screen and (max-width: 768px) {
+  table {
+    font-size: 0.9em;
+  }
+  
+  .markdown table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+/* ===== Enhanced Search UI ===== */
+
+/* Search input styling */
+.DocSearch-Button {
+  border-radius: 8px;
+  height: 40px;
+  padding: 0 12px;
+  font-size: 0.95rem;
+}
+
+.DocSearch-Button:hover {
+  box-shadow: 0 2px 8px rgba(0, 102, 153, 0.15);
+}
+
+/* Search modal enhancements */
+.DocSearch-Modal {
+  border-radius: 12px;
+}
+
+.DocSearch-Hit-title {
+  font-weight: 600;
+}
+
+.DocSearch-Hit-path {
+  color: var(--ifm-color-primary);
+  font-size: 0.85rem;
+}
+
+.DocSearch-Hit mark {
+  background-color: rgba(0, 102, 153, 0.2);
+  color: inherit;
+  font-weight: 600;
+}
+
+/* Search result snippets */
+.DocSearch-Hit-content-wrapper {
+  line-height: 1.5;
+}
+
+/* ===== Version Dropdown Styling ===== */
+
+.navbar__item.dropdown__toggle {
+  font-weight: 500;
+}
+
+.dropdown__menu {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] .dropdown__menu {
+  box-shadow: 0 4px 12px rgba(0, 102, 153, 0.2);
+}

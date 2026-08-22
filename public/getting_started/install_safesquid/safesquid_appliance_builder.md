@@ -77,6 +77,49 @@ Before booting the ISO, confirm:
 - Activation key is available for post-install activation.
 - A rollback or rebuild plan exists for the VM or hardware.
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/01-SafeSquid_Appliance_Builder.md §Before You Begin */}
+
+Obtain the ISO from the SafeSquid appliance download path:
+
+```text
+https://downloads.safesquid.com/appliance/safesquid.iso
+```
+
+Record the download date and, where the organization's process requires it, a checksum of the retrieved image in the change record.
+
+<Accordion title="Prepare physical hardware">
+
+1. Write the ISO to USB or DVD. Rufus, Etcher, and `dd` all work; use whichever is approved for the administrator workstation.
+2. Set the BIOS or UEFI boot order so removable media is tried before the internal disk.
+3. Confirm the CPU exposes AES-NI before committing the hardware. SSL inspection performance depends on it:
+
+   ```bash
+   lscpu | grep aes
+   ```
+
+   Expected result: `aes` appears in the CPU flags. If it does not, HTTPS inspection will be substantially slower on this host.
+
+</Accordion>
+
+<Accordion title="Prepare a virtual machine">
+
+1. Create the VM on VMware, Hyper-V, KVM, or VirtualBox.
+2. Attach the ISO as a virtual CD or DVD drive.
+3. Configure networking as **bridged** so the appliance holds a routable address on the client network. NAT works for an isolated lab but complicates client routing and certificate testing later.
+4. Allocate CPU, RAM, and disk according to the approved sizing plan, and confirm the hypervisor actually reserves them rather than overcommitting.
+
+</Accordion>
+
+<Warning>
+  **Default credentials:** the appliance ships with the account `administrator` and the password `safesquid`. Change the password at first login, before the host is reachable from any client network:
+
+  ```bash
+  passwd
+  ```
+
+  Record that the change was made in the deployment evidence. Leaving the shipped password in place on a proxy that sees all corporate web traffic is a direct compromise path.
+</Warning>
+
 ## Install the appliance
 
 <Steps>
@@ -157,6 +200,39 @@ The installation overwrites the selected target disk. Confirm the host is dedica
   **Destructive disk operation:** SAB erases and repartitions the selected disk. Do not continue unless the VM or hardware is dedicated to SafeSquid and rollback is a rebuild, not data recovery.
 </Warning>
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/01-SafeSquid_Appliance_Builder.md §Installation Steps step 7 caution */}
+
+<Warning>
+  **Confirm the GRUB target disk.** The bootloader prompt is separate from the partitioning prompt, and it is easy to accept an external USB device instead of the internal disk. Installing GRUB to the wrong drive leaves the appliance unbootable once the media is removed. Select the internal disk SafeSquid was installed to, typically `/dev/sda` or `/dev/nvme0n1`.
+</Warning>
+
+{/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/01-SafeSquid_Appliance_Builder.md §Monitoring Installation Progress */}
+
+<Accordion title="Watch installation progress from another console">
+
+The installer runs on a virtual console. Switch between consoles to see what it is actually doing, which matters when the main screen appears stuck.
+
+| Keys | Console |
+|---|---|
+| **ALT + F1** | Main installation interface, the default view |
+| **ALT + F2** | Live installation log, real-time progress and errors |
+| **ALT + F3** | Shell prompt for troubleshooting |
+| **ALT + F4** | System messages |
+
+Switch to the live log (ALT + F2) when installation appears stuck, network configuration fails, or partitioning errors appear — it distinguishes a slow step from a failed one.
+
+From the shell (ALT + F3):
+
+```bash
+tail -f /var/log/syslog
+ping -c 3 8.8.8.8
+lsblk
+```
+
+Expected result: the log advances, outbound connectivity succeeds, and the intended target disk is present and the size you expect.
+
+</Accordion>
+
 ## Verify installation
 
 After reboot, run these checks before activation.
@@ -197,6 +273,24 @@ After reboot, run these checks before activation.
   </Step>
 </Steps>
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/01-SafeSquid_Appliance_Builder.md §What Gets Installed */}
+
+<Accordion title="What the appliance installs, and where">
+
+| Component | Location or detail |
+|---|---|
+| SafeSquid proxy | `/opt/safesquid/` — listens on port `8080` |
+| Security, policy, and UI material | `/usr/local/safesquid/` |
+| Monit | Process monitoring and automatic restart for SafeSquid |
+| BIND9 | Local DNS resolver on port `53` |
+| Logs | `/var/log/safesquid/` |
+| Configuration Portal | `https://safesquid.cfg/` — reachable only through the proxy, and deliberately not resolved by SafeSquid's own DNS resolver |
+| Direct management access | `https://SERVER-IP:8443/` — before a proxy is configured, or when the proxy path is unavailable |
+
+Use the direct `:8443` path only from an approved administrator network. It bypasses the proxy path that every other client uses, so it changes the trust boundary and should not become the routine way in.
+
+</Accordion>
+
 ## Capture appliance evidence
 
 Store:
@@ -218,6 +312,9 @@ Store:
 | Installer cannot reach mirrors | DNS, gateway, or outbound firewall is blocked | Fix network settings and retry installation |
 | Service is not running after reboot | Installation did not complete cleanly | Check service logs and rebuild if the appliance baseline is incomplete |
 | Interface does not load | Pilot browser is not proxied through SafeSquid | Configure explicit proxy and retry `http://safesquid.cfg/` |
+| Installer reports a partitioning failure | Target disk is in use, or another disk was selected by mistake | Confirm the target disk against the approved allocation; detach other drives during install so the wrong one cannot be picked |
+| Management interface unreachable on `:8443` | Host or network firewall blocks the port | Check host firewall rules and confirm the port is permitted from the administrator network only |
+| SSH connection refused after reboot | SSH is not running, or the address changed | Confirm the address with `ip addr`, then check the service with `systemctl status ssh` |
 
 ## Next steps
 

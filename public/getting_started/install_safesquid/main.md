@@ -45,6 +45,22 @@ Installation quality determines whether SafeSquid can inspect traffic safely und
   </Step>
 </Steps>
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/main.md §Which Method Should I Use? */}
+
+<Accordion title="Match the method to your environment">
+
+| Environment | Method | Why |
+|---|---|---|
+| New bare metal server | [SafeSquid Appliance Builder](/getting_started/install_safesquid/safesquid_appliance_builder) | Turnkey image with hardened OS and all dependencies |
+| New VM on VMware, Hyper-V, or KVM | [SafeSquid Appliance Builder](/getting_started/install_safesquid/safesquid_appliance_builder) | Pre-configured networking, monitoring, and DNS |
+| Private cloud on OpenStack or Proxmox | [SafeSquid Appliance Builder](/getting_started/install_safesquid/safesquid_appliance_builder) | Complete appliance for self-managed infrastructure |
+| AWS, Azure, GCP, or DigitalOcean | [Cloud Deployment](/getting_started/install_safesquid/cloud_deployment) | Cloud-optimised images and cloud-init support |
+| Existing Linux server | [Linux Server Install](/getting_started/install_safesquid/linux_server) | Minimal footprint; you keep ownership of the OS and services |
+
+If the environment is not listed, choose by ownership rather than by platform: Appliance Builder when SafeSquid can own the whole host, Linux Server when something else already does.
+
+</Accordion>
+
 ## Installation sequence
 
 <Steps>

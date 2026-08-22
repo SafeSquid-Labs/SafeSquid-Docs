@@ -81,9 +81,137 @@ sudo dnf install -y bind monit
   </Tab>
 </Tabs>
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/03-Linux_Server.md §Prerequisites (Required dependencies) */}
+
+<Accordion title="Install build and runtime dependencies">
+
+SafeSquid links against these libraries. Install them before running the installer, using the organization's approved repositories.
+
+<Tabs>
+  <Tab title="Debian and Ubuntu">
+
+```bash
+sudo apt update
+sudo apt install -y wget tar libssl-dev libpcre3 libpcre3-dev zlib1g-dev \
+  build-essential libc6 libgcc-s1 libstdc++6
+```
+
+  </Tab>
+  <Tab title="RHEL, CentOS, Rocky">
+
+```bash
+sudo yum install -y wget tar openssl-devel pcre-devel zlib-devel \
+  gcc gcc-c++ make glibc libgcc libstdc++
+```
+
+  </Tab>
+  <Tab title="SUSE and openSUSE">
+
+```bash
+sudo zypper install -y wget tar libopenssl-devel pcre-devel zlib-devel \
+  gcc gcc-c++ make glibc libgcc_s1 libstdc++6
+```
+
+  </Tab>
+</Tabs>
+
+Package names drift between releases. If one is not found, locate the equivalent for your distribution rather than skipping it — a missing library surfaces later as a service that installs cleanly and then refuses to start.
+
+**Missing:** the tested distribution and version matrix, and the minimum kernel version, are not stated here. The legacy source lists both, but they are undated and unverified against the current build. Confirm supported platforms through the approved release or support channel before committing to a distribution.
+
+</Accordion>
+
+{/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/03-Linux_Server.md §System Preparation */}
+
+<Accordion title="Prepare directories, firewall, SELinux, and time">
+
+**Create the data directories** so the installer writes into a known layout, and so you can mount dedicated volumes underneath them:
+
+```bash
+sudo mkdir -p /var/log/safesquid /var/lib/safesquid /var/db/safesquid
+```
+
+**Open the proxy and management ports** using whichever firewall the host runs. Restrict the source scope in the same change, as described in [Prerequisites](/getting_started/install_safesquid/prerequisites):
+
+```bash
+# firewalld (RHEL family)
+sudo firewall-cmd --permanent --add-port=8080/tcp
+sudo firewall-cmd --permanent --add-port=8443/tcp
+sudo firewall-cmd --reload
+```
+
+```bash
+# ufw (Debian, Ubuntu)
+sudo ufw allow 8080/tcp
+sudo ufw allow 8443/tcp
+sudo ufw reload
+```
+
+```bash
+# iptables
+sudo iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 8443 -j ACCEPT
+sudo iptables-save
+```
+
+**Set SELinux to permissive for the setup window** on RHEL-family hosts, then write a targeted policy once the deployment is stable:
+
+```bash
+sudo setenforce 0
+```
+
+**Confirm time synchronisation.** SSL certificate validation and log correlation both depend on it:
+
+```bash
+timedatectl status
+```
+
+Expected result: NTP synchronisation is active. If it is not, enable it before continuing:
+
+```bash
+sudo systemctl enable --now systemd-timesyncd
+```
+
+</Accordion>
+
 ## Install SafeSquid
 
 Use the approved SafeSquid package or TAR source for the target release. Preserve the source URL, checksum if provided, and install date in the change record.
+
+{/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/03-Linux_Server.md §Installation Steps */}
+{/* TAR URL corroborated independently at public/troubleshooting/installation_issues.md:104 */}
+
+<Accordion title="Download, extract, and run the installer">
+
+Retrieve and unpack the package:
+
+```bash
+cd /usr/local/src
+wget http://downloads.safesquid.net/appliance/binary/safesquid_latest.tar.gz
+tar -zxvf safesquid_latest.tar.gz
+```
+
+Expected result: a `_mkappliance` directory is extracted, containing the installation scripts.
+
+Run the installer from the directory you extracted into:
+
+```bash
+sudo _mkappliance/installation/setup.sh
+```
+
+The installer checks dependencies, creates the `safesquid` system user and group, installs binaries under `/opt/safesquid/`, writes init and systemd service units, and places default configuration under `/etc/safesquid/`.
+
+Confirm every linked library resolved:
+
+```bash
+ldd /opt/safesquid/bin/safesquid
+```
+
+Expected result: no line reads `not found`. Any that does names a package still to install — resolve it before starting the service, because the failure otherwise appears at runtime as an immediate exit rather than a missing dependency.
+
+If the installer itself fails, the usual causes are a missing library, running without `sudo`, or insufficient free space. Check the terminal output first, then `df -h`.
+
+</Accordion>
 
 After extracting or installing the package, start SafeSquid:
 
@@ -131,6 +259,16 @@ Expected result: SafeSquid runs, listens on the approved port, and records pilot
   ```
 
   Expected result: Monit runs, starts after reboot, and its configuration is included in the deployment record.
+
+  {/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/03-Linux_Server.md §Configure Supporting Services (Monit) */}
+
+  **Missing:** the `check process` stanza is not reproduced here. SafeSquid documentation gives two different PID file paths for the same service — `/var/run/safesquid.pid` and `/var/run/safesquid/safesquid.pid` — and a stanza pointing at the wrong one leaves Monit believing the service is down, restarting it in a loop. Confirm which path your build writes before authoring the stanza:
+
+  ```bash
+  ls -l /var/run/safesquid*
+  ```
+
+  See [Monit](/safesquid_swg/interface/supporting_services_monit) for the fuller configuration reference, and escalate the path discrepancy to the CTO.
 </Accordion>
 
 <Accordion title="BIND9 local DNS service">
@@ -156,6 +294,49 @@ Before routing users:
 - Confirm Root CA rollout path.
 - Document service restart and rollback steps.
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/03-Linux_Server.md §Post-Install Hardening */}
+
+<Accordion title="Change the default administrator password">
+
+Change the shipped administrator password before the host is reachable from any client network.
+
+1. Open the management interface at `https://SERVER-IP:8443/` from an approved administrator network.
+2. Go to **System** and open **User Management**.
+3. Change the password on the `administrator` account.
+
+Record that the change was made in the deployment evidence. A proxy carrying all corporate web traffic on a default credential is a direct compromise path.
+
+</Accordion>
+
+<Accordion title="Configure log rotation">
+
+Without rotation, SafeSquid logs grow until the volume fills and evidence is silently truncated. Create `/etc/logrotate.d/safesquid`:
+
+```
+/var/log/safesquid/*.log {
+    daily
+    rotate 30
+    compress
+    delaycompress
+    missingok
+    notifempty
+    sharedscripts
+    postrotate
+        /etc/init.d/safesquid reload > /dev/null
+    endscript
+}
+```
+
+Adjust `rotate` to the retention target agreed in [Deployment Planning](/deployment/deployment_planning), and use the service reload command appropriate to your build. Test the configuration before relying on it:
+
+```bash
+sudo logrotate -d /etc/logrotate.d/safesquid
+```
+
+Expected result: the dry run reports the files it would rotate, with no configuration errors.
+
+</Accordion>
+
 ## Capture deployment evidence
 
 Store:
@@ -177,6 +358,8 @@ Store:
 | Service does not start | Port conflict or incomplete install | Check service logs and confirm no service owns the proxy port |
 | Listener is missing | SafeSquid is stopped or bound differently | Verify service status and configured listener |
 | No traffic is logged | Client bypasses proxy | Configure explicit proxy on a pilot client and retest |
+| `ldd` reports a library as `not found` | A system dependency is missing | Install the package providing that library with the host's package manager, then recheck |
+| Logs show permission denied, but file ownership looks correct | SELinux is enforcing and blocking SafeSquid | Set permissive mode for the setup window with `sudo setenforce 0`, then author a targeted policy |
 
 ## Next steps
 
