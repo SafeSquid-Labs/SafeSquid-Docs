@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Network settings</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a> · <a href="access.html">Access restrictions</a></nav>
+	<h1>Network settings</h1>
+	<p>The <strong>Network</strong> section (<code>safesquid-network(5)</code>) defines client listen sockets and outbound source IP selection for origin connections.</p>
+
+	<h2>Core mechanics</h2>
+	<p>Validated against <code>sources/src/network.cpp</code> — <code>NetworkSection::check()</code>, <code>interface_select()</code>, <code>Interface</code> constructor.</p>
+
+	<h3>Listen — startup bind</h3>
+	<p>Every enabled Listen row with <code>port != -1</code> binds at startup. If no enabled row matches startup.ini <code>LISTEN_IP</code> and <code>LISTEN_PORT</code>, an additional fallback bind runs on those defaults. Restart required after Listen changes.</p>
+
+	<h3>Interface — first match wins</h3>
+	<p>Outbound walks Interface rows top-down: skip disabled; skip empty Source IP after load; skip when destination is in <strong>Excluded Destination IPs</strong>; require <code>profile_find()</code> (connection profiles plus hostname/service tags). First match picks <code>source_ips[clientid % N]</code>.</p>
+
+	<h3>Source IP on host only</h3>
+	<p>Non-local Source IPs are dropped silently at load. If all IPs are dropped, the row is skipped at runtime.</p>
+
+	<figure class="flowchart">
+		<figcaption>Outbound Interface selection</figcaption>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 340" class="flowchart" role="img" aria-label="Interface selection flow">
+			<rect class="box" x="120" y="8" width="240" height="36" rx="4"/>
+			<text class="label" x="240" y="30" text-anchor="middle">Outbound TCP connect</text>
+			<line class="arrow" x1="240" y1="44" x2="240" y2="58"/>
+			<rect class="box" x="80" y="58" width="320" height="36" rx="4"/>
+			<text x="240" y="80" text-anchor="middle">Walk Interface list top-down</text>
+			<line class="arrow" x1="240" y1="94" x2="240" y2="108"/>
+			<rect class="box" x="60" y="108" width="360" height="44" rx="4"/>
+			<text x="240" y="126" text-anchor="middle">Skip: disabled, empty source_ips,</text>
+			<text x="240" y="142" text-anchor="middle">dest in dest_ips, profile mismatch</text>
+			<line class="arrow" x1="240" y1="152" x2="240" y2="166"/>
+			<rect class="boxOk" x="70" y="166" width="340" height="36" rx="4"/>
+			<text x="240" y="188" text-anchor="middle">Bind source_ips[clientid mod N] — stop</text>
+			<line class="arrow" x1="240" y1="202" x2="240" y2="216"/>
+			<rect class="box" x="100" y="216" width="280" height="36" rx="4"/>
+			<text x="240" y="238" text-anchor="middle">No match → OS chooses source IP</text>
+		</svg>
+	</figure>
+
+	<h2>Listen fields</h2>
+	<dl>
+		<dt>IP / Port</dt>
+		<dd>Bind address and client port. Blank IP = dual-stack any when IPv6 available.</dd>
+		<dt>Bindings</dt>
+		<dd><code>SSL_TRANSPARENT</code>, <code>CAPTIVE_PORTAL</code> implemented; <code>SSL_AUTHENTICATION</code> / <code>SSL_BRIDGE</code> have no effect.</dd>
+	</dl>
+
+	<h2>Interface fields</h2>
+	<dl>
+		<dt>Profiles</dt>
+		<dd>Blank matches all. Typical tag: <code>ALTERNATE OUTBOUND IP</code>.</dd>
+		<dt>Excluded Destination IPs</dt>
+		<dd>Hyphen ranges; destination in list skips row (CIDR not supported).</dd>
+		<dt>Source IP</dt>
+		<dd>Comma-separated local addresses; only host IPs kept; rotated by client id.</dd>
+	</dl>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>Single proxy port</h3>
+		<p><strong>Config:</strong> Listen enabled, blank IP, port 8080.</p>
+		<p><strong>Result:</strong> All interfaces accept on 8080 after restart; Access controls who may connect.</p>
+	</div>
+	<div class="example">
+		<h3>Excluded destination</h3>
+		<p><strong>Config:</strong> Source IP 10.0.0.5, dest_ips 10.0.0.0-10.255.255.255.</p>
+		<p><strong>Result:</strong> Outbound to 10.x skips row; public destinations may match and bind 10.0.0.5.</p>
+	</div>
+	<div class="example">
+		<h3>Source IP not on host</h3>
+		<p><strong>Config:</strong> Source IP 198.51.100.99 not assigned to appliance.</p>
+		<p><strong>Result:</strong> IP ignored at load; row skipped — no outbound bind from this row.</p>
+	</div>
+
+	<h2>How to verify</h2>
+	<ol>
+		<li>Restart after Listen changes.</li>
+		<li><code>curl -x http://APPLIANCE:8080 http://example.com/</code></li>
+		<li>Enable NETWORK logs; confirm bind and interface_select lines.</li>
+		<li>Match listen socket in Access <strong>Interface</strong> for CONFIG vs PROXY tests.</li>
+	</ol>
+
+</body>
+</html>

@@ -121,6 +121,36 @@ tail -20 /var/log/safesquid/access/extended.log
 
 Expected result: the log records the pilot request with source, destination, timestamp, and action.
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/05-Connect_Your_Client/main.md §Testing Your Configuration */}
+
+<Accordion title="Confirm routing from the client, without server access">
+
+The access log is the authoritative check, but it needs shell access to the SafeSquid host. When you are walking a pilot user through the change, or verifying an endpoint you cannot log into, check the egress address from the browser instead.
+
+Visit an address-reflection service such as `whatismyip.com` from the configured client.
+
+Expected result: the address shown is the SafeSquid host's WAN address, not the client's own public address. If the client's own address appears, traffic is bypassing the proxy regardless of what the settings screen says.
+
+Pair this with the internal-bypass test: an internal destination should load and should *not* appear in the SafeSquid log.
+
+</Accordion>
+
+<Accordion title="Rough scale guidance by method">
+
+Method choice tracks fleet size more than anything else:
+
+| Fleet | Method |
+|---|---|
+| One browser or host, first validation | Explicit proxy |
+| A single user across several browsers | PAC file |
+| One machine, all applications | System-wide proxy |
+| Tens to thousands of endpoints | Enterprise deployment via GPO or MDM |
+| Specific tools only, such as a container runtime | Application-specific configuration |
+
+For production, the usual path is explicit proxy to prove the route, then enterprise deployment to enforce it.
+
+</Accordion>
+
 ## Prevent bypass
 
 After the pilot passes, restrict direct internet egress where the network design allows it. A browser proxy setting alone is not a control if endpoints can still reach the internet directly.

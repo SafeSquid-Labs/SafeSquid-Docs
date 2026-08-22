@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Content rewrite</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a></nav>
+	<h1>Content rewrite</h1>
+	<figure class="flowchart">
+		<figcaption>Rewrite hook flow</figcaption>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 160" class="flowchart" role="img" aria-label="Rewrite hook flow">
+			<defs>
+				<marker id="arrowhead-Rewrite hook flow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+					<polygon points="0 0, 8 3, 0 6" fill="#444"/>
+				</marker>
+			</defs>
+			<rect class="box" x="100" y="8" width="280" height="36" rx="4"/><text x="240" y="30" text-anchor="middle">Header or body hook</text><line class="arrow" x1="240" y1="44" x2="240" y2="58"/><rect class="boxOk" x="80" y="58" width="320" height="36" rx="4"/><text x="240" y="80" text-anchor="middle">PCRE replace</text>
+		</svg>
+	</figure>
+ <h2 id="overview">Overview</h2> <p>The <code>Rewrite</code> section (<code>safesquid-rewrite(5)</code>) performs PCRE search-and-replace on HTTP headers and bodies. Use it to inject cookies, strip sensitive header values, or modify response body content before it reaches the client.</p> <h2 id="core-mechanics-c-source-validation">Core Mechanics (C++ Source Validation)</h2> <p>Source: <code>sources/modules/rewrite/rewrite.cpp</code> ΓÇö <code>RewriteSection::check_match()</code>, <code>rewrite_do()</code>.</p> <h3 id="hook-points">Hook points</h3> <ul> <li><strong>Client header</strong> (<code>REWRITE_CLIENT</code>) ΓÇö outgoing request headers via <code>rewrite_reqheader</code> hook.</li> <li><strong>Server header</strong> (<code>REWRITE_SERVER</code>) ΓÇö response headers via <code>rewrite_respheader</code> hook.</li> <li><strong>Body</strong> (<code>REWRITE_BODY</code>) ΓÇö response body via <code>PROCESS_BUFFCHECK</code>; MIME regex tested against <code>Content-Type</code>.</li> <li><strong>Post body</strong> (<code>REWRITE_POST</code>) ΓÇö upload body modification.</li> </ul> <h3 id="first-applicable-row-per-pass">First applicable row per pass</h3> <p>Rows walked top to bottom. Row skipped when: disabled, Applies to flag mismatch, profiles fail, blank pattern, or MIME regex fails (body only).</p> <h3 id="mime-gate-on-body">MIME gate on body</h3> <p>For <code>REWRITE_BODY</code>, non-empty Mime type regex must match <code>connection-&gt;rheader-&gt;content_type</code>. Empty mime matches any body when other gates pass.</p> <h2 id="processing-flow">Processing flow</h2> <pre class="mermaid"><code>flowchart TD   msg[Request or response] --&gt; flags{Applies to matches hook?}   flags --&gt;|No| skip[Skip row]   flags --&gt;|Yes| prof{Profiles match?}   prof --&gt;|No| skip   prof --&gt;|Yes| mime{Body: MIME matches?}   mime --&gt;|No| skip   mime --&gt;|Yes| pcre[PCRE replace on header or body]   pcre --&gt; done[Modified stream continues]</code></pre> <h2 id="schema-fields">Schema Fields</h2> <h3 id="global-fields">Global fields</h3> <ul> <li><strong>Enabled (enabled)</strong> ΓÇö Master switch for all rewrite hooks.</li> </ul> <h3 id="policy-rows">Policy rows</h3> <ul> <li><strong>Profiles (profiles)</strong> ΓÇö Connection must match tags. Blank matches all.</li> <li><strong>Mime type (mime)</strong> ΓÇö POSIX regex on Content-Type for body rewrites only.</li> <li><strong>Pattern (pattern)</strong> ΓÇö PCRE search pattern (required).</li> <li><strong>Replace (replace)</strong> ΓÇö Replacement string; supports capture groups.</li> <li><strong>Applies to (which)</strong> ΓÇö CLIENT HEADER, SERVER HEADER, BODY, POST BODY flags.</li> </ul> <h2 id="examples">Examples</h2> <h3 id="youtube-safesearch-cookie-injection">YouTube SafeSearch cookie injection</h3> <ul> <li><strong>Configuration:</strong> Profiles UNSAFE_YOUTUBE, Pattern <code>Cookie: ([^\r\n]*)</code>, Replace <code>Cookie: ; PREF=f2=8000000;\r\n</code>, Applies to CLIENT HEADER.</li> <li><strong>Result:</strong> matching request Cookie header rewritten to inject SafeSearch preference before origin fetch.</li> </ul> <h3 id="strip-server-banner">Strip Server banner</h3> <ul> <li><strong>Configuration:</strong> Pattern on response Server header, Applies to SERVER HEADER.</li> <li><strong>Result:</strong> Server field value replaced or removed per pattern.</li> </ul> <h3 id="body-html-substitution">Body HTML substitution</h3> <ul> <li><strong>Configuration:</strong> Mime <code>text/html</code>, Pattern/Replace on body, Applies to BODY.</li> <li><strong>Result:</strong> response HTML modified in buffered body before client delivery.</li> </ul> <h2 id="code-note">Code note</h2> <p>Header rewrite uses hooks; body rewrite uses buffcheck. Both share the same policy list walk order.</p> <h2 id="how-to-verify">How to verify</h2> <ol type="1"> <li>Enable REWRITE in <code>LOG_LEVEL</code> for <code>processing:</code> lines showing hook target.</li> <li>Capture before/after with View headers or raw response inspection.</li> <li>Detailed logs on blocked connections if rewrite triggers downstream policy.</li> </ol>
+
+</body>
+</html>

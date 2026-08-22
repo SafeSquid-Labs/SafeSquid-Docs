@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" width="480" height="300" role="img" aria-label="Template get flow">
+<style>
+    .box { fill: #f5f8fa; stroke: #0066aa; stroke-width: 1.5; }
+    .boxWarn { fill: #fdf6f0; stroke: #c45c26; stroke-width: 1.5; }
+    .boxOk { fill: #f0f7f0; stroke: #2d6a2d; stroke-width: 1.5; }
+    .arrow { stroke: #444; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead); }
+    .yn { font-size: 11px; fill: #555; font-weight: 600; }
+    text { font-size: 12px; font-family: system-ui, sans-serif; fill: #222; }
+    text.label { font-weight: 600; }
+</style>
+<rect x="0" y="0" width="480" height="300" fill="#ffffff"/>
+<defs>
+				<marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+					<polygon points="0 0, 8 3, 0 6" fill="#444"/>
+				</marker>
+			</defs>
+			<rect class="box" x="120" y="8" width="240" height="36" rx="4"/>
+			<text class="label" x="240" y="30" text-anchor="middle">get(connection, name)</text>
+			<line class="arrow" x1="240" y1="44" x2="240" y2="58"/>
+			<rect class="box" x="80" y="58" width="320" height="36" rx="4"/>
+			<text x="240" y="80" text-anchor="middle">Profiles gate → Name match</text>
+			<line class="arrow" x1="240" y1="94" x2="240" y2="108"/>
+			<rect class="boxOk" x="100" y="108" width="280" height="36" rx="4"/>
+			<text x="240" y="130" text-anchor="middle">First match — FILE cache or EXEC</text>
+			<line class="arrow" x1="240" y1="142" x2="240" y2="156"/>
+			<rect class="box" x="90" y="156" width="300" height="36" rx="4"/>
+			<text x="240" y="178" text-anchor="middle">Parsable? → variables_parse</text>
+			<line class="arrow" x1="240" y1="190" x2="240" y2="204"/>
+			<rect class="boxWarn" x="80" y="204" width="320" height="36" rx="4"/>
+			<text x="240" y="226" text-anchor="middle">No match → PAGES[] or error</text>
+</svg>

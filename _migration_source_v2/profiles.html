@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Access Profiles</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a> · <a href="access.html">Access restrictions</a> · <a href="reqProfiles.html">Request Types</a> · <a href="respProfiles.html">Response Types</a> · <a href="timeProfiles.html">Time Profiler</a></nav>
+	<h1>Access Profiles</h1>
+	<p>The <strong>Access Profiles</strong> section (<code>safesquid-profiles(5)</code>) is the central content-policy hub. Access restrictions decide <em>who</em> connects; Access Profiles decide <em>what</em> they may fetch. It combines Time Profiler, Request Types, Response Types, categories, and User-Groups, then adds profile tags and sets Allow/Deny.</p>
+	<div class="note">
+		Unlike Access restrictions (first match), <strong>every</strong> matching row in Default and Secondary Policies applies. Later rows see tags changed by earlier rows.
+	</div>
+
+	<h2>Profile pipeline</h2>
+	<p>On each request (non-interface), SafeSquid builds label lists in this order before Access Profiles runs:</p>
+	<ol class="steps">
+		<li><a href="timeProfiles.html">Time Profiler</a> → <code>time_schedules</code></li>
+		<li><a href="reqProfiles.html">Request Types</a> → <code>request_types</code></li>
+		<li>Domain categorization → <code>website_categories</code></li>
+		<li><strong>Access Profiles</strong> → <code>profiles</code> + <code>action</code></li>
+		<li><a href="respProfiles.html">Response Types</a> on response headers/body → updates <code>response_types</code>; Access Profiles runs again</li>
+	</ol>
+	<p>Access restrictions <strong>User-Groups</strong> populate <code>user_groups</code> (not <code>profiles</code>). Access Profiles <strong>User Groups</strong> gate matches those tags.</p>
+
+	<h2>Core mechanics</h2>
+	<p>Validated against <code>sources/src/profiles.cpp</code> — <code>ProfileSection::profiles_update()</code>, <code>profiles_check()</code>, <code>check_allow_deny_request()</code>.</p>
+
+	<h3>List order</h3>
+	<ol>
+		<li>Clear <code>connection->profiles</code>; set <code>action = ALLOW</code>.</li>
+		<li>Walk <strong>Default Policies</strong> top-down — every match applies.</li>
+		<li>Walk <strong>Secondary Policies</strong> top-down — same cumulative rules.</li>
+		<li>Final action not Allow → block (bypass cookie may apply).</li>
+	</ol>
+
+	<figure class="flowchart">
+		<figcaption>Access Profiles — gate order per row</figcaption>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 400" class="flowchart" role="img" aria-label="Access Profiles row gate flow">
+			<defs>
+				<marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+					<polygon points="0 0, 8 3, 0 6" fill="#444"/>
+				</marker>
+			</defs>
+			<rect class="box" x="120" y="8" width="240" height="36" rx="4"/>
+			<text class="label" x="240" y="30" text-anchor="middle">profiles_update()</text>
+			<line class="arrow" x1="240" y1="44" x2="240" y2="58"/>
+			<rect class="box" x="80" y="58" width="320" height="36" rx="4"/>
+			<text x="240" y="80" text-anchor="middle">Default Policies then Secondary</text>
+			<line class="arrow" x1="240" y1="94" x2="240" y2="108"/>
+			<rect class="box" x="40" y="108" width="400" height="52" rx="4"/>
+			<text x="240" y="126" text-anchor="middle">Gates: proxyhost → profiles → time →</text>
+			<text x="240" y="142" text-anchor="middle">categories → req_types → user_groups → resp_types</text>
+			<line class="arrow" x1="240" y1="160" x2="240" y2="174"/>
+			<rect class="boxOk" x="90" y="174" width="300" height="36" rx="4"/>
+			<text x="240" y="196" text-anchor="middle">Add/remove profiles; update Action</text>
+			<line class="arrow" x1="240" y1="210" x2="240" y2="224"/>
+			<rect class="box" x="100" y="224" width="280" height="36" rx="4"/>
+			<text x="240" y="246" text-anchor="middle">Next row (cumulative — no stop)</text>
+			<line class="arrow" x1="240" y1="260" x2="240" y2="274"/>
+			<rect class="boxWarn" x="80" y="274" width="320" height="44" rx="4"/>
+			<text x="240" y="292" text-anchor="middle">action ≠ Allow → block template</text>
+			<text x="240" y="308" text-anchor="middle">451 + bypass cookie if Allow bypassing</text>
+		</svg>
+	</figure>
+
+	<h3>Action values</h3>
+	<dl>
+		<dt>Allow</dt>
+		<dd>Default. Downstream sections use applied profile tags.</dd>
+		<dt>Deny</dt>
+		<dd>Block. With Access <strong>Allow bypassing</strong>, temporary bypass cookie may be offered.</dd>
+		<dt>Do not bypass</dt>
+		<dd>Hard block; no bypass cookie.</dd>
+		<dt>Inherit</dt>
+		<dd>Keep action from earlier matching rows; use when row only adds/removes tags.</dd>
+	</dl>
+
+	<h2>Rule fields</h2>
+	<p>All configured criteria on a row must match. Blank = any. Use <code>!</code> to negate tags in list fields.</p>
+	<dl>
+		<dt>Applicable Profiles</dt>
+		<dd>Tags on connection from earlier rows in this pass (list is cleared at start).</dd>
+		<dt>Time Schedule</dt>
+		<dd>Tags from <a href="timeProfiles.html">Time Profiler</a>.</dd>
+		<dt>Request Types</dt>
+		<dd>Tags from <a href="reqProfiles.html">Request Types</a>.</dd>
+		<dt>Response Types</dt>
+		<dd>Tags from <a href="respProfiles.html">Response Types</a>; requires response header when field set.</dd>
+		<dt>User Groups</dt>
+		<dd>From Access restrictions. Non-blank + empty user_groups → row skipped.</dd>
+		<dt>Categories</dt>
+		<dd>Domain categories; empty lookup tests as <code>UNCATEGORIZED</code>.</dd>
+	</dl>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>LAN users + category deny</h3>
+		<p><strong>Config:</strong> Default: User Groups <code>LAN_USERS</code>, add <code>users</code>, Inherit. Secondary: Categories <code>Social</code>, profiles <code>users</code>, Deny.</p>
+		<p><strong>Result:</strong> LAN traffic tagged; Social category blocked with row comment as reason.</p>
+	</div>
+	<div class="example">
+		<h3>Time-gated exception</h3>
+		<p><strong>Config:</strong> Time Profiler adds <code>LUNCH_TIME</code>; Secondary matches Time Schedule <code>LUNCH_TIME</code>, Allow streaming.</p>
+		<p><strong>Result:</strong> exception only during lunch window local time.</p>
+	</div>
+	<div class="example">
+		<h3>Response-side deny</h3>
+		<p><strong>Config:</strong> Response Types adds <code>executable_download</code>; Secondary matches that tag, Deny.</p>
+		<p><strong>Result:</strong> may not match until response headers arrive and <code>profiles_update()</code> runs again.</p>
+	</div>
+
+	<h2>How to verify</h2>
+	<ol>
+		<li><strong>Reports → Detailed logs</strong> — profiles, request/response/time profile columns.</li>
+		<li>Enable <strong>Trace Entry</strong> on one row; check native logs.</li>
+		<li>Debug headers — <code>X-SafeSquid-Profiles</code>, <code>X-SafeSquid-Access-Policy</code>.</li>
+	</ol>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+---
+title: "Cloud / categorisation feeds"
+---
+
+<Note>
+  CLI man page: `safesquid-feeds(7)`
+</Note>
+
+SafeSquid categorises websites and refreshes signature databases using cloud services, scheduled updates, and local caches. Categories and signature tags feed [Access Profiles](/admin_guide/policies_and_profiles/access_profiles), filters, and Detailed logs.
+
+<Note>
+Valid [Subscription](/admin_guide/infrastructure_and_access/subscription) is required for cloud signature downloads and for Application Signatures / SSqore processing on each connection. Check **Reports → License/Users Info** and Modules Status when feeds stop updating.
+</Note>
+
+## Pieces
+
+- **[SSqore](/admin_guide/infrastructure_and_access/ssqore)** — CCS URL categorisation during request profiling. Globals: Enabled (Heuristic is stored but unused in the current build).
+- **[Categorize Web-Sites](/admin_guide/policies_and_profiles/categorize_web_sites)** — Local category overrides you maintain. Takes precedence over cloud results for matching hosts on the hot path.
+- **[Application Signatures](/admin_guide/policies_and_profiles/application_signatures)** — Vendor `applications4` database plus custom rules. Downloaded on UPDATE schedule; skipped when subscription expired.
+- **[Content Signatures](/admin_guide/policies_and_profiles/content_signatures)** — Vendor `content4.xml` plus libmagic MIME database under `/var/lib/safesquid/content_signatures/`.
+- **DNS\_CAT\_ZONE** — In [startup.ini](/admin_guide/start_here/startup_ini) (default `.c.ssquid.in`). Set to `.` to disable DNS categorisation zone use.
+- **UPDATE\_INTVL / UPDATE\_RETRY\_DELAY** — How often the appliance fetches signature and feed updates ([startup.ini](/admin_guide/start_here/startup_ini)).
+
+## Update cycle (overview)
+
+1. Background hooks on the UPDATE schedule call signature updaters (`update_application_signatures`, `update_content_signatures`, and related).
+2. Downloaded files land under `/var/lib/safesquid/` (application\_signatures, content\_signatures, ssqore cache, and similar).
+3. Config reload or init hooks merge vendor data with custom dev XML from the Web UI.
+4. Per-request labelling runs in the pipeline: SSqore and local category editor for website categories; Application Signatures for application tags.
+
+## Offline behaviour
+
+When cloud lookups or downloads fail, SafeSquid relies on the last loaded on-disk databases and SSqore cache entries. New hosts may receive no categories until connectivity returns. Enable CATEGORY log level and check Modules Status in Reports.
+
+## Examples
+
+<Tip>
+
+### Block Social Networking by cloud category
+
+1. Enable [SSqore](/admin_guide/infrastructure_and_access/ssqore); confirm subscription valid.
+2. In Access Profiles Secondary Policies, DENY when Categories matches the SSqore name for social sites (exact string from Detailed logs).
+
+**Result:** categorized social hosts are blocked; uncategorized hosts may pass until CCS returns a category.
+</Tip>
+
+<Tip>
+
+### Override one miscategorised partner
+
+1. Use [Categorize Web-Sites](/admin_guide/policies_and_profiles/categorize_web_sites) to assign `Business-Partners` to `partner.example.com`.
+2. Allow that category in Access Profiles for trusted users.
+
+**Result:** local override applies even if SSqore still lists a different cloud category.
+</Tip>
+
+## How to verify
+
+1. **Reports → Modules Status** — application/content signature load times and errors.
+2. Detailed logs — `categories` and `application_signatures` columns on test URLs.
+3. Native logs with CATEGORY enabled for SSqore lines.
+
+## See also
+
+- [SSqore](/admin_guide/infrastructure_and_access/ssqore)
+- [Categorize Web-Sites](/admin_guide/policies_and_profiles/categorize_web_sites)
+- [Application Signatures](/admin_guide/policies_and_profiles/application_signatures)
+- [Content Signatures](/admin_guide/policies_and_profiles/content_signatures)
+- [Subscription](/admin_guide/infrastructure_and_access/subscription)
+- [startup.ini](/admin_guide/start_here/startup_ini)
+- [Access Profiles](/admin_guide/policies_and_profiles/access_profiles)
+
+CLI: `man safesquid-feeds`

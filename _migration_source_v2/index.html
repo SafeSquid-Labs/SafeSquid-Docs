@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SafeSquid Documentation</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a></nav>
+	<h1>SafeSquid Documentation</h1>
+	<p>Administrator guides for the Secure Web Gateway. Start with the first-configuration path if you are new; use the section pages when you need detail, code-validated examples, and how to verify a change.</p>
+	<p>Topic pages (<a href="architecture.html">Architecture</a>, <a href="auth.html">Authentication</a>, <a href="feeds.html">Feeds</a>, <a href="logging.html">Logging</a>, …) explain cross-cutting behaviour. Section pages document one Web UI configuration list each.</p>
+
+	<div class="note">
+		<strong>New here?</strong> Open <a href="first-configuration.html">First configuration</a> — a short path from service check to a working Allow rule and your first content policy.
+		Two config layers: Web UI (policy) and <a href="startup.html">startup.ini</a> (process tunables).
+		CLI: <code>man safesquid</code>, <code>man safesquid-access</code>, etc. (after package install).
+	</div>
+
+	<h2>Start here</h2>
+	<ul>
+		<li><a href="first-configuration.html">First configuration</a> — recommended for new administrators</li>
+		<li><a href="architecture.html">Architecture and request pipeline</a></li>
+		<li><a href="daemon.html">Daemon, service, and files</a></li>
+		<li><a href="network.html">Network settings</a></li>
+		<li><a href="access.html">Access restrictions</a></li>
+		<li><a href="auth.html">Authentication</a></li>
+		<li><a href="profiles.html">Access Profiles</a></li>
+		<li><a href="logging.html">Logging and troubleshooting</a></li>
+		<li><a href="debug-headers.html">Debug response headers</a></li>
+		<li><a href="startup.html">startup.ini tunables</a></li>
+		<li><a href="feeds.html">Cloud / categorisation feeds</a></li>
+		<li><a href="integrations.html">Integrations</a></li>
+		<li><a href="tools.html">Tools and Reports</a></li>
+	</ul>
+
+	<h2>Infrastructure and access</h2>
+	<ul>
+		<li><a href="access.html">Access restrictions</a></li>
+		<li><a href="network.html">Network settings</a></li>
+		<li><a href="general.html">System configuration</a></li>
+		<li><a href="ldap.html">Integrate LDAP</a></li>
+		<li><a href="sslcert.html">HTTPS Inspection</a></li>
+		<li><a href="forward.html">Proxy chain</a></li>
+		<li><a href="ftp.html">FTP browsing</a></li>
+		<li><a href="wccp.html">WCCP</a></li>
+		<li><a href="subscription.html">Subscription</a></li>
+		<li><a href="ssqore.html">SSqore</a></li>
+	</ul>
+
+	<h2>Policies and profiles</h2>
+	<ul>
+		<li><a href="profiles.html">Access Profiles</a></li>
+		<li><a href="limits.html">Speed Limits</a></li>
+		<li><a href="reqProfiles.html">Request Types</a></li>
+		<li><a href="respProfiles.html">Response Types</a></li>
+		<li><a href="timeProfiles.html">Time Profiler</a></li>
+		<li><a href="templates.html">Templates</a></li>
+		<li><a href="applicationSignatures.html">Application Signatures</a></li>
+		<li><a href="contentSignatures.html">Content Signatures</a></li>
+		<li><a href="buitins.html">Suggested Profiles</a></li>
+		<li><a href="category-editor.html">Categorize Web-Sites</a></li>
+	</ul>
+
+	<h2>Filtering and privacy</h2>
+	<ul>
+		<li><a href="cookies-filtering.html">Cookie filter</a></li>
+		<li><a href="header-filtering.html">Header filter</a></li>
+		<li><a href="keywords-filtering.html">Text analyzer</a></li>
+		<li><a href="dnsbl.html">DNS Blacklist</a></li>
+		<li><a href="redirect.html">Redirect</a></li>
+		<li><a href="rewrite.html">Content modifier</a></li>
+		<li><a href="elevated.html">Elevated Privacy</a></li>
+		<li><a href="external.html">External applications</a></li>
+	</ul>
+
+	<h2>Performance</h2>
+	<ul>
+		<li><a href="cache.html">Caching</a></li>
+		<li><a href="prefetch.html">Prefetching</a></li>
+	</ul>
+
+	<h2>Security scanners</h2>
+	<ul>
+		<li><a href="clamav.html">Clam antivirus</a></li>
+		<li><a href="sqscan.html">SqScan</a></li>
+		<li><a href="imgfilter.html">Image analyzer</a></li>
+		<li><a href="dlp.html">DLP</a></li>
+		<li><a href="icap.html">ICAP</a></li>
+	</ul>
+</body>
+</html>

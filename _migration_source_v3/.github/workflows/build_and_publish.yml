@@ -1,0 +1,65 @@
+name: Build Docs and Publish
+run-name: Build triggered by ${{ github.actor }}
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Setting up docusaurus
+    runs-on: ubuntu-latest
+
+    container:
+      image: node:20
+
+    steps:
+      - name: Clone Repo
+        uses: actions/checkout@v4
+
+      - name: Install rsync and ssh
+        run: |
+          apt-get update
+          apt-get install -y rsync openssh-client
+
+      - name: Cache Docusaurus build cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            .docusaurus
+            node_modules
+          key: ${{ runner.os }}-docusaurus-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-docusaurus-
+
+      - name: Install Dependencies and Build
+        run: |
+          npm install
+          npm run build
+
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy build to server
+        run: |
+          if [ "${{ github.ref_name }}" = "main" ]; then
+            TARGET="${{ vars.REMOTE_PATH }}"
+          else
+            TARGET="${{ vars.REMOTE_PATH_DEV }}"
+          fi
+
+          rsync -avz --delete \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            build/ \
+            ${{ vars.REMOTE_USER }}@${{ vars.REMOTE_HOST }}:$TARGET

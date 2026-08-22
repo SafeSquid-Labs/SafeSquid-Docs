@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>SafeSquid architecture</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a></nav>
+	<h1>Architecture and request pipeline</h1>
+	<p>SafeSquid sits between client browsers and the Internet (or upstream proxies). Each connection is handled by a worker that processes one HTTP transaction at a time, or a CONNECT tunnel for HTTPS.</p>
+	<div class="note">
+		Setting up for the first time? Follow <a href="first-configuration.html">First configuration</a>. This page explains how the pieces fit together.
+	</div>
+
+	<h2>Two configuration layers</h2>
+	<dl>
+		<dt>Web UI (policy)</dt>
+		<dd>Access restrictions, Access Profiles, filters, scanners, and so on. Stored as sections in <code>config.xml</code>. This is what most administrators edit daily.</dd>
+		<dt>startup.ini (process)</dt>
+		<dd>Listen fallback, threads, log levels, TLS and sync tunables. Edited on the appliance filesystem — see <a href="startup.html">startup.ini</a>.</dd>
+	</dl>
+
+	<h2>What to configure first</h2>
+	<p>This is setup order, not the order a live request is processed.</p>
+	<figure class="flowchart">
+		<figcaption>Chart A — configure in this order</figcaption>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 240" class="flowchart" role="img" aria-label="What to configure first">
+			<defs>
+				<marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+					<polygon points="0 0, 8 3, 0 6" fill="#444"/>
+				</marker>
+			</defs>
+			<rect class="box" x="70" y="8" width="340" height="36" rx="4"/>
+			<text class="label" x="240" y="30" text-anchor="middle">Network settings — listen port</text>
+			<line class="arrow" x1="240" y1="44" x2="240" y2="58"/>
+			<rect class="box" x="70" y="58" width="340" height="44" rx="4"/>
+			<text class="label" x="240" y="76" text-anchor="middle">Access restrictions — who may use the proxy</text>
+			<text x="240" y="92" text-anchor="middle">including login if you require it</text>
+			<line class="arrow" x1="240" y1="102" x2="240" y2="116"/>
+			<rect class="box" x="70" y="116" width="340" height="36" rx="4"/>
+			<text class="label" x="240" y="138" text-anchor="middle">Access Profiles — which sites and content</text>
+			<line class="arrow" x1="240" y1="152" x2="240" y2="166"/>
+			<rect class="boxOk" x="70" y="166" width="340" height="44" rx="4"/>
+			<text x="240" y="184" text-anchor="middle">Then HTTPS Inspection, antivirus, filters, Caching</text>
+			<text x="240" y="200" text-anchor="middle">These use the people and labels from the steps above</text>
+		</svg>
+	</figure>
+	<ol>
+		<li><a href="network.html">Network settings</a> — where SafeSquid listens</li>
+		<li><a href="access.html">Access restrictions</a> — who may connect, login if required, HTTP vs HTTPS rights</li>
+		<li><a href="profiles.html">Access Profiles</a> — which sites and content to allow</li>
+		<li><strong>Everything else</strong> — HTTPS Inspection, scanners, cookie/header filters, Caching</li>
+	</ol>
+
+	<h2>What happens to a request</h2>
+	<p>Names below are the Web UI section titles, in the order SafeSquid calls them. A request is <strong>either HTTPS or HTTP</strong>, never both in sequence. Access Profiles Deny is remembered early and only enforced later. <a href="dlp.html">DLP</a>, <a href="clamav.html">Clam antivirus</a>, and <a href="sqscan.html">SqScan</a> are queued as their own steps (upload, then downloaded body). Chart B is drawn from this procedure.</p>
+	<pre class="flow">When a browser uses the proxy:
+
+Network settings
+  already listening on the port the browser uses
+
+System configuration
+  timeouts, buffers, CONNECT port range (used later)
+
+Read the request
+  which site, which page, HTTP or HTTPS
+  (not a Web UI section)
+
+If the destination is unsafe or internal:
+  Templates → block page
+  STOP
+
+If the Host is the Web UI (safesquid.cfg):
+  skip Time Profiler, Application Signatures, Request Types,
+      Categorize Web-Sites, SSqore, and Access Profiles
+  Access restrictions
+    who may open the console; login if required
+    refuse or login challenge → STOP
+  show the Web UI
+  STOP
+  (Access Profiles Deny cannot lock you out of the console)
+
+Otherwise this is a normal visit:
+
+Time Profiler
+Application Signatures
+Request Types
+Categorize Web-Sites
+SSqore
+  SSqore runs only if the site is still uncategorized
+  these attach labels; they do not block
+
+Access Profiles
+  remember Allow or Deny
+  do not block yet
+
+Access restrictions
+  Integrate LDAP is consulted here if you configured it
+  External applications may assist login
+  must log in → prompt, STOP until they succeed
+  not allowed → Templates, STOP
+  remember HTTP, HTTPS, Bypass rights and User-Groups
+
+Access Profiles
+  run again (User-Groups from Access can change the match)
+
+Speed Limits
+  can delay or block
+  System configuration may hold a large upload
+
+Content modifier
+External applications
+ICAP
+HTTPS Inspection
+Subscription
+  request-modify stage; any of these can finish the request locally
+
+HTTPS or HTTP — not both:
+
+  HTTPS:
+    Access restrictions — CONNECT right, else Templates STOP
+    System configuration — CONNECT port range, else STOP
+    HTTPS Inspection — if it decrypts: start again at Read the request
+    else continue as a tunnel
+
+  HTTP:
+    Access restrictions — HTTP / proxy / transparent rights, else STOP
+    Redirect — first match → 302, STOP
+
+Access Profiles
+  now enforce Deny (unless temporary bypass) → Templates STOP
+  HTTPS Inspection can also block here
+
+If the request has an upload body:
+  Application Signatures
+  Request Types
+  Access Profiles
+  Clam antivirus
+  SqScan
+  Image analyzer
+  DLP
+    first of these that denies → Templates STOP
+    DLP inspects this upload only, not the page that comes back
+
+Caching
+
+DNS Blacklist
+  matching block policy → Templates STOP
+
+Proxy chain
+  upstream proxy or go direct
+
+Header filter
+Cookie filter
+Elevated Privacy
+Content modifier
+  on headers sent to the origin
+
+Fetch the response (cache hit or the Internet)
+
+Response Types
+Access Profiles
+  MIME / response labels; Deny → Templates STOP
+
+SqScan
+Clam antivirus
+Image analyzer
+Text analyzer
+ICAP
+  these inspect the downloaded body (malware and content)
+  match → Templates STOP
+  DLP does not run here
+
+Prefetching
+  linked objects in HTML
+FTP browsing
+  ftp:// only
+Templates if a block page is needed
+send the page to the browser
+write logs</pre>
+
+	<p class="secorder">Open a section: <a href="network.html">Network settings</a> · <a href="general.html">System configuration</a> · <a href="templates.html">Templates</a> · <a href="timeProfiles.html">Time Profiler</a> · <a href="applicationSignatures.html">Application Signatures</a> · <a href="reqProfiles.html">Request Types</a> · <a href="category-editor.html">Categorize Web-Sites</a> · <a href="ssqore.html">SSqore</a> · <a href="profiles.html">Access Profiles</a> · <a href="access.html">Access restrictions</a> · <a href="ldap.html">Integrate LDAP</a> · <a href="external.html">External applications</a> · <a href="limits.html">Speed Limits</a> · <a href="rewrite.html">Content modifier</a> · <a href="icap.html">ICAP</a> · <a href="sslcert.html">HTTPS Inspection</a> · <a href="subscription.html">Subscription</a> · <a href="redirect.html">Redirect</a> · <a href="dlp.html">DLP</a> · <a href="cache.html">Caching</a> · <a href="dnsbl.html">DNS Blacklist</a> · <a href="forward.html">Proxy chain</a> · <a href="header-filtering.html">Header filter</a> · <a href="cookies-filtering.html">Cookie filter</a> · <a href="elevated.html">Elevated Privacy</a> · <a href="respProfiles.html">Response Types</a> · <a href="clamav.html">Clam antivirus</a> · <a href="sqscan.html">SqScan</a> · <a href="imgfilter.html">Image analyzer</a> · <a href="keywords-filtering.html">Text analyzer</a> · <a href="prefetch.html">Prefetching</a> · <a href="ftp.html">FTP browsing</a></p>
+
+	<figure class="flowchart">
+		<figcaption>Chart B — same procedure, Web UI section names in call order. Yes goes right and stops. No continues down. HTTPS and HTTP are a fork, then they meet again.</figcaption>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 1360" class="flowchart" role="img" aria-label="Request pipeline using Web UI section names">
+			<rect class="box" x="40" y="8" width="300" height="32" rx="4"/>
+			<text class="label" x="190" y="28" text-anchor="middle">Network settings</text>
+			<line class="arrow" x1="190" y1="40" x2="190" y2="52"/>
+			<rect class="box" x="40" y="52" width="300" height="32" rx="4"/>
+			<text x="190" y="72" text-anchor="middle">Read the request</text>
+			<line class="arrow" x1="190" y1="84" x2="190" y2="96"/>
+			<rect class="box" x="40" y="96" width="300" height="36" rx="4"/>
+			<text x="190" y="118" text-anchor="middle">Unsafe or internal?</text>
+			<text class="yn" x="348" y="110">Yes</text>
+			<line class="arrow" x1="340" y1="114" x2="388" y2="114"/>
+			<rect class="boxWarn" x="390" y="96" width="260" height="36" rx="4"/>
+			<text x="520" y="118" text-anchor="middle">STOP: Templates</text>
+			<text class="yn" x="198" y="144">No</text>
+			<line class="arrow" x1="190" y1="132" x2="190" y2="156"/>
+			<rect class="box" x="40" y="156" width="300" height="36" rx="4"/>
+			<text x="190" y="178" text-anchor="middle">Web UI (safesquid.cfg)?</text>
+			<text class="yn" x="348" y="170">Yes</text>
+			<line class="arrow" x1="340" y1="174" x2="388" y2="174"/>
+			<rect class="boxOk" x="390" y="148" width="260" height="52" rx="4"/>
+			<text x="520" y="168" text-anchor="middle">Access restrictions</text>
+			<text x="520" y="184" text-anchor="middle">then Web UI · STOP</text>
+			<text class="yn" x="198" y="204">No</text>
+			<line class="arrow" x1="190" y1="192" x2="190" y2="216"/>
+			<rect class="box" x="40" y="216" width="300" height="80" rx="4"/>
+			<text class="label" x="190" y="236" text-anchor="middle">Time Profiler</text>
+			<text x="190" y="252" text-anchor="middle">Application Signatures</text>
+			<text x="190" y="268" text-anchor="middle">Request Types</text>
+			<text x="190" y="284" text-anchor="middle">Categorize Web-Sites · SSqore</text>
+			<line class="arrow" x1="190" y1="296" x2="190" y2="312"/>
+			<rect class="box" x="40" y="312" width="300" height="44" rx="4"/>
+			<text class="label" x="190" y="330" text-anchor="middle">Access Profiles</text>
+			<text x="190" y="346" text-anchor="middle">remember Allow or Deny</text>
+			<line class="arrow" x1="190" y1="356" x2="190" y2="372"/>
+			<rect class="box" x="40" y="372" width="300" height="48" rx="4"/>
+			<text class="label" x="190" y="390" text-anchor="middle">Access restrictions</text>
+			<text x="190" y="406" text-anchor="middle">Integrate LDAP · login / rights</text>
+			<text class="yn" x="348" y="386">No</text>
+			<line class="arrow" x1="340" y1="396" x2="388" y2="396"/>
+			<rect class="boxWarn" x="390" y="372" width="260" height="48" rx="4"/>
+			<text x="520" y="390" text-anchor="middle">STOP: login prompt</text>
+			<text x="520" y="406" text-anchor="middle">or Templates refuse</text>
+			<text class="yn" x="198" y="432">Yes</text>
+			<line class="arrow" x1="190" y1="420" x2="190" y2="444"/>
+			<rect class="box" x="40" y="444" width="300" height="32" rx="4"/>
+			<text class="label" x="190" y="464" text-anchor="middle">Speed Limits</text>
+			<line class="arrow" x1="190" y1="476" x2="190" y2="492"/>
+			<rect class="box" x="40" y="492" width="300" height="52" rx="4"/>
+			<text class="label" x="190" y="510" text-anchor="middle">Content modifier · ICAP</text>
+			<text x="190" y="526" text-anchor="middle">External applications · HTTPS Inspection</text>
+			<line class="arrow" x1="190" y1="544" x2="190" y2="560"/>
+			<rect class="box" x="40" y="560" width="300" height="32" rx="4"/>
+			<text class="label" x="190" y="580" text-anchor="middle">HTTPS or HTTP? (one only)</text>
+			<line class="arrow" x1="110" y1="592" x2="110" y2="612"/>
+			<line class="arrow" x1="270" y1="592" x2="270" y2="612"/>
+			<text class="yn" x="110" y="608" text-anchor="middle">HTTPS</text>
+			<text class="yn" x="270" y="608" text-anchor="middle">HTTP</text>
+			<rect class="box" x="20" y="616" width="180" height="120" rx="4"/>
+			<text class="label" x="110" y="636" text-anchor="middle">Access restrictions</text>
+			<text x="110" y="652" text-anchor="middle">CONNECT right</text>
+			<text class="label" x="110" y="672" text-anchor="middle">System configuration</text>
+			<text x="110" y="688" text-anchor="middle">CONNECT ports</text>
+			<text class="label" x="110" y="708" text-anchor="middle">HTTPS Inspection</text>
+			<text x="110" y="724" text-anchor="middle">decrypt → restart</text>
+			<rect class="box" x="220" y="616" width="180" height="120" rx="4"/>
+			<text class="label" x="310" y="636" text-anchor="middle">Access restrictions</text>
+			<text x="310" y="652" text-anchor="middle">HTTP rights</text>
+			<text class="label" x="310" y="680" text-anchor="middle">Redirect</text>
+			<text x="310" y="696" text-anchor="middle">match → 302 STOP</text>
+			<text x="310" y="716" text-anchor="middle">else continue</text>
+			<line class="arrow" x1="110" y1="736" x2="110" y2="756"/>
+			<line class="arrow" x1="310" y1="736" x2="310" y2="756"/>
+			<line x1="110" y1="756" x2="310" y2="756" stroke="#444" stroke-width="1.5"/>
+			<line class="arrow" x1="190" y1="756" x2="190" y2="764"/>
+			<rect class="box" x="40" y="764" width="300" height="48" rx="4"/>
+			<text class="label" x="190" y="782" text-anchor="middle">Access Profiles</text>
+			<text x="190" y="798" text-anchor="middle">now enforce Deny</text>
+			<text class="yn" x="348" y="778">Deny</text>
+			<line class="arrow" x1="340" y1="788" x2="388" y2="788"/>
+			<rect class="boxWarn" x="390" y="764" width="260" height="48" rx="4"/>
+			<text x="520" y="782" text-anchor="middle">STOP: Templates</text>
+			<text x="520" y="798" text-anchor="middle">(or HTTPS Inspection)</text>
+			<text class="yn" x="198" y="824">Allow</text>
+			<line class="arrow" x1="190" y1="812" x2="190" y2="836"/>
+			<rect class="box" x="40" y="836" width="300" height="64" rx="4"/>
+			<text class="label" x="190" y="854" text-anchor="middle">Upload body (if any)</text>
+			<text x="190" y="870" text-anchor="middle">Clam antivirus · SqScan</text>
+			<text x="190" y="886" text-anchor="middle">Image analyzer · DLP</text>
+			<text class="yn" x="348" y="850">Deny</text>
+			<line class="arrow" x1="340" y1="868" x2="388" y2="868"/>
+			<rect class="boxWarn" x="390" y="836" width="260" height="64" rx="4"/>
+			<text x="520" y="860" text-anchor="middle">STOP: Templates</text>
+			<text x="520" y="876" text-anchor="middle">malware or DLP</text>
+			<text class="yn" x="198" y="912">Pass</text>
+			<line class="arrow" x1="190" y1="900" x2="190" y2="924"/>
+			<rect class="box" x="40" y="924" width="300" height="32" rx="4"/>
+			<text class="label" x="190" y="944" text-anchor="middle">Caching</text>
+			<line class="arrow" x1="190" y1="956" x2="190" y2="972"/>
+			<rect class="box" x="40" y="972" width="300" height="36" rx="4"/>
+			<text class="label" x="190" y="994" text-anchor="middle">DNS Blacklist</text>
+			<text class="yn" x="348" y="986">Block</text>
+			<line class="arrow" x1="340" y1="990" x2="388" y2="990"/>
+			<rect class="boxWarn" x="390" y="972" width="260" height="36" rx="4"/>
+			<text x="520" y="994" text-anchor="middle">STOP: Templates</text>
+			<text class="yn" x="198" y="1020">Pass</text>
+			<line class="arrow" x1="190" y1="1008" x2="190" y2="1032"/>
+			<rect class="box" x="40" y="1032" width="300" height="32" rx="4"/>
+			<text class="label" x="190" y="1052" text-anchor="middle">Proxy chain</text>
+			<line class="arrow" x1="190" y1="1064" x2="190" y2="1080"/>
+			<rect class="box" x="40" y="1080" width="300" height="48" rx="4"/>
+			<text class="label" x="190" y="1098" text-anchor="middle">Header filter · Cookie filter</text>
+			<text x="190" y="1114" text-anchor="middle">Elevated Privacy (to origin)</text>
+			<line class="arrow" x1="190" y1="1128" x2="190" y2="1144"/>
+			<rect class="box" x="40" y="1144" width="300" height="32" rx="4"/>
+			<text class="label" x="190" y="1164" text-anchor="middle">Response Types</text>
+			<line class="arrow" x1="190" y1="1176" x2="190" y2="1192"/>
+			<rect class="box" x="40" y="1192" width="300" height="64" rx="4"/>
+			<text class="label" x="190" y="1210" text-anchor="middle">Downloaded body</text>
+			<text x="190" y="1226" text-anchor="middle">Access Profiles · SqScan · Clam antivirus</text>
+			<text x="190" y="1242" text-anchor="middle">Image analyzer · Text analyzer · ICAP</text>
+			<text class="yn" x="348" y="1206">Deny</text>
+			<line class="arrow" x1="340" y1="1224" x2="388" y2="1224"/>
+			<rect class="boxWarn" x="390" y="1192" width="260" height="64" rx="4"/>
+			<text x="520" y="1216" text-anchor="middle">STOP: Templates</text>
+			<text x="520" y="1232" text-anchor="middle">malware or content</text>
+			<text class="yn" x="198" y="1268">Pass</text>
+			<line class="arrow" x1="190" y1="1256" x2="190" y2="1280"/>
+			<rect class="boxOk" x="40" y="1280" width="300" height="56" rx="4"/>
+			<text class="label" x="190" y="1302" text-anchor="middle">Prefetching · FTP browsing</text>
+			<text x="190" y="1318" text-anchor="middle">send to browser · write logs</text>
+		</svg>
+	</figure>
+	<div class="note">
+		Open the Web UI at <code>http://safesquid.cfg/</code> from a machine that Access restrictions allows. That path skips Access Profiles so you can still fix a mistaken Deny. HTTPS Inspection does not continue this HTTPS request — it decrypts and runs the inner HTTP from Read the request again. <strong>DLP</strong> inspects upload bodies only. <strong>Clam antivirus</strong> and <strong>SqScan</strong> inspect uploads and downloaded bodies. Direct (unbuffered) downloads skip the downloaded-body scanners.
+	</div>
+
+	<div class="example">
+		<h3>Example — one blocked HTTPS visit</h3>
+		<p>A user on the LAN opens <code>https://social.example/</code> through the proxy:</p>
+		<ol>
+			<li>Network settings, Read the request, and the host check pass (public site).</li>
+			<li>Not the Web UI. Time Profiler, Application Signatures, Request Types, then Categorize Web-Sites / SSqore: category may be Social.</li>
+			<li>Access Profiles remembers Deny for Social — no block page yet.</li>
+			<li>Access restrictions already allows this person; they have the HTTPS right.</li>
+			<li>The <strong>HTTPS</strong> branch only (not Redirect). Permission and System configuration CONNECT ports pass. Inspection off: stay on the tunnel.</li>
+			<li>Access Profiles now enforces Deny: <strong>Templates</strong> block page. Detailed logs show which rule fired.</li>
+		</ol>
+	</div>
+
+	<div class="example">
+		<h3>Example — DLP on upload, malware on download</h3>
+		<ol>
+			<li>A user POSTs a spreadsheet. After Access Profiles Allow, the upload body is inspected: <strong>Clam antivirus</strong>, <strong>SqScan</strong>, <strong>Image analyzer</strong>, then <strong>DLP</strong>. A DLP MIME policy match sends <strong>Templates</strong> and stops — Caching and the origin never see that body.</li>
+			<li>A later GET of an executable is Allowed by Access Profiles. Caching misses, DNS Blacklist passes, Proxy chain fetches it. <strong>SqScan</strong> or <strong>Clam antivirus</strong> on the downloaded body match: <strong>Templates</strong> block page. DLP does not run on that download.</li>
+		</ol>
+	</div>
+
+	<h2>Policy matching styles</h2>
+	<dl>
+		<dt>Dual allow/deny lists</dt>
+		<dd>Access restrictions, Cookie filter, Header filter. List order depends on the section default policy.</dd>
+		<dt>First match</dt>
+		<dd>Clam antivirus, HTTPS Inspection, Redirect, DNS Blacklist block policies, and several scanners.</dd>
+		<dt>All matches</dt>
+		<dd>Access Profiles (secondary), Speed Limits, Content modifier, <a href="applicationSignatures.html">Application Signatures</a>.</dd>
+		<dt>Last match</dt>
+		<dd><a href="dlp.html">DLP</a> MIME policies (OCR uses cumulative score vs Threshold).</dd>
+		<dt>Groups</dt>
+		<dd>Menu groups (Accelerators, Real time content security) contain child sections only; they have no policy lists of their own.</dd>
+	</dl>
+
+	<h2>Bypass</h2>
+	<p>Access restrictions entries can grant <strong>Bypass</strong> for Header filter, Cookie filter, Redirect, Content modifier, Proxy chain, Text analyzer, DNS Blacklist, antivirus, ICAP, and DLP. That skips those modules for matching clients. Separate from Access Profiles temporary bypass cookies (<strong>Allow bypassing</strong>).</p>
+
+	<h2>Debug headers</h2>
+	<p>When <strong>System configuration → Send Debugging Headers To</strong> is CLIENT, SERVER, or BOTH, SafeSquid adds identity and policy headers. Prefer CLIENT only on a test network. See <a href="debug-headers.html">Debug response headers</a>.</p>
+
+	<h2>See also</h2>
+	<ul>
+		<li><a href="first-configuration.html">First configuration</a></li>
+		<li><a href="daemon.html">Daemon and service</a></li>
+		<li><a href="access.html">Access restrictions</a></li>
+		<li><a href="profiles.html">Access Profiles</a></li>
+		<li><a href="logging.html">Logging</a></li>
+		<li><a href="applicationSignatures.html">Application Signatures</a></li>
+		<li><a href="clamav.html">Clam antivirus</a></li>
+		<li><a href="sqscan.html">SqScan</a></li>
+		<li><a href="dlp.html">DLP</a></li>
+		<li><a href="ssqore.html">SSqore</a></li>
+		<li><a href="feeds.html">Cloud / categorisation feeds</a></li>
+		<li><a href="index.html">Full section index</a></li>
+	</ul>
+	<p>CLI: <code>man safesquid</code> (section 7)</p>
+</body>
+</html>

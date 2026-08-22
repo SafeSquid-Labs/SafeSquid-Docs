@@ -168,6 +168,12 @@ tail -20 /var/log/safesquid/access/extended.log
 
 Expected result: the log records the HTTPS destination and policy action.
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/06-Verify_Your_Setup.md §5 HTTPS Traffic Flows Through the Proxy */}
+
+Once SSL inspection is configured and the Root CA is deployed, the positive test is the certificate itself. Load an HTTPS site in the pilot browser and inspect the certificate issuer.
+
+Expected result: the issuer is the SafeSquid CA, and no warning appears. An issuer showing the original site's certificate authority means the connection is being tunnelled rather than inspected, even though the page loads normally.
+
 ## Prove DNS resolution
 
 Test DNS resolution from the SafeSquid server:
@@ -221,6 +227,86 @@ Before routing broad user traffic, confirm these controls are planned or already
 - Reporting or log export captures access evidence for incident response.
 - High availability is planned with [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering) when uptime requirements demand it.
 - Support and rollback owners are documented.
+
+{/* source: _migration_source_v3/docs/01-Getting_Started/06-Verify_Your_Setup.md §Post-Installation Client Checklist */}
+
+<Accordion title="Client-side checklist">
+
+Run this from a client workstation, not from the SafeSquid host. It catches the failures that server-side checks cannot see — a healthy proxy that clients cannot reach still passes every check on the server.
+
+**Network connectivity**
+
+- [ ] `ping <PROXY-IP>` succeeds from the client.
+- [ ] The proxy port accepts connections. On Windows, PuTTY in raw mode serves the same purpose as `telnet`:
+
+  ```bash
+  telnet <PROXY-IP> 8080
+  ```
+
+**Client configuration**
+
+- [ ] Browser proxy points at `<PROXY-IP>:8080`.
+- [ ] OS-level proxy is configured, where all applications must be covered.
+
+**Licence and interface access**
+
+- [ ] `http://safesquid.cfg/` loads when the proxy is configured.
+- [ ] The activation key has been uploaded through the interface.
+- [ ] **Support → Activation Details** shows an active state.
+
+**Remote management, where used**
+
+- [ ] An SSH client is available on the administrator workstation.
+- [ ] Public keys are installed on the SafeSquid host if key-based authentication is required.
+- [ ] `ssh <admin-user>@<PROXY-IP>` succeeds from the approved management network.
+
+</Accordion>
+
+{/* source: _migration_source_v3/docs/01-Getting_Started/06-Verify_Your_Setup.md §SafeSquid Integration Validation */}
+
+<Accordion title="Integration validation before production">
+
+Use this once controls are configured, to confirm each one is actually enforcing rather than merely enabled.
+
+**Authentication and identity**
+
+- [ ] Users authenticate with domain credentials through the configured AD or LDAP integration.
+- [ ] Usernames, not just IP addresses, appear in `/var/log/safesquid/access/extended.log`.
+- [ ] Where group policies are configured, different groups receive demonstrably different policy.
+
+**Policy enforcement**
+
+- [ ] A blocked category is genuinely blocked from a client.
+- [ ] Sites are categorized as expected.
+- [ ] Time-based policies activate and deactivate on schedule, where configured.
+- [ ] HTTPS sites present the SafeSquid certificate once the CA is deployed.
+
+**Security and content filtering**
+
+- [ ] An EICAR test file download is blocked, confirming antivirus scanning is live.
+- [ ] Keyword-based content blocking triggers, where enabled.
+- [ ] Restricted file types are blocked on upload and download.
+
+**Operations and monitoring**
+
+- [ ] `/var/log/safesquid/` contains current access logs.
+- [ ] The host reaches its update servers.
+- [ ] An update schedule is defined, whether automatic or manual.
+- [ ] Log forwarding to the monitoring or SIEM platform works, where configured.
+- [ ] Reports load in the Configuration Portal.
+
+**Testing and documentation**
+
+- [ ] Multiple client devices browse successfully through SafeSquid.
+- [ ] A documented test case exists for each policy rule.
+- [ ] Configuration is backed up, including `/usr/local/safesquid/config/`.
+- [ ] A failover and restore procedure is written down and has been tested.
+
+<Note>
+  Use the EICAR test file rather than live malware. It is an industry-standard, inert string designed for exactly this check and is safe to transmit on a production network.
+</Note>
+
+</Accordion>
 
 ## Verification is complete
 

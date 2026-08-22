@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cloud / categorisation feeds</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a></nav>
+	<h1>Cloud / categorisation feeds</h1>
+	<p>SafeSquid categorises websites and refreshes signature databases using cloud services, scheduled updates, and local caches. Categories and signature tags feed <a href="profiles.html">Access Profiles</a>, filters, and Detailed logs.</p>
+	<div class="note">
+		Valid <a href="subscription.html">Subscription</a> is required for cloud signature downloads and for Application Signatures / SSqore processing on each connection. Check <strong>Reports → License/Users Info</strong> and Modules Status when feeds stop updating.
+	</div>
+
+	<h2>Pieces</h2>
+	<dl>
+		<dt><a href="ssqore.html">SSqore</a></dt>
+		<dd>CCS URL categorisation during request profiling. Globals: Enabled (Heuristic is stored but unused in current code).</dd>
+		<dt><a href="category-editor.html">Categorize Web-Sites</a></dt>
+		<dd>Local category overrides you maintain. Takes precedence over cloud results for matching hosts on the hot path.</dd>
+		<dt><a href="applicationSignatures.html">Application Signatures</a></dt>
+		<dd>Vendor <code>applications4</code> database plus custom rules. Downloaded on UPDATE schedule; skipped when subscription expired.</dd>
+		<dt><a href="contentSignatures.html">Content Signatures</a></dt>
+		<dd>Vendor <code>content4.xml</code> plus libmagic MIME database under <code>/var/lib/safesquid/content_signatures/</code>.</dd>
+		<dt>DNS_CAT_ZONE</dt>
+		<dd>In <a href="startup.html">startup.ini</a> (default <code>.c.ssquid.in</code>). Set to <code>.</code> to disable DNS categorisation zone use.</dd>
+		<dt>UPDATE_INTVL / UPDATE_RETRY_DELAY</dt>
+		<dd>How often the appliance fetches signature and feed updates (<a href="startup.html">startup.ini</a>).</dd>
+	</dl>
+
+	<h2>Update cycle (overview)</h2>
+	<ol>
+		<li>Background hooks on the UPDATE schedule call signature updaters (<code>update_application_signatures</code>, <code>update_content_signatures</code>, and related).</li>
+		<li>Downloaded files land under <code>/var/lib/safesquid/</code> (application_signatures, content_signatures, ssqore cache, and similar).</li>
+		<li>Config reload or init hooks merge vendor data with custom dev XML from the Web UI.</li>
+		<li>Per-request labelling runs in the pipeline: SSqore and local category editor for website categories; Application Signatures for application tags.</li>
+	</ol>
+
+	<h2>Offline behaviour</h2>
+	<p>When cloud lookups or downloads fail, SafeSquid relies on the last loaded on-disk databases and SSqore cache entries. New hosts may receive no categories until connectivity returns. Enable CATEGORY log level and check Modules Status in Reports.</p>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>Block Social Networking by cloud category</h3>
+		<ol>
+			<li>Enable <a href="ssqore.html">SSqore</a>; confirm subscription valid.</li>
+			<li>In Access Profiles Secondary Policies, DENY when Categories matches the SSqore name for social sites (exact string from Detailed logs).</li>
+		</ol>
+		<p><strong>Result:</strong> categorized social hosts are blocked; uncategorized hosts may pass until CCS returns a category.</p>
+	</div>
+	<div class="example">
+		<h3>Override one miscategorised partner</h3>
+		<ol>
+			<li>Use <a href="category-editor.html">Categorize Web-Sites</a> to assign <code>Business-Partners</code> to <code>partner.example.com</code>.</li>
+			<li>Allow that category in Access Profiles for trusted users.</li>
+		</ol>
+		<p><strong>Result:</strong> local override applies even if SSqore still lists a different cloud category.</p>
+	</div>
+
+	<h2>How to verify</h2>
+	<ol>
+		<li><strong>Reports → Modules Status</strong> — application/content signature load times and errors.</li>
+		<li>Detailed logs — <code>categories</code> and <code>application_signatures</code> columns on test URLs.</li>
+		<li>Native logs with CATEGORY enabled for SSqore lines.</li>
+	</ol>
+
+	<h2>See also</h2>
+	<ul>
+		<li><a href="ssqore.html">SSqore</a></li>
+		<li><a href="category-editor.html">Categorize Web-Sites</a></li>
+		<li><a href="applicationSignatures.html">Application Signatures</a></li>
+		<li><a href="contentSignatures.html">Content Signatures</a></li>
+		<li><a href="subscription.html">Subscription</a></li>
+		<li><a href="startup.html">startup.ini</a></li>
+		<li><a href="profiles.html">Access Profiles</a></li>
+	</ul>
+	<p>CLI: <code>man safesquid-feeds</code></p>
+</body>
+</html>

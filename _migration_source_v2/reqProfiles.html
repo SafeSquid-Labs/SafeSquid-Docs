@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Request Types</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a> · <a href="profiles.html">Access Profiles</a></nav>
+	<h1>Request Types</h1>
+	<p>The <strong>Request Types</strong> section (<code>safesquid-reqProfiles(5)</code>) labels HTTP requests with tags consumed by <a href="profiles.html">Access Profiles</a> and other filters. It does not block traffic.</p>
+
+	<h2>Core mechanics</h2>
+	<p>Validated against <code>sources/src/request_profiles.cpp</code> — <code>do_request_profile()</code>, <code>match_host_list()</code>, <code>req_profiles_update()</code>.</p>
+
+	<h3>Processing order</h3>
+	<ol>
+		<li>Application Signatures (unless subscription expired).</li>
+		<li><strong>Domains and Urls</strong> — substring match; every matching row applies.</li>
+		<li><strong>Request Types</strong> rows — all gates must pass; every match applies.</li>
+	</ol>
+
+	<figure class="flowchart">
+		<figcaption>Request Types — row gate order</figcaption>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 360" class="flowchart" role="img" aria-label="Request Types gate flow">
+			<defs>
+				<marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+					<polygon points="0 0, 8 3, 0 6" fill="#444"/>
+				</marker>
+			</defs>
+			<rect class="box" x="130" y="8" width="220" height="36" rx="4"/>
+			<text class="label" x="240" y="30" text-anchor="middle">Request with host</text>
+			<line class="arrow" x1="240" y1="44" x2="240" y2="58"/>
+			<rect class="box" x="60" y="58" width="360" height="44" rx="4"/>
+			<text x="240" y="76" text-anchor="middle">reqprofiles → method → protocol → mime</text>
+			<text x="240" y="92" text-anchor="middle">→ port → post size → file → host → headers</text>
+			<line class="arrow" x1="240" y1="102" x2="240" y2="116"/>
+			<rect class="boxOk" x="100" y="116" width="280" height="36" rx="4"/>
+			<text x="240" y="138" text-anchor="middle">Add/remove request_types tags</text>
+			<line class="arrow" x1="240" y1="152" x2="240" y2="166"/>
+			<rect class="box" x="80" y="166" width="320" height="36" rx="4"/>
+			<text x="240" y="188" text-anchor="middle">Next row — all matches apply</text>
+			<line class="arrow" x1="240" y1="202" x2="240" y2="216"/>
+			<rect class="boxWarn" x="70" y="216" width="340" height="44" rx="4"/>
+			<text x="240" y="234" text-anchor="middle">Domains pass: last match sets</text>
+			<text x="240" y="250" text-anchor="middle">DNSBL/categorization bypass</text>
+		</svg>
+	</figure>
+
+	<h3>Domains and Urls</h3>
+	<p>Tab-prefixed host+path substring find — not regex. Empty domain list or empty add/remove → row skipped. <strong>Match:</strong> Host, Referer, or Both.</p>
+
+	<h3>Smart TLD</h3>
+	<p>When Host Name regex misses and Smart TLD is on, same regex retried against site name (host without public suffix).</p>
+
+	<div class="warn">
+		<strong>urlcommand field:</strong> parsed in config but not evaluated in <code>req_profiles_update()</code>. Use <strong>Protocol</strong> or <strong>File</strong> instead.
+	</div>
+	<div class="warn">
+		<strong>Post Data Size:</strong> runtime logic inverts UI labels (uses Content-Length only). Treat as experimental.
+	</div>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>Uncachable query URLs</h3>
+		<p><strong>Config:</strong> File <code>(cgi-bin|\?)</code>, add <code>uncachable_req</code>.</p>
+		<p><strong>Result:</strong> URLs with query string tagged; cache policies can skip storage.</p>
+	</div>
+	<div class="example">
+		<h3>CONNECT method</h3>
+		<p><strong>Config:</strong> Method CONNECT, add <code>uncachable_req</code>.</p>
+		<p><strong>Result:</strong> tunnel requests tagged.</p>
+	</div>
+	<div class="example">
+		<h3>Skip categorization</h3>
+		<p><strong>Config:</strong> Domains needle <code>partner.example</code>, Bypass DNSBL and Categorization on.</p>
+		<p><strong>Result:</strong> matching host bypasses DNSBL and category lookup.</p>
+	</div>
+
+	<h2>How to verify</h2>
+	<ol>
+		<li><strong>Trace Entry</strong> on one row; native logs show Added/Removed tags.</li>
+		<li>Detailed logs <code>request_profiles</code> column.</li>
+	</ol>
+
+</body>
+</html>

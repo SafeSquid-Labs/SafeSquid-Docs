@@ -50,6 +50,19 @@ git config --global --get http.proxy
 
 Expected result: Git reports the configured proxy and repository requests appear in SafeSquid access logs.
 
+Exempt internal Git hosts so they are not routed outward:
+
+```bash
+git config --global http.noProxy "*.internal.example.com"
+```
+
+To remove the configuration during rollback:
+
+```bash
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+```
+
   </Tab>
   <Tab title="npm">
 
@@ -61,6 +74,19 @@ npm config get proxy
 
 Expected result: npm package requests route through SafeSquid and match package-management policy.
 
+Set the registry explicitly where an internal mirror is in use, so package resolution is not left to whatever the client defaults to:
+
+```bash
+npm config set registry https://registry.npmjs.org/
+```
+
+To remove the configuration during rollback:
+
+```bash
+npm config delete proxy
+npm config delete https-proxy
+```
+
   </Tab>
   <Tab title="pip">
 
@@ -69,6 +95,14 @@ Use a per-user or managed configuration file where approved:
 ```ini
 [global]
 proxy = http://SAFESQUID-IP:8080
+```
+
+The file location differs by platform: `~/.pip/pip.conf` on Linux and macOS, `%APPDATA%\pip\pip.ini` on Windows.
+
+For a single command without changing configuration:
+
+```bash
+pip install --proxy http://SAFESQUID-IP:8080 <package>
 ```
 
 Verify:
@@ -114,6 +148,20 @@ wget -e use_proxy=yes -e http_proxy=http://SAFESQUID-IP:8080 http://example.com
 
 Expected result: the request succeeds and appears in SafeSquid access logs.
 
+For persistent per-user configuration, both tools read a dotfile:
+
+```
+# ~/.curlrc
+proxy = "http://SAFESQUID-IP:8080"
+```
+
+```
+# ~/.wgetrc
+http_proxy = http://SAFESQUID-IP:8080
+https_proxy = http://SAFESQUID-IP:8080
+use_proxy = on
+```
+
 </Accordion>
 
 <Accordion title="Docker and container runtimes">
@@ -128,6 +176,26 @@ NO_PROXY=localhost,127.0.0.1,.internal.example.com
 
 Restart the container runtime only in an approved change window. Confirm image pulls and registry metadata requests appear in SafeSquid logs.
 
+The daemon also reads a `proxies` block from `/etc/docker/daemon.json`, which survives service restarts without depending on the unit environment:
+
+```json
+{
+  "proxies": {
+    "http-proxy": "http://SAFESQUID-IP:8080",
+    "https-proxy": "http://SAFESQUID-IP:8080",
+    "no-proxy": "localhost,127.0.0.1,.internal.example.com"
+  }
+}
+```
+
+Reload the daemon in an approved window, then confirm it took effect:
+
+```bash
+docker info | grep -i proxy
+```
+
+Expected result: the proxy values appear in the daemon configuration. Note that this configures the daemon, which pulls images — containers themselves receive proxy settings separately, through their own environment.
+
 </Accordion>
 
 <Accordion title="Email clients: Outlook and Thunderbird">
@@ -135,6 +203,48 @@ Restart the container runtime only in an approved change window. Confirm image p
 Outlook and Thunderbird can use operating-system proxy settings, but some profiles, add-ins, or mail transports bypass them. Configure proxy settings through the approved desktop-management path and test mailbox sign-in, attachment download, and autodiscover traffic.
 
 Record the mail domains, identity method, and whether SSL inspection is bypassed because of certificate pinning or application behavior.
+
+**Outlook on Windows** inherits the Windows proxy for Exchange and Microsoft 365 accounts, so no separate configuration is usually needed. Where it is:
+
+1. **File → Account Settings → Account Settings**.
+2. Select the account, then **Change → More Settings**.
+3. On the **Connection** tab, select **Connect using Internet Explorer or a 3rd party dialer**, which routes Outlook through the Windows system proxy.
+
+If Outlook will not connect after the change, temporarily disabling Cached Exchange Mode isolates whether the failure is in the connection or the local cache.
+
+**Thunderbird** keeps its own settings and ignores the OS configuration:
+
+1. Menu (☰) **→ Settings → General**.
+2. Scroll to **Network & Disk Space** and select **Connection Settings**.
+3. Choose **Manual proxy configuration**, set the HTTP proxy and port `8080`, and enable **Use this proxy server for all protocols**.
+4. Set **No Proxy for** to the approved internal entries, then select **OK**.
+
+</Accordion>
+
+<Accordion title="Applications not listed here">
+
+For anything else, work through these in order:
+
+1. Check the application's own documentation for a proxy setting.
+2. Try the standard environment variables — many tools honour them:
+
+   ```bash
+   export http_proxy=http://SAFESQUID-IP:8080
+   export https_proxy=http://SAFESQUID-IP:8080
+   ```
+
+3. Look for a configuration file: `~/.config/<app>/` or `~/.<app>/` on Linux and macOS, `%APPDATA%\<App>\` on Windows.
+4. Check for a command-line flag such as `--proxy`, `-x`, or `--http-proxy`.
+
+Common runtime patterns:
+
+| Runtime | Setting |
+|---|---|
+| Java | `-Dhttp.proxyHost=SAFESQUID-IP -Dhttp.proxyPort=8080` |
+| Ruby gems | `gem install --http-proxy http://SAFESQUID-IP:8080 <package>` |
+| Go modules | `export GOPROXY=http://SAFESQUID-IP:8080` |
+
+Any tool that cannot be routed needs a recorded exception with an owner and a review date, not a silent direct path to the internet.
 
 </Accordion>
 
@@ -177,6 +287,9 @@ Store:
 | Internal repository fails | Missing bypass for internal destination | Add an exact internal bypass entry |
 | Traffic appears without user context | Tool runs as service or system account | Document service identity and add authentication mapping if required |
 | Package manager works outside SafeSquid | Direct egress is still open | Restrict direct internet routes and retest through SafeSquid |
+| `SSL certificate verify failed` | SSL inspection is active and the tool does not trust the SafeSquid root CA | Install the root CA into the trust store the tool uses; language runtimes often keep their own, separate from the OS |
+| `docker pull` fails while other traffic works | Registry host is not in the no-proxy list, or is being proxied when it should not be | Add the registry to `no-proxy`, or confirm the proxy path allows registry traffic |
+| `git clone` is unusually slow | Large repository plus proxy overhead | Use SSH rather than HTTPS for large clones, or bypass the proxy for internal Git hosts |
 
 ## Next steps
 

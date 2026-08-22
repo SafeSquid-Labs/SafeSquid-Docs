@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Tools and Reports</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a></nav>
+	<h1>Tools and Reports</h1>
+	<p>The Web UI includes Reports and Support utilities that are not policy sections. Use them to confirm the proxy is healthy, audit configuration changes, and troubleshoot user issues.</p>
+
+	<h2>Reports</h2>
+	<ul>
+		<li><strong>Dashboard and Statistics</strong> — traffic overview and module counters (DLP blocks, scan totals, and similar).</li>
+		<li><strong>Native logs, Detailed logs, Config logs</strong> — see <a href="logging.html">Logging and troubleshooting</a>.</li>
+		<li><strong>Active Connections, Connection Pool, DNS Cache, Password Cache, SSL Certs/Cache</strong> — live state alongside historical logs.</li>
+		<li><strong>License/Users Info, Modules Status</strong> — subscription validity and signature/feed load status (<a href="subscription.html">Subscription</a>, <a href="feeds.html">feeds</a>).</li>
+		<li><strong>LDAP Entries</strong> — directory browse after <a href="ldap.html">Integrate LDAP</a> is configured.</li>
+	</ul>
+
+	<h2>Support utilities</h2>
+	<ul>
+		<li><strong>Support</strong> — support tarball and license refresh helpers.</li>
+		<li><strong>password</strong> — encrypt passwords for policy fields (for example HTTPS Inspection cached cert password).</li>
+		<li><strong>Upload templates</strong> — upload custom block/info templates used by DENY actions.</li>
+		<li><strong><a href="subscription.html">Subscription</a></strong> — activation key upload and license view.</li>
+		<li><strong><a href="category-editor.html">Categorize Web-Sites</a></strong> — local category overrides (Web UI app, not a policy section list).</li>
+	</ul>
+
+	<h2>CLI and files</h2>
+	<ul>
+		<li>Init script: <code>/etc/init.d/safesquid {start|stop|restart|status|foreground|space_clean}</code> — see <a href="daemon.html">Daemon</a>.</li>
+		<li>Man pages after package install: <code>man safesquid</code>, <code>man safesquid-access</code>, <code>man safesquid-tools</code>, section-specific <code>man safesquid-*</code>.</li>
+		<li>Policy file: <code>/usr/local/safesquid/security/policies/config.xml</code>; process tunables: <code>/opt/safesquid/startup.ini</code>.</li>
+	</ul>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>Confirm signature feeds after renewal</h3>
+		<ol>
+			<li>Upload activation key under Subscription.</li>
+			<li>Open Modules Status — application and content signature timestamps should advance after the next UPDATE cycle.</li>
+			<li>Reproduce a request; Detailed logs should show <code>application_signatures</code> when subscription is valid.</li>
+		</ol>
+	</div>
+
+	<h2>See also</h2>
+	<ul>
+		<li><a href="logging.html">Logging and troubleshooting</a></li>
+		<li><a href="first-configuration.html">First configuration</a></li>
+		<li><a href="daemon.html">Daemon and service</a></li>
+		<li><a href="index.html">Full documentation index</a></li>
+	</ul>
+	<p>CLI: <code>man safesquid-tools</code></p>
+</body>
+</html>

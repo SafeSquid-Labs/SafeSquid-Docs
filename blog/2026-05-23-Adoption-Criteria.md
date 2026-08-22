@@ -27,7 +27,7 @@ description: 'Criteria for adopting Layer-7 Zero-Trust web enforcement and next 
 
 - [What is SafeSquid SWG](/safesquid_swg/what_is_safesquid_swg) — how SafeSquid implements Zero-Trust web controls: the inspection pipeline, control model, and compliance evidence SafeSquid produces
 - [Prerequisites](/getting_started/install_safesquid/prerequisites) — validate system, network, and identity requirements before deployment
-- [Getting Started](/getting_started/introduction) — production onboarding path for deploy, activate, and harden
+- [Getting Started](/getting_started/welcome) — production onboarding path for deploy, activate, and harden
 
 ## Related topics
 

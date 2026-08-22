@@ -49,6 +49,40 @@ Confirm:
   </Tab>
 </Tabs>
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/05-Connect_Your_Client/01-Explicit_Proxy.md §Configuration Steps */}
+
+<Accordion title="Firefox: configure separately from the OS">
+
+Firefox maintains its own proxy settings and ignores the operating system configuration by default. A pilot that only sets the OS proxy will show Chrome and Edge routing through SafeSquid while Firefox goes direct — and the traffic that bypasses the proxy is the traffic you will not see in any log.
+
+Configure it explicitly, on every platform:
+
+1. Open the menu (☰) and select **Settings**.
+2. Scroll to **Network Settings** and select **Settings**.
+3. Choose **Manual proxy configuration**.
+4. Set **HTTP Proxy** to `SAFESQUID-IP` and **Port** to `8080`, or the approved listener port.
+5. Enable **Also use this proxy for HTTPS**.
+6. Set **No Proxy for** to the approved internal bypass entries, comma-separated.
+7. Select **OK**.
+
+For managed fleets, deliver these through Firefox enterprise policy rather than by hand — see [Enterprise Deployment](/getting_started/client_configuration/enterprise_deployment).
+
+</Accordion>
+
+<Accordion title="Windows: legacy Internet Options path">
+
+On older Windows builds, or where the Settings app is restricted by policy, the same WinINET configuration is reachable through Control Panel:
+
+**Control Panel → Internet Options → Connections → LAN Settings**
+
+Enter the proxy address and port there. The values apply to Chrome, Edge, and most Windows applications, because they read the same WinINET store.
+
+</Accordion>
+
+<Note>
+  **Bypass list syntax differs by platform.** Windows separates entries with semicolons (`;`); macOS and Linux use commas (`,`). Using the wrong separator makes the whole list parse as a single entry, so every internal destination silently routes through the proxy instead of bypassing it.
+</Note>
+
 <Steps>
   <Step title="Set proxy host and port">
     Set HTTP proxy to `SAFESQUID-IP` and port `8080` or the approved listener port.
@@ -119,6 +153,30 @@ Store:
 | Request does not appear in logs | Browser is not using the proxy | Reopen proxy settings and retest with `curl --proxy` |
 | Internal site breaks | Missing bypass entry | Add exact internal host or suffix approved by the network owner |
 | HTTPS warning appears | Root CA is not trusted | Deploy the SafeSquid Root CA before testing HTTPS inspection |
+| Firefox ignores the proxy while other browsers use it | Firefox does not read the operating system proxy setting | Configure Firefox directly, or deliver the setting through Firefox enterprise policy |
+| Sites load but noticeably slowly | Network latency to the proxy, or the proxy is loaded | Check round-trip time with `ping SAFESQUID-IP`, then check load on the SafeSquid host |
+| Internal destinations still route through the proxy | Bypass-list separator is wrong for the platform | Use `;` on Windows and `,` on macOS and Linux |
+
+{/* source: _migration_source_v3/docs/01-Getting_Started/05-Connect_Your_Client/01-Explicit_Proxy.md §Still not working? */}
+
+Before assuming the proxy is at fault, confirm the client is actually applying the setting you think it is:
+
+```powershell
+# Windows
+netsh winhttp show proxy
+```
+
+```bash
+# macOS
+scutil --proxy
+```
+
+```bash
+# Linux
+echo $http_proxy
+```
+
+Expected result: the reported proxy matches the approved SafeSquid listener. A setting that was entered but not applied looks identical to a proxy that is not answering.
 
 ## Next steps
 

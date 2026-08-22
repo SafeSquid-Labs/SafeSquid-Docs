@@ -1,0 +1,51 @@
+---
+title: "Tools and Reports"
+---
+
+<Note>
+  CLI man page: `safesquid-tools(1)`
+</Note>
+
+The Web UI includes Reports and Support utilities that are not policy sections. Use them to confirm the proxy is healthy, audit configuration changes, and troubleshoot user issues.
+
+## Reports
+
+- **Dashboard and Statistics** — traffic overview and module counters (DLP blocks, scan totals, and similar).
+- **Native logs, Detailed logs, Config logs** — see [Logging and troubleshooting](/admin_guide/start_here/logging).
+- **Active Connections, Connection Pool, DNS Cache, Password Cache, SSL Certs/Cache** — live state alongside historical logs.
+- **License/Users Info, Modules Status** — subscription validity and signature/feed load status ([Subscription](/admin_guide/infrastructure_and_access/subscription), [feeds](/admin_guide/start_here/cloud_feeds)).
+- **LDAP Entries** — directory browse after [Integrate LDAP](/admin_guide/infrastructure_and_access/integrate_ldap) is configured.
+
+## Support utilities
+
+- **Support** — support tarball and license refresh helpers.
+- **password** — encrypt passwords for policy fields (for example HTTPS Inspection cached cert password).
+- **Upload templates** — upload custom block/info templates used by DENY actions.
+- **[Subscription](/admin_guide/infrastructure_and_access/subscription)** — activation key upload and license view.
+- **[Categorize Web-Sites](/admin_guide/policies_and_profiles/categorize_web_sites)** — local category overrides (Web UI app, not a policy section list).
+
+## CLI and files
+
+- Init script: `/etc/init.d/safesquid {start|stop|restart|status|foreground|space_clean}` — see [Daemon](/admin_guide/start_here/daemon).
+- Man pages after package install: `man safesquid`, `man safesquid-access`, `man safesquid-tools`, section-specific `man safesquid-*`.
+- Policy file: `/usr/local/safesquid/security/policies/config.xml`; process tunables: `/opt/safesquid/startup.ini`.
+
+## Examples
+
+<Tip>
+
+### Confirm signature feeds after renewal
+
+1. Upload activation key under Subscription.
+2. Open Modules Status — application and content signature timestamps should advance after the next UPDATE cycle.
+3. Reproduce a request; Detailed logs should show `application_signatures` when subscription is valid.
+</Tip>
+
+## See also
+
+- [Logging and troubleshooting](/admin_guide/start_here/logging)
+- [First configuration](/admin_guide/start_here/first_configuration)
+- [Daemon and service](/admin_guide/start_here/daemon)
+- [Full documentation index](/admin_guide/main)
+
+CLI: `man safesquid-tools`

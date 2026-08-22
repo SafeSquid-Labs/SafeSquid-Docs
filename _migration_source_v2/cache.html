@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cache settings</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a> · <a href="forward.html">Proxy chain</a></nav>
+	<h1>Cache settings</h1>
+	<p>The <strong>Cache</strong> section (<code>safesquid-cache(5)</code>) controls in-memory HTTP caching, refresh policy, and ICP parameters for forwarding.</p>
+
+	<h2>Core mechanics</h2>
+	<p>Validated against <code>sources/src/cache.cpp</code> — <code>select_refresh()</code>, <code>select_store()</code>, <code>cache_open()</code>.</p>
+
+	<h3>Refresh — first match wins</h3>
+	<p>Walk Refresh rows top-down; first enabled row whose profiles match sets min/max age, validate, and cachable flag, then stops. <code>cachable=FALSE</code> sets <code>CACHE_INVALID</code> unless <code>CACHE_FORCE</code>.</p>
+
+	<h3>Disk store hard-disabled</h3>
+	<p><code>select_store()</code> sets <code>store = NULL</code> and returns — new objects are memory-only regardless of Store row configuration.</p>
+
+	<h3>Violate RFC</h3>
+	<p>Objects stored despite <code>no-cache</code> / <code>no-store</code> get <code>CACHE_VIOLATION</code>. When <strong>Violate RFC</strong> is off, reads return NULL (not served). When on, violation objects may be served.</p>
+
+	<figure class="flowchart">
+		<figcaption>Cache read path</figcaption>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" class="flowchart" role="img" aria-label="Cache open flow">
+			<rect class="box" x="120" y="8" width="240" height="36" rx="4"/>
+			<text x="240" y="30" text-anchor="middle">cache_open read</text>
+			<line class="arrow" x1="240" y1="44" x2="240" y2="58"/>
+			<rect class="box" x="80" y="58" width="320" height="36" rx="4"/>
+			<text x="240" y="80" text-anchor="middle">Enabled and not INVALID?</text>
+			<line class="arrow" x1="240" y1="94" x2="240" y2="108"/>
+			<rect class="boxWarn" x="60" y="108" width="360" height="44" rx="4"/>
+			<text x="240" y="126" text-anchor="middle">violaterfc off and CACHE_VIOLATION?</text>
+			<text x="240" y="142" text-anchor="middle">→ close, return NULL</text>
+			<line class="arrow" x1="240" y1="152" x2="240" y2="166"/>
+			<rect class="boxOk" x="90" y="166" width="300" height="36" rx="4"/>
+			<text x="240" y="188" text-anchor="middle">Serve from memory map</text>
+		</svg>
+	</figure>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>Uncachable profile on top</h3>
+		<p><strong>Config:</strong> Refresh row 1 profiles <code>uncachable</code>, cachable off; row 2 blank profiles, cachable on.</p>
+		<p><strong>Result:</strong> Tagged connections get CACHE_INVALID on new entries; others use row 2 ages.</p>
+	</div>
+	<div class="example">
+		<h3>Violate RFC off</h3>
+		<p><strong>Config:</strong> violaterfc false; stored no-store object.</p>
+		<p><strong>Result:</strong> Second client does not receive object from cache — miss to origin.</p>
+	</div>
+	<div class="example">
+		<h3>Store row present</h3>
+		<p><strong>Config:</strong> Store enabled with path and quota.</p>
+		<p><strong>Result:</strong> select_store still NULL — memory-only in current builds.</p>
+	</div>
+
+	<h2>How to verify</h2>
+	<ol>
+		<li>Enable CACHE in <code>LOG_LEVEL</code>.</li>
+		<li>Repeat URL request; check Detailed logs for hit/miss.</li>
+		<li>Use Manage cached objects to inspect or purge entries.</li>
+	</ol>
+
+</body>
+</html>

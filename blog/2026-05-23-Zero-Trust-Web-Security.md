@@ -31,4 +31,4 @@ Work through this series in order, or jump to the topic that matches your evalua
 ## Related topics
 
 - [What is SafeSquid SWG](/safesquid_swg/what_is_safesquid_swg) — product architecture and how SafeSquid implements Zero-Trust web controls
-- [Getting Started](/getting_started/introduction) — deploy and validate SafeSquid in production
+- [Getting Started](/getting_started/welcome) — deploy and validate SafeSquid in production

@@ -36,6 +36,18 @@ Before registering, confirm:
 - The operator can receive external email from SafeSquid.
 - The SafeSquid instance will later have outbound access for license and subscription validation.
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/02-Register.md §Use Your Business Email */}
+
+<Accordion title="Why the account must use a corporate domain">
+  Beyond traceability, registering from a corporate email domain rather than a personal one — Gmail, Yahoo, or personal Outlook — enables enterprise account handling on the portal:
+
+  - Priority support during a proof of concept.
+  - The ability to invite team members to the same account.
+  - Extended trial options.
+
+  An evaluation registered under a personal address cannot be transferred cleanly to the organization later, so decide the owning identity before the first registration rather than after.
+</Accordion>
+
 ## Create the portal account
 
 <Steps>
@@ -177,6 +189,13 @@ Do not rename, edit, or reformat the `activation_key` file. SafeSquid expects th
 
 The same activation key can be used across multiple SafeSquid instances when the deployment requires synchronized instance behavior, such as cluster members sharing the same activation context.
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/02-Register.md §About Your Activation Key */}
+
+Two further properties affect how the key should be handled operationally:
+
+- **The key does not expire.** It can activate a SafeSquid instance at any time, including a rebuild months later. Subscription entitlement is separate and does expire; see [Activate Your License](/getting_started/activate).
+- **It can be downloaded again.** Sign in to the [Self-Service Portal](https://key.safesquid.com) to retrieve the key if the stored copy is lost. Re-downloading is preferable to circulating a copy through unapproved channels.
+
 ## Store registration evidence
 
 Capture the following evidence with the deployment record:
@@ -219,6 +238,6 @@ For detailed post-install activation steps, service checks, listener checks, and
 
 ## Next steps
 
-- [Deployment Planning](/getting_started/deployment_planning) - size and prepare the deployment.
+- [Deployment Planning](/deployment/deployment_planning) - size and prepare the deployment.
 - [Prerequisites](/getting_started/install_safesquid/prerequisites) - confirm host, network, and trust readiness.
 - [Activate Your License](/getting_started/activate) - upload the key after SafeSquid is installed.

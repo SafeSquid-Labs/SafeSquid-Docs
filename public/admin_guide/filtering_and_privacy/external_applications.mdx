@@ -1,0 +1,109 @@
+---
+title: "External applications"
+---
+
+<Note>
+  CLI man page: `safesquid-external(5)`
+</Note>
+
+<Frame caption="External parser flow">
+  <img src="/images/admin_guide/external_applications_flowchart.svg" alt="External parser flow" />
+</Frame>
+
+## Overview
+
+The `External` section (`safesquid-external(5)`) allows SafeSquid to pipe HTTP payloads to external scripts or binaries for custom authentication, logging, or content modification.
+
+## Core Mechanics (C++ Source Validation)
+
+Exit code 0 replaces content; non-zero preserves + metadata.
+
+- **Execution Pipeline**: SafeSquid buffers the requested HTTP components (Request Header, Response Header, or Body) into a `Filebuf` and pipes it via standard input to the executable defined in `Exec`.
+- **Exit Code Logic**: The behavior of SafeSquid depends strictly on the external parser’s exit code:
+  - **Exit Code 0**: The original HTTP payload is *replaced* entirely by the standard output (stdout) of the script.
+  - **Non-Zero Exit Code**: The original HTTP payload is preserved, but any stdout returned by the script is parsed by SafeSquid to extract intelligence (e.g., dynamically adding Profiles, setting usernames).
+- **Authentication Bypass**: If the connection flag `EXTERNAL_AUTH` is present, only parsers with `Per Session` set to `TRUE` will be invoked.
+
+## Schema Fields
+
+### Global Fields
+
+- **Enabled (enabled)**: Turn External applications on or off for all connections (unless bypassed).
+
+### Rule-Based Fields (Per Connection Tuning)
+
+- **Enabled (enabled)**: Skip this row when disabled. Walk continues until one row fully replaces content (exit 0).
+- **Comment (comment)**: Notes for operators. Shown only in configuration.
+- **Profiles (profiles)**: Apply only when the connection has one of these profiles. Blank = all connections.
+- **Executable (exec)**: Command line: program path plus arguments (space-separated). Relative paths use PATH . With File delivery, the temp file path is appended as the last argument. Empty command skips the row.
+- **Type (type)**: Pipe — body on STDIN. File — body written to a temp file; path passed as last argument.
+- **Applies to (flags)**: Run on client requests ( PROCESS\_REQMOD ), server responses ( PROCESS\_RESPMOD ), or both. Request row returning a response header can answer the client without contacting the origin.
+- **Run once per session (persession)**: Yes — row runs only on external auth pass; skipped on normal req/resp mod. Stops re-auth after non-zero exit ( SESSION\_EXTERNALONCE ). No — row runs on req/resp mod, not on auth pass.
+- **Send header (sendheader)**: Prepend raw request and/or response header blocks before the body sent to the executable. Request header is sent first when both are selected. Response option applies only on response processing.
+
+## How SafeSquid processes the list
+
+1. On request modification, response modification, or external authentication (depending on row flags), SafeSquid walks enabled rows top to bottom.
+2. Row must match profiles, Applies to flags, and Run once per session mode (see below).
+3. Input is built from optional raw request/response headers plus body (Pipe on STDIN, or File with path as last argument).
+4. **Exit code 0** — stdout is parsed as HTTP; request or response header (and body if present) replaces the original; walk stops for that pass.
+5. **Non-zero exit** — original content is preserved; stdout may still supply `X-username` or `X-profiles` for auth intelligence.
+6. Run once per session **Yes**: row runs only on external auth pass; a non-zero exit marks the session to avoid re-authentication loops.
+
+## Important entry fields
+
+- **Profiles** — Apply only when the connection has one of these profiles. Blank = all connections.
+- **Executable** — Command line: program path plus arguments (space-separated). Relative paths use `PATH`. With File delivery, temp file path is appended last. Empty command skips the row.
+- **Type** — **Pipe** — stream body on STDIN. **File** — write body to a temp file; pass path as last argument.
+- **Applies to** — **REQUESTS** — outgoing request modification (output may replace request or return a complete response to the client). **RESPONSES** — response modification.
+- **Run once per session** — **Yes** — external auth pass only; skipped on normal req/resp mod. **No** — req/resp mod only; skipped on auth pass.
+- **Send header** — Prepend raw request and/or response header blocks before the body sent to the executable. Request header is sent first when both are selected.
+
+## Examples
+
+<Tip>
+
+### 1 — Sanitize HTML responses
+
+- Executable: `/opt/safesquid/bin/sanitize.pl`
+- Type: Pipe, Applies to: RESPONSES
+
+**Result:** on exit 0 with a valid HTTP response header and body on stdout, SafeSquid replaces the server response; on non-zero exit the original response is kept.
+</Tip>
+
+<Tip>
+
+### 2 — External auth assigns username
+
+- Run once per session: **Yes**
+- Executable returns headers including `X-username: jane@corp.com` (exit code may be non-zero)
+
+**Result:** connection username is set from stdout; if exit is non-zero, content is not replaced but auth metadata may still apply; session flag prevents repeated auth passes.
+</Tip>
+
+<Tip>
+
+### 3 — Request filter returns block response
+
+- Applies to: REQUESTS
+- Script exit 0 with full HTTP response header (403) and optional body
+
+**Result:** client receives the script's response without contacting the origin; walk stops at this row.
+</Tip>
+
+<Tip>
+
+### 4 — First matching row wins
+
+- Row 1 (top): broad profile match, Executable empty — skipped
+- Row 2: Profiles `Developers`, valid script, exit 0
+
+**Result:** Developer connections hit row 2 and replace content; others continue down the list until a row matches and succeeds or the list ends.
+</Tip>
+
+## How to verify
+
+1. Run the executable manually with sample stdin/file input and confirm exit code and HTTP header format.
+2. Enable EXTERNAL in `LOG_LEVEL` for native lines showing parser path, exit code, and parse failures.
+3. Reproduce from a client with matching profiles and inspect response or auth outcome.
+4. Check whether `X-username` / `X-profiles` appear in logs when using non-zero exit auth helpers.

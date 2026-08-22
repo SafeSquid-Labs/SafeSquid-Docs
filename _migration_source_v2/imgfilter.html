@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Image analyzer</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a></nav>
+	<h1>Image analyzer</h1>
+	<figure class="flowchart">
+		<figcaption>Image scoring flow</figcaption>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 160" class="flowchart" role="img" aria-label="Image scoring flow">
+			<defs>
+				<marker id="arrowhead-Image scoring flow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+					<polygon points="0 0, 8 3, 0 6" fill="#444"/>
+				</marker>
+			</defs>
+			<rect class="box" x="100" y="8" width="280" height="36" rx="4"/><text x="240" y="30" text-anchor="middle">image/* body</text><line class="arrow" x1="240" y1="44" x2="240" y2="58"/><rect class="boxWarn" x="80" y="58" width="320" height="36" rx="4"/><text x="240" y="80" text-anchor="middle">score at/above threshold</text>
+		</svg>
+	</figure>
+ <h2 id="overview">Overview</h2> <p>The <code>Imgfilter</code> section (<code>safesquid-imgfilter(5)</code>) scores <code>image/*</code> response and upload bodies and blocks or debug-replaces content when the engine score is at or above a threshold. Blocked images can be replaced with a template (default <code>checkeredgif</code>).</p> <h2 id="core-mechanics-c-source-validation">Core Mechanics (C++ Source Validation)</h2> <p>Source: <code>sources/modules/imgfilter/imgfilter.cpp</code> ΓÇö <code>ImgfilterSection::find()</code>, <code>check_and_block()</code>, <code>scan_image()</code>.</p> <h3 id="first-match-wins">First match wins</h3> <p>Walk enabled filtering policy rows top to bottom; first profile match sets threshold, bypass, debug, and template.</p> <h3 id="mime-and-size-gates">MIME and size gates</h3> <p>Only parts whose MIME starts with <code>image/</code> are candidates. Images smaller than 50├ù50 pixels are skipped.</p> <h3 id="threshold-scale">Threshold scale</h3> <p>Roughly <strong>-10</strong> (unlikely inappropriate) through <strong>0</strong> (very likely). Block when engine score ΓëÑ threshold.</p> <h3 id="debug-mode">Debug mode</h3> <p>On responses with Debug enabled, images at or above threshold are blurred and annotated in-place; connection still marked blocked but block template not sent.</p> <h3 id="bypass">Bypass</h3> <p>Bypass Image Scanning on a matching row skips buffering and scoring entirely.</p> <h2 id="processing-flow">Processing flow</h2> <pre class="mermaid"><code>flowchart TD   part[image/* body] --&gt; size{&gt;= 50x50?}   size --&gt;|No| skip[Skip]   size --&gt;|Yes| walk[Walk policy rows]   walk --&gt; match{First profile match}   match --&gt; bypass{Bypass on?}   bypass --&gt;|Yes| skip   bypass --&gt;|No| score[Engine score]   score --&gt; thresh{score &gt;= threshold?}   thresh --&gt;|No| pass[Allow]   thresh --&gt;|Yes| debug{Debug on response?}   debug --&gt;|Yes| blur[Blur annotate]   debug --&gt;|No| templ[Block template]</code></pre> <h2 id="schema-fields">Schema Fields</h2> <h3 id="global-fields">Global fields</h3> <ul> <li><strong>Enabled (enabled)</strong> ΓÇö Master switch; requires library init success.</li> <li><strong>Default template (dtempl)</strong> ΓÇö Fallback when row Template blank; default <code>checkeredgif</code>.</li> <li><strong>Library path (libpath)</strong> ΓÇö Path to imgfilter engine module.</li> </ul> <h3 id="policy-rows">Policy rows</h3> <ul> <li><strong>Profiles (profiles)</strong> ΓÇö Limit to tagged connections. Blank matches all.</li> <li><strong>Threshold (threshold)</strong> ΓÇö Block when score ΓëÑ this value.</li> <li><strong>Bypass Image Scanning (bypass)</strong> ΓÇö Skip scan for matching profiles.</li> <li><strong>Debug (debug)</strong> ΓÇö Blur/annotate on response instead of block template.</li> <li><strong>Template (template)</strong> ΓÇö Replacement on block.</li> </ul> <h2 id="examples">Examples</h2> <h3 id="block-for-students">Block for students</h3> <ul> <li><strong>Configuration:</strong> Profiles STUDENT, Threshold 0, Template checkeredgif.</li> <li><strong>Result:</strong> student image responses scoring ΓëÑ 0 replaced with checkered template.</li> </ul> <h3 id="staff-bypass">Staff bypass</h3> <ul> <li><strong>Configuration:</strong> Row A Profiles STAFF Bypass on; Row B blank Threshold -2.</li> <li><strong>Result:</strong> staff skip imgfilter; others scored via row B.</li> </ul> <h3 id="debug-tuning">Debug tuning</h3> <ul> <li><strong>Configuration:</strong> Debug on, Threshold -5.</li> <li><strong>Result:</strong> borderline response images blurred with score annotation; still logged blocked.</li> </ul> <h2 id="how-to-verify">How to verify</h2> <ol type="1"> <li>Fetch image through profile with image-filter tag and imgfilter enabled.</li> <li>Enable imgfilter log level for score lines.</li> <li>Detailed logs show filter name imgfilter on block.</li> </ol>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+---
+title: "Integrations"
+---
+
+<Note>
+  CLI man page: `safesquid-integrations(7)`
+</Note>
+
+SafeSquid works with external systems and bundled services. Configure most integrations in the Web UI; some host paths and daemons are appliance packages.
+
+## Directory and identity
+
+- [Integrate LDAP](/admin_guide/infrastructure_and_access/integrate_ldap) / Active Directory — users, groups, LDAP Profiles on Access rows.
+- [Kerberos / SSO](/admin_guide/start_here/authentication) — keytab at `/usr/local/safesquid/security/HTTP.keytab`.
+- PAM stack `/etc/pam.d/safesquid` for System authentication.
+- IP-to-user map: `USER_IP_DB_FILE` in [startup.ini](/admin_guide/start_here/startup_ini) (for example VPN clients).
+
+## Scanning and adaptation
+
+- [Clam antivirus](/admin_guide/security_scanners/clam_antivirus) — local `clamd` socket.
+- [SqScan](/admin_guide/security_scanners/sqscan) — built-in in-memory scanner.
+- [ICAP](/admin_guide/security_scanners/icap) — third-party REQMOD/RESPMOD services.
+- [DLP](/admin_guide/security_scanners/dlp) — upload inspection and OCR scoring.
+- [Image analyzer](/admin_guide/security_scanners/image_analyzer) — optional image scoring module.
+
+## Categorisation and feeds
+
+- [SSqore](/admin_guide/infrastructure_and_access/ssqore) — cloud URL categorisation (CCS).
+- [Categorize Web-Sites](/admin_guide/policies_and_profiles/categorize_web_sites) — local category overrides.
+- [Application Signatures](/admin_guide/policies_and_profiles/application_signatures) / [Content Signatures](/admin_guide/policies_and_profiles/content_signatures) — vendor signature databases.
+- [Subscription](/admin_guide/infrastructure_and_access/subscription) — license and activation; gates cloud signature processing.
+- See [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds) for UPDATE schedule and offline behaviour.
+
+## Network services
+
+- [WCCP](/admin_guide/infrastructure_and_access/wccp) — transparent redirection to the proxy.
+- [Proxy chain](/admin_guide/infrastructure_and_access/proxy_chain) — upstream peers and CARP.
+- BIND / DNS stubs under the security DNS directory (appliance).
+- rbldnsd-style DNS blacklists used with [DNS Blacklist](/admin_guide/filtering_and_privacy/dns_blacklist).
+- DNS categorisation zone: `DNS_CAT_ZONE` in startup.ini.
+
+## Operations
+
+- Monit: `/etc/monit/conf.d/safesquid.monit`
+- systemd / init: see [Daemon](/admin_guide/start_here/daemon)
+- logrotate: `/etc/logrotate.d/safesquid`
+- Master sync: `MASTER_IP`, `NEVER_SYNC`, `ALWAYS_SYNC` in startup.ini
+
+## See also
+
+- [Architecture](/admin_guide/start_here/architecture)
+- [Logging and troubleshooting](/admin_guide/start_here/logging)
+- [Full section index](/admin_guide/main)
+
+CLI: `man safesquid-integrations`

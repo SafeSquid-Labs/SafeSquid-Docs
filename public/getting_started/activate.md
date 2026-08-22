@@ -13,6 +13,26 @@ keywords:
 
 SafeSquid must be activated before the deployment can be treated as ready for enforcement. Activation ties the instance to the Self-Service Portal, unlocks licensed capability, and gives operators a checkpoint before SSL inspection, authentication, URL controls, malware scanning, and DLP are enabled.
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/04-Activate.md §Key Benefits (licensing tiers) */}
+
+## Know what activation unlocks
+
+SafeSquid offers two licensing tiers. An unactivated instance runs with limited capability regardless of which tier you hold.
+
+| Capability | Free | Commercial |
+|---|:--:|:--:|
+| Core proxy and filtering | Yes | Yes |
+| SSL inspection | Yes | Yes |
+| Custom policies and profiles | Yes | Yes |
+| Real-time threat intelligence | No | Yes |
+| URL categorization database | No | Yes |
+| Disaster-recovery backup, 365 days | No | Yes |
+| Email support | No | Yes |
+
+The free licence has no time limit. Upgrade to commercial at any point through the [Self-Service Portal](https://key.safesquid.com); the deployment steps are the same for both tiers.
+
+Activation also matters for audit: licensed state is visible in the Configuration Portal and serves as evidence that the gateway is correctly licensed.
+
 ## Validate prerequisites
 
 Before activation, confirm:
@@ -38,6 +58,44 @@ Activation and subscription refresh require outbound reachability. Confirm the n
 | `download.quickheal.com` | `80` | Virus signature updates |
 
 Treat this table as a deployment checklist, not a firewall exception template. Confirm current endpoint requirements through the approved release or support channel before production allowlisting.
+
+{/* source: _migration_source_v3/docs/01-Getting_Started/04-Activate.md §Readiness Checklist */}
+
+<Accordion title="Which endpoints block activation, and which do not">
+
+Only one endpoint has to be reachable for activation itself to succeed. The rest affect ongoing updates, so a blocked path there produces a licensed gateway with stale intelligence rather than a failed activation — a quieter failure, and an easier one to miss.
+
+**Required for activation**
+
+| Host | Port | Purpose |
+|---|---:|---|
+| `api.safesquid.net` | `443` | License activation |
+
+**Required for ongoing updates**
+
+| Host | Port | Purpose |
+|---|---:|---|
+| `swgupdates2.safesquid.net` | `443` | Subscription and malware definitions |
+| `swgupdates.safesquid.net` | `80` | Seqrite updates |
+| `sslupdates.safesquid.com` | `443` | SSL certificate updates |
+| `category.safesquid.net` | `443` | Category database updates |
+| `download.quickheal.com` | `80` | Virus signature updates |
+
+**URL categorization engines, commercial licence only**
+
+Each of these is reached on port `8080` at the path `/URLCategorizerService/URLCategorize`:
+
+| Host |
+|---|
+| `prourl.itsecure.co.in` |
+| `encurl.itsecure.co.in` |
+| `klassify.itsecure.co.in` |
+| `prourl.itonlinesecure.in` |
+| `encurl.itonlinesecure.in` |
+
+If categorization is blocked while everything else is reachable, policies that depend on category matching will fail open rather than error, so verify this group explicitly rather than inferring it from a working activation.
+
+</Accordion>
 
 ## Upload the activation key
 
@@ -173,6 +231,40 @@ Store these artifacts with the deployment record:
 | HTTP request succeeds but no log appears | Client bypasses SafeSquid or wrong log path checked | Confirm proxy path and inspect `/var/log/safesquid/access/extended.log` |
 | HTTPS warning appears | Root CA is not trusted or SSL inspection is incomplete | Deploy the Root CA through the approved trust path before retesting HTTPS |
 | Commercial subscription is expiring | Renewal or conservation period was not planned | Confirm renewal status in the Self-Service Portal and record any approved conservation-period action |
+| Commercial features are inert after a successful activation | A free-tier key was uploaded, or the key has expired | Open **Support** and check **Activation Details**: Product Type should read Commercial and Expiry should be in the future. If not, download the correct key from the Self-Service Portal and re-upload it |
+
+{/* source: _migration_source_v3/docs/01-Getting_Started/04-Activate.md §Troubleshooting case4 License Expired */}
+
+<Accordion title="What happens when a commercial subscription expires">
+
+Expiry degrades the deployment; it does not stop it. Knowing which half still works prevents an unnecessary emergency.
+
+**Continues working**
+
+- Core proxy and filtering, uninterrupted.
+
+**Reduces to the free-tier schedule**
+
+| Feed | Update frequency after expiry |
+|---|---|
+| Anti-virus engine | Weekly |
+| Web categorization | Weekly |
+| SSL security updates | Weekly |
+| Application and content signatures | Monthly |
+
+**Becomes unavailable**
+
+- Real-time threat intelligence, disaster-recovery backup, and email support.
+
+Free licences do not expire, so this applies only to commercial subscriptions.
+
+**Option 1 — renew.** Sign in to [key.safesquid.com](https://key.safesquid.com), go to **Manage Account** and then **Renew Subscription**. After payment, download the updated activation key and upload it using the same steps as the initial activation.
+
+**Option 2 — extend the conservation period.** From **Manage Account**, select **Extend Conservation Period**. Each extension adds three days and clears the expiry banner for that window. It can be applied more than once, but it is a bridge to renewal, not a substitute for it — treat repeated extensions as a signal that subscription ownership needs attention.
+
+Restart SafeSquid from the interface after either action so the new state takes effect, and record which option was used in the deployment evidence.
+
+</Accordion>
 
 <Steps>
   <Step title="Handle subscription expiry">

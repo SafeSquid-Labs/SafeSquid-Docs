@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>FTP browsing</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a> · <a href="access.html">Access restrictions</a></nav>
+	<h1>FTP browsing</h1>
+	<p>The <strong>FTP</strong> section (<code>safesquid-ftp(5)</code>) configures global FTP-over-HTTP gateway behaviour. There is no policy list — only global fields.</p>
+
+	<h2>Core mechanics</h2>
+	<p>Validated against <code>sources/src/proto_ftp.cpp</code> and <code>FtpSection</code> in <code>sources/src/global.cpp</code>.</p>
+
+	<h3>Anonymous credentials</h3>
+	<p>When the client sends no username, SafeSquid substitutes <strong>Username</strong> and <strong>Password</strong> from this section before USER/PASS.</p>
+
+	<h3>Passive mode</h3>
+	<p>When on, PASV data connections; when off, PORT/active with local bind on the same interface as the control connection.</p>
+
+	<h3>Sort defaults</h3>
+	<p>Directory HTML listings use <strong>Sort field</strong> and <strong>Sort order</strong> when the client does not pass CGI sort parameters.</p>
+
+	<figure class="flowchart">
+		<figcaption>FTP login path</figcaption>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 280" class="flowchart" role="img" aria-label="FTP protocol flow">
+			<rect class="box" x="120" y="8" width="240" height="36" rx="4"/>
+			<text x="240" y="30" text-anchor="middle">HTTP GET ftp:// URL</text>
+			<line class="arrow" x1="240" y1="44" x2="240" y2="58"/>
+			<rect class="boxWarn" x="70" y="58" width="340" height="36" rx="4"/>
+			<text x="240" y="80" text-anchor="middle">username NULL? → copy anonlogin anonpass</text>
+			<line class="arrow" x1="240" y1="94" x2="240" y2="108"/>
+			<rect class="box" x="80" y="108" width="320" height="36" rx="4"/>
+			<text x="240" y="130" text-anchor="middle">USER PASS TYPE I CWD</text>
+			<line class="arrow" x1="240" y1="144" x2="240" y2="158"/>
+			<rect class="box" x="60" y="158" width="360" height="44" rx="4"/>
+			<text x="240" y="176" text-anchor="middle">LIST or RETR via passive_get()</text>
+			<text x="240" y="192" text-anchor="middle">timeout from timeout_get()</text>
+		</svg>
+	</figure>
+
+	<h2>Global fields</h2>
+	<dl>
+		<dt>Passive mode</dt>
+		<dd>PASV vs PORT data transfer.</dd>
+		<dt>Timeout</dt>
+		<dd>Control read timeout; 0 uses OS TCP keepalive interval.</dd>
+		<dt>Username / Password</dt>
+		<dd>Anonymous defaults when client omits credentials.</dd>
+		<dt>Sort order / Sort field</dt>
+		<dd>Default directory listing order (name, size, date).</dd>
+	</dl>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>Anonymous behind firewall</h3>
+		<p><strong>Config:</strong> passive on, anonlogin anonymous.</p>
+		<p><strong>Result:</strong> PASV data channel; listing and download without client credentials.</p>
+	</div>
+	<div class="example">
+		<h3>Access denies FTP</h3>
+		<p><strong>Config:</strong> FTP globals normal; Access lacks proxy/FTP for client.</p>
+		<p><strong>Result:</strong> Denied before FTP settings apply.</p>
+	</div>
+
+	<h2>How to verify</h2>
+	<ol>
+		<li>Open <code>ftp://</code> URL through proxy in browser.</li>
+		<li>Toggle passive if LIST works but RETR fails.</li>
+		<li>Check Detailed logs and REQUEST native logs.</li>
+	</ol>
+
+</body>
+</html>

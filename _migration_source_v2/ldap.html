@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Integrate LDAP</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a> · <a href="access.html">Access restrictions</a> · <a href="auth.html">Authentication</a></nav>
+	<h1>Integrate LDAP</h1>
+	<p>The <strong>LDAP</strong> section (<code>safesquid-ldap(5)</code>) syncs directory users and groups into memory for Access LDAP Profiles and LDAP bind authentication.</p>
+
+	<h2>Core mechanics</h2>
+	<p>Validated against <code>sources/src/ldap_profile.cpp</code> — <code>init_routine_unlocked()</code>, <code>set_default_domain()</code>, <code>set_dn()</code>, <code>do_auth()</code>.</p>
+
+	<h3>Full sync — all valid servers</h3>
+	<p>Each enabled valid <strong>LDAP servers</strong> row binds and runs paged <code>to_cache()</code> in one update cycle. Maps accumulate entries from every successful server.</p>
+
+	<h3>Default @domain</h3>
+	<p>First valid row's <strong>Ldap Domain</strong> becomes default via <code>set_default_domain()</code>. Logins without <code>@</code> get <code>@domain</code> appended and uppercased for map keys.</p>
+
+	<h3>Auth — first matching server</h3>
+	<p><code>do_auth()</code> walks servers until domain (and optional base DN) match; stops on bind success or invalid credentials.</p>
+
+	<h3>ldapgroupfilter</h3>
+	<p>Stored in config but not used in search code — groups come from <strong>Group Identifier</strong> attributes and DN OUs.</p>
+
+	<figure class="flowchart">
+		<figcaption>LDAP cache update</figcaption>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" class="flowchart" role="img" aria-label="LDAP sync flow">
+			<rect class="box" x="100" y="8" width="280" height="36" rx="4"/>
+			<text x="240" y="30" text-anchor="middle">Timer or config refresh</text>
+			<line class="arrow" x1="240" y1="44" x2="240" y2="58"/>
+			<rect class="box" x="80" y="58" width="320" height="36" rx="4"/>
+			<text x="240" y="80" text-anchor="middle">For each enabled valid server row</text>
+			<line class="arrow" x1="240" y1="94" x2="240" y2="108"/>
+			<rect class="box" x="60" y="108" width="360" height="44" rx="4"/>
+			<text x="240" y="126" text-anchor="middle">Bind → to_cache paged search</text>
+			<text x="240" y="142" text-anchor="middle">→ user_dn_map user_groups_map</text>
+			<line class="arrow" x1="240" y1="152" x2="240" y2="166"/>
+			<rect class="boxOk" x="70" y="166" width="340" height="36" rx="4"/>
+			<text x="240" y="188" text-anchor="middle">set_dn: LOGIN@DOMAIN lookup for Access</text>
+		</svg>
+	</figure>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>Active Directory</h3>
+		<p><strong>Config:</strong> domain corp.example.com, login attributes sAMAccountName, group identifier memberOf.</p>
+		<p><strong>Result:</strong> Cache keys like JDOE@CORP.EXAMPLE.COM; group strings for LDAP Profiles after sync.</p>
+	</div>
+	<div class="example">
+		<h3>Bare username</h3>
+		<p><strong>Config:</strong> default domain corp.example.com; user logs in jane.</p>
+		<p><strong>Result:</strong> Lookup JANE@CORP.EXAMPLE.COM in maps.</p>
+	</div>
+	<div class="example">
+		<h3>Section off</h3>
+		<p><strong>Config:</strong> global Enabled off.</p>
+		<p><strong>Result:</strong> Maps cleared; auth returns incomplete; LDAP Profiles never match.</p>
+	</div>
+
+	<h2>How to verify</h2>
+	<ol>
+		<li>Open <strong>LDAP Entries</strong> after cache thread runs.</li>
+		<li>Enable LDAP + SECURITY logs.</li>
+		<li>Sign in; confirm LDAP profile application in Detailed logs.</li>
+	</ol>
+
+</body>
+</html>

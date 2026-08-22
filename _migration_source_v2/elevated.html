@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Elevated privacy</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a></nav>
+	<h1>Elevated privacy</h1>
+	<figure class="flowchart">
+		<figcaption>Privacy level selection</figcaption>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 160" class="flowchart" role="img" aria-label="Privacy level selection">
+			<defs>
+				<marker id="arrowhead-Privacy level selection" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+					<polygon points="0 0, 8 3, 0 6" fill="#444"/>
+				</marker>
+			</defs>
+			<rect class="box" x="100" y="8" width="280" height="36" rx="4"/><text x="240" y="30" text-anchor="middle">Header pass</text><line class="arrow" x1="240" y1="44" x2="240" y2="58"/><rect class="boxOk" x="60" y="58" width="360" height="44" rx="4"/><text x="240" y="76" text-anchor="middle">First row sets privacy level</text>
+		</svg>
+	</figure>
+ <h2 id="overview">Overview</h2> <p>The <code>Elevated</code> section (<code>safesquid-elevated(5)</code>) reduces cross-site tracking by stripping third-party cookies and selected tracking headers. Without it, third-party cookies and related trackers can follow users from site to site.</p> <h2 id="core-mechanics-c-source-validation">Core Mechanics (C++ Source Validation)</h2> <p>Source: <code>sources/modules/elevated/elevated.cpp</code> ΓÇö <code>elevatedSection::match()</code>, request/response header processors.</p> <h3 id="first-match-wins">First match wins</h3> <p>On each request and response header pass, enabled Elevated policy rows are walked top to bottom. The <strong>first</strong> matching row sets the privacy level for that connection (<code>break</code> after first match).</p> <h3 id="privacy-levels-action-field">Privacy levels (action field)</h3> <ul> <li><strong>NOT-REQUIRED</strong> ΓÇö No stripping; bypass elevated privacy.</li> <li><strong>LOW</strong> ΓÇö Drop third-party Cookie and Set-Cookie when cookie flag set.</li> <li><strong>STANDARD</strong> ΓÇö LOW plus remove Referer and Origin on outgoing requests.</li> <li><strong>PARANOID</strong> ΓÇö STANDARD plus remove User-Agent (may break browser-variant sites).</li> </ul> <h3 id="logging">Logging</h3> <p>Changes logged to privacy log and Detailed logs with filter name Elevated-Privacy. Debug header <code>X-Elevated-Privacy</code> reports level when Send Debugging Headers includes client.</p> <h2 id="processing-flow">Processing flow</h2> <pre class="mermaid"><code>flowchart TD   hdr[Request or response headers] --&gt; walk[Walk Elevated rows top-down]   walk --&gt; match{First enabled profile match?}   match --&gt;|No| none[No elevated changes]   match --&gt;|Yes| level{Privacy level}   level --&gt;|NOT-REQUIRED| none   level --&gt;|LOW| cookies[Strip third-party cookies]   level --&gt;|STANDARD| cookies --&gt; stripRO[Remove Referer Origin]   level --&gt;|PARANOID| stripRO --&gt; stripUA[Remove User-Agent]</code></pre> <h2 id="schema-fields">Schema Fields</h2> <h3 id="global-fields">Global fields</h3> <ul> <li><strong>Enabled (enabled)</strong> ΓÇö Master switch. When off, processors exit without header changes.</li> </ul> <h3 id="policy-rows">Policy rows</h3> <ul> <li><strong>Profiles (profiles)</strong> ΓÇö Limit privacy level to tagged connections. Blank matches all.</li> <li><strong>Privacy Levels (action)</strong> ΓÇö NOT-REQUIRED, LOW, STANDARD, or PARANOID.</li> <li><strong>Comment (comment)</strong> ΓÇö Operator note only.</li> </ul> <h2 id="examples">Examples</h2> <h3 id="standard-privacy-for-all">Standard privacy for all</h3> <ul> <li><strong>Configuration:</strong> One row Profiles blank, Privacy Levels STANDARD.</li> <li><strong>Result:</strong> third-party cookies dropped; Referer and Origin removed on requests for all matching connections.</li> </ul> <h3 id="paranoid-for-guests-bypass-for-staff">Paranoid for guests, bypass for staff</h3> <ul> <li><strong>Configuration:</strong> Row A Profiles STAFF NOT-REQUIRED; Row B blank PARANOID.</li> <li><strong>Result:</strong> staff keep full headers; others get paranoid stripping.</li> </ul> <h3 id="cookie-only-for-marketing">Cookie-only for marketing</h3> <ul> <li><strong>Configuration:</strong> Profiles MARKETING USERS, Privacy Levels LOW.</li> <li><strong>Result:</strong> only third-party cookies stripped; Referer and User-Agent remain.</li> </ul> <h2 id="recommended-practice">Recommended practice</h2> <ul> <li>Start with LOW or STANDARD before PARANOID ΓÇö removing User-Agent breaks some applications.</li> <li>Place NOT-REQUIRED bypass rows above broad PARANOID rows.</li> </ul> <h2 id="how-to-verify">How to verify</h2> <ol type="1"> <li>Browse multi-site flow; inspect request headers upstream of proxy.</li> <li>Check <code>privacy.log</code> under Reports.</li> <li>Enable elevated log level for native privacy lines.</li> <li>Debug header <code>X-Elevated-Privacy</code> on client when configured.</li> </ol>
+
+</body>
+</html>

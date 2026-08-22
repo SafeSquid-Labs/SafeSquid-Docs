@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Time Profiler</title>
+	<link rel="stylesheet" href="doc.css">
+</head>
+<body>
+	<nav class="top"><a href="index.html">Documentation</a> · <a href="profiles.html">Access Profiles</a></nav>
+	<h1>Time Profiler</h1>
+	<p>The <strong>Time Profiler</strong> section (<code>safesquid-timeProfiles(5)</code>) tags connections with time labels from the appliance local clock. <a href="profiles.html">Access Profiles</a> <strong>Time Schedule</strong> matches these tags.</p>
+
+	<h2>Core mechanics</h2>
+	<p>Validated against <code>sources/src/time_profiles.cpp</code> — <code>do_time_profile()</code>, <code>time_profiles_update()</code>.</p>
+
+	<h3>Row gate order</h3>
+	<ol>
+		<li><strong>Time Profiles</strong> prerequisite tags (<code>profile_find</code>).</li>
+		<li><strong>Weekday range</strong> — always enforced (Sunday = 0 … Saturday = 6).</li>
+		<li><strong>Match mode</strong> — ABSOLUTE timestamp window or ALL RANGES (month + day + minutes-from-midnight).</li>
+		<li>Add/remove time labels.</li>
+	</ol>
+
+	<figure class="flowchart">
+		<figcaption>Time Profiler — match flow</figcaption>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" class="flowchart" role="img" aria-label="Time Profiler match flow">
+			<defs>
+				<marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+					<polygon points="0 0, 8 3, 0 6" fill="#444"/>
+				</marker>
+			</defs>
+			<rect class="box" x="130" y="8" width="220" height="36" rx="4"/>
+			<text class="label" x="240" y="30" text-anchor="middle">Read local time once</text>
+			<line class="arrow" x1="240" y1="44" x2="240" y2="58"/>
+			<rect class="box" x="100" y="58" width="280" height="36" rx="4"/>
+			<text x="240" y="80" text-anchor="middle">timeprofiles prerequisite</text>
+			<line class="arrow" x1="240" y1="94" x2="240" y2="108"/>
+			<rect class="box" x="90" y="108" width="300" height="36" rx="4"/>
+			<text x="240" y="130" text-anchor="middle">Weekday range (always)</text>
+			<line class="arrow" x1="240" y1="142" x2="240" y2="156"/>
+			<rect class="box" x="70" y="156" width="340" height="44" rx="4"/>
+			<text x="240" y="174" text-anchor="middle">ABSOLUTE: abs_from … abs_to</text>
+			<text x="240" y="190" text-anchor="middle">ALL RANGES: month + day + hour×60+minute</text>
+			<line class="arrow" x1="240" y1="200" x2="240" y2="214"/>
+			<rect class="boxOk" x="100" y="214" width="280" height="36" rx="4"/>
+			<text x="240" y="236" text-anchor="middle">Add/remove time_schedules tags</text>
+		</svg>
+	</figure>
+
+	<div class="warn">
+		<strong>Weekday active flag</strong> is stored but not checked — weekday bounds always apply. Set explicit 0–6 or 1–5 ranges; template default 0 alone matches Sunday only.
+	</div>
+
+	<h3>Match modes</h3>
+	<dl>
+		<dt>ABSOLUTE</dt>
+		<dd>Single start/end timestamp from configured month, day, hour, minute fields.</dd>
+		<dt>ALL RANGES</dt>
+		<dd>Current month, day-of-month, and time-of-day must each fall in inclusive windows.</dd>
+	</dl>
+
+	<h2>Examples</h2>
+	<div class="example">
+		<h3>Business hours</h3>
+		<p><strong>Config:</strong> Weekday Mon–Fri, hours 9–17, ALL RANGES, add <code>business-hours</code>.</p>
+		<p><strong>Result:</strong> tag present weekdays 09:00–17:59 local time.</p>
+	</div>
+	<div class="example">
+		<h3>Lunch window</h3>
+		<p><strong>Config:</strong> Weekday 1–5, hours 12–13, add <code>LUNCH_TIME</code>.</p>
+		<p><strong>Result:</strong> Access Profiles can Allow/Deny based on lunch tag.</p>
+	</div>
+
+	<h2>How to verify</h2>
+	<ol>
+		<li>Test inside and outside window with <strong>Trace Entry</strong>.</li>
+		<li>Detailed logs <code>time_profiles</code> column.</li>
+		<li>Confirm appliance timezone and clock.</li>
+	</ol>
+
+</body>
+</html>

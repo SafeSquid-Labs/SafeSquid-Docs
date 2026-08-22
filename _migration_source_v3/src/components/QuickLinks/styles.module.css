@@ -1,0 +1,66 @@
+.quickLinksSection {
+  padding: 4rem 0;
+  background-color: var(--ifm-background-surface-color);
+}
+
+.quickLinkCard {
+  margin-bottom: 2rem;
+}
+
+.quickLink {
+  display: block;
+  height: 100%;
+  padding: 1.5rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  background-color: var(--ifm-card-background-color);
+  transition: all 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.quickLink:hover {
+  text-decoration: none;
+  color: inherit;
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+[data-theme='dark'] .quickLink:hover {
+  box-shadow: 0 4px 12px rgba(0, 102, 153, 0.3);
+}
+
+.primaryLink {
+  border-color: var(--ifm-color-primary);
+  border-width: 2px;
+  background-color: rgba(0, 102, 153, 0.03);
+}
+
+[data-theme='dark'] .primaryLink {
+  background-color: rgba(0, 102, 153, 0.1);
+}
+
+.quickLinkIcon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.quickLinkTitle {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--ifm-color-primary);
+}
+
+.quickLinkDescription {
+  font-size: 0.9rem;
+  margin-bottom: 0;
+  color: var(--ifm-color-emphasis-700);
+}
+
+@media screen and (max-width: 996px) {
+  .quickLinkCard {
+    margin-bottom: 1.5rem;
+  }
+}

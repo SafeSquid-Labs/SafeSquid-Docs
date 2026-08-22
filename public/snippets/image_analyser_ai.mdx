@@ -1,0 +1,163 @@
+
+# Inspect visual content in real time
+
+## Problem statement
+
+Visual content can bypass text-based controls. Risky material, explicit imagery, and sensitive visual data can move through allowed websites unless the proxy evaluates the image itself.
+
+## Client scenario
+
+Use Image Analyzer when you need to:
+
+- restrict inappropriate image content
+- apply stricter controls to selected user groups
+- create exceptions for teams with legitimate media-review duties
+- test visual-content controls before moving to full enforcement
+
+Image Analyzer should be treated as a content-risk control, not as a standalone compliance guarantee.
+
+## Key benefits
+
+Image Analyzer gives SafeSquid a way to inspect pictures directly instead of relying only on domain categories. That helps when risky images appear on otherwise allowed sites, user-generated platforms, or uncategorized pages.
+
+## Prerequisites
+
+### Client-side preparations
+
+- Ensure client traffic is routed through SafeSquid.
+- If images are delivered over HTTPS, deploy the Root CA and enable HTTPS inspection first.
+
+### SafeSquid-side setup
+
+- Confirm the image-analysis section is available in **Configure → Real Time Content Security → Image Analyzer**.
+- Decide which user groups need stricter enforcement and which need exceptions.
+- Plan a tuning phase before broad rollout because aggressive thresholds can block legitimate business content.
+
+## Setup instructions
+
+### Enable the global section
+
+In **Configure → Real Time Content Security → Image Analyzer**, set **Enabled** to `TRUE`.
+
+If the global section stays disabled, policy entries will not enforce image scanning.
+
+### Select the default response behavior
+
+Set **Default template** to control how blocked images are replaced.
+
+This matters because operators and users need a visible distinction between image-policy enforcement and an image that simply failed to load.
+
+### Configure filtering policies
+
+Under **Filtering Policies**, create or update policy entries.
+
+For each policy:
+
+- set **Enabled** to `TRUE`
+- use **Comment** to describe the business purpose
+- use **Profiles** to scope the rule to the right traffic
+- set **Threshold** based on how strict the image review should be
+- set **Template** when a rule needs a specific replacement behavior
+- use **Debug** carefully when you need testing without full blocking
+
+### Use bypass rules carefully
+
+If a team must access high-volume image platforms for legitimate business reasons, scope exceptions with **Profiles** instead of weakening the global threshold for everyone.
+
+That keeps the risk decision explicit and auditable.
+
+## Verification and validation
+
+### Positive test
+
+Use a controlled test set of images that should trigger the configured rule.
+
+Expected result:
+
+- SafeSquid blocks or alters the image presentation according to policy
+- the event is visible in logs or reports tied to the test request
+- the affected user profile matches the intended rule scope
+
+### Negative test
+
+Use benign business images and traffic from a profile that should be exempt.
+
+Expected result:
+
+- allowed users can view permitted images normally
+- exempt profiles do not inherit stricter image rules by mistake
+- the debug or bypass logic behaves exactly as configured
+
+### What to watch during rollout
+
+Verify:
+
+- false positives on marketing, design, and e-commerce workflows
+- whether HTTPS inspection is actually exposing image traffic to the proxy
+- whether debug mode is still enabled after testing
+
+## Troubleshooting guide
+
+### Images are not being inspected
+
+Likely causes:
+
+- HTTPS inspection is not active
+- the global section is disabled
+- the request does not match the intended profile
+
+Isolation steps:
+
+- confirm the site is being decrypted
+- confirm **Enabled** is `TRUE` globally and in the rule
+- inspect the request profile assignment
+
+Remediation:
+
+- enable HTTPS inspection where appropriate
+- enable the correct policy objects
+- correct the profile mapping and retest
+
+### Legitimate business images are being blocked
+
+Likely causes:
+
+- the threshold is too aggressive
+- a broad policy applies to everyone
+- testing rules remained enabled in production
+
+Isolation steps:
+
+- identify the rule that triggered
+- compare the affected user group against intended scope
+- review whether **Debug** or special test profiles are still active
+
+Remediation:
+
+- raise the threshold
+- narrow the policy to the intended profiles
+- create explicit exceptions for approved teams
+- retest with both business and high-risk image samples
+
+### Users report blurred or replaced images unexpectedly
+
+Likely causes:
+
+- a debug or enforcement template is active
+- the wrong template is assigned to the rule
+
+Isolation steps:
+
+- inspect the rule template setting
+- compare observed behavior with the configured replacement mode
+
+Remediation:
+
+- assign the correct template
+- disable debug mode when testing is complete
+
+## Related controls / next steps
+
+- Use [Content Moderation](/Profiling_Engine/Content_Analyser) to combine image, text, and categorization controls.
+- Use [Text Analyzer](/Text_Analyser) for body-content scoring that complements visual inspection.
+- Use [Security Logs](/Security_Logs) and [Reporting Module](/Reporting_Module) to validate image-policy behavior and investigate false positives.

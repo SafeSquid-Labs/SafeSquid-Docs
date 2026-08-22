@@ -1,7 +1,7 @@
 {
   "theme": "mint",
   "name": "SafeSquid Documentation",
-  "description": "Deploy Zero-Trust Web Security \u2014 SafeSquid Secure Web Gateway documentation.",
+  "description": "Deploy Zero-Trust Web Security — SafeSquid Secure Web Gateway documentation.",
   "colors": {
     "primary": "#0066CC",
     "light": "#3B82F6",
@@ -13,6 +13,11 @@
     "href": "https://www.safesquid.com/#home"
   },
   "favicon": "/images/favicon.ico",
+  "banner": {
+    "content": "TODO before merge — set release version and link. [Placeholder](/)",
+    "dismissible": true,
+    "type": "info"
+  },
   "navbar": {
     "links": [
       {
@@ -22,6 +27,10 @@
       {
         "label": "Forum",
         "href": "https://help.safesquid.com/portal/en/community/safesquid-labs"
+      },
+      {
+        "type": "github",
+        "href": "https://github.com/SafeSquid-Labs/SafeSquid-Docs"
       }
     ],
     "primary": {
@@ -75,35 +84,122 @@
         "groups": [
           {
             "group": "Getting Started",
-            "root": "getting_started/introduction",
             "pages": [
-              "getting_started/introduction",
+              "getting_started/welcome",
+              "getting_started/quickstart"
+            ]
+          },
+          {
+            "group": "Core Features",
+            "pages": [
+              "core_features/dns_blacklisting",
+              "core_features/homograph_detection",
+              "core_features/ssl_inspection",
+              "core_features/proxy_authentication",
+              "core_features/profiling_engine",
+              "core_features/web_categorization",
+              "core_features/application_identification",
+              "core_features/access_restriction",
+              "core_features/url_redirection",
+              "core_features/header_rewrite",
+              "core_features/cookie_filtering",
+              "core_features/content_modifier",
+              "core_features/malware_scanning",
+              "core_features/data_leakage_prevention",
+              "core_features/text_analyzer",
+              "core_features/image_analyzer"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Deployment",
+        "groups": [
+          {
+            "group": "Deployment Planning",
+            "pages": [
+              "deployment/deployment_planning",
               "getting_started/register",
-              "getting_started/deployment_planning",
-              {
-                "group": "Install SafeSquid",
-                "root": "getting_started/install_safesquid/prerequisites",
-                "pages": [
-                  "getting_started/install_safesquid/cloud_deployment",
-                  "getting_started/install_safesquid/safesquid_appliance_builder",
-                  "getting_started/install_safesquid/linux_server"
-                ]
-              },
-              {
-                "group": "Client Configuration",
-                "root": "getting_started/client_configuration/connect_your_client",
-                "pages": [
-                  "getting_started/client_configuration/explicit_proxy",
-                  "getting_started/client_configuration/pac_file",
-                  "getting_started/client_configuration/system_wide_proxy",
-                  "getting_started/client_configuration/enterprise_deployment",
-                  "getting_started/client_configuration/application_specific_configuration"
-                ]
-              },
               "getting_started/access_the_interface",
               "getting_started/activate",
               "getting_started/configure_web_security_policies",
               "getting_started/verify_your_setup"
+            ]
+          },
+          {
+            "group": "Install SafeSquid",
+            "pages": [
+              "getting_started/install_safesquid/prerequisites",
+              "getting_started/install_safesquid/cloud_deployment",
+              "getting_started/install_safesquid/safesquid_appliance_builder",
+              "getting_started/install_safesquid/linux_server"
+            ]
+          },
+          {
+            "group": "Client Configuration",
+            "pages": [
+              "getting_started/client_configuration/connect_your_client",
+              "getting_started/client_configuration/explicit_proxy",
+              "getting_started/client_configuration/pac_file",
+              "getting_started/client_configuration/system_wide_proxy",
+              "getting_started/client_configuration/enterprise_deployment",
+              "getting_started/client_configuration/application_specific_configuration"
+            ]
+          },
+          {
+            "group": "Scaling & High Availability",
+            "pages": [
+              "use_cases/scaling_and_high_availability/proxy_clustering",
+              "use_cases/scaling_and_high_availability/master_slave",
+              "use_cases/customisation/configuration_sync",
+              "use_cases/scaling_and_high_availability/ha_monit_keepalived",
+              "use_cases/scaling_and_high_availability/vpn",
+              "use_cases/scaling_and_high_availability/wccp"
+            ]
+          },
+          {
+            "group": "Operational Modes",
+            "pages": [
+              "use_cases/scaling_and_high_availability/operational_modes",
+              "use_cases/scaling_and_high_availability/forward_proxy",
+              "use_cases/scaling_and_high_availability/transparent_proxy",
+              "use_cases/scaling_and_high_availability/tcp_proxy",
+              "use_cases/scaling_and_high_availability/reverse_proxy",
+              "use_cases/scaling_and_high_availability/proxy_chain"
+            ]
+          },
+          {
+            "group": "Disaster Recovery",
+            "pages": [
+              "use_cases/scaling_and_high_availability/disaster_recovery",
+              "use_cases/customisation/configure_cloud_restore"
+            ]
+          },
+          {
+            "group": "Performance Acceleration",
+            "pages": [
+              "use_cases/performance_acceleration/performance_accelerators",
+              "use_cases/performance_acceleration/caching",
+              "use_cases/performance_acceleration/manage_bandwidth",
+              "use_cases/performance_acceleration/performance_plot",
+              "use_cases/performance_acceleration/pre_fetching",
+              "use_cases/performance_acceleration/speed_limits"
+            ]
+          },
+          {
+            "group": "Customisation",
+            "pages": [
+              "use_cases/customisation/customisation",
+              "use_cases/customisation/custom_templates",
+              "use_cases/customisation/startup_parameters"
+            ]
+          },
+          {
+            "group": "Upgrade",
+            "pages": [
+              "use_cases/upgrade/upgrade_safesquid",
+              "use_cases/upgrade/os_upgrade",
+              "use_cases/upgrade/version_upgrade"
             ]
           }
         ]
@@ -113,8 +209,8 @@
         "groups": [
           {
             "group": "Application Ecosystem",
-            "root": "safesquid_swg/application_ecosystem/main",
             "pages": [
+              "safesquid_swg/application_ecosystem/main",
               "safesquid_swg/application_ecosystem/proxy_service",
               "safesquid_swg/architecture/integrated_dns_security",
               "safesquid_swg/application_ecosystem/remote_browser_isolation",
@@ -125,8 +221,8 @@
           },
           {
             "group": "Supporting Services",
-            "root": "safesquid_swg/interface/supporting_services",
             "pages": [
+              "safesquid_swg/interface/supporting_services",
               "safesquid_swg/interface/supporting_services_monit",
               "safesquid_swg/interface/bind",
               "safesquid_swg/interface/ntp"
@@ -134,8 +230,8 @@
           },
           {
             "group": "Policy Management Console",
-            "root": "safesquid_swg/policy_management_console/main",
             "pages": [
+              "safesquid_swg/policy_management_console/main",
               "safesquid_swg/policy_management_console/reports",
               "safesquid_swg/policy_management_console/configure",
               "safesquid_swg/policy_management_console/support"
@@ -143,8 +239,8 @@
           },
           {
             "group": "Files and Folders",
-            "root": "safesquid_swg/files_and_folders/main",
             "pages": [
+              "safesquid_swg/files_and_folders/main",
               "safesquid_swg/files_and_folders/files_and_folders",
               "safesquid_swg/files_and_folders/service_and_startup_files",
               "safesquid_swg/files_and_folders/application_binaries_and_modules",
@@ -160,7 +256,6 @@
         "groups": [
           {
             "group": "SSL Inspection",
-            "root": "use_cases/ssl_inspection/ssl_inspection",
             "pages": [
               "use_cases/ssl_inspection/ssl_inspection",
               "use_cases/ssl_inspection/configure_https_inspection",
@@ -169,7 +264,6 @@
           },
           {
             "group": "Authentication",
-            "root": "use_cases/authentication/authentication",
             "pages": [
               "use_cases/authentication/authentication",
               "use_cases/authentication/directory_services",
@@ -192,7 +286,6 @@
           },
           {
             "group": "Profiling Engine",
-            "root": "use_cases/profiling_engine/profiling_engine",
             "pages": [
               "use_cases/profiling_engine/profiling_engine",
               "use_cases/profiling_engine/application_signatures",
@@ -203,7 +296,6 @@
           },
           {
             "group": "DNS Security",
-            "root": "use_cases/dns_security/dns_security",
             "pages": [
               "use_cases/dns_security/dns_security",
               "use_cases/dns_security/homograph_detection",
@@ -213,7 +305,6 @@
           },
           {
             "group": "Malware Scanning",
-            "root": "use_cases/malware_scanning/malware_scanners",
             "pages": [
               "use_cases/malware_scanning/malware_scanners",
               "use_cases/malware_scanning/clamav_malware_scanning",
@@ -225,7 +316,6 @@
           },
           {
             "group": "Access Restriction",
-            "root": "use_cases/access_restriction/access_restriction",
             "pages": [
               "use_cases/access_restriction/access_restriction",
               "use_cases/access_restriction/working_of_default_entries_in_access_restrictions",
@@ -248,7 +338,6 @@
           },
           {
             "group": "Content Modifier",
-            "root": "use_cases/content_modifier/content_modifier",
             "pages": [
               "use_cases/content_modifier/content_modifier",
               "use_cases/content_modifier/block_advertisements_and_banners",
@@ -258,7 +347,6 @@
           },
           {
             "group": "Cookie Inspection",
-            "root": "use_cases/cookie_inspection/cookie_inspection",
             "pages": [
               "use_cases/cookie_inspection/cookie_inspection",
               "use_cases/cookie_inspection/cookie_filter_configuration"
@@ -266,7 +354,6 @@
           },
           {
             "group": "Header Rewrite",
-            "root": "use_cases/header_rewrite/header_obfuscation",
             "pages": [
               "use_cases/header_rewrite/header_obfuscation",
               "use_cases/header_rewrite/header_filter_configuration",
@@ -276,7 +363,6 @@
           },
           {
             "group": "URL Redirection",
-            "root": "use_cases/url_redirection/url_redirection",
             "pages": [
               "use_cases/url_redirection/url_redirection",
               "use_cases/url_redirection/redirect_one_website_to_another"
@@ -284,7 +370,6 @@
           },
           {
             "group": "Data Leakage Prevention",
-            "root": "use_cases/data_leakage_prevention/data_leakage_prevention",
             "pages": [
               "use_cases/data_leakage_prevention/data_leakage_prevention",
               "use_cases/data_leakage_prevention/content_analyser",
@@ -299,7 +384,6 @@
           },
           {
             "group": "Audit & Forensics",
-            "root": "use_cases/audit_and_forensics/audit_forensics",
             "pages": [
               "use_cases/audit_and_forensics/audit_forensics",
               "use_cases/audit_and_forensics/audit_forensics_monit",
@@ -309,59 +393,92 @@
           },
           {
             "group": "Integrations",
-            "root": "use_cases/integrations/integrations",
             "pages": [
               "use_cases/integrations/integrations",
               "use_cases/integrations/icap"
             ]
-          },
+          }
+        ]
+      },
+      {
+        "tab": "Admin Guide",
+        "groups": [
           {
-            "group": "Scaling & High Availability",
-            "root": "use_cases/scaling_and_high_availability/proxy_clustering",
+            "group": "Start here",
             "pages": [
-              "use_cases/scaling_and_high_availability/proxy_clustering",
-              "use_cases/scaling_and_high_availability/operational_modes",
-              "use_cases/scaling_and_high_availability/disaster_recovery",
-              "use_cases/scaling_and_high_availability/master_slave",
-              "use_cases/scaling_and_high_availability/vpn",
-              "use_cases/scaling_and_high_availability/wccp",
-              "use_cases/scaling_and_high_availability/forward_proxy",
-              "use_cases/scaling_and_high_availability/proxy_chain",
-              "use_cases/scaling_and_high_availability/reverse_proxy",
-              "use_cases/scaling_and_high_availability/tcp_proxy",
-              "use_cases/scaling_and_high_availability/transparent_proxy"
+              "admin_guide/start_here/first_configuration",
+              "admin_guide/start_here/architecture",
+              "admin_guide/start_here/daemon",
+              "admin_guide/infrastructure_and_access/network_settings",
+              "admin_guide/infrastructure_and_access/access_restrictions",
+              "admin_guide/start_here/authentication",
+              "admin_guide/policies_and_profiles/access_profiles",
+              "admin_guide/start_here/logging",
+              "admin_guide/start_here/debug_response_headers",
+              "admin_guide/start_here/startup_ini",
+              "admin_guide/start_here/cloud_feeds",
+              "admin_guide/start_here/integrations",
+              "admin_guide/start_here/tools_and_reports"
             ]
           },
           {
-            "group": "Performance Acceleration",
-            "root": "use_cases/performance_acceleration/performance_accelerators",
+            "group": "Infrastructure and access",
             "pages": [
-              "use_cases/performance_acceleration/performance_accelerators",
-              "use_cases/performance_acceleration/caching",
-              "use_cases/performance_acceleration/manage_bandwidth",
-              "use_cases/performance_acceleration/performance_plot",
-              "use_cases/performance_acceleration/pre_fetching",
-              "use_cases/performance_acceleration/speed_limits"
+              "admin_guide/infrastructure_and_access/access_restrictions",
+              "admin_guide/infrastructure_and_access/network_settings",
+              "admin_guide/infrastructure_and_access/system_configuration",
+              "admin_guide/infrastructure_and_access/integrate_ldap",
+              "admin_guide/infrastructure_and_access/https_inspection",
+              "admin_guide/infrastructure_and_access/proxy_chain",
+              "admin_guide/infrastructure_and_access/ftp_browsing",
+              "admin_guide/infrastructure_and_access/wccp",
+              "admin_guide/infrastructure_and_access/subscription",
+              "admin_guide/infrastructure_and_access/ssqore"
             ]
           },
           {
-            "group": "Customisation",
-            "root": "use_cases/customisation/customisation",
+            "group": "Policies and profiles",
             "pages": [
-              "use_cases/customisation/customisation",
-              "use_cases/customisation/configuration_sync",
-              "use_cases/customisation/configure_cloud_restore",
-              "use_cases/customisation/custom_templates",
-              "use_cases/customisation/startup_parameters"
+              "admin_guide/policies_and_profiles/access_profiles",
+              "admin_guide/policies_and_profiles/speed_limits",
+              "admin_guide/policies_and_profiles/request_types",
+              "admin_guide/policies_and_profiles/response_types",
+              "admin_guide/policies_and_profiles/time_profiler",
+              "admin_guide/policies_and_profiles/templates",
+              "admin_guide/policies_and_profiles/application_signatures",
+              "admin_guide/policies_and_profiles/content_signatures",
+              "admin_guide/policies_and_profiles/suggested_profiles",
+              "admin_guide/policies_and_profiles/categorize_web_sites"
             ]
           },
           {
-            "group": "Upgrade",
-            "root": "use_cases/upgrade/upgrade_safesquid",
+            "group": "Filtering and privacy",
             "pages": [
-              "use_cases/upgrade/upgrade_safesquid",
-              "use_cases/upgrade/os_upgrade",
-              "use_cases/upgrade/version_upgrade"
+              "admin_guide/filtering_and_privacy/cookie_filter",
+              "admin_guide/filtering_and_privacy/header_filter",
+              "admin_guide/filtering_and_privacy/text_analyzer",
+              "admin_guide/filtering_and_privacy/dns_blacklist",
+              "admin_guide/filtering_and_privacy/redirect",
+              "admin_guide/filtering_and_privacy/content_modifier",
+              "admin_guide/filtering_and_privacy/elevated_privacy",
+              "admin_guide/filtering_and_privacy/external_applications"
+            ]
+          },
+          {
+            "group": "Performance",
+            "pages": [
+              "admin_guide/performance/caching",
+              "admin_guide/performance/prefetching"
+            ]
+          },
+          {
+            "group": "Security scanners",
+            "pages": [
+              "admin_guide/security_scanners/clam_antivirus",
+              "admin_guide/security_scanners/sqscan",
+              "admin_guide/security_scanners/image_analyzer",
+              "admin_guide/security_scanners/dlp",
+              "admin_guide/security_scanners/icap"
             ]
           }
         ]
@@ -403,10 +520,6 @@
     "library": "fontawesome"
   },
   "redirects": [
-    {
-      "source": "/admin_guide/main",
-      "destination": "/use_cases/main"
-    },
     {
       "source": "/admin_guide/scaling_and_high_availability/disaster_recovery",
       "destination": "/use_cases/scaling_and_high_availability/disaster_recovery"
@@ -522,6 +635,14 @@
     {
       "source": "/admin_guide/upgrade/version_upgrade",
       "destination": "/use_cases/upgrade/version_upgrade"
+    },
+    {
+      "source": "/getting_started/introduction",
+      "destination": "/getting_started/welcome"
+    },
+    {
+      "source": "/getting_started/deployment_planning",
+      "destination": "/deployment/deployment_planning"
     }
   ]
 }
