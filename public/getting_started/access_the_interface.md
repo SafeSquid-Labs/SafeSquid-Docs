@@ -14,7 +14,7 @@ Management access controls who can activate SafeSquid, change policy, and affect
 
 ## Validate prerequisites
 
-Before opening the Configuration Portal, confirm:
+Before opening the [Configuration Portal](/safesquid_swg/interface/configuration_portal), confirm:
 
 - SafeSquid is installed and running.
 - A pilot browser is configured to use SafeSquid as proxy.
@@ -32,6 +32,14 @@ Use a proxied browser for first access:
 4. Confirm the page is the SafeSquid Configuration Portal before entering credentials.
 
 Avoid direct broad network exposure of the management interface. The first access path should prove the same proxy path that pilot clients will use.
+
+If the pilot browser is not proxied yet, use direct management access only from an approved administrator network:
+
+```text
+https://SAFESQUID-SERVER-IP:8443/
+```
+
+Document which management path was used. Direct access changes the trust boundary and must not become the default user path.
 
 ## Verify baseline state
 

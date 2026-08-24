@@ -24,5 +24,5 @@ SafeSquid only enforces policy on traffic that reaches it. This section takes a 
 ## Next steps
 
 - [Deployment Planning](/deployment/deployment_planning) - start here for a new deployment.
-- [Operational Modes](/use_cases/scaling_and_high_availability/operational_modes) - choose forward, transparent, TCP, or reverse proxy placement.
-- [Upgrade SafeSquid](/use_cases/upgrade/upgrade_safesquid) - plan version and OS lifecycle.
+- [Choose an Architecture](/deployment/choose_an_architecture) - choose forward, transparent, TCP, or reverse proxy placement.
+- [Upgrade SafeSquid](/use_cases/upgrade/version_upgrade) - plan version and OS lifecycle.

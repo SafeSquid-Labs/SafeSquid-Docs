@@ -1,5 +1,5 @@
 ---
-title: Upgrade SafeSquid to a Newer Version
+title: Upgrade SafeSquid
 slug: /Upgrade_SafeSquid/Version_Upgrade
 description: "Upgrade SafeSquid SWG via Web GUI: prerequisites, cleanup, and applying the new tarball package."
 
@@ -15,6 +15,17 @@ keywords:
 # Upgrade SafeSquid application via Web GUI
 
 
+
+## Choose the upgrade path
+
+There are two upgrade paths, and they answer different problems. Run the OS upgrade first
+where both are due — a SafeSquid version that needs newer kernel or library versions will
+not install cleanly on an end-of-life base.
+
+| Path | Use when | Guide |
+|---|---|---|
+| Version upgrade | The OS is current and only the SafeSquid application needs updating | This page |
+| OS upgrade | The base OS is end-of-life, or lacks versions a newer SafeSquid requires | [Upgrade Ubuntu](/use_cases/upgrade/os_upgrade) |
 
 ## Version upgrade scope and procedure
 
@@ -59,7 +70,7 @@ rm -rf *
 
 
 ## Steps
-### [Access the SafeSquid User Interface](/Configuration_Portal)
+### [Access the SafeSquid User Interface](/safesquid_swg/interface/configuration_portal)
 
 ![your current version of safesquid will be shown in the right hand bottom corner in the safesquid interface](/images/How_To/Upgrade_SafeSquid_To_A_Newer_Version/image1.webp)
 
