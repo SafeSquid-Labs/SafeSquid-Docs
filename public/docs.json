@@ -150,13 +150,6 @@
             ]
           },
           {
-            "group": "Activate your license",
-            "pages": [
-              "getting_started/activate",
-              "deployment/manage_subscription_state"
-            ]
-          },
-          {
             "group": "Connect clients",
             "pages": [
               "getting_started/client_configuration/connect_your_client",
@@ -165,6 +158,13 @@
               "getting_started/client_configuration/system_wide_proxy",
               "getting_started/client_configuration/enterprise_deployment",
               "getting_started/client_configuration/application_specific_configuration"
+            ]
+          },
+          {
+            "group": "Activate your license",
+            "pages": [
+              "getting_started/activate",
+              "deployment/manage_subscription_state"
             ]
           },
           {
