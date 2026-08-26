@@ -2,6 +2,7 @@
 slug: zero-hour-phishing-beyond-url-filters
 title: 'Zero-Hour Phishing: Beyond URL filters'
 # authors: [Vashistha]
+mode: "center"
 ---
 
 ## **Legacy Defences: When Age Equals Trust**

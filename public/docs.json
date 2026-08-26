@@ -81,6 +81,7 @@
     "tabs": [
       {
         "tab": "Overview",
+        "icon": "compass",
         "groups": [
           {
             "group": "Getting Started",
@@ -114,6 +115,7 @@
       },
       {
         "tab": "Deployment",
+        "icon": "server",
         "groups": [
           {
             "group": "Getting started",
@@ -226,6 +228,7 @@
       },
       {
         "tab": "SafeSquid SWG",
+        "icon": "shield-halved",
         "groups": [
           {
             "group": "Application Ecosystem",
@@ -275,6 +278,7 @@
       },
       {
         "tab": "Use Cases",
+        "icon": "lightbulb",
         "groups": [
           {
             "group": "SSL Inspection",
@@ -440,6 +444,7 @@
       },
       {
         "tab": "Admin Guide",
+        "icon": "book-open",
         "groups": [
           {
             "group": "Start here",
@@ -523,6 +528,7 @@
       },
       {
         "tab": "Troubleshooting",
+        "icon": "wrench",
         "pages": [
           "troubleshooting/troubleshooting",
           "troubleshooting/blank_report_page",
@@ -548,6 +554,7 @@
       },
       {
         "tab": "FAQs",
+        "icon": "circle-question",
         "pages": [
           "faqs/faqs"
         ]

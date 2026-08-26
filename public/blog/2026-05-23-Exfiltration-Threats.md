@@ -2,6 +2,7 @@
 slug: exfiltration-threats
 title: 'Exfiltration uses trusted HTTPS sessions'
 description: 'Insider data theft, shadow AI data submission, and cyberslacking require content-level inspection of uploads and POST bodies.'
+mode: "center"
 ---
 
 # Exfiltration uses trusted HTTPS sessions
@@ -36,6 +37,6 @@ The SWG evaluates every web request against the authenticated user's identity, g
 
 ## Related topics
 
-- [Command and control threats](/blog/command-and-control-threats) — APT C2, infostealers, session hijacking, DNS tunneling
-- [Zero-Trust principles](/blog/zero-trust-principles) — least privilege, identity-aware policy, assume breach
-- [Adoption criteria](/blog/adoption-criteria) — when Layer-7 Zero-Trust enforcement applies
+- [Command and control threats](/blog/2026-05-23-Command-and-Control-Threats) — APT C2, infostealers, session hijacking, DNS tunneling
+- [Zero-Trust principles](/blog/2026-05-23-Zero-Trust-Principles) — least privilege, identity-aware policy, assume breach
+- [Adoption criteria](/blog/2026-05-23-Adoption-Criteria) — when Layer-7 Zero-Trust enforcement applies

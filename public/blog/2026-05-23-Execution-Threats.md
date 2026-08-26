@@ -2,6 +2,7 @@
 slug: execution-threats
 title: 'Execution hides inside encrypted sessions'
 description: 'Last-mile malware reassembly and XSS/CSRF injection require inline response inspection at the proxy layer.'
+mode: "center"
 ---
 
 # Execution hides inside encrypted sessions
@@ -26,6 +27,6 @@ The primary control point for XSS and CSRF is the application server — Content
 
 ## Related topics
 
-- [Initial access threats](/blog/initial-access-threats) — zero-hour phishing and malvertising
-- [Command and control threats](/blog/command-and-control-threats) — APT C2, infostealers, session hijacking, DNS tunneling
-- [Zero-Trust Web Security](/blog/zero-trust-web-security) — hub and reading path
+- [Initial access threats](/blog/2026-05-23-Initial-Access-Threats) — zero-hour phishing and malvertising
+- [Command and control threats](/blog/2026-05-23-Command-and-Control-Threats) — APT C2, infostealers, session hijacking, DNS tunneling
+- [Zero-Trust Web Security](/blog/2026-05-23-Zero-Trust-Web-Security) — hub and reading path

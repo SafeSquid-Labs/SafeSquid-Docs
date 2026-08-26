@@ -3,6 +3,7 @@ slug: dns-tunnelling
 title: 'DNS Tunnelling: The Insider’s Invisible Exit Route'
 description: 'Insiders hide data inside DNS queries; SafeSquid stops covert tunnels with query-rate, subdomain-length and category controls—without breaking resolution.'
 # authors: [Vashistha]
+mode: "center"
 ---
 
 ***

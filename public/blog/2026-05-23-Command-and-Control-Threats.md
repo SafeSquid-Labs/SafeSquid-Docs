@@ -2,6 +2,7 @@
 slug: command-and-control-threats
 title: 'Command and control blends into HTTPS'
 description: 'APT C2, infostealer callbacks, session hijacking, and DNS tunneling evade envelope-only perimeter controls.'
+mode: "center"
 ---
 
 # Command and control blends into HTTPS
@@ -42,6 +43,6 @@ The SWG enforces DNS inspection at the query payload level — evaluating query 
 
 ## Related topics
 
-- [Execution threats](/blog/execution-threats) — last-mile malware reassembly and XSS/CSRF
-- [Exfiltration threats](/blog/exfiltration-threats) — insider theft, shadow AI, cyberslacking
-- [Trust algorithm](/blog/trust-algorithm) — behavioural correlation and shared inspection context
+- [Execution threats](/blog/2026-05-23-Execution-Threats) — last-mile malware reassembly and XSS/CSRF
+- [Exfiltration threats](/blog/2026-05-23-Exfiltration-Threats) — insider theft, shadow AI, cyberslacking
+- [Trust algorithm](/blog/2026-05-23-Trust-Algorithm) — behavioural correlation and shared inspection context

@@ -3,6 +3,7 @@ slug: csrf-abuse
 title: 'How XSS‑Powered CSRF Abuses Trust Boundaries'
 description: 'See how XSS hijacks sessions to forge transactions, and how SafeSquid injects tokens and origin checks to neutralise cross-site requests.'
 # authors: [Vashistha]
+mode: "center"
 ---
 
 ***

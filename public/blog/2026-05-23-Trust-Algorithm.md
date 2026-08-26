@@ -2,6 +2,7 @@
 slug: trust-algorithm
 title: 'Trust is assessed dynamically'
 description: 'The Zero-Trust Trust Algorithm evaluates five dimensions per request and requires shared inspection context across the proxy pipeline.'
+mode: "center"
 ---
 
 # Trust is assessed dynamically
@@ -32,6 +33,6 @@ Shared-context inspection — where authentication, URL categorisation, content 
 
 ## Related topics
 
-- [Zero-Trust principles](/blog/zero-trust-principles) — five principles for the web perimeter
-- [Command and control threats](/blog/command-and-control-threats) — behavioural correlation for APT detection
+- [Zero-Trust principles](/blog/2026-05-23-Zero-Trust-Principles) — five principles for the web perimeter
+- [Command and control threats](/blog/2026-05-23-Command-and-Control-Threats) — behavioural correlation for APT detection
 - [What is SafeSquid SWG](/safesquid_swg/what_is_safesquid_swg) — product implementation of the inspection pipeline

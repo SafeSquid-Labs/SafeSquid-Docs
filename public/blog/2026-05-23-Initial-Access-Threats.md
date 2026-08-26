@@ -2,6 +2,7 @@
 slug: initial-access-threats
 title: 'Initial access exploits Layer 7'
 description: 'Zero-hour phishing and malvertising drive-by compromise inside HTTPS sessions that perimeter controls cannot inspect.'
+mode: "center"
 ---
 
 # Initial access exploits Layer 7
@@ -28,6 +29,6 @@ The SWG control point is HTTP response inspection before the payload reaches the
 
 ## Related topics
 
-- [Legacy enforcement gap](/blog/legacy-enforcement-gap) — why envelope-only controls fail
-- [Execution threats](/blog/execution-threats) — last-mile malware reassembly and XSS/CSRF
-- [Zero-Trust Web Security](/blog/zero-trust-web-security) — hub and reading path
+- [Legacy enforcement gap](/blog/2026-05-23-Legacy-Enforcement-Gap) — why envelope-only controls fail
+- [Execution threats](/blog/2026-05-23-Execution-Threats) — last-mile malware reassembly and XSS/CSRF
+- [Zero-Trust Web Security](/blog/2026-05-23-Zero-Trust-Web-Security) — hub and reading path

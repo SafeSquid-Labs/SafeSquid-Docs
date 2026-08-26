@@ -2,6 +2,7 @@
 slug: adoption-criteria
 title: 'When Zero-Trust web security applies'
 description: 'Criteria for adopting Layer-7 Zero-Trust web enforcement and next steps toward SafeSquid deployment.'
+mode: "center"
 ---
 
 # When Zero-Trust web security applies
@@ -31,6 +32,6 @@ description: 'Criteria for adopting Layer-7 Zero-Trust web enforcement and next 
 
 ## Related topics
 
-- [Zero-Trust Web Security](/blog/zero-trust-web-security) — hub and reading path
-- [Zero-Trust principles](/blog/zero-trust-principles) — five architectural principles
-- [Trust algorithm](/blog/trust-algorithm) — dynamic trust scoring
+- [Zero-Trust Web Security](/blog/2026-05-23-Zero-Trust-Web-Security) — hub and reading path
+- [Zero-Trust principles](/blog/2026-05-23-Zero-Trust-Principles) — five architectural principles
+- [Trust algorithm](/blog/2026-05-23-Trust-Algorithm) — dynamic trust scoring

@@ -2,6 +2,7 @@
 slug: legacy-enforcement-gap
 title: 'Legacy controls leave a structural enforcement gap'
 description: 'Why network firewalls, endpoint security, and DNS-only or URL-category-only controls cannot enforce Layer-7 web policy.'
+mode: "center"
 ---
 
 # Legacy controls leave a structural enforcement gap
@@ -18,6 +19,6 @@ None of these controls is worthless. Each control addresses part of the threat l
 
 ## Related topics
 
-- [Zero-Trust Web Security](/blog/zero-trust-web-security) — hub and reading path
-- [Initial access threats](/blog/initial-access-threats) — zero-hour phishing and malvertising
-- [Zero-Trust principles](/blog/zero-trust-principles) — architectural requirements for Layer-7 enforcement
+- [Zero-Trust Web Security](/blog/2026-05-23-Zero-Trust-Web-Security) — hub and reading path
+- [Initial access threats](/blog/2026-05-23-Initial-Access-Threats) — zero-hour phishing and malvertising
+- [Zero-Trust principles](/blog/2026-05-23-Zero-Trust-Principles) — architectural requirements for Layer-7 enforcement

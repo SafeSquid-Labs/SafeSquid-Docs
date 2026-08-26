@@ -2,6 +2,7 @@
 title: "Blog Source Register"
 description: "Claim tracking for SafeSquid blog technical and statistical statements."
 keywords: [source_register, claims_tracking, blog_governance]
+mode: "center"
 ---
 
 # Blog claim status register
