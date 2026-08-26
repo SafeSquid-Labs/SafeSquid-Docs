@@ -40,6 +40,44 @@ on `443`. Updates and categorization need a wider set, which activation success 
 prove is reachable. Confirm both groups in
 [Ports and Firewall Rules](/deployment/ports_and_firewall_rules) before the cutover window.
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/04-Activate.md §Readiness Checklist */}
+
+<Accordion title="Which endpoints block activation, and which do not">
+
+Only one endpoint has to be reachable for activation itself to succeed. The rest affect ongoing updates, so a blocked path there produces a licensed gateway with stale intelligence rather than a failed activation — a quieter failure, and an easier one to miss.
+
+**Required for activation**
+
+| Host | Port | Purpose |
+|---|---:|---|
+| `api.safesquid.net` | `443` | License activation |
+
+**Required for ongoing updates**
+
+| Host | Port | Purpose |
+|---|---:|---|
+| `swgupdates2.safesquid.net` | `443` | Subscription and malware definitions |
+| `swgupdates.safesquid.net` | `80` | Seqrite updates |
+| `sslupdates.safesquid.com` | `443` | SSL certificate updates |
+| `category.safesquid.net` | `443` | Category database updates |
+| `download.quickheal.com` | `80` | Virus signature updates |
+
+**URL categorization engines, commercial licence only**
+
+Each of these is reached on port `8080` at the path `/URLCategorizerService/URLCategorize`:
+
+| Host |
+|---|
+| `prourl.itsecure.co.in` |
+| `encurl.itsecure.co.in` |
+| `klassify.itsecure.co.in` |
+| `prourl.itonlinesecure.in` |
+| `encurl.itonlinesecure.in` |
+
+If categorization is blocked while everything else is reachable, policies that depend on category matching will fail open rather than error, so verify this group explicitly rather than inferring it from a working activation.
+
+</Accordion>
+
 ## Upload the activation key
 
 <Steps>
