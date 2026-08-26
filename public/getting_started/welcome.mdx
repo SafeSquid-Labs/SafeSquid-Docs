@@ -1,44 +1,134 @@
 ---
 title: "Welcome to SafeSquid"
-description: "Why web sessions carry business-critical risk, and how SafeSquid enforces inline Layer 7 control over every HTTP and HTTPS transaction."
+description: "What SafeSquid is, why it exists, and how it converts network reachability into Layer 7 transaction-level authorization."
 keywords:
   - SafeSquid introduction
   - zero trust web security
   - secure web gateway
+  - Layer 7 proxy
   - HTTPS inspection
-  - on-premise web security
-  - RBI compliance
-  - SEBI CSCRF
-  - India sovereign proxy
-  - squid replacement
+  - application proxy daemon
 ---
 
-# Web Sessions Carry Business-Critical Risk
+# Welcome to SafeSquid
 
-Phishing, ransomware delivery, command-and-control callbacks, credential theft, and data exfiltration now arrive through approved HTTP and HTTPS traffic. If that traffic is trusted by default, organizations face operational disruption, legal exposure, and reportable incidents.
+Zero-Trust web-security enforcement at the HTTP transaction layer.
 
-Layer 3 and Layer 4 controls block unauthorized network paths, but they do not enforce user-intent and content-risk policy inside approved web sessions. Production web security requires an inline Layer 7 proxy that can terminate sessions, inspect payloads, enforce policy, and produce auditable evidence.
+## What is SafeSquid?
 
-## SafeSquid Enforces Inline Web Control
+SafeSquid is a multi-threaded, SMP-aware HTTP/1.1 application proxy daemon built for Zero-Trust web-security enforcement.
 
-SafeSquid runs as an inline HTTP/HTTPS proxy at the perimeter. Enrolled clients send web traffic through SafeSquid before internet access. This control path lets teams:
+Every HTTP exchange routed through SafeSquid crosses an inline Layer-7 policy boundary. The proxy accepts downstream connections, parses requests, establishes identity and application context, evaluates access and security policy, manages upstream connections, processes origin responses, and records enforcement decisions.
 
-- Block phishing destinations and credential-harvesting pages before credential submission
-- Disrupt malware download and command-and-control traffic
-- Enforce data-loss prevention controls on outbound HTTP and HTTPS channels
-- Isolate high-risk browsing through Remote Browser Isolation (RBI)
-- Record per-transaction logs for incident response and audit workflows
+HTTPS follows the same control path. Policy can permit `CONNECT` tunnelling or invoke TLS interception. Interception terminates downstream TLS, validates and establishes independent upstream TLS, then submits decrypted HTTP to the normal request-processing pipeline.
 
-SafeSquid supports evidence-oriented controls mapped to [NIST SP 800-53](https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final), [PCI-DSS](https://www.pcisecuritystandards.org/document_library/), [HIPAA](https://www.hhs.gov/hipaa/index.html), [ISO 27001](https://www.iso.org/standard/27001), [SOC 2](https://www.aicpa-cima.com/resources/landing/system-and-organization-controls-soc-suite-of-services), [RBI Master Direction on IT Governance 2023](https://www.rbi.org.in/Scripts/BS_ViewMasDirections.aspx?id=12562), [SEBI CSCRF](https://www.sebi.gov.in/legal/circulars/aug-2024/cybersecurity-and-cyber-resilience-framework-cscrf-for-sebi-regulated-entities-res-_85964.html), and the [DPDP Act](https://www.meity.gov.in/static/uploads/2024/06/2bf1f0e9f04e6fb4f8fef35e82c42aa5.pdf).
+SafeSquid therefore controls web activity after network connectivity succeeds.
 
-## SafeSquid Inspects Every Transaction
+## Why SafeSquid exists
 
-For HTTPS traffic, SafeSquid terminates the client-side TLS session, inspects headers and payload, applies policy, then re-encrypts traffic to the origin server. Security processors evaluate the same transaction context, which reduces fragmented controls and improves decision consistency.
+Enterprise activity now concentrates in browsers, SaaS platforms, cloud services, and HTTP APIs. Credentials, files, session tokens, business records, application commands, and administrative operations routinely traverse HTTPS.
 
-```mermaid
-flowchart LR
-    UserEndpoints[User_Endpoints] -->|HTTP_HTTPS| SafeSquidProxy[SafeSquid_Inline_Proxy]
-    SafeSquidProxy -->|Policy_Decision| ControlPlane[Policy_And_Reporting]
-    SafeSquidProxy -->|Re_Encrypted_Traffic| InternetServices[Internet_Services]
-    ControlPlane --> Evidence[Logs_Reports_Audit_Evidence]
-```
+Phishing, malware delivery, credential abuse, command-and-control traffic, application misuse, and data exfiltration exploit the same permitted channels.
+
+Network firewalls authorize connections. URL filters classify destinations. Endpoint controls enforce host-local policy. TLS protects transport confidentiality. Authentication establishes identity.
+
+None of those controls, independently, determines whether a specific HTTP request, upload, download, API call, or application action satisfies security policy.
+
+The resulting gap appears inside already permitted traffic. A trusted SaaS service can receive prohibited data. An authenticated account can perform prohibited operations. A valid TLS session can carry malware. A newly registered destination can evade reputation-based filtering.
+
+SafeSquid places enforcement inside the HTTP processing path.
+
+## From connection to decision
+
+Processing starts at a configured listener.
+
+Access Restrictions controls permission to use the proxy and can apply network-based access rules or authentication. Supported identity sources include local credentials, PAM, LDAP directories, Active Directory, and Kerberos.
+
+Explicit HTTPS proxying begins with `CONNECT`. Policy can allow tunnelling or invoke HTTPS Inspection. Transparent HTTPS reaches an `SSL_TRANSPARENT` listener without an explicit proxy request. TLS interception creates separate downstream and upstream TLS sessions and exposes decrypted HTTP to Layer-7 processing.
+
+HTTP parsing exposes method, request target, headers, cookies, content metadata, and application characteristics. Content processing can identify true MIME type, decode supported transfer representations, inspect compressed payloads and archives, analyse text and images, scan malware, and examine uploaded or downloaded data.
+
+Additional context can include user identity, group membership, source network, destination classification, application signatures, DNS intelligence, TLS certificate state, content signatures, malware results, session state, cross-site activity, transfer properties, and behavioural indicators.
+
+The Polymath Profiling Engine correlates applicable context before enforcement.
+
+Policy can authenticate, permit, deny, redirect, rate-limit, control cookies, modify headers, rewrite payloads, scan malware, restrict uploads or downloads, enforce data-loss controls, sanitize content, or invoke external ICAP services.
+
+Origin responses cross response-side parsing, profiling, inspection, and enforcement before downstream delivery.
+
+The resulting decision reflects the application exchange, not destination reputation alone.
+
+## What SafeSquid can enforce
+
+SafeSquid combines multiple security functions inside one HTTP policy boundary:
+
+- Access Control — identity, group, source network, destination, time, application, transfer size, and request characteristics.
+- HTTPS Inspection — `CONNECT` control, TLS interception, certificate validation, trust-anchor management, and inspection bypass policy.
+- Application Control — application identification, feature-level restrictions, SafeSearch enforcement, login controls, and social-media restrictions.
+- Malware Defense — SqScan, ClamAV, external parsers, ICAP services, signature analysis, and heuristic payload inspection.
+- Data Egress Control — upload restrictions, content-aware DLP, MIME controls, transfer limits, and destination-specific policy.
+- Deep Content Security — MIME identification, text analysis, image analysis, archive inspection, payload rewriting, CSP injection, and content sanitization.
+- Traffic Control — redirection, cookie controls, header modification, caching policy, QoS, bandwidth limits, and concurrency controls.
+
+Shared transaction context allows multiple controls to evaluate the same request or response without reducing enforcement to isolated network decisions.
+
+## Zero Trust at Layer 7
+
+Network reachability establishes connectivity, not application authorization.
+
+Authentication establishes identity, not unrestricted access.
+
+TLS establishes cryptographic protection, not acceptable application behaviour.
+
+SafeSquid evaluates available identity, destination, application, protocol, content, and security context before permitting protected web activity.
+
+A single SaaS destination can therefore receive different treatment for different users, operations, payloads, or session conditions. An approved user can access one application function while policy blocks another. An approved destination can receive ordinary business data while DLP blocks sensitive content.
+
+SafeSquid converts network reachability into transaction-level authorization.
+
+## Built as a security proxy
+
+SafeSquid integrates inspection, correlation, enforcement, and logging inside a multi-threaded proxy process.
+
+SMP-aware execution distributes concurrent processing across available CPU cores. Shared-memory structures expose common context to active security processors. In-memory DNS caching, upstream connection reuse, TLS session reuse, configurable object caching, streaming controls, and multi-queue NIC support reduce avoidable proxy-path overhead.
+
+Standard x86_64 Linux infrastructure supports bare-metal, virtual-machine, cloud, and clustered deployments. Deployment modes include explicit forward proxy, transparent interception, reverse proxy, proxy chaining, and selected TCP-proxy configurations.
+
+LDAP, Active Directory, PAM, Kerberos, ICAP, SNMP, WCCP, REST-based management, external parsers, SIEM pipelines, and open-format logs support integration with existing infrastructure.
+
+Cluster deployments support active-active or active-standby operation with synchronization of supported policy, categorization, and certificate state.
+
+## Standards and interoperability
+
+SafeSquid implements HTTP/1.1 in conformance with RFC 2616 and successor HTTP specifications while preserving RFC 2616 backward compatibility.
+
+Supported protocol and integration capabilities include HTTP/HTTPS proxying, `CONNECT`, WebSocket traffic, IPv6 clients, active and passive FTP over HTTP/HTTPS, SNMP, ICAP, WCCP, LDAP, Kerberos, PAM, and configurable TLS handling.
+
+## Enforcement remains observable
+
+Inline control requires explainable decisions.
+
+SafeSquid records web activity, authentication events, filtering results, bypasses, security processing, DNS activity, connection failures, integration state, resource utilization, and proxy performance.
+
+Detailed Logs expose request processing, matched filters, and enforcement reasons. Process logs expose daemon activity, module operation, security updates, external integrations, cluster synchronization, and diagnostic failures.
+
+Open log formats support direct inspection with standard Linux tools and ingestion by monitoring, analytics, SIEM, and forensic systems.
+
+Configuration changes can therefore be validated against observed traffic and recorded enforcement results.
+
+## Start with one controlled request
+
+Prove the complete control path before enabling advanced security functions.
+
+1. Start the SafeSquid daemon and verify the required listener.
+2. Restrict proxy access to one controlled client or network.
+3. Configure the client to route web traffic through SafeSquid.
+4. Send one HTTP request.
+5. Verify processing in Detailed Logs.
+6. Add one explicit access rule.
+7. Repeat the request.
+8. Verify the matched filter and enforcement reason.
+
+A successful test confirms traffic insertion, HTTP processing, policy enforcement, and decision visibility.
+
+Continue with [First Configuration](/admin_guide/start_here/first_configuration).
