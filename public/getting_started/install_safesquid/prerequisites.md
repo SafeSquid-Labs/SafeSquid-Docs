@@ -1,22 +1,61 @@
 ---
-title: Prerequisites
-description: Confirm host, network, trust, licensing, and evidence requirements before installing SafeSquid SWG.
+title: Deployment Checklist
+description: Confirm host, network, trust, licensing, and evidence requirements are satisfied and owned before running any SafeSquid installer.
 keywords:
   - SafeSquid prerequisites
-  - SafeSquid installation readiness
-  - proxy deployment prerequisites
-  - SafeSquid network requirements
+  - deployment checklist
+  - installation readiness
+  - site survey
+  - proxy deployment requirements
 ---
 
 # Confirm Readiness Before Install
 
-Most failed SafeSquid pilots are caused by missing prerequisites: wrong sizing, blocked proxy ports, no DNS or NTP, no activation key, or no plan for Root CA deployment. Validate these items before starting any installer.
+Most failed SafeSquid pilots are caused by missing prerequisites: wrong sizing, blocked proxy ports, no DNS or NTP, no activation key, or no plan for Root CA deployment. Every one of them is cheaper to fix now than during the cutover window.
+
+Work this checklist to completion before starting any installer.
+
+{/* source: _migration_source_v3/docs/01-Getting_Started/01-Deployment_Planning.md §Pre-Installation Checklist (Site Survey) */}
+
+<Accordion title="Site survey checklist">
+  Capture the current egress path before selecting a SafeSquid design:
+
+  - Internet circuits, firewalls, NAT devices, and cloud egress points.
+  - User networks, server networks, guest networks, VPN users, and remote branches.
+  - Existing proxy, PAC, WPAD, DNS, and browser-management policies.
+  - Authentication sources, group naming, privileged-user exceptions, and service accounts.
+  - Internal destinations that must bypass proxy inspection.
+  - Current log destinations, SIEM ownership, and incident-retention requirements.
+
+  Record these named values before installation starts. Each one blocks a specific install or activation step if it is missing:
+
+  **Portal and keys**
+
+  - Registered email on the Self-Service Portal.
+  - C-Code, required for license generation.
+  - Activation key, downloaded to the administrator workstation.
+  - Root CA certificate decision: self-signed or enterprise-issued, for HTTPS inspection.
+
+  **Network parameters**
+
+  - Proxy hostname or FQDN, for example `proxy.example.com`.
+  - Proxy IP address and CIDR, for example `10.200.5.100/24`.
+  - Default gateway address.
+  - Primary and secondary DNS servers.
+
+  **Directory integration**
+
+  - AD or LDAP server IP address or FQDN.
+  - Bind account in UPN format, with its password held under approved credential handling.
+  - Base DN, for example `dc=example,dc=com`.
+  - LDAP domain name.
+</Accordion>
 
 ## Validate platform readiness
 
 Confirm:
 
-- CPU, RAM, disk, and NIC allocation match the pilot or production sizing plan.
+- CPU, RAM, disk, and NIC allocation match the sizing plan from [Sizing](/deployment/sizing).
 - Storage can handle access logs, reports, support bundles, and update files.
 - The host has a stable hostname and static IP address.
 - Administrative access is available through an approved management path.
@@ -34,14 +73,23 @@ Confirm:
 - Outbound access exists for activation, updates, category data, and subscription checks.
 - The management path is restricted to approved administrators.
 
-Use these quick checks before installation:
+The specific ports, endpoints, and source scopes are listed in [Ports and Firewall Rules](/deployment/ports_and_firewall_rules). Agree them with the network owner before installation.
 
-```bash
-nslookup key.safesquid.com
-ping -c 3 key.safesquid.com
-```
+{/* source: _migration_source_v3/docs/01-Getting_Started/01-Deployment_Planning.md §Prepare the host before install, step 8 */}
 
-Expected result: the host resolves and reaches the Self-Service Portal path needed for key and activation workflows.
+<Accordion title="Mandatory access controls: SELinux and AppArmor">
+  SELinux or AppArmor in enforcing mode can block proxy operations during initial setup, and the failure presents as unexplained permission errors rather than a clear policy denial.
+
+  Set permissive mode for the setup window, or author a policy that covers SafeSquid before you start:
+
+  ```bash
+  getenforce
+  ```
+
+  Expected result: the current mode is known and recorded before installation begins.
+
+  Once the deployment is operational, review the audit log and write a targeted policy rather than leaving mandatory access control permanently disabled. Record which choice was made and who owns the follow-up; "temporarily permissive" that is never revisited is a finding waiting to happen.
+</Accordion>
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/01-Deployment_Planning.md §Prepare the host before install, steps 6-7 */}
 
@@ -89,8 +137,27 @@ Confirm:
 - Activation key is available from [Register and Get Your Key](/getting_started/register).
 - Root CA rollout owner is assigned for HTTPS inspection.
 - Authentication source is known if user-based policy will be enabled.
-- Log-retention owner is assigned.
+- Log-retention owner is assigned. See [Log-Retention Planning](/deployment/log_retention_planning).
 - Change and rollback owners are named.
+
+## Verify readiness
+
+Run these checks before installation:
+
+```bash
+ping -c 3 key.safesquid.com
+nslookup key.safesquid.com
+```
+
+Expected result: DNS resolves and the host can reach the Self-Service Portal path required for activation-key workflows.
+
+Also confirm:
+
+- DNS and NTP are reachable from the SafeSquid host network.
+- Firewall rules allow required outbound update and subscription paths.
+- Proxy listener ports are approved.
+- Root CA deployment owner is assigned.
+- Rollback owners exist for routing, PAC, GPO, MDM, and firewall changes.
 
 ## Choose the install method
 
@@ -141,10 +208,11 @@ Store:
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| Host cannot resolve portal names | DNS is missing or blocked | Fix DNS before installation |
+| Host cannot resolve portal names | DNS is missing or blocked | Fix DNS before installation; every later step depends on it |
 | Time is wrong | NTP is blocked or unset | Configure NTP before activation and logging tests |
-| Proxy port is exposed too broadly | Firewall rule is unsafe | Restrict source networks before deployment |
+| Proxy port is exposed too broadly | Firewall rule is unsafe | Restrict source networks; see [Ports and Firewall Rules](/deployment/ports_and_firewall_rules) |
 | Activation key is missing | Registration is incomplete | Complete [Register and Get Your Key](/getting_started/register) before installing |
+| A checklist item has no owner | Ownership was assumed, not assigned | Assign it now; unowned prerequisites are what stall the rollout later |
 
 ## Next steps
 

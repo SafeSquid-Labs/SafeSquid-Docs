@@ -1,5 +1,5 @@
 ---
-title: SafeSquid Ubuntu OS Upgrade from 20.04 to 24.04 Guide
+title: Upgrade Ubuntu
 slug: /Upgrade_SafeSquid/OS_Upgrade
 description: "Non-interactive upgrade of SafeSquid SWG from Ubuntu 20.04 LTS to 24.04 LTS: prerequisites, OS upgrade, DNS, Netplan, and verification."
 

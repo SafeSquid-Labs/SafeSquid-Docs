@@ -13,7 +13,7 @@ Navigation hub for Scaling & High Availability.
 ## Available items
 
 - [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering)
-- [Operational Modes](/use_cases/scaling_and_high_availability/operational_modes)
+- [Choose an Architecture](/deployment/choose_an_architecture)
 - [Disaster Recovery](/use_cases/scaling_and_high_availability/disaster_recovery)
 - [Master Slave](/use_cases/scaling_and_high_availability/master_slave)
 - [VPN](/use_cases/scaling_and_high_availability/vpn)

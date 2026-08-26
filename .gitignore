@@ -1,1 +1,4 @@
 .DS_Store
+
+# Graphify knowledge-graph output — generated, ~6 MB, rebuilt on demand
+graphify-out/

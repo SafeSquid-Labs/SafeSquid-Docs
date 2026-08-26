@@ -1,6 +1,6 @@
 ---
-title: Configure Web Security Policies
-description: Production sequence for turning SafeSquid proxy traffic into inspected, attributed, logged, and auditable web security controls.
+title: Policy Enforcement
+description: Production sequence for turning SafeSquid proxy traffic into inspected, attributed, logged, and auditable web security controls, with a verification step per control.
 keywords:
   - SafeSquid policy
   - web security configuration
@@ -41,6 +41,8 @@ Use this sequence to reduce outage risk and preserve evidence quality.
 | 6 | DLP | Uploads and posts are inspected after identity and inspection are stable |
 | 7 | Reporting | Logs and reports prove control effectiveness |
 
+{/* source: this section is the certificate-planning material for a future Certificate and Trust Planning page; keep it in sync if that page is written */}
+
 ## Start with inspection
 
 Deploy Root CA trust before enabling broad HTTPS inspection. Do not ask users to bypass certificate warnings; that normalizes man-in-the-middle risk and weakens audit defensibility.
@@ -50,6 +52,8 @@ Verification:
 - A pilot HTTPS site loads without browser certificate warnings.
 - SafeSquid logs the HTTPS transaction.
 - Excluded destinations are documented with business justification.
+
+{/* source: this section is the identity material for a future Identity Prerequisites page; keep it in sync if that page is written */}
 
 ## Add user context
 
@@ -73,7 +77,7 @@ Verification:
 
 ## Scan content before delivery
 
-Enable malware scanning and content controls after routing, activation, inspection, and identity are stable. This prevents noisy troubleshooting where certificate, routing, and scanning failures overlap.
+Enable [malware scanning](/use_cases/malware_scanning/malware_scanners) and content controls after routing, activation, inspection, and identity are stable. This prevents noisy troubleshooting where certificate, routing, and scanning failures overlap.
 
 Verification:
 

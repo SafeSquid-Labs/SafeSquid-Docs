@@ -1,5 +1,5 @@
 ---
-title: Register and Get Your Key
+title: Register Your Key
 description: Create a SafeSquid Self-Service Portal account, activate it by email, and download the activation_key file required for deployment.
 keywords:
   - SafeSquid registration

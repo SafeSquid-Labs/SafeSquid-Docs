@@ -34,7 +34,7 @@ This repo contains CISO-grade, enterprise documentation for SafeSquid SWG. Agent
 
 ## Project Overview
 
-SafeSquid SWG documentation (Mintlify) is a technically precise knowledge base for enterprise zero-trust web security. Docs serve both "get it done" (task-based) and "justify/audit" (control mapping, evidence, compliance) needs. Every page must meet the CISO-grade bar — see `.claude/skills/doc_writer/references/writing_standards.md`.
+SafeSquid SWG documentation (Mintlify) is a technically precise knowledge base for enterprise zero-trust web security. Docs serve both "get it done" (task-based) and "justify/audit" (control mapping, evidence, compliance) needs. Every page must match the house style in `.claude/skills/docs-house-style/SKILL.md` and meet the CISO-grade bar in `.claude/skills/doc_writer/references/writing_standards.md`.
 
 ## Content Types
 
@@ -124,6 +124,11 @@ New pages must be registered in `public/docs.json` under the correct `navigation
 
 ### Skill invocation mandate
 
+**Read `.claude/skills/docs-house-style/SKILL.md` before writing or modifying any content.**
+It is the authoritative description of current house style — voice, page structure,
+component rules, source-provenance comments, and `docs.json` navigation conventions. Where
+it conflicts with `doc_writer/references/writing_standards.md`, the house-style skill wins.
+
 **ALWAYS invoke the `doc_writer` skill before any documentation creation or revision task.** This applies to every page, section, main.md, blog post, or content edit — no exceptions for "small" changes.
 
 Skill invocation order for common tasks:
@@ -139,9 +144,10 @@ Skill invocation order for common tasks:
 
 ### What to read before starting
 
-1. `CLAUDE.md` (this file) — scope, naming, repo structure, skill routing
-2. `public/docs.json` — existing navigation
-3. The target section and its `main.md`
+1. `.claude/skills/docs-house-style/SKILL.md` — house style: voice, structure, sourcing, navigation
+2. `CLAUDE.md` (this file) — scope, naming, repo structure, skill routing
+3. `public/docs.json` — existing navigation
+4. The target section and its `main.md`
 
 Skip: `.github/`, `package.json`, `package-lock.json`, `_old_getting_started_backup/`.
 
