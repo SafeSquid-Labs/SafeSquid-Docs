@@ -104,6 +104,49 @@ SAB runs on both Type 1 and Type 2 hypervisors. On a Type 2 hypervisor such as V
   **Destructive disk operation:** SAB erases and repartitions the selected disk. Back up any existing data first. Do not continue unless the VM or hardware is dedicated to SafeSquid and rollback means a rebuild, not data recovery.
 </Warning>
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/01-SafeSquid_Appliance_Builder.md §Before You Begin */}
+
+Obtain the ISO from the SafeSquid appliance download path:
+
+```text
+https://downloads.safesquid.com/appliance/safesquid.iso
+```
+
+Record the download date and, where the organization's process requires it, a checksum of the retrieved image in the change record.
+
+<Accordion title="Prepare physical hardware">
+
+1. Write the ISO to USB or DVD. Rufus, Etcher, and `dd` all work; use whichever is approved for the administrator workstation.
+2. Set the BIOS or UEFI boot order so removable media is tried before the internal disk.
+3. Confirm the CPU exposes AES-NI before committing the hardware. SSL inspection performance depends on it:
+
+   ```bash
+   lscpu | grep aes
+   ```
+
+   Expected result: `aes` appears in the CPU flags. If it does not, HTTPS inspection will be substantially slower on this host.
+
+</Accordion>
+
+<Accordion title="Prepare a virtual machine">
+
+1. Create the VM on VMware, Hyper-V, KVM, or VirtualBox.
+2. Attach the ISO as a virtual CD or DVD drive.
+3. Configure networking as **bridged** so the appliance holds a routable address on the client network. NAT works for an isolated lab but complicates client routing and certificate testing later.
+4. Allocate CPU, RAM, and disk according to the approved sizing plan, and confirm the hypervisor actually reserves them rather than overcommitting.
+
+</Accordion>
+
+<Warning>
+  **Default credentials:** the appliance ships with the account `administrator` and the password `safesquid`. Change the password at first login, before the host is reachable from any client network:
+
+  ```bash
+  passwd
+  ```
+
+  Record that the change was made in the deployment evidence. Leaving the shipped password in place on a proxy that sees all corporate web traffic is a direct compromise path.
+</Warning>
+
 ## Install the appliance
 
 <Steps>
@@ -328,6 +371,24 @@ The appliance is built but not yet enforcing. Complete these before treating it 
 3. Set up HTTPS inspection and configure policy for your environment — see [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection).
 4. Install the SafeSquid certificate in the clients' desktop trust store — see [Import Certificate](/use_cases/ssl_inspection/import_certificate_chrome_ie).
 5. Convert the appliance to SSH key-based login and disable password authentication for administrative access.
+
+{/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/01-SafeSquid_Appliance_Builder.md §What Gets Installed */}
+
+<Accordion title="What the appliance installs, and where">
+
+| Component | Location or detail |
+|---|---|
+| SafeSquid proxy | `/opt/safesquid/` — listens on port `8080` |
+| Security, policy, and UI material | `/usr/local/safesquid/` |
+| Monit | Process monitoring and automatic restart for SafeSquid |
+| BIND9 | Local DNS resolver on port `53` |
+| Logs | `/var/log/safesquid/` |
+| Configuration Portal | `https://safesquid.cfg/` — reachable only through the proxy, and deliberately not resolved by SafeSquid's own DNS resolver |
+| Direct management access | `https://SERVER-IP:8443/` — before a proxy is configured, or when the proxy path is unavailable |
+
+Use the direct `:8443` path only from an approved administrator network. It bypasses the proxy path that every other client uses, so it changes the trust boundary and should not become the routine way in.
+
+</Accordion>
 
 ## Capture appliance evidence
 

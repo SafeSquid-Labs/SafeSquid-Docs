@@ -91,6 +91,45 @@ The specific ports, endpoints, and source scopes are listed in [Ports and Firewa
   Once the deployment is operational, review the audit log and write a targeted policy rather than leaving mandatory access control permanently disabled. Record which choice was made and who owns the follow-up; "temporarily permissive" that is never revisited is a finding waiting to happen.
 </Accordion>
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/01-Deployment_Planning.md §Prepare the host before install, steps 6-7 */}
+
+<Accordion title="Firewall ports to open">
+  Agree these rules with the network owner before installation. Each has a named source scope; none should be opened to `0.0.0.0/0`.
+
+  **Inbound to the SafeSquid host**
+
+  | Port | Protocol | Purpose | Restrict to |
+  |---|---|---|---|
+  | `8080` | TCP | HTTP proxy listener | Approved client networks |
+  | `8443` | TCP | Management interface | Administrator workstations only |
+  | `53` | TCP/UDP | DNS, when integrated DNS security is used | Approved client networks |
+
+  **Outbound from the SafeSquid host**
+
+  | Port | Purpose |
+  |---|---|
+  | `80`, `443` | Web access on behalf of clients, plus update and subscription paths |
+  | `53` | Upstream DNS resolution |
+
+  The specific licensing, update, and categorization hosts that must be reachable on 80 and 443 are listed in [Deployment Planning](/deployment/deployment_planning) and [Activate Your License](/getting_started/activate).
+</Accordion>
+
+{/* source: _migration_source_v3/docs/01-Getting_Started/01-Deployment_Planning.md §Prepare the host before install, step 8 */}
+
+<Accordion title="Mandatory access controls: SELinux and AppArmor">
+  SELinux or AppArmor in enforcing mode can block proxy operations during initial setup, and the failure presents as unexplained permission errors rather than a clear policy denial.
+
+  Set permissive mode for the setup window, or author a policy that covers SafeSquid before you start:
+
+  ```bash
+  getenforce
+  ```
+
+  Expected result: the current mode is known and recorded before installation begins.
+
+  Once the deployment is operational, review the audit log and write a targeted policy rather than leaving mandatory access control permanently disabled. Record which choice was made and who owns the follow-up; "temporarily permissive" that is never revisited is a finding waiting to happen.
+</Accordion>
+
 ## Validate identity and trust
 
 Confirm:
