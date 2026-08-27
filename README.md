@@ -12,7 +12,7 @@ A documentation-only repository. There is no application code, no backend, and n
 All content lives under `public/`. The Mintlify CLI builds and serves the site locally and validates content before merge.
 
 **Do not modify** `package.json`, CI workflows (`.github/`), or Mintlify hosting config.
-Content changes go in `public/`. Blog posts go in `blog/`.
+Content changes go in `public/`. Blog posts go in `public/blog/`.
 
 ---
 
@@ -82,6 +82,7 @@ Production deploys automatically via the Mintlify dashboard when changes merge t
 ├── public/                  ← Mintlify project root
 │   ├── docs.json            ← Navigation, theme, site config — update navigation only
 │   ├── images/              ← All images (/images/category/name.webp)
+│   ├── blog/                ← Date-prefixed blog posts (YYYY-MM-DD-Title.md)
 │   ├── getting-started/
 │   ├── guides/
 │   ├── api/
@@ -92,7 +93,6 @@ Production deploys automatically via the Mintlify dashboard when changes merge t
 │   ├── interface/
 │   ├── troubleshooting/
 │   └── use-cases/
-├── blog/                    ← Date-prefixed blog posts (YYYY-MM-DD-Title.md)
 ├── .claude/                 ← Canonical agent config (settings.json + agents/ definitions)
 ├── .agents -> .claude       ← Symlink for AGENTS.md-aware agent frameworks
 ├── CLAUDE.md                ← Authoritative guide for all contributors and agents

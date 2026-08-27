@@ -2,3 +2,6 @@
 
 # Graphify knowledge-graph output — generated, ~6 MB, rebuilt on demand
 graphify-out/
+
+# Local Mintlify preview config — machine-specific port settings
+.claude/launch.json

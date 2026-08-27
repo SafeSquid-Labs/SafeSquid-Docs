@@ -16,7 +16,7 @@ This repo contains CISO-grade, enterprise documentation for SafeSquid SWG. Agent
 
 ✅ **DO:**
 - Create and edit documents in the `public/` folder
-- Create and edit blog posts in the `blog/` folder (repo root, not inside public/)
+- Create and edit blog posts in the `public/blog/` folder
 - Research and write technically precise content
 - Update existing documentation files; add diagrams, screenshots, and log evidence
 
@@ -77,6 +77,7 @@ CI runs `npm run validate` on every push and PR to `main`, `dev`, and `mintlify-
 ├── public/                  ← Mintlify project root (docs.json lives here)
 │   ├── docs.json            ← Navigation, theme, tabs — do not modify except to add pages
 │   ├── images/              ← All images — reference as /images/category/name.webp
+│   ├── blog/                ← Date-prefixed blog posts (YYYY-MM-DD-Title.md)
 │   ├── getting-started/
 │   ├── guides/
 │   ├── api/
@@ -87,7 +88,6 @@ CI runs `npm run validate` on every push and PR to `main`, `dev`, and `mintlify-
 │   ├── interface/
 │   ├── troubleshooting/
 │   └── use-cases/
-├── blog/                    ← Date-prefixed blog posts (YYYY-MM-DD-Title.md)
 ├── .claude/
 │   ├── settings.json
 │   └── agents/              ← Sub-agent definitions

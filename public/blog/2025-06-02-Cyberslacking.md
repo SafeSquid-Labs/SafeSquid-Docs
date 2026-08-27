@@ -3,6 +3,7 @@ slug: cyberslacking
 title: 'Cyberslacking Detterence: Maximising Productivity Without Killing Innovation'
 description: 'Cut cyberslacking, not creativity: discover how SafeSquid lets teams stream training videos and monitor social feeds—while blocking games, cat videos and other time-sinks.'
 # authors: [Vashistha]
+mode: "center"
 ---
 
 ## Legacy Defences: All‑or‑Nothing Web Policies

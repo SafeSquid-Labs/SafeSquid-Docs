@@ -2,6 +2,7 @@
 slug: zero-trust-principles
 title: 'Zero-Trust requires Layer-7 inspection'
 description: 'Five Zero-Trust principles for the web perimeter: least privilege, never trust always verify, adaptive trust, micro-segmentation, and assume breach.'
+mode: "center"
 ---
 
 # Zero-Trust requires Layer-7 inspection
@@ -26,6 +27,6 @@ Five Zero-Trust principles define what Zero-Trust looks like at the web perimete
 
 ## Related topics
 
-- [Exfiltration threats](/blog/exfiltration-threats) — insider theft, shadow AI, cyberslacking
-- [Trust algorithm](/blog/trust-algorithm) — dynamic trust scoring and shared inspection context
-- [Adoption criteria](/blog/adoption-criteria) — when to apply Zero-Trust web security
+- [Exfiltration threats](/blog/2026-05-23-Exfiltration-Threats) — insider theft, shadow AI, cyberslacking
+- [Trust algorithm](/blog/2026-05-23-Trust-Algorithm) — dynamic trust scoring and shared inspection context
+- [Adoption criteria](/blog/2026-05-23-Adoption-Criteria) — when to apply Zero-Trust web security

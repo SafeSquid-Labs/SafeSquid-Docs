@@ -2,6 +2,7 @@
 slug: zero-trust-web-security
 title: 'Zero-Trust Web Security'
 description: 'Why Layer 7 is the decisive battleground for enterprise security and how to navigate the Zero-Trust Web Security concept set.'
+mode: "center"
 ---
 
 # Threats hide in trusted pathways
@@ -18,15 +19,15 @@ The business consequence is direct: a single undetected exfiltration incident av
 
 Work through this series in order, or jump to the topic that matches your evaluation task.
 
-1. [Legacy enforcement gap](/blog/legacy-enforcement-gap) — why firewalls, endpoint agents, and DNS-only controls fail at the web perimeter
+1. [Legacy enforcement gap](/blog/2026-05-23-Legacy-Enforcement-Gap) — why firewalls, endpoint agents, and DNS-only controls fail at the web perimeter
 2. **Kill-chain threat catalog** — eleven Layer-7 patterns mapped to [MITRE ATT&CK](https://attack.mitre.org/):
-   - [Initial access](/blog/initial-access-threats)
-   - [Execution](/blog/execution-threats)
-   - [Command and control](/blog/command-and-control-threats)
-   - [Exfiltration and policy violation](/blog/exfiltration-threats)
-3. [Zero-Trust principles](/blog/zero-trust-principles) — five architectural principles for the web perimeter
-4. [Trust algorithm](/blog/trust-algorithm) — dynamic trust scoring and shared inspection context
-5. [Adoption criteria](/blog/adoption-criteria) — when Layer-7 Zero-Trust enforcement applies, and next steps toward deployment
+   - [Initial access](/blog/2026-05-23-Initial-Access-Threats)
+   - [Execution](/blog/2026-05-23-Execution-Threats)
+   - [Command and control](/blog/2026-05-23-Command-and-Control-Threats)
+   - [Exfiltration and policy violation](/blog/2026-05-23-Exfiltration-Threats)
+3. [Zero-Trust principles](/blog/2026-05-23-Zero-Trust-Principles) — five architectural principles for the web perimeter
+4. [Trust algorithm](/blog/2026-05-23-Trust-Algorithm) — dynamic trust scoring and shared inspection context
+5. [Adoption criteria](/blog/2026-05-23-Adoption-Criteria) — when Layer-7 Zero-Trust enforcement applies, and next steps toward deployment
 
 ## Related topics
 
