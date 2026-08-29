@@ -10,7 +10,7 @@
   "logo": {
     "light": "/images/logos/safesquid/safesquid-mark-blue.png",
     "dark": "/images/safesquidWhite.png",
-    "href": "https://www.safesquid.com/#home"
+    "href": "/getting_started/welcome"
   },
   "favicon": "/images/favicon.ico",
   "banner": {
