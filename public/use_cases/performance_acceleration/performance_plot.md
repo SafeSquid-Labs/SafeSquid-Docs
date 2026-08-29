@@ -44,7 +44,7 @@ Performance plots help operations teams move from vague complaints to measurable
 
 ### Open the performance plot tool
 
-Access the [Configuration Portal](/Configuration_Portal), then open **Support** and locate the performance plot function.
+Access the [Configuration Portal](/Configuration_Portal), then open **Support** and select the **Performance Plot** tile.
 
 ### Select the right time range
 

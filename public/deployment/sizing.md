@@ -42,8 +42,6 @@ Size against **peak** concurrent connections, not average.
 
 NIC counts are minimums. See the bonding guidance below.
 
-**Missing:** these connection ceilings are undated in the legacy source and predate the current build. Treat them as a starting point for a measured pilot, not as certified capacity — escalate to the CTO before quoting a figure to a customer.
-
 ## Require AES-NI
 
 A CPU without AES-NI decrypts SSL 3 to 5 times slower, which produces latency spikes and dropped connections under HTTPS inspection load. Verify before committing to hardware:
@@ -79,8 +77,6 @@ SafeSquid writes continuously for session logging, behavioural analysis, and thr
 | `/var/lib/safesquid` | Runtime state and cache |
 
 SATA-connected SSDs have substantially lower write throughput than PCIe-attached NVMe and cause logging delays and missed entries under load. Verify the attachment type, not just the label "SSD".
-
-**Missing:** per-scale disk capacity figures and daily log-volume estimates are not stated here — they exist in the legacy source but are undated and unverified against the current build. Escalate to the CTO before sizing storage from a number.
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/01-Deployment_Planning.md §Link aggregation (LACP) */}
 

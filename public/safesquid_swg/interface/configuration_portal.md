@@ -25,7 +25,7 @@ Operators need a single **authoritative** place to define Layer 7 policy, simula
 
 ## Advantages vs “CLI-only” or multi-vendor policy stacks
 
-SafeSquid ships the console **with** the SWG so policy and enforcement stay product-coupled. **Comparative** ease-of-use or feature parity vs other SWG consoles: **Missing (in-repo)**—no third-party matrix in this KB.
+SafeSquid ships the console **with** the SWG so policy and enforcement stay product-coupled.
 
 ## Acquire, deploy, use
 
@@ -184,7 +184,6 @@ After making a change in the portal, confirm all of the following:
 | Policy Management Console / sidebar structure | **Confirmed** | This page (UI paths) |
 | Default credentials **administrator** / **safesquid** | **Confirmed** | This page; change after first login |
 | `safesquid.cfg` / **8443** access | **Confirmed** | This page, [Getting Started](/Getting_Started) |
-| Comparative UI ease vs other SWGs | **Missing** | No SSOT in this KB |
 
 ---
 

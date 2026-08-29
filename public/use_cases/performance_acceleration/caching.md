@@ -38,9 +38,9 @@ Cache and prefetch policy interacts with inspection and privacy scope. Do not ca
 
    ![Configure page](/images/How_To/Caching_Specific_websites/image1.webp)
 
-2. Navigate to **Access Policies** under Restriction Policies.
+2. Navigate to **Access Profiles** under Restriction Policies.
 
-   ![Access Policies section](/images/How_To/Caching_Specific_websites/image2.webp)
+   ![Access Profiles section](/images/How_To/Caching_Specific_websites/image2.webp)
 
 3. Click **Add New** to create a new policy.
 
@@ -68,7 +68,9 @@ Cache and prefetch policy interacts with inspection and privacy scope. Do not ca
 
 ### Configure the caching store
 
-9. Navigate to **Caching** under Application Setup.
+{/* NEEDS-SME-REVIEW: image10.webp (Store tab) carries an in-app banner "Make sure Global section is with Enabled as TRUE" for the Caching accelerator, mirroring the Global > Enabled prerequisite already documented for Prefetching below. This page's caching steps do not currently instruct enabling Global > Enabled for Caching before configuring the Store. Confirm whether this is a required prerequisite and add a step if so. */}
+
+9. Navigate to **Caching**, under **Accelerators** in Application Setup.
 
    ![Caching section](/images/How_To/Caching_Specific_websites/image9.webp)
 
@@ -76,13 +78,13 @@ Cache and prefetch policy interacts with inspection and privacy scope. Do not ca
 
     ![Store tab](/images/How_To/Caching_Specific_websites/image10.webp)
 
-11. Click **Clone** to duplicate an existing policy.
+11. Click **Clone it** to duplicate an existing policy.
 
     ![Clone policy](/images/How_To/Caching_Specific_websites/image11.webp)
 
     ![Duplicated policy](/images/How_To/Caching_Specific_websites/image12.webp)
 
-12. Click **Edit Policy** on the cloned entry.
+12. Click **Edit Policies** on the cloned entry.
 
     ![Edit policy](/images/How_To/Caching_Specific_websites/image13.webp)
 
@@ -102,7 +104,7 @@ Cache and prefetch policy interacts with inspection and privacy scope. Do not ca
 
     ![Save caching policy](/images/How_To/Caching_Specific_websites/image17.webp)
 
-17. Click **Save** to apply the configuration globally.
+17. Click **Save Config** to apply the configuration globally.
 
     ![Global save](/images/How_To/Caching_Specific_websites/image18.webp)
 
@@ -114,7 +116,7 @@ Prefetching fetches and caches files referenced in HTML before the user requests
 
    ![Configure page](/images/How_To/Prefetch_embedded_images/image1.webp)
 
-2. Navigate to **Prefetching** under Application Setup.
+2. Navigate to **Prefetching**, under **Accelerators** in Application Setup.
 
    ![Prefetching section](/images/How_To/Prefetch_embedded_images/image2.webp)
 
@@ -154,15 +156,15 @@ Prefetching fetches and caches files referenced in HTML before the user requests
 
     ![Save config](/images/How_To/Prefetch_embedded_images/image11.webp)
 
-    ![Configuration saved](/images/How_To/Prefetch_embedded_images/image12.webp)
+    ![Prefetch queue debug log](/images/How_To/Prefetch_embedded_images/image12.webp)
 
 Keep the regular expression narrow. A broad pattern prefetches every URL the tag attribute can hold, which turns a latency optimisation into an origin-traffic multiplier.
 
 ## Verify objects are cached
 
-1. Navigate to **Manage Cached Objects** in the Caching section.
+1. Navigate to **Manage cached objects** in the Caching section.
 
-   ![Manage Cached Objects](/images/How_To/Caching_Specific_websites/image19.webp)
+   ![Manage cached objects](/images/How_To/Caching_Specific_websites/image19.webp)
 
 2. Verify cached websites appear under disk cache.
 
@@ -178,7 +180,7 @@ Store these artifacts with the change record:
 
 - The access profile name and the categories it matches.
 - Confirmation that the store policy references that same profile.
-- A **Manage Cached Objects** listing showing entries after a test browse.
+- A **Manage cached objects** listing showing entries after a test browse.
 - The prefetch tag, attribute, and regular expression used.
 - Confirmation from the policy owner that cached categories are appropriate to share.
 

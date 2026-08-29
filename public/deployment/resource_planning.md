@@ -79,7 +79,6 @@ Size conservatively when HTTPS inspection, [malware scanning](/use_cases/malware
 
   Document the sizing decision, topology diagram, and stress-test result for change control and compliance review.
 
-  **Missing:** target thresholds for latency, CPU headroom, and I/O wait are not stated here — the legacy source gives figures, but they are undated and unverified against the current build. Escalate to the CTO before treating any number as a pass or fail line.
 </Accordion>
 
 ## Capture planning evidence

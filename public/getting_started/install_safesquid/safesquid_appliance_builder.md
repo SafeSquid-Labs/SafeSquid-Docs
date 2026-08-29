@@ -58,8 +58,6 @@ Before booting the ISO, confirm:
 - The activation key is available for post-install activation. Obtain it from [Register Your Key](/getting_started/register).
 - A rollback or rebuild plan exists for the VM or hardware.
 
-**Missing:** a single authoritative minimum for RAM and disk is not stated here. The Appliance Builder source says 8 GB RAM and 100 GB disk, `quickstart.mdx` says 4 GB RAM and 160 GB storage, the sizing matrix gives no disk figure, and the installer screenshots show a 32 GB disk. Size from [Sizing](/deployment/sizing) against measured peak concurrency, and escalate to the CTO before quoting a floor to a customer.
-
 Obtain the ISO from the SafeSquid appliance download path:
 
 ```text
@@ -371,24 +369,6 @@ The appliance is built but not yet enforcing. Complete these before treating it 
 3. Set up HTTPS inspection and configure policy for your environment — see [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection).
 4. Install the SafeSquid certificate in the clients' desktop trust store — see [Import Certificate](/use_cases/ssl_inspection/import_certificate_chrome_ie).
 5. Convert the appliance to SSH key-based login and disable password authentication for administrative access.
-
-{/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/01-SafeSquid_Appliance_Builder.md §What Gets Installed */}
-
-<Accordion title="What the appliance installs, and where">
-
-| Component | Location or detail |
-|---|---|
-| SafeSquid proxy | `/opt/safesquid/` — listens on port `8080` |
-| Security, policy, and UI material | `/usr/local/safesquid/` |
-| Monit | Process monitoring and automatic restart for SafeSquid |
-| BIND9 | Local DNS resolver on port `53` |
-| Logs | `/var/log/safesquid/` |
-| Configuration Portal | `https://safesquid.cfg/` — reachable only through the proxy, and deliberately not resolved by SafeSquid's own DNS resolver |
-| Direct management access | `https://SERVER-IP:8443/` — before a proxy is configured, or when the proxy path is unavailable |
-
-Use the direct `:8443` path only from an approved administrator network. It bypasses the proxy path that every other client uses, so it changes the trust boundary and should not become the routine way in.
-
-</Accordion>
 
 ## Capture appliance evidence
 

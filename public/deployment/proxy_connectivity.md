@@ -72,7 +72,7 @@ Run this from a client workstation, not from the SafeSquid host. It catches the 
 
 - [ ] `http://safesquid.cfg/` loads when the proxy is configured.
 - [ ] The activation key has been uploaded through the interface.
-- [ ] **Support → Activation Details** shows an active state.
+- [ ] **Support → License Details** shows an active state.
 
 **Remote management, where used**
 

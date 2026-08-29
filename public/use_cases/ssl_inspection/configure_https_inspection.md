@@ -493,7 +493,6 @@ tail -f /var/log/safesquid/access/extended.log
 | Root CA via Self-Service Portal | **Confirmed** | This guide, [Self-Service Portal](/Self-Service_Portal) |
 | Enable inspection UI path | **Confirmed** | Steps in this guide |
 | Client trust stores (Windows, Firefox, macOS) | **Confirmed** | This guide, [Import Certificate Chrome/IE](/Import_Certificate_Chrome_IE) |
-| Exact time-to-complete for enterprise fleets | **Missing** | Estimate only; size per change window |
 
 ---
 

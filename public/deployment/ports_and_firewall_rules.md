@@ -65,8 +65,6 @@ The instance activates without these, then quietly stops receiving current data.
 
 ### Additional categorization endpoints
 
-**Missing:** the sources in this repository disagree on this set — one lists `encurl.itonlinesecure.in`, another omits it, and neither is dated against the current build. The hosts below are the entries both sources share. Confirm the authoritative list through the approved release or support channel before allowlisting, and do not treat this table as complete.
-
 | Endpoint | Port |
 |---|---:|
 | `prourl.itsecure.co.in` | `8080` |

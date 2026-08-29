@@ -25,8 +25,8 @@ XSS and CSRF attacks arrive in HTTP responses, not requests. Controls that only 
 
 The primary control point for XSS and CSRF is the application server — Content Security Policy headers, SameSite cookie attributes, and input validation. A SWG contributes a secondary control: response-body inspection for injected script patterns, and HTTP response header stripping before the payload reaches the browser. CISA's September 2024 Secure by Design Alert on XSS (AA24-263A) addresses software developers as the primary responsible party, not network gateways. Deploy both controls; do not treat SWG response inspection as a substitute for application-layer hardening.
 
-## Related topics
+## Related posts
 
-- [Initial access threats](/blog/2026-05-23-Initial-Access-Threats) — zero-hour phishing and malvertising
-- [Command and control threats](/blog/2026-05-23-Command-and-Control-Threats) — APT C2, infostealers, session hijacking, DNS tunneling
-- [Zero-Trust Web Security](/blog/2026-05-23-Zero-Trust-Web-Security) — hub and reading path
+- [Initial access exploits Layer 7](/blog/2026-05-23-Initial-Access-Threats) - zero-hour phishing and malvertising.
+- [Command and control blends into HTTPS](/blog/2026-05-23-Command-and-Control-Threats) - APT C2, infostealers, session hijacking, DNS tunneling.
+- [Zero-Trust Web Security](/blog/2026-05-23-Zero-Trust-Web-Security) - hub and reading path.

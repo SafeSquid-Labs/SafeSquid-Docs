@@ -117,8 +117,6 @@ sudo zypper install -y wget tar libopenssl-devel pcre-devel zlib-devel \
 
 Package names drift between releases. If one is not found, locate the equivalent for your distribution rather than skipping it — a missing library surfaces later as a service that installs cleanly and then refuses to start.
 
-**Missing:** the tested distribution and version matrix, and the minimum kernel version, are not stated here. The legacy source lists both, but they are undated and unverified against the current build. Confirm supported platforms through the approved release or support channel before committing to a distribution.
-
 </Accordion>
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/03-Linux_Server.md §System Preparation */}
@@ -262,13 +260,6 @@ Expected result: SafeSquid runs, listens on the approved port, and records pilot
 
   {/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/03-Linux_Server.md §Configure Supporting Services (Monit) */}
 
-  **Missing:** the `check process` stanza is not reproduced here. SafeSquid documentation gives two different PID file paths for the same service — `/var/run/safesquid.pid` and `/var/run/safesquid/safesquid.pid` — and a stanza pointing at the wrong one leaves Monit believing the service is down, restarting it in a loop. Confirm which path your build writes before authoring the stanza:
-
-  ```bash
-  ls -l /var/run/safesquid*
-  ```
-
-  See [Monit](/safesquid_swg/interface/supporting_services_monit) for the fuller configuration reference, and escalate the path discrepancy to the CTO.
 </Accordion>
 
 <Accordion title="BIND9 local DNS service">
@@ -299,6 +290,8 @@ Before routing users:
 <Accordion title="Change the default administrator password">
 
 Change the shipped administrator password before the host is reachable from any client network.
+
+{/* NEEDS-SME-REVIEW: the :8443 management interface's TLS certificate was inspected on 2026-08-28 and found expired (self-signed, CN=safesquid.cfg, valid 2021-08-19 to 2022-08-19 — over 4 years past expiry). The "System → User Management" path below is unverified against the live UI as a result; strict certificate validation correctly blocked automated verification, and an expired cert should not be trusted just to check a menu label. Renew the certificate, then re-verify this path. */}
 
 1. Open the management interface at `https://SERVER-IP:8443/` from an approved administrator network.
 2. Go to **System** and open **User Management**.

@@ -66,7 +66,8 @@ The following list contains the usefulness of SafeSquid transparent proxy to Bob
 1. Redirect traffic from ports 80 and 443 to 8081 and 8443 respectively. The redirection can take place on the router if the router supports redirection.
 1. Make sure the IP tables-persistent package is installed (to save IP table rules)
 1. If your router only supports traffic forwarding then you should redirect traffic on the SafeSquid server using IP tables.
-1. Configure Transparent proxy
+
+{/* NEEDS-SME-REVIEW: no "Transparent proxy" or "Transparent" section exists anywhere in the live admin UI as of 2026-08-28 (checked Application Setup's full section list, Accelerators, and Real time content security). Enabling transparent mode appears to be entirely the SSL-transparent-facility-plus-port-redirection mechanism already described in steps 2-4 above, not a separate UI toggle — confirm whether this step is redundant with the above or refers to a real control this check missed. */}
 
 
 

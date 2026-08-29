@@ -40,6 +40,8 @@ Free licences do not expire, so this applies only to commercial subscriptions.
 
 ## Choose the recovery option
 
+{/* NEEDS-SME-REVIEW: "Manage Account" is not present in the local safesquid.cfg admin interface as of 2026-08-27. Confirm whether this workflow now lives on the external Self-Service Portal (key.safesquid.com) or was renamed/removed, and update this page's navigation path accordingly. The "each extension adds three days" figure below is also unverified. */}
+
 **Option 1 — renew.** Sign in to [key.safesquid.com](https://key.safesquid.com), go to **Manage Account** and then **Renew Subscription**. After payment, download the updated activation key and upload it using the same steps as the initial activation.
 
 **Option 2 — extend the conservation period.** From **Manage Account**, select **Extend Conservation Period**. Each extension adds three days and clears the expiry banner for that window. It can be applied more than once, but it is a bridge to renewal, not a substitute for it — treat repeated extensions as a signal that subscription ownership needs attention.

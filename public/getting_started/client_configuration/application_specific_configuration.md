@@ -14,6 +14,8 @@ keywords:
 
 Some applications ignore browser, PAC, or operating system proxy settings. Developer tools, package managers, containers, email clients, and command-line utilities can create unlogged egress unless they are configured directly or blocked from direct internet access.
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/05-Connect_Your_Client/05-Application_Specific_Configuration.md §Use this method for and §Time to configure */}
+
 ## Use this method when
 
 Use application-specific configuration when:
@@ -24,6 +26,8 @@ Use application-specific configuration when:
 - Business applications require explicit proxy fields.
 
 Do not use application exceptions to bypass security review. Every exception should have an owner, scope, and expiry or review date.
+
+{/* source: _migration_source_v3/docs/01-Getting_Started/05-Connect_Your_Client/05-Application_Specific_Configuration.md §Prerequisites */}
 
 ## Validate prerequisites
 
@@ -38,6 +42,8 @@ Confirm:
 ## Configure common tools
 
 Use the tabs for frequently approved developer and operations tools. Replace `SAFESQUID-IP` with the approved proxy address and add authentication only through the organization's approved secret-handling method.
+
+{/* source: _migration_source_v3/docs/01-Getting_Started/05-Connect_Your_Client/05-Application_Specific_Configuration.md §1. Git, §3. npm (Node.js Package Manager), §4. Python pip, §5. APT (Debian/Ubuntu Package Manager), and §6. YUM/DNF (RHEL/CentOS/Fedora Package Manager) */}
 
 <Tabs>
   <Tab title="Git">
@@ -137,6 +143,8 @@ Verify with a metadata refresh and confirm the source IP appears in SafeSquid lo
   </Tab>
 </Tabs>
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/05-Connect_Your_Client/05-Application_Specific_Configuration.md §7. curl and §8. wget */}
+
 <Accordion title="Command-line tools: curl and wget">
 
 Use direct proxy flags for one-off tests or scripted jobs:
@@ -163,6 +171,8 @@ use_proxy = on
 ```
 
 </Accordion>
+
+{/* source: _migration_source_v3/docs/01-Getting_Started/05-Connect_Your_Client/05-Application_Specific_Configuration.md §2. Docker */}
 
 <Accordion title="Docker and container runtimes">
 
@@ -198,6 +208,8 @@ Expected result: the proxy values appear in the daemon configuration. Note that 
 
 </Accordion>
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/05-Connect_Your_Client/05-Application_Specific_Configuration.md §9. Microsoft Outlook (Windows) and §10. Thunderbird (Email Client) */}
+
 <Accordion title="Email clients: Outlook and Thunderbird">
 
 Outlook and Thunderbird can use operating-system proxy settings, but some profiles, add-ins, or mail transports bypass them. Configure proxy settings through the approved desktop-management path and test mailbox sign-in, attachment download, and autodiscover traffic.
@@ -220,6 +232,8 @@ If Outlook will not connect after the change, temporarily disabling Cached Excha
 4. Set **No Proxy for** to the approved internal entries, then select **OK**.
 
 </Accordion>
+
+{/* source: _migration_source_v3/docs/01-Getting_Started/05-Connect_Your_Client/05-Application_Specific_Configuration.md §Other Applications */}
 
 <Accordion title="Applications not listed here">
 
@@ -252,6 +266,8 @@ Any tool that cannot be routed needs a recorded exception with an owner and a re
   Do not store proxy passwords in plain text application config files unless the risk is documented and accepted.
 </Note>
 
+{/* source: _migration_source_v3/docs/01-Getting_Started/05-Connect_Your_Client/05-Application_Specific_Configuration.md §Test Your Configuration */}
+
 ## Verify application evidence
 
 After configuring the tool:
@@ -277,6 +293,8 @@ Store:
 - Access-log sample.
 - Credential-storage decision, if authentication is used.
 - Review or expiry date for the exception.
+
+{/* source: _migration_source_v3/docs/01-Getting_Started/05-Connect_Your_Client/05-Application_Specific_Configuration.md §Troubleshooting and §Still not working? */}
 
 ## Troubleshoot application failures
 

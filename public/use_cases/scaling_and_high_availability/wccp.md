@@ -35,7 +35,8 @@ Web Cache Communication Protocol (WCCP) is a Cisco-developed content-routing p
 1. Enable WCCP support in routers. This can be done only if your router supports WCCP.
 Ex: CISCO ASA routers.
 
-2. Configure SafeSquid to interact with WCCP enabled routers using WCCP section.
+2. Configure SafeSquid to interact with WCCP enabled routers under **Configure → Application Setup → WCCP**.
+
 3. Configure end users to use WCCP enabled router as gateway.
 
 The story is over. Now all your client's traffic will be transparently redirected to SafeSquid proxy by router and SafeSquid serves traffic.

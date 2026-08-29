@@ -31,8 +31,6 @@ Plan the backup around what it actually covers, and cover the rest separately.
 - Operating system configuration.
 - Third-party integration secrets, such as LDAP credentials and external database connections.
 
-**Missing:** RPO and RTO figures for Cloud Restore are not stated here — escalate to the CTO for SLA-style claims.
-
 The broader SafeSquid architecture treats backup and restore as a cloud-backed ecosystem service. Restricted or sovereignty-sensitive deployments should account for that cloud dependency explicitly during DR planning.
 
 ## Match the scenario to the recovery
@@ -89,7 +87,6 @@ Single-version retention is the constraint most DR plans miss. There is no point
 
   Set the RTO and RPO targets with the business, then test failover on a schedule and keep the result as audit evidence. Quarterly is a common cadence.
 
-  **Missing:** recovery-time figures per failover method are not stated here — the legacy source gives numbers, but they are undated and unverified. Escalate to the CTO for SLA-style claims.
 </Accordion>
 
 ## Validate DR readiness

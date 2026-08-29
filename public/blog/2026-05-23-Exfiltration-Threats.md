@@ -35,8 +35,8 @@ URL-category engines can block broad categories but lack time-of-day distinction
 
 The SWG evaluates every web request against the authenticated user's identity, group membership, time-of-day schedule, and content category — enforcing acceptable-use policy with per-user precision rather than organisation-wide blocks. Every enforcement action is logged with user identity, application identifier, destination URL, timestamp, and matched policy rule, producing an audit record that supports HR review, legal discovery, and compliance reporting under SOC 2 CC6.7 and ISO 27001:2022 A.5.10.
 
-## Related topics
+## Related posts
 
-- [Command and control threats](/blog/2026-05-23-Command-and-Control-Threats) — APT C2, infostealers, session hijacking, DNS tunneling
-- [Zero-Trust principles](/blog/2026-05-23-Zero-Trust-Principles) — least privilege, identity-aware policy, assume breach
-- [Adoption criteria](/blog/2026-05-23-Adoption-Criteria) — when Layer-7 Zero-Trust enforcement applies
+- [Command and control blends into HTTPS](/blog/2026-05-23-Command-and-Control-Threats) - APT C2, infostealers, session hijacking, DNS tunneling.
+- [Zero-Trust requires Layer-7 inspection](/blog/2026-05-23-Zero-Trust-Principles) - least privilege, identity-aware policy, assume breach.
+- [When Zero-Trust web security applies](/blog/2026-05-23-Adoption-Criteria) - when Layer-7 Zero-Trust enforcement applies.

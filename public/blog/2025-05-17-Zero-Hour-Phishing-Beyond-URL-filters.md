@@ -97,3 +97,10 @@ By cutting the attacker off *at the point of exfiltration*—yet granting seaml
 ## Conclusion
 
 Legacy reputation and categorization once promised “set‑and‑forget” protection. LURE flips that model on its head: the older and cleaner a domain looks, the **more** dangerous it can become. Controls that inspect present‑tense *behavior*—not historical scores—close the gap.
+
+
+## Related posts
+
+- [Initial access exploits Layer 7](/blog/2026-05-23-Initial-Access-Threats) - zero-hour phishing in the MITRE kill chain.
+- [How XSS-Powered CSRF Abuses Trust Boundaries](/blog/2025-06-02-CSRF-Abuse) - the session-hijack stage that often follows a successful phish.
+- [Last Mile Reassembly of Drive-By Malware](/blog/2025-06-02-Last-Mile-Reassembly-of-Drive‑By-Malware) - the payload-delivery stage that follows initial compromise.

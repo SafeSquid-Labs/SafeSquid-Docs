@@ -5,3 +5,6 @@ graphify-out/
 
 # Local Mintlify preview config — machine-specific port settings
 .claude/launch.json
+
+# Playwright MCP scratch output — snapshots/console logs from live-UI verification
+.playwright-mcp/

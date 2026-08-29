@@ -30,8 +30,8 @@ mode: "center"
 - [Prerequisites](/getting_started/install_safesquid/prerequisites) — validate system, network, and identity requirements before deployment
 - [Getting Started](/getting_started/welcome) — production onboarding path for deploy, activate, and harden
 
-## Related topics
+## Related posts
 
-- [Zero-Trust Web Security](/blog/2026-05-23-Zero-Trust-Web-Security) — hub and reading path
-- [Zero-Trust principles](/blog/2026-05-23-Zero-Trust-Principles) — five architectural principles
-- [Trust algorithm](/blog/2026-05-23-Trust-Algorithm) — dynamic trust scoring
+- [Zero-Trust Web Security](/blog/2026-05-23-Zero-Trust-Web-Security) - hub and reading path.
+- [Zero-Trust requires Layer-7 inspection](/blog/2026-05-23-Zero-Trust-Principles) - five architectural principles.
+- [Trust is assessed dynamically](/blog/2026-05-23-Trust-Algorithm) - dynamic trust scoring.

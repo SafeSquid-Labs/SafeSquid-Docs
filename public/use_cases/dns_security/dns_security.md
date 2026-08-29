@@ -67,7 +67,6 @@ IDN homograph attacks use visually similar characters to impersonate legitimate 
 | DNSBL integration and policy flow | **Confirmed** | [DNS Blacklisting](/DNSBL), [Integrated DNS Security](/Integrated_DNS_Security) |
 | GeoIP / `server_country` style fields | **Confirmed** | [Server Geo-Location](/GeoIP) |
 | Homograph UI availability by version | **Confirmed** | [Homograph Detection](/Homograph_Detection) (version checks) |
-| Comparative vendor DNS efficacy | **Missing (in-repo)** | No third-party benchmark in this KB |
 
 ## Next steps
 

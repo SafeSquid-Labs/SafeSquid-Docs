@@ -114,22 +114,6 @@ The specific ports, endpoints, and source scopes are listed in [Ports and Firewa
   The specific licensing, update, and categorization hosts that must be reachable on 80 and 443 are listed in [Deployment Planning](/deployment/deployment_planning) and [Activate Your License](/getting_started/activate).
 </Accordion>
 
-{/* source: _migration_source_v3/docs/01-Getting_Started/01-Deployment_Planning.md §Prepare the host before install, step 8 */}
-
-<Accordion title="Mandatory access controls: SELinux and AppArmor">
-  SELinux or AppArmor in enforcing mode can block proxy operations during initial setup, and the failure presents as unexplained permission errors rather than a clear policy denial.
-
-  Set permissive mode for the setup window, or author a policy that covers SafeSquid before you start:
-
-  ```bash
-  getenforce
-  ```
-
-  Expected result: the current mode is known and recorded before installation begins.
-
-  Once the deployment is operational, review the audit log and write a targeted policy rather than leaving mandatory access control permanently disabled. Record which choice was made and who owns the follow-up; "temporarily permissive" that is never revisited is a finding waiting to happen.
-</Accordion>
-
 ## Validate identity and trust
 
 Confirm:
