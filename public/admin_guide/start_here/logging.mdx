@@ -67,9 +67,9 @@ Do not leave full DEBUG enabled in production. It grows disks quickly and makes 
 
 ### 1 — “I cannot browse at all”
 
-1. Confirm proxy host/port and [Listen](/admin_guide/infrastructure_and_access/network_settings).
+1. Confirm proxy host/port and [Listen](/admin_guide/network_and_access/network_settings_and_listeners).
 2. Search Detailed logs for the client IP. If there are no rows, the request never reached SafeSquid (firewall, wrong proxy, or service down).
-3. If rows show access deny, fix [Access restrictions](/admin_guide/infrastructure_and_access/access_restrictions) (subnet, Interface, Default Access Policy).
+3. If rows show access deny, fix [Access restrictions](/admin_guide/network_and_access/access_restrictions) (subnet, Interface, Default Access Policy).
 </Tip>
 
 <Tip>
@@ -116,7 +116,7 @@ On a single policy row in the Web UI, enable **Trace Entry** to log when that en
 ## See also
 
 - [First configuration](/admin_guide/start_here/first_configuration)
-- [Access restrictions](/admin_guide/infrastructure_and_access/access_restrictions)
+- [Access restrictions](/admin_guide/network_and_access/access_restrictions)
 - [Authentication](/admin_guide/start_here/authentication)
 - [Access Profiles](/admin_guide/policies_and_profiles/access_profiles)
 - [Architecture](/admin_guide/start_here/architecture)

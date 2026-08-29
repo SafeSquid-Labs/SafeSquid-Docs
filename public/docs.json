@@ -448,81 +448,71 @@
         "icon": "book-open",
         "groups": [
           {
-            "group": "Start here",
+            "group": "Network and access",
             "pages": [
-              "admin_guide/start_here/first_configuration",
-              "admin_guide/start_here/architecture",
-              "admin_guide/start_here/daemon",
-              "admin_guide/infrastructure_and_access/network_settings",
-              "admin_guide/infrastructure_and_access/access_restrictions",
-              "admin_guide/start_here/authentication",
-              "admin_guide/policies_and_profiles/access_profiles",
-              "admin_guide/start_here/logging",
-              "admin_guide/start_here/debug_response_headers",
-              "admin_guide/start_here/startup_ini",
-              "admin_guide/start_here/cloud_feeds",
-              "admin_guide/start_here/integrations",
-              "admin_guide/start_here/tools_and_reports"
+              "admin_guide/network_and_access/network_settings_and_listeners",
+              "admin_guide/network_and_access/access_restrictions",
+              "admin_guide/network_and_access/proxy_chain",
+              "admin_guide/network_and_access/wccp",
+              "admin_guide/network_and_access/ftp_browsing"
             ]
           },
           {
-            "group": "Infrastructure and access",
+            "group": "HTTPS inspection",
             "pages": [
-              "admin_guide/infrastructure_and_access/access_restrictions",
-              "admin_guide/infrastructure_and_access/network_settings",
-              "admin_guide/infrastructure_and_access/system_configuration",
-              "admin_guide/infrastructure_and_access/integrate_ldap",
-              "admin_guide/infrastructure_and_access/https_inspection",
-              "admin_guide/infrastructure_and_access/proxy_chain",
-              "admin_guide/infrastructure_and_access/ftp_browsing",
-              "admin_guide/infrastructure_and_access/wccp",
-              "admin_guide/infrastructure_and_access/subscription",
-              "admin_guide/infrastructure_and_access/ssqore"
+              "admin_guide/https_inspection/https_inspection"
             ]
           },
           {
             "group": "Policies and profiles",
             "pages": [
               "admin_guide/policies_and_profiles/access_profiles",
-              "admin_guide/policies_and_profiles/speed_limits",
-              "admin_guide/policies_and_profiles/request_types",
-              "admin_guide/policies_and_profiles/response_types",
-              "admin_guide/policies_and_profiles/time_profiler",
-              "admin_guide/policies_and_profiles/templates",
+              "admin_guide/policies_and_profiles/request_profiles",
+              "admin_guide/policies_and_profiles/response_profiles",
+              "admin_guide/policies_and_profiles/time_profiles",
               "admin_guide/policies_and_profiles/application_signatures",
               "admin_guide/policies_and_profiles/content_signatures",
-              "admin_guide/policies_and_profiles/suggested_profiles",
-              "admin_guide/policies_and_profiles/categorize_web_sites"
+              "admin_guide/policies_and_profiles/web_categories",
+              "admin_guide/policies_and_profiles/suggested_policies",
+              "admin_guide/policies_and_profiles/templates"
             ]
           },
           {
-            "group": "Filtering and privacy",
+            "group": "Web and application filtering",
             "pages": [
-              "admin_guide/filtering_and_privacy/cookie_filter",
-              "admin_guide/filtering_and_privacy/header_filter",
-              "admin_guide/filtering_and_privacy/text_analyzer",
-              "admin_guide/filtering_and_privacy/dns_blacklist",
-              "admin_guide/filtering_and_privacy/redirect",
-              "admin_guide/filtering_and_privacy/content_modifier",
-              "admin_guide/filtering_and_privacy/elevated_privacy",
-              "admin_guide/filtering_and_privacy/external_applications"
+              "admin_guide/web_and_application_filtering/dns_blacklist",
+              "admin_guide/web_and_application_filtering/url_redirection",
+              "admin_guide/web_and_application_filtering/header_filtering",
+              "admin_guide/web_and_application_filtering/cookie_filtering",
+              "admin_guide/web_and_application_filtering/content_modification",
+              "admin_guide/web_and_application_filtering/text_analysis",
+              "admin_guide/web_and_application_filtering/image_analysis",
+              "admin_guide/web_and_application_filtering/external_applications",
+              "admin_guide/web_and_application_filtering/elevated_privacy"
+            ]
+          },
+          {
+            "group": "Malware and data protection",
+            "pages": [
+              "admin_guide/malware_and_data_protection/clamav",
+              "admin_guide/malware_and_data_protection/sqscan",
+              "admin_guide/malware_and_data_protection/dlp",
+              "admin_guide/malware_and_data_protection/icap"
             ]
           },
           {
             "group": "Performance",
             "pages": [
-              "admin_guide/performance/caching",
-              "admin_guide/performance/prefetching"
+              "admin_guide/performance/cache_settings",
+              "admin_guide/performance/prefetch",
+              "admin_guide/performance/speed_limits"
             ]
           },
           {
-            "group": "Security scanners",
+            "group": "System operations",
             "pages": [
-              "admin_guide/security_scanners/clam_antivirus",
-              "admin_guide/security_scanners/sqscan",
-              "admin_guide/security_scanners/image_analyzer",
-              "admin_guide/security_scanners/dlp",
-              "admin_guide/security_scanners/icap"
+              "admin_guide/system_operations/system_configuration",
+              "admin_guide/system_operations/startup_parameters"
             ]
           }
         ]
@@ -567,122 +557,6 @@
   },
   "redirects": [
     {
-      "source": "/admin_guide/scaling_and_high_availability/disaster_recovery",
-      "destination": "/use_cases/scaling_and_high_availability/disaster_recovery"
-    },
-    {
-      "source": "/admin_guide/scaling_and_high_availability/forward_proxy",
-      "destination": "/use_cases/scaling_and_high_availability/forward_proxy"
-    },
-    {
-      "source": "/admin_guide/scaling_and_high_availability/main",
-      "destination": "/use_cases/scaling_and_high_availability/main"
-    },
-    {
-      "source": "/admin_guide/scaling_and_high_availability/master_slave",
-      "destination": "/use_cases/scaling_and_high_availability/master_slave"
-    },
-    {
-      "source": "/admin_guide/scaling_and_high_availability/operational_modes",
-      "destination": "/deployment/choose_an_architecture"
-    },
-    {
-      "source": "/admin_guide/scaling_and_high_availability/proxy_chain",
-      "destination": "/use_cases/scaling_and_high_availability/proxy_chain"
-    },
-    {
-      "source": "/admin_guide/scaling_and_high_availability/proxy_clustering",
-      "destination": "/use_cases/scaling_and_high_availability/proxy_clustering"
-    },
-    {
-      "source": "/admin_guide/scaling_and_high_availability/reverse_proxy",
-      "destination": "/use_cases/scaling_and_high_availability/reverse_proxy"
-    },
-    {
-      "source": "/admin_guide/scaling_and_high_availability/tcp_proxy",
-      "destination": "/use_cases/scaling_and_high_availability/tcp_proxy"
-    },
-    {
-      "source": "/admin_guide/scaling_and_high_availability/transparent_proxy",
-      "destination": "/use_cases/scaling_and_high_availability/transparent_proxy"
-    },
-    {
-      "source": "/admin_guide/scaling_and_high_availability/vpn",
-      "destination": "/use_cases/scaling_and_high_availability/vpn"
-    },
-    {
-      "source": "/admin_guide/scaling_and_high_availability/wccp",
-      "destination": "/use_cases/scaling_and_high_availability/wccp"
-    },
-    {
-      "source": "/admin_guide/performance_acceleration/caching",
-      "destination": "/use_cases/performance_acceleration/caching"
-    },
-    {
-      "source": "/admin_guide/performance_acceleration/main",
-      "destination": "/use_cases/performance_acceleration/main"
-    },
-    {
-      "source": "/admin_guide/performance_acceleration/manage_bandwidth",
-      "destination": "/use_cases/performance_acceleration/manage_bandwidth"
-    },
-    {
-      "source": "/admin_guide/performance_acceleration/performance_accelerators",
-      "destination": "/use_cases/performance_acceleration/performance_accelerators"
-    },
-    {
-      "source": "/admin_guide/performance_acceleration/performance_plot",
-      "destination": "/use_cases/performance_acceleration/performance_plot"
-    },
-    {
-      "source": "/admin_guide/performance_acceleration/pre_fetching",
-      "destination": "/use_cases/performance_acceleration/caching"
-    },
-    {
-      "source": "/admin_guide/performance_acceleration/speed_limits",
-      "destination": "/use_cases/performance_acceleration/speed_limits"
-    },
-    {
-      "source": "/admin_guide/customisation/configuration_sync",
-      "destination": "/use_cases/customisation/configuration_sync"
-    },
-    {
-      "source": "/admin_guide/customisation/configure_cloud_restore",
-      "destination": "/use_cases/customisation/configure_cloud_restore"
-    },
-    {
-      "source": "/admin_guide/customisation/custom_templates",
-      "destination": "/use_cases/customisation/custom_templates"
-    },
-    {
-      "source": "/admin_guide/customisation/customisation",
-      "destination": "/use_cases/customisation/customisation"
-    },
-    {
-      "source": "/admin_guide/customisation/main",
-      "destination": "/use_cases/customisation/main"
-    },
-    {
-      "source": "/admin_guide/customisation/startup_parameters",
-      "destination": "/use_cases/customisation/startup_parameters"
-    },
-    {
-      "source": "/admin_guide/upgrade/main",
-      "destination": "/use_cases/upgrade/main"
-    },
-    {
-      "source": "/admin_guide/upgrade/os_upgrade",
-      "destination": "/use_cases/upgrade/os_upgrade"
-    },
-    {
-      "source": "/admin_guide/upgrade/upgrade_safesquid",
-      "destination": "/use_cases/upgrade/version_upgrade"
-    },
-    {
-      "source": "/admin_guide/upgrade/version_upgrade",
-      "destination": "/use_cases/upgrade/version_upgrade"
-    },
-    {
       "source": "/getting_started/introduction",
       "destination": "/getting_started/welcome"
     },
@@ -701,6 +575,122 @@
     {
       "source": "/use_cases/upgrade/upgrade_safesquid",
       "destination": "/use_cases/upgrade/version_upgrade"
+    },
+    {
+      "source": "/admin_guide/infrastructure_and_access/network_settings",
+      "destination": "/admin_guide/network_and_access/network_settings_and_listeners"
+    },
+    {
+      "source": "/admin_guide/infrastructure_and_access/access_restrictions",
+      "destination": "/admin_guide/network_and_access/access_restrictions"
+    },
+    {
+      "source": "/admin_guide/infrastructure_and_access/proxy_chain",
+      "destination": "/admin_guide/network_and_access/proxy_chain"
+    },
+    {
+      "source": "/admin_guide/infrastructure_and_access/wccp",
+      "destination": "/admin_guide/network_and_access/wccp"
+    },
+    {
+      "source": "/admin_guide/infrastructure_and_access/ftp_browsing",
+      "destination": "/admin_guide/network_and_access/ftp_browsing"
+    },
+    {
+      "source": "/admin_guide/infrastructure_and_access/system_configuration",
+      "destination": "/admin_guide/system_operations/system_configuration"
+    },
+    {
+      "source": "/admin_guide/start_here/startup_ini",
+      "destination": "/admin_guide/system_operations/startup_parameters"
+    },
+    {
+      "source": "/admin_guide/infrastructure_and_access/https_inspection",
+      "destination": "/admin_guide/https_inspection/https_inspection"
+    },
+    {
+      "source": "/admin_guide/policies_and_profiles/request_types",
+      "destination": "/admin_guide/policies_and_profiles/request_profiles"
+    },
+    {
+      "source": "/admin_guide/policies_and_profiles/response_types",
+      "destination": "/admin_guide/policies_and_profiles/response_profiles"
+    },
+    {
+      "source": "/admin_guide/policies_and_profiles/time_profiler",
+      "destination": "/admin_guide/policies_and_profiles/time_profiles"
+    },
+    {
+      "source": "/admin_guide/policies_and_profiles/categorize_web_sites",
+      "destination": "/admin_guide/policies_and_profiles/web_categories"
+    },
+    {
+      "source": "/admin_guide/policies_and_profiles/suggested_profiles",
+      "destination": "/admin_guide/policies_and_profiles/suggested_policies"
+    },
+    {
+      "source": "/admin_guide/policies_and_profiles/speed_limits",
+      "destination": "/admin_guide/performance/speed_limits"
+    },
+    {
+      "source": "/admin_guide/performance/caching",
+      "destination": "/admin_guide/performance/cache_settings"
+    },
+    {
+      "source": "/admin_guide/performance/prefetching",
+      "destination": "/admin_guide/performance/prefetch"
+    },
+    {
+      "source": "/admin_guide/filtering_and_privacy/dns_blacklist",
+      "destination": "/admin_guide/web_and_application_filtering/dns_blacklist"
+    },
+    {
+      "source": "/admin_guide/filtering_and_privacy/redirect",
+      "destination": "/admin_guide/web_and_application_filtering/url_redirection"
+    },
+    {
+      "source": "/admin_guide/filtering_and_privacy/content_modifier",
+      "destination": "/admin_guide/web_and_application_filtering/content_modification"
+    },
+    {
+      "source": "/admin_guide/filtering_and_privacy/text_analyzer",
+      "destination": "/admin_guide/web_and_application_filtering/text_analysis"
+    },
+    {
+      "source": "/admin_guide/filtering_and_privacy/external_applications",
+      "destination": "/admin_guide/web_and_application_filtering/external_applications"
+    },
+    {
+      "source": "/admin_guide/filtering_and_privacy/cookie_filter",
+      "destination": "/admin_guide/web_and_application_filtering/cookie_filtering"
+    },
+    {
+      "source": "/admin_guide/filtering_and_privacy/header_filter",
+      "destination": "/admin_guide/web_and_application_filtering/header_filtering"
+    },
+    {
+      "source": "/admin_guide/filtering_and_privacy/elevated_privacy",
+      "destination": "/admin_guide/web_and_application_filtering/elevated_privacy"
+    },
+    {
+      "source": "/admin_guide/security_scanners/image_analyzer",
+      "destination": "/admin_guide/web_and_application_filtering/image_analysis"
+    },
+    {
+      "source": "/admin_guide/security_scanners/clam_antivirus",
+      "destination": "/admin_guide/malware_and_data_protection/clamav"
+    },
+    {
+      "source": "/admin_guide/security_scanners/sqscan",
+      "destination": "/admin_guide/malware_and_data_protection/sqscan"
+    },
+    {
+      "source": "/admin_guide/security_scanners/dlp",
+      "destination": "/admin_guide/malware_and_data_protection/dlp"
+    },
+    {
+      "source": "/admin_guide/security_scanners/icap",
+      "destination": "/admin_guide/malware_and_data_protection/icap"
     }
   ]
 }

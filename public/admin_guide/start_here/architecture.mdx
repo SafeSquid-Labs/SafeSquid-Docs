@@ -15,7 +15,7 @@ Setting up for the first time? Follow [First configuration](/admin_guide/start_h
 ## Two configuration layers
 
 - **Web UI (policy)** — Access restrictions, Access Profiles, filters, scanners, and so on. Stored as sections in `config.xml`. This is what most administrators edit daily.
-- **startup.ini (process)** — Listen fallback, threads, log levels, TLS and sync tunables. Edited on the appliance filesystem — see [startup.ini](/admin_guide/start_here/startup_ini).
+- **startup.ini (process)** — Listen fallback, threads, log levels, TLS and sync tunables. Edited on the appliance filesystem — see [startup.ini](/admin_guide/system_operations/startup_parameters).
 
 ## What to configure first
 
@@ -25,14 +25,14 @@ This is setup order, not the order a live request is processed.
   <img src="/images/admin_guide/architecture_flowchart.svg" alt="What to configure first" />
 </Frame>
 
-1. [Network settings](/admin_guide/infrastructure_and_access/network_settings) — where SafeSquid listens
-2. [Access restrictions](/admin_guide/infrastructure_and_access/access_restrictions) — who may connect, login if required, HTTP vs HTTPS rights
+1. [Network settings](/admin_guide/network_and_access/network_settings_and_listeners) — where SafeSquid listens
+2. [Access restrictions](/admin_guide/network_and_access/access_restrictions) — who may connect, login if required, HTTP vs HTTPS rights
 3. [Access Profiles](/admin_guide/policies_and_profiles/access_profiles) — which sites and content to allow
 4. **Everything else** — HTTPS Inspection, scanners, cookie/header filters, Caching
 
 ## What happens to a request
 
-Names below are the Web UI section titles, in the order SafeSquid calls them. A request is **either HTTPS or HTTP**, never both in sequence. Access Profiles Deny is remembered early and only enforced later. [DLP](/admin_guide/security_scanners/dlp), [Clam antivirus](/admin_guide/security_scanners/clam_antivirus), and [SqScan](/admin_guide/security_scanners/sqscan) are queued as their own steps (upload, then downloaded body). Chart B is drawn from this procedure.
+Names below are the Web UI section titles, in the order SafeSquid calls them. A request is **either HTTPS or HTTP**, never both in sequence. Access Profiles Deny is remembered early and only enforced later. [DLP](/admin_guide/malware_and_data_protection/dlp), [Clam antivirus](/admin_guide/malware_and_data_protection/clamav), and [SqScan](/admin_guide/malware_and_data_protection/sqscan) are queued as their own steps (upload, then downloaded body). Chart B is drawn from this procedure.
 
 ```
 When a browser uses the proxy:
@@ -161,7 +161,7 @@ send the page to the browser
 write logs
 ```
 
-Open a section: [Network settings](/admin_guide/infrastructure_and_access/network_settings) · [System configuration](/admin_guide/infrastructure_and_access/system_configuration) · [Templates](/admin_guide/policies_and_profiles/templates) · [Time Profiler](/admin_guide/policies_and_profiles/time_profiler) · [Application Signatures](/admin_guide/policies_and_profiles/application_signatures) · [Request Types](/admin_guide/policies_and_profiles/request_types) · [Categorize Web-Sites](/admin_guide/policies_and_profiles/categorize_web_sites) · [SSqore](/admin_guide/infrastructure_and_access/ssqore) · [Access Profiles](/admin_guide/policies_and_profiles/access_profiles) · [Access restrictions](/admin_guide/infrastructure_and_access/access_restrictions) · [Integrate LDAP](/admin_guide/infrastructure_and_access/integrate_ldap) · [External applications](/admin_guide/filtering_and_privacy/external_applications) · [Speed Limits](/admin_guide/policies_and_profiles/speed_limits) · [Content modifier](/admin_guide/filtering_and_privacy/content_modifier) · [ICAP](/admin_guide/security_scanners/icap) · [HTTPS Inspection](/admin_guide/infrastructure_and_access/https_inspection) · [Subscription](/admin_guide/infrastructure_and_access/subscription) · [Redirect](/admin_guide/filtering_and_privacy/redirect) · [DLP](/admin_guide/security_scanners/dlp) · [Caching](/admin_guide/performance/caching) · [DNS Blacklist](/admin_guide/filtering_and_privacy/dns_blacklist) · [Proxy chain](/admin_guide/infrastructure_and_access/proxy_chain) · [Header filter](/admin_guide/filtering_and_privacy/header_filter) · [Cookie filter](/admin_guide/filtering_and_privacy/cookie_filter) · [Elevated Privacy](/admin_guide/filtering_and_privacy/elevated_privacy) · [Response Types](/admin_guide/policies_and_profiles/response_types) · [Clam antivirus](/admin_guide/security_scanners/clam_antivirus) · [SqScan](/admin_guide/security_scanners/sqscan) · [Image analyzer](/admin_guide/security_scanners/image_analyzer) · [Text analyzer](/admin_guide/filtering_and_privacy/text_analyzer) · [Prefetching](/admin_guide/performance/prefetching) · [FTP browsing](/admin_guide/infrastructure_and_access/ftp_browsing)
+Open a section: [Network settings](/admin_guide/network_and_access/network_settings_and_listeners) · [System configuration](/admin_guide/system_operations/system_configuration) · [Templates](/admin_guide/policies_and_profiles/templates) · [Time Profiler](/admin_guide/policies_and_profiles/time_profiles) · [Application Signatures](/admin_guide/policies_and_profiles/application_signatures) · [Request Types](/admin_guide/policies_and_profiles/request_profiles) · [Categorize Web-Sites](/admin_guide/policies_and_profiles/web_categories) · [SSqore](/admin_guide/infrastructure_and_access/ssqore) · [Access Profiles](/admin_guide/policies_and_profiles/access_profiles) · [Access restrictions](/admin_guide/network_and_access/access_restrictions) · [Integrate LDAP](/admin_guide/infrastructure_and_access/integrate_ldap) · [External applications](/admin_guide/web_and_application_filtering/external_applications) · [Speed Limits](/admin_guide/performance/speed_limits) · [Content modifier](/admin_guide/web_and_application_filtering/content_modification) · [ICAP](/admin_guide/malware_and_data_protection/icap) · [HTTPS Inspection](/admin_guide/https_inspection/https_inspection) · [Subscription](/admin_guide/infrastructure_and_access/subscription) · [Redirect](/admin_guide/web_and_application_filtering/url_redirection) · [DLP](/admin_guide/malware_and_data_protection/dlp) · [Caching](/admin_guide/performance/cache_settings) · [DNS Blacklist](/admin_guide/web_and_application_filtering/dns_blacklist) · [Proxy chain](/admin_guide/network_and_access/proxy_chain) · [Header filter](/admin_guide/web_and_application_filtering/header_filtering) · [Cookie filter](/admin_guide/web_and_application_filtering/cookie_filtering) · [Elevated Privacy](/admin_guide/web_and_application_filtering/elevated_privacy) · [Response Types](/admin_guide/policies_and_profiles/response_profiles) · [Clam antivirus](/admin_guide/malware_and_data_protection/clamav) · [SqScan](/admin_guide/malware_and_data_protection/sqscan) · [Image analyzer](/admin_guide/web_and_application_filtering/image_analysis) · [Text analyzer](/admin_guide/web_and_application_filtering/text_analysis) · [Prefetching](/admin_guide/performance/prefetch) · [FTP browsing](/admin_guide/network_and_access/ftp_browsing)
 
 <Frame caption="Chart B — same procedure, Web UI section names in call order. Yes goes right and stops. No continues down. HTTPS and HTTP are a fork, then they meet again.">
   <img src="/images/admin_guide/architecture_2_flowchart.svg" alt="Request pipeline using Web UI section names" />
@@ -198,7 +198,7 @@ A user on the LAN opens `https://social.example/` through the proxy:
 - **Dual allow/deny lists** — Access restrictions, Cookie filter, Header filter. List order depends on the section default policy.
 - **First match** — Clam antivirus, HTTPS Inspection, Redirect, DNS Blacklist block policies, and several scanners.
 - **All matches** — Access Profiles (secondary), Speed Limits, Content modifier, [Application Signatures](/admin_guide/policies_and_profiles/application_signatures).
-- **Last match** — [DLP](/admin_guide/security_scanners/dlp) MIME policies (OCR uses cumulative score vs Threshold).
+- **Last match** — [DLP](/admin_guide/malware_and_data_protection/dlp) MIME policies (OCR uses cumulative score vs Threshold).
 - **Groups** — Menu groups (Accelerators, Real time content security) contain child sections only; they have no policy lists of their own.
 
 ## Bypass
@@ -213,13 +213,13 @@ When **System configuration → Send Debugging Headers To** is CLIENT, SERVER, o
 
 - [First configuration](/admin_guide/start_here/first_configuration)
 - [Daemon and service](/admin_guide/start_here/daemon)
-- [Access restrictions](/admin_guide/infrastructure_and_access/access_restrictions)
+- [Access restrictions](/admin_guide/network_and_access/access_restrictions)
 - [Access Profiles](/admin_guide/policies_and_profiles/access_profiles)
 - [Logging](/admin_guide/start_here/logging)
 - [Application Signatures](/admin_guide/policies_and_profiles/application_signatures)
-- [Clam antivirus](/admin_guide/security_scanners/clam_antivirus)
-- [SqScan](/admin_guide/security_scanners/sqscan)
-- [DLP](/admin_guide/security_scanners/dlp)
+- [Clam antivirus](/admin_guide/malware_and_data_protection/clamav)
+- [SqScan](/admin_guide/malware_and_data_protection/sqscan)
+- [DLP](/admin_guide/malware_and_data_protection/dlp)
 - [SSqore](/admin_guide/infrastructure_and_access/ssqore)
 - [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds)
 - [Full section index](/admin_guide/main)

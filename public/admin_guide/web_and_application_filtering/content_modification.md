@@ -1,5 +1,5 @@
 ---
-title: "Content rewrite"
+title: "Content modifier"
 ---
 
 <Note>

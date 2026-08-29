@@ -20,7 +20,7 @@ title: "Categorize Web-Sites"
 - **Update from database** (refresh control) — reload category metadata counts and timestamps from the backend store.
 
 <Note>
-Cloud categorisation also comes from [SSqore](/admin_guide/infrastructure_and_access/ssqore) and DNS zone feeds (see [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds) and [startup.ini](/admin_guide/start_here/startup_ini) `DNS_CAT_ZONE`). Local overrides in this editor take precedence for matching needles on the hot path.
+Cloud categorisation also comes from [SSqore](/admin_guide/infrastructure_and_access/ssqore) and DNS zone feeds (see [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds) and [startup.ini](/admin_guide/system_operations/startup_parameters) `DNS_CAT_ZONE`). Local overrides in this editor take precedence for matching needles on the hot path.
 </Note>
 
 ## How categories are used in policy
@@ -28,7 +28,7 @@ Cloud categorisation also comes from [SSqore](/admin_guide/infrastructure_and_ac
 1. During categorisation, SafeSquid resolves categories for the request host (and related lookup paths).
 2. Category names appear on the connection and in logs (`categories` column).
 3. [Access Profiles](/admin_guide/policies_and_profiles/access_profiles) can match **Categories** to ALLOW or DENY.
-4. [Request Types](/admin_guide/policies_and_profiles/request_types) Domains and Urls can set **Bypass DNSBL and Categorization** to skip DNS Blacklist and categorisation for specific hosts.
+4. [Request Types](/admin_guide/policies_and_profiles/request_profiles) Domains and Urls can set **Bypass DNSBL and Categorization** to skip DNS Blacklist and categorisation for specific hosts.
 
 ## Examples
 
@@ -65,7 +65,7 @@ Cloud categorisation also comes from [SSqore](/admin_guide/infrastructure_and_ac
 - [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds)
 - [SSqore](/admin_guide/infrastructure_and_access/ssqore)
 - [Access Profiles](/admin_guide/policies_and_profiles/access_profiles)
-- [DNS Blacklist](/admin_guide/filtering_and_privacy/dns_blacklist)
+- [DNS Blacklist](/admin_guide/web_and_application_filtering/dns_blacklist)
 - [Architecture](/admin_guide/start_here/architecture)
 - [Logging](/admin_guide/start_here/logging)
 

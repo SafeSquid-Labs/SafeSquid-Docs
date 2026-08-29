@@ -1,5 +1,5 @@
 ---
-title: "URL redirect"
+title: "Redirect"
 ---
 
 <Note>

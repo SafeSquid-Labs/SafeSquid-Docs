@@ -9,7 +9,7 @@ title: "Suggested Profiles"
 **Suggested Profiles** (`safesquid-buitins(5)`) shows built-in profile ideas you can pick when configuring cookie-related policy. It is a **UI-only** naming aid — no C++ section loads this configuration at runtime.
 
 <Note>
-To enforce cookie behaviour, configure [Cookie filter](/admin_guide/filtering_and_privacy/cookie_filter) and reference the same tag names in [Access Profiles](/admin_guide/policies_and_profiles/access_profiles) where `cookie_profiles` is used.
+To enforce cookie behaviour, configure [Cookie filter](/admin_guide/web_and_application_filtering/cookie_filtering) and reference the same tag names in [Access Profiles](/admin_guide/policies_and_profiles/access_profiles) where `cookie_profiles` is used.
 </Note>
 
 ## What it does and does not do
@@ -48,7 +48,7 @@ To enforce cookie behaviour, configure [Cookie filter](/admin_guide/filtering_an
 
 ## See also
 
-- [Cookie filter](/admin_guide/filtering_and_privacy/cookie_filter)
+- [Cookie filter](/admin_guide/web_and_application_filtering/cookie_filtering)
 - [Access Profiles](/admin_guide/policies_and_profiles/access_profiles)
 - [Architecture](/admin_guide/start_here/architecture)
 
