@@ -27,65 +27,70 @@ Both paths share one rule: no secret goes into instance metadata.
 
 Use the prebuilt image only when the image source, release, checksum or publisher identity, and update path are approved.
 
-{/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/02-Cloud_Deployment.md §Cloud-IMG (Recommended) */}
+## Provision the instance
 
-## Import the prebuilt image
+The two paths diverge from here — prebuilt image for the fastest known-good baseline, cloud-init for a reproducible, automation-driven build. Follow whichever one the comparison above pointed to.
 
-The prebuilt image is published at:
+<Tabs>
+  <Tab title="Prebuilt cloud image">
+    {/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/02-Cloud_Deployment.md §Cloud-IMG (Recommended) */}
 
-```text
-http://downloads.safesquid.com/appliance/cloud-img/safesquid-swg.img
-```
+    The prebuilt image is published at:
 
-Import it through the provider's custom-image path, then launch an instance from the imported image:
+    ```text
+    http://downloads.safesquid.com/appliance/cloud-img/safesquid-swg.img
+    ```
 
-| Provider | Import path |
-|---|---|
-| AWS | Import as an AMI using VM Import/Export |
-| Azure | Upload as a managed disk, then create an image from it |
-| GCP | Create a custom image from the disk |
-| DigitalOcean | Use the Custom Images feature |
+    Import it through the provider's custom-image path, then launch an instance from the imported image:
 
-<Warning>
-The image ships with the account `administrator` and the password `safesquid`. Change it with `passwd` at first login, before the instance is reachable from any client network. A default credential on a reachable proxy is an immediate exposure, not a setup detail.
-</Warning>
+    | Provider | Import path |
+    |---|---|
+    | AWS | Import as an AMI using VM Import/Export |
+    | Azure | Upload as a managed disk, then create an image from it |
+    | GCP | Create a custom image from the disk |
+    | DigitalOcean | Use the Custom Images feature |
 
-Record the image ID, region, launch date, SafeSquid version, disk mapping, and initial security group rules.
+    <Warning>
+    The image ships with the account `administrator` and the password `safesquid`. Change it with `passwd` at first login, before the instance is reachable from any client network. A default credential on a reachable proxy is an immediate exposure, not a setup detail.
+    </Warning>
 
-{/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/02-Cloud_Deployment.md §Cloud-Init */}
+    Record the image ID, region, launch date, SafeSquid version, disk mapping, and initial security group rules.
+  </Tab>
+  <Tab title="cloud-init build">
+    {/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/02-Cloud_Deployment.md §Cloud-Init */}
 
-## Build with cloud-init
+    Retrieve the published cloud-init configuration:
 
-Retrieve the published cloud-init configuration:
+    ```bash
+    curl -O https://raw.githubusercontent.com/SafeSquid-Github/safesquid_cloud-init/main/safesquid_cloud-init.yaml
+    ```
 
-```bash
-curl -O https://raw.githubusercontent.com/SafeSquid-Github/safesquid_cloud-init/main/safesquid_cloud-init.yaml
-```
+    Review and adjust the network settings, hostname, and disk layout before use, then pass it as user data at launch:
 
-Review and adjust the network settings, hostname, and disk layout before use, then pass it as user data at launch:
+    | Provider | User-data field |
+    |---|---|
+    | AWS | User data, during EC2 launch |
+    | Azure | Custom data, during VM creation |
+    | GCP | Metadata, key `user-data` |
+    | DigitalOcean | User data section |
 
-| Provider | User-data field |
-|---|---|
-| AWS | User data, during EC2 launch |
-| Azure | Custom data, during VM creation |
-| GCP | Metadata, key `user-data` |
-| DigitalOcean | User data section |
+    Keep cloud-init focused on baseline OS configuration, package source selection, network settings, log-forwarder bootstrap, and management hardening.
 
-Keep cloud-init focused on baseline OS configuration, package source selection, network settings, log-forwarder bootstrap, and management hardening.
+    <Warning>
+    Do not embed activation keys, administrator passwords, or certificate private keys in cloud-init text. Instance metadata is readable from inside the instance and is frequently captured in provider logs and snapshots. Upload the `activation_key` through the approved activation workflow after the instance is reachable.
+    </Warning>
 
-<Warning>
-Do not embed activation keys, administrator passwords, or certificate private keys in cloud-init text. Instance metadata is readable from inside the instance and is frequently captured in provider logs and snapshots. Upload the `activation_key` through the approved activation workflow after the instance is reachable.
-</Warning>
+    Follow provisioning from the instance:
 
-Follow provisioning from the instance:
+    ```bash
+    tail -f /var/log/cloud-init-output.log
+    ```
 
-```bash
-tail -f /var/log/cloud-init-output.log
-```
+    Expected result: the log reaches completion without error.
 
-Expected result: the log reaches completion without error.
-
-A cloud-init failure often leaves a reachable instance running no proxy at all, so check this before assuming the launch succeeded. An instance that answers SSH is not an instance that is proxying.
+    A cloud-init failure often leaves a reachable instance running no proxy at all, so check this before assuming the launch succeeded. An instance that answers SSH is not an instance that is proxying.
+  </Tab>
+</Tabs>
 
 ## Verify after first boot
 

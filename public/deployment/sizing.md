@@ -42,6 +42,16 @@ Size against **peak** concurrent connections, not average.
 
 NIC counts are minimums. See the bonding guidance below.
 
+<Accordion title="Estimate concurrent connections from a user count instead of measured peak data">
+  Assume 3 to 5 concurrent connections per active user at peak. Heavy SaaS or streaming environments reach 6 to 8.
+
+  For example, 200 active users at 5 connections each is 1,000 concurrent connections, which maps to 8 cores and 16 GB above.
+
+  Average session duration is typically 3 to 5 minutes, with peaks between 09:00 and 11:00 and between 14:00 and 16:00. Size for the peak window, not the daily mean.
+
+  **Above 4,000 concurrent connections**, assign multiple WAN IP addresses to avoid outbound NAT pool exhaustion, and evaluate [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering) rather than a single larger node.
+</Accordion>
+
 ## Require AES-NI
 
 A CPU without AES-NI decrypts SSL 3 to 5 times slower, which produces latency spikes and dropped connections under HTTPS inspection load. Verify before committing to hardware:
@@ -51,16 +61,6 @@ grep -m1 aes /proc/cpuinfo
 ```
 
 Expected result: the flags line includes `aes`. An empty result means this CPU should not carry an inspecting proxy.
-
-## Estimate connections from user counts
-
-Assume 3 to 5 concurrent connections per active user at peak. Heavy SaaS or streaming environments reach 6 to 8.
-
-For example, 200 active users at 5 connections each is 1,000 concurrent connections, which maps to 8 cores and 16 GB above.
-
-Average session duration is typically 3 to 5 minutes, with peaks between 09:00 and 11:00 and between 14:00 and 16:00. Size for the peak window, not the daily mean.
-
-**Above 4,000 concurrent connections**, assign multiple WAN IP addresses to avoid outbound NAT pool exhaustion, and evaluate [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering) rather than a single larger node.
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/01-Deployment_Planning.md §Disk and log storage */}
 

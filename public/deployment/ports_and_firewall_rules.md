@@ -61,18 +61,18 @@ The instance activates without these, then quietly stops receiving current data.
 | `category.safesquid.net` | `443` | URL categorization |
 | `download.quickheal.com` | `80` | Antivirus signature updates |
 
-{/* NEEDS-SME-REVIEW: the itsecure.co.in and itonlinesecure.in categorization endpoints below are listed inconsistently across sources — activate.md includes encurl.itonlinesecure.in, deployment_planning.md does not. Confirm the authoritative set for the shipping release before an operator allowlists them. */}
+<Accordion title="Additional categorization endpoints seen in some releases">
+  {/* NEEDS-SME-REVIEW: the itsecure.co.in and itonlinesecure.in categorization endpoints below are listed inconsistently across sources — activate.md includes encurl.itonlinesecure.in, deployment_planning.md does not. Confirm the authoritative set for the shipping release before an operator allowlists them. */}
 
-### Additional categorization endpoints
+  | Endpoint | Port |
+  |---|---:|
+  | `prourl.itsecure.co.in` | `8080` |
+  | `encurl.itsecure.co.in` | `8080` |
+  | `klassify.itsecure.co.in` | `8080` |
+  | `prourl.itonlinesecure.in` | `8080` |
 
-| Endpoint | Port |
-|---|---:|
-| `prourl.itsecure.co.in` | `8080` |
-| `encurl.itsecure.co.in` | `8080` |
-| `klassify.itsecure.co.in` | `8080` |
-| `prourl.itonlinesecure.in` | `8080` |
-
-Treat this page as a deployment checklist, not a firewall exception template. Confirm current endpoint requirements through the approved release or support channel before production allowlisting.
+  Treat this page as a deployment checklist, not a firewall exception template. Confirm current endpoint requirements through the approved release or support channel before production allowlisting.
+</Accordion>
 
 ## Verify reachability before installing
 

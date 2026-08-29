@@ -15,6 +15,21 @@ The interception point determines what SafeSquid can enforce. Choose it before s
 
 SafeSquid cannot enforce policy on traffic that bypasses the proxy. Every mode below is a different answer to how you stop that from happening.
 
+Work through the decision in this order — direction of traffic, then whether the client can be configured, then protocol and upstream constraints — and confirm the result against the table below.
+
+```mermaid
+flowchart TB
+    Start[Traffic needs interception] --> Direction{Inbound or outbound}
+    Direction -->|Outbound - egress control| ClientConfig{Client is configurable}
+    Direction -->|Inbound to an internal server| Reverse[Reverse proxy]
+    ClientConfig -->|Yes| Protocol{Protocol is HTTP or HTTPS}
+    ClientConfig -->|No - device cannot be configured| Transparent[Transparent proxy]
+    Protocol -->|Yes| Upstream{An upstream proxy already exists}
+    Protocol -->|No - non-HTTP protocol| TCP[TCP proxy]
+    Upstream -->|Yes| Chain[Proxy chain]
+    Upstream -->|No| Forward[Forward proxy]
+```
+
 ## Match the mode to the constraint
 
 | Mode | Traffic reaches SafeSquid because | Costs you | Bypass risk |
@@ -29,15 +44,27 @@ Start with forward proxy for a pilot even when transparent is the production tar
 
 ## Understand what each mode enforces
 
-**Forward proxy** requires explicit client configuration through browser settings, a [PAC file](/getting_started/client_configuration/pac_file), or system-level proxy settings. It gives the most granular control over which clients are proxied, and the clearest rollback — remove the setting. It also means an endpoint that misses the rollout is silently unprotected.
+Each mode trades control, coverage, and rollback differently. Open the one that matches the row you picked above.
 
-**Transparent proxy** intercepts traffic through network-level redirection, with no client configuration. Coverage is comprehensive for everything on the redirected path, including devices you cannot configure. The cost moves to the network team, and a routing change made without coordination can take the control offline for everyone at once.
+<Accordion title="What forward proxy requires">
+  Requires explicit client configuration through browser settings, a [PAC file](/getting_started/client_configuration/pac_file), or system-level proxy settings. It gives the most granular control over which clients are proxied, and the clearest rollback — remove the setting. It also means an endpoint that misses the rollout is silently unprotected.
+</Accordion>
 
-**[TCP proxy](/use_cases/scaling_and_high_availability/tcp_proxy)** operates at the TCP layer for non-HTTP protocols that still need inspection and control. Use it where an application will not honour an HTTP proxy but its traffic must still be governed.
+<Accordion title="What transparent proxy requires">
+  Intercepts traffic through network-level redirection, with no client configuration. Coverage is comprehensive for everything on the redirected path, including devices you cannot configure. The cost moves to the network team, and a routing change made without coordination can take the control offline for everyone at once.
+</Accordion>
 
-**[Reverse proxy](/use_cases/scaling_and_high_availability/reverse_proxy)** protects internal web servers from direct internet access, terminating TLS and applying authentication in front of them. This is the inbound case — it does not replace an outbound egress control.
+<Accordion title="What TCP proxy requires">
+  [TCP proxy](/use_cases/scaling_and_high_availability/tcp_proxy) operates at the TCP layer for non-HTTP protocols that still need inspection and control. Use it where an application will not honour an HTTP proxy but its traffic must still be governed.
+</Accordion>
 
-**[Proxy chain](/use_cases/scaling_and_high_availability/proxy_chain)** places SafeSquid in a multi-tier architecture, forwarding to or receiving from another proxy. Use it where an existing upstream proxy cannot be removed, and confirm which tier owns policy before splitting enforcement across both.
+<Accordion title="What reverse proxy requires">
+  [Reverse proxy](/use_cases/scaling_and_high_availability/reverse_proxy) protects internal web servers from direct internet access, terminating TLS and applying authentication in front of them. This is the inbound case — it does not replace an outbound egress control.
+</Accordion>
+
+<Accordion title="What proxy chain requires">
+  [Proxy chain](/use_cases/scaling_and_high_availability/proxy_chain) places SafeSquid in a multi-tier architecture, forwarding to or receiving from another proxy. Use it where an existing upstream proxy cannot be removed, and confirm which tier owns policy before splitting enforcement across both.
+</Accordion>
 
 ## Design the network placement
 
