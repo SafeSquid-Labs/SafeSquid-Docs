@@ -13,7 +13,19 @@ keywords:
 
 Cloud Restore brings back policy and SSL material bound to the activation key. It does not bring back the host — networking, OS configuration, and integration secrets stay missing, and a restore declared complete before those are checked leaves a proxy that looks configured and cannot pass traffic.
 
-Restore in two halves: what the backup covers, then what it does not.
+Restore in two halves: what the backup covers, then what it does not. The two halves split like this:
+
+```mermaid
+flowchart TB
+    Restore[Cloud Restore recovers] --> Policy[config.xml - all policies and settings]
+    Restore --> Cert[ROOT X509 certificate]
+    Restore --> Key[ROOT private key]
+    Rebuild[You rebuild manually] --> Net[Interface IP hostname and routing]
+    Rebuild --> DNSNTP[DNS and NTP configuration]
+    Rebuild --> Secrets[Directory integration and connector secrets]
+    Rebuild --> OS[OS configuration and hardening]
+    Rebuild --> Fwd[Log forwarding destinations and credentials]
+```
 
 ## Validate prerequisites
 
