@@ -6,10 +6,10 @@ title: "Application Signatures"
   CLI man page: `safesquid-applicationSignatures(5)`
 </Note>
 
-The **Application Signatures** section (`safesquid-applicationSignatures(5)`) tags each HTTP request with application signature strings (for example Webmail, BitTorrent, Chrome). Other sections match those tags with exact string compare — especially [Access Profiles](/admin_guide/policies_and_profiles/access_profiles) (Request Types field) and [Request Types](/admin_guide/policies_and_profiles/request_profiles).
+The **Application Signatures** section (`safesquid-applicationSignatures(5)`) tags each HTTP request with application signature strings (for example Webmail, BitTorrent, Chrome). Other sections match those tags with exact string compare — especially [Access Profiles](/admin_guide/policies_and_profiles/access_profiles) (Request Types field) and [Request Types](/admin_guide/policies_and_profiles/request_types).
 
 <Note>
-Vendor signature databases download on the appliance update schedule. See [startup.ini](/admin_guide/system_operations/startup_parameters) UPDATE settings, [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds), and [Subscription](/admin_guide/infrastructure_and_access/subscription) (expired subscription skips all signature processing).
+Vendor signature databases download on the appliance update schedule. See [startup.ini](/admin_guide/start_here/startup_ini) UPDATE settings, [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds), and [Subscription](/admin_guide/infrastructure_and_access/subscription) (expired subscription skips all signature processing).
 </Note>
 
 ## Core mechanics
@@ -88,7 +88,7 @@ On match, **category** `SocialMedia` is added to application signatures (same ta
 
 ## See also
 
-- [Request Types](/admin_guide/policies_and_profiles/request_profiles)
+- [Request Types](/admin_guide/policies_and_profiles/request_types)
 - [Access Profiles](/admin_guide/policies_and_profiles/access_profiles)
 - [Subscription](/admin_guide/infrastructure_and_access/subscription)
 - [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds)

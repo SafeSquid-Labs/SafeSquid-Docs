@@ -16,11 +16,11 @@ Unlike Access restrictions (first match), **every** matching row in Default and 
 
 On each request (non-interface), SafeSquid builds label lists in this order before Access Profiles runs:
 
-1. [Time Profiler](/admin_guide/policies_and_profiles/time_profiles) → `time_schedules`
-2. [Request Types](/admin_guide/policies_and_profiles/request_profiles) → `request_types`
+1. [Time Profiler](/admin_guide/policies_and_profiles/time_profiler) → `time_schedules`
+2. [Request Types](/admin_guide/policies_and_profiles/request_types) → `request_types`
 3. Domain categorization → `website_categories`
 4. **Access Profiles** → `profiles` + `action`
-5. [Response Types](/admin_guide/policies_and_profiles/response_profiles) on response headers/body → updates `response_types`; Access Profiles runs again
+5. [Response Types](/admin_guide/policies_and_profiles/response_types) on response headers/body → updates `response_types`; Access Profiles runs again
 
 Access restrictions **User-Groups** populate `user_groups` (not `profiles`). Access Profiles **User Groups** gate matches those tags.
 
@@ -49,9 +49,9 @@ Access restrictions **User-Groups** populate `user_groups` (not `profiles`). Acc
 All configured criteria on a row must match. Blank = any. Use `!` to negate tags in list fields.
 
 - **Applicable Profiles** — Tags on connection from earlier rows in this pass (list is cleared at start).
-- **Time Schedule** — Tags from [Time Profiler](/admin_guide/policies_and_profiles/time_profiles).
-- **Request Types** — Tags from [Request Types](/admin_guide/policies_and_profiles/request_profiles).
-- **Response Types** — Tags from [Response Types](/admin_guide/policies_and_profiles/response_profiles); requires response header when field set.
+- **Time Schedule** — Tags from [Time Profiler](/admin_guide/policies_and_profiles/time_profiler).
+- **Request Types** — Tags from [Request Types](/admin_guide/policies_and_profiles/request_types).
+- **Response Types** — Tags from [Response Types](/admin_guide/policies_and_profiles/response_types); requires response header when field set.
 - **User Groups** — From Access restrictions. Non-blank + empty user\_groups → row skipped.
 - **Categories** — Domain categories; empty lookup tests as `UNCATEGORIZED`.
 

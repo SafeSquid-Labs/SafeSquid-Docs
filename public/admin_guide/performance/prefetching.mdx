@@ -99,5 +99,5 @@ Some prefetch hooks and the **Prefetch now** CGI handler require `ENABLE_PREFETC
 
 1. Enable CACHE in `LOG_LEVEL`; look for cache writes with prefetch-related flags.
 2. Load an HTML page twice — second load should show cache hits for prefetched assets when Caching and rules allow.
-3. Use [Manage cached objects](/admin_guide/performance/cache_settings) to search for prefetched URLs.
+3. Use [Manage cached objects](/admin_guide/performance/caching) to search for prefetched URLs.
 4. Watch queue rejection if Queue size or Host limit is exceeded (reduce rules or raise limits).

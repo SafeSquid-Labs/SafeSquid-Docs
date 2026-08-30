@@ -5,7 +5,7 @@ title: "First configuration"
 This page is for a new administrator who has a working SafeSquid appliance and needs a safe, minimal setup: browsers can use the proxy, only intended clients are allowed, and you can see why a request was allowed or blocked.
 
 <Note>
-Open the Web UI at `http://safesquid.cfg/` from a machine that can reach the appliance. Policy lives in the Web UI; process tunables live in [startup.ini](/admin_guide/system_operations/startup_parameters).
+Open the Web UI at `http://safesquid.cfg/` from a machine that can reach the appliance. Policy lives in the Web UI; process tunables live in [startup.ini](/admin_guide/start_here/startup_ini).
 </Note>
 
 ## What you will set up
@@ -32,7 +32,7 @@ If it is not running: `/etc/init.d/safesquid start`. Details: [Daemon, service, 
 In the Web UI open **Network settings → Listen**.
 
 - You should see at least one enabled listener (IP and port), often port **8080**.
-- If Listen is empty, SafeSquid falls back to `LISTEN_IP` / `LISTEN_PORT` in [startup.ini](/admin_guide/system_operations/startup_parameters).
+- If Listen is empty, SafeSquid falls back to `LISTEN_IP` / `LISTEN_PORT` in [startup.ini](/admin_guide/start_here/startup_ini).
 
 <Tip>
 
@@ -44,7 +44,7 @@ In the Web UI open **Network settings → Listen**.
 Later you can restrict Web UI access in Access restrictions using the **Interface** field so only the management listener may open `http://safesquid.cfg/`.
 </Tip>
 
-More detail: [Network settings](/admin_guide/network_and_access/network_settings_and_listeners).
+More detail: [Network settings](/admin_guide/infrastructure_and_access/network_settings).
 
 ## 3. Lock down Access restrictions
 
@@ -73,7 +73,7 @@ On the Allow list entry:
 Blank match fields mean “match any.” An Allow entry with nothing filled in can open the proxy to everyone. Always set IP, Interface, or identity criteria.
 </Warning>
 
-Full guide: [Access restrictions](/admin_guide/network_and_access/access_restrictions).
+Full guide: [Access restrictions](/admin_guide/infrastructure_and_access/access_restrictions).
 
 ## 4. Point a browser and test
 
@@ -120,10 +120,10 @@ Full workflow: [Logging and troubleshooting](/admin_guide/start_here/logging).
 
 - [Authentication](/admin_guide/start_here/authentication) — Kerberos / SSO or System authentication so logs show real usernames
 - [Integrate LDAP](/admin_guide/infrastructure_and_access/integrate_ldap) — groups for policy
-- [HTTPS Inspection](/admin_guide/https_inspection/https_inspection) — decrypt HTTPS when your policy requires it (plan client trust carefully)
-- [SSqore](/admin_guide/infrastructure_and_access/ssqore) and [Categorize Web-Sites](/admin_guide/policies_and_profiles/web_categories) — category-based Access Profiles
+- [HTTPS Inspection](/admin_guide/infrastructure_and_access/https_inspection) — decrypt HTTPS when your policy requires it (plan client trust carefully)
+- [SSqore](/admin_guide/infrastructure_and_access/ssqore) and [Categorize Web-Sites](/admin_guide/policies_and_profiles/categorize_web_sites) — category-based Access Profiles
 - [Application Signatures](/admin_guide/policies_and_profiles/application_signatures) — tag client applications for policy
-- [SqScan](/admin_guide/malware_and_data_protection/sqscan) or [Clam antivirus](/admin_guide/malware_and_data_protection/clamav) — malware scanning
+- [SqScan](/admin_guide/security_scanners/sqscan) or [Clam antivirus](/admin_guide/security_scanners/clam_antivirus) — malware scanning
 - [Subscription](/admin_guide/infrastructure_and_access/subscription) — license and feed updates
 - [Architecture](/admin_guide/start_here/architecture) — how sections fit together
 
