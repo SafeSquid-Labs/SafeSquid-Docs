@@ -1,5 +1,5 @@
 ---
-title: "Forward proxy"
+title: "Proxy chain"
 ---
 
 <Note>
@@ -51,7 +51,7 @@ CARP hash, blank Proxy stop, ICP peer selection.
 - **Proxy** — Upstream hostname or IP. Blank on a matching row **stops candidate collection** without forwarding. Rows whose Proxy equals this instance hostname or System configuration **Proxy hostname** are skipped (shared-config safety).
 - **Type** — **HTTP** (standard proxy), **SOCKS4** / **SOCKS5**, or **CONNECT** tunnel. Port defaults to `3128` for HTTP/SOCKS and `443` for CONNECT when Port is 0.
 - **Applies to** — Protocol flags: HTTP, FTP, CONNECT. Row is skipped when the connection protocol does not match any selected flag.
-- **ICP peer type / ICP port** — When global CARP is off: **NONE** gives fixed priority 1; **PARENT** forwards on ICP miss; **SIBLING** forwards only on ICP HIT. UDP ICP uses the ICP port on this row; global ICP listen port and timeout come from [Caching](/admin_guide/performance/caching).
+- **ICP peer type / ICP port** — When global CARP is off: **NONE** gives fixed priority 1; **PARENT** forwards on ICP miss; **SIBLING** forwards only on ICP HIT. UDP ICP uses the ICP port on this row; global ICP listen port and timeout come from [Caching](/admin_guide/application_setup/accelerators).
 - **User name / Password / Domain** — Upstream proxy authentication when the selected peer requires it.
 
 <Warning>

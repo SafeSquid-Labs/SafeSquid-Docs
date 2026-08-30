@@ -6,7 +6,7 @@ title: "Cloud / categorisation feeds"
   CLI man page: `safesquid-feeds(7)`
 </Note>
 
-SafeSquid categorises websites and refreshes signature databases using cloud services, scheduled updates, and local caches. Categories and signature tags feed [Access Profiles](/admin_guide/policies_and_profiles/access_profiles), filters, and Detailed logs.
+SafeSquid categorises websites and refreshes signature databases using cloud services, scheduled updates, and local caches. Categories and signature tags feed [Access Profiles](/admin_guide/restriction_policies/access_profiles), filters, and Detailed logs.
 
 <Note>
 Valid [Subscription](/admin_guide/infrastructure_and_access/subscription) is required for cloud signature downloads and for Application Signatures / SSqore processing on each connection. Check **Reports → License/Users Info** and Modules Status when feeds stop updating.
@@ -14,10 +14,10 @@ Valid [Subscription](/admin_guide/infrastructure_and_access/subscription) is req
 
 ## Pieces
 
-- **[SSqore](/admin_guide/infrastructure_and_access/ssqore)** — CCS URL categorisation during request profiling. Globals: Enabled (Heuristic is stored but unused in the current build).
-- **[Categorize Web-Sites](/admin_guide/policies_and_profiles/categorize_web_sites)** — Local category overrides you maintain. Takes precedence over cloud results for matching hosts on the hot path.
-- **[Application Signatures](/admin_guide/policies_and_profiles/application_signatures)** — Vendor `applications4` database plus custom rules. Downloaded on UPDATE schedule; skipped when subscription expired.
-- **[Content Signatures](/admin_guide/policies_and_profiles/content_signatures)** — Vendor `content4.xml` plus libmagic MIME database under `/var/lib/safesquid/content_signatures/`.
+- **[SSqore](/admin_guide/application_setup/ssqore)** — CCS URL categorisation during request profiling. Globals: Enabled (Heuristic is stored but unused in the current build).
+- **[Categorize Web-Sites](/admin_guide/custom_settings/categorize_web_sites)** — Local category overrides you maintain. Takes precedence over cloud results for matching hosts on the hot path.
+- **[Application Signatures](/admin_guide/custom_settings/application_signatures)** — Vendor `applications4` database plus custom rules. Downloaded on UPDATE schedule; skipped when subscription expired.
+- **[Content Signatures](/admin_guide/custom_settings/content_signatures)** — Vendor `content4.xml` plus libmagic MIME database under `/var/lib/safesquid/content_signatures/`.
 - **DNS\_CAT\_ZONE** — In [startup.ini](/admin_guide/start_here/startup_ini) (default `.c.ssquid.in`). Set to `.` to disable DNS categorisation zone use.
 - **UPDATE\_INTVL / UPDATE\_RETRY\_DELAY** — How often the appliance fetches signature and feed updates ([startup.ini](/admin_guide/start_here/startup_ini)).
 
@@ -38,7 +38,7 @@ When cloud lookups or downloads fail, SafeSquid relies on the last loaded on-dis
 
 ### Block Social Networking by cloud category
 
-1. Enable [SSqore](/admin_guide/infrastructure_and_access/ssqore); confirm subscription valid.
+1. Enable [SSqore](/admin_guide/application_setup/ssqore); confirm subscription valid.
 2. In Access Profiles Secondary Policies, DENY when Categories matches the SSqore name for social sites (exact string from Detailed logs).
 
 **Result:** categorized social hosts are blocked; uncategorized hosts may pass until CCS returns a category.
@@ -48,7 +48,7 @@ When cloud lookups or downloads fail, SafeSquid relies on the last loaded on-dis
 
 ### Override one miscategorised partner
 
-1. Use [Categorize Web-Sites](/admin_guide/policies_and_profiles/categorize_web_sites) to assign `Business-Partners` to `partner.example.com`.
+1. Use [Categorize Web-Sites](/admin_guide/custom_settings/categorize_web_sites) to assign `Business-Partners` to `partner.example.com`.
 2. Allow that category in Access Profiles for trusted users.
 
 **Result:** local override applies even if SSqore still lists a different cloud category.
@@ -62,12 +62,12 @@ When cloud lookups or downloads fail, SafeSquid relies on the last loaded on-dis
 
 ## See also
 
-- [SSqore](/admin_guide/infrastructure_and_access/ssqore)
-- [Categorize Web-Sites](/admin_guide/policies_and_profiles/categorize_web_sites)
-- [Application Signatures](/admin_guide/policies_and_profiles/application_signatures)
-- [Content Signatures](/admin_guide/policies_and_profiles/content_signatures)
+- [SSqore](/admin_guide/application_setup/ssqore)
+- [Categorize Web-Sites](/admin_guide/custom_settings/categorize_web_sites)
+- [Application Signatures](/admin_guide/custom_settings/application_signatures)
+- [Content Signatures](/admin_guide/custom_settings/content_signatures)
 - [Subscription](/admin_guide/infrastructure_and_access/subscription)
 - [startup.ini](/admin_guide/start_here/startup_ini)
-- [Access Profiles](/admin_guide/policies_and_profiles/access_profiles)
+- [Access Profiles](/admin_guide/restriction_policies/access_profiles)
 
 CLI: `man safesquid-feeds`

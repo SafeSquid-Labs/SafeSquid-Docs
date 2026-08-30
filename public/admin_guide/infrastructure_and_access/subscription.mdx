@@ -16,7 +16,7 @@ title: "Subscription"
 ## How subscription affects the proxy
 
 1. On each request, SafeSquid sets or clears `SUBSCRIPTION_EXPIRED` on the connection from subscription validity checks.
-2. When expired, [Application Signatures](/admin_guide/policies_and_profiles/application_signatures) processing is skipped for that connection and security logging records filter `subscription`.
+2. When expired, [Application Signatures](/admin_guide/custom_settings/application_signatures) processing is skipped for that connection and security logging records filter `subscription`.
 3. Background subscription accounting talks to the vendor service, refreshes entitlement, and drives scheduled update hooks (signatures, categorisation feeds, trusted CA updates, and similar).
 4. Activation key upload is accepted only when the current subscription state allows upload; uploaded files are handled by the security subsystem.
 
@@ -48,7 +48,7 @@ An expired subscription is not the same as Access restrictions DENY — users ma
 - [SafeSquid daemon](/admin_guide/start_here/daemon)
 - [Tools](/admin_guide/start_here/tools_and_reports)
 - [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds)
-- [Application Signatures](/admin_guide/policies_and_profiles/application_signatures)
+- [Application Signatures](/admin_guide/custom_settings/application_signatures)
 - [Architecture](/admin_guide/start_here/architecture)
 - [Logging](/admin_guide/start_here/logging)
 

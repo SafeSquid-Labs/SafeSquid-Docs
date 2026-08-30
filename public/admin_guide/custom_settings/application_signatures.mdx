@@ -6,7 +6,11 @@ title: "Application Signatures"
   CLI man page: `safesquid-applicationSignatures(5)`
 </Note>
 
-The **Application Signatures** section (`safesquid-applicationSignatures(5)`) tags each HTTP request with application signature strings (for example Webmail, BitTorrent, Chrome). Other sections match those tags with exact string compare — especially [Access Profiles](/admin_guide/policies_and_profiles/access_profiles) (Request Types field) and [Request Types](/admin_guide/policies_and_profiles/request_types).
+<Warning>
+  **This section does not appear in the current Configure console.** Verified against `http://safesquid.cfg` this session — it is kept here as legacy/reference material, not a confirmed current UI path. Confirm on your own console before pointing an administrator at it.
+</Warning>
+
+The **Application Signatures** section (`safesquid-applicationSignatures(5)`) tags each HTTP request with application signature strings (for example Webmail, BitTorrent, Chrome). Other sections match those tags with exact string compare — especially [Access Profiles](/admin_guide/restriction_policies/access_profiles) (Request Types field) and [Request Types](/admin_guide/custom_settings/request_types).
 
 <Note>
 Vendor signature databases download on the appliance update schedule. See [startup.ini](/admin_guide/start_here/startup_ini) UPDATE settings, [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds), and [Subscription](/admin_guide/infrastructure_and_access/subscription) (expired subscription skips all signature processing).
@@ -88,8 +92,8 @@ On match, **category** `SocialMedia` is added to application signatures (same ta
 
 ## See also
 
-- [Request Types](/admin_guide/policies_and_profiles/request_types)
-- [Access Profiles](/admin_guide/policies_and_profiles/access_profiles)
+- [Request Types](/admin_guide/custom_settings/request_types)
+- [Access Profiles](/admin_guide/restriction_policies/access_profiles)
 - [Subscription](/admin_guide/infrastructure_and_access/subscription)
 - [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds)
 - [Logging and troubleshooting](/admin_guide/start_here/logging)

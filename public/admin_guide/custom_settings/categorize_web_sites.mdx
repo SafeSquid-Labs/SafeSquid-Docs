@@ -6,7 +6,7 @@ title: "Categorize Web-Sites"
   CLI man page: `safesquid-category-editor(5)`
 </Note>
 
-**Categorize Web-Sites** is a Web UI application for local website category overrides. Categories assigned here feed the in-memory categorisation used on the request path together with cloud feeds (SSqore / DNS zone). Use it when vendor categories are wrong or when you need internal-only category names in [Access Profiles](/admin_guide/policies_and_profiles/access_profiles).
+**Categorize Web-Sites** is a Web UI application for local website category overrides. Categories assigned here feed the in-memory categorisation used on the request path together with cloud feeds (SSqore / DNS zone). Use it when vendor categories are wrong or when you need internal-only category names in [Access Profiles](/admin_guide/restriction_policies/access_profiles).
 
 ## Subsections
 
@@ -20,15 +20,15 @@ title: "Categorize Web-Sites"
 - **Update from database** (refresh control) — reload category metadata counts and timestamps from the backend store.
 
 <Note>
-Cloud categorisation also comes from [SSqore](/admin_guide/infrastructure_and_access/ssqore) and DNS zone feeds (see [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds) and [startup.ini](/admin_guide/start_here/startup_ini) `DNS_CAT_ZONE`). Local overrides in this editor take precedence for matching needles on the hot path.
+Cloud categorisation also comes from [SSqore](/admin_guide/application_setup/ssqore) and DNS zone feeds (see [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds) and [startup.ini](/admin_guide/start_here/startup_ini) `DNS_CAT_ZONE`). Local overrides in this editor take precedence for matching needles on the hot path.
 </Note>
 
 ## How categories are used in policy
 
 1. During categorisation, SafeSquid resolves categories for the request host (and related lookup paths).
 2. Category names appear on the connection and in logs (`categories` column).
-3. [Access Profiles](/admin_guide/policies_and_profiles/access_profiles) can match **Categories** to ALLOW or DENY.
-4. [Request Types](/admin_guide/policies_and_profiles/request_types) Domains and Urls can set **Bypass DNSBL and Categorization** to skip DNS Blacklist and categorisation for specific hosts.
+3. [Access Profiles](/admin_guide/restriction_policies/access_profiles) can match **Categories** to ALLOW or DENY.
+4. [Request Types](/admin_guide/custom_settings/request_types) Domains and Urls can set **Bypass DNSBL and Categorization** to skip DNS Blacklist and categorisation for specific hosts.
 
 ## Examples
 
@@ -63,9 +63,9 @@ Cloud categorisation also comes from [SSqore](/admin_guide/infrastructure_and_ac
 ## See also
 
 - [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds)
-- [SSqore](/admin_guide/infrastructure_and_access/ssqore)
-- [Access Profiles](/admin_guide/policies_and_profiles/access_profiles)
-- [DNS Blacklist](/admin_guide/filtering_and_privacy/dns_blacklist)
+- [SSqore](/admin_guide/application_setup/ssqore)
+- [Access Profiles](/admin_guide/restriction_policies/access_profiles)
+- [DNS Blacklist](/admin_guide/real_time_content_security/dns_blacklist)
 - [Architecture](/admin_guide/start_here/architecture)
 - [Logging](/admin_guide/start_here/logging)
 

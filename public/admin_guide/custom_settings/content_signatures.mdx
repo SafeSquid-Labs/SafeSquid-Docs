@@ -6,7 +6,11 @@ title: "Content Signatures"
   CLI man page: `safesquid-contentSignatures(5)`
 </Note>
 
-The **Content Signatures** section (`safesquid-contentSignatures(5)`) maintains the content-signature database and libmagic MIME detection used across SafeSquid. It helps identify actual file types, bypassing deceptive file extensions — but live connection tagging for policy uses [Response Types](/admin_guide/policies_and_profiles/response_types) in the current build.
+<Warning>
+  **This section does not appear in the current Configure console.** Verified against `http://safesquid.cfg` this session — it is kept here as legacy/reference material, not a confirmed current UI path. Confirm on your own console before pointing an administrator at it.
+</Warning>
+
+The **Content Signatures** section (`safesquid-contentSignatures(5)`) maintains the content-signature database and libmagic MIME detection used across SafeSquid. It helps identify actual file types, bypassing deceptive file extensions — but live connection tagging for policy uses [Response Types](/admin_guide/custom_settings/response_types) in the current build.
 
 <Note>
 Custom rows are merged into `content4.xml` under `/var/lib/safesquid/content_signatures/`. Tag names still appear in DLP and UI pickers even when the request-time hooks are inactive.
@@ -22,7 +26,7 @@ Custom rows are merged into `content4.xml` under `/var/lib/safesquid/content_sig
 4. The request-time hooks are **not implemented** — list rows do not add or remove connection tags at request time in the current build.
 
 <Warning>
-For live response labelling by MIME or extension, use [Response Types](/admin_guide/policies_and_profiles/response_types). Content Signatures rows still matter for database maintenance, autocomplete in other sections (for example DLP), and libmagic setup.
+For live response labelling by MIME or extension, use [Response Types](/admin_guide/custom_settings/response_types). Content Signatures rows still matter for database maintenance, autocomplete in other sections (for example DLP), and libmagic setup.
 </Warning>
 
 ### Global Enabled
@@ -67,9 +71,9 @@ Selectors such as **Transfer Encoding Chunk**, **multi-part byte-range**, and **
 
 ## See also
 
-- [Response Types](/admin_guide/policies_and_profiles/response_types)
-- [DLP](/admin_guide/security_scanners/dlp)
-- [Application Signatures](/admin_guide/policies_and_profiles/application_signatures)
+- [Response Types](/admin_guide/custom_settings/response_types)
+- [DLP](/admin_guide/real_time_content_security/dlp)
+- [Application Signatures](/admin_guide/custom_settings/application_signatures)
 - [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds)
 - [Logging and troubleshooting](/admin_guide/start_here/logging)
 

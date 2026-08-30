@@ -6,7 +6,7 @@ title: "SSqore"
   CLI man page: `safesquid-ssqore(5)`
 </Note>
 
-**SSqore** categorizes websites by the likely nature of their content. It queries SafeSquid's Content Categorisation Service (CCS) and adds category names to the connection so [Access Profiles](/admin_guide/policies_and_profiles/access_profiles) and filters can match on them.
+**SSqore** categorizes websites by the likely nature of their content. It queries SafeSquid's Content Categorisation Service (CCS) and adds category names to the connection so [Access Profiles](/admin_guide/restriction_policies/access_profiles) and filters can match on them.
 
 <Note>
 SSqore has globals only — no policy list. See [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds) for CCS connectivity and offline behaviour.
@@ -33,7 +33,7 @@ SSqore has globals only — no policy list. See [Cloud / categorisation feeds](/
 
 Access Profiles Secondary Policies typically match SSqore category tags (for example block Social Networking). Categories appear as profile strings on the connection after lookup — design profiles to reference the exact category names CCS returns.
 
-Custom or local categories may also come from the [Categorize Web-Sites](/admin_guide/policies_and_profiles/categorize_web_sites) tool and DNS category zone settings in startup.ini; SSqore is the cloud lookup path.
+Custom or local categories may also come from the [Categorize Web-Sites](/admin_guide/custom_settings/categorize_web_sites) tool and DNS category zone settings in startup.ini; SSqore is the cloud lookup path.
 
 ## Examples
 
@@ -72,8 +72,8 @@ Custom or local categories may also come from the [Categorize Web-Sites](/admin_
 ## See also
 
 - [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds)
-- [Access Profiles](/admin_guide/policies_and_profiles/access_profiles)
-- [Categorize Web-Sites](/admin_guide/policies_and_profiles/categorize_web_sites)
+- [Access Profiles](/admin_guide/restriction_policies/access_profiles)
+- [Categorize Web-Sites](/admin_guide/custom_settings/categorize_web_sites)
 - [Subscription](/admin_guide/infrastructure_and_access/subscription)
 - [Logging and troubleshooting](/admin_guide/start_here/logging)
 
