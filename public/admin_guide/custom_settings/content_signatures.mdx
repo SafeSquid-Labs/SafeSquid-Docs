@@ -6,7 +6,7 @@ title: "Content Signatures"
   **This section does not appear in the current Configure console.** Verified against `http://safesquid.cfg` this session — it is kept here as legacy/reference material, not a confirmed current UI path. Confirm on your own console before pointing an administrator at it.
 </Warning>
 
-The **Content Signatures** section (`safesquid-contentSignatures(5)`) maintains the content-signature database and libmagic MIME detection used across SafeSquid. It helps identify actual file types, bypassing deceptive file extensions — but live connection tagging for policy uses [Response Types](/admin_guide/custom_settings/response_types) in the current build.
+The **Content Signatures** section maintains the content-signature database and libmagic MIME detection used across SafeSquid. It helps identify actual file types, bypassing deceptive file extensions — but live connection tagging for policy uses [Response Types](/admin_guide/custom_settings/response_types) in the current build.
 
 <Note>
 Custom rows are merged into `content4.xml` under `/var/lib/safesquid/content_signatures/`. Tag names still appear in DLP and UI pickers even when the request-time hooks are inactive.
