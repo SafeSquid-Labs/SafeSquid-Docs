@@ -153,14 +153,16 @@ SSL inspection configuration — this step alone doesn't complete an HTTPS Inspe
 
 1. **Log in** to the portal.
 2. **Open the Manage Categories tab** — a **Check Website Category** / **Modify Category**
-   toggle, above a URL field (protocol selector plus a `www.example.com`-style text box) and a
-   **Search** button.
-3. Use **Check Website Category** to look up how a URL is currently categorized, or **Modify
-   Category** to submit a change for it.
+   toggle.
+3. **Check Website Category** takes a URL (protocol selector plus a `www.example.com`-style text
+   box) and a **Search** button — looks up how that URL is currently categorized.
+4. **Modify Category** instead opens with a **Select Category** field (dropdown/autocomplete over
+   existing categories, not a URL search) — pick a category to act on.
 
-{/* NEEDS-SME-REVIEW: confirmed live this is a single-URL check/modify tool, not a bulk named-category editor — the previous "Add URLs to custom categories (e.g. Internal Tools, Approved Cloud Apps)" description didn't match what's on this tab and has been replaced. What "Modify Category" actually submits (a direct change vs. a review request) wasn't tested. If bulk custom-category upload exists, it may be the local console's [Categorize Web-Sites](/admin_guide/custom_settings/categorize_web_sites) feature instead — the portal homepage's marketing copy for "Custom Category Management" describes uploading category lists "from SafeSquid User Interface," which points at the appliance, not this portal tab. */}
+{/* NEEDS-SME-REVIEW: confirmed live — Check Website Category is single-URL search; Modify Category starts from an existing-category picker instead, which does imply named categories exist here (unlike an earlier pass through this page which concluded otherwise). What appears after selecting a category in Modify Category — URL list, add/remove controls, anything else — was not observed; don't describe it further without checking. If bulk custom-category upload also exists separately, it may be the local console's [Categorize Web-Sites](/admin_guide/custom_settings/categorize_web_sites) feature instead — the portal homepage's marketing copy for "Custom Category Management" describes uploading category lists "from SafeSquid User Interface," which points at the appliance, not confirmed as this portal tab. */}
 
-**Use for:** correcting or checking the categorization SafeSquid applies to a specific site.
+**Use for:** looking up a site's current category, or changing which category an existing
+category-set applies to.
 
 ---
 
