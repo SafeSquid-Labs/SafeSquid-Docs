@@ -39,12 +39,15 @@ Use the portal when you need to:
 
 ## Portal layout
 
-Confirmed live (2026-09-02, logged-in session): six tabs across the top of the portal —
-**Manage Key**, **Manage Categories**, **Manage Certificates**, **Manage VPN**, **Manage
-Signatures**, **Manage Account** — plus a standing **Download Key** action. Manage Key is the
-default landing tab after login. Content for Manage Categories, Manage Certificates, and Manage
-Signatures was not inspected this session — the task descriptions below for those are carried
-over from the earlier, unverified pass and should be re-confirmed before treating them as exact.
+Confirmed live (2026-09-02, logged-in session, all six tabs inspected): **Manage Key**
+(default landing tab — key details, instance list, Download Key), **Manage Categories** (Check
+Website Category / Modify Category, single-URL search), **Manage Certificates** (Generate then
+Download an SSL certificate for the key), **Manage VPN** (C-code/activation key against a URL
+field, Set URL), **Manage Signatures** ("Available Signatures for [C-code]", Add New, a
+Keywords/Signature table), **Manage Account** (subscription details, Conserve Subscription). A
+standing **Download Key** action and **Download latest ISO** / **Download latest tarball** links
+(`downloads.safesquid.com/appliance/safesquid.iso` and `.../binary/safesquid_latest.tar.gz`)
+appear on every tab.
 
 ## What the portal is used for
 
@@ -116,24 +119,46 @@ Details panel.
 
 ---
 
-### Support SSL certificate workflows
+### Generate and download your SSL certificate
 
-Use the portal to support certificate workflows required for SSL inspection deployment. Certificate generation, retrieval, or related management must be paired with endpoint trust deployment and SafeSquid-side SSL inspection configuration.
+1. **Log in** to the portal.
+2. **Open the Manage Certificates tab** — shows your C-code and Key Name against a **Generate**
+   action.
+3. Click **Generate**, then **Download** the resulting certificate.
+
+Certificate retrieval here must still be paired with endpoint trust deployment and SafeSquid-side
+SSL inspection configuration — this step alone doesn't complete an HTTPS Inspection rollout.
 
 **Details:** [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)
 
 ---
 
-### Configure custom categories
+### Manage confidential-data signatures
 
 1. **Log in** to the portal.
-2. **Open the Manage Categories tab.**
-3. **Add URLs** to custom categories (e.g., "Internal Tools", "Approved Cloud Apps").
-4. **Save** — changes apply to all SafeSquid instances using your activation key.
+2. **Open the Manage Signatures tab** — shows "Available Signatures for [C-code]" and an **Add
+   New** action, with a Keywords/Signature table (empty until you add one).
+3. **Add New** to define a confidential-data signature by keyword.
 
-{/* NEEDS-SME-REVIEW: the Manage Categories tab exists (confirmed live), but steps 3-4 above were not re-verified against its actual current fields this session — carried over from an earlier, unverified pass. */}
+{/* NEEDS-SME-REVIEW: confirmed live that this tab, its "Add New" action, and the Keywords/Signature table exist and were empty for this account. What fields "Add New" actually asks for, and exactly how these sync to the appliance's DLP module, were not tested. */}
 
-**Use for:** Categorizing internal or organization-specific sites for access policies.
+**Use for:** feeding custom keyword-based signatures into
+[DLP](/admin_guide/real_time_content_security/dlp) scanning on the appliance.
+
+---
+
+### Check or modify a website's category
+
+1. **Log in** to the portal.
+2. **Open the Manage Categories tab** — a **Check Website Category** / **Modify Category**
+   toggle, above a URL field (protocol selector plus a `www.example.com`-style text box) and a
+   **Search** button.
+3. Use **Check Website Category** to look up how a URL is currently categorized, or **Modify
+   Category** to submit a change for it.
+
+{/* NEEDS-SME-REVIEW: confirmed live this is a single-URL check/modify tool, not a bulk named-category editor — the previous "Add URLs to custom categories (e.g. Internal Tools, Approved Cloud Apps)" description didn't match what's on this tab and has been replaced. What "Modify Category" actually submits (a direct change vs. a review request) wasn't tested. If bulk custom-category upload exists, it may be the local console's [Categorize Web-Sites](/admin_guide/custom_settings/categorize_web_sites) feature instead — the portal homepage's marketing copy for "Custom Category Management" describes uploading category lists "from SafeSquid User Interface," which points at the appliance, not this portal tab. */}
+
+**Use for:** correcting or checking the categorization SafeSquid applies to a specific site.
 
 ---
 
@@ -191,5 +216,5 @@ After using the portal, verify all of the following:
 - [Register and get your key](/getting_started/register) to establish the activation path
 - [Activate your license](/getting_started/activate) to bind the deployment to the key
 - [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) for certificate-dependent HTTPS inspection workflows
-- [Threat Intelligence Feeds](/safesquid_swg/application_ecosystem/threat_intelligence_feeds) for cloud-delivered intelligence dependencies
+- [DLP](/admin_guide/real_time_content_security/dlp) for how Manage Signatures' keyword signatures get scanned
 - [Support](/admin_guide/infrastructure_and_access/support) for the on-appliance License Details view and Cloud Restore
