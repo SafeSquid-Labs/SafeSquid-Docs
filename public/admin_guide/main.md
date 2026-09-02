@@ -5,8 +5,13 @@ title: "Admin Guide"
 Every Admin Guide group below mirrors a menu you can actually click in the SafeSquid Configure console — **Application Setup**, **Real Time Content Security**, **Custom Settings**, and **Restriction Policies** match the console's own left-hand navigation, verified against a live instance. **Administration Basics** and **Licensing and Self-Service Portal** cover day-2 operator tasks that sit above any single Configure section.
 
 <Warning>
-  **Administration Basics and Licensing and Self-Service Portal are mid-restructure.** They currently list the closest existing pages, not the final task list — some topics (Save and activate configuration, Reload versus restart, Use the command line, Manage VPN settings, and others) don't have a page here yet. Treat these two groups as a work in progress, not a finished reference.
+  **Administration Basics and Licensing and Self-Service Portal are mid-restructure.** They currently list the closest existing pages, not the final task list — some topics (Save and activate configuration, Reload versus restart, Use the command line, and others) don't have a page here yet. Treat these two groups as a work in progress, not a finished reference.
 </Warning>
+
+"Manage VPN settings" — previously listed here as a missing local topic — turned out not to be a
+local Configure/Support page at all: it's a **Manage VPN** tab on
+[key.safesquid.com](https://key.safesquid.com) itself (confirmed live), tied to roaming-user VPN
+client licensing. See [Self-Service Portal](/safesquid_swg/interface/self_service_portal).
 
 ## Quickstart path
 

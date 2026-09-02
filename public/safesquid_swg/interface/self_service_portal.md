@@ -37,6 +37,15 @@ Use the portal when you need to:
 - Supports repeatable rollout across multiple SafeSquid instances
 - Makes cloud dependency explicit so teams can design around it where needed
 
+## Portal layout
+
+Confirmed live (2026-09-02, logged-in session): six tabs across the top of the portal —
+**Manage Key**, **Manage Categories**, **Manage Certificates**, **Manage VPN**, **Manage
+Signatures**, **Manage Account** — plus a standing **Download Key** action. Manage Key is the
+default landing tab after login. Content for Manage Categories, Manage Certificates, and Manage
+Signatures was not inspected this session — the task descriptions below for those are carried
+over from the earlier, unverified pass and should be re-confirmed before treating them as exact.
+
 ## What the portal is used for
 
 Internal product knowledge confirms the portal is used for:
@@ -92,10 +101,13 @@ Internal product knowledge confirms the portal is used for:
 
 ### Download Activation Key
 
-1. **Log in** to the portal
-2. **Navigate to** Activation Keys
-3. **Click Download Key**
-4. Save the `activation_key` file (do not rename it)
+1. **Log in** to the portal — lands on the **Manage Key** tab by default.
+2. **Click Download Key**.
+3. Save the `activation_key` file (do not rename it).
+
+The Manage Key tab also lists your key's C-Code, current usage counters, Support Validity date,
+and instance details (Service ID, version, last update) — plus **Download latest ISO** and
+**Download latest tarball** links for the install media itself.
 
 **Use this key for:** [License activation](/getting_started/activate) during SafeSquid setup, or
 upload under [Subscription](/admin_guide/infrastructure_and_access/subscription) when renewing —
@@ -114,23 +126,46 @@ Use the portal to support certificate workflows required for SSL inspection depl
 
 ### Configure custom categories
 
-1. **Log in** to the portal
-2. **Navigate to** Custom Web Categorization
-3. **Add URLs** to custom categories (e.g., "Internal Tools", "Approved Cloud Apps")
-4. **Save** — changes apply to all SafeSquid instances using your activation key
+1. **Log in** to the portal.
+2. **Open the Manage Categories tab.**
+3. **Add URLs** to custom categories (e.g., "Internal Tools", "Approved Cloud Apps").
+4. **Save** — changes apply to all SafeSquid instances using your activation key.
+
+{/* NEEDS-SME-REVIEW: the Manage Categories tab exists (confirmed live), but steps 3-4 above were not re-verified against its actual current fields this session — carried over from an earlier, unverified pass. */}
 
 **Use for:** Categorizing internal or organization-specific sites for access policies.
 
 ---
 
-### View subscription status
+### Check subscription status and conserve or renew
 
-1. **Log in** to the portal
-2. **Navigate to** Subscription
-3. **View:**
-   - Product type (Free or Commercial)
-   - Expiry date (if commercial)
-   - Subscription tier and features
+1. **Log in** to the portal.
+2. **Open the Manage Account tab.**
+3. **View:** Active Subscription status, Subscription ID, C-Code, Key Name, Plan (for example
+   Trial or Commercial), Named Users, No of Instances, and Support Validity date.
+4. If you need more time before renewing, use **Conserve Subscription** — see
+   [Handle expiry](/deployment/manage_subscription_state) for what this does and does not buy you.
+
+<Warning>
+A "Renew Subscription" action was not visible on this tab for a Trial-plan account when last
+checked (2026-09-02) — only Conserve Subscription showed. Whether Renew appears for a Commercial
+plan, or lives somewhere else, is unconfirmed.
+</Warning>
+
+---
+
+### Manage VPN client licensing
+
+1. **Log in** to the portal.
+2. **Open the Manage VPN tab.**
+3. The tab lists your C-code and activation key against a **URL** field (unset by default —
+   shows "Not Defined") with a **Set URL** action.
+
+{/* NEEDS-SME-REVIEW: confirmed live that this tab and its C-code/activation-key/URL/Set URL layout exist, but what the URL is used for once set (a roaming-client gateway address, most likely, given faqs.md's existing "Web Security Clients for Roaming users (VPN)" description) was not confirmed by actually setting one. Don't describe the effect of Set URL beyond what's stated here without testing it. */}
+
+**Use for:** licensing SafeSquid's roaming-user VPN web-security clients against this activation
+key. This is also where the "Manage VPN settings" topic once flagged as missing from
+[Admin Guide](/admin_guide/main) actually lives — it isn't a local console feature.
 
 ## Verification and validation
 
