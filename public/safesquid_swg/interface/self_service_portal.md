@@ -138,12 +138,14 @@ SSL inspection configuration — this step alone doesn't complete an HTTPS Inspe
 1. **Log in** to the portal.
 2. **Open the Manage Signatures tab** — shows "Available Signatures for [C-code]" and an **Add
    New** action, with a Keywords/Signature table (empty until you add one).
-3. **Add New** to define a confidential-data signature by keyword.
+3. **Add New** opens an "Editing Signature for [C-code]" form: a **Signature name** field and a
+   **Keywords** field (one keyword per line, with live regex detection — the form flags whether
+   what you typed reads as a regex pattern). **Submit** to save.
 
-{/* NEEDS-SME-REVIEW: confirmed live that this tab, its "Add New" action, and the Keywords/Signature table exist and were empty for this account. What fields "Add New" actually asks for, and exactly how these sync to the appliance's DLP module, were not tested. */}
+{/* NEEDS-SME-REVIEW: the Add New form's two fields (Signature name, Keywords) and its regex-detection behavior are confirmed live. How and when a saved signature here actually syncs to the appliance's DLP OCR keyword scoring (dlp.mdx's "Enabled OCR rows are walked... each keyword regex match adds Weight") was not tested — this page states the two are related, not that sync was observed. */}
 
 **Use for:** feeding custom keyword-based signatures into
-[DLP](/admin_guide/real_time_content_security/dlp) scanning on the appliance.
+[DLP](/admin_guide/real_time_content_security/dlp) OCR scoring on the appliance.
 
 ---
 
