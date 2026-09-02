@@ -465,7 +465,8 @@
           {
             "group": "Licensing and Self-Service Portal",
             "pages": [
-              "admin_guide/infrastructure_and_access/subscription"
+              "admin_guide/infrastructure_and_access/subscription",
+              "admin_guide/infrastructure_and_access/support"
             ]
           },
           {

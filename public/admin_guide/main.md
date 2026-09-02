@@ -30,7 +30,8 @@ Every Admin Guide group below mirrors a menu you can actually click in the SafeS
 
 ## Licensing and Self-Service Portal
 
-- [Subscription](/admin_guide/infrastructure_and_access/subscription)
+- [Subscription](/admin_guide/infrastructure_and_access/subscription) — upload the activation key
+- [Support](/admin_guide/infrastructure_and_access/support) — License Details panel and appliance tools
 
 ## Application Setup
 

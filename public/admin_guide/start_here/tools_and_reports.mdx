@@ -9,15 +9,20 @@ The Web UI includes Reports and Support utilities that are not policy sections. 
 - **Dashboard and Statistics** — traffic overview and module counters (DLP blocks, scan totals, and similar).
 - **Native logs, Detailed logs, Config logs** — see [Logging and troubleshooting](/admin_guide/start_here/logging).
 - **Active Connections, Connection Pool, DNS Cache, Password Cache, SSL Certs/Cache** — live state alongside historical logs.
-- **License/Users Info, Modules Status** — subscription validity and signature/feed load status ([Subscription](/admin_guide/infrastructure_and_access/subscription), [feeds](/admin_guide/start_here/cloud_feeds)).
 - **LDAP Entries** — directory browse after [Integrate LDAP](/admin_guide/application_setup/integrate_ldap) is configured.
 
-## Support utilities
+License and signature/feed status are not under Reports — that's the separate **Support**
+top-nav page, next to Configure. See [Support](/admin_guide/infrastructure_and_access/support)
+for its License Details panel and ten appliance-operation cards (support tarball, config
+backup/restore, upgrade, restart, diagnostics, live chat).
 
-- **Support** — support tarball and license refresh helpers.
+## Other utilities
+
+{/* NEEDS-SME-REVIEW: "password" and "Upload templates" were listed here from the pre-restructure source as Web UI utilities distinct from the Support page's cards. Their exact menu location wasn't re-confirmed against the live console this session — confirm before treating this list as complete. */}
+
 - **password** — encrypt passwords for policy fields (for example HTTPS Inspection cached cert password).
 - **Upload templates** — upload custom block/info templates used by DENY actions.
-- **[Subscription](/admin_guide/infrastructure_and_access/subscription)** — activation key upload and license view.
+- **[Subscription](/admin_guide/infrastructure_and_access/subscription)** — activation key upload and license view (on-appliance side; distinct from the Support page's License Details).
 - **[Categorize Web-Sites](/admin_guide/custom_settings/categorize_web_sites)** — local category overrides (Web UI app, not a policy section list).
 
 ## CLI and files
@@ -32,12 +37,13 @@ The Web UI includes Reports and Support utilities that are not policy sections. 
 ### Confirm signature feeds after renewal
 
 1. Upload activation key under Subscription.
-2. Open Modules Status — application and content signature timestamps should advance after the next UPDATE cycle.
+2. Open Support — the License Details panel's **Last Updated Time** should advance after the next UPDATE cycle.
 3. Reproduce a request; Detailed logs should show `application_signatures` when subscription is valid.
 </Tip>
 
 ## See also
 
+- [Support](/admin_guide/infrastructure_and_access/support)
 - [Logging and troubleshooting](/admin_guide/start_here/logging)
 - [First configuration](/admin_guide/start_here/first_configuration)
 - [Daemon and service](/admin_guide/start_here/daemon)

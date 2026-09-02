@@ -63,14 +63,13 @@ Internal product knowledge confirms the portal is used for:
 
 ## Prerequisites
 
-:::note
-**Before You Start**
+<Note>
+**Before you start**
 
-- SafeSquid account (see [Register and Get Your Key](/Register) if you haven't registered yet)
+- SafeSquid account (see [Register and get your key](/getting_started/register) if you haven't registered yet)
 - Use your business/corporate email for enterprise benefits
 - Have your SafeSquid installation details ready (for license activation)
-
-:::
+</Note>
 
 ---
 
@@ -83,10 +82,9 @@ Internal product knowledge confirms the portal is used for:
 2. Click **Self-Service Portal** in the top menu
 3. Login with your registered email and password
 
-:::tip
-**First-Time Users**
-If you haven't created an account yet, see [Register and Get Your Key](/Register) for registration steps.
-:::
+<Tip>
+**First-time users:** if you haven't created an account yet, see [Register and get your key](/getting_started/register) for registration steps.
+</Tip>
 
 ---
 
@@ -99,7 +97,10 @@ If you haven't created an account yet, see [Register and Get Your Key](/Register
 3. **Click Download Key**
 4. Save the `activation_key` file (do not rename it)
 
-**Use this key for:** [License activation](/Activate) during SafeSquid setup.
+**Use this key for:** [License activation](/getting_started/activate) during SafeSquid setup, or
+upload under [Subscription](/admin_guide/infrastructure_and_access/subscription) when renewing —
+status then shows on the [Support](/admin_guide/infrastructure_and_access/support) page's License
+Details panel.
 
 ---
 
@@ -107,7 +108,7 @@ If you haven't created an account yet, see [Register and Get Your Key](/Register
 
 Use the portal to support certificate workflows required for SSL inspection deployment. Certificate generation, retrieval, or related management must be paired with endpoint trust deployment and SafeSquid-side SSL inspection configuration.
 
-**Details:** [SSL Inspection](/SSL_Inspection)
+**Details:** [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)
 
 ---
 
@@ -152,7 +153,8 @@ After using the portal, verify all of the following:
 
 ## Related controls / next steps
 
-- [Register and Get Your Key](/Register) to establish the activation path
-- [Activate Your License](/Activate) to bind the deployment to the key
-- [SSL Inspection](/SSL_Inspection) for certificate-dependent HTTPS inspection workflows
-- [Threat Intelligence Feeds](/Threat_Intelligence_Feeds) for cloud-delivered intelligence dependencies
+- [Register and get your key](/getting_started/register) to establish the activation path
+- [Activate your license](/getting_started/activate) to bind the deployment to the key
+- [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) for certificate-dependent HTTPS inspection workflows
+- [Threat Intelligence Feeds](/safesquid_swg/application_ecosystem/threat_intelligence_feeds) for cloud-delivered intelligence dependencies
+- [Support](/admin_guide/infrastructure_and_access/support) for the on-appliance License Details view and Cloud Restore

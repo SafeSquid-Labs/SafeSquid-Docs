@@ -40,13 +40,14 @@ Free licences do not expire, so this applies only to commercial subscriptions.
 
 ## Choose the recovery option
 
-{/* NEEDS-SME-REVIEW: "Manage Account" is not present in the local safesquid.cfg admin interface as of 2026-08-27. Confirm whether this workflow now lives on the external Self-Service Portal (key.safesquid.com) or was renamed/removed, and update this page's navigation path accordingly. The "each extension adds three days" figure below is also unverified. */}
+{/* NEEDS-SME-REVIEW: "Manage Account" confirmed still absent from the local safesquid.cfg admin interface as of 2026-09-02 — it is not the local Support page (verified live this session: License Details panel plus Support Tarball, Download/Upload Config, Upgradation, Performance Plot, URL Commands, Restart SafeSquid, Cloud Restore, Startup params, Live Support — no "Manage Account" among them, see admin_guide/infrastructure_and_access/support.mdx). So this workflow is external-portal-only, narrowing but not yet closing the original question — still need a logged-in screenshot of key.safesquid.com to confirm "Manage Account" / "Renew Subscription" / "Extend Conservation Period" are still the current labels there. The "each extension adds three days" figure is also still unverified. */}
 
-**Option 1 — renew.** Sign in to [key.safesquid.com](https://key.safesquid.com), go to **Manage Account** and then **Renew Subscription**. After payment, download the updated activation key and upload it using the same steps as the initial activation.
+**Option 1 — renew.** Sign in to [key.safesquid.com](https://key.safesquid.com), go to **Manage Account** and then **Renew Subscription**. After payment, download the updated activation key and upload it under [Subscription](/admin_guide/infrastructure_and_access/subscription) using the same steps as the initial activation.
 
 **Option 2 — extend the conservation period.** From **Manage Account**, select **Extend Conservation Period**. Each extension adds three days and clears the expiry banner for that window. It can be applied more than once, but it is a bridge to renewal, not a substitute for it — treat repeated extensions as a signal that subscription ownership needs attention.
 
-Restart SafeSquid from the interface after either action so the new state takes effect.
+Restart SafeSquid from the interface after either action — see
+[Support](/admin_guide/infrastructure_and_access/support) — so the new state takes effect.
 
 <Steps>
   <Step title="Confirm subscription ownership">
