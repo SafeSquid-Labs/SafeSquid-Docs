@@ -64,6 +64,7 @@ Confirm:
 
     If drift remains, rerun the job and inspect local configuration precedence.
   </Step>
+  {/* NEEDS-SME-REVIEW: this Step and Card describe a "browser policy" rollout path, but no "Deploy with browser policy" section exists on this page — unlike the GPO/MDM/configuration-management options above, all of which resolve to a real section. Confirm whether browser-only PAC/proxy-policy deployment belongs on this page as its own section, on a different page (see explicit_proxy.md, pac_file.md), or should be removed as a rollout option here. */}
   <Step title="Choose browser policy">
     <Card title="Browser Policy">
       Use when only managed browsers need PAC or proxy enforcement. Evidence is policy result pages and controlled tests.

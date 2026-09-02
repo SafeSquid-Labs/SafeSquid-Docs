@@ -41,8 +41,8 @@ DNS tunneling bypasses HTTP-only proxies entirely — the covert channel never t
 
 The SWG enforces DNS inspection at the query payload level — evaluating query string length, subdomain label count, character entropy, and per-domain request frequency against established baselines. Queries that match tunnel signatures are blocked and logged with the full query string, resolving identity, and timestamp, producing an audit record aligned with NIST SP 800-53r5 SI-4 (System Monitoring) and SC-20 (Secure Name/Address Resolution Service), and ISO 27001:2022 A.8.16 (Monitoring Activities).
 
-## Related topics
+## Related posts
 
-- [Execution threats](/blog/2026-05-23-Execution-Threats) — last-mile malware reassembly and XSS/CSRF
-- [Exfiltration threats](/blog/2026-05-23-Exfiltration-Threats) — insider theft, shadow AI, cyberslacking
-- [Trust algorithm](/blog/2026-05-23-Trust-Algorithm) — behavioural correlation and shared inspection context
+- [Execution hides inside encrypted sessions](/blog/2026-05-23-Execution-Threats) - last-mile malware reassembly and XSS/CSRF.
+- [Exfiltration uses trusted HTTPS sessions](/blog/2026-05-23-Exfiltration-Threats) - insider theft, shadow AI, cyberslacking.
+- [Trust is assessed dynamically](/blog/2026-05-23-Trust-Algorithm) - behavioural correlation and shared inspection context.

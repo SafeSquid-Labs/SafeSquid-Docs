@@ -25,8 +25,8 @@ Five Zero-Trust principles define what Zero-Trust looks like at the web perimete
 
 **Assume Breach** — the architecture assumes that the perimeter has already been compromised. Controls are designed to detect and contain, not just to prevent. Every access is logged, anomalies are surfaced, and the system maintains a complete audit trail that enables forensic investigation after a breach is discovered.
 
-## Related topics
+## Related posts
 
-- [Exfiltration threats](/blog/2026-05-23-Exfiltration-Threats) — insider theft, shadow AI, cyberslacking
-- [Trust algorithm](/blog/2026-05-23-Trust-Algorithm) — dynamic trust scoring and shared inspection context
-- [Adoption criteria](/blog/2026-05-23-Adoption-Criteria) — when to apply Zero-Trust web security
+- [Exfiltration uses trusted HTTPS sessions](/blog/2026-05-23-Exfiltration-Threats) - insider theft, shadow AI, cyberslacking.
+- [Trust is assessed dynamically](/blog/2026-05-23-Trust-Algorithm) - dynamic trust scoring and shared inspection context.
+- [When Zero-Trust web security applies](/blog/2026-05-23-Adoption-Criteria) - when to apply Zero-Trust web security.

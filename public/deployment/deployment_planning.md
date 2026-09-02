@@ -15,6 +15,18 @@ SafeSquid becomes a production control only when the proxy is sized, reachable, 
 
 This page is the map. Each stage links to the page that carries the detail.
 
+The seven stages run in sequence — each depends on the decision made in the one before it.
+
+```mermaid
+flowchart TB
+    Architecture[1 - Architecture] --> Scope[2 - Scope]
+    Scope --> Capacity[3 - Capacity]
+    Capacity --> Network[4 - Network]
+    Network --> Evidence[5 - Evidence]
+    Evidence --> Licence[6 - Licence]
+    Licence --> Readiness[7 - Readiness]
+```
+
 ## Work the stages in order
 
 | Stage | Decide | Detail |

@@ -75,11 +75,16 @@ After restore completes, SafeSquid restarts automatically. Wait 1-2 minutes for 
 
 ## Verify restoration
 
-1. Open Configuration Portal: `http://<proxy-ip>:8888`
-2. Navigate to Configure → Access Restriction (or any configured section)
-3. Confirm policies match the state from your original appliance
-4. Check SSL certificate: Configuration Portal → SSL Inspection → View certificate details
-5. Test client connection to verify proxy functionality
+{/* NEEDS-SME-REVIEW: this page's ":8888" Configuration Portal address does not match the access model used everywhere else in the docs (http://safesquid.cfg/, reached through the proxy, deliberately not DNS-resolved). A proxy-intercepted request to safesquid.cfg:8888 does return the same portal, but that's consistent with the proxy's hostname-interception behavior at any port over plain HTTP — it doesn't confirm 8888 is a distinct, real listener. Confirm whether :8888 is a genuine separate port (e.g. for clustering) or a stale carryover, and correct this step accordingly. */}
+
+1. Open the Configuration Portal.
+2. Navigate to **Configure → Application Setup → Access restrictions** (or any configured section).
+3. Confirm policies match the state from your original appliance.
+4. Check the SSL certificate, and confirm the certificate details match the original CA.
+
+{/* NEEDS-SME-REVIEW: no "SSL Inspection" section exists in the live admin UI as of 2026-08-28 — SSL/HTTPS-inspection-related policy exists only as individual rule entries inside Access Profiles (Configure → Restriction Policies → Access Profiles), not as a distinct navigable section. Step 4 above was left generic rather than guessing a replacement path; see the same flag on restore_configuration_and_certificates.md for the paired finding. */}
+
+5. Test client connection to verify proxy functionality.
 
 **Expected result**: All policies, user groups, and SSL certificates should match the backed-up configuration.
 

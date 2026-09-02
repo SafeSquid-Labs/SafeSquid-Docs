@@ -46,8 +46,10 @@ flowchart TB
 
 - SafeSquid installed on all nodes (master and slaves)
 - Same activation key on all nodes
-- Network access from slaves to master Configuration Portal (port 8888 by default)
-- If authentication is enabled on master, slaves must be allowed in Access Restriction → Allow list
+{/* source: live UI verification, Support → Startup params, and this page's own screenshot evidence (image3, image5-8, image15) */}
+{/* NEEDS-SME-REVIEW: this page previously stated the master Configuration Portal listens on "port 8888 by default". No UI section or product log on the verified live instance names 8888. The MASTER_PORT field entered in this page's own screenshots (image3, image5, image6) is 8080, matching the master's configured LISTEN_PORT, and image15's raw sync log records the actual sync connection as `192.168.221.222:8080`. Confirm whether 8888 is ever used (e.g. a distinct clustering listener on some builds) — this is the same open question flagged on use_cases/customisation/configure_cloud_restore.md's ":8888" claim and use_cases/scaling_and_high_availability/proxy_clustering.md. */}
+- Network access from slaves to master's configured proxy port (the same LISTEN_PORT the master serves its Configuration Portal on — 8080 in this page's own screenshots; verify the actual port on your master under Support → Startup params before connecting a slave)
+- If authentication is enabled on master, slaves must be allowed in Access restrictions → Allow list
 
 
 
@@ -87,9 +89,9 @@ Follow these steps to connect a slave instance to a master. Perform slave config
 
 If your master requires authentication, add the slave IP to the Allow list so the slave can access the Configuration Portal and sync policies.
 
-### Go to Access Restriction under Application Setup
+### Go to Access restrictions under Application Setup
 
-![Going to Access Restriction under Application Setup](/images/How_To/Master_Slave_configuration/image9.webp)
+![Going to Access restrictions under Application Setup](/images/How_To/Master_Slave_configuration/image9.webp)
 
 
 
@@ -121,7 +123,7 @@ On the master, open [Reporting Service](/Reporting_Service) and confirm logs fro
 ## Verification checklist
 
 - [ ] Slave Configuration Portal → Support → Startup params shows correct master IP and port
-- [ ] Master Configuration Portal → Access Restriction → Allow list includes slave IP (if authentication enabled)
+- [ ] Master Configuration Portal → Access restrictions → Allow list includes slave IP (if authentication enabled)
 - [ ] Test policy change on master propagates to slave within 5 minutes
 - [ ] Slave traffic appears in master Reporting Service
 - [ ] Slave logs show successful sync events (check `/var/log/safesquid/extended.log`)
@@ -129,9 +131,9 @@ On the master, open [Reporting Service](/Reporting_Service) and confirm logs fro
 ## Troubleshooting
 
 **Slave not syncing policies:**
-- Verify network connectivity from slave to master port 8888: `telnet <master-ip> 8888`
-- Check master firewall allows incoming connections on port 8888
-- If authentication enabled, verify slave IP in master Access Restriction → Allow list
+- Verify network connectivity from slave to the master's configured LISTEN_PORT (8080 in this page's verified screenshots; confirm the actual value on the master under Support → Startup params): `telnet <master-ip> <master-port>`
+- Check master firewall allows incoming connections on that port
+- If authentication enabled, verify slave IP in master Access restrictions → Allow list
 - Check slave logs: `tail -f /var/log/safesquid/extended.log` (look for sync errors)
 
 **Slave traffic not appearing in master reports:**

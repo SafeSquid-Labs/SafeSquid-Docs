@@ -10,7 +10,7 @@
   "logo": {
     "light": "/images/logos/safesquid/safesquid-mark-blue.png",
     "dark": "/images/safesquidWhite.png",
-    "href": "https://www.safesquid.com/#home"
+    "href": "/getting_started/welcome"
   },
   "favicon": "/images/favicon.ico",
   "banner": {
@@ -29,8 +29,9 @@
         "href": "https://help.safesquid.com/portal/en/community/safesquid-labs"
       },
       {
-        "type": "github",
-        "href": "https://github.com/SafeSquid-Labs/SafeSquid-Docs"
+        "icon": { "name": "github", "style": "brands" },
+        "href": "https://github.com/SafeSquid-Labs",
+        "label": ""
       }
     ],
     "primary": {
@@ -42,7 +43,7 @@
   "footer": {
     "socials": {
       "website": "https://www.safesquid.com/",
-      "github": "https://github.com/SafeSquid-GitHub",
+      "github": "https://github.com/SafeSquid-Labs",
       "x": "https://x.com/safesquid",
       "linkedin": "https://in.linkedin.com/company/safesquid",
       "youtube": "https://www.youtube.com/@securewebgateway"
@@ -80,11 +81,11 @@
     },
     "tabs": [
       {
-        "tab": "Overview",
+        "tab": "Get Started",
         "icon": "compass",
         "groups": [
           {
-            "group": "Getting Started",
+            "group": "Overview",
             "pages": [
               "getting_started/welcome",
               "getting_started/quickstart"

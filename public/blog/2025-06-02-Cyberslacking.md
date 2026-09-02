@@ -64,3 +64,10 @@ Employees see the web they need; managers reclaim hours previously lost to infin
 ## Conclusion
 
 Innovation thrives when knowledge is a click away—but only if the click points to purpose. SafeSquid’s feature‑aware controls let organisations harness Web 2.0 without letting it harness their people.
+
+
+## Related posts
+
+- [Exfiltration uses trusted HTTPS sessions](/blog/2026-05-23-Exfiltration-Threats) - cyberslacking as one of three exfiltration-adjacent risk patterns.
+- [DNS Tunnelling: The Insider's Invisible Exit Route](/blog/2025-06-02-DNS-Tunneling) - another insider-driven, policy-evading traffic pattern.
+- [Zero-Trust Web Security](/blog/2026-05-23-Zero-Trust-Web-Security) - why Layer-7 visibility, not blanket blocking, is the fix.

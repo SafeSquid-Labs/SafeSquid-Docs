@@ -72,3 +72,9 @@ Legitimate resolution—Microsoft updates, CDN sharding, SaaS APIs—flows unint
 ## Conclusion
 
 DNS was designed for trust and speed, not secrecy checks. Insiders weaponise that trust to siphon data under the radar. By enforcing category controls and payload‑aware analytics, SafeSquid turns the DNS highway into a monitored gate—stopping tunnels without breaking the Internet.
+
+## Related posts
+
+- [Command and control blends into HTTPS](/blog/2026-05-23-Command-and-Control-Threats) - DNS tunnelling as a C2 and exfiltration channel.
+- [Exfiltration uses trusted HTTPS sessions](/blog/2026-05-23-Exfiltration-Threats) - the broader insider data-theft pattern DNS tunnelling belongs to.
+- [Cyberslacking Deterrence: Maximising Productivity Without Killing Innovation](/blog/2025-06-02-Cyberslacking) - another insider-behaviour control challenge.

@@ -48,8 +48,6 @@ Forwarding does not remove the need for local retention. Keep enough local histo
 
 Monitor `/var/log/safesquid` usage on a schedule and alert before the volume fills. Storage media choice matters here too — see the NVMe write paths in [Sizing](/deployment/sizing).
 
-**Missing:** daily log-volume estimates per deployment scale are not stated here. They exist in the legacy source but are undated and unverified against the current build, so the retention target cannot be converted into a disk figure from this documentation alone. Measure during the pilot, or escalate to the CTO before sizing storage from a number.
-
 ## Assign the ownership
 
 Retention fails on ownership more often than on capacity. Record:

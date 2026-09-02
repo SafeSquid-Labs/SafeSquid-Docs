@@ -12,7 +12,7 @@ keywords:
 
 # Control download speed and size per user with Limits
 
-Use SafeSquid Limits to set download speed and maximum download or upload size per user. Configure limits in the Limits (or speed limits) section and attach to profiles.
+Use SafeSquid Limits to set download speed and maximum download or upload size per user. Configure limits in **Configure → Restriction Policies → Speed Limits** and attach to profiles.
 
 ### Prerequisites
 When downloading files from HTTPS websites, ensure that [HTTPS Inspection](/SSL_Inspection) in SafeSquid is enabled

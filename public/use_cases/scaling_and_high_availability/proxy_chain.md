@@ -86,37 +86,37 @@ Access the [SafeSquid Configuration Portal](/Configuration_Portal).
 ### Open Forwarding proxies and add an entry
 
 ![Forwarding proxies section](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image8.webp)
-![Add new forwarding proxy entry](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image9.webp)
+![Edit the default forwarding proxy entry](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image9.webp)
 
-![Forwarding proxy form with comment field](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image10.webp)
+![Enable the forwarding proxy entry](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image10.webp)
 
-![Entering parent proxy host or IP](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image11.webp)
+![Add a reference comment for the forwarding proxy entry](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image11.webp)
 
-![Forwarding proxy entry with IP 192.168.27.100](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image12.webp)
+![Entering parent proxy host or IP (192.168.27.100)](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image12.webp)
 
 In the example: my upstream proxy ip: 192.168.27.100
 
-![Entering parent proxy port](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image13.webp)
+![If the upstream proxy requires authentication, enter user name, password, and domain](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image13.webp)
 
-![Forwarding proxy port 8080 configured](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image14.webp)
+![Entering parent proxy port](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image14.webp)
 
 In example: my upstream proxy listening on port 8080
 
-![Submit forwarding proxy entry](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image15.webp)
+![Leave ICP peer type and ICP port at their defaults](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image15.webp)
 
-![Forwarding proxy list with new entry](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image16.webp)
+![Selecting CONNECT as the forwarding proxy Type](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image16.webp)
 
-![Save configuration button](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image17.webp)
+![Selecting CONNECT and HTTP requests under Applies to](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image17.webp)
 
-![Save conf confirmation](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image18.webp)
+![Click Save Policy to save the forwarding proxy entry](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image18.webp)
 
-![Configuration saved successfully](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image19.webp)
+![Forwarding proxy entry after saving](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image19.webp)
 
 ### Test proxy chain connectivity
 
-![Testing proxy chain connectivity](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image20.webp)
+![Open Reports to verify proxy chain connectivity](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image20.webp)
 
-![Proxy chain test result or log](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image21.webp)
+![Open Native logs under Reports](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image21.webp)
 
 ![Verifying traffic through parent proxy](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image22.webp)
 
@@ -124,7 +124,7 @@ In example: my upstream proxy listening on port 8080
 
 ![Save configuration to apply proxy chain settings](/images/How_To/Deploy_SafeSquid_Behind_Corporate_Proxy/image23.webp)
 
-When the administrator clicks Save config, a prompt asks for confirmation to store the configuration in the cloud.
+When the administrator clicks Save Config, a prompt asks for confirmation to store the configuration in the cloud.
 
 Select Yes only in below cases:
 
@@ -133,6 +133,8 @@ to reuse this configuration in other SafeSquid instances.
 if the total configuration in all sections is completed and validated.
 
 Otherwise select No and click on submit.
+
+{/* NEEDS-SME-REVIEW: this Yes/No cloud-storage confirmation prompt and its "submit" control could not be verified live — clicking Save Config is out of scope for read-only UI verification (it commits configuration). None of this page's 23 screenshots actually shows this dialog either (image18/19 show the per-entry "Save Policy" button and the saved entry view, not a Save Config confirmation prompt). Confirm the prompt's exact wording and button labels ("Yes"/"No"/"Submit" vs. something else) against a live Save Config click before relying on this section. */}
 
 
 

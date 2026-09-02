@@ -17,7 +17,7 @@ Without configuration synchronization, each proxy node must be updated manually.
 ## What gets synced
 
 **Synchronized from master to slaves:**
-- Access policies (Access Restriction, Content Security, etc.)
+- Access policies (Access restrictions, Content Security, etc.)
 - User groups and identity rules
 - SSL Inspection settings
 - Application signatures and web categories
@@ -41,7 +41,7 @@ Without configuration synchronization, each proxy node must be updated manually.
 ## Prerequisites
 
 - Master and slave instances already connected (see [Master-Slave setup](/Master_Slave))
-- If authentication is enabled on master, slave IP must be in Access Restriction → Allow list
+- If authentication is enabled on master, slave IP must be in Access restrictions → Allow list
 
 **Important**: If proxy authentication is required for all network traffic, create an allow-list policy on the master for the slave proxy IP. Otherwise the slave cannot reach the master Configuration Portal to sync policies.
 
@@ -60,8 +60,8 @@ Perform these steps on each slave server to enable configuration sync from the m
 
 
 
-## Select Startup Params
-![selecting setup params option](/images/How_to_Setup_Configuration_Sync_in_a_SafeSquid_Proxy_Cluster/image3.webp)
+## Select Startup params
+![selecting startup params option](/images/How_to_Setup_Configuration_Sync_in_a_SafeSquid_Proxy_Cluster/image3.webp)
 
 
 
@@ -109,9 +109,11 @@ After restart, the slave begins syncing configuration from the master. Policy ch
 ## Troubleshooting
 
 **Policies not syncing to slave:**
-- Verify slave Startup params show correct master IP and port: Configuration Portal → Support → Startup Params
-- Check network connectivity from slave to master: `telnet <master-ip> 8888`
-- If authentication enabled, verify slave IP in master Access Restriction → Allow list
+{/* source: live UI verification, Support → Startup params, and use_cases/scaling_and_high_availability/master_slave.md's own screenshot evidence (image3, image5, image6, image15) */}
+{/* NEEDS-SME-REVIEW: this section previously named port 8888 for the telnet check. No UI section or product log on the verified live instance names 8888; the MASTER_PORT field in the linked page's own screenshots is 8080, matching the master's configured LISTEN_PORT, and its raw sync log records the actual sync connection as `192.168.221.222:8080`. Confirm whether 8888 is ever used on some builds — this is the same open question flagged on use_cases/customisation/configure_cloud_restore.md's ":8888" claim and use_cases/scaling_and_high_availability/proxy_clustering.md. */}
+- Verify slave Startup params show correct master IP and port: Configuration Portal → Support → Startup params
+- Check network connectivity from slave to master's configured LISTEN_PORT (8080 in verified screenshots; confirm the actual value on the master): `telnet <master-ip> <master-port>`
+- If authentication enabled, verify slave IP in master Access restrictions → Allow list
 - Restart slave: Configuration Portal → Support → Restart SafeSquid
 
 **Sync is slow (>10 minutes):**

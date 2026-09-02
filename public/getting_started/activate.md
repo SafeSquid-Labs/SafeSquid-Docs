@@ -162,11 +162,11 @@ Run these checks immediately after activation.
     If no listener appears, verify service state, startup logs, and the configured proxy port.
   </Step>
   <Step title="Confirm interface license details">
-    Open **Support** and inspect **Activation Details** for product and subscription state.
+    Open **Support** and inspect **License Details** for product and subscription state.
 
     ![Open the Support menu to view activation status](/images/getting_started/activate_04_support_menu.webp)
 
-    ![Activation Details showing product and subscription state](/images/getting_started/activate_05_activation_details.webp)
+    ![License Details showing product and subscription state](/images/getting_started/activate_05_activation_details.webp)
 
     Confirm product type, subscription state, or activation details are populated.
 
@@ -212,7 +212,7 @@ Store these artifacts with the deployment record:
 | HTTP request succeeds but no log appears | Client bypasses SafeSquid or wrong log path checked | Confirm proxy path and inspect `/var/log/safesquid/access/extended.log` |
 | HTTPS warning appears | Root CA is not trusted or SSL inspection is incomplete | Deploy the Root CA through the approved trust path before retesting HTTPS |
 | Commercial subscription is expiring | Renewal or conservation period was not planned | Confirm renewal status in the Self-Service Portal and record any approved conservation-period action |
-| Commercial features are inert after a successful activation | A free-tier key was uploaded, or the key has expired | Open **Support** and check **Activation Details**: Product Type should read Commercial and Expiry should be in the future. If not, download the correct key from the Self-Service Portal and re-upload it |
+| Commercial features are inert after a successful activation | A free-tier key was uploaded, or the key has expired | Open **Support** and check **License Details**: Product Type should read Commercial and Expiry should be in the future. If not, download the correct key from the Self-Service Portal and re-upload it |
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/04-Activate.md §Troubleshooting case4 License Expired */}
 

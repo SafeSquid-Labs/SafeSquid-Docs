@@ -28,8 +28,6 @@ Symptom-first guides shorten mean time to resolution. Each document lists diagno
 
 **Confirmed:** Troubleshooting guides map to major SafeSquid subsystems documented in [Getting Started](/Getting_Started), [SSL Inspection](/SSL_Inspection), [Authentication](/Authentication), [DNS Security](/DNS_Security), and [Access Restriction](/Access_Restriction).
 
-**Missing:** Browser-specific and OS-specific behavior matrices are not yet documented as a complete compatibility reference. Current coverage is symptom-based; add version-scoped follow-up docs as new client-specific failures are confirmed.
-
 ## Call to action
 
 Match the failure symptom to a section below, open the linked guide, execute diagnostics in order, and record log excerpts before escalating to support.

@@ -33,7 +33,9 @@ Single-node deployments create both scale risk and availability risk. Clustering
 
 - Same SafeSquid version on all nodes
 - Same activation key on master and slaves
-- Network connectivity: slaves can reach master Configuration Portal (port 8888 by default)
+{/* source: live UI verification, Support → Startup params, and use_cases/scaling_and_high_availability/master_slave.md's own screenshot evidence (image3, image5, image6, image15) */}
+{/* NEEDS-SME-REVIEW: this line previously stated the master Configuration Portal listens on "port 8888 by default". No UI section or product log on the verified live instance names 8888. The MASTER_PORT field entered in master_slave.md's own screenshots is 8080, matching the master's configured LISTEN_PORT, and that page's image15 shows a raw sync log recording the actual sync connection as `192.168.221.222:8080` — evidence against 8888 specifically for the master-slave sync channel. This does not resolve the separate ":8888" address question flagged on use_cases/customisation/configure_cloud_restore.md (external Configuration Portal access URL) — confirm whether that is a distinct, genuine listener before reconciling the two pages. */}
+- Network connectivity: slaves can reach the master's configured proxy port (the same LISTEN_PORT the master serves its Configuration Portal on — 8080 in verified evidence; confirm the actual value on your master under Support → Startup params)
 - Load balancer configured to distribute traffic to slave nodes (not to master)
 - Time synchronization (NTP) across all nodes
 - A reporting plan so evidence from all active nodes remains visible

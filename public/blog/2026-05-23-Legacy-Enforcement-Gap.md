@@ -17,8 +17,8 @@ Three structural gaps explain why legacy solutions fail at the web perimeter.
 
 None of these controls is worthless. Each control addresses part of the threat landscape. The problem is treating any single control as sufficient for web security. Zero-Trust Web Security requires inspection at the layer where the threats live.
 
-## Related topics
+## Related posts
 
-- [Zero-Trust Web Security](/blog/2026-05-23-Zero-Trust-Web-Security) — hub and reading path
-- [Initial access threats](/blog/2026-05-23-Initial-Access-Threats) — zero-hour phishing and malvertising
-- [Zero-Trust principles](/blog/2026-05-23-Zero-Trust-Principles) — architectural requirements for Layer-7 enforcement
+- [Zero-Trust Web Security](/blog/2026-05-23-Zero-Trust-Web-Security) - hub and reading path.
+- [Initial access exploits Layer 7](/blog/2026-05-23-Initial-Access-Threats) - zero-hour phishing and malvertising.
+- [Zero-Trust requires Layer-7 inspection](/blog/2026-05-23-Zero-Trust-Principles) - architectural requirements for Layer-7 enforcement.

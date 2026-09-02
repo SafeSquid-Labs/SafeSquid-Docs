@@ -19,6 +19,7 @@ This repo contains CISO-grade, enterprise documentation for SafeSquid SWG. Agent
 - Create and edit blog posts in the `public/blog/` folder
 - Research and write technically precise content
 - Update existing documentation files; add diagrams, screenshots, and log evidence
+- Use the `graphify-out/` directory as a temporary scratchpad for drafting and multi-agent handoffs before committing final files to `public/`.
 
 ❌ **DO NOT:**
 - Build or modify Mintlify hosting bindings outside this repository without an explicit ticket

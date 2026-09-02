@@ -78,3 +78,9 @@ Users continue to interact with comments, previews, and rich content, but unauth
 ## Conclusion
 
 Feature velocity needn’t equal vulnerability velocity. By intercepting unauthorised cross‑site requests and hardening session boundaries, SafeSquid buys development teams time to fix the root XSS while keeping customer accounts safe.
+
+## Related posts
+
+- [Execution hides inside encrypted sessions](/blog/2026-05-23-Execution-Threats) - how XSS/CSRF injection fits the Layer-7 execution phase.
+- [Zero-Hour Phishing: Beyond URL filters](/blog/2025-05-17-Zero-Hour-Phishing-Beyond-URL-filters) - the initial-access stage that often precedes CSRF abuse.
+- [Last Mile Reassembly of Drive-By Malware](/blog/2025-06-02-Last-Mile-Reassembly-of-Drive‑By-Malware) - another response-injection delivery technique.

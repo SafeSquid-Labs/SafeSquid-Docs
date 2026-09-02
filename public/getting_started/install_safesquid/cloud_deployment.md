@@ -142,7 +142,9 @@ Before routing clients, enforce:
 
 **Encryption at rest.** Enable volume encryption — EBS encryption, Azure Disk Encryption, or GCP persistent-disk encryption. SafeSquid volumes hold access logs that identify users and destinations, so treat them as sensitive data at rest, not as operational scratch.
 
-**Transport for management.** Require TLS 1.2 or higher on the management interface, configured through the SafeSquid SSL settings.
+**Transport for management.** Require TLS 1.2 or higher on the management interface.
+
+{/* NEEDS-SME-REVIEW: no menu section named "SSL settings" (or similar) exists in the live safesquid.cfg admin UI as of 2026-08-28 — SSL/TLS-related controls only appear as individual Access Profile rule entries (e.g. "BYPASS SSL INSPECTION", "ALLOW SELF SIGNED SSL CERTIFICATE"), not as a distinct management-interface TLS-version setting. Confirm whether minimum TLS version for the management interface is actually admin-UI-configurable, or is a server/OS-level setting outside this page's scope, and update this claim accordingly. */}
 
 **Logging.** Forward SafeSquid logs to the platform's logging service — CloudWatch, Azure Monitor, or Cloud Logging — and enable VPC or VNet flow logs for network-level visibility. Alert on proxy downtime and on sustained connection-drop rates.
 
@@ -159,7 +161,6 @@ Before routing clients, enforce:
 
   Per-platform options are the Network or Application Load Balancer on AWS, Azure Load Balancer or Application Gateway, and the TCP/UDP load balancer on GCP.
 
-  **Missing:** instance-type recommendations by connection count, and auto-scaling thresholds, are not stated here. The legacy source gives both, but the instance generations are undated and may be superseded. Size from your own measured load and confirm current SKUs with the provider.
 </Accordion>
 
 <Accordion title="Configuration sync expectations">

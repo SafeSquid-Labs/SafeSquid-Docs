@@ -27,8 +27,8 @@ Polyglot files — files simultaneously valid as two binary formats, such as a J
 
 The SWG control point is HTTP response inspection before the payload reaches the browser. Content Disarm and Reconstruct (CDR) strips active content from delivered files — removing JavaScript embedded in image containers, macro-enabled objects in documents, and injected script elements from HTML responses — before delivery to the requesting endpoint. NIST SP 800-53r5 SC-18 (Mobile Code) requires policy enforcement on mobile code downloaded from external sources. ISO 27001:2022 A.8.23 (Web Filtering — new in the 2022 revision) explicitly mandates protection against malicious web content delivered through browsing. PCI-DSS v4.0 Requirement 6.4.3 (payment page script integrity, mandatory from March 2025) targets injected third-party scripts specifically — a direct match for the malvertising delivery pattern.
 
-## Related topics
+## Related posts
 
-- [Legacy enforcement gap](/blog/2026-05-23-Legacy-Enforcement-Gap) — why envelope-only controls fail
-- [Execution threats](/blog/2026-05-23-Execution-Threats) — last-mile malware reassembly and XSS/CSRF
-- [Zero-Trust Web Security](/blog/2026-05-23-Zero-Trust-Web-Security) — hub and reading path
+- [Legacy controls leave a structural enforcement gap](/blog/2026-05-23-Legacy-Enforcement-Gap) - why envelope-only controls fail.
+- [Execution hides inside encrypted sessions](/blog/2026-05-23-Execution-Threats) - last-mile malware reassembly and XSS/CSRF.
+- [Zero-Trust Web Security](/blog/2026-05-23-Zero-Trust-Web-Security) - hub and reading path.

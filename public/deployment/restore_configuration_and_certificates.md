@@ -13,7 +13,19 @@ keywords:
 
 Cloud Restore brings back policy and SSL material bound to the activation key. It does not bring back the host — networking, OS configuration, and integration secrets stay missing, and a restore declared complete before those are checked leaves a proxy that looks configured and cannot pass traffic.
 
-Restore in two halves: what the backup covers, then what it does not.
+Restore in two halves: what the backup covers, then what it does not. The two halves split like this:
+
+```mermaid
+flowchart TB
+    Restore[Cloud Restore recovers] --> Policy[config.xml - all policies and settings]
+    Restore --> Cert[ROOT X509 certificate]
+    Restore --> Key[ROOT private key]
+    Rebuild[You rebuild manually] --> Net[Interface IP hostname and routing]
+    Rebuild --> DNSNTP[DNS and NTP configuration]
+    Rebuild --> Secrets[Directory integration and connector secrets]
+    Rebuild --> OS[OS configuration and hardening]
+    Rebuild --> Fwd[Log forwarding destinations and credentials]
+```
 
 ## Validate prerequisites
 
@@ -35,7 +47,7 @@ Confirm:
     If activation fails, resolve it before attempting restore — the restore prompt only appears for an activated instance.
   </Step>
   <Step title="Trigger Cloud Restore">
-    Select **Cloud Restore** in the Configuration Portal.
+    Select **Cloud Restore** under **Support** in the Configuration Portal.
 
     Confirm the restore prompt appears. It is shown only when SafeSquid finds a cloud backup matching the activation key.
 
@@ -63,9 +75,13 @@ Restoring the original Root CA is what keeps already-deployed client trust valid
 ## Verify what was restored
 
 1. Open the Configuration Portal.
-2. Navigate to **Configure → Access Restriction**, or any configured section.
+2. Navigate to **Configure → Application Setup → Access restrictions**, or any configured section.
+
 3. Confirm policies match the state from the original appliance.
-4. Check the SSL certificate under **SSL Inspection**, and confirm the certificate details match the original CA.
+4. Check the SSL certificate, and confirm the certificate details match the original CA.
+
+{/* NEEDS-SME-REVIEW: no "SSL Inspection" section exists in the live admin UI as of 2026-08-27/28 — SSL/HTTPS-inspection-related policy exists only as individual rule entries inside Access Profiles (Configure → Restriction Policies → Access Profiles), e.g. "BYPASS SSL INSPECTION" as an Added Profile value, not as a distinct navigable section. Step 4 above was left as a generic instruction rather than guessing a specific replacement path, since the right verification method (Access Profile inspection vs. direct browser certificate inspection) is a product decision, not just a label fix. Confirm and update. */}
+
 5. Test a client connection through the rebuilt appliance.
 
 Expected result: policies, user groups, and SSL certificates match the backed-up configuration, and a pilot client's request appears in the access log.

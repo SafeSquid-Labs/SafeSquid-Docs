@@ -31,8 +31,8 @@ A policy that must fire when "the authenticated user is a contractor AND the con
 
 Shared-context inspection — where authentication, URL categorisation, content inspection, and UBA evaluation operate against a common request context — is the architectural requirement for granular Zero-Trust enforcement.
 
-## Related topics
+## Related posts
 
-- [Zero-Trust principles](/blog/2026-05-23-Zero-Trust-Principles) — five principles for the web perimeter
-- [Command and control threats](/blog/2026-05-23-Command-and-Control-Threats) — behavioural correlation for APT detection
-- [What is SafeSquid SWG](/safesquid_swg/what_is_safesquid_swg) — product implementation of the inspection pipeline
+- [Zero-Trust requires Layer-7 inspection](/blog/2026-05-23-Zero-Trust-Principles) - five principles for the web perimeter.
+- [Command and control blends into HTTPS](/blog/2026-05-23-Command-and-Control-Threats) - behavioural correlation for APT detection.
+- [What is SafeSquid SWG](/safesquid_swg/what_is_safesquid_swg) - product implementation of the inspection pipeline.
