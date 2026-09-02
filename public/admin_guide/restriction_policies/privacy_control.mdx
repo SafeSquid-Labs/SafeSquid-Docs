@@ -2,10 +2,6 @@
 title: "Privacy control"
 ---
 
-<Note>
-  CLI man pages: `safesquid-cookies-filtering(5)`, `safesquid-header-filtering(5)`, `safesquid-elevated(5)`
-</Note>
-
 **Privacy control** groups the three sections that shape what leaves and enters the browser: **Cookie filter** governs `Cookie`/`Set-Cookie` headers, **Header filter** governs every other request/response header, and **Elevated Privacy** applies a single tiered privacy level (cookies, then Referer/Origin, then User-Agent) on top of both. Configure them together — a Cookie filter allow row and an Elevated Privacy STANDARD row can otherwise fight over the same header.
 
 <Tabs>

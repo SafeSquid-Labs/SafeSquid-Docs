@@ -233,6 +233,18 @@ Platform or role variants of the **same** step — `Windows` / `Linux` / `macOS`
 > Only `state` and `priority` differ between the two files. Everything else must match exactly.
 > — `ha_monit_keepalived.md:128`
 
+**Second use case — a live console section that is itself a "header" with no content of its
+own**: when a sidebar item in the SafeSquid Configure console doesn't open a page but only
+expands into child items (verified live — e.g. **Restriction Policies → Privacy control →**
+Cookie filter / Header filter / Elevated Privacy, or **Application Setup → Accelerators →**
+Caching / Prefetching), build **one consolidated doc page** for the parent, one `<Tab>` per
+child item, named after that item exactly. Precede with a framing sentence naming the parent
+section, same as the platform-variant case: `**Privacy control** groups the three sections that
+shape what leaves and enters the browser.` — `restriction_policies/privacy_control.mdx`. Confirm
+via live navigation that the parent truly has no page of its own before consolidating — a section
+with real content of its own plus sub-items is a different shape and should not be forced into
+this pattern.
+
 ### `<Warning>` / `<Note>` / `<Tip>`
 
 - `<Warning>` — irreversible, fail-open, or silent-misconfiguration risk. Often a bold lead
@@ -354,7 +366,24 @@ sanctioned exception.**
 - **Placeholders** are SHOUTY-HYPHEN tokens, never real values: `SAFESQUID-IP`, `VIP-ADDRESS`,
   `MASTER-IP`, `INTERFACE`, plus `example.com` / `.internal.example.com`. No real credentials.
 - **Images** at `/images/<category>/<name>.webp` with descriptive alt text. Mermaid preferred
-  over screenshots. `<Frame>` wrappers are an admin_guide convention only.
+  over screenshots for conceptual/process-flow content. `<Frame>` wrappers are an admin_guide
+  convention only.
+  - **Exception — `admin_guide/` UI walkthroughs and worked examples**: a real, annotated console
+    screenshot is required, not just preferred, wherever a page currently just describes a
+    click-through sequence or a worked example in prose with no visual (this doesn't replace the
+    existing `*_flowchart.svg` logic diagrams, which stay — they show processing order, a
+    screenshot shows the console). Capture the **full page**, not a tight crop, from the live
+    console via `safesquid_sysadmin`/`safesquid_admin`. Annotate with an arrow or circle plus a
+    short imperative callout naming the control (`Click **Get Access**`, not just a bare
+    screenshot) — an unannotated screenshot is the same "walls of undescribed screenshots"
+    anti-pattern flagged below. Save as `public/images/admin_guide/<page>-<slug>.webp`, wrapped in
+    `<Frame>`, same as the existing flowcharts.
+- **Never invent a CLI command, config file, or man-page name.** State one exists only if it's
+  confirmed live, confirmed in an already-verified page, or confirmed by engineering — otherwise
+  flag it with `{/* NEEDS-SME-REVIEW: … */}` instead of asserting it. (Every `admin_guide/` page
+  used to carry a fabricated `CLI man page: safesquid-*(N)` reference ported verbatim from a
+  raw-HTML source and never checked against anything; they were removed — don't reintroduce the
+  pattern.)
 - **Code fences always carry a language tag.** `bash` dominates, for Linux CLI with `sudo`
   shown explicitly; `powershell` for Windows; `text` — the second most common — for URLs and
   anything read rather than run; `conf`, `javascript`, `yaml`, `mermaid` as appropriate. Bare

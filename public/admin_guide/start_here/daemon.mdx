@@ -2,10 +2,6 @@
 title: "SafeSquid daemon"
 ---
 
-<Note>
-  CLI man page: `safesquid(8)`
-</Note>
-
 SafeSquid is the main proxy process on the Secure Web Gateway appliance. It accepts client connections, applies policies from the Web UI, and forwards allowed traffic.
 
 ## Binary and service
@@ -40,10 +36,6 @@ Most tunables (listen address, thread limits, log levels) are set in `/opt/safes
 - **Logs** — `/var/log/safesquid/` (native, extended, config, performance, …)
 - **Cache** — `/var/cache/safesquid/`
 - **Startup settings** — `/opt/safesquid/startup.ini`, `/opt/safesquid/setup.ini` — see [startup.ini tunables](/admin_guide/start_here/startup_ini) (not in sectionMaster)
-
-## CLI manual
-
-After the package installs man pages: `man safesquid`
 
 ## Subscription and updates
 
