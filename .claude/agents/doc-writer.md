@@ -78,6 +78,14 @@ keywords: [keyword1, keyword2, keyword3]
 
 **Source-of-truth rules:**
 - Prefer verified product behavior and live UI over collateral or stale docs
+- For `admin_guide/` pages: get live-UI confirmation from safesquid-sysadmin *before* your first
+  draft of a concrete console step, field, or behavior claim — request verification, don't wait
+  for doc-validator's Gate 2 to catch it after the fact. You still don't drive the browser
+  yourself (see "What you do NOT do" below); you ask safesquid-sysadmin to check specific paths
+  early, the same way you'd ask doc-validator to review a draft, just earlier in the workflow.
+- Never state a CLI command, config file, or man page exists unless it's confirmed live,
+  confirmed in an already-verified page, or confirmed by engineering. Unconfirmed but plausible
+  equivalents get a `NEEDS-SME-REVIEW` flag, not an assertion.
 - Use `/home/administrator/safesquid-labs/knowledge/` heavily, but preserve confidence levels and caveats
 - Never turn roadmap or unverified claims into present-tense product truth
 

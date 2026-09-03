@@ -1,0 +1,120 @@
+---
+title: "Redirect"
+---
+
+<Frame caption="Redirect first-match flow">
+  <img src="/images/admin_guide/redirect_flowchart.svg" alt="Redirect first-match flow" />
+</Frame>
+
+## Overview
+
+The `Redirect` section allows SafeSquid to intercept requests for specific URLs and either internally rewrite them (fetching content from a new destination on behalf of the client) or send an HTTP 302 redirect back to the client’s browser.
+
+## Core Mechanics (C++ Source Validation)
+
+First-match URL/Location rewrite, send302 branching.
+
+- **Evaluation Order**: Rules are evaluated top to bottom. The first matching rule takes effect and evaluation stops for that pass.
+- **PCRE Matching**: The `URL` field accepts Perl Compatible Regular Expressions (PCRE) with capture groups (e.g., `(.*)`), which can be referenced in the `Redirect` field using `$1`, `$2`, etc.
+- **Internal Rewrite vs. 302**: If `send302` is false, SafeSquid fetches the rewritten URL and serves the content transparently. If true, it returns an HTTP 302 Location redirect to the client.
+
+## Schema Fields
+
+### Global Fields
+
+- **Enabled (enabled)**: Toggles URL redirection globally.
+
+### Rule-Based Fields (Per Connection Tuning)
+
+- **Enabled (enabled)**: Toggles the rule.
+- **Comment (comment)**: User description. Logged on match when non-empty.
+- **Profiles (profiles)**: The trigger condition. Limit this entry to connections that already carry these Access Profile tags.
+- **URL (url)**: PCRE matched against the request URL or Location header.
+- **Redirect (redirect)**: The replacement template after the PCRE match.
+- **Port (port)**: When \> 0, forces this destination port on internal rewrite. `0` keeps the port from the rewritten URL.
+- **302 redirect (send302)**: Set to `Yes` for HTTP 302, or `No` for internal transparent fetch.
+- **Options (options)**: Bitmask/list of options: Decode URL before match (`DECODEBEFORE`), encode URL path (`ENCODE`), or decode URL path after substitution (`DECODEAFTER`).
+- **Applies to (which)**: Match client request URL (`URL`), response Location header (`LOCATION`), or both (`BOTH`).
+
+## How SafeSquid processes the list
+
+1. On the client request, SafeSquid builds `proto://host/file` and tests rows whose Applies to includes URL (or BOTH).
+2. On redirect responses, SafeSquid tests the response `Location` value for rows that include LOCATION (or BOTH).
+3. First enabled row that matches profiles, URL regex, and direction wins; processing stops.
+4. **302 redirect = No** (default): rewrite `proto`, `host`, `file`, and optional port on the request and fetch internally; request type may become HTTP proxy.
+5. **302 redirect = Yes**: send HTTP 302 to the client with the rewritten URL as Location; no origin fetch for that request.
+6. Options: percent-decode before PCRE match; URL-encode or decode the path portion after substitution.
+
+<Warning>
+**Order matters.** Put specific URL patterns above broad catch-alls — first match wins.
+</Warning>
+
+## Important entry fields
+
+- **Profiles** — Apply only when the connection has one of these profiles. Blank = all connections. Prefix `!` to skip connections that have a profile.
+- **URL** — PCRE with capture groups matched against the request URL or Location header. Required; blank URL skips the row.
+- **Redirect** — Replacement template after PCRE match (supports `$1` captures and connection variables).
+- **Port** — When \> 0, force this destination port on internal rewrite. 0 keeps the port from the rewritten URL.
+- **302 redirect** — **Yes** — HTTP 302 to client. **No** — internal rewrite and fetch.
+- **Applies to** — URL (request only), LOCATION HEADER (response redirects only), or BOTH (separate processing passes).
+
+## Examples
+
+Open **Configure → Real time content security → Redirect → Redirection policies**. Row fields are
+Enabled, Comment, Profiles, URL, Redirect, Port, 302 redirect, and Applies to — the shipped
+default rows enforce safe search on Bing, Google, Yahoo, and DuckDuckGo.
+
+<Frame caption="Redirect — Redirection policies rows">
+  <img src="/images/admin_guide/redirect-redirection_policies.webp" alt="SafeSquid console showing Redirection policies rows enforcing search-engine safe search, the Edit Policies icon on the first row circled" />
+</Frame>
+
+<Tip>
+
+### 1 — Force Google safe search (internal rewrite)
+
+- URL: `^https://(www\.)?google\.com/search\?(.*)`
+- Redirect: `https://www.google.com/search?safe=active&$2`
+- 302 redirect: **No**, Applies to: URL
+
+**Result:** matching Google search requests are rewritten and fetched by SafeSquid with `safe=active`; the browser address bar stays on the original URL pattern.
+</Tip>
+
+<Tip>
+
+### 2 — Send users to a block info page (302)
+
+- URL: `^https://old-portal\.example\.com/`
+- Redirect: `https://intranet.example.com/moved.html`
+- 302 redirect: **Yes**
+
+**Result:** client receives HTTP 302 with Location set to the new URL; SafeSquid does not fetch the old portal for that request.
+</Tip>
+
+<Tip>
+
+### 3 — Rewrite outbound redirect Location
+
+- Applies to: LOCATION HEADER
+- URL: `^http://cdn\.example\.com/(.*)`
+- Redirect: `https://cdn.example.com/$1`
+
+**Result:** when the origin returns a redirect whose Location matches, SafeSquid replaces Location with the HTTPS form before the response reaches the browser.
+</Tip>
+
+<Tip>
+
+### 4 — Profile-gated redirect only for guests
+
+- Profiles: `Guest`
+- URL: `^https://mail\.example\.com/`
+- Redirect: `https://webmail-lite.example.com/`, 302 redirect: **Yes**
+
+**Result:** Guest users get 302 to webmail-lite; staff without the Guest profile skip the row and reach mail.example.com normally.
+</Tip>
+
+## How to verify
+
+1. Reproduce the URL from a client and watch whether the browser receives 302 or content from the rewritten host.
+2. Enable REDIRECT in `LOG_LEVEL` for native lines showing match, internal rewrite, or an HTTP 302.
+3. Open **Reports → Detailed logs** for the requested URL and response code.
+4. Pair Redirect profile tags with rows in Access Profiles (tags are not hard-coded — both sections must reference the same tag string).

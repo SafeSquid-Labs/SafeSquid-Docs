@@ -51,7 +51,7 @@ The SafeSquid Self-Service Portal is the cloud-based management console for Safe
 
 The SafeSquid Self-Service Portal manages the activities like, SafeSquid cloud-backed features, Custom Web Categorization, Web Security Clients for Roaming users (VPN), Confidential Data Signatures, Subscription management, etc.
 
-Read more: [Self-Service Portal](/Self-Service_Portal).
+Read more: [Self-Service Portal](/safesquid_swg/interface/self_service_portal).
 
 
 
@@ -70,7 +70,7 @@ If all websites are accessible through the browser, the product is activated.
 ## Where to get license details
 After successful activation, license details appear on the Support page of the SafeSquid Web GUI.
 
-For more details see the [Support page](/Audit_Forensics) (license details after activation) or [Activate](/Activate).
+For more details see the [Support page](/admin_guide/infrastructure_and_access/support) (License Details panel, not under Reports) or [Activate your license](/getting_started/activate).
 
 
 
@@ -219,7 +219,7 @@ Yes. SafeSquid has a reporting module that reduces processing time and provides 
 
 
 ## Why does SafeSquid become slow after running for some time?
-Slowness after sustained operation is often due to resource exhaustion (disk, memory, or connection state). Check the [Troubleshooting](/Troubleshooting) guide for resource diagnostics, clear or rotate logs, and review the [Performance Plot](/Performance_Plot) and [Support](/Audit_Forensics) page for resource usage. Restart the proxy after freeing resources if needed.
+Slowness after sustained operation is often due to resource exhaustion (disk, memory, or connection state). Check the [Troubleshooting](/troubleshooting/troubleshooting) guide for resource diagnostics, clear or rotate logs, and review the **Performance Plot** card on the [Support](/admin_guide/infrastructure_and_access/support) page for resource usage. Restart the proxy after freeing resources if needed.
 
 
 
@@ -251,4 +251,11 @@ Opt for a SafeSquid SWG subscription by paying online via PayPal or by wire or b
 
 
 ## What happens if the subscription is not renewed?
-SafeSquid SWG is an annual subscription; if the subscription is not renewed, the product stops working.
+{/* NEEDS-SME-REVIEW: this FAQ previously stated flatly that the product stops working on expiry. That contradicts deployment/manage_subscription_state.md, which is source-cited (_migration_source_v3/docs/01-Getting_Started/04-Activate.md §Troubleshooting case4 License Expired) and describes a detailed degrade-not-stop behavior instead. Per house style, neither unverified variant should be asserted outright — confirm actual behavior against a live expired subscription or with engineering, then resolve this note. */}
+
+**Missing:** whether the proxy stops passing traffic on expiry, or keeps running with reduced
+threat-feed coverage, is stated two different ways elsewhere in this documentation set and hasn't
+been reconciled. See [Handle expiry before it degrades enforcement](/deployment/manage_subscription_state)
+for the detailed, sourced breakdown of what keeps working and what doesn't — treat that page as
+more current until this is confirmed, and don't assume the proxy goes down on expiry without
+checking your own deployment's behavior first.

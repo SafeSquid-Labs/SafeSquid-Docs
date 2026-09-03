@@ -2,10 +2,6 @@
 title: "Logging and troubleshooting"
 ---
 
-<Note>
-  CLI man page: `safesquid-logging(7)`
-</Note>
-
 When a user says “the proxy blocked me” or “nothing loads,” logs are how you prove what SafeSquid did. You do not need every log family on day one — start with Detailed logs, then add Native families only for the module you are debugging.
 
 ## Which log should I open?
@@ -67,9 +63,9 @@ Do not leave full DEBUG enabled in production. It grows disks quickly and makes 
 
 ### 1 — “I cannot browse at all”
 
-1. Confirm proxy host/port and [Listen](/admin_guide/infrastructure_and_access/network_settings).
+1. Confirm proxy host/port and [Listen](/admin_guide/application_setup/network_settings_and_listeners).
 2. Search Detailed logs for the client IP. If there are no rows, the request never reached SafeSquid (firewall, wrong proxy, or service down).
-3. If rows show access deny, fix [Access restrictions](/admin_guide/infrastructure_and_access/access_restrictions) (subnet, Interface, Default Access Policy).
+3. If rows show access deny, fix [Access restrictions](/admin_guide/application_setup/access_restrictions) (subnet, Interface, Default Access Policy).
 </Tip>
 
 <Tip>
@@ -78,7 +74,7 @@ Do not leave full DEBUG enabled in production. It grows disks quickly and makes 
 
 1. Find the URL in Detailed logs.
 2. Read `filter_name` and `filtering_reason` (often Access Profiles, redirect, or a scanner).
-3. Check profiles and categories on that row; adjust the matching [Access Profiles](/admin_guide/policies_and_profiles/access_profiles) entry or enable Trace Entry on the suspect rule.
+3. Check profiles and categories on that row; adjust the matching [Access Profiles](/admin_guide/restriction_policies/access_profiles) entry or enable Trace Entry on the suspect rule.
 </Tip>
 
 <Tip>
@@ -116,10 +112,8 @@ On a single policy row in the Web UI, enable **Trace Entry** to log when that en
 ## See also
 
 - [First configuration](/admin_guide/start_here/first_configuration)
-- [Access restrictions](/admin_guide/infrastructure_and_access/access_restrictions)
+- [Access restrictions](/admin_guide/application_setup/access_restrictions)
 - [Authentication](/admin_guide/start_here/authentication)
-- [Access Profiles](/admin_guide/policies_and_profiles/access_profiles)
+- [Access Profiles](/admin_guide/restriction_policies/access_profiles)
 - [Architecture](/admin_guide/start_here/architecture)
 - [Debug response headers](/admin_guide/start_here/debug_response_headers)
-
-CLI: `man safesquid-logging`

@@ -46,6 +46,18 @@ Every page must be:
 
 - Use the source hierarchy from `doc_program_standards/references/source_of_truth_policy.md`.
 - Prefer verified product behavior and live UI over collateral or stale docs.
+- **For `admin_guide/` pages describing concrete console steps, fields, or behavior: live-UI
+  verification via `safesquid_sysadmin`/the `safesquid_admin` browser plugin is required before
+  drafting, not just preferred.** Do not write a UI walkthrough from assumption or general SWG
+  knowledge and defer accuracy entirely to doc-validator's Gate 2 — that gate catches mismatches
+  after the fact, it doesn't replace checking first. If live access is genuinely unavailable, say
+  so explicitly in the handoff to doc-validator instead of drafting silently.
+- **Never state that a CLI command, config file, or man page exists unless it is confirmed live,
+  confirmed in an already-verified page, or confirmed by engineering.** If a CLI/file-path
+  equivalent to a UI setting would be useful but is unconfirmed, don't invent a name for it — flag
+  it with `{/* NEEDS-SME-REVIEW: … */}` instead of asserting it. (This is exactly how the fabricated
+  `CLI man page: safesquid-*(N)` references got into `admin_guide/` — ported from a raw-HTML source
+  verbatim, never checked against anything, and never caught because no rule forbade it.)
 - Use `/home/administrator/safesquid-labs/knowledge/` as a major internal source; preserve its caveats and confidence levels.
 - Do not turn roadmap items or unverified knowledge into current product claims.
 

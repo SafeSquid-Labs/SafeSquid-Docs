@@ -106,7 +106,7 @@ Use this page to understand how the proxy, feeds, portal, reporting, backup, DNS
 
 Use this page to understand scale-out, policy replication, and resilience patterns.
 
-### [Self-Service Portal](/Self-Service_Portal)
+### [Self-Service Portal](/safesquid_swg/interface/self_service_portal)
 
 Use this portal for activation keys, licensing workflows, and cloud-managed operational dependencies.
 

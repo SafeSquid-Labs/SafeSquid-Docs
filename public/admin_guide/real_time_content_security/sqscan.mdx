@@ -1,0 +1,89 @@
+---
+title: "SqScan"
+---
+
+<Frame caption="SqScan policy flow">
+  <img src="/images/admin_guide/sqscan_flowchart.svg" alt="SqScan policy flow" />
+</Frame>
+
+## Overview
+
+The `SqScan` section is SafeSquid’s built-in in-memory antivirus scanner. It scans buffered uploads and downloads without an external `clamd` process. When malware is detected, the connection is blocked with **DO NOT BYPASS**.
+
+Use **sqscan status** in the Web UI to confirm Ready state and signature currency. See also ClamAV and ICAP for defense in depth.
+
+## Core Mechanics (C++ Source Validation)
+
+### First match wins
+
+Enabled virus scanning policy rows are walked top to bottom. The **first** row whose Profiles match applies for that connection.
+
+### Scan levels — BYPASS only
+
+Malware Security Level **BYPASS** skips scanning. Values STANDARD, HIGH, and PARANOID are stored but the engine uses fixed scan options — only **BYPASS** changes runtime behaviour today.
+
+### Malware Types unused
+
+Malware Types checkboxes set bit flags on the policy but are not passed to the scanner API. Detection uses the engine’s built-in signature set.
+
+### Enforcement
+
+Virus detection sets the action to **DO NOT BYPASS**. Access restrictions **Bypass** with antivirus skips SqScan entirely.
+
+## Processing flow
+
+```mermaid
+flowchart TD
+part[Buffered upload/download] --> walk[Walk policy rows top-down]
+walk --> match{First profile match?}
+match -->|No| skip[No SqScan]
+match -->|Yes| bypass{BYPASS level?}
+bypass -->|Yes| skip
+bypass -->|No| scan[In-memory scan]
+scan --> virus{Virus found?}
+virus -->|Yes| block[DO NOT BYPASS block]
+virus -->|No| pass[Continue]
+```
+
+## Schema Fields
+
+### Global fields
+
+- **Enabled (enabled)** — Master switch. When off, hooks exit immediately. When on, scanning requires successful engine init (Ready in sqscan status).
+
+### Policy rows
+
+- **Profiles (profiles)** — Limit row to connections with these Access Profile tags. Blank matches all.
+- **Malware Security Level (scan\_flag)** — BYPASS skips SqScan. Other levels label the row but do not alter scan depth in the current build.
+- **Malware Types (malware\_types)** — Stored for operator reference; not forwarded to scan API.
+
+## Examples
+
+Open **Configure → Real time content security → SqScan → Virus scanning policies**. Row fields
+are Enabled, Comment, Malware Security Level, and Malware Types.
+
+<Frame caption="SqScan — Virus scanning policies row">
+  <img src="/images/admin_guide/sqscan-virus_scanning_policies.webp" alt="SafeSquid console showing a SqScan Virus scanning policies row with STANDARD Malware Security Level, the Edit Policies icon circled" />
+</Frame>
+
+### Scan all users
+
+- **Configuration:** Enabled on; one row Profiles blank, Malware Security Level STANDARD.
+- **Result:** all buffered content on matching connections is scanned in memory.
+
+### Skip scanning for admins
+
+- **Configuration:** Row A (top) Profiles ADMIN, Malware Security Level BYPASS; Row B Profiles blank, STANDARD.
+- **Result:** ADMIN connections hit row A first and skip; everyone else scanned via row B.
+
+### EICAR verification
+
+- **Configuration:** sqscan status shows Ready; download EICAR through scanned profile.
+- **Result:** block with DO NOT BYPASS; Detailed logs show virus detection.
+
+## How to verify
+
+1. **sqscan status** — module Ready, signatures current.
+2. Download EICAR test file through proxy.
+3. Enable ANTIVIRUS log level for native `sqscan:` lines.
+4. Dashboard counters: Objects Scanned, Threats Detected, Scan bypassed.

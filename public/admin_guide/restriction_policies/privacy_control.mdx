@@ -1,0 +1,228 @@
+---
+title: "Privacy control"
+---
+
+**Privacy control** groups the three sections that shape what leaves and enters the browser: **Cookie filter** governs `Cookie`/`Set-Cookie` headers, **Header filter** governs every other request/response header, and **Elevated Privacy** applies a single tiered privacy level (cookies, then Referer/Origin, then User-Agent) on top of both. Configure them together — a Cookie filter allow row and an Elevated Privacy STANDARD row can otherwise fight over the same header.
+
+<Tabs>
+  <Tab title="Cookie filter">
+    The `Cookies-filtering` section (`safesquid-cookies-filtering(5)`) provides granular control over HTTP cookies passing between clients and servers.
+
+    <Frame caption="Cookie list walk">
+      <img src="/images/admin_guide/cookie_filter_flowchart.svg" alt="Cookie list walk" />
+    </Frame>
+
+    ## Core mechanics
+
+    Dual-list Allow/Deny walk, **last** match in pass wins — unlike most other sections' first-match rule.
+
+    - **Dual-List Policy Engine**: Cookie filtering operates on a Global Policy (Allow or Deny) combined with Allow/Deny override lists. If the global policy is set to `Allow`, SafeSquid first scans the Deny List (to block matching cookies) and then scans the Allow List (to explicitly permit exceptions).
+    - **Time-Based Evaluation**: Unlike other modules, the time profiles here (`limitmonths`, `limitdays`, etc.) are checked against the cookie's literal `Expires` attribute (`COOKIE_HAS_EXPIRES`), not the proxy's current system time.
+    - **Action**: Matches result in the cookie being silently stripped from the HTTP stream (`HEADER_FILTERED`).
+
+    ### How SafeSquid processes the lists
+
+    1. If Policy is **Deny**, SafeSquid walks **Allow** first, then **Deny**.
+    2. If Policy is **Allow**, SafeSquid walks **Deny** first, then **Allow**.
+    3. Within each list, every enabled matching row is evaluated; the **last** match in that list pass sets the outcome (not first-match like Access restrictions).
+    4. Each `Cookie` header field is processed separately; denied fields are erased from the header list.
+    5. Domain, path, and expiry filters on a row apply only when Direction is **IN** (Set-Cookie). The live request/response header hooks call filtering with outbound (`Cookie`) direction only — Set-Cookie rows are configured for server→browser cookies but are not applied by the active `filter_cookies` path in this tree.
+
+    <Warning>
+      **Order matters.** Put specific host or profile rules above broad catch-alls. Because the last match in a list pass wins, a lower row can override an upper row in the same list.
+    </Warning>
+
+    <Warning>
+      **IN direction is configured but not enforced.** Domain/Path/expiry filters on IN (Set-Cookie) rows are evaluated in code, but the active `filter_cookies` path only calls filtering for OUT (browser→server `Cookie`) direction. Do not rely on an IN row to block a server's `Set-Cookie` in the current build.
+    </Warning>
+
+    ### Important entry fields
+
+    - **Profiles** — Limit the row to connections that carry these Access Profile tags. Blank ignores profiles. Prefix `!` negates a tag.
+    - **Direction** — **OUT** — browser→server `Cookie` headers (what the live hooks filter). **IN** — server→browser `Set-Cookie` (domain, path, expiry tests in code; not invoked by current hooks). **BOTH** — either direction when filtering runs.
+    - **Domain / Path** — Regular expressions. Used for Direction IN when Set-Cookie filtering runs. For OUT rows, only profiles and direction are tested.
+    - **Expiry ranges / Time match mode** — Apply only to Set-Cookie with a parseable `Expires` attribute. **ABSOLUTE** — one continuous window from start through end fields. **ALL RANGES** — expiry must satisfy every configured range at once.
+
+    ## Examples
+
+    Open **Configure → Restriction Policies → Privacy control → Cookie filter**. The **Global**
+    sub-tab holds the Enabled switch and the Policy (Allow/Deny); **Allow** and **Deny** are
+    separate sub-tabs holding the override row lists.
+
+    <Frame caption="Privacy control — Cookie filter Global tab">
+      <img src="/images/admin_guide/privacy_control-cookie_filter.webp" alt="SafeSquid console showing the Privacy control Cookie filter Global tab, with the Edit Policy icon circled" />
+    </Frame>
+
+    <Tip>
+
+    ### Deny by default, allow intranet SSO cookies
+
+    - Policy: **Deny**
+    - Allow row: Profiles `Staff`, Direction OUT, Domain `corp\.example\.com`
+
+    **Result:** staff users keep `Cookie` headers for `corp.example.com`; all other outbound cookies on matching requests are stripped and `Clear-Site-Data: "*"` is added when any cookie is dropped.
+    </Tip>
+
+    <Tip>
+
+    ### Last match in Allow list wins
+
+    - Policy: **Deny**
+    - Allow row 1 (top): Domain `.*` — permits all
+    - Allow row 2 (below): Profiles `Guest`, Direction OUT — no domain
+
+    **Result:** for Guest connections, row 2 is the last Allow match and permits cookies; for others, row 1 is the last Allow match.
+    </Tip>
+
+    ## How to verify
+
+    1. From a test client, browse a site that sets cookies and watch the browser devtools Network tab for request `Cookie` headers upstream of SafeSquid.
+    2. Open **Reports → Detailed logs**; look for `filter_name` related to cookies and native `cookie:` lines when COOKIE is enabled in `LOG_LEVEL`.
+    3. Check debug response header `X-Cookie-Filter` on the connection (`Dropped-Cookie-Out` when cookies were stripped).
+    4. Enable **Trace Entry** on one row to confirm profile and domain matching in Native logs.
+  </Tab>
+
+  <Tab title="Header filter">
+    The `Header-filtering` section (`safesquid-header-filtering(5)`) allows administrators to strip out or inject HTTP headers into client requests or server responses.
+
+    <Frame caption="Header filter flow">
+      <img src="/images/admin_guide/header_filter_flowchart.svg" alt="Header filter flow" />
+    </Frame>
+
+    ## Core mechanics
+
+    Allow/Deny list order (**first** match wins, unlike Cookie filter's last-match rule), Insert with variable expansion.
+
+    - **Dual-List Policy Engine**: Header filtering utilizes a global Allow/Deny switch. If the global policy is set to `Allow`, SafeSquid first scans the Deny List to strip headers (`action = FALSE`), then evaluates the Allow List to preserve exceptions.
+    - **Insertion Engine**: Independent of the filter list, the `Insert` list injects entirely new headers into the stream. The inserted headers undergo variable expansion, meaning runtime variables (like usernames or IP addresses) can be dynamically injected into the header value.
+    - **Flags Targeting**: Both filter and insert rules target either the Request, Response, or Both (`which & flags`).
+
+    ### How SafeSquid processes the lists
+
+    1. For each header field on the message being filtered:
+    2. If Policy is **Deny**, SafeSquid walks **Allow** first, then **Deny**.
+    3. If Policy is **Allow**, SafeSquid walks **Deny** first, then **Allow** (Allow can restore a field Deny removed, and vice versa on the second pass).
+    4. Within each list pass, the **first** matching row decides allow or strip for that field.
+    5. Stripped fields are removed and logged as `removed` in native header logs.
+    6. Insert runs after allow/deny. Both **Type** and **Value** must be non-empty; Value supports connection variables.
+
+    <Warning>
+      **Order matters.** On Allow/Deny rows, put specific regexes above broad ones — first match in that list pass wins for each field.
+    </Warning>
+
+    ### Important entry fields
+
+    - **Profiles** — Apply only when the connection has one of these profiles. Blank = all connections. Prefix `!` to skip connections that have a profile (for example `!Guest`).
+    - **Type** — On Allow/Deny: regex on the header field name (for example `Referer`, `User-Agent`); blank matches any name. On Insert: literal header name to add (not a regex).
+    - **Value** — On Allow/Deny: regex on the field value; blank matches any value. On Insert: header body with variables expanded.
+    - **Applies to** — **CLIENT HEADER** — request headers (browser → origin). **SERVER HEADER** — response headers (origin → browser). Row must include the direction being filtered.
+
+    ## Examples
+
+    Open **Configure → Restriction Policies → Privacy control → Header filter**. Five sub-tabs:
+    **Global** (Enabled/Policy), **Allow**, **Deny**, **Insert**, and **View headers** — the last
+    lets you inspect real header names and values from a live connection before writing regexes.
+
+    <Frame caption="Privacy control — Header filter Global tab">
+      <img src="/images/admin_guide/privacy_control-header_filter.webp" alt="SafeSquid console showing the Privacy control Header filter Global tab with its five sub-tabs, the Edit Policy icon circled" />
+    </Frame>
+
+    <Tip>
+
+    ### Strip Referer on all users except marketing
+
+    - Policy: **Deny**
+    - Allow row: Profiles `Marketing`, Type `Referer`, Applies to CLIENT HEADER
+
+    **Result:** every client request loses the `Referer` field except connections with the Marketing profile, which keep it.
+    </Tip>
+
+    <Tip>
+
+    ### Insert a custom request header
+
+    - Insert row: Type `X-Proxy-User`, Value `$_USERNAME_$`, Applies to CLIENT HEADER
+
+    **Result:** after filtering, matching connections get `X-Proxy-User` added to the forwarded request with the expanded username variable.
+    </Tip>
+
+    ## How to verify
+
+    1. Use **View headers** in the Web UI to capture real header names and values before writing regexes.
+    2. Enable HEADER in `LOG_LEVEL` and read native `removed:` / `added:` lines.
+    3. Open **Reports → Detailed logs** while reproducing from a known client.
+    4. Enable System configuration debug response headers (see [Debug response headers](/admin_guide/start_here/debug_response_headers)) to inspect policy outcomes on the wire.
+  </Tab>
+
+  <Tab title="Elevated Privacy">
+    The `Elevated` section reduces cross-site tracking by stripping third-party cookies and selected tracking headers. Without it, third-party cookies and related trackers can follow users from site to site.
+
+    <Frame caption="Privacy level selection">
+      <img src="/images/admin_guide/elevated_privacy_flowchart.svg" alt="Privacy level selection" />
+    </Frame>
+
+    ## Core mechanics
+
+    ### First match wins
+
+    On each request and response header pass, enabled Elevated policy rows are walked top to bottom. The **first** matching row sets the privacy level for that connection; later rows are skipped.
+
+    ### Privacy levels (action field)
+
+    - **NOT-REQUIRED** — No stripping; bypass elevated privacy.
+    - **LOW** — Drop third-party Cookie and Set-Cookie when cookie flag set.
+    - **STANDARD** — LOW plus remove Referer and Origin on outgoing requests.
+    - **PARANOID** — STANDARD plus remove User-Agent (may break browser-variant sites).
+
+    Changes are logged to the privacy log and Detailed logs with filter name Elevated-Privacy. Debug header `X-Elevated-Privacy` reports level when Send Debugging Headers includes client.
+
+    ```mermaid
+    flowchart TD
+    hdr[Request or response headers] --> walk[Walk Elevated rows top-down]
+    walk --> match{First enabled profile match?}
+    match -->|No| none[No elevated changes]
+    match -->|Yes| level{Privacy level}
+    level -->|NOT-REQUIRED| none
+    level -->|LOW| cookies[Strip third-party cookies]
+    level -->|STANDARD| cookies --> stripRO[Remove Referer Origin]
+    level -->|PARANOID| stripRO --> stripUA[Remove User-Agent]
+    ```
+
+    ## Examples
+
+    Open **Configure → Restriction Policies → Privacy control → Elevated Privacy → Elevated
+    policies**. Rows are tested top to bottom; the first enabled match sets the level for the
+    connection.
+
+    <Frame caption="Privacy control — Elevated Privacy policy rows">
+      <img src="/images/admin_guide/privacy_control-elevated_privacy.webp" alt="SafeSquid console showing Elevated Privacy policy rows with NOT-REQUIRED, PARANOID, and LOW privacy levels, the Edit Policies icon on the first row circled" />
+    </Frame>
+
+    <Tip>
+
+    ### Paranoid for guests, bypass for staff
+
+    - **Configuration:** Row A Profiles STAFF NOT-REQUIRED; Row B blank PARANOID.
+    - **Result:** staff keep full headers; others get paranoid stripping.
+    </Tip>
+
+    <Tip>
+
+    ### Cookie-only for marketing
+
+    - **Configuration:** Profiles MARKETING USERS, Privacy Levels LOW.
+    - **Result:** only third-party cookies stripped; Referer and User-Agent remain.
+    </Tip>
+
+    <Tip>
+      Start with LOW or STANDARD before PARANOID — removing User-Agent breaks some applications. Place NOT-REQUIRED bypass rows above broad PARANOID rows.
+    </Tip>
+
+    ## How to verify
+
+    1. Browse multi-site flow; inspect request headers upstream of proxy.
+    2. Check `privacy.log` under Reports.
+    3. Enable elevated log level for native privacy lines.
+    4. Debug header `X-Elevated-Privacy` on client when configured.
+  </Tab>
+</Tabs>

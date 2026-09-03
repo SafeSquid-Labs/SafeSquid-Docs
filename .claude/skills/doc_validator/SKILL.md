@@ -71,7 +71,9 @@ Run these gates in order and report all findings:
 
 ## Gate 2: UI-path verification
 
-Extract all UI paths and button labels from the doc. When browser verification is in scope, use the `safesquid_sysadmin` skill to confirm them against the SafeSquid interface at `http://safesquid.cfg`. If UI verification cannot be performed, call that out explicitly as an open risk.
+Extract all UI paths and button labels from the doc. Use the `safesquid_sysadmin` skill to confirm them against the SafeSquid interface at `http://safesquid.cfg`. **This gate is not skippable by disclosure.** If `safesquid-sysadmin` is unavailable or returns no response, record Gate 2 as FAIL with the note "safesquid-sysadmin unavailable — UI paths unverified." Treat any path missing from a partial response as NOT FOUND. This matches `.claude/agents/doc-validator.md`'s hard-gate wording — the two must not diverge.
+
+Also check for **invented CLI/man-page references**: any command, config file, or man page name the doc asserts exists. If it isn't confirmed live or already verified elsewhere in the repo, that's a Gate 2 finding — flag it for a `NEEDS-SME-REVIEW` comment, not a silent pass.
 
 ## Gate 3: Repo validation readiness
 

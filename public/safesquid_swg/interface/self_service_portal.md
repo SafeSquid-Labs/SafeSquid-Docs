@@ -37,6 +37,18 @@ Use the portal when you need to:
 - Supports repeatable rollout across multiple SafeSquid instances
 - Makes cloud dependency explicit so teams can design around it where needed
 
+## Portal layout
+
+Confirmed live (2026-09-02, logged-in session, all six tabs inspected): **Manage Key**
+(default landing tab — key details, instance list, Download Key), **Manage Categories** (Check
+Website Category / Modify Category, single-URL search), **Manage Certificates** (Generate then
+Download an SSL certificate for the key), **Manage VPN** (C-code/activation key against a URL
+field, Set URL), **Manage Signatures** ("Available Signatures for [C-code]", Add New, a
+Keywords/Signature table), **Manage Account** (subscription details, Conserve Subscription). A
+standing **Download Key** action and **Download latest ISO** / **Download latest tarball** links
+(`downloads.safesquid.com/appliance/safesquid.iso` and `.../binary/safesquid_latest.tar.gz`)
+appear on every tab.
+
 ## What the portal is used for
 
 Internal product knowledge confirms the portal is used for:
@@ -63,14 +75,13 @@ Internal product knowledge confirms the portal is used for:
 
 ## Prerequisites
 
-:::note
-**Before You Start**
+<Note>
+**Before you start**
 
-- SafeSquid account (see [Register and Get Your Key](/Register) if you haven't registered yet)
+- SafeSquid account (see [Register and get your key](/getting_started/register) if you haven't registered yet)
 - Use your business/corporate email for enterprise benefits
 - Have your SafeSquid installation details ready (for license activation)
-
-:::
+</Note>
 
 ---
 
@@ -83,10 +94,9 @@ Internal product knowledge confirms the portal is used for:
 2. Click **Self-Service Portal** in the top menu
 3. Login with your registered email and password
 
-:::tip
-**First-Time Users**
-If you haven't created an account yet, see [Register and Get Your Key](/Register) for registration steps.
-:::
+<Tip>
+**First-time users:** if you haven't created an account yet, see [Register and get your key](/getting_started/register) for registration steps.
+</Tip>
 
 ---
 
@@ -94,42 +104,97 @@ If you haven't created an account yet, see [Register and Get Your Key](/Register
 
 ### Download Activation Key
 
-1. **Log in** to the portal
-2. **Navigate to** Activation Keys
-3. **Click Download Key**
-4. Save the `activation_key` file (do not rename it)
+1. **Log in** to the portal — lands on the **Manage Key** tab by default.
+2. **Click Download Key**.
+3. Save the `activation_key` file (do not rename it).
 
-**Use this key for:** [License activation](/Activate) during SafeSquid setup.
+The Manage Key tab also lists your key's C-Code, current usage counters, Support Validity date,
+and instance details (Service ID, version, last update) — plus **Download latest ISO** and
+**Download latest tarball** links for the install media itself.
 
----
-
-### Support SSL certificate workflows
-
-Use the portal to support certificate workflows required for SSL inspection deployment. Certificate generation, retrieval, or related management must be paired with endpoint trust deployment and SafeSquid-side SSL inspection configuration.
-
-**Details:** [SSL Inspection](/SSL_Inspection)
+**Use this key for:** [License activation](/getting_started/activate) during SafeSquid setup, or
+upload under [Subscription](/admin_guide/infrastructure_and_access/subscription) when renewing —
+status then shows on the [Support](/admin_guide/infrastructure_and_access/support) page's License
+Details panel.
 
 ---
 
-### Configure custom categories
+### Generate and download your SSL certificate
 
-1. **Log in** to the portal
-2. **Navigate to** Custom Web Categorization
-3. **Add URLs** to custom categories (e.g., "Internal Tools", "Approved Cloud Apps")
-4. **Save** — changes apply to all SafeSquid instances using your activation key
+1. **Log in** to the portal.
+2. **Open the Manage Certificates tab** — shows your C-code and Key Name against a **Generate**
+   action.
+3. Click **Generate**, then **Download** the resulting certificate.
 
-**Use for:** Categorizing internal or organization-specific sites for access policies.
+Certificate retrieval here must still be paired with endpoint trust deployment and SafeSquid-side
+SSL inspection configuration — this step alone doesn't complete an HTTPS Inspection rollout.
+
+**Details:** [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)
 
 ---
 
-### View subscription status
+### Manage confidential-data signatures
 
-1. **Log in** to the portal
-2. **Navigate to** Subscription
-3. **View:**
-   - Product type (Free or Commercial)
-   - Expiry date (if commercial)
-   - Subscription tier and features
+1. **Log in** to the portal.
+2. **Open the Manage Signatures tab** — shows "Available Signatures for [C-code]" and an **Add
+   New** action, with a Keywords/Signature table (empty until you add one).
+3. **Add New** opens an "Editing Signature for [C-code]" form: a **Signature name** field and a
+   **Keywords** field (one keyword per line, with live regex detection — the form flags whether
+   what you typed reads as a regex pattern). **Submit** to save.
+
+{/* NEEDS-SME-REVIEW: the Add New form's two fields (Signature name, Keywords) and its regex-detection behavior are confirmed live. How and when a saved signature here actually syncs to the appliance's DLP OCR keyword scoring (dlp.mdx's "Enabled OCR rows are walked... each keyword regex match adds Weight") was not tested — this page states the two are related, not that sync was observed. */}
+
+**Use for:** feeding custom keyword-based signatures into
+[DLP](/admin_guide/real_time_content_security/dlp) OCR scoring on the appliance.
+
+---
+
+### Check or modify a website's category
+
+1. **Log in** to the portal.
+2. **Open the Manage Categories tab** — a **Check Website Category** / **Modify Category**
+   toggle.
+3. **Check Website Category** takes a URL (protocol selector plus a `www.example.com`-style text
+   box) and a **Search** button — looks up how that URL is currently categorized.
+4. **Modify Category** instead opens with a **Select Category** field (dropdown/autocomplete over
+   existing categories, not a URL search) — pick a category to act on.
+
+{/* NEEDS-SME-REVIEW: confirmed live — Check Website Category is single-URL search; Modify Category starts from an existing-category picker instead, which does imply named categories exist here (unlike an earlier pass through this page which concluded otherwise). What appears after selecting a category in Modify Category — URL list, add/remove controls, anything else — was not observed; don't describe it further without checking. If bulk custom-category upload also exists separately, it may be the local console's [Categorize Web-Sites](/admin_guide/custom_settings/categorize_web_sites) feature instead — the portal homepage's marketing copy for "Custom Category Management" describes uploading category lists "from SafeSquid User Interface," which points at the appliance, not confirmed as this portal tab. */}
+
+**Use for:** looking up a site's current category, or changing which category an existing
+category-set applies to.
+
+---
+
+### Check subscription status and conserve or renew
+
+1. **Log in** to the portal.
+2. **Open the Manage Account tab.**
+3. **View:** Active Subscription status, Subscription ID, C-Code, Key Name, Plan (for example
+   Trial or Commercial), Named Users, No of Instances, and Support Validity date.
+4. If you need more time before renewing, use **Conserve Subscription** — see
+   [Handle expiry](/deployment/manage_subscription_state) for what this does and does not buy you.
+
+<Warning>
+A "Renew Subscription" action was not visible on this tab for a Trial-plan account when last
+checked (2026-09-02) — only Conserve Subscription showed. Whether Renew appears for a Commercial
+plan, or lives somewhere else, is unconfirmed.
+</Warning>
+
+---
+
+### Manage VPN client licensing
+
+1. **Log in** to the portal.
+2. **Open the Manage VPN tab.**
+3. The tab lists your C-code and activation key against a **URL** field (unset by default —
+   shows "Not Defined") with a **Set URL** action.
+
+{/* NEEDS-SME-REVIEW: confirmed live that this tab and its C-code/activation-key/URL/Set URL layout exist, but what the URL is used for once set (a roaming-client gateway address, most likely, given faqs.md's existing "Web Security Clients for Roaming users (VPN)" description) was not confirmed by actually setting one. Don't describe the effect of Set URL beyond what's stated here without testing it. */}
+
+**Use for:** licensing SafeSquid's roaming-user VPN web-security clients against this activation
+key. This is also where the "Manage VPN settings" topic once flagged as missing from
+[Configuration](/admin_guide/main) actually lives — it isn't a local console feature.
 
 ## Verification and validation
 
@@ -152,7 +217,8 @@ After using the portal, verify all of the following:
 
 ## Related controls / next steps
 
-- [Register and Get Your Key](/Register) to establish the activation path
-- [Activate Your License](/Activate) to bind the deployment to the key
-- [SSL Inspection](/SSL_Inspection) for certificate-dependent HTTPS inspection workflows
-- [Threat Intelligence Feeds](/Threat_Intelligence_Feeds) for cloud-delivered intelligence dependencies
+- [Register and get your key](/getting_started/register) to establish the activation path
+- [Activate your license](/getting_started/activate) to bind the deployment to the key
+- [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) for certificate-dependent HTTPS inspection workflows
+- [DLP](/admin_guide/real_time_content_security/dlp) for how Manage Signatures' keyword signatures get scanned
+- [Support](/admin_guide/infrastructure_and_access/support) for the on-appliance License Details view and Cloud Restore
