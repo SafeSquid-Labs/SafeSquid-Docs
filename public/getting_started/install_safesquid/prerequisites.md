@@ -55,7 +55,7 @@ Work this checklist to completion before starting any installer.
 
 Confirm:
 
-- CPU, RAM, disk, and NIC allocation match the sizing plan from [Sizing](/deployment/sizing).
+- CPU, RAM, disk, and NIC allocation match the sizing plan from [Hardware Sizing](/deployment/hardware_sizing).
 - Storage can handle access logs, reports, support bundles, and update files.
 - The host has a stable hostname and static IP address.
 - Administrative access is available through an approved management path.
@@ -111,7 +111,7 @@ The specific ports, endpoints, and source scopes are listed in [Ports and Firewa
   | `80`, `443` | Web access on behalf of clients, plus update and subscription paths |
   | `53` | Upstream DNS resolution |
 
-  The specific licensing, update, and categorization hosts that must be reachable on 80 and 443 are listed in [Deployment Planning](/deployment/deployment_planning) and [Activate Your License](/getting_started/activate).
+  The specific licensing, update, and categorization hosts that must be reachable on 80 and 443 are listed in [Ports and Firewall Rules](/deployment/ports_and_firewall_rules) and [Activate Your License](/getting_started/activate).
 </Accordion>
 
 ## Validate identity and trust

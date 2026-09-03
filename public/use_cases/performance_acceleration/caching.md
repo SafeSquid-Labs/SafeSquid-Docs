@@ -192,10 +192,10 @@ Store these artifacts with the change record:
 | Cache fills but hit rate stays low | Categories cached do not match what users request | Re-scope the access profile to the categories actually in demand |
 | Origin traffic rises after enabling prefetch | Regular expression is too broad | Narrow the pattern; prefetching every matched URL costs more than it saves |
 | Users see another user's content | Cached content from a personalised or authenticated destination | Exclude those categories from the store policy immediately |
-| Disk I/O wait rises sharply | Cache on a SATA-attached volume | Move the cache path to NVMe; see [Sizing](/deployment/sizing) |
+| Disk I/O wait rises sharply | Cache on a SATA-attached volume | Move the cache path to NVMe; see [Hardware Sizing](/deployment/hardware_sizing) |
 
 ## Next steps
 
 - [Manage Bandwidth](/use_cases/performance_acceleration/manage_bandwidth) - shape traffic once caching is in place.
 - [Performance Plot](/use_cases/performance_acceleration/performance_plot) - measure the effect on latency.
-- [Sizing](/deployment/sizing) - confirm the cache volume is on the right storage.
+- [Hardware Sizing](/deployment/hardware_sizing) - confirm the cache volume is on the right storage.

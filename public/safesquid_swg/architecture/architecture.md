@@ -40,11 +40,11 @@ Use this sequence to understand the platform:
 
 ## Know what this page does not replace
 
-This page is the architecture hub. It does not replace deployment runbooks such as [Deployment Planning](/deployment/deployment_planning), [Cloud Deployment](/Cloud_Deployment), [SafeSquid Appliance Builder](/SafeSquid_Appliance_Builder), or [Linux Server](/Linux_Server).
+This page is the architecture hub. It does not replace deployment runbooks such as [Deployment](/deployment/main), [Cloud Deployment](/Cloud_Deployment), [SafeSquid Appliance Builder](/SafeSquid_Appliance_Builder), or [Linux Server](/Linux_Server).
 
 ## Next steps
 
 - [SafeSquid SWG Overview](/safesquid_swg/architecture/safesquid_swg)
 - [Proxy Clustering](/Proxy_Clustering)
-- [Deployment Planning](/deployment/deployment_planning)
+- [Deployment](/deployment/main)
 - [Getting Started](/Getting_Started)

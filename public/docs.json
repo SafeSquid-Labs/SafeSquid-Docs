@@ -169,22 +169,12 @@
         "icon": "server",
         "groups": [
           {
-            "group": "Getting started",
-            "pages": [
-              "deployment/deployment_planning",
-              "deployment/choose_an_architecture",
-              "deployment/pilot_versus_production",
-              "deployment/resource_planning",
-              "getting_started/install_safesquid/prerequisites"
-            ]
-          },
-          {
             "group": "Plan and prepare",
             "pages": [
+              "deployment/licensing_requirements",
               "getting_started/register",
-              "deployment/sizing",
-              "deployment/ports_and_firewall_rules",
-              "deployment/licensing_requirements"
+              "deployment/hardware_sizing",
+              "deployment/ports_and_firewall_rules"
             ]
           },
           {
@@ -222,12 +212,14 @@
           {
             "group": "Deployment modes",
             "pages": [
+              "deployment/choose_an_architecture",
               "use_cases/scaling_and_high_availability/forward_proxy",
               "use_cases/scaling_and_high_availability/transparent_proxy",
               "use_cases/scaling_and_high_availability/wccp",
               "use_cases/scaling_and_high_availability/tcp_proxy",
               "use_cases/scaling_and_high_availability/reverse_proxy",
-              "use_cases/scaling_and_high_availability/proxy_chain"
+              "use_cases/scaling_and_high_availability/proxy_chain",
+              "getting_started/install_safesquid/prerequisites"
             ]
           },
           {
@@ -695,7 +687,23 @@
     },
     {
       "source": "/getting_started/deployment_planning",
-      "destination": "/deployment/deployment_planning"
+      "destination": "/deployment/main"
+    },
+    {
+      "source": "/deployment/deployment_planning",
+      "destination": "/deployment/main"
+    },
+    {
+      "source": "/deployment/pilot_versus_production",
+      "destination": "/deployment/main"
+    },
+    {
+      "source": "/deployment/resource_planning",
+      "destination": "/deployment/hardware_sizing"
+    },
+    {
+      "source": "/deployment/sizing",
+      "destination": "/deployment/hardware_sizing"
     },
     {
       "source": "/use_cases/scaling_and_high_availability/operational_modes",

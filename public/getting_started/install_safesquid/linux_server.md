@@ -320,7 +320,7 @@ Without rotation, SafeSquid logs grow until the volume fills and evidence is sil
 }
 ```
 
-Adjust `rotate` to the retention target agreed in [Deployment Planning](/deployment/deployment_planning), and use the service reload command appropriate to your build. Test the configuration before relying on it:
+Adjust `rotate` to the retention target agreed in [Log-Retention Planning](/deployment/log_retention_planning), and use the service reload command appropriate to your build. Test the configuration before relying on it:
 
 ```bash
 sudo logrotate -d /etc/logrotate.d/safesquid

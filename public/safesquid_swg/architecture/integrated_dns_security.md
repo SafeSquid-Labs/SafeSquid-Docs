@@ -108,4 +108,4 @@ Useful evidence includes:
 - [DNS Security](/DNS_Security) for the configuration guide
 - [Access Restriction](/Access_Restriction) for Layer 7 policy aligned to DNS decisions
 - [SafeSquid SWG Overview](/safesquid_swg/architecture/safesquid_swg) for the architecture context
-- [Deployment Planning](/deployment/deployment_planning) for DNS dependency and allowlist planning
+- [Deployment](/deployment/main) for DNS dependency and allowlist planning

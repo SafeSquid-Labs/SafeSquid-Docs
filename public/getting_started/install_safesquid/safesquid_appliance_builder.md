@@ -50,7 +50,7 @@ The separate log and cache volumes matter more than they look. A shared root vol
 
 Before booting the ISO, confirm:
 
-- CPU, RAM, disk, and NIC allocation match the sizing plan in [Sizing](/deployment/sizing).
+- CPU, RAM, disk, and NIC allocation match the sizing plan in [Hardware Sizing](/deployment/hardware_sizing).
 - The CPU exposes AES-NI. SSL inspection performance depends on it.
 - The VM or hardware can boot from the SAB ISO.
 - Static IP, gateway, DNS, and NTP values are approved and unique within the subnet.
@@ -76,7 +76,7 @@ Record the download date and, where the organisation's process requires it, a ch
    lscpu | grep aes
    ```
 
-   Expected result: `aes` appears in the CPU flags. If it does not, HTTPS inspection will be substantially slower on this host — see the AES-NI requirement in [Sizing](/deployment/sizing).
+   Expected result: `aes` appears in the CPU flags. If it does not, HTTPS inspection will be substantially slower on this host — see the AES-NI requirement in [Hardware Sizing](/deployment/hardware_sizing).
 
 </Accordion>
 

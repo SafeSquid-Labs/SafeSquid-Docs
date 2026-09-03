@@ -23,6 +23,6 @@ This section covers planning retention before deployment, proving the audit trai
 
 ## Next steps
 
-- [Deployment Planning](/deployment/deployment_planning) - size and sequence the rest of the deployment around this evidence path.
+- [Deployment](/deployment/main) - size and sequence the rest of the deployment around this evidence path.
 - [Audit & Forensics](/use_cases/audit_and_forensics/audit_forensics) - go deeper on forensic workflows and security-log analysis.
 - [Troubleshooting](/troubleshooting/troubleshooting) - diagnose a specific symptom instead of planning or validating reporting.

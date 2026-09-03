@@ -99,7 +99,7 @@ Store these artifacts with the deployment record:
 | Request succeeds but no log entry | Client bypasses the proxy, or the wrong log path was checked | Confirm proxy settings on the client and inspect `/var/log/safesquid/access/extended.log` |
 | Only some clients are logged | Bypass rule or PAC exception is matching more broadly than intended | Review PAC logic and bypass lists; narrow to named destinations |
 | `safesquid.cfg` does not load | Pilot browser is not using SafeSquid | Configure explicit proxy and retry before investigating the portal |
-| Connections work then drop under load | NIC saturation, or bonding configured on the host but not the switch | Compare against the sizing plan in [Resource Planning](/deployment/resource_planning) |
+| Connections work then drop under load | NIC saturation, or bonding configured on the host but not the switch | Compare against the sizing plan in [Hardware Sizing](/deployment/hardware_sizing) |
 
 ## Next steps
 

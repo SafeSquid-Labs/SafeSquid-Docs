@@ -46,7 +46,7 @@ Forwarding does not remove the need for local retention. Keep enough local histo
   If logs are forwarded to a SIEM, still preserve enough local retention for outage diagnosis and forwarder-failure recovery.
 </Accordion>
 
-Monitor `/var/log/safesquid` usage on a schedule and alert before the volume fills. Storage media choice matters here too — see the NVMe write paths in [Sizing](/deployment/sizing).
+Monitor `/var/log/safesquid` usage on a schedule and alert before the volume fills. Storage media choice matters here too — see the NVMe write paths in [Hardware Sizing](/deployment/hardware_sizing).
 
 ## Assign the ownership
 
@@ -79,5 +79,5 @@ Store these artifacts with the deployment record:
 ## Next steps
 
 - [Logging and Reporting](/deployment/logging_and_reporting) - prove the evidence path works once deployed.
-- [Sizing](/deployment/sizing) - convert the retention target into a storage decision.
+- [Hardware Sizing](/deployment/hardware_sizing) - convert the retention target into a storage decision.
 - [Reporting Service](/safesquid_swg/interface/reporting_service) - connect reporting and forwarding.
