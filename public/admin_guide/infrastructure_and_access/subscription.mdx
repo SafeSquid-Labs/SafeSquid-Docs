@@ -50,6 +50,14 @@ An expired subscription is not the same as Access restrictions DENY — users ma
 
 {/* NEEDS-SME-REVIEW: "Modules Status" (signature/feed load status, distinct from License Details) was previously claimed to live under Reports but no such tab exists live (Reports tabs verified this session: Dashboard, Statistics, Native logs, Detailed logs, Config logs, Active Connections, Connection Pool, DNS Cache, LDAP Entries, Password Cache). Where feed/module load status actually surfaces in the UI is unconfirmed — check Native logs or the update-hook logs referenced in cloud_feeds.mdx instead until this is verified. */}
 
+{/* NEEDS-SME-REVIEW: this session searched Reports, Configure, and Support (live DOM and nav) for
+a standalone "Subscription" page or an activation-key upload control and found neither — the
+License Details panel on Support is read-only apart from Refresh. This page's premise of a
+separate Subscription section with an upload step could not be verified live. The Upload Config
+card on Support was not opened to check (it is on the never-click list for destructive/unverified
+controls), so it remains a possible but unconfirmed candidate. No screenshot was captured for this
+page as a result — confirm where activation-key upload actually lives before adding one. */}
+
 ## See also
 
 - [Support](/admin_guide/infrastructure_and_access/support) — License Details panel and appliance tools
