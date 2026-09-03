@@ -12,6 +12,8 @@ This repo contains CISO-grade, enterprise documentation for SafeSquid SWG. Agent
 
 **Contribution:** Documentation changes are submitted via pull request. All edits require review before merge.
 
+**Branching (current, set 2026-09-03):** New work happens directly on `docs/deployment-scroll-reduction` — do not cut a fresh branch per task by default. Once a body of work on that branch is ready, merge it into `restructure/legacy-migration-and-admin-move` (the legacy-migration branch). Only branch off `docs/deployment-scroll-reduction` for a change that needs isolation from other in-flight work already on it, and merge back into it (not directly into the legacy branch) when done. Update this note if either branch is renamed, merged, or retired.
+
 ## Agent Scope and Limitations
 
 ✅ **DO:**
