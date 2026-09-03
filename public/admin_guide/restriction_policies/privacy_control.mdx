@@ -45,6 +45,14 @@ title: "Privacy control"
 
     ## Examples
 
+    Open **Configure → Restriction Policies → Privacy control → Cookie filter**. The **Global**
+    sub-tab holds the Enabled switch and the Policy (Allow/Deny); **Allow** and **Deny** are
+    separate sub-tabs holding the override row lists.
+
+    <Frame caption="Privacy control — Cookie filter Global tab">
+      <img src="/images/admin_guide/privacy_control-cookie_filter.webp" alt="SafeSquid console showing the Privacy control Cookie filter Global tab, with the Edit Policy icon circled" />
+    </Frame>
+
     <Tip>
 
     ### Deny by default, allow intranet SSO cookies
@@ -111,6 +119,14 @@ title: "Privacy control"
 
     ## Examples
 
+    Open **Configure → Restriction Policies → Privacy control → Header filter**. Five sub-tabs:
+    **Global** (Enabled/Policy), **Allow**, **Deny**, **Insert**, and **View headers** — the last
+    lets you inspect real header names and values from a live connection before writing regexes.
+
+    <Frame caption="Privacy control — Header filter Global tab">
+      <img src="/images/admin_guide/privacy_control-header_filter.webp" alt="SafeSquid console showing the Privacy control Header filter Global tab with its five sub-tabs, the Edit Policy icon circled" />
+    </Frame>
+
     <Tip>
 
     ### Strip Referer on all users except marketing
@@ -173,6 +189,14 @@ title: "Privacy control"
     ```
 
     ## Examples
+
+    Open **Configure → Restriction Policies → Privacy control → Elevated Privacy → Elevated
+    policies**. Rows are tested top to bottom; the first enabled match sets the level for the
+    connection.
+
+    <Frame caption="Privacy control — Elevated Privacy policy rows">
+      <img src="/images/admin_guide/privacy_control-elevated_privacy.webp" alt="SafeSquid console showing Elevated Privacy policy rows with NOT-REQUIRED, PARANOID, and LOW privacy levels, the Edit Policies icon on the first row circled" />
+    </Frame>
 
     <Tip>
 
