@@ -20,5 +20,5 @@ Use this legacy hub for architecture pages that remain useful but are now surfac
 
 ## Next steps
 
-- Use [Application Ecosystem](/safesquid_swg/application_ecosystem/main) for the current SafeSquid SWG tab structure.
+- Use [Application Ecosystem](/safesquid_swg/application_ecosystem/main) for the current Architecture tab structure.
 - Use [Proxy Service](/safesquid_swg/application_ecosystem/proxy_service) for the operational enforcement entry point.

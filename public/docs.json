@@ -115,6 +115,56 @@
         ]
       },
       {
+        "tab": "Architecture",
+        "icon": "sitemap",
+        "groups": [
+          {
+            "group": "Application Ecosystem",
+            "pages": [
+              "safesquid_swg/application_ecosystem/main",
+              "safesquid_swg/application_ecosystem/proxy_service",
+              "safesquid_swg/architecture/integrated_dns_security",
+              "safesquid_swg/application_ecosystem/remote_browser_isolation",
+              "safesquid_swg/interface/reporting_service",
+              "safesquid_swg/interface/self_service_portal",
+              "safesquid_swg/application_ecosystem/threat_intelligence_feeds",
+              "safesquid_swg/interface/configuration_portal",
+              "getting_started/access_the_interface"
+            ]
+          },
+          {
+            "group": "Supporting Services",
+            "pages": [
+              "safesquid_swg/interface/supporting_services",
+              "safesquid_swg/interface/supporting_services_monit",
+              "safesquid_swg/interface/bind",
+              "safesquid_swg/interface/ntp"
+            ]
+          },
+          {
+            "group": "Policy Management Console",
+            "pages": [
+              "safesquid_swg/policy_management_console/main",
+              "safesquid_swg/policy_management_console/reports",
+              "safesquid_swg/policy_management_console/configure",
+              "safesquid_swg/policy_management_console/support"
+            ]
+          },
+          {
+            "group": "Files and Folders",
+            "pages": [
+              "safesquid_swg/files_and_folders/main",
+              "safesquid_swg/files_and_folders/files_and_folders",
+              "safesquid_swg/files_and_folders/service_and_startup_files",
+              "safesquid_swg/files_and_folders/application_binaries_and_modules",
+              "safesquid_swg/files_and_folders/policy_security_and_ui_files",
+              "safesquid_swg/files_and_folders/runtime_data_and_signatures",
+              "safesquid_swg/files_and_folders/logs_and_audit_evidence"
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Deployment",
         "icon": "server",
         "groups": [
@@ -134,7 +184,6 @@
               "getting_started/register",
               "deployment/sizing",
               "deployment/ports_and_firewall_rules",
-              "deployment/log_retention_planning",
               "deployment/licensing_requirements"
             ]
           },
@@ -214,7 +263,6 @@
               "deployment/proxy_connectivity",
               "deployment/https_inspection_validation",
               "getting_started/configure_web_security_policies",
-              "deployment/logging_and_reporting",
               "getting_started/verify_your_setup"
             ]
           },
@@ -228,51 +276,83 @@
         ]
       },
       {
-        "tab": "SafeSquid SWG",
-        "icon": "shield-halved",
+        "tab": "Configuration",
+        "icon": "sliders",
         "groups": [
           {
-            "group": "Application Ecosystem",
+            "group": "Start here",
             "pages": [
-              "safesquid_swg/application_ecosystem/main",
-              "safesquid_swg/application_ecosystem/proxy_service",
-              "safesquid_swg/architecture/integrated_dns_security",
-              "safesquid_swg/application_ecosystem/remote_browser_isolation",
-              "safesquid_swg/interface/reporting_service",
-              "safesquid_swg/interface/self_service_portal",
-              "safesquid_swg/application_ecosystem/threat_intelligence_feeds",
-              "safesquid_swg/interface/configuration_portal",
-              "getting_started/access_the_interface"
+              "admin_guide/start_here/first_configuration",
+              "admin_guide/start_here/architecture",
+              "admin_guide/start_here/daemon",
+              "admin_guide/infrastructure_and_access/network_settings",
+              "admin_guide/infrastructure_and_access/access_restrictions",
+              "admin_guide/start_here/authentication",
+              "admin_guide/policies_and_profiles/access_profiles",
+              "admin_guide/start_here/debug_response_headers",
+              "admin_guide/start_here/startup_ini",
+              "admin_guide/start_here/cloud_feeds",
+              "admin_guide/start_here/integrations"
             ]
           },
           {
-            "group": "Supporting Services",
+            "group": "Infrastructure and access",
             "pages": [
-              "safesquid_swg/interface/supporting_services",
-              "safesquid_swg/interface/supporting_services_monit",
-              "safesquid_swg/interface/bind",
-              "safesquid_swg/interface/ntp"
+              "admin_guide/infrastructure_and_access/access_restrictions",
+              "admin_guide/infrastructure_and_access/network_settings",
+              "admin_guide/infrastructure_and_access/system_configuration",
+              "admin_guide/infrastructure_and_access/integrate_ldap",
+              "admin_guide/infrastructure_and_access/https_inspection",
+              "admin_guide/infrastructure_and_access/proxy_chain",
+              "admin_guide/infrastructure_and_access/ftp_browsing",
+              "admin_guide/infrastructure_and_access/wccp",
+              "admin_guide/infrastructure_and_access/subscription",
+              "admin_guide/infrastructure_and_access/ssqore"
             ]
           },
           {
-            "group": "Policy Management Console",
+            "group": "Policies and profiles",
             "pages": [
-              "safesquid_swg/policy_management_console/main",
-              "safesquid_swg/policy_management_console/reports",
-              "safesquid_swg/policy_management_console/configure",
-              "safesquid_swg/policy_management_console/support"
+              "admin_guide/policies_and_profiles/access_profiles",
+              "admin_guide/policies_and_profiles/speed_limits",
+              "admin_guide/policies_and_profiles/request_types",
+              "admin_guide/policies_and_profiles/response_types",
+              "admin_guide/policies_and_profiles/time_profiler",
+              "admin_guide/policies_and_profiles/templates",
+              "admin_guide/policies_and_profiles/application_signatures",
+              "admin_guide/policies_and_profiles/content_signatures",
+              "admin_guide/policies_and_profiles/suggested_profiles",
+              "admin_guide/policies_and_profiles/categorize_web_sites"
             ]
           },
           {
-            "group": "Files and Folders",
+            "group": "Filtering and privacy",
             "pages": [
-              "safesquid_swg/files_and_folders/main",
-              "safesquid_swg/files_and_folders/files_and_folders",
-              "safesquid_swg/files_and_folders/service_and_startup_files",
-              "safesquid_swg/files_and_folders/application_binaries_and_modules",
-              "safesquid_swg/files_and_folders/policy_security_and_ui_files",
-              "safesquid_swg/files_and_folders/runtime_data_and_signatures",
-              "safesquid_swg/files_and_folders/logs_and_audit_evidence"
+              "admin_guide/filtering_and_privacy/cookie_filter",
+              "admin_guide/filtering_and_privacy/header_filter",
+              "admin_guide/filtering_and_privacy/text_analyzer",
+              "admin_guide/filtering_and_privacy/dns_blacklist",
+              "admin_guide/filtering_and_privacy/redirect",
+              "admin_guide/filtering_and_privacy/content_modifier",
+              "admin_guide/filtering_and_privacy/elevated_privacy",
+              "admin_guide/filtering_and_privacy/external_applications"
+            ]
+          },
+          {
+            "group": "Performance",
+            "pages": [
+              "admin_guide/performance/caching",
+              "admin_guide/performance/prefetching"
+            ]
+          },
+          {
+            "group": "Security scanners",
+            "pages": [
+              "admin_guide/security_scanners/clam_antivirus",
+              "admin_guide/security_scanners/sqscan",
+              "admin_guide/security_scanners/image_analyzer",
+              "admin_guide/security_scanners/dlp",
+              "admin_guide/security_scanners/icap"
             ]
           }
         ]
@@ -444,87 +524,14 @@
         ]
       },
       {
-        "tab": "Admin Guide",
-        "icon": "book-open",
-        "groups": [
-          {
-            "group": "Start here",
-            "pages": [
-              "admin_guide/start_here/first_configuration",
-              "admin_guide/start_here/architecture",
-              "admin_guide/start_here/daemon",
-              "admin_guide/infrastructure_and_access/network_settings",
-              "admin_guide/infrastructure_and_access/access_restrictions",
-              "admin_guide/start_here/authentication",
-              "admin_guide/policies_and_profiles/access_profiles",
-              "admin_guide/start_here/logging",
-              "admin_guide/start_here/debug_response_headers",
-              "admin_guide/start_here/startup_ini",
-              "admin_guide/start_here/cloud_feeds",
-              "admin_guide/start_here/integrations",
-              "admin_guide/start_here/tools_and_reports"
-            ]
-          },
-          {
-            "group": "Infrastructure and access",
-            "pages": [
-              "admin_guide/infrastructure_and_access/access_restrictions",
-              "admin_guide/infrastructure_and_access/network_settings",
-              "admin_guide/infrastructure_and_access/system_configuration",
-              "admin_guide/infrastructure_and_access/integrate_ldap",
-              "admin_guide/infrastructure_and_access/https_inspection",
-              "admin_guide/infrastructure_and_access/proxy_chain",
-              "admin_guide/infrastructure_and_access/ftp_browsing",
-              "admin_guide/infrastructure_and_access/wccp",
-              "admin_guide/infrastructure_and_access/subscription",
-              "admin_guide/infrastructure_and_access/ssqore"
-            ]
-          },
-          {
-            "group": "Policies and profiles",
-            "pages": [
-              "admin_guide/policies_and_profiles/access_profiles",
-              "admin_guide/policies_and_profiles/speed_limits",
-              "admin_guide/policies_and_profiles/request_types",
-              "admin_guide/policies_and_profiles/response_types",
-              "admin_guide/policies_and_profiles/time_profiler",
-              "admin_guide/policies_and_profiles/templates",
-              "admin_guide/policies_and_profiles/application_signatures",
-              "admin_guide/policies_and_profiles/content_signatures",
-              "admin_guide/policies_and_profiles/suggested_profiles",
-              "admin_guide/policies_and_profiles/categorize_web_sites"
-            ]
-          },
-          {
-            "group": "Filtering and privacy",
-            "pages": [
-              "admin_guide/filtering_and_privacy/cookie_filter",
-              "admin_guide/filtering_and_privacy/header_filter",
-              "admin_guide/filtering_and_privacy/text_analyzer",
-              "admin_guide/filtering_and_privacy/dns_blacklist",
-              "admin_guide/filtering_and_privacy/redirect",
-              "admin_guide/filtering_and_privacy/content_modifier",
-              "admin_guide/filtering_and_privacy/elevated_privacy",
-              "admin_guide/filtering_and_privacy/external_applications"
-            ]
-          },
-          {
-            "group": "Performance",
-            "pages": [
-              "admin_guide/performance/caching",
-              "admin_guide/performance/prefetching"
-            ]
-          },
-          {
-            "group": "Security scanners",
-            "pages": [
-              "admin_guide/security_scanners/clam_antivirus",
-              "admin_guide/security_scanners/sqscan",
-              "admin_guide/security_scanners/image_analyzer",
-              "admin_guide/security_scanners/dlp",
-              "admin_guide/security_scanners/icap"
-            ]
-          }
+        "tab": "Reporting",
+        "icon": "chart-line",
+        "pages": [
+          "reporting/reporting",
+          "deployment/log_retention_planning",
+          "deployment/logging_and_reporting",
+          "admin_guide/start_here/tools_and_reports",
+          "admin_guide/start_here/logging"
         ]
       },
       {

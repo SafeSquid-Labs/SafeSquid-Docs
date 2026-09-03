@@ -1,5 +1,5 @@
 ---
-title: "Admin Guide"
+title: "Configuration"
 ---
 
 <Note>
