@@ -27,7 +27,7 @@ mode: "center"
 ## Next steps
 
 - [What is SafeSquid SWG](/safesquid_swg/what_is_safesquid_swg) — how SafeSquid implements Zero-Trust web controls: the inspection pipeline, control model, and compliance evidence SafeSquid produces
-- [Prerequisites](/getting_started/install_safesquid/prerequisites) — validate system, network, and identity requirements before deployment
+- [Deployment Checklist](/getting_started/install_safesquid/prerequisites) — validate system, network, and identity requirements before deployment
 - [Getting Started](/getting_started/welcome) — production onboarding path for deploy, activate, and harden
 
 ## Related posts

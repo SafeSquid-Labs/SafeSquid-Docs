@@ -33,7 +33,7 @@ SafeSquid SWG becomes a security control only after traffic is deliberately rout
     If the key was copied into tickets or chat, treat it as secret exposure and replace it through the approved process.
   </Step>
   <Step title="Plan deployment and prerequisites">
-    Complete [Deployment](/deployment/main) and [Prerequisites](/getting_started/install_safesquid/prerequisites) before installing. Record CPU, RAM, disk, NIC, DNS, NTP, firewall, HA, and evidence-retention decisions.
+    Complete [Deployment](/deployment/main) and [Deployment Checklist](/getting_started/install_safesquid/prerequisites) before installing. Record CPU, RAM, disk, NIC, DNS, NTP, firewall, HA, and evidence-retention decisions.
 
     Confirm the change record includes sizing, network, DNS, NTP, firewall, rollback, and log-retention decisions.
 

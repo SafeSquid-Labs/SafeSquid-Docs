@@ -129,7 +129,7 @@ Package names drift between releases. If one is not found, locate the equivalent
 sudo mkdir -p /var/log/safesquid /var/lib/safesquid /var/db/safesquid
 ```
 
-**Open the proxy and management ports** using whichever firewall the host runs. Restrict the source scope in the same change, as described in [Prerequisites](/getting_started/install_safesquid/prerequisites):
+**Open the proxy and management ports** using whichever firewall the host runs. Restrict the source scope in the same change, as described in [Deployment Checklist](/getting_started/install_safesquid/prerequisites):
 
 ```bash
 # firewalld (RHEL family)
