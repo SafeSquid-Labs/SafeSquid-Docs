@@ -1,0 +1,15 @@
+[Rr]eachability
+[Ee]xfiltration
+[Pp]roxying
+[Ss]anitization
+Kerberos
+[Ll]oggable
+intel
+IPs
+Spamhaus
+hostname
+webmail
+rollout
+walkthrough
+uninspected
+Bing
