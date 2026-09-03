@@ -61,7 +61,7 @@ SafeSquid SWG becomes a security control only after traffic is deliberately rout
     If activation cannot be proven, re-upload the key and confirm subscription path reachability.
   </Step>
   <Step title="Verify before expansion">
-    Run [Verify Your Setup](/getting_started/verify_your_setup) and capture activation, routing, policy, DNS, and log evidence before broad rollout.
+    Run [Production-Readiness Checklist](/getting_started/verify_your_setup) and capture activation, routing, policy, DNS, and log evidence before broad rollout.
 
     Confirm all readiness checks pass and evidence is attached to the deployment record.
 
@@ -149,4 +149,4 @@ Store these artifacts with the deployment record:
 - [Deployment](/deployment/main) - size the first production-ready node or cluster.
 - [Connect Your Client](/getting_started/client_configuration/connect_your_client) - select the right client onboarding method.
 - [Configure Web Security Policies](/getting_started/configure_web_security_policies) - turn proxy traffic into enforceable controls.
-- [Verify Your Setup](/getting_started/verify_your_setup) - confirm the pilot is ready for production review.
+- [Production-Readiness Checklist](/getting_started/verify_your_setup) - confirm the pilot is ready for production review.
