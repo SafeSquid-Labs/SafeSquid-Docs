@@ -24,12 +24,26 @@ The CONNECT port check applies only when a row matched. Port must be in the row 
 
 ## Global fields
 
+Open **Configure → Application Setup → System configuration → Global**.
+
+<Frame caption="System configuration — Global fields">
+  <img src="/images/admin_guide/system_configuration-global.webp" alt="SafeSquid console showing System configuration Global fields with Send Debugging Headers To set to CLIENT, the Edit Policy icon circled" />
+</Frame>
+
 - **Proxy hostname** — Identity in Via and Kerberos scripts; blank uses system hostname.
 - **Connection pool size / timeout** — Resizes upstream `serverpool` immediately on config update.
 - **Send Debugging Headers To** — CLIENT, SERVER, BOTH, or NONE — see [Debug headers](/admin_guide/start_here/debug_response_headers).
 - **Dynamic Categorization** — Referer categories applied to dependency requests.
 
 ## Examples
+
+Open **Configure → Application Setup → System configuration → Compression and buffering
+policies**. Row fields include Connection/Header/Keepalive timeout, Maximum download/upload buffer
+size, Buffer wait time, CONNECT ports, and the compression fields.
+
+<Frame caption="System configuration — Compression and buffering policies row">
+  <img src="/images/admin_guide/system_configuration-compression.webp" alt="SafeSquid console showing a Compression and buffering policies row with CONNECT ports and buffer size fields, the Edit Policies icon circled" />
+</Frame>
 
 <Tip>
 

@@ -59,6 +59,14 @@ Requires both the **Allow bypassing** access right (`BYPASS`) and the **DLP** by
 6. PAM catch-all — last Allow row
 7. Deny exceptions — paired with an Allow range to demonstrate revoke
 
+Open **Configure → Application Setup → Access restrictions → Allow list**. Row fields are Enabled,
+Comment, Trace Entry, Profiles or IP Address, **PAM authentication** (labeled differently than
+System authentication below — same underlying gate), Access, and Add to User-Groups.
+
+<Frame caption="Access restrictions — Allow list rows">
+  <img src="/images/admin_guide/access_restrictions-allow_list.webp" alt="SafeSquid console showing Access restrictions Allow list rows with the bypass-authentication and tunnelled-UI-access entries, the Edit Policies icon on the first row circled" />
+</Frame>
+
 ## Global fields
 
 - **Default Access Policy** — Deny recommended. Controls default when no row matches and which list is walked first.

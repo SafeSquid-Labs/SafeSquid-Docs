@@ -24,10 +24,23 @@ Non-local Source IPs are dropped silently at load. If all IPs are dropped, the r
 
 ## Listen fields
 
+Open **Configure → Application Setup → Network settings → Listen**.
+
+<Frame caption="Network settings — Listen rows">
+  <img src="/images/admin_guide/network_settings-listen.webp" alt="SafeSquid console showing Network settings Listen rows including an SSL_TRANSPARENT binding, the Edit Policies icon on the first row circled" />
+</Frame>
+
 - **IP / Port** — Bind address and client port. Blank IP = dual-stack any when IPv6 available.
 - **Bindings** — `SSL_TRANSPARENT`, `CAPTIVE_PORTAL` implemented; `SSL_AUTHENTICATION` / `SSL_BRIDGE` have no effect.
 
 ## Interface fields
+
+Open **Configure → Application Setup → Network settings → Interface**. The live row's outbound
+address field is labeled **IP**, not Source IP as referenced below.
+
+<Frame caption="Network settings — Interface row">
+  <img src="/images/admin_guide/network_settings-interface.webp" alt="SafeSquid console showing a Network settings Interface row with the ALTERNATE OUTBOUND IP profile, the Edit Policies icon circled" />
+</Frame>
 
 - **Profiles** — Blank matches all. Typical tag: `ALTERNATE OUTBOUND IP`.
 - **Excluded Destination IPs** — Hyphen ranges; destination in list skips row (CIDR not supported).

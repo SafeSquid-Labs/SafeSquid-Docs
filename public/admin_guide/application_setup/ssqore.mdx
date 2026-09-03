@@ -10,6 +10,13 @@ SSqore has globals only — no policy list. See [Cloud / categorisation feeds](/
 
 ## Global settings
 
+Open **Configure → Application Setup → SSqore**. The entire configurable surface is two toggles —
+Enabled and Heuristic.
+
+<Frame caption="SSqore — Global settings">
+  <img src="/images/admin_guide/ssqore-global.webp" alt="SafeSquid console showing SSqore Global settings with Enabled set to TRUE, the Edit Policy icon circled" />
+</Frame>
+
 - **Enabled** — When off, URL categorization is skipped and no CCS categories are added to connections. When on, host names are looked up and categories are merged into the connection profile list for policy matching.
 - **Heuristic** — Stored in configuration but **not read** by the current build. Toggling Heuristic does not change URL lookup behaviour today.
 
