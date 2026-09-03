@@ -58,6 +58,15 @@ code -->|timeout| next
 
 ## Examples
 
+Open **Configure → Real time content security → ICAP → ICAP**. Live rows show Enabled, Comment,
+ICAP Timeout, Applies to, and Threat ID Header — **ICAP Service URL and Profiles do not appear on
+either shipped row**, though both are listed under Schema Fields above. Confirm before assuming
+those two fields render on a fresh row.
+
+<Frame caption="ICAP — ICAP rows">
+  <img src="/images/admin_guide/icap-rows.webp" alt="SafeSquid console showing ICAP rows for ClamAV REQMOD and RESPMOD with ICAP Timeout and Threat ID Header fields, the Edit Policies icon on the first row circled" />
+</Frame>
+
 ### Scan downloads only
 
 - **Configuration:** Applies to RESPONSES, Service URL `icap://10.0.0.5:1344/respmod`.

@@ -57,6 +57,13 @@ pcre --> done[Modified stream continues]
 
 ## Examples
 
+Open **Configure → Real time content security → Content modifier → Rewriting policies**. Row
+fields are Enabled, Comment, Profiles, Pattern, Replace, and Applies to.
+
+<Frame caption="Content modifier — Rewriting policies rows">
+  <img src="/images/admin_guide/content_modifier-rewriting_policies.webp" alt="SafeSquid console showing Content modifier Rewriting policies rows rewriting Accept headers, the Edit Policies icon on the first row circled" />
+</Frame>
+
 ### YouTube SafeSearch cookie injection
 
 - **Configuration:** Profiles UNSAFE\_YOUTUBE, Pattern `Cookie: ([^\r\n]*)`, Replace `Cookie: ; PREF=f2=8000000;\r\n`, Applies to CLIENT HEADER.
