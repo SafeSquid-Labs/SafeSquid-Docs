@@ -127,4 +127,4 @@ Use the supporting services pages for Monit, BIND, and NTP because those service
 - [What is SafeSquid SWG](/safesquid_swg/what_is_safesquid_swg) for the security problem and product role
 - [Application Ecosystem](/Application_Ecosystem) for feed, portal, reporting, and supporting-service relationships
 - [SafeSquid Proxy Cluster](/SafeSquid_Proxy_Cluster) for resilience and scale
-- [Deployment](/deployment/main) for sizing, dependencies, and rollout preparation
+- [Deployment](/deployment/licensing_requirements) for sizing, dependencies, and rollout preparation

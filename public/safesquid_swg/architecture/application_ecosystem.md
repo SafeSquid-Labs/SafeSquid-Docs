@@ -133,4 +133,4 @@ If these are misconfigured, operators can see symptoms that look like proxy fail
 - [SafeSquid SWG Overview](/safesquid_swg/architecture/safesquid_swg) for the full product architecture
 - [Integrated DNS Security](/Integrated_DNS_Security) for DNS-layer controls
 - [Reporting Service](/Reporting_Service) for evidence and analytics
-- [Deployment](/deployment/main) for infrastructure, dependency, and rollout planning
+- [Deployment](/deployment/licensing_requirements) for infrastructure, dependency, and rollout planning

@@ -238,6 +238,6 @@ For detailed post-install activation steps, service checks, listener checks, and
 
 ## Next steps
 
-- [Deployment](/deployment/main) - size and prepare the deployment.
+- [Deployment](/deployment/licensing_requirements) - size and prepare the deployment.
 - [Deployment Checklist](/getting_started/install_safesquid/prerequisites) - confirm host, network, and trust readiness.
 - [Activate Your License](/getting_started/activate) - upload the key after SafeSquid is installed.

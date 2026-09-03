@@ -33,7 +33,7 @@ SafeSquid SWG becomes a security control only after traffic is deliberately rout
     If the key was copied into tickets or chat, treat it as secret exposure and replace it through the approved process.
   </Step>
   <Step title="Plan deployment and prerequisites">
-    Complete [Deployment](/deployment/main) and [Deployment Checklist](/getting_started/install_safesquid/prerequisites) before installing. Record CPU, RAM, disk, NIC, DNS, NTP, firewall, HA, and evidence-retention decisions.
+    Complete [Deployment](/deployment/licensing_requirements) and [Deployment Checklist](/getting_started/install_safesquid/prerequisites) before installing. Record CPU, RAM, disk, NIC, DNS, NTP, firewall, HA, and evidence-retention decisions.
 
     Confirm the change record includes sizing, network, DNS, NTP, firewall, rollback, and log-retention decisions.
 
@@ -73,7 +73,7 @@ SafeSquid SWG becomes a security control only after traffic is deliberately rout
 
 <Steps>
   <Step title="Choose the pilot planning path">
-    <Card title="First production pilot" icon="route" href="/deployment/main">
+    <Card title="First production pilot" icon="route" href="/deployment/licensing_requirements">
       Start here when you need a controlled first deployment with sizing, firewall, DNS, logging, and rollback evidence.
     </Card>
 
@@ -146,7 +146,7 @@ Store these artifacts with the deployment record:
 
 ## Next steps
 
-- [Deployment](/deployment/main) - size the first production-ready node or cluster.
+- [Deployment](/deployment/licensing_requirements) - size the first production-ready node or cluster.
 - [Connect Your Client](/getting_started/client_configuration/connect_your_client) - select the right client onboarding method.
 - [Configure Web Security Policies](/getting_started/configure_web_security_policies) - turn proxy traffic into enforceable controls.
 - [Production-Readiness Checklist](/getting_started/verify_your_setup) - confirm the pilot is ready for production review.
