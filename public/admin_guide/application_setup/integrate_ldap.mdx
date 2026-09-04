@@ -16,7 +16,7 @@ First valid row's **Ldap Domain** becomes the default domain. Logins without `@`
 
 ### Auth — first matching server
 
-Authentication walks servers until the domain (and optional base DN) match; stops on bind success or invalid credentials.
+Authentication walks servers until the domain and **Ldap Basedn** match; stops on bind success or invalid credentials.
 
 ### ldapgroupfilter
 
@@ -29,8 +29,10 @@ Stored in config but not used in search code — groups come from **Group Identi
 ## Examples
 
 Open **Configure → Application Setup → Integrate LDAP → LDAP servers**. Each row carries the
-connection fields plus **Ldap Domain**, **Login Attributes**, and **Group Identifier** shown here
-(the Ldap Password row is redacted from this capture).
+connection fields plus **Ldap Domain**, **Ldap Basedn**, **Login Attributes**, and **Group
+Identifier** shown here (the Ldap Password row is redacted from this capture). **Ldap Basedn**
+is a distinct field from **Ldap Domain** — enter it in LDAP format, for example `dc=domain,dc=local`
+or, for a domain like `test1.testdomain1.com`, `dc=testdomain1,dc=com`.
 
 <Frame caption="Integrate LDAP — LDAP servers row">
   <img src="/images/admin_guide/integrate_ldap-servers.webp" alt="SafeSquid console showing an LDAP servers row with Login Attributes and Group Identifier fields, Group Identifier circled" />

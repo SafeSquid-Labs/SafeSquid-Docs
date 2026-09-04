@@ -24,7 +24,7 @@ Malware Security Level **BYPASS** skips scanning. Values STANDARD, HIGH, and PAR
 
 ### Malware Types unused
 
-Malware Types checkboxes set bit flags on the policy but are not passed to the scanner API. Detection uses the engine’s built-in signature set.
+The eight Malware Types checkboxes — **VIRUS**, **SPYWARE**, **ADWARE**, **SPAM**, **ROOTKIT**, **DIALER**, **MALICIOUS_APP**, and **ARCHBOMB** — set bit flags on the policy but are not passed to the scanner API. Detection uses the engine’s built-in signature set.
 
 ### Enforcement
 
@@ -55,7 +55,7 @@ virus -->|No| pass[Continue]
 
 - **Profiles (profiles)** — Limit row to connections with these Access Profile tags. Blank matches all.
 - **Malware Security Level (scan\_flag)** — BYPASS skips SqScan. Other levels label the row but do not alter scan depth in the current build.
-- **Malware Types (malware\_types)** — Stored for operator reference; not forwarded to scan API.
+- **Malware Types (malware\_types)** — Eight checkboxes (`VIRUS`, `SPYWARE`, `ADWARE`, `SPAM`, `ROOTKIT`, `DIALER`, `MALICIOUS_APP`, `ARCHBOMB`). Stored for operator reference; not forwarded to scan API.
 
 ## Examples
 

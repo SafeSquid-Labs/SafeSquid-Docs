@@ -39,13 +39,13 @@ Token-bucket rate, quota counters, request cap enforcement.
 
 ## Troubleshooting
 
-Check `/var/log/safesquid/native/safesquid.log` for limit enforcement messages. A client hitting a quota will typically receive a 403 Forbidden with a specific limit-exceeded template.
+Check `/var/log/safesquid/native/safesquid.log` for limit enforcement messages. A client hitting a quota will typically receive a 429 with a specific limit-exceeded template.
 
 ## How SafeSquid processes the list
 
 1. On each relevant request, every enabled row matching profiles is evaluated.
 2. **Request limit** exceeded → HTTP 429 and the row Template block page (Action field is stored but not read by limits code).
-3. **Download / upload transfer limits** — remaining bytes are the tightest cap among matching rows; when remaining reaches 0, further transfer on matching connections is blocked.
+3. **Download / upload transfer limits** — remaining bytes are the tightest cap among matching rows; when remaining reaches 0, further transfer on matching connections is blocked and the row's Template block page is shown (built-in example: `maxbandwidth`).
 4. **Download rate** — lowest non-zero rate among matching rows wins for throttling.
 5. **Adjust Transfer Limits** flags: Limit cache transfers (count cached responses), Per-request limit (do not accumulate row counters at connection end — each request gets full quota), Group limit (share download rate bucket across matching connections).
 6. After connections complete, byte and request counters increment for matching rows (unless Per-request limit or cache exclusion applies); counters clear on the periodic reset.
@@ -60,7 +60,7 @@ Neither claim is written here as fact. Determine it on your own system before re
 
 - **Profiles** — Limit to connections with these Access Profile tags. Typical tags: `RESTRICTED DOWNLOAD TRANSFER RATES`, `RESTRICTED UPLOAD TRANSFER RATES`.
 - **Action** — Disputed. Console help describes it as enforced; source analysis found it unread. See the warning above and test on your own build.
-- **Template** — Block page when Request limit is exceeded. Blank uses `blocked`. Download/upload overruns use the default blocked path without this field.
+- **Template** — Block page shown when this entry matches. Blank uses `blocked`. This same field also covers download/upload transfer-limit overruns: the console names a `maxbandwidth` template for excessive bandwidth, paired with `maxrequests` for excessive requests — both are shown to the user through this field, not a separate default/bypass path.
 - **Download / Upload transfer limit** — Maximum bytes counted against this row since last counter reset (~10 s). `0` = no cap from this row for that direction.
 - **Request limit** — Maximum requests counted since last reset. `0` = unlimited. Exceeded → HTTP 429.
 - **Download rate** — Throttle in bytes/sec. `0` = no rate from this row. Lowest non-zero matching rate wins.

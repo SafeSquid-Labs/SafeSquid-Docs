@@ -36,6 +36,11 @@ The panel is read-only apart from a **Refresh** control.
 2. When expired, [Application Signatures](/admin_guide/custom_settings/application_signatures) processing is skipped for that connection and security logging records filter `subscription`.
 3. Background subscription accounting talks to the vendor service, refreshes entitlement, and drives scheduled update hooks (signatures, categorisation feeds, trusted CA updates, and similar).
 
+{/* source: legacy docs site subscription.html §Renewal */}
+{/* NEEDS-SME-REVIEW: legacy sources also claim subscription expiry skips Header filter processing, not just Application Signatures. A full-DOM search of the header-filtering console section for "subscription", "SUBSCRIPTION", "expired", and "expiry" returned zero hits, and reproducing a genuine expiry condition isn't safely testable without letting a real licence lapse. Confirm with engineering whether Header filter is also gated on `SUBSCRIPTION_EXPIRED` before this page asserts it. */}
+
+**Missing:** whether an expired subscription also skips Header filter processing, alongside the confirmed Application Signatures skip above. Legacy documentation claims it does, but the live Header filtering console section has no mention of subscription or expiry anywhere, and the condition cannot be reproduced without an actually-expired licence. Escalate to engineering for a source-level answer before documenting this as behaviour.
+
 <Warning>
 An expired subscription is not the same as Access restrictions DENY — users may still connect while signature-dependent labelling and some update paths stop. Check the Support page's License Details panel and Native SECURITY logs when behaviour changes after expiry.
 </Warning>
