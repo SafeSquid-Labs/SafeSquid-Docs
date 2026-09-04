@@ -112,7 +112,7 @@ Authentication runs early in the pipeline (after Time Profiler and Request Types
 ## Common problems
 
 - **Repeated login prompts** — Check Kerberos / SSO, SPN, keytab, and clock skew. Clear Password Cache.
-- **Valid user denied** — Confirm Allow list match, LDAP Profiles, Interface, and IP. In Detailed logs look for access-related `filter_name`.
+- **Valid user denied** — Confirm Allow list match, LDAP Profiles, Interface, and IP. In Detailed logs look for access-related `filter_name`. Also confirm a broader entry above it in the list isn't matching first — see [Access restrictions](/admin_guide/application_setup/access_restrictions)'s first-match-wins rule.
 - **PAM failures** — Review `/etc/pam.d/safesquid`. Native log lines start with `pam:`.
 - **LDAP failures** — Enable LDAP in LOG\_LEVEL. Verify Integrate LDAP and LDAP Entries.
 

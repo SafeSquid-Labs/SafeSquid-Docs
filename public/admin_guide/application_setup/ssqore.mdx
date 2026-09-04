@@ -22,6 +22,8 @@ Enabled and Heuristic.
 
 ## How categorization works
 
+SSqore is the last-resort cloud tier: it runs only if the site is still uncategorized after local [Categorize Web-Sites](/admin_guide/custom_settings/categorize_web_sites) entries and DNS category feeds have already been checked.
+
 1. During request profiling, SSqore resolves the request host (and referer host where applicable) against CCS.
 2. Returned category names are added to `website_categories` / connection profiles used by Access Profiles and other sections.
 3. Results are cached under `/var/lib/safesquid/ssqore/cache` to reduce repeat lookups.

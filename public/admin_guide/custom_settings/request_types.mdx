@@ -29,7 +29,7 @@ When Host Name regex misses and Smart TLD is on, same regex retried against site
 </Warning>
 
 <Warning>
-**Post Data Size:** runtime logic inverts UI labels (uses Content-Length only). Treat as experimental.
+**Minimum/Maximum Post Data Size:** when `Content-Length` is present, the rule is *skipped* when `content_length > minimum` or `content_length < maximum` (optional fields must be active). No Content-Length → min/max checks are not applied.
 </Warning>
 
 ## Examples
