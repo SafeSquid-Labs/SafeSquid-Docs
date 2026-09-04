@@ -1,0 +1,43 @@
+/*
+ * Site-wide overrides for the Mintlify "mint" theme.
+ * Auto-included on every page — Mintlify loads any .css file in the
+ * content directory (public/) without a docs.json reference.
+ */
+
+/*
+ * Fix: the top navbar logo distorts at intermediate viewport widths
+ * (roughly 900-1250px), which is exactly the range real browser zoom
+ * (e.g. Cmd/Ctrl + a few times on a standard 1280-1440px display)
+ * lands in before Mintlify's own mobile layout takes over below ~820px.
+ *
+ * Root cause: the anchor wrapping img.nav-logo has no flex-shrink
+ * override, so as the topbar's flex row runs low on space it shrinks
+ * the logo's box below its own `w-auto h-7` intrinsic-ratio width —
+ * object-contain then squeezes the wordmark into that narrow box
+ * instead of it staying full size. img.nav-logo itself already has
+ * shrink-0; its wrapping <a> needs the same. Verified: forces the
+ * logo back to its correct ~182px natural width (28px tall x its
+ * 1564:241 source aspect ratio) at every width from full desktop down
+ * to the mobile breakpoint, with the search bar (an intentionally
+ * flexible element) absorbing the space adjustment instead.
+ */
+a:has(> img.nav-logo) {
+  flex-shrink: 0 !important;
+}
+
+/*
+ * Fix: the active sidebar item used the accent blue for both its
+ * background highlight AND its text (Tailwind `bg-primary/10
+ * text-primary`, `dark:bg-primary-light/10 dark:text-primary-light`).
+ * Keep the blue background as the highlight; set the text to the same
+ * ink color the rest of the page uses for headings (`text-gray-900` /
+ * `dark:text-gray-200`), so the active state reads as "selected"
+ * through weight and the highlight pill, not through a second use of
+ * the accent color for both roles at once.
+ */
+#sidebar-content li[data-active] a {
+  color: rgb(22, 25, 29) !important;
+}
+.dark #sidebar-content li[data-active] a {
+  color: rgb(222, 225, 228) !important;
+}
