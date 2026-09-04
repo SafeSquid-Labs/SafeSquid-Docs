@@ -17,15 +17,25 @@ The `Rewrite` section performs PCRE search-and-replace on HTTP headers and bodie
 - **Client header** — outgoing request headers.
 - **Server header** — response headers.
 - **Body** — response body during buffering; MIME regex tested against `Content-Type`.
-- **Post body** — upload body modification.
+- **POST DATA** — POST/PUT data sent when submitting a form or uploading a file.
 
-### First applicable row per pass
+### Every matching row applies, in list order
 
-Rows walked top to bottom. Row skipped when: disabled, Applies to flag mismatch, profiles fail, blank pattern, or MIME regex fails (body only).
+Rows are walked top to bottom and **every** row that matches applies. Evaluation does not stop at the first match. Each row operates on the text left by the row above it, so rewrites compose — a later row can match text an earlier row produced.
+
+Row skipped when: disabled, Applies to flag mismatch, profiles fail, blank pattern, or MIME regex fails (body only).
+
+The shipped default configuration relies on this. Two enabled rows both target the client `Accept` header — one replaces `avif`, the other `webp` — and a browser sends both tokens in the same header. Under first-match evaluation the second row would never run and image scanning would still receive unscannable WebP.
+
+### One substitution per row
+
+Each matching row performs a **single** substitution, not a global replace. A row whose pattern begins with a greedy `(.*)` therefore binds to the **last** occurrence in the header, leaving earlier occurrences untouched. To rewrite every occurrence, add a row per occurrence or anchor the pattern so it cannot skip ahead.
+
+Pattern matching is **case-insensitive**: a pattern written `avif` matches `AVIF` in the header.
 
 ### MIME gate on body
 
-For **BODY** rewrites, a non-empty Mime type regex must match the response `Content-Type`. Empty mime matches any body when other gates pass.
+For **BODY** rewrites, a non-empty MIME type regex must match the response `Content-Type`. Empty mime matches any body when other gates pass.
 
 ## Processing flow
 
@@ -38,7 +48,11 @@ prof -->|No| skip
 prof -->|Yes| mime{Body: MIME matches?}
 mime -->|No| skip
 mime -->|Yes| pcre[PCRE replace on header or body]
-pcre --> done[Modified stream continues]
+pcre --> next[Continue to next row]
+skip --> next
+next --> more{More rows?}
+more -->|Yes| flags
+more -->|No| done[Modified stream continues]
 ```
 
 ## Schema Fields
@@ -50,10 +64,10 @@ pcre --> done[Modified stream continues]
 ### Policy rows
 
 - **Profiles (profiles)** — Connection must match tags. Blank matches all.
-- **Mime type (mime)** — POSIX regex on Content-Type for body rewrites only.
+- **MIME type (mime)** — Regex on Content-Type for body rewrites only. Console guidance: "It is highly advisable that you set this to some mime-type; otherwise, all files will be checked."
 - **Pattern (pattern)** — PCRE search pattern (required).
 - **Replace (replace)** — Replacement string; supports capture groups.
-- **Applies to (which)** — CLIENT HEADER, SERVER HEADER, BODY, POST BODY flags.
+- **Applies to (which)** — CLIENT HEADER, SERVER HEADER, BODY, POST DATA flags. Stored values are `CLIENT`, `SERVER`, `BODY`, `POST`.
 
 ## Examples
 
@@ -81,10 +95,14 @@ fields are Enabled, Comment, Profiles, Pattern, Replace, and Applies to.
 
 ## Code note
 
-Header rewrite uses hooks; body rewrite uses buffcheck. Both share the same policy list walk order.
+Header rewrite uses hooks; body rewrite uses buffcheck. Both walk the full policy list and apply every match.
 
 ## How to verify
 
 1. Enable REWRITE in `LOG_LEVEL` for `processing:` lines showing hook target.
 2. Capture before/after with View headers or raw response inspection.
 3. Detailed logs on blocked connections if rewrite triggers downstream policy.
+
+To confirm rows compose rather than short-circuit, send one request whose header matches two enabled rows and inspect what reaches the origin. Request `http://httpbin.org/headers` through the proxy with an `Accept` header containing both `image/avif` and `image/webp`.
+
+**Expected result:** both tokens are rewritten in the header the origin receives. If only the first is rewritten, the rows are not composing and the configuration should be re-checked.

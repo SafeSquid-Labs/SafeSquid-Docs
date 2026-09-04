@@ -29,8 +29,8 @@ Token-bucket rate, quota counters, request cap enforcement.
 - **Enabled (enabled)**: Toggles the specific rule.
 - **Comment (comment)**: User description of the rule.
 - **Profiles (profiles)**: The trigger condition. The rule applies if the connection has this tag.
-- **Action (action)**: Determines whether the limit applies (`Apply`) or skips/bypasses (`Bypass`).
-- **Template (templ)**: Key template to track quotas against (e.g., grouping by client IP or username).
+- **Action (action)**: `Allow` or `Deny`. Whether this field has any runtime effect is disputed — see the warning below.
+- **Template (templ)**: Name of the block-page template shown when this entry matches. Blank uses `blocked`. Built-in examples: `maxbandwidth`, `maxrequests`.
 - **Download transfer limit (maxdownloadbytes)**: Maximum bytes a client can download before being blocked.
 - **Upload transfer limit (maxuploadbytes)**: Maximum bytes a client can upload before being blocked.
 - **Request limit (maxrequests)**: Maximum number of HTTP requests allowed within the tracking window.
@@ -51,13 +51,15 @@ Check `/var/log/safesquid/native/safesquid.log` for limit enforcement messages. 
 6. After connections complete, byte and request counters increment for matching rows (unless Per-request limit or cache exclusion applies); counters clear on the periodic reset.
 
 <Warning>
-**Action is unused.** The row Action (Allow/Deny) is saved in configuration but not evaluated — limits apply when numeric caps are exceeded regardless of Action.
+**Action's runtime effect is contradicted by the product's own sources.** The console's field help states Action is enforced: set `Deny` and matching requests are blocked outright, set `Allow` and limits apply until a cap is reached, at which point the request is denied automatically. Source-level analysis of the limits code found the opposite — that Action is saved in configuration but never read, so limits apply on numeric caps regardless of what Action is set to.
+
+Neither claim is written here as fact. Determine it on your own system before relying on Action: create a test row scoped to a disposable profile tag, set Action to `Deny` with all numeric caps left blank, and send a request carrying that tag. If the request is blocked, Action is enforced on your build. If it succeeds, Action is inert and only the numeric caps matter.
 </Warning>
 
 ## Important entry fields
 
-- **Profiles** — Limit to connections with these Access Profile tags. rules). Typical tags: `RESTRICTED DOWNLOAD TRANSFER RATES`, `RESTRICTED UPLOAD TRANSFER RATES`.
-- **Action** — Stored in config but **not read** in limits code — does not change allow/deny behaviour.
+- **Profiles** — Limit to connections with these Access Profile tags. Typical tags: `RESTRICTED DOWNLOAD TRANSFER RATES`, `RESTRICTED UPLOAD TRANSFER RATES`.
+- **Action** — Disputed. Console help describes it as enforced; source analysis found it unread. See the warning above and test on your own build.
 - **Template** — Block page when Request limit is exceeded. Blank uses `blocked`. Download/upload overruns use the default blocked path without this field.
 - **Download / Upload transfer limit** — Maximum bytes counted against this row since last counter reset (~10 s). `0` = no cap from this row for that direction.
 - **Request limit** — Maximum requests counted since last reset. `0` = unlimited. Exceeded → HTTP 429.
