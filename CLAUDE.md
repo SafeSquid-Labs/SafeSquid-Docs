@@ -12,7 +12,45 @@ This repo contains CISO-grade, enterprise documentation for SafeSquid SWG. Agent
 
 **Contribution:** Documentation changes are submitted via pull request. All edits require review before merge.
 
-**Branching (current, set 2026-09-03):** `main` is never touched directly — no commits, no work. There is exactly **one** worktree (the main checkout at the repo root) and all work happens in it, currently on `docs/deployment-scroll-reduction`; do not create a second worktree or a fresh branch per task. As work on that branch accumulates, merge it forward toward `main` — resolve any conflicts by hand rather than force-picking one side, since both branches can carry independent restructuring work that needs reconciling (see the 2026-09-03 merge commit `2348d94` for a worked example: two independently-restructured versions of the same tab had to be combined, not overwritten). Update this note if any branch mentioned here is renamed, merged, or retired.
+**Branching (current, set 2026-09-04 — supersedes the single-worktree note of 2026-09-03):**
+`main` is never touched directly — no commits, no work. Work flows through **three tiers**:
+
+| Tier | What it is | Current instance |
+|---|---|---|
+| 1. `main` | Merge destination. Never worked in. | `main` |
+| 2. **Integration branch** | Collects finished task work; the branch a PR to `main` is opened *from*. The main checkout at the repo root sits here. | `docs/config-tab-content` |
+| 3. **Task branches, each in its own worktree** | Where changes are actually made, one per task chunk. Merges into tier 2 when done, then the worktree and branch are deleted. | none open |
+
+Never commit task work directly onto the integration branch — that collapses tiers 2 and 3 and
+means a PR under review keeps changing underneath the reviewer. (That is exactly what went
+wrong before 2026-09-04: `docs/deployment-scroll-reduction` was simultaneously the only
+worktree, the working branch, and the head of PR #8, so every commit landed in the open PR.)
+
+Worktree convention — sibling directory, name matching the task suffix:
+
+```sh
+git worktree add ../SafeSquid-Docs-<task> -b docs/<task> docs/config-tab-content
+# ... work, commit in that worktree ...
+git -C /Users/sriharichari/Documents/SafeSquid-Docs merge docs/<task>
+git worktree remove ../SafeSquid-Docs-<task> && git branch -d docs/<task>
+```
+
+To preview a worktree with `npm run dev`, add a `.claude/launch.json` entry pointing
+`--prefix` at that worktree path (there's a stale `safesquid-docs-scroll-reduction` entry from
+a deleted worktree — repoint or remove it rather than copying it blindly).
+
+When merging a task branch up, resolve conflicts by hand rather than force-picking one side —
+both sides can carry independent restructuring that needs reconciling (see the 2026-09-03
+merge commit `2348d94` for a worked example: two independently-restructured versions of the
+same tab had to be combined, not overwritten).
+
+**Frozen branch:** `docs/deployment-scroll-reduction` is the head of open PR #8 and is now
+**frozen** — do not commit to it. It is byte-identical to its origin state; leave it that way
+so the PR stays reviewable. `docs/config-tab-content` was branched from its tip, so it carries
+all of that work and needs no merge from it. Once PR #8 merges to `main`, merge the updated
+`main` into `docs/config-tab-content` and delete the frozen branch.
+
+Update this table whenever a branch here is created, renamed, merged, or retired.
 
 **Before merging into any named branch** (not just `main`), confirm it's actually live and current, don't assume the name alone means it's the right target: check whether it still exists on the remote (`gh api repos/<org>/<repo>/branches/<name>`; GitHub deletes a branch by default after a squash-merge) and whether it's already content-identical to `main` (`git diff main <branch>` — empty means it's stale and redundant, a likely sign it was already squash-merged and abandoned). `restructure/legacy-migration-and-admin-move` was exactly this on 2026-09-03: content-identical to `main`, deleted on GitHub, safe to skip rather than merge into.
 
