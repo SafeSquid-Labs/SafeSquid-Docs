@@ -2,61 +2,69 @@
 title: "Subscription"
 ---
 
-**Subscription** is a Web UI application for license status and activation key management. It does not define proxy policy rows; it controls whether the appliance considers the subscription valid and whether update feeds and signature modules can run.
+Subscription state controls whether the appliance considers its licence valid, and therefore whether update feeds and signature modules can run. It defines no proxy policy rows of its own.
 
-This is the on-appliance side of licensing only — it manages the key you already have. To
-register an account or get a new activation key, see [Support](/admin_guide/infrastructure_and_access/support)
-for where that key comes from on `key.safesquid.com`.
+This is the on-appliance side of licensing only — it reflects the key you already hold. To register an account or obtain a new activation key, see [Support](/admin_guide/infrastructure_and_access/support) for where that key comes from on `key.safesquid.com`.
 
-## What you can do here
+## Where subscription state appears
 
-- View current subscription and license information — the authoritative view is the **License
-  Details** panel on the [Support](/admin_guide/infrastructure_and_access/support) page (top nav,
-  next to Configure), not under Reports.
-- Upload an activation key file when renewing or registering the appliance.
+The authoritative view is the **License Details** panel on the **Support** page, reached from the top navigation bar next to **Configure**. Verified 2026-09-04 against build `2026.0627.1344.3`.
+
+There is no Subscription section under **Configure**, and no licence or module-status tab under **Reports**.
+
+## License Details fields
+
+The panel is read-only apart from a **Refresh** control.
+
+| Field | What it shows |
+|---|---|
+| Activation Key Name | Name of the activation key registered on the appliance |
+| Subscription Start | Date the current subscription began |
+| Creator Details | Account that created the key |
+| Contact Details | Contact address on the subscription |
+| Status | Current subscription state, for example `ACTIVE` |
+| Service ID | Identifier of the subscribed service |
+| Service Name | Name of the subscribed service |
+| Subscription Type | Basis the subscription is metered on, for example `CPU usage` |
+| Remaining Subscription Quantity | Entitlement left against the metered basis |
+| Service Location | Location recorded against the service |
+| Last Updated Time | When the appliance last refreshed this data |
 
 ## How subscription affects the proxy
 
 1. On each request, SafeSquid sets or clears `SUBSCRIPTION_EXPIRED` on the connection from subscription validity checks.
 2. When expired, [Application Signatures](/admin_guide/custom_settings/application_signatures) processing is skipped for that connection and security logging records filter `subscription`.
 3. Background subscription accounting talks to the vendor service, refreshes entitlement, and drives scheduled update hooks (signatures, categorisation feeds, trusted CA updates, and similar).
-4. Activation key upload is accepted only when the current subscription state allows upload; uploaded files are handled by the security subsystem.
 
 <Warning>
-An expired subscription is not the same as Access restrictions DENY — users may still connect while signature-dependent labelling and some update paths stop. Check Reports and Native SECURITY logs when behaviour changes after expiry.
+An expired subscription is not the same as Access restrictions DENY — users may still connect while signature-dependent labelling and some update paths stop. Check the Support page's License Details panel and Native SECURITY logs when behaviour changes after expiry.
 </Warning>
 
-## Examples
+## Renewing an activation key
 
-<Tip>
+{/* source: legacy docs site subscription.html §Renewal */}
+{/* NEEDS-SME-REVIEW: no activation-key upload control was found anywhere in build 2026.0627.1344.3. The Configure menu has no Subscription section, and the Support page's ten tool cards are Support Tarball, Download Config, Upload Config, Upgradation, Performance Plot, URL Commands, Restart SafeSquid, Cloud Restore, Startup params, and Live Support — none of them an activation-key upload. Upload Config was not opened (never-click list), so it remains an unconfirmed candidate. Confirm where key upload actually happens on the shipping build, or whether renewal is now entirely cloud-side, before this page documents a procedure. */}
 
-### 1 — Renew after expiry
+**Missing:** the on-appliance step for installing a renewed activation key. No upload control for one was found in the current build's console, so the procedure below is not documented here rather than guessed at. Obtain the renewed key from [key.safesquid.com](https://key.safesquid.com), then confirm the installation path with SafeSquid support for your build before a renewal window.
 
-1. Open Subscription → upload activation key downloaded from
-   [key.safesquid.com](https://key.safesquid.com) (see
-   [Register and get your key](/getting_started/register) if you don't have one yet).
-2. Wait for subscription refresh (or restart if your procedure requires it).
-3. Confirm the [Support](/admin_guide/infrastructure_and_access/support) page's License Details
-   panel shows valid dates and application signature updates resume.
+Once a renewed key is in place, confirm it took effect:
 
-**Result:** `SUBSCRIPTION_EXPIRED` clears on new connections; application signature tags apply again.
-</Tip>
+1. Open **Support → License Details** and select **Refresh**.
+2. Check that **Status** and **Subscription Start** reflect the new subscription.
+3. Confirm application signature tags apply again on new connections.
+
+**Expected result:** `SUBSCRIPTION_EXPIRED` clears on new connections and signature-dependent labelling resumes.
 
 ## How to verify
 
-1. **Support → License Details** for subscription status.
+1. **Support → License Details** for subscription status, then **Refresh** to pull current state.
 2. Native SECURITY logs for `subscription: expired` on test requests.
 3. Application signature stats after a successful update cycle.
 
-{/* NEEDS-SME-REVIEW: "Modules Status" (signature/feed load status, distinct from License Details) was previously claimed to live under Reports but no such tab exists live (Reports tabs verified this session: Dashboard, Statistics, Native logs, Detailed logs, Config logs, Active Connections, Connection Pool, DNS Cache, LDAP Entries, Password Cache). Where feed/module load status actually surfaces in the UI is unconfirmed — check Native logs or the update-hook logs referenced in cloud_feeds.mdx instead until this is verified. */}
+{/* source: legacy docs site subscription.html and tools.html §Modules Status */}
+{/* NEEDS-SME-REVIEW: legacy sources reference a "Modules Status" report showing signature and feed load status. No such tab exists in build 2026.0627.1344.3 — a DOM sweep of both the Reports and Support views found no occurrence. Reports tabs verified live: Dashboard, Statistics, Native logs, Detailed logs, Config logs, Active Connections, Connection Pool, DNS Cache, LDAP Entries, Password Cache. Confirm where feed and module load status surfaces now, if anywhere. */}
 
-{/* NEEDS-SME-REVIEW: this session searched Reports, Configure, and Support (live DOM and nav) for
-a standalone "Subscription" page or an activation-key upload control and found neither — the
-License Details panel on Support is read-only apart from Refresh. This page's premise of a
-separate Subscription section with an upload step could not be verified live. The Upload Config
-card on Support was not opened to check (it is on the never-click list for destructive/unverified
-controls), so it remains a possible but unconfirmed candidate. No screenshot was captured for this
-page as a result — confirm where activation-key upload actually lives before adding one. */}
+**Missing:** a console view of signature and feed load status. Legacy documentation points at a Modules Status report that does not exist in this build. Use Native logs and the update-hook logs referenced in [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds) until a current location is confirmed.
 
 ## See also
 
