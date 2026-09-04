@@ -117,37 +117,11 @@ CI runs `npm run validate` on every push and PR to `main`, `dev`, and `mintlify-
 
 ## Repository Layout
 
-```
-/
-├── public/                  ← Mintlify project root (docs.json lives here)
-│   ├── docs.json            ← Navigation, theme, tabs — do not modify except to add pages
-│   ├── images/              ← All images — reference as /images/category/name.webp
-│   ├── blog/                ← Date-prefixed blog posts (YYYY-MM-DD-Title.md)
-│   ├── getting-started/
-│   ├── guides/
-│   ├── api/
-│   ├── architecture/
-│   ├── cli/
-│   ├── faqs/
-│   ├── integrations/
-│   ├── interface/
-│   ├── troubleshooting/
-│   └── use-cases/
-├── .claude/
-│   ├── settings.json
-│   └── agents/              ← Sub-agent definitions
-│       ├── doc-researcher.md
-│       ├── doc-writer.md
-│       ├── doc-validator.md
-│       └── safesquid-sysadmin.md
-│   └── skills/              ← Project skills
-├── .agents -> .claude
-├── CLAUDE.md                ← This file
-├── AGENTS.md -> CLAUDE.md
-├── README.md
-├── package.json             ← do not modify
-└── .github/                 ← do not modify without a ticket
-```
+The tree under `public/` is the Mintlify project root (`docs.json` lives there); run `ls public/`
+for the current section list rather than trusting a copy here. Images go in `public/images/` and
+are referenced as `/images/category/name.webp`; blog posts in `public/blog/` are date-prefixed
+`YYYY-MM-DD-Title.md`. Sub-agent definitions are in `.claude/agents/`, project skills in
+`.claude/skills/`, and `AGENTS.md` is a symlink to this file.
 
 Every `public/<section>/` folder must contain a `main.md` navigation hub.
 New pages must be registered in `public/docs.json` under the correct `navigation.tabs` group.
