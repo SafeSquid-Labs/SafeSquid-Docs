@@ -19,7 +19,7 @@ This repo contains CISO-grade, enterprise documentation for SafeSquid SWG. Agent
 |---|---|---|
 | 1. `main` | Merge destination. Never worked in. | `main` |
 | 2. **Integration branch** | Collects finished task work; the branch a PR to `main` is opened *from*. The main checkout at the repo root sits here. | `docs/config-tab-content` |
-| 3. **Task branches, each in its own worktree** | Where changes are actually made, one per task chunk. Merges into tier 2 when done, then the worktree and branch are deleted. | none open |
+| 3. **Task branches, each in its own worktree** | Where changes are actually made, one per task chunk. Merges into tier 2 when done, then the worktree and branch are deleted. | `docs/main-reconcile` (reconciling PR #8's merge to `main` back into tier 2); `docs/broken-links` is a deliberate exception — left unmerged pending its own separate PR to `main`, not tier 2 |
 
 Never commit task work directly onto the integration branch — that collapses tiers 2 and 3 and
 means a PR under review keeps changing underneath the reviewer. (That is exactly what went
@@ -36,19 +36,23 @@ git worktree remove ../SafeSquid-Docs-<task> && git branch -d docs/<task>
 ```
 
 To preview a worktree with `npm run dev`, add a `.claude/launch.json` entry pointing
-`--prefix` at that worktree path (there's a stale `safesquid-docs-scroll-reduction` entry from
-a deleted worktree — repoint or remove it rather than copying it blindly).
+`--prefix` at that worktree path (that file is gitignored — personal per machine, so repoint
+or remove any stale entry from a deleted worktree rather than trusting it blindly).
 
 When merging a task branch up, resolve conflicts by hand rather than force-picking one side —
 both sides can carry independent restructuring that needs reconciling (see the 2026-09-03
 merge commit `2348d94` for a worked example: two independently-restructured versions of the
-same tab had to be combined, not overwritten).
+same tab had to be combined, not overwritten; and the 2026-09-04 reconciliation of PR #8's
+merge to `main` against `docs/config-tab-content` for a case where both sides had independently
+live-verified the same admin-console pages and reached different conclusions on some of them —
+resolved by re-checking the live console per page rather than picking a side by recency).
 
-**Frozen branch:** `docs/deployment-scroll-reduction` is the head of open PR #8 and is now
-**frozen** — do not commit to it. It is byte-identical to its origin state; leave it that way
-so the PR stays reviewable. `docs/config-tab-content` was branched from its tip, so it carries
-all of that work and needs no merge from it. Once PR #8 merges to `main`, merge the updated
-`main` into `docs/config-tab-content` and delete the frozen branch.
+**PR #8 merged to `main` on 2026-09-04.** `docs/deployment-scroll-reduction` (its head) is
+retired — GitHub deleted the remote branch automatically on squash-merge; delete the local ref
+too once this reconciliation lands. `docs/config-tab-content` had been branched from its tip
+before the merge, so most of its content was already present; the two branches had
+independently continued to touch some of the same admin-console pages afterward (see the
+reconciliation note above) — that divergence is what `docs/main-reconcile` closes.
 
 Update this table whenever a branch here is created, renamed, merged, or retired.
 
