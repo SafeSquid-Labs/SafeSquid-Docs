@@ -138,6 +138,8 @@ it conflicts with `doc_writer/references/writing_standards.md`, the house-style 
 
 **ALWAYS invoke the `doc_writer` skill before any documentation creation or revision task.** This applies to every page, section, main.md, blog post, or content edit — no exceptions for "small" changes.
 
+**ALWAYS live-verify any step, menu path, field name, default value, or behavioral claim about the admin console against `http://safesquid.cfg` before it ships** (added 2026-09-04) — via the `safesquid_admin` MCP browser plugin (deferred tools, load via `ToolSearch`; drive it directly — the `safesquid-sysadmin` subagent was non-functional as of 2026-09-03). No exceptions for content migrated from a legacy source, edits to existing pages, or "it matches what's already there." Full rule, scope, and the not-possible-to-verify fallback (`NEEDS-SME-REVIEW` + `**Missing:**`) are in `.claude/skills/docs-house-style/SKILL.md`'s "Third hard rule" — read it before writing anything console-related.
+
 Skill invocation order for common tasks:
 - **Writing or editing a doc** → `doc_writer` (always first)
 - **Research needed** → `doc_researcher` before `doc_writer`
@@ -147,7 +149,37 @@ Skill invocation order for common tasks:
 - **Troubleshooting content** → `troubleshooting_runbook_author`
 - **Screenshots or log evidence** → `evidence_collector`
 - **Navigation or IA decisions** → `information_architect`
-- **UI path verification** → `safesquid_sysadmin`
+- **UI path verification** → `safesquid_sysadmin` (mandatory, not optional — see above)
+
+### Model routing — plan on Opus, execute on Sonnet (set 2026-09-04)
+
+`opusplan` is discontinued. The replacement is an explicit split between the **main session**
+and **subagents**:
+
+| Layer | Model | Owns |
+|---|---|---|
+| Main session | **Opus** (user sets it with `/model opus`) | Planning, IA and navigation decisions, resolving contradictions between sources, deciding what to write and where, reviewing subagent output, drafting PR bodies |
+| Subagents (`.claude/agents/*.md`) | **Sonnet** (pinned via `model: sonnet` frontmatter) | Executing a decided plan: drafting a page from a brief, research passes, validation gates, browser UI verification |
+
+**The main session cannot change its own model** — only the user can, via `/model`. So the
+division holds only if the session starts on Opus and *delegates execution* rather than doing
+it inline. When a task is mostly mechanical (apply an agreed edit to 6 pages, run the validator
+loop), hand it to a subagent instead of burning Opus on it.
+
+**Per-invocation override**: the `Agent` tool's `model` parameter beats the frontmatter. Use
+`model: opus` for a subagent task that is genuinely hard reasoning rather than execution — for
+example rewriting `admin_guide/start_here/architecture.mdx`'s request-pipeline prose, or
+reconciling two sources that disagree on a core mechanic. Don't use it as a default.
+
+**What counts as planning (Opus, main session):** deciding whether a legacy-source claim is
+trustworthy; choosing which of two contradictory descriptions is correct; page decomposition
+and `docs.json` placement; scoping a restructure; deciding what needs a `NEEDS-SME-REVIEW`
+flag versus a real answer.
+
+**What counts as execution (Sonnet, subagent):** writing prose to an agreed outline; applying
+a known correction across pages; running `npm run validate` and fixing what it reports; live
+UI verification via the `safesquid_admin` plugin against a supplied list of paths; capturing
+screenshots.
 
 ### What to read before starting
 

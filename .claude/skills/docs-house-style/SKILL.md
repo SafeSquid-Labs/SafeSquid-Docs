@@ -324,6 +324,44 @@ From `DEPLOYMENT_MIGRATION_LOG.md`, and honoured throughout Style A:
    the conflict and tell the reader how to determine the answer on their own system — see
    the PID-path example at `getting_started/install_safesquid/linux_server.md:265`.
 
+### Third hard rule (added 2026-09-04): live-verify before writing a UI-behavior claim
+
+**Any step, menu path, field name, default value, or behavioral claim about the SafeSquid
+admin console — whether newly written, migrated from a legacy/source doc, or edited — must
+be checked against the live console at `http://safesquid.cfg` before it ships**, using the
+`safesquid_admin` MCP browser plugin (deferred tools — load via `ToolSearch`; drive it
+directly rather than through the `safesquid-sysadmin` subagent, which was non-functional as
+of the 2026-09-03 session — see [[safesquid-docs-working-style-feedback]] if that memory is
+still current). This is not limited to brand-new content: an edit to an existing page's
+steps or an import from a source document is exactly the case this rule targets, because
+that is where stale or contradicted claims enter the tree.
+
+This generalizes the practice already used for the Configuration tab's console-mirror pass
+(commit `2348d94` and the annotated-screenshot session) into a standing rule for the whole
+repo, not just that one restructure.
+
+- **What counts as a UI-behavior claim**: a menu path (`Configure → X → Y`), a field name or
+  its description, a default value, an enum of options (dropdown values, checkbox labels), a
+  claim that a feature is present/absent/working/broken in the current build, or a worked
+  example that references real field names.
+- **What does not need a live click-through**: prose that only explains a concept, a
+  cross-reference, or content already covered by an existing `{/* source: … */}` +
+  `{/* NEEDS-SME-REVIEW: … */}` pair that has *not* been touched in this edit.
+- **When live verification is not possible in-session** (interface unreachable, control is on
+  the never-click list, ambiguous evidence): do not guess and do not silently drop the claim.
+  Use `{/* NEEDS-SME-REVIEW: … */}` (paired with `{/* source: … */}`) for the SME-facing flag,
+  and add a `**Missing:**` paragraph when the reader needs to know the gap directly — same
+  mechanics as the two rules above. Never present an unverified legacy-source claim as
+  settled fact just because it reads plausibly or matches older documentation.
+- **Two independent sources agreeing is still not verification.** Treat corroboration between
+  a legacy source and another legacy source (or between two pages of the same legacy source)
+  as reason to prioritize the check, not as a substitute for it.
+- **Bug/edit-request workflow**: `doc-validator` already runs UI verification as one of its
+  three gates before a doc is considered done — this rule extends the same expectation to
+  `doc-writer` at draft time (verify as you write, not only at the validator gate) and to any
+  ad hoc edit outside the full `doc-writer` → `doc-validator` loop (a quick fix, a mapping
+  session, a one-off correction).
+
 ---
 
 ## Navigation and `docs.json`
