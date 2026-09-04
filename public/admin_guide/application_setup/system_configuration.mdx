@@ -60,7 +60,7 @@ size, Buffer wait time, CONNECT ports, and the compression fields.
 
 **Config:** Row 1 profiles `text-filter`, maxdbuffer 128K above catch-all maxdbuffer 0.
 
-**Result:** Text-filter connections buffer up to 128K; others stream without full download buffer.
+**Result:** Text-filter connections buffer up to 128K; others stream without full download buffer — and a streamed response never reaches the downloaded-body scanners (SqScan, Clam antivirus, Image analyzer, Text analyzer, ICAP). See [Architecture and request pipeline](/admin_guide/start_here/architecture) for the verified buffered-vs-streamed scanning test.
 </Tip>
 
 <Tip>

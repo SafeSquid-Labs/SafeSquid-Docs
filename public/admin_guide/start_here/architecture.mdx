@@ -126,6 +126,12 @@ DNS Blacklist
 
 Proxy chain
   upstream proxy or go direct
+  rows naming this proxy are skipped, so a request cannot loop back here
+
+Open the connection to the peer or origin
+  (not a Web UI section)
+  reuse an idle pooled connection when one exists, else new TCP and DNS
+  System configuration — Connection pool size / timeout
 
 Header filter
 Cookie filter
@@ -145,6 +151,7 @@ Image analyzer
 Text analyzer
 ICAP
   these inspect the downloaded body (malware and content)
+  buffered responses only — a streamed response is not scanned
   match → Templates STOP
   DLP does not run here
 
@@ -152,6 +159,8 @@ Prefetching
   linked objects in HTML
 FTP browsing
   ftp:// only
+  Access restrictions gate the client first; FTP USER/PASS is a separate login
+      to the remote server, not proxy authentication
 Templates if a block page is needed
 send the page to the browser
 write logs
@@ -164,8 +173,14 @@ Open a section: [Network settings](/admin_guide/application_setup/network_settin
 </Frame>
 
 <Note>
-Open the Web UI at `http://safesquid.cfg/` from a machine that Access restrictions allows. That path skips Access Profiles so you can still fix a mistaken Deny. HTTPS Inspection does not continue this HTTPS request — it decrypts and runs the inner HTTP from Read the request again. **DLP** inspects upload bodies only. **Clam antivirus** and **SqScan** inspect uploads and downloaded bodies. Direct (unbuffered) downloads skip the downloaded-body scanners.
+Open the Web UI at `http://safesquid.cfg/` from a machine that Access restrictions allows. That path skips Access Profiles so you can still fix a mistaken Deny. HTTPS Inspection does not continue this HTTPS request — it decrypts and runs the inner HTTP from Read the request again. **DLP** inspects upload bodies only. **Clam antivirus** and **SqScan** inspect uploads and downloaded bodies.
 </Note>
+
+<Warning>
+**A response over the download buffer size is not scanned.** SqScan, Clam antivirus, Image analyzer, Text analyzer, and ICAP inspect a *downloaded body* — a response SafeSquid buffered before sending it on. The matching **System configuration → Compression and buffering policies** row sets **Maximum download buffer size** (`maxdbuffer`, default `10M`); a response larger than that streams straight to the browser instead — marked `Direct` rather than `Buffered` — and never reaches those scanners. Nothing in the response or the block page announces the skip.
+
+Verified on this build: fetching a 5 MB file (under the 10 MB default buffer) returned both `X-Virus-Scan` and `X-Text-Analyzer` debug headers; an otherwise identical 20 MB file (over the buffer) returned neither. Test your own buffer size the same way — set **System configuration → Send Debugging Headers To** to `CLIENT` (see [Debug response headers](/admin_guide/start_here/debug_response_headers)), fetch a file just under and just over the configured size, and compare the response headers. Size the buffer for the file sizes you actually need scanned.
+</Warning>
 
 <Tip>
 
@@ -188,6 +203,32 @@ A user on the LAN opens `https://social.example/` through the proxy:
 1. A user POSTs a spreadsheet. After Access Profiles Allow, the upload body is inspected: **Clam antivirus**, **SqScan**, **Image analyzer**, then **DLP**. A DLP MIME policy match sends **Templates** and stops — Caching and the origin never see that body.
 2. A later GET of an executable is Allowed by Access Profiles. Caching misses, DNS Blacklist passes, Proxy chain fetches it. **SqScan** or **Clam antivirus** on the downloaded body match: **Templates** block page. DLP does not run on that download.
 </Tip>
+
+<Accordion title="Peer connection and FTP handling — not verified on this build">
+  {/* source: legacy docs site architecture.html */}
+  {/* NEEDS-SME-REVIEW: the SOCKS negotiation step and the retry-on-failure behaviour below come from legacy documentation alone, and that legacy content was itself fetched through a summarizing model. The live Proxy chain console section documents the peer Type enum (HTTP, SOCKS4, SOCKS5, CONNECT) but a full-DOM search of that section for "handshake", "negotiat", "retry", and "retries" returned zero hits, and nothing in public/ corroborates either claim. Neither behaviour can be exercised on this build without adding a SOCKS peer row or forcing an upstream connection failure, both configuration changes and out of scope for a read-only pass. Confirm the retry count, whether it differs by peer type, and whether an already-disconnected client really aborts the retry — operators size upstream and connection timeouts against exactly this. */}
+
+  Once Proxy chain has selected a peer, SafeSquid opens the transport before sending the request.
+  Legacy documentation states that a SOCKS4 or SOCKS5 peer is negotiated first, that a failed
+  connection attempt is retried a fixed number of times before the request fails, and that the
+  retry is abandoned if the client has already disconnected.
+
+  **Missing:** the retry count, and whether it changes by peer type. Legacy documentation states a
+  fixed number; nothing on this build corroborates it, and it cannot be exercised without forcing
+  an upstream failure. Confirm with SafeSquid support before sizing timeouts around a specific
+  retry budget.
+
+  {/* source: legacy docs site architecture.html */}
+  {/* NEEDS-SME-REVIEW: the claims that FTP directory listings receive no scanning or categorization, and that no FTP response gets Response Types categorization or a response-side Access Profiles check on any path, are asserted by legacy documentation alone. The live FTP console section exposes only Passive mode, Timeout, and anonymous Username/Password — nothing about response-side policy. The behavioural test could not be run: this browser's Chromium engine has no ftp:// support (removed in Chrome 95) and there is no other network path to the proxy from this environment. Confirm with engineering whether Response Types and the second Access Profiles pass are genuinely skipped for FTP — a reader tracing the pipeline above would otherwise assume FTP downloads get the same response-side treatment as HTTP, and Access Profiles' own page states that second pass without qualification. */}
+
+  Legacy documentation also states that FTP directory listings are not scanned or categorized, and
+  that no FTP response — buffered or streamed — gets Response Types categorization or a
+  response-side Access Profiles check, unlike HTTP.
+
+  **Missing:** confirmation of the FTP claim above. It could not be tested in this environment —
+  there is no network path to an FTP server through the proxy — and no other page in this tree
+  corroborates or contradicts it.
+</Accordion>
 
 ## Policy matching styles
 

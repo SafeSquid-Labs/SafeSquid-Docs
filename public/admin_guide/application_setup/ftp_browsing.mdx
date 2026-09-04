@@ -8,7 +8,7 @@ The **FTP** section configures global FTP-over-HTTP gateway behaviour. There is 
 
 ### Anonymous credentials
 
-When the client sends no username, SafeSquid substitutes **Username** and **Password** from this section before USER/PASS.
+When the client sends no username, SafeSquid substitutes **Username** and **Password** from this section before USER/PASS. This is login to the remote FTP server, not proxy authentication — Access restrictions decide whether the client may use the proxy for FTP at all, before this section applies. See [Architecture and request pipeline](/admin_guide/start_here/architecture).
 
 ### Passive mode
 
