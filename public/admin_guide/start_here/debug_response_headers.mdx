@@ -2,10 +2,6 @@
 title: "Debug response headers"
 ---
 
-<Note>
-  CLI man page: `safesquid-debug-headers(7)`
-</Note>
-
 SafeSquid can attach diagnostic information to HTTP messages as `X-SafeSquid-*` and module-specific headers. Modules push entries onto the connection `dheader` list; when headers are sent, SafeSquid may insert a fixed identity block plus every marked `dheader` entry.
 
 This is the supported way to see which profiles, categories, and filters applied to a request.
@@ -56,7 +52,5 @@ To skip filters for a role, use the Access restrictions **Bypass** field. Keep *
 
 - [Logging and troubleshooting](/admin_guide/start_here/logging)
 - [Architecture](/admin_guide/start_here/architecture)
-- [Access restrictions](/admin_guide/infrastructure_and_access/access_restrictions)
-- [System configuration](/admin_guide/infrastructure_and_access/system_configuration)
-
-CLI: `man safesquid-debug-headers`
+- [Access restrictions](/admin_guide/application_setup/access_restrictions)
+- [System configuration](/admin_guide/application_setup/system_configuration)

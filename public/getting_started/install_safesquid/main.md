@@ -65,7 +65,7 @@ If the environment is not listed, choose by ownership rather than by platform: A
 
 <Steps>
   <Step title="Validate prerequisites">
-    Confirm host resources, static addressing, DNS, NTP, firewall rules, and activation key readiness in [Prerequisites](/getting_started/install_safesquid/prerequisites).
+    Confirm host resources, static addressing, DNS, NTP, firewall rules, and activation key readiness in [Deployment Checklist](/getting_started/install_safesquid/prerequisites).
 
     Confirm prerequisite evidence is attached to the deployment record.
 
@@ -123,6 +123,6 @@ Store:
 
 ## Next steps
 
-- [Prerequisites](/getting_started/install_safesquid/prerequisites) - confirm install readiness.
+- [Deployment Checklist](/getting_started/install_safesquid/prerequisites) - confirm install readiness.
 - [SafeSquid Appliance Builder](/getting_started/install_safesquid/safesquid_appliance_builder) - build a standard appliance.
 - [Connect Your Client](/getting_started/client_configuration/connect_your_client) - route the first pilot client.

@@ -8,7 +8,7 @@ keywords:
 
 # Interface
 
-Use this legacy hub for direct access to interface pages that are now surfaced under the SafeSquid SWG tab sections.
+Use this legacy hub for direct access to interface pages that are now surfaced under the Architecture tab sections.
 
 ## Available items
 

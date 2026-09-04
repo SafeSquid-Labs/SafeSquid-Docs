@@ -129,7 +129,7 @@ Package names drift between releases. If one is not found, locate the equivalent
 sudo mkdir -p /var/log/safesquid /var/lib/safesquid /var/db/safesquid
 ```
 
-**Open the proxy and management ports** using whichever firewall the host runs. Restrict the source scope in the same change, as described in [Prerequisites](/getting_started/install_safesquid/prerequisites):
+**Open the proxy and management ports** using whichever firewall the host runs. Restrict the source scope in the same change, as described in [Deployment Checklist](/getting_started/install_safesquid/prerequisites):
 
 ```bash
 # firewalld (RHEL family)
@@ -320,7 +320,7 @@ Without rotation, SafeSquid logs grow until the volume fills and evidence is sil
 }
 ```
 
-Adjust `rotate` to the retention target agreed in [Deployment Planning](/deployment/deployment_planning), and use the service reload command appropriate to your build. Test the configuration before relying on it:
+Adjust `rotate` to the retention target agreed in [Log-Retention Planning](/deployment/log_retention_planning), and use the service reload command appropriate to your build. Test the configuration before relying on it:
 
 ```bash
 sudo logrotate -d /etc/logrotate.d/safesquid

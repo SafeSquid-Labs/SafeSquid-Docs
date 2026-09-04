@@ -62,7 +62,7 @@ The instance activates without these, then quietly stops receiving current data.
 | `download.quickheal.com` | `80` | Antivirus signature updates |
 
 <Accordion title="Additional categorization endpoints seen in some releases">
-  {/* NEEDS-SME-REVIEW: the itsecure.co.in and itonlinesecure.in categorization endpoints below are listed inconsistently across sources — activate.md includes encurl.itonlinesecure.in, deployment_planning.md does not. Confirm the authoritative set for the shipping release before an operator allowlists them. */}
+  {/* NEEDS-SME-REVIEW: the itsecure.co.in and itonlinesecure.in categorization endpoints below are listed inconsistently across sources — activate.md includes encurl.itonlinesecure.in, the former Deployment Overview page did not. Confirm the authoritative set for the shipping release before an operator allowlists them. */}
 
   | Endpoint | Port |
   |---|---:|
@@ -106,4 +106,4 @@ Store these artifacts with the deployment record:
 
 - [Deployment Checklist](/getting_started/install_safesquid/prerequisites) - confirm the resolver, time source, and the rest of the readiness list.
 - [Activate Your License](/getting_started/activate) - apply the key once the activation endpoints are reachable.
-- [Sizing](/deployment/sizing) - size the node these rules will carry traffic for.
+- [Hardware Sizing](/deployment/hardware_sizing) - size the node these rules will carry traffic for.

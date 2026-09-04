@@ -115,121 +115,8 @@
         ]
       },
       {
-        "tab": "Deployment",
-        "icon": "server",
-        "groups": [
-          {
-            "group": "Getting started",
-            "pages": [
-              "deployment/deployment_planning",
-              "deployment/choose_an_architecture",
-              "deployment/pilot_versus_production",
-              "deployment/resource_planning",
-              "getting_started/install_safesquid/prerequisites"
-            ]
-          },
-          {
-            "group": "Plan and prepare",
-            "pages": [
-              "getting_started/register",
-              "deployment/sizing",
-              "deployment/ports_and_firewall_rules",
-              "deployment/log_retention_planning",
-              "deployment/licensing_requirements"
-            ]
-          },
-          {
-            "group": "Deploy locally",
-            "pages": [
-              "getting_started/install_safesquid/safesquid_appliance_builder",
-              "getting_started/install_safesquid/linux_server"
-            ]
-          },
-          {
-            "group": "Deploy on cloud",
-            "pages": [
-              "getting_started/install_safesquid/cloud_deployment",
-              "deployment/cloud_image_or_cloud_init"
-            ]
-          },
-          {
-            "group": "Connect clients",
-            "pages": [
-              "getting_started/client_configuration/connect_your_client",
-              "getting_started/client_configuration/explicit_proxy",
-              "getting_started/client_configuration/pac_file",
-              "getting_started/client_configuration/system_wide_proxy",
-              "getting_started/client_configuration/enterprise_deployment",
-              "getting_started/client_configuration/application_specific_configuration"
-            ]
-          },
-          {
-            "group": "Activate your license",
-            "pages": [
-              "getting_started/activate",
-              "deployment/manage_subscription_state"
-            ]
-          },
-          {
-            "group": "Deployment modes",
-            "pages": [
-              "use_cases/scaling_and_high_availability/forward_proxy",
-              "use_cases/scaling_and_high_availability/transparent_proxy",
-              "use_cases/scaling_and_high_availability/wccp",
-              "use_cases/scaling_and_high_availability/tcp_proxy",
-              "use_cases/scaling_and_high_availability/reverse_proxy",
-              "use_cases/scaling_and_high_availability/proxy_chain"
-            ]
-          },
-          {
-            "group": "Scaling and high availability",
-            "pages": [
-              "use_cases/scaling_and_high_availability/proxy_clustering",
-              "use_cases/scaling_and_high_availability/master_slave",
-              "use_cases/customisation/configuration_sync",
-              "use_cases/scaling_and_high_availability/ha_monit_keepalived",
-              "deployment/verify_failover"
-            ]
-          },
-          {
-            "group": "Backup and disaster recovery",
-            "pages": [
-              "use_cases/scaling_and_high_availability/disaster_recovery",
-              "use_cases/customisation/configure_cloud_restore",
-              "deployment/restore_configuration_and_certificates"
-            ]
-          },
-          {
-            "group": "Performance and capacity",
-            "pages": [
-              "use_cases/performance_acceleration/caching",
-              "use_cases/performance_acceleration/manage_bandwidth",
-              "use_cases/performance_acceleration/performance_plot"
-            ]
-          },
-          {
-            "group": "Validate the deployment",
-            "pages": [
-              "deployment/service_health",
-              "deployment/proxy_connectivity",
-              "deployment/https_inspection_validation",
-              "getting_started/configure_web_security_policies",
-              "deployment/logging_and_reporting",
-              "getting_started/verify_your_setup"
-            ]
-          },
-          {
-            "group": "Upgrade SafeSquid",
-            "pages": [
-              "use_cases/upgrade/version_upgrade",
-              "use_cases/upgrade/os_upgrade"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "SafeSquid SWG",
-        "icon": "shield-halved",
+        "tab": "Architecture",
+        "icon": "sitemap",
         "groups": [
           {
             "group": "Application Ecosystem",
@@ -273,6 +160,186 @@
               "safesquid_swg/files_and_folders/policy_security_and_ui_files",
               "safesquid_swg/files_and_folders/runtime_data_and_signatures",
               "safesquid_swg/files_and_folders/logs_and_audit_evidence"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Deployment",
+        "icon": "server",
+        "groups": [
+          {
+            "group": "Plan and prepare",
+            "pages": [
+              "deployment/licensing_requirements",
+              "getting_started/register",
+              "deployment/hardware_sizing",
+              "deployment/ports_and_firewall_rules"
+            ]
+          },
+          {
+            "group": "Deploy locally",
+            "pages": [
+              "getting_started/install_safesquid/safesquid_appliance_builder",
+              "getting_started/install_safesquid/linux_server"
+            ]
+          },
+          {
+            "group": "Deploy on cloud",
+            "pages": [
+              "getting_started/install_safesquid/cloud_deployment",
+              "deployment/cloud_image_or_cloud_init"
+            ]
+          },
+          {
+            "group": "Connect clients",
+            "pages": [
+              "getting_started/client_configuration/connect_your_client",
+              "getting_started/client_configuration/explicit_proxy",
+              "getting_started/client_configuration/pac_file",
+              "getting_started/client_configuration/system_wide_proxy",
+              "getting_started/client_configuration/enterprise_deployment",
+              "getting_started/client_configuration/application_specific_configuration"
+            ]
+          },
+          {
+            "group": "Activate your license",
+            "pages": [
+              "getting_started/activate",
+              "deployment/manage_subscription_state"
+            ]
+          },
+          {
+            "group": "Deployment modes",
+            "pages": [
+              "deployment/choose_an_architecture",
+              "use_cases/scaling_and_high_availability/forward_proxy",
+              "use_cases/scaling_and_high_availability/transparent_proxy",
+              "use_cases/scaling_and_high_availability/wccp",
+              "use_cases/scaling_and_high_availability/tcp_proxy",
+              "use_cases/scaling_and_high_availability/reverse_proxy",
+              "use_cases/scaling_and_high_availability/proxy_chain",
+              "getting_started/install_safesquid/prerequisites"
+            ]
+          },
+          {
+            "group": "Scaling and high availability",
+            "pages": [
+              "use_cases/scaling_and_high_availability/proxy_clustering",
+              "use_cases/scaling_and_high_availability/master_slave",
+              "use_cases/customisation/configuration_sync",
+              "use_cases/scaling_and_high_availability/ha_monit_keepalived",
+              "deployment/verify_failover"
+            ]
+          },
+          {
+            "group": "Backup and disaster recovery",
+            "pages": [
+              "use_cases/scaling_and_high_availability/disaster_recovery",
+              "use_cases/customisation/configure_cloud_restore",
+              "deployment/restore_configuration_and_certificates"
+            ]
+          },
+          {
+            "group": "Performance and capacity",
+            "pages": [
+              "use_cases/performance_acceleration/caching",
+              "use_cases/performance_acceleration/manage_bandwidth",
+              "use_cases/performance_acceleration/performance_plot"
+            ]
+          },
+          {
+            "group": "Validate the deployment",
+            "pages": [
+              "deployment/service_health",
+              "deployment/proxy_connectivity",
+              "deployment/https_inspection_validation",
+              "getting_started/configure_web_security_policies",
+              "getting_started/verify_your_setup"
+            ]
+          },
+          {
+            "group": "Upgrade SafeSquid",
+            "pages": [
+              "use_cases/upgrade/version_upgrade",
+              "use_cases/upgrade/os_upgrade"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Configuration",
+        "icon": "sliders",
+        "groups": [
+          {
+            "group": "Administration Basics",
+            "pages": [
+              "admin_guide/start_here/first_configuration",
+              "admin_guide/start_here/architecture",
+              "admin_guide/start_here/daemon",
+              "admin_guide/start_here/authentication",
+              "admin_guide/start_here/debug_response_headers",
+              "admin_guide/start_here/startup_ini",
+              "admin_guide/start_here/cloud_feeds",
+              "admin_guide/start_here/integrations"
+            ]
+          },
+          {
+            "group": "Licensing and Self-Service Portal",
+            "pages": [
+              "admin_guide/infrastructure_and_access/subscription",
+              "admin_guide/infrastructure_and_access/support"
+            ]
+          },
+          {
+            "group": "Application Setup",
+            "pages": [
+              "admin_guide/application_setup/network_settings_and_listeners",
+              "admin_guide/application_setup/integrate_ldap",
+              "admin_guide/application_setup/access_restrictions",
+              "admin_guide/application_setup/accelerators",
+              "admin_guide/application_setup/system_configuration",
+              "admin_guide/application_setup/proxy_chain",
+              "admin_guide/application_setup/ftp_browsing",
+              "admin_guide/application_setup/wccp",
+              "admin_guide/application_setup/ssqore"
+            ]
+          },
+          {
+            "group": "Real Time Content Security",
+            "pages": [
+              "admin_guide/real_time_content_security/https_inspection",
+              "admin_guide/real_time_content_security/clam_antivirus",
+              "admin_guide/real_time_content_security/text_analyzer",
+              "admin_guide/real_time_content_security/redirect",
+              "admin_guide/real_time_content_security/dns_blacklist",
+              "admin_guide/real_time_content_security/image_analyzer",
+              "admin_guide/real_time_content_security/content_modifier",
+              "admin_guide/real_time_content_security/dlp",
+              "admin_guide/real_time_content_security/icap",
+              "admin_guide/real_time_content_security/sqscan"
+            ]
+          },
+          {
+            "group": "Custom Settings",
+            "pages": [
+              "admin_guide/custom_settings/categorize_web_sites",
+              "admin_guide/custom_settings/time_profiler",
+              "admin_guide/custom_settings/response_types",
+              "admin_guide/custom_settings/request_types",
+              "admin_guide/custom_settings/templates",
+              "admin_guide/custom_settings/external_applications",
+              "admin_guide/custom_settings/application_signatures",
+              "admin_guide/custom_settings/content_signatures",
+              "admin_guide/custom_settings/suggested_profiles"
+            ]
+          },
+          {
+            "group": "Restriction Policies",
+            "pages": [
+              "admin_guide/restriction_policies/privacy_control",
+              "admin_guide/restriction_policies/access_profiles",
+              "admin_guide/restriction_policies/speed_limits"
             ]
           }
         ]
@@ -444,87 +511,14 @@
         ]
       },
       {
-        "tab": "Admin Guide",
-        "icon": "book-open",
-        "groups": [
-          {
-            "group": "Start here",
-            "pages": [
-              "admin_guide/start_here/first_configuration",
-              "admin_guide/start_here/architecture",
-              "admin_guide/start_here/daemon",
-              "admin_guide/infrastructure_and_access/network_settings",
-              "admin_guide/infrastructure_and_access/access_restrictions",
-              "admin_guide/start_here/authentication",
-              "admin_guide/policies_and_profiles/access_profiles",
-              "admin_guide/start_here/logging",
-              "admin_guide/start_here/debug_response_headers",
-              "admin_guide/start_here/startup_ini",
-              "admin_guide/start_here/cloud_feeds",
-              "admin_guide/start_here/integrations",
-              "admin_guide/start_here/tools_and_reports"
-            ]
-          },
-          {
-            "group": "Infrastructure and access",
-            "pages": [
-              "admin_guide/infrastructure_and_access/access_restrictions",
-              "admin_guide/infrastructure_and_access/network_settings",
-              "admin_guide/infrastructure_and_access/system_configuration",
-              "admin_guide/infrastructure_and_access/integrate_ldap",
-              "admin_guide/infrastructure_and_access/https_inspection",
-              "admin_guide/infrastructure_and_access/proxy_chain",
-              "admin_guide/infrastructure_and_access/ftp_browsing",
-              "admin_guide/infrastructure_and_access/wccp",
-              "admin_guide/infrastructure_and_access/subscription",
-              "admin_guide/infrastructure_and_access/ssqore"
-            ]
-          },
-          {
-            "group": "Policies and profiles",
-            "pages": [
-              "admin_guide/policies_and_profiles/access_profiles",
-              "admin_guide/policies_and_profiles/speed_limits",
-              "admin_guide/policies_and_profiles/request_types",
-              "admin_guide/policies_and_profiles/response_types",
-              "admin_guide/policies_and_profiles/time_profiler",
-              "admin_guide/policies_and_profiles/templates",
-              "admin_guide/policies_and_profiles/application_signatures",
-              "admin_guide/policies_and_profiles/content_signatures",
-              "admin_guide/policies_and_profiles/suggested_profiles",
-              "admin_guide/policies_and_profiles/categorize_web_sites"
-            ]
-          },
-          {
-            "group": "Filtering and privacy",
-            "pages": [
-              "admin_guide/filtering_and_privacy/cookie_filter",
-              "admin_guide/filtering_and_privacy/header_filter",
-              "admin_guide/filtering_and_privacy/text_analyzer",
-              "admin_guide/filtering_and_privacy/dns_blacklist",
-              "admin_guide/filtering_and_privacy/redirect",
-              "admin_guide/filtering_and_privacy/content_modifier",
-              "admin_guide/filtering_and_privacy/elevated_privacy",
-              "admin_guide/filtering_and_privacy/external_applications"
-            ]
-          },
-          {
-            "group": "Performance",
-            "pages": [
-              "admin_guide/performance/caching",
-              "admin_guide/performance/prefetching"
-            ]
-          },
-          {
-            "group": "Security scanners",
-            "pages": [
-              "admin_guide/security_scanners/clam_antivirus",
-              "admin_guide/security_scanners/sqscan",
-              "admin_guide/security_scanners/image_analyzer",
-              "admin_guide/security_scanners/dlp",
-              "admin_guide/security_scanners/icap"
-            ]
-          }
+        "tab": "Reporting",
+        "icon": "chart-line",
+        "pages": [
+          "reporting/reporting",
+          "deployment/log_retention_planning",
+          "deployment/logging_and_reporting",
+          "admin_guide/start_here/tools_and_reports",
+          "admin_guide/start_here/logging"
         ]
       },
       {
@@ -688,7 +682,23 @@
     },
     {
       "source": "/getting_started/deployment_planning",
-      "destination": "/deployment/deployment_planning"
+      "destination": "/deployment/main"
+    },
+    {
+      "source": "/deployment/deployment_planning",
+      "destination": "/deployment/main"
+    },
+    {
+      "source": "/deployment/pilot_versus_production",
+      "destination": "/deployment/main"
+    },
+    {
+      "source": "/deployment/resource_planning",
+      "destination": "/deployment/hardware_sizing"
+    },
+    {
+      "source": "/deployment/sizing",
+      "destination": "/deployment/hardware_sizing"
     },
     {
       "source": "/use_cases/scaling_and_high_availability/operational_modes",
@@ -701,6 +711,142 @@
     {
       "source": "/use_cases/upgrade/upgrade_safesquid",
       "destination": "/use_cases/upgrade/version_upgrade"
+    },
+    {
+      "source": "/admin_guide/infrastructure_and_access/access_restrictions",
+      "destination": "/admin_guide/application_setup/access_restrictions"
+    },
+    {
+      "source": "/admin_guide/infrastructure_and_access/network_settings",
+      "destination": "/admin_guide/application_setup/network_settings_and_listeners"
+    },
+    {
+      "source": "/admin_guide/infrastructure_and_access/system_configuration",
+      "destination": "/admin_guide/application_setup/system_configuration"
+    },
+    {
+      "source": "/admin_guide/infrastructure_and_access/integrate_ldap",
+      "destination": "/admin_guide/application_setup/integrate_ldap"
+    },
+    {
+      "source": "/admin_guide/infrastructure_and_access/proxy_chain",
+      "destination": "/admin_guide/application_setup/proxy_chain"
+    },
+    {
+      "source": "/admin_guide/infrastructure_and_access/ftp_browsing",
+      "destination": "/admin_guide/application_setup/ftp_browsing"
+    },
+    {
+      "source": "/admin_guide/infrastructure_and_access/wccp",
+      "destination": "/admin_guide/application_setup/wccp"
+    },
+    {
+      "source": "/admin_guide/infrastructure_and_access/ssqore",
+      "destination": "/admin_guide/application_setup/ssqore"
+    },
+    {
+      "source": "/admin_guide/infrastructure_and_access/https_inspection",
+      "destination": "/admin_guide/real_time_content_security/https_inspection"
+    },
+    {
+      "source": "/admin_guide/policies_and_profiles/application_signatures",
+      "destination": "/admin_guide/custom_settings/application_signatures"
+    },
+    {
+      "source": "/admin_guide/policies_and_profiles/categorize_web_sites",
+      "destination": "/admin_guide/custom_settings/categorize_web_sites"
+    },
+    {
+      "source": "/admin_guide/policies_and_profiles/content_signatures",
+      "destination": "/admin_guide/custom_settings/content_signatures"
+    },
+    {
+      "source": "/admin_guide/policies_and_profiles/request_types",
+      "destination": "/admin_guide/custom_settings/request_types"
+    },
+    {
+      "source": "/admin_guide/policies_and_profiles/response_types",
+      "destination": "/admin_guide/custom_settings/response_types"
+    },
+    {
+      "source": "/admin_guide/policies_and_profiles/suggested_profiles",
+      "destination": "/admin_guide/custom_settings/suggested_profiles"
+    },
+    {
+      "source": "/admin_guide/policies_and_profiles/templates",
+      "destination": "/admin_guide/custom_settings/templates"
+    },
+    {
+      "source": "/admin_guide/policies_and_profiles/time_profiler",
+      "destination": "/admin_guide/custom_settings/time_profiler"
+    },
+    {
+      "source": "/admin_guide/policies_and_profiles/access_profiles",
+      "destination": "/admin_guide/restriction_policies/access_profiles"
+    },
+    {
+      "source": "/admin_guide/policies_and_profiles/speed_limits",
+      "destination": "/admin_guide/restriction_policies/speed_limits"
+    },
+    {
+      "source": "/admin_guide/filtering_and_privacy/external_applications",
+      "destination": "/admin_guide/custom_settings/external_applications"
+    },
+    {
+      "source": "/admin_guide/filtering_and_privacy/content_modifier",
+      "destination": "/admin_guide/real_time_content_security/content_modifier"
+    },
+    {
+      "source": "/admin_guide/filtering_and_privacy/dns_blacklist",
+      "destination": "/admin_guide/real_time_content_security/dns_blacklist"
+    },
+    {
+      "source": "/admin_guide/filtering_and_privacy/redirect",
+      "destination": "/admin_guide/real_time_content_security/redirect"
+    },
+    {
+      "source": "/admin_guide/filtering_and_privacy/text_analyzer",
+      "destination": "/admin_guide/real_time_content_security/text_analyzer"
+    },
+    {
+      "source": "/admin_guide/security_scanners/clam_antivirus",
+      "destination": "/admin_guide/real_time_content_security/clam_antivirus"
+    },
+    {
+      "source": "/admin_guide/security_scanners/dlp",
+      "destination": "/admin_guide/real_time_content_security/dlp"
+    },
+    {
+      "source": "/admin_guide/security_scanners/icap",
+      "destination": "/admin_guide/real_time_content_security/icap"
+    },
+    {
+      "source": "/admin_guide/security_scanners/image_analyzer",
+      "destination": "/admin_guide/real_time_content_security/image_analyzer"
+    },
+    {
+      "source": "/admin_guide/security_scanners/sqscan",
+      "destination": "/admin_guide/real_time_content_security/sqscan"
+    },
+    {
+      "source": "/admin_guide/filtering_and_privacy/cookie_filter",
+      "destination": "/admin_guide/restriction_policies/privacy_control"
+    },
+    {
+      "source": "/admin_guide/filtering_and_privacy/header_filter",
+      "destination": "/admin_guide/restriction_policies/privacy_control"
+    },
+    {
+      "source": "/admin_guide/filtering_and_privacy/elevated_privacy",
+      "destination": "/admin_guide/restriction_policies/privacy_control"
+    },
+    {
+      "source": "/admin_guide/performance/caching",
+      "destination": "/admin_guide/application_setup/accelerators"
+    },
+    {
+      "source": "/admin_guide/performance/prefetching",
+      "destination": "/admin_guide/application_setup/accelerators"
     }
   ]
 }

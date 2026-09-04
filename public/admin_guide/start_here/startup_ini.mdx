@@ -2,10 +2,6 @@
 title: "startup.ini tunables"
 ---
 
-<Note>
-  CLI man page: `safesquid-startup(5)`
-</Note>
-
 Many appliance behaviours are set in `/opt/safesquid/startup.ini` (defaults in `/opt/safesquid/default/startup.ini`). These values are loaded before SafeSquid starts. They are **not** edited in Web UI sections from `sectionMaster.xml`.
 
 After edits, restart SafeSquid (`/etc/init.d/safesquid restart`). Path layout comes from `/opt/safesquid/setup.ini`.
@@ -16,7 +12,7 @@ After edits, restart SafeSquid (`/etc/init.d/safesquid restart`). Path layout co
 
 ## Listen and identity
 
-- **LISTEN\_IP / LISTEN\_PORT** — Default bind address and port if no Network settings Listen entry is enabled. See [Network settings](/admin_guide/infrastructure_and_access/network_settings).
+- **LISTEN\_IP / LISTEN\_PORT** — Default bind address and port if no Network settings Listen entry is enabled. See [Network settings](/admin_guide/application_setup/network_settings_and_listeners).
 - **HOSTNAME / DOMAIN** — Appliance hostname and domain.
 
 ## Threads, memory, sockets
@@ -74,8 +70,6 @@ After edits, restart SafeSquid (`/etc/init.d/safesquid restart`). Path layout co
 - [Daemon and service](/admin_guide/start_here/daemon)
 - [Logging](/admin_guide/start_here/logging)
 - [Authentication](/admin_guide/start_here/authentication)
-- [HTTPS Inspection](/admin_guide/infrastructure_and_access/https_inspection)
+- [HTTPS Inspection](/admin_guide/real_time_content_security/https_inspection)
 - [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds)
 - [Subscription](/admin_guide/infrastructure_and_access/subscription)
-
-CLI: `man safesquid-startup`

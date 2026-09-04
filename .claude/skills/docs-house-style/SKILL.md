@@ -233,6 +233,18 @@ Platform or role variants of the **same** step — `Windows` / `Linux` / `macOS`
 > Only `state` and `priority` differ between the two files. Everything else must match exactly.
 > — `ha_monit_keepalived.md:128`
 
+**Second use case — a live console section that is itself a "header" with no content of its
+own**: when a sidebar item in the SafeSquid Configure console doesn't open a page but only
+expands into child items (verified live — e.g. **Restriction Policies → Privacy control →**
+Cookie filter / Header filter / Elevated Privacy, or **Application Setup → Accelerators →**
+Caching / Prefetching), build **one consolidated doc page** for the parent, one `<Tab>` per
+child item, named after that item exactly. Precede with a framing sentence naming the parent
+section, same as the platform-variant case: `**Privacy control** groups the three sections that
+shape what leaves and enters the browser.` — `restriction_policies/privacy_control.mdx`. Confirm
+via live navigation that the parent truly has no page of its own before consolidating — a section
+with real content of its own plus sub-items is a different shape and should not be forced into
+this pattern.
+
 ### `<Warning>` / `<Note>` / `<Tip>`
 
 - `<Warning>` — irreversible, fail-open, or silent-misconfiguration risk. Often a bold lead
@@ -334,8 +346,34 @@ sanctioned exception.**
 - Group labels are Title Case (`Client Configuration`, `Scaling & High Availability`).
   Admin Guide's sentence-case labels are an unresolved inconsistency — follow Title Case for
   new groups.
-- **Moving a page between nav sections requires a `redirects` entry.** Changing only the
-  sidebar listing does not.
+- **Moving a page's file (renaming or relocating its path) requires a `redirects` entry;
+  reassigning which tab/group lists it does not.** A page's URL comes from its file path, not
+  its nav placement — confirmed 2026-09-03 splitting Architecture/Configuration/Reporting out
+  of SafeSquid SWG/Admin Guide, which relisted dozens of pages under new tabs without moving a
+  single file or adding a redirect.
+- **A tab with a bare `pages` list (no groups) needs a dedicated landing page as its first
+  entry, named after the tab/section** — same pattern as `troubleshooting/troubleshooting` and
+  `faqs/faqs`. Without one, clicking the tab lands on whatever page happens to be listed first,
+  which reads as broken if that page is actually a narrow sub-topic (e.g. a new `Reporting` tab
+  whose first page was a Deployment-owned planning doc — confirmed as a real, reported bug
+  2026-09-03, fixed by adding `reporting/reporting.md`).
+- **A page must appear in exactly one tab's registration.** If it's left listed under both its
+  old and new tab during a restructure, Mintlify resolves it to whichever tab comes first in
+  the `tabs` array — the sidebar and tab-bar silently show the *wrong* tab as active. After
+  moving any page, grep `docs.json` for its path to confirm the stale entry is gone (confirmed
+  as a real, reported bug 2026-09-03: two Reporting-tab pages left registered under Deployment
+  kept bouncing back to it).
+- **A tab's own click-through target — its first registered page — is what a generic prose
+  link named after that tab/section should point to**, not an unregistered `main.md` hub, even
+  though the hub is otherwise a legitimate destination. Two links reading "Deployment" that
+  resolve to different pages depending on where you click is a real, reported confusion
+  (2026-09-03) — match the tab's actual behavior instead of defaulting to its hub.
+- **Link text doesn't have to equal the destination's title** — shorthand aliases are the norm
+  tree-wide (`Caching` → *Cache settings*, `Register` → *Register Your Key*) and not worth
+  chasing. But a link text semantically far enough from the real title that a reader can't
+  predict the destination (`Prerequisites` → a page titled *Deployment Checklist*) is a real
+  bug, confirmed reported 2026-09-03 across 7 files. Check the destination's frontmatter title
+  before choosing link text for a new cross-link.
 
 ---
 
@@ -354,7 +392,24 @@ sanctioned exception.**
 - **Placeholders** are SHOUTY-HYPHEN tokens, never real values: `SAFESQUID-IP`, `VIP-ADDRESS`,
   `MASTER-IP`, `INTERFACE`, plus `example.com` / `.internal.example.com`. No real credentials.
 - **Images** at `/images/<category>/<name>.webp` with descriptive alt text. Mermaid preferred
-  over screenshots. `<Frame>` wrappers are an admin_guide convention only.
+  over screenshots for conceptual/process-flow content. `<Frame>` wrappers are an admin_guide
+  convention only.
+  - **Exception — `admin_guide/` UI walkthroughs and worked examples**: a real, annotated console
+    screenshot is required, not just preferred, wherever a page currently just describes a
+    click-through sequence or a worked example in prose with no visual (this doesn't replace the
+    existing `*_flowchart.svg` logic diagrams, which stay — they show processing order, a
+    screenshot shows the console). Capture the **full page**, not a tight crop, from the live
+    console via `safesquid_sysadmin`/`safesquid_admin`. Annotate with an arrow or circle plus a
+    short imperative callout naming the control (`Click **Get Access**`, not just a bare
+    screenshot) — an unannotated screenshot is the same "walls of undescribed screenshots"
+    anti-pattern flagged below. Save as `public/images/admin_guide/<page>-<slug>.webp`, wrapped in
+    `<Frame>`, same as the existing flowcharts.
+- **Never invent a CLI command, config file, or man-page name.** State one exists only if it's
+  confirmed live, confirmed in an already-verified page, or confirmed by engineering — otherwise
+  flag it with `{/* NEEDS-SME-REVIEW: … */}` instead of asserting it. (Every `admin_guide/` page
+  used to carry a fabricated `CLI man page: safesquid-*(N)` reference ported verbatim from a
+  raw-HTML source and never checked against anything; they were removed — don't reintroduce the
+  pattern.)
 - **Code fences always carry a language tag.** `bash` dominates, for Linux CLI with `sudo`
   shown explicitly; `powershell` for Windows; `text` — the second most common — for URLs and
   anything read rather than run; `conf`, `javascript`, `yaml`, `mermaid` as appropriate. Bare

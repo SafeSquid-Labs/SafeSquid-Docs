@@ -2,21 +2,23 @@
 title: "Subscription"
 ---
 
-<Note>
-  CLI man page: `safesquid-subscription(5)`
-</Note>
-
 **Subscription** is a Web UI application for license status and activation key management. It does not define proxy policy rows; it controls whether the appliance considers the subscription valid and whether update feeds and signature modules can run.
+
+This is the on-appliance side of licensing only — it manages the key you already have. To
+register an account or get a new activation key, see [Support](/admin_guide/infrastructure_and_access/support)
+for where that key comes from on `key.safesquid.com`.
 
 ## What you can do here
 
-- View current subscription and license information (also under **Reports → License/Users Info**).
+- View current subscription and license information — the authoritative view is the **License
+  Details** panel on the [Support](/admin_guide/infrastructure_and_access/support) page (top nav,
+  next to Configure), not under Reports.
 - Upload an activation key file when renewing or registering the appliance.
 
 ## How subscription affects the proxy
 
 1. On each request, SafeSquid sets or clears `SUBSCRIPTION_EXPIRED` on the connection from subscription validity checks.
-2. When expired, [Application Signatures](/admin_guide/policies_and_profiles/application_signatures) processing is skipped for that connection and security logging records filter `subscription`.
+2. When expired, [Application Signatures](/admin_guide/custom_settings/application_signatures) processing is skipped for that connection and security logging records filter `subscription`.
 3. Background subscription accounting talks to the vendor service, refreshes entitlement, and drives scheduled update hooks (signatures, categorisation feeds, trusted CA updates, and similar).
 4. Activation key upload is accepted only when the current subscription state allows upload; uploaded files are handled by the security subsystem.
 
@@ -30,26 +32,37 @@ An expired subscription is not the same as Access restrictions DENY — users ma
 
 ### 1 — Renew after expiry
 
-1. Open Subscription → upload activation key from vendor.
+1. Open Subscription → upload activation key downloaded from
+   [key.safesquid.com](https://key.safesquid.com) (see
+   [Register and get your key](/getting_started/register) if you don't have one yet).
 2. Wait for subscription refresh (or restart if your procedure requires it).
-3. Confirm **License/Users Info** shows valid dates and application signature updates resume.
+3. Confirm the [Support](/admin_guide/infrastructure_and_access/support) page's License Details
+   panel shows valid dates and application signature updates resume.
 
 **Result:** `SUBSCRIPTION_EXPIRED` clears on new connections; application signature tags apply again.
 </Tip>
 
 ## How to verify
 
-1. **Reports → License/Users Info** and **Modules Status**.
+1. **Support → License Details** for subscription status.
 2. Native SECURITY logs for `subscription: expired` on test requests.
 3. Application signature stats after a successful update cycle.
 
+{/* NEEDS-SME-REVIEW: "Modules Status" (signature/feed load status, distinct from License Details) was previously claimed to live under Reports but no such tab exists live (Reports tabs verified this session: Dashboard, Statistics, Native logs, Detailed logs, Config logs, Active Connections, Connection Pool, DNS Cache, LDAP Entries, Password Cache). Where feed/module load status actually surfaces in the UI is unconfirmed — check Native logs or the update-hook logs referenced in cloud_feeds.mdx instead until this is verified. */}
+
+{/* NEEDS-SME-REVIEW: this session searched Reports, Configure, and Support (live DOM and nav) for
+a standalone "Subscription" page or an activation-key upload control and found neither — the
+License Details panel on Support is read-only apart from Refresh. This page's premise of a
+separate Subscription section with an upload step could not be verified live. The Upload Config
+card on Support was not opened to check (it is on the never-click list for destructive/unverified
+controls), so it remains a possible but unconfirmed candidate. No screenshot was captured for this
+page as a result — confirm where activation-key upload actually lives before adding one. */}
+
 ## See also
 
-- [SafeSquid daemon](/admin_guide/start_here/daemon)
-- [Tools](/admin_guide/start_here/tools_and_reports)
+- [Support](/admin_guide/infrastructure_and_access/support) — License Details panel and appliance tools
+- [Register and get your key](/getting_started/register)
+- [Handle expiry](/deployment/manage_subscription_state)
 - [Cloud / categorisation feeds](/admin_guide/start_here/cloud_feeds)
-- [Application Signatures](/admin_guide/policies_and_profiles/application_signatures)
-- [Architecture](/admin_guide/start_here/architecture)
+- [Application Signatures](/admin_guide/custom_settings/application_signatures)
 - [Logging](/admin_guide/start_here/logging)
-
-CLI: `man safesquid-subscription`

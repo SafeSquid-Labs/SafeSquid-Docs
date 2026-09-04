@@ -44,7 +44,7 @@ In the Web UI open **Network settings → Listen**.
 Later you can restrict Web UI access in Access restrictions using the **Interface** field so only the management listener may open `http://safesquid.cfg/`.
 </Tip>
 
-More detail: [Network settings](/admin_guide/infrastructure_and_access/network_settings).
+More detail: [Network settings](/admin_guide/application_setup/network_settings_and_listeners).
 
 ## 3. Lock down Access restrictions
 
@@ -73,7 +73,7 @@ On the Allow list entry:
 Blank match fields mean “match any.” An Allow entry with nothing filled in can open the proxy to everyone. Always set IP, Interface, or identity criteria.
 </Warning>
 
-Full guide: [Access restrictions](/admin_guide/infrastructure_and_access/access_restrictions).
+Full guide: [Access restrictions](/admin_guide/application_setup/access_restrictions).
 
 ## 4. Point a browser and test
 
@@ -104,7 +104,7 @@ Temporarily change the Allow entry IP to a range that does *not* include your PC
 - Match the host or category your lab uses
 - **Action** — **DENY** (use **DO NOT BYPASS** if you do not want a temporary bypass cookie)
 
-**Expected result:** matching requests show a block page; Detailed logs show a profiles-related `filter_name` / reason. See [Access Profiles](/admin_guide/policies_and_profiles/access_profiles).
+**Expected result:** matching requests show a block page; Detailed logs show a profiles-related `filter_name` / reason. See [Access Profiles](/admin_guide/restriction_policies/access_profiles).
 </Tip>
 
 ## 6. When something fails
@@ -119,11 +119,11 @@ Full workflow: [Logging and troubleshooting](/admin_guide/start_here/logging).
 ## What to do next
 
 - [Authentication](/admin_guide/start_here/authentication) — Kerberos / SSO or System authentication so logs show real usernames
-- [Integrate LDAP](/admin_guide/infrastructure_and_access/integrate_ldap) — groups for policy
-- [HTTPS Inspection](/admin_guide/infrastructure_and_access/https_inspection) — decrypt HTTPS when your policy requires it (plan client trust carefully)
-- [SSqore](/admin_guide/infrastructure_and_access/ssqore) and [Categorize Web-Sites](/admin_guide/policies_and_profiles/categorize_web_sites) — category-based Access Profiles
-- [Application Signatures](/admin_guide/policies_and_profiles/application_signatures) — tag client applications for policy
-- [SqScan](/admin_guide/security_scanners/sqscan) or [Clam antivirus](/admin_guide/security_scanners/clam_antivirus) — malware scanning
+- [Integrate LDAP](/admin_guide/application_setup/integrate_ldap) — groups for policy
+- [HTTPS Inspection](/admin_guide/real_time_content_security/https_inspection) — decrypt HTTPS when your policy requires it (plan client trust carefully)
+- [SSqore](/admin_guide/application_setup/ssqore) and [Categorize Web-Sites](/admin_guide/custom_settings/categorize_web_sites) — category-based Access Profiles
+- [Application Signatures](/admin_guide/custom_settings/application_signatures) — tag client applications for policy
+- [SqScan](/admin_guide/real_time_content_security/sqscan) or [Clam antivirus](/admin_guide/real_time_content_security/clam_antivirus) — malware scanning
 - [Subscription](/admin_guide/infrastructure_and_access/subscription) — license and feed updates
 - [Architecture](/admin_guide/start_here/architecture) — how sections fit together
 

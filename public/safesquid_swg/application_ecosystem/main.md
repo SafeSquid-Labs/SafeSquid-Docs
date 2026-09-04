@@ -12,7 +12,7 @@ keywords:
 
 SafeSquid SWG is an operating ecosystem, not a single proxy daemon. The proxy service enforces policy, DNS security reduces resolution-time risk, reporting preserves evidence, the Self-Service Portal manages cloud-linked workflows, and threat-intelligence feeds keep controls current.
 
-The legacy source page for Application Eco-system identifies the operating scope as SafeSquid files and folders, startup parameters, Self-Service Portal management, required supporting services, and SIEM log forwarding. This hub maps those topics into the current SafeSquid SWG tab.
+The legacy source page for Application Eco-system identifies the operating scope as SafeSquid files and folders, startup parameters, Self-Service Portal management, required supporting services, and SIEM log forwarding. This hub maps those topics into the current Architecture tab.
 
 ## Quickstart path
 

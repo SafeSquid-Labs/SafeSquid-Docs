@@ -12,6 +12,12 @@ This repo contains CISO-grade, enterprise documentation for SafeSquid SWG. Agent
 
 **Contribution:** Documentation changes are submitted via pull request. All edits require review before merge.
 
+**Branching (current, set 2026-09-03):** `main` is never touched directly — no commits, no work. There is exactly **one** worktree (the main checkout at the repo root) and all work happens in it, currently on `docs/deployment-scroll-reduction`; do not create a second worktree or a fresh branch per task. As work on that branch accumulates, merge it forward toward `main` — resolve any conflicts by hand rather than force-picking one side, since both branches can carry independent restructuring work that needs reconciling (see the 2026-09-03 merge commit `2348d94` for a worked example: two independently-restructured versions of the same tab had to be combined, not overwritten). Update this note if any branch mentioned here is renamed, merged, or retired.
+
+**Before merging into any named branch** (not just `main`), confirm it's actually live and current, don't assume the name alone means it's the right target: check whether it still exists on the remote (`gh api repos/<org>/<repo>/branches/<name>`; GitHub deletes a branch by default after a squash-merge) and whether it's already content-identical to `main` (`git diff main <branch>` — empty means it's stale and redundant, a likely sign it was already squash-merged and abandoned). `restructure/legacy-migration-and-admin-move` was exactly this on 2026-09-03: content-identical to `main`, deleted on GitHub, safe to skip rather than merge into.
+
+**Pull requests are drafted for approval before creation.** Write the title and full body, share it, and wait for an explicit go-ahead before running `gh pr create` — don't create the PR first and refine after. When drafting the body in a scratch file, keep it to *only* the body text; a file that also carries a `# Title` / `# Base branch` header for your own reference must be trimmed to the body section before it's passed to `--body-file`, or that scaffolding leaks into the live PR.
+
 ## Agent Scope and Limitations
 
 ✅ **DO:**

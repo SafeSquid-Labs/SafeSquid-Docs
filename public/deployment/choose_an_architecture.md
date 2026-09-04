@@ -101,4 +101,4 @@ Store these artifacts with the deployment record:
 
 - [Forward Proxy](/use_cases/scaling_and_high_availability/forward_proxy) - configure the explicit path used for most pilots.
 - [Transparent Proxy](/use_cases/scaling_and_high_availability/transparent_proxy) - intercept without touching clients.
-- [Resource Planning](/deployment/resource_planning) - size the node once placement is decided.
+- [Hardware Sizing](/deployment/hardware_sizing) - size the node once placement is decided.

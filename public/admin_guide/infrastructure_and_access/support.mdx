@@ -1,0 +1,101 @@
+---
+title: "Support"
+---
+
+**Support** is the top-nav page next to Configure (not under Reports). It shows local license
+state and exposes appliance-level operational tools — restart, config backup, upgrade, and
+vendor support — none of which are policy sections.
+
+This page is the **on-appliance** counterpart to [key.safesquid.com](https://key.safesquid.com),
+SafeSquid's external licensing portal (see [Register and get your key](/getting_started/register)
+and [Self-Service Portal](/safesquid_swg/interface/self_service_portal)). The two are easy to
+conflate: `key.safesquid.com` is where you get and manage an activation key; this Support page is
+where you see that key's status on this appliance and use appliance tools tied to it (Cloud
+Restore in particular reads from the cloud account behind your key).
+
+## License Details panel
+
+The left panel shows the fields SafeSquid tracks for the current activation key:
+
+| Field | Shows |
+|---|---|
+| Activation Key Name | The key identifier |
+| Subscription Start | Activation date |
+| Creator Details | Account email that owns the key |
+| Contact Details | Account contact email |
+| Status | `ACTIVE` or otherwise |
+| Service ID | Instance identifier |
+| Service Name | Operator-set label |
+| Subscription Type | Billing basis (for example CPU usage) |
+| Remaining Subscription Quantity | Time or usage left on the plan |
+| Service Location | Operator-set label |
+| Last Updated Time | Last sync with the licensing backend |
+
+Click **Refresh** to re-pull this panel from the licensing backend without waiting for the next
+scheduled sync — use this right after uploading a new activation key or renewing on
+`key.safesquid.com`.
+
+<Note>
+This is the authoritative place to check subscription/license status in the Web UI. It is not
+under Reports — no Reports tab covers it.
+</Note>
+
+Open **top nav → Support**. The License Details panel is not screenshotted here — it shows this
+appliance's real activation key, contact email, and Service ID.
+
+<Frame caption="Support — operational tool cards">
+  <img src="/images/admin_guide/support-operational_tools.webp" alt="SafeSquid console Support page showing the ten operational tool cards with Restart SafeSquid circled" />
+</Frame>
+
+## Operational tools
+
+Ten cards, right of the License Details panel. Descriptions below are what each card states or
+does on open; where a card's underlying behavior needs more than its stated purpose, that's
+flagged rather than guessed.
+
+- **Support Tarball** — "Download or Generate." Produces a support bundle for the vendor.
+- **Download Config** — "Download Config Files."
+- **Upload Config** — "Upload Config Files."
+- **Upgradation** — "Upload New Version." Applies a new SafeSquid build.
+- **Performance Plot** — "Application performance."
+- **URL Commands** — "Test the Functionalities." Opens a **URL command executor**: pick a
+  diagnostic mode and a website, then run it through the proxy without changing policy. The
+  available modes (verified live, exact list): `xx--fresh`, `xx--raw`, `xx--cookies`, `xx--mime`,
+  `xx--headers`, `xx--score`, `xx--diff`, `xx--htmltree`, `xx--process`, `xx--offline`,
+  `xx--cache`, `xx--profiles`, `xx--https`, `xx--prefetch`, `xx--template`, `xx--proxytest`,
+  `xx--bypass`, `xx--password`, `xx--imgscore`, `xx--limits`, `xx--variables`.
+  {/* NEEDS-SME-REVIEW: only the mode names were confirmed live (the dropdown options); what each mode actually does to the test request was not verified and is not asserted here. Confirm exact behavior per mode before documenting them individually — do not infer meaning from the name alone. */}
+- **Restart SafeSquid** — "Restart SafeSquid service." The action referenced by
+  [Handle expiry](/deployment/manage_subscription_state)'s "restart SafeSquid from the interface
+  after either action" step.
+- **Cloud Restore** — "Restore Configuration." Confirmed live: the dialog states "You can get
+  configuration file and SSL certificate shared with activation key," with a **Restore** button.
+  This is the on-appliance side of the Self-Service Portal's backup/restore workflow — it pulls
+  from the cloud account tied to your activation key, it does not issue a new key.
+- **Startup params** — "Edit SafeSquid params." Web UI editor for the same tunables covered in
+  [startup.ini tunables](/admin_guide/start_here/startup_ini) — confirm before assuming this
+  writes the same file directly.
+- **Live Support** — "Chat with support." Vendor support chat.
+
+<Warning>
+**Card behavior beyond the stated purpose above (Upgradation's version-compatibility checks, what
+Support Tarball actually collects, exact Cloud Restore scope) was not exercised this session** —
+these are destructive or support-escalating actions and weren't tested live. Confirm scope before
+walking an administrator through them for the first time.
+</Warning>
+
+## How to verify
+
+1. **Support** page loads with the License Details panel populated (not blank/`YET_TO_DEFINE`
+   on every field) for an activated appliance.
+2. After uploading a new activation key on [Subscription](/admin_guide/infrastructure_and_access/subscription),
+   click **Refresh** here and confirm **Last Updated Time** advances.
+
+## See also
+
+- [Subscription](/admin_guide/infrastructure_and_access/subscription)
+- [Register and get your key](/getting_started/register)
+- [Handle expiry](/deployment/manage_subscription_state)
+- [Self-Service Portal](/safesquid_swg/interface/self_service_portal)
+- [startup.ini tunables](/admin_guide/start_here/startup_ini)
+- [Tools and Reports](/admin_guide/start_here/tools_and_reports)

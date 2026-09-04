@@ -1,0 +1,79 @@
+---
+title: "System configuration"
+---
+
+The **General** section sets global hostname, connection pool, debug headers, and per-connection compression/buffering policy rows.
+
+## Core mechanics
+
+### First matching policy row
+
+Each getter walks **Compression and buffering policies** top-down. The first enabled row whose `profiles` match wins. Empty profiles match all. No match → built-in defaults.
+
+### CONNECT ports (cportrange)
+
+The CONNECT port check applies only when a row matched. Port must be in the row list or CONNECT is blocked. When no row matched, all CONNECT ports are allowed (unless blocked elsewhere).
+
+### Compression and chunked buffering
+
+`compressin` zero → identity-only upstream Accept-Encoding; non-zero → full encodings (TRUE and AUTO behave the same today). `bufferchunked`: 0 never, 2 always, 1 encoded-only when Content-Encoding is identity.
+
+<Frame caption="General policy row selection">
+  <img src="/images/admin_guide/system_configuration_flowchart.svg" alt="General find flow" />
+</Frame>
+
+## Global fields
+
+Open **Configure → Application Setup → System configuration → Global**.
+
+<Frame caption="System configuration — Global fields">
+  <img src="/images/admin_guide/system_configuration-global.webp" alt="SafeSquid console showing System configuration Global fields with Send Debugging Headers To set to CLIENT, the Edit Policy icon circled" />
+</Frame>
+
+- **Proxy hostname** — Identity in Via and Kerberos scripts; blank uses system hostname.
+- **Connection pool size / timeout** — Resizes upstream `serverpool` immediately on config update.
+- **Send Debugging Headers To** — CLIENT, SERVER, BOTH, or NONE — see [Debug headers](/admin_guide/start_here/debug_response_headers).
+- **Dynamic Categorization** — Referer categories applied to dependency requests.
+
+## Examples
+
+Open **Configure → Application Setup → System configuration → Compression and buffering
+policies**. Row fields include Connection/Header/Keepalive timeout, Maximum download/upload buffer
+size, Buffer wait time, CONNECT ports, and the compression fields.
+
+<Frame caption="System configuration — Compression and buffering policies row">
+  <img src="/images/admin_guide/system_configuration-compression.webp" alt="SafeSquid console showing a Compression and buffering policies row with CONNECT ports and buffer size fields, the Edit Policies icon circled" />
+</Frame>
+
+<Tip>
+
+### CONNECT HTTPS only
+
+**Config:** First matching row cportrange `443` only.
+
+**Result:** CONNECT to 443 allowed; other ports blocked with security-restrictions template.
+</Tip>
+
+<Tip>
+
+### Profile-specific buffering
+
+**Config:** Row 1 profiles `text-filter`, maxdbuffer 128K above catch-all maxdbuffer 0.
+
+**Result:** Text-filter connections buffer up to 128K; others stream without full download buffer.
+</Tip>
+
+<Tip>
+
+### No row match
+
+**Config:** All policy rows disabled for connection.
+
+**Result:** CONNECT port check allows any port; default timeouts apply.
+</Tip>
+
+## How to verify
+
+1. Test CONNECT to allowed and blocked ports.
+2. Enable Trace Entry on a policy row; check native logs.
+3. Debug headers CLIENT in browser devtools when enabled.
