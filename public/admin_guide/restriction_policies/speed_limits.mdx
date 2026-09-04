@@ -15,7 +15,7 @@ The `Limits` section allows administrators to constrain bandwidth, connection co
 Token-bucket rate, quota counters, request cap enforcement.
 
 - **Bandwidth Shaping**: SafeSquid utilizes a token-bucket mechanism. Connections are assigned to a specific `LimitGroup`. The traffic shaper enforces the `downloadrate` throttle globally across all connections in that group.
-- **Quota Tracking**: Global and per-user transfer quotas (`maxdbytes`, `maxubytes`, `maxrequests`) are updated incrementally as payloads are flushed. Cached payloads (`CONNECTION_CACHING`) can be configured to bypass quota deductions (`LIMIT_CACHE`).
+- **Quota Tracking**: Global and per-user transfer quotas (`maxdownloadbytes`, `maxuploadbytes`, `maxrequests`) are updated incrementally as payloads are flushed. Cached payloads (`CONNECTION_CACHING`) can be configured to bypass quota deductions (`LIMIT_CACHE`).
 - **Enforcement**: If a connection violates `maxrequests`, the connection action is instantly set to block, serving the block template with a `LMS_TOO_MANY_REQUESTS` status and generating a `TCP_DENIED` log entry.
 
 ## Schema Fields
@@ -29,7 +29,7 @@ Token-bucket rate, quota counters, request cap enforcement.
 - **Enabled (enabled)**: Toggles the specific rule.
 - **Comment (comment)**: User description of the rule.
 - **Profiles (profiles)**: The trigger condition. The rule applies if the connection has this tag.
-- **Action (action)**: `Allow` or `Deny`. Whether this field has any runtime effect is disputed — see the warning below.
+- **Action (action)**: `Allow` or `Deny`. Verified on this build to have no runtime effect — see the note below.
 - **Template (templ)**: Name of the block-page template shown when this entry matches. Blank uses `blocked`. Built-in examples: `maxbandwidth`, `maxrequests`.
 - **Download transfer limit (maxdownloadbytes)**: Maximum bytes a client can download before being blocked.
 - **Upload transfer limit (maxuploadbytes)**: Maximum bytes a client can upload before being blocked.
@@ -44,22 +44,20 @@ Check `/var/log/safesquid/native/safesquid.log` for limit enforcement messages. 
 ## How SafeSquid processes the list
 
 1. On each relevant request, every enabled row matching profiles is evaluated.
-2. **Request limit** exceeded → HTTP 429 and the row Template block page (Action field is stored but not read by limits code).
+2. **Request limit** exceeded → HTTP 429 and the row Template block page, regardless of the row's **Action** field — see the note below.
 3. **Download / upload transfer limits** — remaining bytes are the tightest cap among matching rows; when remaining reaches 0, further transfer on matching connections is blocked and the row's Template block page is shown (built-in example: `maxbandwidth`).
 4. **Download rate** — lowest non-zero rate among matching rows wins for throttling.
 5. **Adjust Transfer Limits** flags: Limit cache transfers (count cached responses), Per-request limit (do not accumulate row counters at connection end — each request gets full quota), Group limit (share download rate bucket across matching connections).
 6. After connections complete, byte and request counters increment for matching rows (unless Per-request limit or cache exclusion applies); counters clear on the periodic reset.
 
-<Warning>
-**Action's runtime effect is contradicted by the product's own sources.** The console's field help states Action is enforced: set `Deny` and matching requests are blocked outright, set `Allow` and limits apply until a cap is reached, at which point the request is denied automatically. Source-level analysis of the limits code found the opposite — that Action is saved in configuration but never read, so limits apply on numeric caps regardless of what Action is set to.
-
-Neither claim is written here as fact. Determine it on your own system before relying on Action: create a test row scoped to a disposable profile tag, set Action to `Deny` with all numeric caps left blank, and send a request carrying that tag. If the request is blocked, Action is enforced on your build. If it succeeds, Action is inert and only the numeric caps matter.
-</Warning>
+<Note>
+**Action has no runtime effect.** The console's own field help describes Action as enforced — set `Deny` and matching requests are blocked outright, set `Allow` and limits apply until a cap is reached — but a live behavioural test (a disposable profile tag, Action set to `Deny`, numeric caps set high enough to never trigger) showed the connection tagged and evaluated correctly, then proceeding past this section entirely rather than being blocked. Only the numeric caps (Download/Upload transfer limit, Request limit, Download rate) actually gate a connection; set `Action` to whichever value documents your intent, since either behaves identically.
+</Note>
 
 ## Important entry fields
 
 - **Profiles** — Limit to connections with these Access Profile tags. Typical tags: `RESTRICTED DOWNLOAD TRANSFER RATES`, `RESTRICTED UPLOAD TRANSFER RATES`.
-- **Action** — Disputed. Console help describes it as enforced; source analysis found it unread. See the warning above and test on your own build.
+- **Action** — Verified to have no runtime effect on this build; the console's own field help describes it as enforced, but only the numeric caps below actually block a connection. See the note above.
 - **Template** — Block page shown when this entry matches. Blank uses `blocked`. This same field also covers download/upload transfer-limit overruns: the console names a `maxbandwidth` template for excessive bandwidth, paired with `maxrequests` for excessive requests — both are shown to the user through this field, not a separate default/bypass path.
 - **Download / Upload transfer limit** — Maximum bytes counted against this row since last counter reset (~10 s). `0` = no cap from this row for that direction.
 - **Request limit** — Maximum requests counted since last reset. `0` = unlimited. Exceeded → HTTP 429.
