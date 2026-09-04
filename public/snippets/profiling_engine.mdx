@@ -50,7 +50,7 @@ Your proxy sees thousands of requests per second: `https://cdn47.cloudprovider.c
 
 ## How to Configure Profiling
 
-### 1. [User Identities](/User_Identities) — Connect LDAP/AD, Create Groups
+### 1. [User Identities](/use_cases/authentication/user_identities) — Connect LDAP/AD, Create Groups
 
 **Your goal:** Tie every HTTP request to a user and group (Finance, IT, Contractors) so policies apply by identity, not just IP address.
 
@@ -63,11 +63,11 @@ Your proxy sees thousands of requests per second: `https://cdn47.cloudprovider.c
 
 **⚠️ Common pitfall:** Don't rely on IP addresses for identity. Laptops roam, NAT pools rotate, VPNs mask IPs. Use user authentication (LDAP/SAML) or accept that your policies will break constantly.
 
-→ [Configure User Identities](/User_Identities)
+→ [Configure User Identities](/use_cases/authentication/user_identities)
 
 ---
 
-### 2. [Web Categorization](/Web_Categorization) — Assign Sites to Categories
+### 2. [Web Categorization](/core_features/web_categorization) — Assign Sites to Categories
 
 **Your goal:** Block or allow websites by category (Social Media, Productivity, Malware, Adult Content) rather than maintaining endless URL lists.
 
@@ -83,7 +83,7 @@ Your proxy sees thousands of requests per second: `https://cdn47.cloudprovider.c
 
 **⚠️ Common pitfall:** Don't block "Cloud Storage" category without whitelisting your approved services (SharePoint, OneDrive). You'll break business workflows.
 
-→ [Configure Web Categorization](/Web_Categorization)
+→ [Configure Web Categorization](/core_features/web_categorization)
 
 ---
 
@@ -110,7 +110,7 @@ Your proxy sees thousands of requests per second: `https://cdn47.cloudprovider.c
 
 ---
 
-### 4. [Content Analyser](/Content_Analyser) — Inspect Files, Text, Images
+### 4. [Content Analyser](/use_cases/data_leakage_prevention/content_analyser) — Inspect Files, Text, Images
 
 **Your goal:** Detect malware, data leaks, and inappropriate content by inspecting actual file content, not just the extension or URL.
 
@@ -127,11 +127,11 @@ Your proxy sees thousands of requests per second: `https://cdn47.cloudprovider.c
 
 **⚠️ Common pitfall:** Content analysis requires SSL inspection to be enabled. If you're not decrypting HTTPS, the Content Analyser can't inspect encrypted uploads.
 
-→ [Configure Content Analyser](/Content_Analyser)
+→ [Configure Content Analyser](/use_cases/data_leakage_prevention/content_analyser)
 
 ---
 
-### 5. [Request Profiles](/Request_Profiles) — Control by HTTP Method, Protocol, User-Agent
+### 5. [Request Profiles](/use_cases/profiling_engine/request_profiles) — Control by HTTP Method, Protocol, User-Agent
 
 **Your goal:** Enforce SafeSearch, block POST requests to unapproved sites, or restrict HTTP methods (DELETE, PUT) for read-only access.
 
@@ -146,11 +146,11 @@ Your proxy sees thousands of requests per second: `https://cdn47.cloudprovider.c
 - ✅ Read-only mode for social media (allow GET, block POST to prevent comments/posts)
 - ✅ Block non-browser user agents (scrapers, bots, automated tools)
 
-→ [Configure Request Profiles](/Request_Profiles)
+→ [Configure Request Profiles](/use_cases/profiling_engine/request_profiles)
 
 ---
 
-### 6. [Response Profiles](/Response_Profiles) — Filter by MIME Type, File Size
+### 6. [Response Profiles](/use_cases/profiling_engine/response_profiles) — Filter by MIME Type, File Size
 
 **Your goal:** Block executable downloads, enforce file size limits, or quarantine archives for malware scanning.
 
@@ -167,11 +167,11 @@ Your proxy sees thousands of requests per second: `https://cdn47.cloudprovider.c
 
 **⚠️ When NOT to use:** Response Profiles fire after the download starts. For pre-emptive blocking (before bandwidth is consumed), use Request Profiles + URL filtering instead.
 
-→ [Configure Response Profiles](/Response_Profiles)
+→ [Configure Response Profiles](/use_cases/profiling_engine/response_profiles)
 
 ---
 
-### 7. [Time Profiles](/Time_Profiles) — Enforce Policies by Time Window
+### 7. [Time Profiles](/use_cases/profiling_engine/time_profiles) — Enforce Policies by Time Window
 
 **Your goal:** Allow social media during lunch, block large downloads during business hours, or require manager approval for after-hours access.
 
@@ -187,7 +187,7 @@ Your proxy sees thousands of requests per second: `https://cdn47.cloudprovider.c
 
 **Example:** Allow Facebook/Twitter only during lunch hour (12:00-13:00), block rest of the day.
 
-→ [Configure Time Profiles](/Time_Profiles)
+→ [Configure Time Profiles](/use_cases/profiling_engine/time_profiles)
 
 
 
@@ -195,7 +195,7 @@ Your proxy sees thousands of requests per second: `https://cdn47.cloudprovider.c
 
 **1. Relying on IP addresses for identity**  
 **What breaks:** Laptops switch networks, VPNs mask IPs, NAT pools rotate. Your "Finance team = 192.168.10.0/24" rule breaks when someone works from home.  
-**Solution:** Use LDAP or SAML authentication. Configure [User Identities](/User_Identities) before building IP-based rules.
+**Solution:** Use LDAP or SAML authentication. Configure [User Identities](/use_cases/authentication/user_identities) before building IP-based rules.
 
 **2. Blocking "Cloud Storage" without whitelisting approved services**  
 **What breaks:** Your categorization rule blocks "Cloud Storage" — but that includes SharePoint, OneDrive, and Box (approved). Users can't access business files.  
@@ -203,7 +203,7 @@ Your proxy sees thousands of requests per second: `https://cdn47.cloudprovider.c
 
 **3. Enabling Content Analyser without SSL Inspection**  
 **What breaks:** 90% of uploads are over HTTPS. If SSL inspection is disabled, Content Analyser can't see the payload — it's encrypted.  
-**Solution:** Enable [SSL Inspection](/SSL_Inspection) before relying on Content Analyser for DLP or malware detection.
+**Solution:** Enable [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) before relying on Content Analyser for DLP or malware detection.
 
 **4. Over-blocking with application signatures**  
 **What breaks:** You block "Remote Access" signatures, which includes TeamViewer, AnyDesk, Chrome Remote Desktop — but also your approved VPN client. IT can't work remotely.  
@@ -218,12 +218,12 @@ Your proxy sees thousands of requests per second: `https://cdn47.cloudprovider.c
 ## Related Topics
 
 **Prerequisites:**
-- [Authentication Setup](/Authentication) — User identities require LDAP, AD, or SAML authentication
+- [Authentication Setup](/use_cases/authentication/authentication) — User identities require LDAP, AD, or SAML authentication
 
 **Next Steps:**
-- [Access Restrictions](/Access_Restriction) — Use profiles to build allow/block policies
-- [Data Leakage Prevention](/Data_Leakage_Prevention) — Combine Content Analyser with DLP templates
+- [Access Restrictions](/use_cases/access_restriction/access_restriction) — Use profiles to build allow/block policies
+- [Data Leakage Prevention](/use_cases/data_leakage_prevention/data_leakage_prevention) — Combine Content Analyser with DLP templates
 
 **Troubleshooting:**
-- [User Not Identified](/Troubleshooting) — LDAP bind failures, group membership issues
-- [Application Not Detected](/Troubleshooting) — Signature tuning, false positives
+- [User Not Identified](/troubleshooting/troubleshooting) — LDAP bind failures, group membership issues
+- [Application Not Detected](/troubleshooting/troubleshooting) — Signature tuning, false positives

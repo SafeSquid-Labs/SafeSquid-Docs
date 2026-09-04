@@ -35,9 +35,9 @@ When no Active Directory (AD) server is available for SafeSquid LDAP, administra
 | Topic | Status | Source |
 | ----- | ------ | ----- |
 | Internal user database via UI | **Confirmed** | Procedure screenshots on this page |
-| Parity with [BASIC](/BASIC) / credential store | **Draft** | Treat as overlapping capability; align narrative with engineering if titles differ |
+| Parity with [BASIC](/use_cases/authentication/basic) / credential store | **Draft** | Treat as overlapping capability; align narrative with engineering if titles differ |
 
 ## Next steps
 
-- [BASIC Authentication](/BASIC) for RFC 7617 and local store detail.
-- [Directory Services](/Directory_Services) when AD/LDAP becomes available.
+- [BASIC Authentication](/use_cases/authentication/basic) for RFC 7617 and local store detail.
+- [Directory Services](/use_cases/authentication/directory_services) when AD/LDAP becomes available.

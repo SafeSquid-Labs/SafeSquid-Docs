@@ -36,15 +36,15 @@ Use this sequence to understand the platform:
 1. [SafeSquid SWG Overview](/safesquid_swg/architecture/safesquid_swg) for the main product components and deployment model.
 2. [Application Ecosystem](/Application_Ecosystem) for supporting services, feed dependencies, reporting, and portal relationships.
 3. [SafeSquid Proxy Cluster](/SafeSquid_Proxy_Cluster) for scale-up, scale-out, and policy replication.
-4. [Integrated DNS Security](/Integrated_DNS_Security) for DNS-layer enforcement and tunnelling risk.
+4. [Integrated DNS Security](/safesquid_swg/architecture/integrated_dns_security) for DNS-layer enforcement and tunnelling risk.
 
 ## Know what this page does not replace
 
-This page is the architecture hub. It does not replace deployment runbooks such as [Deployment](/deployment/licensing_requirements), [Cloud Deployment](/Cloud_Deployment), [SafeSquid Appliance Builder](/SafeSquid_Appliance_Builder), or [Linux Server](/Linux_Server).
+This page is the architecture hub. It does not replace deployment runbooks such as [Deployment](/deployment/licensing_requirements), [Cloud Deployment](/getting_started/install_safesquid/cloud_deployment), [SafeSquid Appliance Builder](/getting_started/install_safesquid/safesquid_appliance_builder), or [Linux Server](/getting_started/install_safesquid/linux_server).
 
 ## Next steps
 
 - [SafeSquid SWG Overview](/safesquid_swg/architecture/safesquid_swg)
-- [Proxy Clustering](/Proxy_Clustering)
+- [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering)
 - [Deployment](/deployment/licensing_requirements)
 - [Getting Started](/Getting_Started)

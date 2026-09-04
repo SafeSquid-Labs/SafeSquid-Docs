@@ -58,7 +58,7 @@ Bypassed traffic is not attributed to a specific authenticated user. Keep the by
 
 ### Open the configuration workflow
 
-Open the [Configuration Portal](/Configuration_Portal) and move into the relevant policy areas.
+Open the [Configuration Portal](/safesquid_swg/interface/configuration_portal) and move into the relevant policy areas.
 
 ![Enable bypass authentication step 1](/images/How_To/Bypass_Authentication/image1.webp)
 
@@ -167,5 +167,5 @@ Remediation:
 
 ## Related controls / next steps
 
-- Use [Access Restriction](/Access_Restriction) and [Request Profiles](/Request_Profiles) to keep bypass logic narrow and auditable.
-- Use [Directory Services](/Directory_Services) and [Authentication](/Authentication) for the normal attributed access path.
+- Use [Access Restriction](/use_cases/access_restriction/access_restriction) and [Request Profiles](/use_cases/profiling_engine/request_profiles) to keep bypass logic narrow and auditable.
+- Use [Directory Services](/use_cases/authentication/directory_services) and [Authentication](/use_cases/authentication/authentication) for the normal attributed access path.

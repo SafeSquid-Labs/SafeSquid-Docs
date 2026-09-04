@@ -86,7 +86,7 @@ HTTP/HTTPS traffic is handled by SafeSquid's HTTP proxy. Applications using othe
 
 ## Next steps
 
-- [Forward Proxy](/Forward_Proxy) for HTTP/HTTPS explicit proxy.
-- [Transparent Proxy](/Transparent_Proxy) for interception without client config.
-- [Proxy Chain](/Proxy_Chain) for forwarding to a parent proxy.
+- [Forward Proxy](/use_cases/scaling_and_high_availability/forward_proxy) for HTTP/HTTPS explicit proxy.
+- [Transparent Proxy](/use_cases/scaling_and_high_availability/transparent_proxy) for interception without client config.
+- [Proxy Chain](/use_cases/scaling_and_high_availability/proxy_chain) for forwarding to a parent proxy.
 

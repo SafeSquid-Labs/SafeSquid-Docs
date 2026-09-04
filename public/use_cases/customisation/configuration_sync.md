@@ -40,7 +40,7 @@ Without configuration synchronization, each proxy node must be updated manually.
 
 ## Prerequisites
 
-- Master and slave instances already connected (see [Master-Slave setup](/Master_Slave))
+- Master and slave instances already connected (see [Master-Slave setup](/use_cases/scaling_and_high_availability/master_slave))
 - If authentication is enabled on master, slave IP must be in Access restrictions → Allow list
 
 **Important**: If proxy authentication is required for all network traffic, create an allow-list policy on the master for the slave proxy IP. Otherwise the slave cannot reach the master Configuration Portal to sync policies.
@@ -125,5 +125,5 @@ After restart, the slave begins syncing configuration from the master. Policy ch
 - Restart slave to apply configuration changes: Configuration Portal → Support → Restart SafeSquid
 - Some changes (network settings, startup params) require manual restart
 
-**Related**: [Master-Slave setup](/Master_Slave), [Configuration Portal](/Configuration_Portal), [Troubleshooting](/Troubleshooting)
+**Related**: [Master-Slave setup](/use_cases/scaling_and_high_availability/master_slave), [Configuration Portal](/safesquid_swg/interface/configuration_portal), [Troubleshooting](/troubleshooting/troubleshooting)
 

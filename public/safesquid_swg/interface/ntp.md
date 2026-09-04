@@ -315,16 +315,16 @@ Clock was stepped
 
 | Topic | Status | Source |
 | ----- | ------ | ----- |
-| Chrony / NTP for Kerberos and TLS | **Confirmed** | This guide, [Authentication](/Authentication) |
+| Chrony / NTP for Kerberos and TLS | **Confirmed** | This guide, [Authentication](/use_cases/authentication/authentication) |
 | AD clock skew tolerance | **Draft** | **5 minutes** called out in the [Supporting Services hub](/safesquid_swg/interface/supporting_services_monit); **CTO** confirm max skew for supported builds |
 
 ---
 
 ## Next Steps
 
-1. **[Monit](/Supporting_Services_Monit)** — Monitor chronyd and auto-restart if needed
-2. **[BIND](/Bind)** — DNSSEC validation requires accurate time
-3. **[Authentication](/Authentication)** — Configure SSO/Kerberos (requires NTP)
-4. **[SSL Inspection](/SSL_Inspection)** — TLS certificate validation requires accurate time
+1. **[Monit](/safesquid_swg/interface/supporting_services_monit)** — Monitor chronyd and auto-restart if needed
+2. **[BIND](/safesquid_swg/interface/bind)** — DNSSEC validation requires accurate time
+3. **[Authentication](/use_cases/authentication/authentication)** — Configure SSO/Kerberos (requires NTP)
+4. **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** — TLS certificate validation requires accurate time
 
 **Related:** [Supporting Services Overview](/safesquid_swg/interface/supporting_services_monit)

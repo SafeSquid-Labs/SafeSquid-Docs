@@ -113,9 +113,9 @@ SafeSquid strips the AVIF and WEBP entries from the Accept header, causing the s
 
 ## Verification and evidence
 
-- **Interface Checks**: In the [Configuration Portal](/Configuration_Portal), confirm Content Modifier → Global is enabled. Verify each policy shows the correct Pattern, Replace, Mime type, and Applies to values.
+- **Interface Checks**: In the [Configuration Portal](/safesquid_swg/interface/configuration_portal), confirm Content Modifier → Global is enabled. Verify each policy shows the correct Pattern, Replace, Mime type, and Applies to values.
 - **Log Analysis**: Access logs should show connections matching the configured profiles and MIME types. Enable extended logging to confirm rewriting occurred on the expected connections.
 - **Performance Validation**: Load a target page in the browser and inspect the page source (or response headers) to verify the expected modification. For body rewrites, view source to confirm substituted text. For header rewrites, use browser developer tools or SafeSquid logs.
 
-**Next steps:** [Content Modifier overview](/Content_Modifier) for prerequisites, implementation actions, and troubleshooting. [Header Obfuscation](/Header_Obfuscation) for header-specific filtering. [Cookie Inspection](/Cookie_Inspection) for cookie-level policies.
+**Next steps:** [Content Modifier overview](/use_cases/content_modifier/content_modifier) for prerequisites, implementation actions, and troubleshooting. [Header Obfuscation](/use_cases/header_rewrite/header_obfuscation) for header-specific filtering. [Cookie Inspection](/use_cases/cookie_inspection/cookie_inspection) for cookie-level policies.
 

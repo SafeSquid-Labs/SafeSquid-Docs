@@ -40,7 +40,7 @@ Reduces malware and tracking exposure from ad networks. Lowers bandwidth and CPU
 
 ## Prerequisites
 
-**SafeSquid-side:** HTTPS Inspection enabled so SafeSquid can inspect and modify HTTPS content. See [Configure HTTPS Inspection](/Configure_HTTPS_Inspection) if not yet enabled. Admin access to the Configuration Portal.
+**SafeSquid-side:** HTTPS Inspection enabled so SafeSquid can inspect and modify HTTPS content. See [Configure HTTPS Inspection](/use_cases/ssl_inspection/configure_https_inspection) if not yet enabled. Admin access to the Configuration Portal.
 
 **Client-side:** No change required; blocking is transparent.
 
@@ -48,7 +48,7 @@ Reduces malware and tracking exposure from ad networks. Lowers bandwidth and CPU
 
 ## Enable BLOCK ADVERTISEMENT policy
 
-1. Access the SafeSquid interface via the [Configuration Portal](/Configuration_Portal) — web interface for policy and system settings. In the interface header, click **Configure** to open the configuration menu.
+1. Access the SafeSquid interface via the [Configuration Portal](/safesquid_swg/interface/configuration_portal) — web interface for policy and system settings. In the interface header, click **Configure** to open the configuration menu.
 
 ![Configuration Portal header with Configure menu highlighted](/images/How_To/Block_Advertisements_And_Banners/image1.webp)
 
@@ -83,7 +83,7 @@ Reduces malware and tracking exposure from ad networks. Lowers bandwidth and CPU
 
 ![Blocked ad replaced by SafeSquid template on YouTube](/images/How_To/Block_Advertisements_And_Banners/image10.webp)
 
-- **Audit:** Access logs and reports show traffic matching the policy; export reports from the [Reporting Module](/Reporting_Module) for evidence.
+- **Audit:** Access logs and reports show traffic matching the policy; export reports from the [Reporting Module](/use_cases/audit_and_forensics/reporting_module) for evidence.
 
 :::note
 Administrators can replace the default template with a custom template.
@@ -103,7 +103,7 @@ Administrators can replace the default template with a custom template.
 
 ## Next steps
 
-- [Block inappropriate images using Image Analyzer](/Block_inappropriate_images_by_using_Image_Analyzer) for visual content filtering.
-- [Header Re-Write](/Header_Obfuscation) for header filtering and privacy.
-- [Content Modifier](/Content_Modifier) for custom regex-based content rewriting.
+- [Block inappropriate images using Image Analyzer](/use_cases/data_leakage_prevention/block_inappropriate_images_by_using_image_analyzer) for visual content filtering.
+- [Header Re-Write](/use_cases/header_rewrite/header_obfuscation) for header filtering and privacy.
+- [Content Modifier](/use_cases/content_modifier/content_modifier) for custom regex-based content rewriting.
 

@@ -30,7 +30,7 @@ Status labels:
   Source: not yet recorded
 - Claim: "SafeSquid dynamic POST/PUT intercept blocks unknown submit hosts."  
   Status: `draft`  
-  Source: Partial support in [Request Profiles](/Request_Profiles) (method-level POST/PUT + host/file matching); no documented "Trusted-Submit list" or explicit form-action interception term in docs yet
+  Source: Partial support in [Request Profiles](/use_cases/profiling_engine/request_profiles) (method-level POST/PUT + host/file matching); no documented "Trusted-Submit list" or explicit form-action interception term in docs yet
 
 ## 2025-06-02 cyberslacking
 
@@ -42,7 +42,7 @@ Status labels:
   Source: not yet recorded
 - Claim: "SafeSquid path/GraphQL controls block Facebook games while preserving feeds."  
   Status: `draft`  
-  Source: "Facebook read-only mode" and selective app controls are documented in [Facebook Read Only Mode](/Facebook_Read_Only_Mode) and request profiling in [Request Profiles](/Request_Profiles); GraphQL-specific control is not documented
+  Source: "Facebook read-only mode" and selective app controls are documented in [Facebook Read Only Mode](/use_cases/content_modifier/facebook_read_only_mode) and request profiling in [Request Profiles](/use_cases/profiling_engine/request_profiles); GraphQL-specific control is not documented
 
 ## 2025-06-02 last-mile-reassembly-of-drive-by-malware
 
@@ -54,7 +54,7 @@ Status labels:
   Source: not yet recorded
 - Claim: "SafeSquid assembly watchdog blocks concat/atob/WebAssembly on untrusted blobs."  
   Status: `missing`  
-  Source: No internal product documentation found for concat/atob/WebAssembly assembly blocking; [Native Sandboxing](/Native_Sandboxing) is under construction
+  Source: No internal product documentation found for concat/atob/WebAssembly assembly blocking; [Native Sandboxing](/use_cases/malware_scanning/native_sandboxing) is under construction
 
 ## 2025-06-02 csrf-abuse
 
@@ -63,28 +63,28 @@ Status labels:
   Source: OWASP Top 10 category list
 - Claim: "SafeSquid auto-token injection and cookie rewrite behavior."  
   Status: `draft`  
-  Source: Cookie/header policy controls are documented in [Cookie Inspection](/Cookie_Inspection) and [Header Re-Write](/Header_Obfuscation), but automatic CSRF token injection/origin enforcement is not documented
+  Source: Cookie/header policy controls are documented in [Cookie Inspection](/use_cases/cookie_inspection/cookie_inspection) and [Header Re-Write](/use_cases/header_rewrite/header_obfuscation), but automatic CSRF token injection/origin enforcement is not documented
 
 ## 2025-06-02 dns-tunneling
 
 - Claim: "SafeSquid category DNS allow-list, QPS thresholds, entropy detection behavior."  
   Status: `missing`  
-  Source: DNS security docs confirm DNSBL, GeoIP, and homograph controls only ([DNS Security](/DNS_Security), [DNS Blacklisting](/DNSBL)); no internal documentation for DNS QPS thresholds or DNS entropy analytics
+  Source: DNS security docs confirm DNSBL, GeoIP, and homograph controls only ([DNS Security](/use_cases/dns_security/dns_security), [DNS Blacklisting](/use_cases/dns_security/dnsbl)); no internal documentation for DNS QPS thresholds or DNS entropy analytics
 
 ## 2026-04-07 rubric-advantages-claims-use-cases-troubleshooting
 
 - Claim: "Use-case library maps directly to documented SafeSquid controls."  
   Status: `confirmed`  
-  Source: Control families are documented in [Access Restriction](/Access_Restriction), [Profiling Engine](/Profiling_Engine), [Content Analyser](/Content_Analyser), and [URL Redirection](/URL_Redirection)
+  Source: Control families are documented in [Access Restriction](/use_cases/access_restriction/access_restriction), [Profiling Engine](/use_cases/profiling_engine/profiling_engine), [Content Analyser](/use_cases/data_leakage_prevention/content_analyser), and [URL Redirection](/use_cases/url_redirection/url_redirection)
 - Claim: "Any guide claiming full vendor API edge-case coverage requires periodic revalidation."  
   Status: `draft`  
-  Source: Use-case scope is documented in [Allow Specific YouTube Channel and Its Playlist](/Allow_Specific_YouTube_Channel_and_its_Playlist) and [YouTube API Integration With SafeSquid To Allow Specific YouTube Videos](/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos); release-note enforcement process is not formalized in docs yet
+  Source: Use-case scope is documented in [Allow Specific YouTube Channel and Its Playlist](/use_cases/access_restriction/allow_specific_youtube_channel_and_its_playlist) and [YouTube API Integration With SafeSquid To Allow Specific YouTube Videos](/use_cases/access_restriction/youtube_api_integration_with_safesquid_to_allow_specific_youtube_videos); release-note enforcement process is not formalized in docs yet
 - Claim: "Troubleshooting library mirrors major SafeSquid subsystems."  
   Status: `confirmed`  
-  Source: Troubleshooting categories align to [Getting Started](/Getting_Started), [SSL Inspection](/SSL_Inspection), [Authentication](/Authentication), [DNS Security](/DNS_Security), and [Access Restriction](/Access_Restriction)
+  Source: Troubleshooting categories align to [Getting Started](/Getting_Started), [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection), [Authentication](/use_cases/authentication/authentication), [DNS Security](/use_cases/dns_security/dns_security), and [Access Restriction](/use_cases/access_restriction/access_restriction)
 - Claim: "Vendor/browser/OS compatibility behavior is exhaustively covered."  
   Status: `missing`  
-  Source: Current troubleshooting docs are symptom-based and do not provide an exhaustive version matrix in [Troubleshooting](/Troubleshooting)
+  Source: Current troubleshooting docs are symptom-based and do not provide an exhaustive version matrix in [Troubleshooting](/troubleshooting/troubleshooting)
 
 Requested edits:
 - Keep customer-facing promises scoped to documented behavior; avoid "all edge cases" wording for vendor APIs.
@@ -100,19 +100,19 @@ Requested edits:
 
 - Claim: "SafeSquid provides three supported install paths (SAB, cloud, Linux TAR)."  
   Status: `confirmed`  
-  Source: [Install SafeSquid hub](/Install_SafeSquid), [SafeSquid Appliance Builder](/SafeSquid_Appliance_Builder), [Cloud Deployment](/Cloud_Deployment), [Linux Server Install](/Linux_Server)
+  Source: [Install SafeSquid hub](/Install_SafeSquid), [SafeSquid Appliance Builder](/getting_started/install_safesquid/safesquid_appliance_builder), [Cloud Deployment](/getting_started/install_safesquid/cloud_deployment), [Linux Server Install](/getting_started/install_safesquid/linux_server)
 - Claim: "SAB enables a rapid first deployment (~15 to 20 minutes total)."  
   Status: `confirmed`  
-  Source: [What is SafeSquid SWG?](/What_is_SafeSquid_SWG) and [SafeSquid Appliance Builder](/SafeSquid_Appliance_Builder)
+  Source: [What is SafeSquid SWG?](/What_is_SafeSquid_SWG) and [SafeSquid Appliance Builder](/getting_started/install_safesquid/safesquid_appliance_builder)
 - Claim: "SafeSquid supports multiple client-routing models (explicit, PAC, system-wide, enterprise, app-specific)."  
   Status: `confirmed`  
-  Source: [Connect Your Client hub](/Connect_Your_Client) and child docs
+  Source: [Connect Your Client hub](/getting_started/client_configuration/connect_your_client) and child docs
 - Claim: "Commercial activation unlocks real-time threat intelligence features."  
   Status: `confirmed`  
-  Source: [Activate](/Activate), [What is SafeSquid SWG?](/What_is_SafeSquid_SWG), [Threat Intelligence Feeds](/Threat_Intelligence_Feeds)
+  Source: [Activate](/getting_started/activate), [What is SafeSquid SWG?](/What_is_SafeSquid_SWG), [Threat Intelligence Feeds](/use_cases/malware_scanning/threat_intelligence_feeds)
 - Claim: "Operational telemetry exposes thread-pool counters in performance logs."  
   Status: `confirmed`  
-  Source: [What is SafeSquid SWG?](/What_is_SafeSquid_SWG), [Security Logs](/Security_Logs)
+  Source: [What is SafeSquid SWG?](/What_is_SafeSquid_SWG), [Security Logs](/use_cases/audit_and_forensics/security_logs)
 - Claim: "SafeSquid offers better throughput/latency than competing gateways."  
   Status: `missing`  
   Source: No in-repo benchmark or external validated comparative dataset linked from Getting Started pages
@@ -121,16 +121,16 @@ Requested edits:
   Source: No architecture deep-dive or benchmark evidence in this doc set; explicitly marked as not documented in [What is SafeSquid SWG?](/What_is_SafeSquid_SWG)
 - Claim: "One client deployment model is universally best."  
   Status: `missing`  
-  Source: [Connect Your Client hub](/Connect_Your_Client) marks model choice as deployment-dependent
+  Source: [Connect Your Client hub](/getting_started/client_configuration/connect_your_client) marks model choice as deployment-dependent
 - Claim: "Verify-your-setup checklist alone proves production readiness."  
   Status: `draft`  
-  Source: [Verify Your Setup](/Verify_Your_Setup) includes baseline checks but references further HA and hardening docs for production-grade assurance
+  Source: [Verify Your Setup](/getting_started/verify_your_setup) includes baseline checks but references further HA and hardening docs for production-grade assurance
 
 ## 2026-04-07 remaining-sections-rubric-pass-safa-259
 
 - Claim: "Rubric pass now covers the major remaining sections (SWG, DNS Security, Authentication, SSL Inspection, Use Cases, Troubleshooting)."  
   Status: `confirmed`  
-  Source: Edited hubs and child docs under [SafeSquid SWG](/SafeSquid_SWG), [DNS Security](/DNS_Security), [Authentication](/Authentication), [SSL Inspection](/SSL_Inspection), [Use Cases](/Use_Cases), and [Troubleshooting](/Troubleshooting)
+  Source: Edited hubs and child docs under [SafeSquid SWG](/SafeSquid_SWG), [DNS Security](/use_cases/dns_security/dns_security), [Authentication](/use_cases/authentication/authentication), [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection), [Use Cases](/Use_Cases), and [Troubleshooting](/troubleshooting/troubleshooting)
 - Claim: "All comparative and performance assertions in these sections are fully benchmark-backed and publish-ready as hard facts."  
   Status: `missing`  
   Source: No single benchmark or third-party validation pack is linked across all updated sections; keep comparative wording constrained to documented behavior

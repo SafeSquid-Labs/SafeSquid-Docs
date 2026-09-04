@@ -26,7 +26,7 @@ Symptom-first guides shorten mean time to resolution. Each document lists diagno
 
 ## Advantages
 
-**Confirmed:** Troubleshooting guides map to major SafeSquid subsystems documented in [Getting Started](/Getting_Started), [SSL Inspection](/SSL_Inspection), [Authentication](/Authentication), [DNS Security](/DNS_Security), and [Access Restriction](/Access_Restriction).
+**Confirmed:** Troubleshooting guides map to major SafeSquid subsystems documented in [Getting Started](/Getting_Started), [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection), [Authentication](/use_cases/authentication/authentication), [DNS Security](/use_cases/dns_security/dns_security), and [Access Restriction](/use_cases/access_restriction/access_restriction).
 
 ## Call to action
 
@@ -44,22 +44,22 @@ Start with the symptom category rather than a subsystem guess. That reduces fals
 Use this page together with [Getting Started](/getting_started/welcome) when the product does not install cleanly, the web interface is unreachable, or activation cannot be completed.
 
 ### Identity and SSL
-Use [Authentication](/Authentication), [SSL Inspection](/SSL_Inspection), and [Supporting Services Monit](/safesquid_swg/interface/supporting_services_monit) when user login, certificate trust, or directory-backed access starts failing.
+Use [Authentication](/use_cases/authentication/authentication), [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection), and [Supporting Services Monit](/safesquid_swg/interface/supporting_services_monit) when user login, certificate trust, or directory-backed access starts failing.
 
 ### Performance and stability
-Use [Performance Plot](/Performance_Plot), [Audit & Forensics](/Audit_Forensics), and [Architecture](/safesquid_swg/architecture/safesquid_swg) when the proxy becomes slow, unstable, or inconsistent under load.
+Use [Performance Plot](/use_cases/performance_acceleration/performance_plot), [Audit & Forensics](/use_cases/audit_and_forensics/audit_forensics), and [Architecture](/safesquid_swg/architecture/safesquid_swg) when the proxy becomes slow, unstable, or inconsistent under load.
 
 ### Connectivity and policy
-Use [Access Restriction](/Access_Restriction), [DNS Security](/DNS_Security), [Header Obfuscation](/Header_Obfuscation), and [Cookie Inspection](/Cookie_Inspection) when websites fail to load or behave incorrectly through the proxy.
+Use [Access Restriction](/use_cases/access_restriction/access_restriction), [DNS Security](/use_cases/dns_security/dns_security), [Header Obfuscation](/use_cases/header_rewrite/header_obfuscation), and [Cookie Inspection](/use_cases/cookie_inspection/cookie_inspection) when websites fail to load or behave incorrectly through the proxy.
 
 ### Reporting and evidence
-Use [Audit & Forensics](/Audit_Forensics), [Reporting Module](/Reporting_Module), and the SafeSquid interface pages when logs, reports, or evidence exports are incomplete.
+Use [Audit & Forensics](/use_cases/audit_and_forensics/audit_forensics), [Reporting Module](/use_cases/audit_and_forensics/reporting_module), and the SafeSquid interface pages when logs, reports, or evidence exports are incomplete.
 
-When failures are broad and not isolated to one control, review [Architecture](/safesquid_swg/architecture/safesquid_swg), [Audit & Forensics](/Audit_Forensics), and [Supporting Services Monit](/safesquid_swg/interface/supporting_services_monit) together before escalating.
+When failures are broad and not isolated to one control, review [Architecture](/safesquid_swg/architecture/safesquid_swg), [Audit & Forensics](/use_cases/audit_and_forensics/audit_forensics), and [Supporting Services Monit](/safesquid_swg/interface/supporting_services_monit) together before escalating.
 
 ## Advanced diagnostic tools
 
-### [How to use find_client_id.sh for getting complete connection log](/How_to_use_find_client_id.sh_for_getting_complete_connection_log)
+### [How to use find_client_id.sh for getting complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log)
 Administrators need advanced diagnostic tools to analyze specific connection issues and obtain detailed logs for troubleshooting complex proxy problems. find_client_id.sh provides connection analysis including detailed log extraction, connection tracing, and diagnostic information for specific client connections. Use this document to obtain detailed connection logs and perform connection analysis for complex troubleshooting.
 
 ## Next steps

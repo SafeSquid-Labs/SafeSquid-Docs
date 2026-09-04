@@ -44,7 +44,7 @@ Performance plots help operations teams move from vague complaints to measurable
 
 ### Open the performance plot tool
 
-Access the [Configuration Portal](/Configuration_Portal), then open **Support** and select the **Performance Plot** tile.
+Access the [Configuration Portal](/safesquid_swg/interface/configuration_portal), then open **Support** and select the **Performance Plot** tile.
 
 ### Select the right time range
 
@@ -117,7 +117,7 @@ Isolation steps:
 
 Remediation:
 
-- use [Troubleshooting](/Troubleshooting)
+- use [Troubleshooting](/troubleshooting/troubleshooting)
 - retest with a known-good date range
 
 ### The plot generates but is not useful
@@ -136,10 +136,10 @@ Isolation steps:
 Remediation:
 
 - narrow the range
-- correlate with [Security Logs](/Security_Logs) and [Reporting Module](/Reporting_Module)
+- correlate with [Security Logs](/use_cases/audit_and_forensics/security_logs) and [Reporting Module](/use_cases/audit_and_forensics/reporting_module)
 
 ## Related controls / next steps
 
-- Use [Troubleshooting](/Troubleshooting) if the plotting workflow fails.
-- Use [Reporting Module](/Reporting_Module) for transaction-level evidence alongside the performance view.
-- Use [Security Logs](/Security_Logs) when you need exact event correlation rather than only trend visualization.
+- Use [Troubleshooting](/troubleshooting/troubleshooting) if the plotting workflow fails.
+- Use [Reporting Module](/use_cases/audit_and_forensics/reporting_module) for transaction-level evidence alongside the performance view.
+- Use [Security Logs](/use_cases/audit_and_forensics/security_logs) when you need exact event correlation rather than only trend visualization.

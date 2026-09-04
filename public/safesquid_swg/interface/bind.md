@@ -318,15 +318,15 @@ sudo tail -f /var/log/named/default.log
 | Topic | Status | Source |
 | ----- | ------ | ----- |
 | Recursion, forwarding, `safesquid.dns.conf` stub patterns | **Confirmed** | This guide |
-| DNSSEC validation dependency on NTP | **Confirmed** | This page, [NTP](/NTP) |
+| DNSSEC validation dependency on NTP | **Confirmed** | This page, [NTP](/safesquid_swg/interface/ntp) |
 
 ---
 
 ## Next Steps
 
-1. **[Monit](/Supporting_Services_Monit)** — Monitor BIND and auto-restart if it crashes
-2. **[NTP](/NTP)** — Required for DNSSEC validation
-3. **[Integrated DNS Security](/Integrated_DNS_Security)** — Configure DNSBL for malicious domain blocking
-4. **[Troubleshooting](/Troubleshooting)** — DNS-specific troubleshooting
+1. **[Monit](/safesquid_swg/interface/supporting_services_monit)** — Monitor BIND and auto-restart if it crashes
+2. **[NTP](/safesquid_swg/interface/ntp)** — Required for DNSSEC validation
+3. **[Integrated DNS Security](/safesquid_swg/architecture/integrated_dns_security)** — Configure DNSBL for malicious domain blocking
+4. **[Troubleshooting](/troubleshooting/troubleshooting)** — DNS-specific troubleshooting
 
 **Related:** [Supporting Services Overview](/safesquid_swg/interface/supporting_services_monit)

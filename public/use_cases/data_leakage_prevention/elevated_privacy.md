@@ -158,5 +158,5 @@ Remediation:
 
 ## Related controls / next steps
 
-- Use [Access Restriction](/Access_Restriction) and [Request Profiles](/Request_Profiles) to scope privacy controls more precisely.
-- Use [Security Logs](/Security_Logs) and privacy-related records to validate that the right policy path applied.
+- Use [Access Restriction](/use_cases/access_restriction/access_restriction) and [Request Profiles](/use_cases/profiling_engine/request_profiles) to scope privacy controls more precisely.
+- Use [Security Logs](/use_cases/audit_and_forensics/security_logs) and privacy-related records to validate that the right policy path applied.

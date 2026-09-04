@@ -20,8 +20,8 @@ Linux- and Unix-heavy environments still need attributable proxy identity and gr
 
 | Step | Task | Goal |
 |------|------|------|
-| 1 | [Simple Authentication](/OpenLDAP_Simple_Authentication) | Configure LDAP server connection and enable browser-prompt authentication. |
-| 2 | [SSO Authentication](/OpenLDAP_SSO_Authentication) | Follow the documented access flow on that page and confirm the exact scope before describing it as transparent SSO in your environment. |
+| 1 | [Simple Authentication](/use_cases/authentication/openldap_simple_authentication) | Configure LDAP server connection and enable browser-prompt authentication. |
+| 2 | [SSO Authentication](/use_cases/authentication/openldap_sso_authentication) | Follow the documented access flow on that page and confirm the exact scope before describing it as transparent SSO in your environment. |
 
 ## Why use OpenLDAP with SafeSquid?
 
@@ -59,11 +59,11 @@ After configuring OpenLDAP:
 
 | Topic | Status | Source |
 | ----- | ------ | ------ |
-| Simple LDAP bind flow | **Confirmed** | [Simple Authentication](/OpenLDAP_Simple_Authentication) |
+| Simple LDAP bind flow | **Confirmed** | [Simple Authentication](/use_cases/authentication/openldap_simple_authentication) |
 | OpenLDAP “SSO” wording | **Needs scope check** | Keep the wording bounded to the implementation page unless transparent SSO is proven in the target design |
 
 ## Next steps
 
-- [Configure Simple Authentication](/OpenLDAP_Simple_Authentication) to establish the connection.
-- [Configure SSO Authentication](/OpenLDAP_SSO_Authentication) to enable user-aware policies.
-- [Access Restriction](/Access_Restriction) to define what your LDAP groups can access.
+- [Configure Simple Authentication](/use_cases/authentication/openldap_simple_authentication) to establish the connection.
+- [Configure SSO Authentication](/use_cases/authentication/openldap_sso_authentication) to enable user-aware policies.
+- [Access Restriction](/use_cases/access_restriction/access_restriction) to define what your LDAP groups can access.

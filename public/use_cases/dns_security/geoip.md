@@ -40,10 +40,10 @@ Without destination geography visibility, organizations cannot enforce regional 
 ## Prerequisites
 
 - SafeSquid installed and operational (see [Getting Started](/Getting_Started))
-- Profiling Engine enabled (see [Profiling Engine](/Profiling_Engine))
+- Profiling Engine enabled (see [Profiling Engine](/use_cases/profiling_engine/profiling_engine))
 - Up-to-date GeoIP database (SafeSquid includes MaxMind GeoLite2 by default)
-- Admin access to [Configuration Portal](/Configuration_Portal)
-- Consistent DNS resolution (see [Supporting Services: BIND](/Bind))
+- Admin access to [Configuration Portal](/safesquid_swg/interface/configuration_portal)
+- Consistent DNS resolution (see [Supporting Services: BIND](/safesquid_swg/interface/bind))
 
 
 
@@ -66,9 +66,9 @@ Without destination geography visibility, organizations cannot enforce regional 
 
 4. **Apply to policies**  
    Reference the geo-location profile in:
-   - **Access Control:** Block/allow by destination country (see [Access Restriction](/Access_Restriction))
-   - **Bandwidth Management:** Prioritize local regions (see [Manage Bandwidth](/Manage_Bandwidth))
-   - **Reporting:** Build dashboards by destination geography (see [Reporting Module](/Reporting_Module))
+   - **Access Control:** Block/allow by destination country (see [Access Restriction](/use_cases/access_restriction/access_restriction))
+   - **Bandwidth Management:** Prioritize local regions (see [Manage Bandwidth](/use_cases/performance_acceleration/manage_bandwidth))
+   - **Reporting:** Build dashboards by destination geography (see [Reporting Module](/use_cases/audit_and_forensics/reporting_module))
 
 5. **Test with regional destinations**  
    Validate by accessing known sites hosted in target countries.
@@ -78,8 +78,8 @@ Without destination geography visibility, organizations cannot enforce regional 
 ## Verification
 
 - **Interface**: Profile visible, enabled, and referenced in policies.
-- **Logs**: Confirm `server_country`, `server_region`, and `server_asn` in [Security Logs](/Security_Logs).
-- **Demonstrate control to auditor**: Export logs or run a report filtered by `server_country`; show policy configuration that denies or allows by geography; provide a country-based dashboard from the [Reporting Module](/Reporting_Module) as evidence of active enforcement.
+- **Logs**: Confirm `server_country`, `server_region`, and `server_asn` in [Security Logs](/use_cases/audit_and_forensics/security_logs).
+- **Demonstrate control to auditor**: Export logs or run a report filtered by `server_country`; show policy configuration that denies or allows by geography; provide a country-based dashboard from the [Reporting Module](/use_cases/audit_and_forensics/reporting_module) as evidence of active enforcement.
 - **Curl test**:
 
 ```bash
@@ -108,16 +108,16 @@ profile=Block-High-Risk-Countries rule=deny-non-compliant-regions user=jdoe
   - Fix: allow-list CDNs by ASN where appropriate; use the [Architecture hub](/safesquid_swg/architecture/safesquid_swg).
 - Private or RFC1918 destinations
   - Symptom: no geo data for non-routable IPs
-  - Fix: add explicit policy exceptions; rely on identity or application profiles. See [User Identities](/User_Identities).
+  - Fix: add explicit policy exceptions; rely on identity or application profiles. See [User Identities](/use_cases/authentication/user_identities).
 - DNS-based variance
   - Symptom: different resolver returns regionally distinct IPs.
-  - Fix: standardize resolvers; verify [Integrated DNS Security](/Integrated_DNS_Security).
+  - Fix: standardize resolvers; verify [Integrated DNS Security](/safesquid_swg/architecture/integrated_dns_security).
 - IPv6 classification gaps
   - Symptom: missing geo for v6-only hosts
   - Fix: ensure IPv6 ranges in GeoIP; confirm dual-stack handling
 - HTTPS SNI/IP mismatch
   - Symptom: SNI points to geo X, IP maps to geo Y
-  - Fix: prefer IP-based geo for enforcement; validate SNI with server verification. See [SSL Inspection](/SSL_Inspection).
+  - Fix: prefer IP-based geo for enforcement; validate SNI with server verification. See [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection).
 - Performance impact from complex geo sets
   - Symptom: latency on policy evaluation
   - Fix: consolidate countries into regions; push heavy rules higher in precedence; cache outcomes
@@ -131,11 +131,11 @@ External references:
 | Topic | Status | Source |
 | ----- | ------ | ------ |
 | `server_country`, `server_region`, `server_asn` log fields | **Confirmed** | This page (example log snippet) |
-| Profiling Engine / geo profile wiring | **Confirmed** | This page, [Profiling Engine](/Profiling_Engine) |
+| Profiling Engine / geo profile wiring | **Confirmed** | This page, [Profiling Engine](/use_cases/profiling_engine/profiling_engine) |
 | GDPR / export-control sentence-level mapping | **Draft** | Legal/compliance review outside this KB |
 | MaxMind as upstream | **Draft** | Confirm shipped database vendor per deployment |
 
 ## Next steps
 
-- [DNS Security](/DNS_Security) hub.
-- [Access Restriction](/Access_Restriction) for enforcement rules.
+- [DNS Security](/use_cases/dns_security/dns_security) hub.
+- [Access Restriction](/use_cases/access_restriction/access_restriction) for enforcement rules.

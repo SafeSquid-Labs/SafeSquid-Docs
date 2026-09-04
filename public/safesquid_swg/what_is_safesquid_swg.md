@@ -143,7 +143,7 @@ Alternative deployment paths:
 - **Virtual machine** — deploy on VMware, KVM, Hyper-V, or XenServer using the SAB ISO or a manual Linux installation.
 - **Existing Linux server** — install SafeSquid on a supported Ubuntu or CentOS host if the SAB ISO path is not available.
 
-See [SafeSquid Appliance Builder](/SafeSquid_Appliance_Builder) or [Cloud Deployment](/Cloud_Deployment) for step-by-step installation instructions.
+See [SafeSquid Appliance Builder](/getting_started/install_safesquid/safesquid_appliance_builder) or [Cloud Deployment](/getting_started/install_safesquid/cloud_deployment) for step-by-step installation instructions.
 
 ### Step 3 — Route client traffic through the gateway
 
@@ -154,13 +154,13 @@ After deployment, route outbound web traffic through SafeSquid using the client 
 - **Transparent proxy** — redirect HTTP and HTTPS traffic at the network layer without client configuration.
 - **Enterprise deployment** — use Group Policy Objects or MDM to push proxy settings to all managed endpoints.
 
-See [Onboard Client Traffic](/Explicit_Proxy) for setup instructions per method.
+See [Onboard Client Traffic](/getting_started/client_configuration/explicit_proxy) for setup instructions per method.
 
 ### Step 4 — Activate the license and configure policy
 
 Log in to the **Configuration Portal** at `http://safesquid.cfg` (accessible from the proxy host or a routed management network). Activate the license under **Configuration → Activate**, then enable SSL inspection, configure URL categories, set up user identity integration, and define acceptable-use policies.
 
-See [Configuration Portal](/Configuration_Portal) for the full administration reference.
+See [Configuration Portal](/safesquid_swg/interface/configuration_portal) for the full administration reference.
 
 ## ⚠️ Common deployment pitfalls
 
@@ -175,5 +175,5 @@ See [Configuration Portal](/Configuration_Portal) for the full administration re
 ## Next steps
 
 - [SafeSquid SWG Architecture](/safesquid_swg/architecture/safesquid_swg) — platform components, data flow, and cluster topology.
-- [Register and Get Your Key](/Register) — activation key acquisition and Self-Service Portal setup.
-- [Configure SSL Inspection](/Configure_HTTPS_Inspection) — TLS termination setup, Root CA distribution, and bypass policy.
+- [Register and Get Your Key](/getting_started/register) — activation key acquisition and Self-Service Portal setup.
+- [Configure SSL Inspection](/use_cases/ssl_inspection/configure_https_inspection) — TLS termination setup, Root CA distribution, and bypass policy.

@@ -115,9 +115,9 @@ Directory integration provides identity context for group-based and user-aware p
 
 Production deployments should treat these as operational requirements, not optional extras:
 
-- **[Monit](/Supporting_Services_Monit)** for process supervision and restart
-- **[BIND](/Bind)** for local DNS resolver behavior and caching
-- **[NTP](/NTP)** for time synchronization, Kerberos, and TLS validation
+- **[Monit](/safesquid_swg/interface/supporting_services_monit)** for process supervision and restart
+- **[BIND](/safesquid_swg/interface/bind)** for local DNS resolver behavior and caching
+- **[NTP](/safesquid_swg/interface/ntp)** for time synchronization, Kerberos, and TLS validation
 
 If these are misconfigured, operators can see symptoms that look like proxy failure but are really time, DNS, or supervision failures.
 
@@ -131,6 +131,6 @@ If these are misconfigured, operators can see symptoms that look like proxy fail
 ## Related controls / next steps
 
 - [SafeSquid SWG Overview](/safesquid_swg/architecture/safesquid_swg) for the full product architecture
-- [Integrated DNS Security](/Integrated_DNS_Security) for DNS-layer controls
-- [Reporting Service](/Reporting_Service) for evidence and analytics
+- [Integrated DNS Security](/safesquid_swg/architecture/integrated_dns_security) for DNS-layer controls
+- [Reporting Service](/safesquid_swg/interface/reporting_service) for evidence and analytics
 - [Deployment](/deployment/licensing_requirements) for infrastructure, dependency, and rollout planning

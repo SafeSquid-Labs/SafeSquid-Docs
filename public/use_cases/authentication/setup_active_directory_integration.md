@@ -49,7 +49,7 @@ Use LDAP Admin to test connectivity and find the correct DNs (Distinguished Name
 
 ## 3. Integrate LDAP with SafeSquid
 
-1. **Access SafeSquid Interface:** Open the [Configuration Portal](/Configuration_Portal) and click **Configure**.
+1. **Access SafeSquid Interface:** Open the [Configuration Portal](/safesquid_swg/interface/configuration_portal) and click **Configure**.
 2. **Navigate to LDAP Integration:** **Application Setup** → **Integrate LDAP**. Click the **+** (Add new) icon.
 3. **Configure Connection Details:**
    - **LDAP Server FQDN / IP:** Enter your AD server details.
@@ -96,6 +96,6 @@ Use LDAP Admin to test connectivity and find the correct DNs (Distinguished Name
 
 ## Next steps
 
-- [Configure Simple Authentication](/AD_Simple_Authentication) (Browser Prompt)
-- [Configure SSO Authentication](/AD_SSO_Authentication) (Kerberos/Transparent)
-- [Access Restriction](/Access_Restriction) (Apply policies by AD group)
+- [Configure Simple Authentication](/use_cases/authentication/ad_simple_authentication) (Browser Prompt)
+- [Configure SSO Authentication](/use_cases/authentication/ad_sso_authentication) (Kerberos/Transparent)
+- [Access Restriction](/use_cases/access_restriction/access_restriction) (Apply policies by AD group)

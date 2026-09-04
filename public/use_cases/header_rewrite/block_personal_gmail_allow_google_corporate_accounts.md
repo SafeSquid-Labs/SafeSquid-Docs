@@ -40,7 +40,7 @@ Corporate Google accounts continue to work for mail and Google services. Persona
 
 ## Prerequisites
 
-- [HTTPS Inspection](/Configure_HTTPS_Inspection) enabled so SafeSquid can inspect and modify HTTPS traffic to Google.
+- [HTTPS Inspection](/use_cases/ssl_inspection/configure_https_inspection) enabled so SafeSquid can inspect and modify HTTPS traffic to Google.
 - Access to SafeSquid Configuration Portal (Configure page).
 - List of allowed Google Workspace domains (e.g. `corp.example.com`). Multiple domains are separated by comma with no space.
 
@@ -72,7 +72,7 @@ Insert a header so only allowed domains are accepted by Google.
 
 1. Open **Restriction Policies** (left panel).
 2. Open **Privacy Control** submenu.
-3. Open [Header Filter](/Header_Obfuscation) section. Ensure **Global** is **Enabled** **True**.
+3. Open [Header Filter](/use_cases/header_rewrite/header_obfuscation) section. Ensure **Global** is **Enabled** **True**.
 
 ![Header filter under Restriction Policies](/images/How_To/Block_Personal_Gmail_Allow_Google_Corporate_Accounts/image3.webp)
 
@@ -96,7 +96,7 @@ Multiple domains: separate each with a comma, no space.
 - **Block test:** Sign in to Google (e.g. mail.google.com) with a **personal** Gmail account through the proxy. Google returns an error template or message listing the allowed domains; sign-in is blocked.
 - **Allow test:** Sign in with a **corporate** Google Workspace account (allowed domain). Sign-in succeeds and mail works.
 - **Interface:** **Configure** → **Restriction Policies** → **Privacy Control** → **Header Filter** shows the GOOGLE APPLICATION Insert rule with the correct domain list. **Policies and profiles** shows GOOGLE APPLICATION enabled.
-- **Audit:** Access logs and restriction logs show traffic to Google; export from the [Reporting Module](/Reporting_Module) for evidence of policy enforcement.
+- **Audit:** Access logs and restriction logs show traffic to Google; export from the [Reporting Module](/use_cases/audit_and_forensics/reporting_module) for evidence of policy enforcement.
 
 
 
@@ -112,7 +112,7 @@ Multiple domains: separate each with a comma, no space.
 
 ## Next steps
 
-- [Header Re-Write](/Header_Obfuscation) for header filtering and privacy controls.
-- [Access Restriction](/Access_Restriction) for URL and category-based policies.
-- [SSL Inspection](/Configure_HTTPS_Inspection) for HTTPS visibility and bypass rules.
+- [Header Re-Write](/use_cases/header_rewrite/header_obfuscation) for header filtering and privacy controls.
+- [Access Restriction](/use_cases/access_restriction/access_restriction) for URL and category-based policies.
+- [SSL Inspection](/use_cases/ssl_inspection/configure_https_inspection) for HTTPS visibility and bypass rules.
 

@@ -166,6 +166,6 @@ Remediation:
 
 ## Related controls / next steps
 
-- Use [Access Restriction](/Access_Restriction) to enforce decisions based on these profiles.
-- Use [Response Profiles](/Response_Profiles) when the decision depends on server response content rather than request intent.
-- Use [Security Logs](/Security_Logs) to verify trace behavior and final profile assignment.
+- Use [Access Restriction](/use_cases/access_restriction/access_restriction) to enforce decisions based on these profiles.
+- Use [Response Profiles](/use_cases/profiling_engine/response_profiles) when the decision depends on server response content rather than request intent.
+- Use [Security Logs](/use_cases/audit_and_forensics/security_logs) to verify trace behavior and final profile assignment.

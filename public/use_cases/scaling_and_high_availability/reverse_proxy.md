@@ -108,7 +108,7 @@ Access the website from a client machine without configuring proxy settings in t
 
 ## Next steps
 
-- [Forward Proxy](/Forward_Proxy) for client-facing explicit proxy.
-- [SSL Inspection](/Configure_HTTPS_Inspection) for HTTPS termination.
-- [Proxy Clustering](/Proxy_Clustering) for high availability.
+- [Forward Proxy](/use_cases/scaling_and_high_availability/forward_proxy) for client-facing explicit proxy.
+- [SSL Inspection](/use_cases/ssl_inspection/configure_https_inspection) for HTTPS termination.
+- [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering) for high availability.
 

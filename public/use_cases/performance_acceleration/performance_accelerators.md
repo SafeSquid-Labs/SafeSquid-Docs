@@ -46,23 +46,23 @@ SafeSquid performance accelerators help operators improve efficiency while keepi
 
 ## Performance accelerator guides
 
-### [Caching](/Caching)
+### [Caching](/use_cases/performance_acceleration/caching)
 
 Use caching when repeated requests for the same web objects waste bandwidth and increase user wait time. Caching can reduce origin fetches and improve response times, but it should be validated against content freshness requirements and application behavior.
 
-### [Pre Fetching](/Pre_Fetching)
+### [Pre Fetching](/admin_guide/application_setup/accelerators)
 
 Use prefetching when perceived latency is driven by predictable follow-on requests. Prefetching can improve browsing responsiveness, but it must be monitored carefully so the proxy does not fetch unnecessary content that provides little operational value.
 
-### [Manage Bandwidth](/Manage_Bandwidth)
+### [Manage Bandwidth](/use_cases/performance_acceleration/manage_bandwidth)
 
 Use bandwidth management when a few users, services, or content types consume disproportionate capacity. This is the right control for policy-driven allocation, not just raw speed optimization.
 
-### [Speed Limits](/Speed_Limits)
+### [Speed Limits](/admin_guide/restriction_policies/speed_limits)
 
 Use speed limits when you need per-user, per-group, or per-content caps to protect shared capacity. This is especially useful when fairness and congestion control matter more than maximum download speed.
 
-### [WCCP](/WCCP)
+### [WCCP](/use_cases/scaling_and_high_availability/wccp)
 
 Use WCCP when the deployment requires router-driven traffic redirection and transparent proxy integration. WCCP is an architecture-sensitive feature and should be validated carefully with topology, failover, and traffic-path testing.
 
@@ -130,6 +130,6 @@ Remediation:
 
 ## Related controls / next steps
 
-- Use [Performance Plot](/Performance_Plot) to validate whether an accelerator actually improved the right metric.
-- Use [Proxy Clustering](/Proxy_Clustering) when the problem is scale-out resilience rather than optimization on one node.
-- Use [Transparent Proxy](/Transparent_Proxy) and [WCCP](/WCCP) for topology-sensitive transparent deployment design.
+- Use [Performance Plot](/use_cases/performance_acceleration/performance_plot) to validate whether an accelerator actually improved the right metric.
+- Use [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering) when the problem is scale-out resilience rather than optimization on one node.
+- Use [Transparent Proxy](/use_cases/scaling_and_high_availability/transparent_proxy) and [WCCP](/use_cases/scaling_and_high_availability/wccp) for topology-sensitive transparent deployment design.

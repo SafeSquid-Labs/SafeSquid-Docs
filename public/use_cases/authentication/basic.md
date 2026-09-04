@@ -30,7 +30,7 @@ BASIC avoids directory rollout cost and suits small or isolated footprints. Trad
 
 ## Acquire, deploy, use
 
-Follow **Enable browser authentication** through **Verification**; then combine with [Access Restriction](/Access_Restriction) and optional [SSL Inspection](/SSL_Inspection).
+Follow **Enable browser authentication** through **Verification**; then combine with [Access Restriction](/use_cases/access_restriction/access_restriction) and optional [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection).
 
 ## When to use BASIC authentication
 
@@ -48,14 +48,14 @@ BASIC authentication sends credentials in base64 encoding (not encrypted). Use o
 - HTTPS proxy connections, or  
 - With SSL inspection enabled
 
-For production deployments with external access, use [Directory Services](/Directory_Services) with TLS.
+For production deployments with external access, use [Directory Services](/use_cases/authentication/directory_services) with TLS.
 :::
 
 :::note
 **Prerequisites**
 - SafeSquid deployed and operational
 - Admin access to SafeSquid configuration interface (`http://safesquid.cfg/` — embedded Rest UI, NOT DNS-resolved)
-- Browser configured to use SafeSquid as proxy (see [Connect Your Client](/Connect_Your_Client))
+- Browser configured to use SafeSquid as proxy (see [Connect Your Client](/getting_started/client_configuration/connect_your_client))
 :::
 
 ## Enable browser authentication
@@ -179,7 +179,7 @@ SafeSquid's local credential store does not enforce password policies automatica
 - **Audit:** Review `/var/log/safesquid/identity.log` monthly for unauthorized attempts
 - **Segregation:** Create separate user accounts for different roles/groups
 
-For automated password policy enforcement, migrate to [Directory Services](/Directory_Services).
+For automated password policy enforcement, migrate to [Directory Services](/use_cases/authentication/directory_services).
 
 ## Source register
 
@@ -191,8 +191,8 @@ For automated password policy enforcement, migrate to [Directory Services](/Dire
 
 ## Next steps
 
-- **Add group-based policies:** Combine authentication with [Access Restriction](/Access_Restriction) to enforce different rules per user or group
-- **Attribute HTTPS traffic:** Enable [SSL Inspection](/SSL_Inspection) so encrypted traffic shows authenticated usernames in logs
-- **Upgrade to directory:** Migrate to [Directory Services](/Directory_Services) when user count grows or centralized identity is required
+- **Add group-based policies:** Combine authentication with [Access Restriction](/use_cases/access_restriction/access_restriction) to enforce different rules per user or group
+- **Attribute HTTPS traffic:** Enable [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) so encrypted traffic shows authenticated usernames in logs
+- **Upgrade to directory:** Migrate to [Directory Services](/use_cases/authentication/directory_services) when user count grows or centralized identity is required
 - **IP-based fallback:** Use the [Architecture hub](/safesquid_swg/architecture/safesquid_swg) for devices that cannot authenticate
-- **Bypass apps:** Configure [Bypass Authentication](/Bypass_Authentication) for OS updates and automatic processes
+- **Bypass apps:** Configure [Bypass Authentication](/use_cases/authentication/bypass_authentication) for OS updates and automatic processes

@@ -94,7 +94,7 @@ This is important because a web control that cannot produce usable evidence crea
 
 ## Component map
 
-### [Configuration Portal](/Configuration_Portal)
+### [Configuration Portal](/safesquid_swg/interface/configuration_portal)
 
 Use this interface to configure policy, SSL inspection, authentication, DLP, and operational settings.
 
@@ -110,11 +110,11 @@ Use this page to understand scale-out, policy replication, and resilience patter
 
 Use this portal for activation keys, licensing workflows, and cloud-managed operational dependencies.
 
-### [Reporting Service](/Reporting_Service)
+### [Reporting Service](/safesquid_swg/interface/reporting_service)
 
 Use this service for operational visibility, dashboards, and audit evidence workflows.
 
-### [Integrated DNS Security](/Integrated_DNS_Security)
+### [Integrated DNS Security](/safesquid_swg/architecture/integrated_dns_security)
 
 Use this page to understand how SafeSquid extends protection into DNS-layer risk such as malicious resolution and tunnelling abuse.
 

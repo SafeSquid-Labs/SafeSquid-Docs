@@ -137,7 +137,7 @@ Useful evidence includes:
 
 ## Related controls / next steps
 
-- [Audit & Forensics](/Audit_Forensics) for the broader logging and evidence model
-- [Security Logs](/Security_Logs) for detailed log classes and locations
-- [Proxy Clustering](/Proxy_Clustering) for multi-node evidence planning
-- [Authentication](/Authentication) for identity-rich reporting
+- [Audit & Forensics](/use_cases/audit_and_forensics/audit_forensics) for the broader logging and evidence model
+- [Security Logs](/use_cases/audit_and_forensics/security_logs) for detailed log classes and locations
+- [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering) for multi-node evidence planning
+- [Authentication](/use_cases/authentication/authentication) for identity-rich reporting

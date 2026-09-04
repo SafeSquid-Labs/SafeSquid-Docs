@@ -178,6 +178,6 @@ Remediation:
 
 ## Related controls / next steps
 
-- Use [Content Fingerprints](/True-Mime_Fingerprints) when file-type validation is the main need.
-- Use [Text Analyzer](/Text_Analyser) and [Image Analyzer](/Image_Analyser_AI) before building custom logic for problems SafeSquid already solves natively.
-- Use [Security Logs](/Security_Logs) to investigate parser-side effects and request outcomes.
+- Use [Content Fingerprints](/use_cases/data_leakage_prevention/true_mime_fingerprints) when file-type validation is the main need.
+- Use [Text Analyzer](/use_cases/data_leakage_prevention/text_analyser) and [Image Analyzer](/use_cases/data_leakage_prevention/image_analyser_ai) before building custom logic for problems SafeSquid already solves natively.
+- Use [Security Logs](/use_cases/audit_and_forensics/security_logs) to investigate parser-side effects and request outcomes.

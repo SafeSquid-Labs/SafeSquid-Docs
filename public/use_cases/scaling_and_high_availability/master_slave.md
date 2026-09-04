@@ -59,7 +59,7 @@ Follow these steps to connect a slave instance to a master. Perform slave config
 
 ## Step 1: Configure slave server
 
-### [Access the SafeSquid User Interface](/Configuration_Portal) on the slave server
+### [Access the SafeSquid User Interface](/safesquid_swg/interface/configuration_portal) on the slave server
 
 
 
@@ -118,7 +118,7 @@ On the slave Configuration Portal, confirm that sections synced from the master 
 
 ### Verify reporting flow
 
-On the master, open [Reporting Service](/Reporting_Service) and confirm logs from slave nodes appear in unified reports. Slave traffic should be visible on the master.
+On the master, open [Reporting Service](/safesquid_swg/interface/reporting_service) and confirm logs from slave nodes appear in unified reports. Slave traffic should be visible on the master.
 
 ## Verification checklist
 
@@ -145,5 +145,5 @@ On the master, open [Reporting Service](/Reporting_Service) and confirm logs fro
 - After policy changes on master, restart slave to apply: Configuration Portal → Support → Restart SafeSquid
 - Verify slave activation key matches master (same license)
 
-**Related**: [Configuration Sync](/Configuration_Sync), [Configuration Portal](/Configuration_Portal), [Reporting Service](/Reporting_Service), [Troubleshooting](/Troubleshooting)
+**Related**: [Configuration Sync](/use_cases/customisation/configuration_sync), [Configuration Portal](/safesquid_swg/interface/configuration_portal), [Reporting Service](/safesquid_swg/interface/reporting_service), [Troubleshooting](/troubleshooting/troubleshooting)
 

@@ -34,7 +34,7 @@ A transparent proxy (inline, intercepting, or forced proxy) sits between the cli
 
 
 ## How SafeSquid transparent proxy works
-![Diagram how SafeSquid proxy works](/images/Troubleshooting/Transparent_proxy/image1.webp)
+![Diagram how SafeSquid proxy works](/images/troubleshooting/Transparent_proxy/image1.webp)
 
 Bob is using a laptop in Stark Tech and wants to access internet services via Stark Tech's WIFI network.
 
@@ -81,7 +81,7 @@ The following list contains the usefulness of SafeSquid transparent proxy to Bob
 
 ## Next steps
 
-- [Forward Proxy](/Forward_Proxy) for explicit browser configuration.
-- [TCP Proxy](/TCP_Proxy) for non-HTTP protocols.
-- [Configure HTTPS Inspection](/Configure_HTTPS_Inspection) for SSL transparent mode.
+- [Forward Proxy](/use_cases/scaling_and_high_availability/forward_proxy) for explicit browser configuration.
+- [TCP Proxy](/use_cases/scaling_and_high_availability/tcp_proxy) for non-HTTP protocols.
+- [Configure HTTPS Inspection](/use_cases/ssl_inspection/configure_https_inspection) for SSL transparent mode.
 
