@@ -59,10 +59,34 @@ turned out to be a verified superset of the one fix PR #8 happened to make in ea
 
 **`docs/broken-links` merged into `docs/config-tab-content` on 2026-09-06**, by explicit user
 decision, superseding the earlier plan to keep it as a standalone exception PR'd straight to
-`main`. This is the first PR opened from `docs/config-tab-content`: it now carries both the
-603→0 broken-link fix and tier 2's own accumulated work (CSS/logo fix, the `speed_limits.mdx`
-Action-field live-test result, the `architecture.mdx` pipeline-mechanics addition, and the PR #8
-reconciliation). Its worktree and branch are deleted per the standard task-branch cleanup.
+`main`. `docs/config-tab-content` (tip `b0cdb9b`, pushed to `origin/docs/config-tab-content`)
+now carries both the 603→0 broken-link fix and tier 2's own accumulated work (CSS/logo fix +
+the dark-mode sidebar contrast follow-up below, the `speed_limits.mdx` Action-field live-test
+result, the `architecture.mdx` pipeline-mechanics addition, and the PR #8 reconciliation). Its
+worktree and branch are deleted per the standard task-branch cleanup. **The PR to `main` is
+drafted (title + body ready) but deliberately not yet created — parked at the user's explicit
+request until they give separate go-ahead.** `git merge-tree` against `main` shows 0 conflicts,
+so the branch stays PR-ready as-is.
+
+Separately, `#sidebar-content li[data-active] a`'s dark-mode styling (`public/custom.css`) was
+adjusted 2026-09-06: black text in both themes was the actual requirement, so the dark-mode
+highlight was brightened to a solid fill of `docs.json`'s `colors.light` (#3B82F6) instead of
+leaving dark mode with near-white text — verified with both `getComputedStyle` and a screenshot
+in each theme, not source-reading alone.
+
+**Environment gotcha (found 2026-09-06, cost a near-miss — read before any `rm -rf` or
+"stray duplicate" cleanup in `public/`):** this repo's git config has `core.ignorecase=true`,
+and depends on it, because the working-copy filesystem in normal use is case-insensitive —
+but that combination means a directory that *looks* like an untracked, differently-cased
+duplicate under `find`/`ls` (e.g. `public/images/Troubleshooting` next to a tracked
+`public/images/troubleshooting`) can actually be the **same physical directory as the tracked
+one**, with `git status`/`git ls-files` reporting nothing wrong because git treats the two
+spellings as identical. Deleting what looks like the "duplicate" deletes the real tracked
+content. **Never infer this filesystem's case-sensitivity from a test in `/tmp` or any path
+outside the repo's own volume** — `/tmp` can be a differently-configured volume and will lie.
+Before deleting anything that looks like a case-duplicate, confirm case-sensitivity with a
+`touch`/`ls` pair *inside the repo directory itself*, or just don't delete — `git checkout
+HEAD -- <path>` restores a suspect path from the index without risk either way.
 
 Update this table whenever a branch here is created, renamed, merged, or retired.
 
