@@ -34,10 +34,22 @@ a:has(> img.nav-logo) {
  * `dark:text-gray-200`), so the active state reads as "selected"
  * through weight and the highlight pill, not through a second use of
  * the accent color for both roles at once.
+ *
+ * Dark mode needs its own highlight strength, not just its own text
+ * color: Mintlify's default dark highlight is `bg-primary-light/10`
+ * (docs.json `colors.light` = #3B82F6, the site's own dark-mode accent,
+ * at 10% opacity over the near-black page background) — a highlight
+ * that subtle reads fine with light text on it, but the same ink color
+ * used in light mode (rgb(22,25,29), near-black) would sit almost
+ * unreadable on a highlight that faint. Brightened the dark-mode
+ * highlight to a solid fill of that same accent blue so the black text
+ * has real contrast to sit on, rather than leaving the highlight as-is
+ * and only swapping the text color.
  */
 #sidebar-content li[data-active] a {
   color: rgb(22, 25, 29) !important;
 }
 .dark #sidebar-content li[data-active] a {
-  color: rgb(222, 225, 228) !important;
+  background-color: rgb(59, 130, 246) !important; /* docs.json colors.light, solid */
+  color: rgb(22, 25, 29) !important;
 }
