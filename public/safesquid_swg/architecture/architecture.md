@@ -34,8 +34,8 @@ This matters operationally because a Secure Web Gateway is only as reliable as t
 Use this sequence to understand the platform:
 
 1. [SafeSquid SWG Overview](/safesquid_swg/architecture/safesquid_swg) for the main product components and deployment model.
-2. [Application Ecosystem](/Application_Ecosystem) for supporting services, feed dependencies, reporting, and portal relationships.
-3. [SafeSquid Proxy Cluster](/SafeSquid_Proxy_Cluster) for scale-up, scale-out, and policy replication.
+2. [Application Ecosystem](/safesquid_swg/application_ecosystem/main) for supporting services, feed dependencies, reporting, and portal relationships.
+3. [SafeSquid Proxy Cluster](/use_cases/scaling_and_high_availability/proxy_clustering) for scale-up, scale-out, and policy replication.
 4. [Integrated DNS Security](/safesquid_swg/architecture/integrated_dns_security) for DNS-layer enforcement and tunnelling risk.
 
 ## Know what this page does not replace
@@ -47,4 +47,4 @@ This page is the architecture hub. It does not replace deployment runbooks such 
 - [SafeSquid SWG Overview](/safesquid_swg/architecture/safesquid_swg)
 - [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering)
 - [Deployment](/deployment/licensing_requirements)
-- [Getting Started](/Getting_Started)
+- [Getting Started](/getting_started/welcome)

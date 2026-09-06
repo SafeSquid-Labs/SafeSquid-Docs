@@ -39,7 +39,7 @@ Without destination geography visibility, organizations cannot enforce regional 
 
 ## Prerequisites
 
-- SafeSquid installed and operational (see [Getting Started](/Getting_Started))
+- SafeSquid installed and operational (see [Getting Started](/getting_started/welcome))
 - Profiling Engine enabled (see [Profiling Engine](/use_cases/profiling_engine/profiling_engine))
 - Up-to-date GeoIP database (SafeSquid includes MaxMind GeoLite2 by default)
 - Admin access to [Configuration Portal](/safesquid_swg/interface/configuration_portal)

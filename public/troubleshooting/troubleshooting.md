@@ -26,7 +26,7 @@ Symptom-first guides shorten mean time to resolution. Each document lists diagno
 
 ## Advantages
 
-**Confirmed:** Troubleshooting guides map to major SafeSquid subsystems documented in [Getting Started](/Getting_Started), [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection), [Authentication](/use_cases/authentication/authentication), [DNS Security](/use_cases/dns_security/dns_security), and [Access Restriction](/use_cases/access_restriction/access_restriction).
+**Confirmed:** Troubleshooting guides map to major SafeSquid subsystems documented in [Getting Started](/getting_started/welcome), [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection), [Authentication](/use_cases/authentication/authentication), [DNS Security](/use_cases/dns_security/dns_security), and [Access Restriction](/use_cases/access_restriction/access_restriction).
 
 ## Call to action
 

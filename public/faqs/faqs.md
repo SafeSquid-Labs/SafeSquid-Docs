@@ -168,7 +168,7 @@ An anonymous proxy will allow users to surf the web anonymously, since it tunnel
 Anonymous Proxy service can enhance security and lets users access some restricted websites online.
 
 
-For more detail: [Access Restriction](/use_cases/access_restriction/access_restriction) and [Use Cases](/Use_Cases) for blocking anonymous proxies and application control.
+For more detail: [Access Restriction](/use_cases/access_restriction/access_restriction) and [Use Cases](/use_cases/use_cases) for blocking anonymous proxies and application control.
 
 
 

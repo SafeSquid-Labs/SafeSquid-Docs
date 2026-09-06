@@ -183,7 +183,7 @@ After making a change in the portal, confirm all of the following:
 | ----- | ------ | ------ |
 | Policy Management Console / sidebar structure | **Confirmed** | This page (UI paths) |
 | Default credentials **administrator** / **safesquid** | **Confirmed** | This page; change after first login |
-| `safesquid.cfg` / **8443** access | **Confirmed** | This page, [Getting Started](/Getting_Started) |
+| `safesquid.cfg` / **8443** access | **Confirmed** | This page, [Getting Started](/getting_started/welcome) |
 
 ---
 

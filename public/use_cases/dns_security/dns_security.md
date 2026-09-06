@@ -26,7 +26,7 @@ Unrestricted DNS resolution reaches malicious, geo-noncompliant, or lookalike do
 
 DNS-layer controls fail closed earlier in the chain than URL filtering alone for many threats; combine with [Access Restriction](/use_cases/access_restriction/access_restriction) and [Profiling Engine](/use_cases/profiling_engine/profiling_engine) for full coverage.
 
-**Product-level comparative claims** (for example vs other SWG vendors): **Not SSOT-backed in this doc set**—see [What is SafeSquid SWG?](/safesquid_swg/what_is_safesquid_swg#architecture-and-positioning-claims-draft-vs-confirmed).
+**Product-level comparative claims** (for example vs other SWG vendors): **Not SSOT-backed in this doc set**—see [What is SafeSquid SWG?](/safesquid_swg/what_is_safesquid_swg).
 
 ## Acquire, deploy, use
 
