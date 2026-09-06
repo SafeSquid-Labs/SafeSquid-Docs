@@ -19,7 +19,7 @@ This repo contains CISO-grade, enterprise documentation for SafeSquid SWG. Agent
 |---|---|---|
 | 1. `main` | Merge destination. Never worked in. | `main` |
 | 2. **Integration branch** | Collects finished task work; the branch a PR to `main` is opened *from*. The main checkout at the repo root sits here. | `docs/config-tab-content` |
-| 3. **Task branches, each in its own worktree** | Where changes are actually made, one per task chunk. Merges into tier 2 when done, then the worktree and branch are deleted. | `docs/broken-links-reconcile` (bringing `docs/broken-links` up to date with `main`'s PR #8 restructure so it can open its own PR cleanly); `docs/broken-links` is a deliberate exception — left unmerged pending its own separate PR to `main`, not tier 2 |
+| 3. **Task branches, each in its own worktree** | Where changes are actually made, one per task chunk. Merges into tier 2 when done, then the worktree and branch are deleted. | none open; `docs/broken-links-reconcile` closed 2026-09-06 (see below) |
 
 Never commit task work directly onto the integration branch — that collapses tiers 2 and 3 and
 means a PR under review keeps changing underneath the reviewer. (That is exactly what went
@@ -51,10 +51,13 @@ resolved by re-checking the live console per page rather than picking a side by 
 `docs/main-reconcile` (the task branch that reconciled tier 2 against the merge) are both
 retired and deleted locally. `docs/broken-links` predates PR #8 too — it branched before the
 restructure and was never part of that reconciliation, so it hit the same class of conflicts
-independently when merged against current `main` via `docs/broken-links-reconcile` (2026-09-06):
-several files had identical pre-merge content to what `docs/main-reconcile` had already resolved
-(safe to reuse that resolution directly), plus 4 files where `docs/broken-links`'s own link-fixing
-work turned out to be a verified superset of the one fix PR #8 happened to make in each.
+independently when merged against current `main` via `docs/broken-links-reconcile` (closed
+2026-09-06, worktree and branch deleted, result fast-forwarded into `docs/broken-links`): several
+files had identical pre-merge content to what `docs/main-reconcile` had already resolved (safe to
+reuse that resolution directly), plus 4 files where `docs/broken-links`'s own link-fixing work
+turned out to be a verified superset of the one fix PR #8 happened to make in each. `docs/broken-links`
+is now current against `main` and ready for its own PR (still a deliberate exception — targets
+`main` directly, not tier 2).
 
 Update this table whenever a branch here is created, renamed, merged, or retired.
 
