@@ -20,13 +20,13 @@ Content Modifier enables security and operational control: strip or replace Acti
 
 **Client-side:** No change required; modification is transparent to the client.
 
-**SafeSquid-side:** SafeSquid deployed and operational; admin access to the configuration interface. [SSL Inspection](/SSL_Inspection) enabled if modifying HTTPS response body. [Access Restriction](/Access_Restriction) and profiles configured so modifier policies can target the right connections.
+**SafeSquid-side:** SafeSquid deployed and operational; admin access to the configuration interface. [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) enabled if modifying HTTPS response body. [Access Restriction](/use_cases/access_restriction/access_restriction) and profiles configured so modifier policies can target the right connections.
 
 
 
 ## Enable and configure Content Modifier in SafeSquid
 
-Access the SafeSquid interface via the [Configuration Portal](/Configuration_Portal).
+Access the SafeSquid interface via the [Configuration Portal](/safesquid_swg/interface/configuration_portal).
 
 ### Open the Configure page
 
@@ -156,15 +156,15 @@ Modify the header response and request for PNG & JPG images instead of AVIF & WE
 
 ## Detailed reference and next steps
 
-### [Rewriting Policies Reference](/Rewriting_Policies_Reference)
+### [Rewriting Policies Reference](/use_cases/header_rewrite/rewriting_policies_reference)
 Field-by-field reference for every policy parameter (Enabled, Profiles, Mime type, Pattern, Replace, Applies to) with practical examples — title tag injection, image format enforcement, and header rewriting.
 
 ### Related sections
-- [Header Re-Write](/Header_Obfuscation) for filtering or modifying specific headers.
-- [Cookie Inspection](/Cookie_Inspection) for cookie filtering and policy.
-- [Data Leakage Prevention](/Data_Leakage_Prevention) for DLP and compliance templates.
+- [Header Re-Write](/use_cases/header_rewrite/header_obfuscation) for filtering or modifying specific headers.
+- [Cookie Inspection](/use_cases/cookie_inspection/cookie_inspection) for cookie filtering and policy.
+- [Data Leakage Prevention](/use_cases/data_leakage_prevention/data_leakage_prevention) for DLP and compliance templates.
 
 ## Next steps
 
-Use with [Access Restriction](/Access_Restriction) profiles; enable [SSL Inspection](/SSL_Inspection) when modifying HTTPS response body.
+Use with [Access Restriction](/use_cases/access_restriction/access_restriction) profiles; enable [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) when modifying HTTPS response body.
 

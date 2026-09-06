@@ -8,11 +8,11 @@ Administrators expect SafeSquid to rewrite or redirect requests and responses co
 
 ## Advantages
 
-**Confirmed:** SafeSquid supports two modes (HTTP 302 vs internal) from one **302 Redirect** toggle, combined with [Access Restriction](/Access_Restriction) and [Profiling Engine](/Profiling_Engine) for scoped application.
+**Confirmed:** SafeSquid supports two modes (HTTP 302 vs internal) from one **302 Redirect** toggle, combined with [Access Restriction](/use_cases/access_restriction/access_restriction) and [Profiling Engine](/use_cases/profiling_engine/profiling_engine) for scoped application.
 
 ## Call to action
 
-In the Configuration Portal, open Real Time Content Security → URL Redirection. Choose 302 or internal mode per policy, then follow [Enforce SafeSearch](/SafeSearch) or [Redirect One Website to Another](/Redirect_One_Website_to_Another). Verify behavior in Native logs.
+In the Configuration Portal, open Real Time Content Security → URL Redirection. Choose 302 or internal mode per policy, then follow [Enforce SafeSearch](/use_cases/access_restriction/safesearch) or [Redirect One Website to Another](/use_cases/url_redirection/redirect_one_website_to_another). Verify behavior in Native logs.
 
 
 
@@ -36,12 +36,12 @@ Choose the mode based on whether users should see the redirect happening (HTTP) 
 
 ## URL redirection and SafeSearch guides
 
-### [Enforce SafeSearch](/SafeSearch)
+### [Enforce SafeSearch](/use_cases/access_restriction/safesearch)
 Search engines return explicit content when SafeSearch is not enforced. SafeSquid appends SafeSearch parameters to Google, Yahoo, and Bing queries so users cannot disable filtering. Consistent content filtering across search traffic reduces exposure and supports policy compliance. Enable SafeSearch policies using this document.
 
-### [Redirect One Website to Another](/Redirect_One_Website_to_Another)
+### [Redirect One Website to Another](/use_cases/url_redirection/redirect_one_website_to_another)
 Organizations need to send traffic from one URL to another for branding, blocking, or compliance. The document covers enabling the Redirect section and creating redirection policies in Real Time Content Security. Verification in Native logs confirms redirects work as intended. Use this document to configure and validate URL-to-URL redirection.
 
 ## Next steps
 
-Combine with [Access Restriction](/Access_Restriction) for allow/deny by URL; use [Profiling Engine](/Profiling_Engine) for category-based policy.
+Combine with [Access Restriction](/use_cases/access_restriction/access_restriction) for allow/deny by URL; use [Profiling Engine](/use_cases/profiling_engine/profiling_engine) for category-based policy.

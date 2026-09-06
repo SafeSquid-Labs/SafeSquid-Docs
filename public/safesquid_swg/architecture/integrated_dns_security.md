@@ -105,7 +105,7 @@ Useful evidence includes:
 
 ## Related controls / next steps
 
-- [DNS Security](/DNS_Security) for the configuration guide
-- [Access Restriction](/Access_Restriction) for Layer 7 policy aligned to DNS decisions
+- [DNS Security](/use_cases/dns_security/dns_security) for the configuration guide
+- [Access Restriction](/use_cases/access_restriction/access_restriction) for Layer 7 policy aligned to DNS decisions
 - [SafeSquid SWG Overview](/safesquid_swg/architecture/safesquid_swg) for the architecture context
 - [Deployment](/deployment/licensing_requirements) for DNS dependency and allowlist planning

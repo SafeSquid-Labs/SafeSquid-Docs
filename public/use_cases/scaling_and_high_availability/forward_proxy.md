@@ -125,7 +125,7 @@ Open `http://safesquid.cfg` through the proxy; the SafeSquid WebGUI loads. Brows
 
 ## Next steps
 
-- [Transparent Proxy](/Transparent_Proxy) for interception without client proxy configuration.
-- [Connect Your Client](/Connect_Your_Client) for PAC file, system-wide, and enterprise deployment.
+- [Transparent Proxy](/use_cases/scaling_and_high_availability/transparent_proxy) for interception without client proxy configuration.
+- [Connect Your Client](/getting_started/client_configuration/connect_your_client) for PAC file, system-wide, and enterprise deployment.
 - Verify your setup to confirm end-to-end connectivity.
 

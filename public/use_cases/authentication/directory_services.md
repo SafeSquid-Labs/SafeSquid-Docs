@@ -20,8 +20,8 @@ IP-based proxy control is not enough for enterprise governance. Administrators n
 
 | Directory Service | Integration Type | Key Features |
 |-------------------|------------------|--------------|
-| [Active Directory](/Active_Directory) | Kerberos SSO / LDAP | Seamless SSO for domain users, group sync |
-| [OpenLDAP](/OpenLDAP) | Simple LDAP | Centralized identity for Linux/Unix environments |
+| [Active Directory](/use_cases/authentication/active_directory) | Kerberos SSO / LDAP | Seamless SSO for domain users, group sync |
+| [OpenLDAP](/use_cases/authentication/openldap) | Simple LDAP | Centralized identity for Linux/Unix environments |
 
 Confirmed directory-related product capabilities today:
 
@@ -49,10 +49,10 @@ Do not document these as current shipping directory capabilities:
 
 ## Choose your integration method
 
-### [Active Directory (AD)](/Active_Directory)
+### [Active Directory (AD)](/use_cases/authentication/active_directory)
 Best for Windows-centric environments. Supports **SSO Authentication** for the best user experience and **Simple Authentication** for non-domain devices or specific use cases.
 
-### [OpenLDAP](/OpenLDAP)
+### [OpenLDAP](/use_cases/authentication/openldap)
 Best for Linux/Unix-heavy environments or organizations using OpenLDAP for identity. Supports **Simple Authentication** (LDAP bind) to validate credentials against the directory.
 
 ## Verification and validation
@@ -68,13 +68,13 @@ After integration, confirm:
 
 | Topic | Status | Source |
 | ----- | ------ | ------ |
-| AD: SSO + Simple paths | **Confirmed** | [Active Directory hub](/Active_Directory) |
-| OpenLDAP: Simple LDAP integration | **Confirmed** | [OpenLDAP hub](/OpenLDAP) |
-| Group-based policy linkage | **Confirmed** | [Access Restriction](/Access_Restriction) |
+| AD: SSO + Simple paths | **Confirmed** | [Active Directory hub](/use_cases/authentication/active_directory) |
+| OpenLDAP: Simple LDAP integration | **Confirmed** | [OpenLDAP hub](/use_cases/authentication/openldap) |
+| Group-based policy linkage | **Confirmed** | [Access Restriction](/use_cases/access_restriction/access_restriction) |
 
 ## Next steps
 
 1. Choose your directory service above.
 2. Follow the **Setup Integration** guide to link SafeSquid with your directory.
 3. Configure **Simple** or **SSO** authentication rules.
-4. Combine with [Access Restriction](/Access_Restriction) to enforce policies by directory group.
+4. Combine with [Access Restriction](/use_cases/access_restriction/access_restriction) to enforce policies by directory group.

@@ -18,5 +18,5 @@ keywords:
 
 ## Control per-user or per-group download and upload speed
 
-Speed Limits let administrators cap download and upload speeds for users, groups, or content types. Configure speed limit policies in the Configuration Portal and attach them to profiles. For related traffic control, see [Bandwidth Management](/Manage_Bandwidth).
+Speed Limits let administrators cap download and upload speeds for users, groups, or content types. Configure speed limit policies in the Configuration Portal and attach them to profiles. For related traffic control, see [Bandwidth Management](/use_cases/performance_acceleration/manage_bandwidth).
 

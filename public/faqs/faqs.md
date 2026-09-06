@@ -128,11 +128,11 @@ Preventing access to porn sites
 ## Preventing access to social networking sites
 Yes. SafeSquid can prevent users from accessing social networking sites. When configured, SafeSquid blocks all social networking sites by default. Administrators can allow those sites for specific times (e.g. lunch hour).
 
-Allow social networking sites in lunch hours: [Allow Social Networking Sites During Lunch Hours](/Allow_Social_Networking_Sites_during_Lunch_Hours).
+Allow social networking sites in lunch hours: [Allow Social Networking Sites During Lunch Hours](/use_cases/access_restriction/allow_social_networking_sites_during_lunch_hours).
 
 Facebook is a social networking website that allows users to interact with other users in a multimedia environment on the Web. Facebook users can install and use applications to enhance their experience. Many organizations want to allow Facebook access to maintain morale, increase retention, and boost hiring, but they also want to control access to it.
 
-SafeSquid allows full Facebook access for a social media group, partial access to a customer service group, and read-only access to other groups. Access to Facebook can also be assigned by time of day. For more details: [Facebook Read-Only Mode](/Facebook_Read_Only_Mode), [Allow Specific Page on Facebook](/Allowing_Specific_Page_on_Facebook).
+SafeSquid allows full Facebook access for a social media group, partial access to a customer service group, and read-only access to other groups. Access to Facebook can also be assigned by time of day. For more details: [Facebook Read-Only Mode](/use_cases/content_modifier/facebook_read_only_mode), [Allow Specific Page on Facebook](/use_cases/content_modifier/allowing_specific_page_on_facebook).
 
 
 
@@ -168,7 +168,7 @@ An anonymous proxy will allow users to surf the web anonymously, since it tunnel
 Anonymous Proxy service can enhance security and lets users access some restricted websites online.
 
 
-For more detail: [Access Restriction](/Access_Restriction) and [Use Cases](/Use_Cases) for blocking anonymous proxies and application control.
+For more detail: [Access Restriction](/use_cases/access_restriction/access_restriction) and [Use Cases](/use_cases/use_cases) for blocking anonymous proxies and application control.
 
 
 

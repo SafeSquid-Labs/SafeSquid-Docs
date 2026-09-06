@@ -39,7 +39,7 @@ You can achieve this by creating a policy in the Request Profiles Section and bi
 
 
 ## Prerequisites
-HTTPS Inspection should be enabled in SafeSquid. If not enabled, refer to the document - [How to enable HTTPS Inspection](/SSL_Inspection).
+HTTPS Inspection should be enabled in SafeSquid. If not enabled, refer to the document - [How to enable HTTPS Inspection](/use_cases/ssl_inspection/ssl_inspection).
 
 You need the YouTube **Channel-ID** and **List-ID** of the playlist you want to allow. You have to extract the Channel-ID and List-ID of the playlist from the YouTube URL before creating rules in SafeSquid.
 

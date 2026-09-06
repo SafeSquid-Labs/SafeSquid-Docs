@@ -75,12 +75,12 @@ The documents below cover master-slave setup and configuration sync.
 
 ## Clustering configuration guides
 
-### [Master-Slave](/Master_Slave)
+### [Master-Slave](/use_cases/scaling_and_high_availability/master_slave)
 Single-node deployments lack failover and scale limits. Master-Slave describes how to configure a master node for policy and reporting and slave nodes for traffic enforcement. Centralized policy and unified reporting reduce administrative overhead. Follow this document to set up master-slave relationships.
 
-### [Configuration Sync](/Configuration_Sync)
+### [Configuration Sync](/use_cases/customisation/configuration_sync)
 Configuration drift across nodes causes inconsistent enforcement and troubleshooting difficulty. Configuration Sync enables automatic propagation of policy and configuration from master to slaves. All nodes stay aligned without manual copy. Configure sync using this document.
 
 ## Next steps
 
-Place a load balancer in front of slave nodes; see [Disaster Recovery](/Disaster_Recovery) for backup and restore, and Verify your setup for post-cluster validation.
+Place a load balancer in front of slave nodes; see [Disaster Recovery](/use_cases/scaling_and_high_availability/disaster_recovery) for backup and restore, and Verify your setup for post-cluster validation.

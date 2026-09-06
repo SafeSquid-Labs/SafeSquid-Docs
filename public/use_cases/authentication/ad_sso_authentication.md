@@ -33,7 +33,7 @@ sequenceDiagram
 
 :::note
 **Prerequisites**
-- [Setup Active Directory Integration](/Setup_Active_Directory_Integration) completed.
+- [Setup Active Directory Integration](/use_cases/authentication/setup_active_directory_integration) completed.
 - **Time Sync:** SafeSquid and AD server time must match (max skew 5 mins).
 - **DNS:** SafeSquid must resolve the AD domain; AD must have a DNS entry for SafeSquid.
 - **Monit:** The Monit service must be running (`pidof monit`).
@@ -100,12 +100,12 @@ For Chrome and Edge to send Kerberos tickets, the SafeSquid proxy URL must be re
 
 | Topic | Status | Source |
 | ----- | ------ | ----- |
-| Kerberos SSO, keytab, time skew | **Confirmed** | This page, [NTP](/NTP) |
-| BIND stub for AD DNS | **Confirmed** | This page, [BIND](/Bind) |
+| Kerberos SSO, keytab, time skew | **Confirmed** | This page, [NTP](/safesquid_swg/interface/ntp) |
+| BIND stub for AD DNS | **Confirmed** | This page, [BIND](/safesquid_swg/interface/bind) |
 | Chrome/Edge intranet zone for Kerberos | **Confirmed** | Tip above (browser behavior) |
 
 ## Next steps
 
-- [Access Restriction](/Access_Restriction) (Apply policies by AD group)
-- [SSL Inspection](/SSL_Inspection) (Attribute HTTPS traffic to AD users)
-- [Bypass Authentication](/Bypass_Authentication) (For non-browser apps that don't support Kerberos)
+- [Access Restriction](/use_cases/access_restriction/access_restriction) (Apply policies by AD group)
+- [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) (Attribute HTTPS traffic to AD users)
+- [Bypass Authentication](/use_cases/authentication/bypass_authentication) (For non-browser apps that don't support Kerberos)

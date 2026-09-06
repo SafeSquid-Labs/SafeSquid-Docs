@@ -166,5 +166,5 @@ Remediation:
 
 ## Related controls / next steps
 
-- Use [Security Logs](/Security_Logs) for raw evidence and deep investigation.
-- Use [Performance Plot](/Performance_Plot) for time-based load and capacity context.
+- Use [Security Logs](/use_cases/audit_and_forensics/security_logs) for raw evidence and deep investigation.
+- Use [Performance Plot](/use_cases/performance_acceleration/performance_plot) for time-based load and capacity context.

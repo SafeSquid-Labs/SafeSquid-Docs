@@ -60,7 +60,7 @@
         {
           "language": "en",
           "default": true,
-          "href": "/"
+          "href": "/getting_started/welcome"
         },
         {
           "language": "es",
@@ -71,7 +71,7 @@
         {
           "version": "v2026.0312.1923",
           "default": true,
-          "href": "/"
+          "href": "/getting_started/welcome"
         },
         {
           "version": "v2024.0315.1413",
@@ -348,6 +348,12 @@
         "tab": "Use Cases",
         "icon": "lightbulb",
         "groups": [
+          {
+            "group": "Overview",
+            "pages": [
+              "use_cases/use_cases"
+            ]
+          },
           {
             "group": "SSL Inspection",
             "pages": [

@@ -60,7 +60,7 @@ systemctl enable monit
 
 
 
-## [Access the SafeSquid User Interface](/Configuration_Portal)
+## [Access the SafeSquid User Interface](/safesquid_swg/interface/configuration_portal)
 ![Access the SafeSquid User Interface to configure cloud restore](/images/How_To/Setup_Cloud_Restore/image1.webp)
 
 ![verify same Activation key before configure cloud restore ](/images/How_To/Setup_Cloud_Restore/image2.webp)
@@ -123,11 +123,11 @@ This creates a restore point you can revert to if changes cause issues.
   ls -l /usr/local/safesquid/security/ssl/ROOT_X509File.cer
   ls -l /usr/local/safesquid/security/ssl/ROOT_PrivateKeyFile.pem
   ```
-- Reimport SSL certificate to client browsers if needed: [Import Certificate](/Import_Certificate_Chrome_IE)
+- Reimport SSL certificate to client browsers if needed: [Import Certificate](/use_cases/ssl_inspection/import_certificate_chrome_ie)
 
 **Monit not restarting SafeSquid automatically:**
 - Check Monit status: `systemctl status monit`
 - Verify Monit configuration includes SafeSquid: `monit status`
 - Manually restart if needed: `systemctl restart safesquid`
 
-**Related**: [Disaster Recovery overview](/Disaster_Recovery), [Proxy Clustering](/Proxy_Clustering), [Troubleshooting](/Troubleshooting)
+**Related**: [Disaster Recovery overview](/use_cases/scaling_and_high_availability/disaster_recovery), [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering), [Troubleshooting](/troubleshooting/troubleshooting)

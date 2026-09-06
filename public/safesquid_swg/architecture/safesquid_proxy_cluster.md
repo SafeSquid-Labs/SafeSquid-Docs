@@ -102,7 +102,7 @@ Useful evidence includes:
 
 ## Related controls / next steps
 
-- [Proxy Clustering](/Proxy_Clustering) for the implementation runbook
+- [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering) for the implementation runbook
 - [Deployment](/deployment/licensing_requirements) for sizing and failover preparation
-- [Reporting Service](/Reporting_Service) for clustered evidence collection
+- [Reporting Service](/safesquid_swg/interface/reporting_service) for clustered evidence collection
 - [SafeSquid SWG Overview](/safesquid_swg/architecture/safesquid_swg) for the full component model

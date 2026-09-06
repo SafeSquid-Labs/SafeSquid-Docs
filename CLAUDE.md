@@ -19,7 +19,7 @@ This repo contains CISO-grade, enterprise documentation for SafeSquid SWG. Agent
 |---|---|---|
 | 1. `main` | Merge destination. Never worked in. | `main` |
 | 2. **Integration branch** | Collects finished task work; the branch a PR to `main` is opened *from*. The main checkout at the repo root sits here. | `docs/config-tab-content` |
-| 3. **Task branches, each in its own worktree** | Where changes are actually made, one per task chunk. Merges into tier 2 when done, then the worktree and branch are deleted. | `docs/main-reconcile` (reconciling PR #8's merge to `main` back into tier 2); `docs/broken-links` is a deliberate exception — left unmerged pending its own separate PR to `main`, not tier 2 |
+| 3. **Task branches, each in its own worktree** | Where changes are actually made, one per task chunk. Merges into tier 2 when done, then the worktree and branch are deleted. | none open; `docs/main-reconcile` and `docs/broken-links-reconcile` both closed; `docs/broken-links` itself merged into tier 2 2026-09-06 (see below) |
 
 Never commit task work directly onto the integration branch — that collapses tiers 2 and 3 and
 means a PR under review keeps changing underneath the reviewer. (That is exactly what went
@@ -47,12 +47,22 @@ merge to `main` against `docs/config-tab-content` for a case where both sides ha
 live-verified the same admin-console pages and reached different conclusions on some of them —
 resolved by re-checking the live console per page rather than picking a side by recency).
 
-**PR #8 merged to `main` on 2026-09-04.** `docs/deployment-scroll-reduction` (its head) is
-retired — GitHub deleted the remote branch automatically on squash-merge; delete the local ref
-too once this reconciliation lands. `docs/config-tab-content` had been branched from its tip
-before the merge, so most of its content was already present; the two branches had
-independently continued to touch some of the same admin-console pages afterward (see the
-reconciliation note above) — that divergence is what `docs/main-reconcile` closes.
+**PR #8 merged to `main` on 2026-09-04.** `docs/deployment-scroll-reduction` (its head) and
+`docs/main-reconcile` (the task branch that reconciled tier 2 against the merge) are both
+retired and deleted locally. `docs/broken-links` predates PR #8 too — it branched before the
+restructure and was never part of that reconciliation, so it hit the same class of conflicts
+independently when merged against current `main` via `docs/broken-links-reconcile` (closed
+2026-09-06, worktree and branch deleted, result fast-forwarded into `docs/broken-links`): several
+files had identical pre-merge content to what `docs/main-reconcile` had already resolved (safe to
+reuse that resolution directly), plus 4 files where `docs/broken-links`'s own link-fixing work
+turned out to be a verified superset of the one fix PR #8 happened to make in each.
+
+**`docs/broken-links` merged into `docs/config-tab-content` on 2026-09-06**, by explicit user
+decision, superseding the earlier plan to keep it as a standalone exception PR'd straight to
+`main`. This is the first PR opened from `docs/config-tab-content`: it now carries both the
+603→0 broken-link fix and tier 2's own accumulated work (CSS/logo fix, the `speed_limits.mdx`
+Action-field live-test result, the `architecture.mdx` pipeline-mechanics addition, and the PR #8
+reconciliation). Its worktree and branch are deleted per the standard task-branch cleanup.
 
 Update this table whenever a branch here is created, renamed, merged, or retired.
 

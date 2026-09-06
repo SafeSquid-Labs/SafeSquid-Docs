@@ -120,5 +120,5 @@ Remediation:
 
 ## Related controls / next steps
 
-- Use [Access Restriction](/Access_Restriction) for the full policy model.
-- Use [Security Logs](/Security_Logs) to identify which entry actually decided the request.
+- Use [Access Restriction](/use_cases/access_restriction/access_restriction) for the full policy model.
+- Use [Security Logs](/use_cases/audit_and_forensics/security_logs) to identify which entry actually decided the request.

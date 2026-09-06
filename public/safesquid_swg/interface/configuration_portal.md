@@ -38,7 +38,7 @@ Access the interface from a browser configured to use SafeSquid as proxy:
 - **Via proxy:** `http://safesquid.cfg/` (embedded Rest UI interface built into SafeSquid; accessible only when your client uses the proxy, but NOT resolved by SafeSquid's DNS resolver)
 - **Direct access:** `https://SERVER-IP:8443/` (before proxy configuration or for troubleshooting)
 
-**First-time setup:** See [Connect Your Client](/Connect_Your_Client) to configure your browser to use SafeSquid.
+**First-time setup:** See [Connect Your Client](/getting_started/client_configuration/connect_your_client) to configure your browser to use SafeSquid.
 
 :::tip
 **Login Credentials**
@@ -63,7 +63,7 @@ Define access control rules by URL category, application signature, user/group, 
 - Enforce work-hours internet access
 - Allow specific applications while blocking others
 
-**Details:** [Access Restriction](/Access_Restriction)
+**Details:** [Access Restriction](/use_cases/access_restriction/access_restriction)
 
 ---
 
@@ -79,7 +79,7 @@ Configure deep content inspection: DLP, malware scanning, image analysis, and co
 - Rewrite HTTP headers
 - Block specific MIME types
 
-**Details:** [Data Leakage Prevention](/Data_Leakage_Prevention), [Malware Scanners](/Malware_Scanners)
+**Details:** [Data Leakage Prevention](/use_cases/data_leakage_prevention/data_leakage_prevention), [Malware Scanners](/use_cases/malware_scanning/malware_scanners)
 
 ---
 
@@ -94,7 +94,7 @@ Integrate with Active Directory, LDAP, or configure local users for identity-bas
 - SSO with Active Directory
 - PAM authentication
 
-**Details:** [Authentication](/Authentication)
+**Details:** [Authentication](/use_cases/authentication/authentication)
 
 ---
 
@@ -109,7 +109,7 @@ Enable HTTPS decryption to inspect encrypted traffic for threats and policy viol
 - Deploy enterprise Root CA
 - Selective decryption by category/user
 
-**Details:** [SSL Inspection](/SSL_Inspection)
+**Details:** [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)
 
 ---
 
@@ -183,13 +183,13 @@ After making a change in the portal, confirm all of the following:
 | ----- | ------ | ------ |
 | Policy Management Console / sidebar structure | **Confirmed** | This page (UI paths) |
 | Default credentials **administrator** / **safesquid** | **Confirmed** | This page; change after first login |
-| `safesquid.cfg` / **8443** access | **Confirmed** | This page, [Getting Started](/Getting_Started) |
+| `safesquid.cfg` / **8443** access | **Confirmed** | This page, [Getting Started](/getting_started/welcome) |
 
 ---
 
 ## Next Steps
 
-1. **[SSL Inspection](/SSL_Inspection)** — Enable HTTPS decryption
-2. **[Authentication](/Authentication)** — Configure user authentication
-3. **[Access Restriction](/Access_Restriction)** — Set up URL filtering and content policies
-4. **[Troubleshooting](/Troubleshooting)** — Reference for common issues
+1. **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** — Enable HTTPS decryption
+2. **[Authentication](/use_cases/authentication/authentication)** — Configure user authentication
+3. **[Access Restriction](/use_cases/access_restriction/access_restriction)** — Set up URL filtering and content policies
+4. **[Troubleshooting](/troubleshooting/troubleshooting)** — Reference for common issues

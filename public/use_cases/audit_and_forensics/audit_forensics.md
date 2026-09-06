@@ -37,14 +37,14 @@ Use this hub when you need to design or investigate:
 
 ## Reporting and analytics
 
-### [Reporting module](/Reporting_Module)
+### [Reporting module](/use_cases/audit_and_forensics/reporting_module)
 Organizations require detailed visibility into web traffic patterns, user activities, and security events to support compliance reporting, security analysis, and operational decision-making. Reporting Module enables SafeSquid to generate reports covering user activities, website access patterns, security incidents, bandwidth utilization, and policy violations through customizable dashboards and detailed analytics. This reporting capability provides actionable intelligence for security teams while supporting regulatory compliance and operational optimization. Access the Reporting Module through SafeSquid's dashboard interface to generate comprehensive traffic and security analytics.
 
 
 
 ## Security event logging
 
-### [Security logs](/Security_Logs)
+### [Security logs](/use_cases/audit_and_forensics/security_logs)
 Security teams need detailed logs of security events, policy violations, and threat activities to support incident investigation, compliance auditing, and forensic analysis. Security Logs enable SafeSquid to capture comprehensive security event data including blocked requests, policy violations, authentication failures, and threat detection activities through structured logging and real-time monitoring. This logging capability ensures complete audit trails for security events while supporting forensic investigation and compliance requirements. Configure security logging in SafeSquid's logging settings to enable security event capture and analysis.
 
 The broader SafeSquid evidence model also includes:
@@ -59,14 +59,14 @@ The broader SafeSquid evidence model also includes:
 
 ## Performance monitoring
 
-### [Performance plot](/Performance_Plot)
+### [Performance plot](/use_cases/performance_acceleration/performance_plot)
 Organizations need visibility into system performance metrics, bandwidth utilization, and resource consumption to optimize web security infrastructure and identify performance bottlenecks. Performance Plot enables SafeSquid to generate detailed performance analytics including bandwidth usage, response times, connection counts, and system resource utilization through graphical representations and trend analysis. This monitoring capability provides insights into system performance while supporting capacity planning and optimization efforts. Access performance plots through SafeSquid's monitoring interface to analyze system performance and identify optimization opportunities.
 
 
 
 ## System health monitoring
 
-### [Monit](/Audit_Forensics_Monit)
+### [Monit](/use_cases/audit_and_forensics/audit_forensics_monit)
 Enterprise environments require continuous monitoring of system health, service availability, and resource utilization to ensure reliable web security operations and rapid issue detection. Monit enables SafeSquid to monitor system processes, resource usage, service availability, and performance metrics through automated health checks and alerting mechanisms. This monitoring capability ensures system reliability while supporting proactive maintenance and rapid issue resolution. Configure Monit monitoring in SafeSquid's system settings to enable comprehensive health monitoring and automated alerting.
 
 
@@ -78,4 +78,4 @@ Security teams require organized access to log files, configuration data, and fo
 
 ## Next steps
 
-Correlate with [Security Logs](/Security_Logs) and [Troubleshooting](/Troubleshooting) for incident response; for policy configuration see [Access Restriction](/Access_Restriction) and [Configuration Portal](/Configuration_Portal).
+Correlate with [Security Logs](/use_cases/audit_and_forensics/security_logs) and [Troubleshooting](/troubleshooting/troubleshooting) for incident response; for policy configuration see [Access Restriction](/use_cases/access_restriction/access_restriction) and [Configuration Portal](/safesquid_swg/interface/configuration_portal).
