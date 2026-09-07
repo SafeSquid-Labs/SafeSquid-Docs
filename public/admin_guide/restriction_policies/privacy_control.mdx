@@ -206,6 +206,17 @@ title: "Privacy control"
     level -->|PARANOID| stripRO --> stripUA[Remove User-Agent]
     ```
 
+    {/* source: https://www.safesquid.com/md/elevated.md */}
+    ### Global fields
+
+    - **Enabled (`enabled`)** — master switch. When off, request and response header processing exits without changing any headers.
+
+    ### Important entry fields
+
+    - **Profiles (`profiles`)** — limits the row to connections carrying the listed Access Profiles; blank matches every connection.
+    - **Privacy Levels (`action`)** — NOT-REQUIRED, LOW, STANDARD, or PARANOID, applied when this row is the first match.
+    - **Comment (`comment`)** — operator note only; does not affect matching.
+
     ## Examples
 
     Open **Configure → Restriction Policies → Privacy control → Elevated Privacy → Elevated
@@ -230,6 +241,15 @@ title: "Privacy control"
 
     - **Configuration:** Profiles MARKETING USERS, Privacy Levels LOW.
     - **Result:** only third-party cookies stripped; Referer and User-Agent remain.
+    </Tip>
+
+    {/* source: https://www.safesquid.com/md/elevated.md */}
+    <Tip>
+
+    ### Standard privacy for everyone
+
+    - **Configuration:** One row, Profiles blank, Privacy Levels STANDARD.
+    - **Result:** every connection has third-party cookies dropped and Referer/Origin removed from outgoing requests.
     </Tip>
 
     <Tip>

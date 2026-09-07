@@ -12,8 +12,12 @@ Valid [Subscription](/admin_guide/infrastructure_and_access/subscription) is req
 
 - **[SSqore](/admin_guide/application_setup/ssqore)** — CCS URL categorisation during request profiling. Globals: Enabled (Heuristic is stored but unused in the current build).
 - **[Categorize Web-Sites](/admin_guide/custom_settings/categorize_web_sites)** — Local category overrides you maintain. Takes precedence over cloud results for matching hosts on the hot path.
+{/* source: https://www.safesquid.com/md/feeds.md */}
+  - **Local override wins outright** — for a host the local editor explicitly covers, the two categorisation sources are not merged; the local override simply wins, even if the cloud disagrees.
 - **[Application Signatures](/admin_guide/custom_settings/application_signatures)** — Vendor `applications4` database plus custom rules. Downloaded on UPDATE schedule; skipped when subscription expired.
 - **[Content Signatures](/admin_guide/custom_settings/content_signatures)** — Vendor `content4.xml` plus libmagic MIME database under `/var/lib/safesquid/content_signatures/`.
+{/* source: https://www.safesquid.com/md/feeds.md */}
+  - **Detects the actual file type** of a response or upload body, independent of what its filename or declared content type claims.
 - **DNS\_CAT\_ZONE** — In [startup.ini](/admin_guide/start_here/startup_ini) (default `.c.ssquid.in`). Set to `.` to disable DNS categorisation zone use.
 - **UPDATE\_INTVL / UPDATE\_RETRY\_DELAY** — How often the appliance fetches signature and feed updates ([startup.ini](/admin_guide/start_here/startup_ini)).
 
@@ -24,9 +28,20 @@ Valid [Subscription](/admin_guide/infrastructure_and_access/subscription) is req
 3. Config reload or init hooks merge vendor data with custom dev XML from the Web UI.
 4. Per-request labelling runs in the pipeline: SSqore and local category editor for website categories; Application Signatures for application tags.
 
+{/* source: https://www.safesquid.com/md/feeds.md */}
+Custom Application Signature rules, custom Content Signature rules, and local category overrides all layer on top of the vendor data — they do not replace it.
+
 ## Offline behaviour
 
 When cloud lookups or downloads fail, SafeSquid relies on the last loaded on-disk databases and SSqore cache entries. New hosts may receive no categories until connectivity returns. Enable CATEGORY log level and check Modules Status in Reports.
+
+{/* source: https://www.safesquid.com/md/feeds.md */}
+- Local overrides in Categorize Web-Sites are entirely unaffected by an outage — they never depend on cloud connectivity in the first place.
+- Custom Application Signature and Content Signature rules keep working too during an outage: only the vendor database refresh depends on connectivity, not the matching of rules already loaded.
+- Previously-seen hosts keep working exactly as before, from the last successful update.
+
+{/* source: https://www.safesquid.com/md/feeds.md */}
+This matters directly for policy: a DENY rule that depends on Categories matching a specific cloud category simply will not fire for an uncategorised new host during an outage — the request is not automatically blocked because categorisation failed, it is only left uncategorised, and whatever the rest of policy says about uncategorised traffic applies to it instead.
 
 ## Examples
 
@@ -55,6 +70,9 @@ When cloud lookups or downloads fail, SafeSquid relies on the last loaded on-dis
 1. **Reports → Modules Status** — application/content signature load times and errors.
 2. Detailed logs — `categories` and `application_signatures` columns on test URLs.
 3. Native logs with CATEGORY enabled for SSqore lines.
+
+{/* source: https://www.safesquid.com/md/feeds.md */}
+4. If categorisation looks stale or wrong, check Modules Status for the last successful update time before assuming a policy problem — a feed that has not refreshed in a long time behaves very differently from a misconfigured policy, and the two are easy to confuse.
 
 ## See also
 

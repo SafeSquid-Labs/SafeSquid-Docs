@@ -10,6 +10,17 @@ title: "DNS Blacklist"
 
 The `Dnsbl` section provides domain blocking, category-based routing, and DNS-based blacklisting to prevent access to malicious or unauthorized websites.
 
+{/* source: https://www.safesquid.com/md/dnsbl.md */}
+Category-based blocking alone always lags a newly-registered attack domain by however long it takes the categorisation feed to see and label it. The uncategorized-domain heuristics in this section — unusually long hostnames, an unusual number of distinct hosts under one uncategorized domain, and homograph (lookalike-character) detection — exist specifically to close that gap, catching suspicious new domains on structural grounds before any external feed has categorized them at all.
+
+{/* source: https://www.safesquid.com/md/dnsbl.md */}
+This section blocks on:
+
+- Threat categories — Malware, Phishing & Fraud, Botnets, Compromised, Hacking, Illegal Software, Anonymizers, Spam Sites.
+- The same content/compliance categories Access Profiles' Categories field uses — for example Nudity, Gambling.
+- Country of the resolved server.
+- Classic external blocklist (DNSBL) lookups.
+
 ## Core Mechanics (C++ Source Validation)
 
 - **Sequential Heuristics**: The DNSBL module does not just check lists; it runs a sequence of heuristic checks on the HTTP `Host` header (including length validation, homograph detection, and category/request structural checks).
@@ -44,6 +55,9 @@ The `Dnsbl` section provides domain blocking, category-based routing, and DNS-ba
 4. DNSBL check: append DNSBL Domain suffix to the request host, resolve A record, compare to Blocked IP addresses. Failed lookups are treated as `0.0.0.0` — include that address to block lookup failures.
 5. IP check: compare host A record, reverse DNSBL answer, and GeoIP country (Threatful Countries) against Blocked IP addresses / country list — first block in each sub-pass wins.
 6. On block: action **DO NOT BYPASS**, block template, debug header `X-DNSBL-Filter` with match detail.
+
+{/* source: https://www.safesquid.com/md/dnsbl.md */}
+Category and request-type matches are tried first, before any DNS lookup, because they are the cheapest checks in the sequence.
 
 ## Important entry fields
 
@@ -109,3 +123,6 @@ suitable to publish verbatim; the remaining rows show the field shape clearly.
 2. Check debug response header `X-DNSBL-Filter` (category name, `Request/…`, DNSBL host/IP, or heuristic reason).
 3. Enable SECURITY in `LOG_LEVEL` for native `dnsbl` / blocked lines.
 4. Open **Reports → Detailed logs**; `filter_name` shows `dnsbl` with filtering reason.
+
+{/* source: https://www.safesquid.com/md/dnsbl.md */}
+5. If a category or country block was expected but did not fire, confirm the destination's own categorisation or resolved address first — this section can only act on categories and addresses already available to it.

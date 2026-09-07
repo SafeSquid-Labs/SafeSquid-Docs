@@ -10,6 +10,9 @@ title: "External applications"
 
 The `External` section allows SafeSquid to pipe HTTP payloads to external scripts or binaries for custom authentication, logging, or content modification.
 
+{/* source: https://www.safesquid.com/md/external.md */}
+This is a genuine extension point into content not otherwise controlled from the Web UI, so treat every referenced executable as trusted code running with SafeSquid's own privileges — it sees live request and response traffic and, depending on how it exits, can replace that traffic outright or inject a username and additional Access Profiles into the connection.
+
 ## Core Mechanics (C++ Source Validation)
 
 Exit code 0 replaces content; non-zero preserves + metadata.
@@ -19,6 +22,11 @@ Exit code 0 replaces content; non-zero preserves + metadata.
   - **Exit Code 0**: The original HTTP payload is *replaced* entirely by the standard output (stdout) of the script.
   - **Non-Zero Exit Code**: The original HTTP payload is preserved, but any stdout returned by the script is parsed by SafeSquid to extract intelligence (e.g., dynamically adding Profiles, setting usernames).
 - **Authentication Bypass**: If the connection flag `EXTERNAL_AUTH` is present, only parsers with `Per Session` set to `TRUE` will be invoked.
+
+{/* source: https://www.safesquid.com/md/external.md */}
+<Note>
+**`X-username`/`X-profiles` extraction is not conditional on a non-zero exit.** SafeSquid scans the program's output for those two headers and acts on them whenever the output parses as a well-formed HTTP header, on any exit code, including 0. `X-profiles` values already present on the connection are not duplicated.
+</Note>
 
 ## Schema Fields
 
@@ -111,3 +119,7 @@ session, Send header) once at least one row is added.
 2. Enable EXTERNAL in `LOG_LEVEL` for native lines showing parser path, exit code, and parse failures.
 3. Reproduce from a client with matching profiles and inspect response or auth outcome.
 4. Check whether `X-username` / `X-profiles` appear in logs when using non-zero exit auth helpers.
+
+{/* source: https://www.safesquid.com/md/external.md */}
+5. Confirm whether unexpected profile or username changes are coming from an entry you assumed only ran on failure — extraction is not exit-code-conditional, so it can happen on exit 0 too.
+6. If a REQUESTS entry is meant to answer the client directly, confirm its script returns a complete HTTP *response* header (not a request header) on exit code 0 — the wrong header type parses differently and won't produce the intended short-circuit.
