@@ -1,0 +1,50 @@
+---
+title: "Tools and Reports"
+---
+
+The Web UI includes Reports and Support utilities that are not policy sections. Use them to confirm the proxy is healthy, audit configuration changes, and troubleshoot user issues.
+
+## Reports
+
+- **Dashboard and Statistics** — traffic overview and module counters (DLP blocks, scan totals, and similar).
+- **Native logs, Detailed logs, Config logs** — see [Logging and troubleshooting](/configuration/start_here/logging).
+- **Active Connections, Connection Pool, DNS Cache, Password Cache, SSL Certs/Cache** — live state alongside historical logs.
+- **LDAP Entries** — directory browse after [Integrate LDAP](/configuration/application_setup/integrate_ldap) is configured.
+
+License and signature/feed status are not under Reports — that's the separate **Support**
+top-nav page, next to Configure. See [Support](/configuration/infrastructure_and_access/support)
+for its License Details panel and ten appliance-operation cards (support tarball, config
+backup/restore, upgrade, restart, diagnostics, live chat).
+
+## Other utilities
+
+{/* NEEDS-SME-REVIEW: "password" and "Upload templates" were listed here from the pre-restructure source as Web UI utilities distinct from the Support page's cards. Their exact menu location wasn't re-confirmed against the live console this session — confirm before treating this list as complete. */}
+
+- **password** — encrypt passwords for policy fields (for example HTTPS Inspection cached cert password).
+- **Upload templates** — upload custom block/info templates used by DENY actions.
+- **[Subscription](/configuration/infrastructure_and_access/subscription)** — activation key upload and license view (on-appliance side; distinct from the Support page's License Details).
+- **[Categorize Web-Sites](/configuration/custom_settings/categorize_web_sites)** — local category overrides (Web UI app, not a policy section list).
+
+## CLI and files
+
+- Init script: `/etc/init.d/safesquid {start|stop|restart|status|foreground|space_clean}` — see [Daemon](/configuration/start_here/daemon).
+- Policy file: `/usr/local/safesquid/security/policies/config.xml`; process tunables: `/opt/safesquid/startup.ini`.
+
+## Examples
+
+<Tip>
+
+### Confirm signature feeds after renewal
+
+1. Upload activation key under Subscription.
+2. Open Support — the License Details panel's **Last Updated Time** should advance after the next UPDATE cycle.
+3. Reproduce a request; Detailed logs should show `application_signatures` when subscription is valid.
+</Tip>
+
+## See also
+
+- [Support](/configuration/infrastructure_and_access/support)
+- [Logging and troubleshooting](/configuration/start_here/logging)
+- [First configuration](/configuration/start_here/first_configuration)
+- [Daemon and service](/configuration/start_here/daemon)
+- [Full documentation index](/configuration/main)

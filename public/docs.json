@@ -1,7 +1,7 @@
 {
   "theme": "mint",
   "name": "SafeSquid Documentation",
-  "description": "Deploy Zero-Trust Web Security — SafeSquid Secure Web Gateway documentation.",
+  "description": "Deploy Zero-Trust Web Security \u2014 SafeSquid Secure Web Gateway documentation.",
   "colors": {
     "primary": "#0066CC",
     "light": "#3B82F6",
@@ -29,7 +29,10 @@
         "href": "https://help.safesquid.com/portal/en/community/safesquid-labs"
       },
       {
-        "icon": { "name": "github", "style": "brands" },
+        "icon": {
+          "name": "github",
+          "style": "brands"
+        },
         "href": "https://github.com/SafeSquid-Labs",
         "label": ""
       }
@@ -94,22 +97,22 @@
           {
             "group": "Core Features",
             "pages": [
-              "core_features/dns_blacklisting",
-              "core_features/homograph_detection",
-              "core_features/ssl_inspection",
-              "core_features/proxy_authentication",
-              "core_features/profiling_engine",
-              "core_features/web_categorization",
-              "core_features/application_identification",
-              "core_features/access_restriction",
-              "core_features/url_redirection",
-              "core_features/header_rewrite",
-              "core_features/cookie_filtering",
-              "core_features/content_modifier",
-              "core_features/malware_scanning",
-              "core_features/data_leakage_prevention",
-              "core_features/text_analyzer",
-              "core_features/image_analyzer"
+              "getting_started/core_features/dns_blacklisting",
+              "getting_started/core_features/homograph_detection",
+              "getting_started/core_features/ssl_inspection",
+              "getting_started/core_features/proxy_authentication",
+              "getting_started/core_features/profiling_engine",
+              "getting_started/core_features/web_categorization",
+              "getting_started/core_features/application_identification",
+              "getting_started/core_features/access_restriction",
+              "getting_started/core_features/url_redirection",
+              "getting_started/core_features/header_rewrite",
+              "getting_started/core_features/cookie_filtering",
+              "getting_started/core_features/content_modifier",
+              "getting_started/core_features/malware_scanning",
+              "getting_started/core_features/data_leakage_prevention",
+              "getting_started/core_features/text_analyzer",
+              "getting_started/core_features/image_analyzer"
             ]
           }
         ]
@@ -121,45 +124,45 @@
           {
             "group": "Application Ecosystem",
             "pages": [
-              "safesquid_swg/application_ecosystem/main",
-              "safesquid_swg/application_ecosystem/proxy_service",
-              "safesquid_swg/architecture/integrated_dns_security",
-              "safesquid_swg/application_ecosystem/remote_browser_isolation",
-              "safesquid_swg/interface/reporting_service",
-              "safesquid_swg/interface/self_service_portal",
-              "safesquid_swg/application_ecosystem/threat_intelligence_feeds",
-              "safesquid_swg/interface/configuration_portal",
+              "architecture/application_ecosystem/main",
+              "architecture/application_ecosystem/proxy_service",
+              "architecture/overview/integrated_dns_security",
+              "architecture/application_ecosystem/remote_browser_isolation",
+              "architecture/interface/reporting_service",
+              "architecture/interface/self_service_portal",
+              "architecture/application_ecosystem/threat_intelligence_feeds",
+              "architecture/interface/configuration_portal",
               "getting_started/access_the_interface"
             ]
           },
           {
             "group": "Supporting Services",
             "pages": [
-              "safesquid_swg/interface/supporting_services",
-              "safesquid_swg/interface/supporting_services_monit",
-              "safesquid_swg/interface/bind",
-              "safesquid_swg/interface/ntp"
+              "architecture/interface/supporting_services",
+              "architecture/interface/supporting_services_monit",
+              "architecture/interface/bind",
+              "architecture/interface/ntp"
             ]
           },
           {
             "group": "Policy Management Console",
             "pages": [
-              "safesquid_swg/policy_management_console/main",
-              "safesquid_swg/policy_management_console/reports",
-              "safesquid_swg/policy_management_console/configure",
-              "safesquid_swg/policy_management_console/support"
+              "architecture/policy_management_console/main",
+              "architecture/policy_management_console/reports",
+              "architecture/policy_management_console/configure",
+              "architecture/policy_management_console/support"
             ]
           },
           {
             "group": "Files and Folders",
             "pages": [
-              "safesquid_swg/files_and_folders/main",
-              "safesquid_swg/files_and_folders/files_and_folders",
-              "safesquid_swg/files_and_folders/service_and_startup_files",
-              "safesquid_swg/files_and_folders/application_binaries_and_modules",
-              "safesquid_swg/files_and_folders/policy_security_and_ui_files",
-              "safesquid_swg/files_and_folders/runtime_data_and_signatures",
-              "safesquid_swg/files_and_folders/logs_and_audit_evidence"
+              "architecture/files_and_folders/main",
+              "architecture/files_and_folders/files_and_folders",
+              "architecture/files_and_folders/service_and_startup_files",
+              "architecture/files_and_folders/application_binaries_and_modules",
+              "architecture/files_and_folders/policy_security_and_ui_files",
+              "architecture/files_and_folders/runtime_data_and_signatures",
+              "architecture/files_and_folders/logs_and_audit_evidence"
             ]
           }
         ]
@@ -274,72 +277,87 @@
           {
             "group": "Administration Basics",
             "pages": [
-              "admin_guide/start_here/first_configuration",
-              "admin_guide/start_here/architecture",
-              "admin_guide/start_here/daemon",
-              "admin_guide/start_here/authentication",
-              "admin_guide/start_here/debug_response_headers",
-              "admin_guide/start_here/startup_ini",
-              "admin_guide/start_here/cloud_feeds",
-              "admin_guide/start_here/integrations"
+              "configuration/start_here/first_configuration",
+              "configuration/start_here/architecture",
+              "configuration/start_here/daemon",
+              "configuration/start_here/authentication",
+              "configuration/start_here/debug_response_headers",
+              "configuration/start_here/startup_ini",
+              "configuration/start_here/cloud_feeds",
+              "configuration/start_here/integrations"
             ]
           },
           {
             "group": "Licensing and Self-Service Portal",
             "pages": [
-              "admin_guide/infrastructure_and_access/subscription",
-              "admin_guide/infrastructure_and_access/support"
+              "configuration/infrastructure_and_access/subscription",
+              "configuration/infrastructure_and_access/support"
             ]
           },
           {
             "group": "Application Setup",
             "pages": [
-              "admin_guide/application_setup/network_settings_and_listeners",
-              "admin_guide/application_setup/integrate_ldap",
-              "admin_guide/application_setup/access_restrictions",
-              "admin_guide/application_setup/accelerators",
-              "admin_guide/application_setup/system_configuration",
-              "admin_guide/application_setup/proxy_chain",
-              "admin_guide/application_setup/ftp_browsing",
-              "admin_guide/application_setup/wccp",
-              "admin_guide/application_setup/ssqore"
+              "configuration/application_setup/network_settings_and_listeners",
+              "configuration/application_setup/integrate_ldap",
+              "configuration/application_setup/access_restrictions",
+              {
+                "group": "Accelerators",
+                "expanded": false,
+                "pages": [
+                  "configuration/application_setup/accelerators/caching",
+                  "configuration/application_setup/accelerators/prefetching"
+                ]
+              },
+              "configuration/application_setup/system_configuration",
+              "configuration/application_setup/proxy_chain",
+              "configuration/application_setup/ftp_browsing",
+              "configuration/application_setup/wccp",
+              "configuration/application_setup/ssqore"
             ]
           },
           {
             "group": "Real Time Content Security",
             "pages": [
-              "admin_guide/real_time_content_security/https_inspection",
-              "admin_guide/real_time_content_security/clam_antivirus",
-              "admin_guide/real_time_content_security/text_analyzer",
-              "admin_guide/real_time_content_security/redirect",
-              "admin_guide/real_time_content_security/dns_blacklist",
-              "admin_guide/real_time_content_security/image_analyzer",
-              "admin_guide/real_time_content_security/content_modifier",
-              "admin_guide/real_time_content_security/dlp",
-              "admin_guide/real_time_content_security/icap",
-              "admin_guide/real_time_content_security/sqscan"
+              "configuration/real_time_content_security/https_inspection",
+              "configuration/real_time_content_security/clam_antivirus",
+              "configuration/real_time_content_security/text_analyzer",
+              "configuration/real_time_content_security/redirect",
+              "configuration/real_time_content_security/dns_blacklist",
+              "configuration/real_time_content_security/image_analyzer",
+              "configuration/real_time_content_security/content_modifier",
+              "configuration/real_time_content_security/dlp",
+              "configuration/real_time_content_security/icap",
+              "configuration/real_time_content_security/sqscan"
             ]
           },
           {
             "group": "Custom Settings",
             "pages": [
-              "admin_guide/custom_settings/categorize_web_sites",
-              "admin_guide/custom_settings/time_profiler",
-              "admin_guide/custom_settings/response_types",
-              "admin_guide/custom_settings/request_types",
-              "admin_guide/custom_settings/templates",
-              "admin_guide/custom_settings/external_applications",
-              "admin_guide/custom_settings/application_signatures",
-              "admin_guide/custom_settings/content_signatures",
-              "admin_guide/custom_settings/suggested_profiles"
+              "configuration/custom_settings/categorize_web_sites",
+              "configuration/custom_settings/time_profiler",
+              "configuration/custom_settings/response_types",
+              "configuration/custom_settings/request_types",
+              "configuration/custom_settings/templates",
+              "configuration/custom_settings/external_applications",
+              "configuration/custom_settings/application_signatures",
+              "configuration/custom_settings/content_signatures",
+              "configuration/custom_settings/suggested_profiles"
             ]
           },
           {
             "group": "Restriction Policies",
             "pages": [
-              "admin_guide/restriction_policies/privacy_control",
-              "admin_guide/restriction_policies/access_profiles",
-              "admin_guide/restriction_policies/speed_limits"
+              {
+                "group": "Privacy control",
+                "expanded": false,
+                "pages": [
+                  "configuration/restriction_policies/privacy_control/cookie_filter",
+                  "configuration/restriction_policies/privacy_control/header_filter",
+                  "configuration/restriction_policies/privacy_control/elevated_privacy"
+                ]
+              },
+              "configuration/restriction_policies/access_profiles",
+              "configuration/restriction_policies/speed_limits"
             ]
           }
         ]
@@ -523,8 +541,8 @@
           "reporting/reporting",
           "deployment/log_retention_planning",
           "deployment/logging_and_reporting",
-          "admin_guide/start_here/tools_and_reports",
-          "admin_guide/start_here/logging"
+          "configuration/start_here/tools_and_reports",
+          "configuration/start_here/logging"
         ]
       },
       {
@@ -720,139 +738,335 @@
     },
     {
       "source": "/admin_guide/infrastructure_and_access/access_restrictions",
-      "destination": "/admin_guide/application_setup/access_restrictions"
+      "destination": "/configuration/application_setup/access_restrictions"
     },
     {
       "source": "/admin_guide/infrastructure_and_access/network_settings",
-      "destination": "/admin_guide/application_setup/network_settings_and_listeners"
+      "destination": "/configuration/application_setup/network_settings_and_listeners"
     },
     {
       "source": "/admin_guide/infrastructure_and_access/system_configuration",
-      "destination": "/admin_guide/application_setup/system_configuration"
+      "destination": "/configuration/application_setup/system_configuration"
     },
     {
       "source": "/admin_guide/infrastructure_and_access/integrate_ldap",
-      "destination": "/admin_guide/application_setup/integrate_ldap"
+      "destination": "/configuration/application_setup/integrate_ldap"
     },
     {
       "source": "/admin_guide/infrastructure_and_access/proxy_chain",
-      "destination": "/admin_guide/application_setup/proxy_chain"
+      "destination": "/configuration/application_setup/proxy_chain"
     },
     {
       "source": "/admin_guide/infrastructure_and_access/ftp_browsing",
-      "destination": "/admin_guide/application_setup/ftp_browsing"
+      "destination": "/configuration/application_setup/ftp_browsing"
     },
     {
       "source": "/admin_guide/infrastructure_and_access/wccp",
-      "destination": "/admin_guide/application_setup/wccp"
+      "destination": "/configuration/application_setup/wccp"
     },
     {
       "source": "/admin_guide/infrastructure_and_access/ssqore",
-      "destination": "/admin_guide/application_setup/ssqore"
+      "destination": "/configuration/application_setup/ssqore"
     },
     {
       "source": "/admin_guide/infrastructure_and_access/https_inspection",
-      "destination": "/admin_guide/real_time_content_security/https_inspection"
+      "destination": "/configuration/real_time_content_security/https_inspection"
     },
     {
       "source": "/admin_guide/policies_and_profiles/application_signatures",
-      "destination": "/admin_guide/custom_settings/application_signatures"
+      "destination": "/configuration/custom_settings/application_signatures"
     },
     {
       "source": "/admin_guide/policies_and_profiles/categorize_web_sites",
-      "destination": "/admin_guide/custom_settings/categorize_web_sites"
+      "destination": "/configuration/custom_settings/categorize_web_sites"
     },
     {
       "source": "/admin_guide/policies_and_profiles/content_signatures",
-      "destination": "/admin_guide/custom_settings/content_signatures"
+      "destination": "/configuration/custom_settings/content_signatures"
     },
     {
       "source": "/admin_guide/policies_and_profiles/request_types",
-      "destination": "/admin_guide/custom_settings/request_types"
+      "destination": "/configuration/custom_settings/request_types"
     },
     {
       "source": "/admin_guide/policies_and_profiles/response_types",
-      "destination": "/admin_guide/custom_settings/response_types"
+      "destination": "/configuration/custom_settings/response_types"
     },
     {
       "source": "/admin_guide/policies_and_profiles/suggested_profiles",
-      "destination": "/admin_guide/custom_settings/suggested_profiles"
+      "destination": "/configuration/custom_settings/suggested_profiles"
     },
     {
       "source": "/admin_guide/policies_and_profiles/templates",
-      "destination": "/admin_guide/custom_settings/templates"
+      "destination": "/configuration/custom_settings/templates"
     },
     {
       "source": "/admin_guide/policies_and_profiles/time_profiler",
-      "destination": "/admin_guide/custom_settings/time_profiler"
+      "destination": "/configuration/custom_settings/time_profiler"
     },
     {
       "source": "/admin_guide/policies_and_profiles/access_profiles",
-      "destination": "/admin_guide/restriction_policies/access_profiles"
+      "destination": "/configuration/restriction_policies/access_profiles"
     },
     {
       "source": "/admin_guide/policies_and_profiles/speed_limits",
-      "destination": "/admin_guide/restriction_policies/speed_limits"
+      "destination": "/configuration/restriction_policies/speed_limits"
     },
     {
       "source": "/admin_guide/filtering_and_privacy/external_applications",
-      "destination": "/admin_guide/custom_settings/external_applications"
+      "destination": "/configuration/custom_settings/external_applications"
     },
     {
       "source": "/admin_guide/filtering_and_privacy/content_modifier",
-      "destination": "/admin_guide/real_time_content_security/content_modifier"
+      "destination": "/configuration/real_time_content_security/content_modifier"
     },
     {
       "source": "/admin_guide/filtering_and_privacy/dns_blacklist",
-      "destination": "/admin_guide/real_time_content_security/dns_blacklist"
+      "destination": "/configuration/real_time_content_security/dns_blacklist"
     },
     {
       "source": "/admin_guide/filtering_and_privacy/redirect",
-      "destination": "/admin_guide/real_time_content_security/redirect"
+      "destination": "/configuration/real_time_content_security/redirect"
     },
     {
       "source": "/admin_guide/filtering_and_privacy/text_analyzer",
-      "destination": "/admin_guide/real_time_content_security/text_analyzer"
+      "destination": "/configuration/real_time_content_security/text_analyzer"
     },
     {
       "source": "/admin_guide/security_scanners/clam_antivirus",
-      "destination": "/admin_guide/real_time_content_security/clam_antivirus"
+      "destination": "/configuration/real_time_content_security/clam_antivirus"
     },
     {
       "source": "/admin_guide/security_scanners/dlp",
-      "destination": "/admin_guide/real_time_content_security/dlp"
+      "destination": "/configuration/real_time_content_security/dlp"
     },
     {
       "source": "/admin_guide/security_scanners/icap",
-      "destination": "/admin_guide/real_time_content_security/icap"
+      "destination": "/configuration/real_time_content_security/icap"
     },
     {
       "source": "/admin_guide/security_scanners/image_analyzer",
-      "destination": "/admin_guide/real_time_content_security/image_analyzer"
+      "destination": "/configuration/real_time_content_security/image_analyzer"
     },
     {
       "source": "/admin_guide/security_scanners/sqscan",
-      "destination": "/admin_guide/real_time_content_security/sqscan"
+      "destination": "/configuration/real_time_content_security/sqscan"
     },
     {
       "source": "/admin_guide/filtering_and_privacy/cookie_filter",
-      "destination": "/admin_guide/restriction_policies/privacy_control"
+      "destination": "/configuration/restriction_policies/privacy_control/cookie_filter"
     },
     {
       "source": "/admin_guide/filtering_and_privacy/header_filter",
-      "destination": "/admin_guide/restriction_policies/privacy_control"
+      "destination": "/configuration/restriction_policies/privacy_control/header_filter"
     },
     {
       "source": "/admin_guide/filtering_and_privacy/elevated_privacy",
-      "destination": "/admin_guide/restriction_policies/privacy_control"
+      "destination": "/configuration/restriction_policies/privacy_control/elevated_privacy"
     },
     {
       "source": "/admin_guide/performance/caching",
-      "destination": "/admin_guide/application_setup/accelerators"
+      "destination": "/configuration/application_setup/accelerators/caching"
     },
     {
       "source": "/admin_guide/performance/prefetching",
-      "destination": "/admin_guide/application_setup/accelerators"
+      "destination": "/configuration/application_setup/accelerators/prefetching"
+    },
+    {
+      "source": "/admin_guide/application_setup/accelerators",
+      "destination": "/configuration/application_setup/accelerators/caching"
+    },
+    {
+      "source": "/admin_guide/application_setup/access_restrictions",
+      "destination": "/configuration/application_setup/access_restrictions"
+    },
+    {
+      "source": "/admin_guide/application_setup/ftp_browsing",
+      "destination": "/configuration/application_setup/ftp_browsing"
+    },
+    {
+      "source": "/admin_guide/application_setup/integrate_ldap",
+      "destination": "/configuration/application_setup/integrate_ldap"
+    },
+    {
+      "source": "/admin_guide/application_setup/network_settings_and_listeners",
+      "destination": "/configuration/application_setup/network_settings_and_listeners"
+    },
+    {
+      "source": "/admin_guide/application_setup/proxy_chain",
+      "destination": "/configuration/application_setup/proxy_chain"
+    },
+    {
+      "source": "/admin_guide/application_setup/ssqore",
+      "destination": "/configuration/application_setup/ssqore"
+    },
+    {
+      "source": "/admin_guide/application_setup/system_configuration",
+      "destination": "/configuration/application_setup/system_configuration"
+    },
+    {
+      "source": "/admin_guide/application_setup/wccp",
+      "destination": "/configuration/application_setup/wccp"
+    },
+    {
+      "source": "/admin_guide/custom_settings/application_signatures",
+      "destination": "/configuration/custom_settings/application_signatures"
+    },
+    {
+      "source": "/admin_guide/custom_settings/categorize_web_sites",
+      "destination": "/configuration/custom_settings/categorize_web_sites"
+    },
+    {
+      "source": "/admin_guide/custom_settings/content_signatures",
+      "destination": "/configuration/custom_settings/content_signatures"
+    },
+    {
+      "source": "/admin_guide/custom_settings/external_applications",
+      "destination": "/configuration/custom_settings/external_applications"
+    },
+    {
+      "source": "/admin_guide/custom_settings/request_types",
+      "destination": "/configuration/custom_settings/request_types"
+    },
+    {
+      "source": "/admin_guide/custom_settings/response_types",
+      "destination": "/configuration/custom_settings/response_types"
+    },
+    {
+      "source": "/admin_guide/custom_settings/suggested_profiles",
+      "destination": "/configuration/custom_settings/suggested_profiles"
+    },
+    {
+      "source": "/admin_guide/custom_settings/templates",
+      "destination": "/configuration/custom_settings/templates"
+    },
+    {
+      "source": "/admin_guide/custom_settings/time_profiler",
+      "destination": "/configuration/custom_settings/time_profiler"
+    },
+    {
+      "source": "/admin_guide/infrastructure_and_access/subscription",
+      "destination": "/configuration/infrastructure_and_access/subscription"
+    },
+    {
+      "source": "/admin_guide/infrastructure_and_access/support",
+      "destination": "/configuration/infrastructure_and_access/support"
+    },
+    {
+      "source": "/admin_guide/main",
+      "destination": "/configuration/main"
+    },
+    {
+      "source": "/admin_guide/real_time_content_security/clam_antivirus",
+      "destination": "/configuration/real_time_content_security/clam_antivirus"
+    },
+    {
+      "source": "/admin_guide/real_time_content_security/content_modifier",
+      "destination": "/configuration/real_time_content_security/content_modifier"
+    },
+    {
+      "source": "/admin_guide/real_time_content_security/dlp",
+      "destination": "/configuration/real_time_content_security/dlp"
+    },
+    {
+      "source": "/admin_guide/real_time_content_security/dns_blacklist",
+      "destination": "/configuration/real_time_content_security/dns_blacklist"
+    },
+    {
+      "source": "/admin_guide/real_time_content_security/https_inspection",
+      "destination": "/configuration/real_time_content_security/https_inspection"
+    },
+    {
+      "source": "/admin_guide/real_time_content_security/icap",
+      "destination": "/configuration/real_time_content_security/icap"
+    },
+    {
+      "source": "/admin_guide/real_time_content_security/image_analyzer",
+      "destination": "/configuration/real_time_content_security/image_analyzer"
+    },
+    {
+      "source": "/admin_guide/real_time_content_security/redirect",
+      "destination": "/configuration/real_time_content_security/redirect"
+    },
+    {
+      "source": "/admin_guide/real_time_content_security/sqscan",
+      "destination": "/configuration/real_time_content_security/sqscan"
+    },
+    {
+      "source": "/admin_guide/real_time_content_security/text_analyzer",
+      "destination": "/configuration/real_time_content_security/text_analyzer"
+    },
+    {
+      "source": "/admin_guide/restriction_policies/access_profiles",
+      "destination": "/configuration/restriction_policies/access_profiles"
+    },
+    {
+      "source": "/admin_guide/restriction_policies/privacy_control",
+      "destination": "/configuration/restriction_policies/privacy_control/cookie_filter"
+    },
+    {
+      "source": "/admin_guide/restriction_policies/speed_limits",
+      "destination": "/configuration/restriction_policies/speed_limits"
+    },
+    {
+      "source": "/admin_guide/start_here/architecture",
+      "destination": "/configuration/start_here/architecture"
+    },
+    {
+      "source": "/admin_guide/start_here/authentication",
+      "destination": "/configuration/start_here/authentication"
+    },
+    {
+      "source": "/admin_guide/start_here/cloud_feeds",
+      "destination": "/configuration/start_here/cloud_feeds"
+    },
+    {
+      "source": "/admin_guide/start_here/daemon",
+      "destination": "/configuration/start_here/daemon"
+    },
+    {
+      "source": "/admin_guide/start_here/debug_response_headers",
+      "destination": "/configuration/start_here/debug_response_headers"
+    },
+    {
+      "source": "/admin_guide/start_here/first_configuration",
+      "destination": "/configuration/start_here/first_configuration"
+    },
+    {
+      "source": "/admin_guide/start_here/integrations",
+      "destination": "/configuration/start_here/integrations"
+    },
+    {
+      "source": "/admin_guide/start_here/logging",
+      "destination": "/configuration/start_here/logging"
+    },
+    {
+      "source": "/admin_guide/start_here/startup_ini",
+      "destination": "/configuration/start_here/startup_ini"
+    },
+    {
+      "source": "/admin_guide/start_here/tools_and_reports",
+      "destination": "/configuration/start_here/tools_and_reports"
+    },
+    {
+      "source": "/safesquid_swg/architecture/:slug*",
+      "destination": "/architecture/overview/:slug*"
+    },
+    {
+      "source": "/safesquid_swg/:slug*",
+      "destination": "/architecture/:slug*"
+    },
+    {
+      "source": "/core_features/:slug*",
+      "destination": "/getting_started/core_features/:slug*"
+    },
+    {
+      "source": "/configuration/restriction_policies/privacy_control",
+      "destination": "/configuration/restriction_policies/privacy_control/cookie_filter"
+    },
+    {
+      "source": "/configuration/application_setup/accelerators",
+      "destination": "/configuration/application_setup/accelerators/caching"
     }
   ]
 }

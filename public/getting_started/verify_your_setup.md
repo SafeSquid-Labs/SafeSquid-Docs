@@ -36,7 +36,7 @@ Before running the sequence, confirm:
     If any check fails, inspect service logs before routing more users.
   </Step>
   <Step title="Open the interface safely">
-    Load the [Configuration Portal](/safesquid_swg/interface/configuration_portal) from an approved management path, following [Access the Management Interface](/getting_started/access_the_interface).
+    Load the [Configuration Portal](/architecture/interface/configuration_portal) from an approved management path, following [Access the Management Interface](/getting_started/access_the_interface).
 
     Confirm the portal loads and the management path used is recorded.
 

@@ -1,0 +1,103 @@
+---
+title: "Cloud / categorisation feeds"
+---
+
+SafeSquid categorises websites and refreshes signature databases using cloud services, scheduled updates, and local caches. Categories and signature tags feed [Access Profiles](/configuration/restriction_policies/access_profiles), filters, and Detailed logs.
+
+<Note>
+Valid [Subscription](/configuration/infrastructure_and_access/subscription) is required for cloud signature downloads and for Application Signatures / SSqore processing on each connection. Check **Reports → License/Users Info** and Modules Status when feeds stop updating.
+</Note>
+
+## Pieces
+
+- **[SSqore](/configuration/application_setup/ssqore)** — CCS URL categorisation during request profiling. Globals: Enabled (Heuristic is stored but unused in the current build).
+- **[Categorize Web-Sites](/configuration/custom_settings/categorize_web_sites)** — Local category overrides you maintain. Takes precedence over cloud results for matching hosts on the hot path.
+{/* source: https://www.safesquid.com/md/feeds.md */}
+  - **Local override wins outright** — for a host the local editor explicitly covers, the two categorisation sources are not merged; the local override simply wins, even if the cloud disagrees.
+- **[Application Signatures](/configuration/custom_settings/application_signatures)** — Vendor `applications4` database plus custom rules. Downloaded on UPDATE schedule; skipped when subscription expired.
+- **[Content Signatures](/configuration/custom_settings/content_signatures)** — Vendor `content4.xml` plus libmagic MIME database under `/var/lib/safesquid/content_signatures/`.
+{/* source: https://www.safesquid.com/md/feeds.md */}
+  - **Detects the actual file type** of a response or upload body, independent of what its filename or declared content type claims.
+- **DNS\_CAT\_ZONE** — In [startup.ini](/configuration/start_here/startup_ini) (default `.c.ssquid.in`). Set to `.` to disable DNS categorisation zone use.
+- **UPDATE\_INTVL / UPDATE\_RETRY\_DELAY** — How often the appliance fetches signature and feed updates ([startup.ini](/configuration/start_here/startup_ini)).
+
+## Update cycle (overview)
+
+1. Background hooks on the UPDATE schedule call signature updaters (`update_application_signatures`, `update_content_signatures`, and related).
+2. Downloaded files land under `/var/lib/safesquid/` (application\_signatures, content\_signatures, ssqore cache, and similar).
+3. Config reload or init hooks merge vendor data with custom dev XML from the Web UI.
+4. Per-request labelling runs in the pipeline: SSqore and local category editor for website categories; Application Signatures for application tags.
+
+```mermaid
+flowchart TB
+    hook["Background hooks fire on the UPDATE schedule"]
+    fetch["Signature updaters run — update_application_signatures, update_content_signatures, and related"]
+    land["Downloaded files land under /var/lib/safesquid/"]
+    merge["Config reload or init hooks merge vendor data with custom dev XML from the Web UI"]
+    label["Per-request labelling in the pipeline"]
+    sites["SSqore and the local category editor label websites"]
+    apps[Application Signatures label applications]
+
+    hook --> fetch --> land --> merge --> label
+    label --> sites
+    label --> apps
+```
+
+Custom rules and local category overrides layer on top of the vendor data at the merge step —
+they never replace it.
+
+{/* source: https://www.safesquid.com/md/feeds.md */}
+Custom Application Signature rules, custom Content Signature rules, and local category overrides all layer on top of the vendor data — they do not replace it.
+
+## Offline behaviour
+
+When cloud lookups or downloads fail, SafeSquid relies on the last loaded on-disk databases and SSqore cache entries. New hosts may receive no categories until connectivity returns. Enable CATEGORY log level and check Modules Status in Reports.
+
+{/* source: https://www.safesquid.com/md/feeds.md */}
+- Local overrides in Categorize Web-Sites are entirely unaffected by an outage — they never depend on cloud connectivity in the first place.
+- Custom Application Signature and Content Signature rules keep working too during an outage: only the vendor database refresh depends on connectivity, not the matching of rules already loaded.
+- Previously-seen hosts keep working exactly as before, from the last successful update.
+
+{/* source: https://www.safesquid.com/md/feeds.md */}
+This matters directly for policy: a DENY rule that depends on Categories matching a specific cloud category simply will not fire for an uncategorised new host during an outage — the request is not automatically blocked because categorisation failed, it is only left uncategorised, and whatever the rest of policy says about uncategorised traffic applies to it instead.
+
+## Examples
+
+<Tip>
+
+### Block Social Networking by cloud category
+
+1. Enable [SSqore](/configuration/application_setup/ssqore); confirm subscription valid.
+2. In Access Profiles Secondary Policies, DENY when Categories matches the SSqore name for social sites (exact string from Detailed logs).
+
+**Result:** categorized social hosts are blocked; uncategorized hosts may pass until CCS returns a category.
+</Tip>
+
+<Tip>
+
+### Override one miscategorised partner
+
+1. Use [Categorize Web-Sites](/configuration/custom_settings/categorize_web_sites) to assign `Business-Partners` to `partner.example.com`.
+2. Allow that category in Access Profiles for trusted users.
+
+**Result:** local override applies even if SSqore still lists a different cloud category.
+</Tip>
+
+## How to verify
+
+1. **Reports → Modules Status** — application/content signature load times and errors.
+2. Detailed logs — `categories` and `application_signatures` columns on test URLs.
+3. Native logs with CATEGORY enabled for SSqore lines.
+
+{/* source: https://www.safesquid.com/md/feeds.md */}
+4. If categorisation looks stale or wrong, check Modules Status for the last successful update time before assuming a policy problem — a feed that has not refreshed in a long time behaves very differently from a misconfigured policy, and the two are easy to confuse.
+
+## See also
+
+- [SSqore](/configuration/application_setup/ssqore)
+- [Categorize Web-Sites](/configuration/custom_settings/categorize_web_sites)
+- [Application Signatures](/configuration/custom_settings/application_signatures)
+- [Content Signatures](/configuration/custom_settings/content_signatures)
+- [Subscription](/configuration/infrastructure_and_access/subscription)
+- [startup.ini](/configuration/start_here/startup_ini)
+- [Access Profiles](/configuration/restriction_policies/access_profiles)

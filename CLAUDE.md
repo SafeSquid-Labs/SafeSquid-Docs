@@ -37,3 +37,9 @@ Before writing or editing any documentation, follow this execution sequence:
 - **Style Standard:** Strictly follow `.claude/skills/docs-house-style/SKILL.md` (Style A). It supersedes all legacy `writing_standards.md` rules.
 - **Live UI Verification:** Console claims must be live-verified against `http://safesquid.cfg` via the `safesquid_admin` MCP browser plugin (`ToolSearch`). Do not use the deprecated `safesquid-sysadmin` agent. If inaccessible, flag with `{/* NEEDS-SME-REVIEW: ... */}` and a reader-facing `**Missing:**` block.
 - **Build Gate:** `npm run validate` must exit 0 before drafting a PR. (Note: Always run `mint` commands from within `public/`, never the repo root).
+- **The mint gates are not sufficient — there is no CI.** `mint broken-links` checks internal *page* links only; it never checks images or redirect destinations, and only checks anchors/snippets with `--check-anchors --check-snippets` (which the npm script does not pass). `mint validate` does not parse Mermaid. `.do/app.yaml` deploys `main` on push running `npm run build` alone. Before any structural change — a rename, a page split, a `docs.json` edit — also run:
+  ```bash
+  python3 .claude/tools/verify_refs.py before   # then after; diff the two snapshots
+  python3 .claude/tools/check_mermaid.py
+  ```
+  See `.claude/tools/README.md`. These caught a diagram that had never rendered in production, and are the only thing covering ~650 image refs and ~120 redirect destinations during a rename.

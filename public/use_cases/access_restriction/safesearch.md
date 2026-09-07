@@ -130,4 +130,4 @@ Remediation:
 ## Related controls / next steps
 
 - Use [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) for the HTTPS visibility required by this control.
-- Use [Web Categorization](/core_features/web_categorization) and [Access Restriction](/use_cases/access_restriction/access_restriction) when search-result filtering must sit alongside broader destination controls.
+- Use [Web Categorization](/getting_started/core_features/web_categorization) and [Access Restriction](/use_cases/access_restriction/access_restriction) when search-result filtering must sit alongside broader destination controls.

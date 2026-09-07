@@ -84,7 +84,7 @@ Not every device can participate in Kerberos SSO. Guest devices, non-domain syst
 | Topic | Status | Source |
 | ----- | ------ | ------ |
 | Browser prompt + AD bind | **Confirmed** | This page |
-| Time skew / DNS with AD | **Confirmed** | Troubleshooting, [NTP](/safesquid_swg/interface/ntp) |
+| Time skew / DNS with AD | **Confirmed** | Troubleshooting, [NTP](/architecture/interface/ntp) |
 
 ## Next steps
 

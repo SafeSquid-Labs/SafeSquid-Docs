@@ -30,7 +30,7 @@ Set the target before installation. Retention is a storage decision, and storage
 **Default local retention is 30 days.** For compliance regimes that require 90 days or more, forward logs rather than extending local disk alone:
 
 - External syslog — rsyslog, Splunk, ELK.
-- [Reporting Service](/safesquid_swg/interface/reporting_service).
+- [Reporting Service](/architecture/interface/reporting_service).
 - Cloud object storage such as S3 or Azure Blob.
 
 Forwarding does not remove the need for local retention. Keep enough local history to diagnose an outage and to recover from a forwarder failure — the forwarder is exactly what breaks during the incident you need the logs for.
@@ -80,4 +80,4 @@ Store these artifacts with the deployment record:
 
 - [Logging and Reporting](/deployment/logging_and_reporting) - prove the evidence path works once deployed.
 - [Hardware Sizing](/deployment/hardware_sizing) - convert the retention target into a storage decision.
-- [Reporting Service](/safesquid_swg/interface/reporting_service) - connect reporting and forwarding.
+- [Reporting Service](/architecture/interface/reporting_service) - connect reporting and forwarding.

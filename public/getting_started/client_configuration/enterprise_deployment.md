@@ -507,4 +507,4 @@ Track SafeSquid access logs, helpdesk tickets, endpoint policy compliance, and b
 
 - [Application-Specific Configuration](/getting_started/client_configuration/application_specific_configuration) - handle tools that ignore managed proxy settings.
 - [Configure Web Security Policies](/getting_started/configure_web_security_policies) - enforce controls after routing is stable.
-- [Reporting Service](/safesquid_swg/interface/reporting_service) - preserve rollout and access evidence.
+- [Reporting Service](/architecture/interface/reporting_service) - preserve rollout and access evidence.

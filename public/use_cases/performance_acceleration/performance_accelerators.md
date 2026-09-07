@@ -50,7 +50,7 @@ SafeSquid performance accelerators help operators improve efficiency while keepi
 
 Use caching when repeated requests for the same web objects waste bandwidth and increase user wait time. Caching can reduce origin fetches and improve response times, but it should be validated against content freshness requirements and application behavior.
 
-### [Pre Fetching](/admin_guide/application_setup/accelerators)
+### [Pre Fetching](/configuration/application_setup/accelerators/prefetching)
 
 Use prefetching when perceived latency is driven by predictable follow-on requests. Prefetching can improve browsing responsiveness, but it must be monitored carefully so the proxy does not fetch unnecessary content that provides little operational value.
 
@@ -58,7 +58,7 @@ Use prefetching when perceived latency is driven by predictable follow-on reques
 
 Use bandwidth management when a few users, services, or content types consume disproportionate capacity. This is the right control for policy-driven allocation, not just raw speed optimization.
 
-### [Speed Limits](/admin_guide/restriction_policies/speed_limits)
+### [Speed Limits](/configuration/restriction_policies/speed_limits)
 
 Use speed limits when you need per-user, per-group, or per-content caps to protect shared capacity. This is especially useful when fairness and congestion control matter more than maximum download speed.
 

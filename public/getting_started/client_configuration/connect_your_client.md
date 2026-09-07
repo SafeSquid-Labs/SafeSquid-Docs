@@ -72,6 +72,33 @@ Confirm:
   </Step>
 </Steps>
 
+## Grant the matching Access restrictions right
+
+{/* source: https://www.safesquid.com/md/browser-configuration.md */}
+Client routing only delivers traffic to SafeSquid — whether that traffic is actually allowed through still depends on the Access restrictions entry that matches the client, and specifically on which rights that entry grants. Configuring the client correctly but leaving the matching right ungranted looks identical to a routing failure: the client reaches SafeSquid, and SafeSquid still blocks it.
+
+| Delivery mode | How the client is configured | Right required |
+|---|---|---|
+| Explicit proxy | The browser or OS is given SafeSquid's address and port directly | Proxy requests |
+| Transparent | Network-level redirection sends traffic to SafeSquid; the client has no proxy setting | Transparent proxying |
+
+These two rights are independent — a client can be granted one and denied the other — and both are independent of CONNECT requests, which separately gates HTTPS tunnels regardless of which delivery mode got the traffic there.
+
+Six rights exist on an Access restrictions entry, and none of them implies another:
+
+- **Web interface** — permits requests to SafeSquid's own console. Block pages still display to a denied client rather than a broken connection.
+- **Proxy requests** — permits explicit proxy requests.
+- **HTTP requests** — permits plain HTTP traffic, independent of CONNECT requests.
+- **Transparent proxying** — permits traffic that reached SafeSquid through network-level redirection.
+- **CONNECT requests** — permits CONNECT tunnels (HTTPS and similar). A denied client fails HTTPS even when HTTP requests are allowed.
+- **Allow bypassing** — permits a temporary continue after an Access Profiles Deny, using a bypass cookie. An Access Profiles entry marked "do not bypass" still blocks regardless of this right. This is narrower than it sounds, and distinct from the per-entry Bypass checkboxes that skip individual filtering modules.
+
+Find SafeSquid's listen address and port in **Network settings → Listen** — port 8080 is common, but it is set per deployment; confirm it before assuming it.
+
+An `ftp://` URL opened in a browser follows the same explicit-proxy or transparent path as HTTP. A standalone FTP client needs its own proxy configuration, if it supports one at all.
+
+Configure the matching entry in [Access restrictions](/configuration/application_setup/access_restrictions) before troubleshooting client-side settings further.
+
 ## Start with a pilot
 
 <Steps>
@@ -174,6 +201,8 @@ Store:
 | No access log appears | Client bypasses SafeSquid | Recheck proxy setting and retest with `curl --proxy` |
 | Internal apps fail | Missing bypass or routing exception | Add an approved exact bypass entry |
 | HTTPS warning appears | Root CA trust is missing | Complete Root CA deployment before testing HTTPS inspection |
+{/* source: https://www.safesquid.com/md/browser-configuration.md */}
+| Access-denied entry in logs | The matching Access restrictions entry lacks the right for this request type | Confirm Proxy requests, HTTP requests, CONNECT requests, or Transparent proxying is granted on the matching entry |
 
 ## Next steps
 

@@ -49,7 +49,7 @@ Use LDAP Admin to test connectivity and find the correct DNs (Distinguished Name
 
 ## 3. Integrate LDAP with SafeSquid
 
-1. **Access SafeSquid Interface:** Open the [Configuration Portal](/safesquid_swg/interface/configuration_portal) and click **Configure**.
+1. **Access SafeSquid Interface:** Open the [Configuration Portal](/architecture/interface/configuration_portal) and click **Configure**.
 2. **Navigate to LDAP Integration:** **Application Setup** → **Integrate LDAP**. Click the **+** (Add new) icon.
 3. **Configure Connection Details:**
    - **LDAP Server FQDN / IP:** Enter your AD server details.

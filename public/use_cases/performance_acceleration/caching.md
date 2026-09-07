@@ -34,7 +34,7 @@ Cache and prefetch policy interacts with inspection and privacy scope. Do not ca
 
 ### Create the access policy
 
-1. Access the [SafeSquid User Interface](/safesquid_swg/interface/configuration_portal) and click **Configure**.
+1. Access the [SafeSquid User Interface](/architecture/interface/configuration_portal) and click **Configure**.
 
    ![Configure page](/images/How_To/Caching_Specific_websites/image1.webp)
 
@@ -112,7 +112,7 @@ Cache and prefetch policy interacts with inspection and privacy scope. Do not ca
 
 Prefetching fetches and caches files referenced in HTML before the user requests them. It applies to a wider set of resources than caching alone.
 
-1. Access the [SafeSquid User Interface](/safesquid_swg/interface/configuration_portal) and click **Configure**.
+1. Access the [SafeSquid User Interface](/architecture/interface/configuration_portal) and click **Configure**.
 
    ![Configure page](/images/How_To/Prefetch_embedded_images/image1.webp)
 

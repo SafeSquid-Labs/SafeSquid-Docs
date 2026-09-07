@@ -15,7 +15,7 @@ Cookie filtering changes application behavior at the session layer. Treat it as 
 
 
 
-## [Access SafeSquid interface](/safesquid_swg/interface/configuration_portal)
+## [Access SafeSquid interface](/architecture/interface/configuration_portal)
 
 
 
@@ -297,8 +297,8 @@ Cookies will be dropped for both incoming and outgoing requests.
 
 ## Verification and Evidence
 
-- **Interface Checks**: In [Configuration Portal](/safesquid_swg/interface/configuration_portal), Restriction Profiles → Cookie Filter: Global and policy entries match intent (Allow/Deny, profiles). Test URLs or domains show correct category in Categorize Web-sites if used.
+- **Interface Checks**: In [Configuration Portal](/architecture/interface/configuration_portal), Restriction Profiles → Cookie Filter: Global and policy entries match intent (Allow/Deny, profiles). Test URLs or domains show correct category in Categorize Web-sites if used.
 - **Log Analysis**: Access logs reflect cookie allow/deny per policy; blocked cookie exchange may show in response or request logs.
 - **Performance Validation**: Browsing with Allow profile allows login and cookies; with Deny or Drop profile, target sites do not receive or retain cookies as configured.
 
-**Related**: [Access Restriction](/use_cases/access_restriction/access_restriction), [Header Obfuscation](/use_cases/header_rewrite/header_obfuscation), [Configuration Portal](/safesquid_swg/interface/configuration_portal), [Troubleshooting](/troubleshooting/troubleshooting)
+**Related**: [Access Restriction](/use_cases/access_restriction/access_restriction), [Header Obfuscation](/use_cases/header_rewrite/header_obfuscation), [Configuration Portal](/architecture/interface/configuration_portal), [Troubleshooting](/troubleshooting/troubleshooting)

@@ -44,10 +44,10 @@ Start with the symptom category rather than a subsystem guess. That reduces fals
 Use this page together with [Getting Started](/getting_started/welcome) when the product does not install cleanly, the web interface is unreachable, or activation cannot be completed.
 
 ### Identity and SSL
-Use [Authentication](/use_cases/authentication/authentication), [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection), and [Supporting Services Monit](/safesquid_swg/interface/supporting_services_monit) when user login, certificate trust, or directory-backed access starts failing.
+Use [Authentication](/use_cases/authentication/authentication), [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection), and [Supporting Services Monit](/architecture/interface/supporting_services_monit) when user login, certificate trust, or directory-backed access starts failing.
 
 ### Performance and stability
-Use [Performance Plot](/use_cases/performance_acceleration/performance_plot), [Audit & Forensics](/use_cases/audit_and_forensics/audit_forensics), and [Architecture](/safesquid_swg/architecture/safesquid_swg) when the proxy becomes slow, unstable, or inconsistent under load.
+Use [Performance Plot](/use_cases/performance_acceleration/performance_plot), [Audit & Forensics](/use_cases/audit_and_forensics/audit_forensics), and [Architecture](/architecture/overview/safesquid_swg) when the proxy becomes slow, unstable, or inconsistent under load.
 
 ### Connectivity and policy
 Use [Access Restriction](/use_cases/access_restriction/access_restriction), [DNS Security](/use_cases/dns_security/dns_security), [Header Obfuscation](/use_cases/header_rewrite/header_obfuscation), and [Cookie Inspection](/use_cases/cookie_inspection/cookie_inspection) when websites fail to load or behave incorrectly through the proxy.
@@ -55,7 +55,7 @@ Use [Access Restriction](/use_cases/access_restriction/access_restriction), [DNS
 ### Reporting and evidence
 Use [Audit & Forensics](/use_cases/audit_and_forensics/audit_forensics), [Reporting Module](/use_cases/audit_and_forensics/reporting_module), and the SafeSquid interface pages when logs, reports, or evidence exports are incomplete.
 
-When failures are broad and not isolated to one control, review [Architecture](/safesquid_swg/architecture/safesquid_swg), [Audit & Forensics](/use_cases/audit_and_forensics/audit_forensics), and [Supporting Services Monit](/safesquid_swg/interface/supporting_services_monit) together before escalating.
+When failures are broad and not isolated to one control, review [Architecture](/architecture/overview/safesquid_swg), [Audit & Forensics](/use_cases/audit_and_forensics/audit_forensics), and [Supporting Services Monit](/architecture/interface/supporting_services_monit) together before escalating.
 
 ## Advanced diagnostic tools
 
@@ -64,4 +64,4 @@ Administrators need advanced diagnostic tools to analyze specific connection iss
 
 ## Next steps
 
-After resolving the issue, verify with [Getting Started](/getting_started/welcome); for configuration changes see [Configuration Portal](/safesquid_swg/interface/configuration_portal).
+After resolving the issue, verify with [Getting Started](/getting_started/welcome); for configuration changes see [Configuration Portal](/architecture/interface/configuration_portal).

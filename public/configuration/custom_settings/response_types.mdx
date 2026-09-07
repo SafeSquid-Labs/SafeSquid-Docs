@@ -1,0 +1,89 @@
+---
+title: "Response Types"
+---
+
+The **Response Types** section labels HTTP responses for [Access Profiles](/configuration/restriction_policies/access_profiles) and content filters. It does not block by itself.
+
+## Core mechanics
+
+### Two-pass evaluation
+
+1. On response headers — response profiling runs with no body buffer.
+2. On buffered body — hook runs again with detected MIME and size.
+
+Every matching enabled row applies; no first-match stop.
+
+```mermaid
+flowchart TB
+headers[Response headers received] --> pass1[First pass profiles response with no body buffer]
+pass1 --> buffer[Body buffered with detected MIME and size]
+buffer --> pass2[Second pass profiles again with detected MIME and size]
+pass2 --> walk[Walk enabled rows top to bottom]
+walk -.-> quirk[Multipart and byterange controls in the UI have no effect in the code]
+walk --> gate{Content size and MIME and extension gates pass?}
+gate -->|Yes| tag[Add or remove Response Types tags]
+gate -->|No| next[Next row]
+```
+
+{/* source: https://www.safesquid.com/md/respProfiles.md */}
+{/* NEEDS-SME-REVIEW: legacy source states the multipart/byterange controls are stored but never read at runtime. Not reproduced by live test in this repo — the console section was confirmed present (Global · Response Types tabs, 2026-09-07) but the control's inertness was not exercised. Confirm against the build before this is treated as settled. */}
+<Warning>
+The **multipart** and **byterange** controls appear in the row form but are reported by the
+legacy documentation as having no effect in the code — they are stored and never read. Do not
+build a policy that depends on either one.
+
+**Missing:** this is a legacy-source claim that has not been reproduced by a live test on the
+current build, unlike the comparable Speed Limits **Action** field. Treat it as a reason to
+avoid depending on these two controls, not as a confirmed defect, and escalate to the SME
+before quoting it to a customer.
+</Warning>
+
+### Content size
+
+Non-zero min/max tested against body buffer size when present, and against Content-Length when CL flag set. Zero disables each test.
+
+### MIME and extension
+
+MIME regex tries response Content-Type header, then detected body type. Extension regex tries URL (query stripped), then attachment filename.
+
+## Examples
+
+Open **Configure → Custom Settings → Response Types**. Row fields are Enabled, Comment, Trace
+Entry, **Content type** (the MIME-pattern field referenced below), Transfer Encoding Chunk,
+Minimum/Maximum Content Size, and Added Response Types.
+
+<Frame caption="Response Types — Response Types rows">
+  <img src="/images/configuration/response_types-rows.webp" alt="SafeSquid console showing Response Types rows with the Content type regex field, the Edit Policies icon on the first row circled" />
+</Frame>
+
+<Tip>
+
+### Text for keyword filter
+
+**Config:** MIME `(^text/|script$)`, add `text_res`.
+
+**Result:** HTML/JS/text responses tagged.
+</Tip>
+
+<Tip>
+
+### Images
+
+**Config:** MIME `^image/`, add `image_res`.
+
+**Result:** image Content-Types tagged for image filter policies.
+</Tip>
+
+<Tip>
+
+### Large images
+
+**Config:** MIME `^image/`, min size 1048576, add `large-image`.
+
+**Result:** skipped below 1 MiB; tagged at or above threshold.
+</Tip>
+
+## How to verify
+
+1. **Trace Entry**; fetch test URL; check native logs.
+2. Detailed logs — `response_profiles`, `download_content_types`.

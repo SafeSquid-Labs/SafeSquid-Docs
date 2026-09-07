@@ -21,7 +21,7 @@ keywords:
 
 User identity drives policy enforcement, defines digital boundaries, and governs behavior. SafeSquid enables identity recognition through modular methods tailored to network architecture, trust design, and user mobility. Each method not only shapes access but also impacts the authentication experience.
 
-### [IP-Based Recognition](/safesquid_swg/architecture/safesquid_swg)
+### [IP-Based Recognition](/architecture/overview/safesquid_swg)
 
 In static networks, identity begins with IP. SafeSquid maps static IP addresses to users or groups, validating identity by network origin. It requires no prompts, credentials, or interaction---identity is inferred and immediate. Ideal where user-device relationships remain constant.
 

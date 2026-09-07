@@ -34,7 +34,7 @@ HTTPS Inspection should be enabled in SafeSquid. If not enabled, refer to the do
 
 
 ## Steps
-[Access the SafeSquid User Interface](/safesquid_swg/interface/configuration_portal)
+[Access the SafeSquid User Interface](/architecture/interface/configuration_portal)
 
 ![Select Configure section from safesquid user interface to allow only specific page of Facebook ](/images/How_To/Allowing_Specific_Page_on_Facebook/image1.webp)
 

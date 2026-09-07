@@ -44,7 +44,7 @@ Performance plots help operations teams move from vague complaints to measurable
 
 ### Open the performance plot tool
 
-Access the [Configuration Portal](/safesquid_swg/interface/configuration_portal), then open **Support** and select the **Performance Plot** tile.
+Access the [Configuration Portal](/architecture/interface/configuration_portal), then open **Support** and select the **Performance Plot** tile.
 
 ### Select the right time range
 

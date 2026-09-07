@@ -33,7 +33,7 @@ HTTPS Inspection should be enabled in SafeSquid. If not enabled, see the documen
 
 
 
-## [Access the SafeSquid User Interface](/safesquid_swg/interface/configuration_portal)
+## [Access the SafeSquid User Interface](/architecture/interface/configuration_portal)
 ![click on configure in safesquid interface](/images/How_To/Block_Particular_User_Login_To_Facebook_Or_Gmail/image1.webp)
 
 

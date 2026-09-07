@@ -14,7 +14,7 @@ Management access controls who can activate SafeSquid, change policy, and affect
 
 ## Validate prerequisites
 
-Before opening the [Configuration Portal](/safesquid_swg/interface/configuration_portal), confirm:
+Before opening the [Configuration Portal](/architecture/interface/configuration_portal), confirm:
 
 - SafeSquid is installed and running.
 - A pilot browser is configured to use SafeSquid as proxy.

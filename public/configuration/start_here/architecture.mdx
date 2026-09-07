@@ -1,0 +1,274 @@
+---
+title: "Architecture and request pipeline"
+---
+
+SafeSquid sits between client browsers and the Internet (or upstream proxies). Each connection is handled by a worker that processes one HTTP transaction at a time, or a CONNECT tunnel for HTTPS.
+
+<Note>
+Setting up for the first time? Follow [First configuration](/configuration/start_here/first_configuration). This page explains how the pieces fit together.
+</Note>
+
+## Two configuration layers
+
+- **Web UI (policy)** — Access restrictions, Access Profiles, filters, scanners, and so on. Stored as sections in `config.xml`. This is what most administrators edit daily.
+- **startup.ini (process)** — Listen fallback, threads, log levels, TLS and sync tunables. Edited on the appliance filesystem — see [startup.ini](/configuration/start_here/startup_ini).
+
+## What to configure first
+
+This is setup order, not the order a live request is processed.
+
+```mermaid
+flowchart TB
+    net["Network settings — the listen port"]
+    access["Access restrictions — who may use the proxy, including login if you require it"]
+    profiles["Access Profiles — which sites and content"]
+    rest["HTTPS Inspection · antivirus · filters · Caching"]
+
+    net --> access --> profiles --> rest
+    rest -.->|reuse the people and labels defined above| profiles
+```
+
+1. [Network settings](/configuration/application_setup/network_settings_and_listeners) — where SafeSquid listens
+2. [Access restrictions](/configuration/application_setup/access_restrictions) — who may connect, login if required, HTTP vs HTTPS rights
+3. [Access Profiles](/configuration/restriction_policies/access_profiles) — which sites and content to allow
+4. **Everything else** — HTTPS Inspection, scanners, cookie/header filters, Caching
+
+## What happens to a request
+
+Names below are the Web UI section titles, in the order SafeSquid calls them. A request is **either HTTPS or HTTP**, never both in sequence. Access Profiles Deny is remembered early and only enforced later. [DLP](/configuration/real_time_content_security/dlp), [Clam antivirus](/configuration/real_time_content_security/clam_antivirus), and [SqScan](/configuration/real_time_content_security/sqscan) are queued as their own steps (upload, then downloaded body). The pipeline is drawn below in three stages: admission and identity, the HTTPS/HTTP fork and enforcement, then fetch and delivery. Yes-branches stop; No-branches continue down.
+
+### Stage 1 — admission and identity
+
+```mermaid
+flowchart TB
+    listen["Network settings — already listening on the port the browser uses"]
+    sysconf["System configuration — timeouts, buffers, CONNECT port range, used later"]
+    read["Read the request — which site, which page, HTTP or HTTPS"]
+    unsafe{"Destination unsafe or internal?"}
+    isui{"Host is the Web UI, safesquid.cfg?"}
+    uiaccess["Access restrictions — who may open the console"]
+    uishow["Show the Web UI — STOP"]
+    labels["Time Profiler · Application Signatures · Request Types · Categorize Web-Sites · SSqore"]
+    remember["Access Profiles — remember Allow or Deny, do not block yet"]
+    identity["Access restrictions — Integrate LDAP consulted here; External applications may assist login"]
+    rerun["Access Profiles — run again, User-Groups can change the match"]
+    stop["Templates — block page or login prompt, STOP"]
+
+    listen --> sysconf --> read --> unsafe
+    unsafe -->|Yes| stop
+    unsafe -->|No| isui
+    isui -->|Yes| uiaccess
+    uiaccess -->|Refused, or login challenge| stop
+    uiaccess -->|Allowed| uishow
+    isui -->|No| labels --> remember --> identity
+    identity -->|Must log in, or not allowed| stop
+    identity -->|HTTP, HTTPS, Bypass rights and User-Groups resolved| rerun
+```
+
+The Web UI path deliberately skips Time Profiler, Application Signatures, Request Types,
+Categorize Web-Sites, SSqore **and** Access Profiles — an Access Profiles Deny cannot lock you
+out of the console. SSqore runs only if the site is still uncategorized, and none of the
+labelling sections block; they only attach labels.
+
+### Stage 2 — protocol fork and enforcement
+
+```mermaid
+flowchart TB
+    limits["Speed Limits — can delay or block; System configuration may hold a large upload"]
+    modify["Content modifier · External applications · ICAP · HTTPS Inspection · Subscription"]
+    fork{"HTTPS or HTTP — never both in sequence"}
+    connect["Access restrictions — CONNECT right"]
+    ports["System configuration — CONNECT port range"]
+    decrypt{"HTTPS Inspection decrypts?"}
+    restart["Start again at Read the request"]
+    tunnel["Continue as a tunnel"]
+    rights["Access restrictions — HTTP, proxy, transparent rights"]
+    redirect{"Redirect — first match?"}
+    found["302 to the client — STOP"]
+    enforce{"Access Profiles — now enforce the remembered Deny"}
+    body{"Request has an upload body?"}
+    upscan["Application Signatures · Request Types · Access Profiles · Clam antivirus · SqScan · Image analyzer · DLP"]
+    onward["Continue to fetch"]
+    stop["Templates — block page, STOP"]
+
+    limits --> modify --> fork
+    fork -->|HTTPS| connect
+    connect -->|No CONNECT right| stop
+    connect -->|Allowed| ports
+    ports -->|Port out of range| stop
+    ports -->|In range| decrypt
+    decrypt -->|Yes| restart
+    decrypt -->|No| tunnel --> enforce
+    fork -->|HTTP| rights
+    rights -->|Not allowed| stop
+    rights -->|Allowed| redirect
+    redirect -->|Match| found
+    redirect -->|No match| enforce
+    enforce -->|Deny, and no temporary bypass| stop
+    enforce -->|Allow| body
+    body -->|Yes| upscan
+    upscan -->|First of these that denies| stop
+    upscan -->|Pass| onward
+    body -->|No| onward
+```
+
+HTTPS Inspection does not continue the outer HTTPS request — it decrypts and runs the inner
+HTTP from **Read the request** again, so Stage 1 repeats for the decrypted request. DLP
+inspects this upload only, never the page that comes back.
+
+### Stage 3 — fetch, response, and delivery
+
+```mermaid
+flowchart TB
+    cache["Caching"]
+    dnsbl{"DNS Blacklist — matching block policy?"}
+    chain["Proxy chain — upstream proxy or direct; rows naming this proxy are skipped, so a request cannot loop back"]
+    open["Open the connection to the peer or origin — reuse an idle pooled connection when one exists, else new TCP and DNS"]
+    outbound["Header filter · Cookie filter · Elevated Privacy · Content modifier — on headers sent to the origin"]
+    fetch["Fetch the response — cache hit or the Internet"]
+    rtypes{"Response Types · Access Profiles — MIME and response labels"}
+    dscan{"SqScan · Clam antivirus · Image analyzer · Text analyzer · ICAP — downloaded body"}
+    tail["Prefetching — linked objects in HTML · FTP browsing"]
+    send["Send the page to the browser · write logs"]
+    stop["Templates — block page, STOP"]
+
+    cache --> dnsbl
+    dnsbl -->|Yes| stop
+    dnsbl -->|No| chain --> open --> outbound --> fetch --> rtypes
+    rtypes -->|Deny| stop
+    rtypes -->|Pass| dscan
+    dscan -->|Malware or content match| stop
+    dscan -->|Pass| tail --> send
+```
+
+Only **buffered** responses are scanned — a streamed response passes the download scanners
+unexamined. DLP does not run on the response at all. FTP browsing handles `ftp://` only:
+Access restrictions gate the client first, and the FTP `USER`/`PASS` exchange is a separate
+login to the remote server, not proxy authentication. Connection pool size and timeout are
+System configuration fields.
+
+{/* source: https://www.safesquid.com/md/architecture.md */}
+<Note>
+A few details from the walk above are easy to misread:
+
+- **Access Profiles runs more than once per request, and that is normal.** The walk calls it at least four separate times — before identity is known, again once identity resolves, again after the request-modify stage, and again once an upload's content type is known — plus further checks against response headers and downloaded content. Each call re-evaluates against whatever labels and identity exist at that point; the repetition is how an early verdict only gets enforced once the right stage is reached, not a duplicate check to remove.
+- **Incomplete requests are dropped silently.** If the client disconnects before sending a complete request, the connection is simply dropped at "Read the request" — there is nothing to inspect and nothing to log as a policy decision.
+- **Speed Limits can apply before Access restrictions has finished granting the connection's full rights** at the HTTP/HTTPS protocol branch further down this walk — worth knowing if a limit appears to take effect earlier than expected.
+</Note>
+
+Open a section: [Network settings](/configuration/application_setup/network_settings_and_listeners) · [System configuration](/configuration/application_setup/system_configuration) · [Templates](/configuration/custom_settings/templates) · [Time Profiler](/configuration/custom_settings/time_profiler) · [Application Signatures](/configuration/custom_settings/application_signatures) · [Request Types](/configuration/custom_settings/request_types) · [Categorize Web-Sites](/configuration/custom_settings/categorize_web_sites) · [SSqore](/configuration/application_setup/ssqore) · [Access Profiles](/configuration/restriction_policies/access_profiles) · [Access restrictions](/configuration/application_setup/access_restrictions) · [Integrate LDAP](/configuration/application_setup/integrate_ldap) · [External applications](/configuration/custom_settings/external_applications) · [Speed Limits](/configuration/restriction_policies/speed_limits) · [Content modifier](/configuration/real_time_content_security/content_modifier) · [ICAP](/configuration/real_time_content_security/icap) · [HTTPS Inspection](/configuration/real_time_content_security/https_inspection) · [Subscription](/configuration/infrastructure_and_access/subscription) · [Redirect](/configuration/real_time_content_security/redirect) · [DLP](/configuration/real_time_content_security/dlp) · [Caching](/configuration/application_setup/accelerators/caching) · [DNS Blacklist](/configuration/real_time_content_security/dns_blacklist) · [Proxy chain](/configuration/application_setup/proxy_chain) · [Header filter](/configuration/restriction_policies/privacy_control/header_filter) · [Cookie filter](/configuration/restriction_policies/privacy_control/cookie_filter) · [Elevated Privacy](/configuration/restriction_policies/privacy_control/elevated_privacy) · [Response Types](/configuration/custom_settings/response_types) · [Clam antivirus](/configuration/real_time_content_security/clam_antivirus) · [SqScan](/configuration/real_time_content_security/sqscan) · [Image analyzer](/configuration/real_time_content_security/image_analyzer) · [Text analyzer](/configuration/real_time_content_security/text_analyzer) · [Prefetching](/configuration/application_setup/accelerators/prefetching) · [FTP browsing](/configuration/application_setup/ftp_browsing)
+
+
+<Note>
+Open the Web UI at `http://safesquid.cfg/` from a machine that Access restrictions allows. That path skips Access Profiles so you can still fix a mistaken Deny. HTTPS Inspection does not continue this HTTPS request — it decrypts and runs the inner HTTP from Read the request again. **DLP** inspects upload bodies only. **Clam antivirus** and **SqScan** inspect uploads and downloaded bodies.
+</Note>
+
+{/* source: https://www.safesquid.com/md/architecture.md */}
+<Note>
+The **Header filter** module is bypassed for the Web UI path as well, not just Access Profiles content policy. Reaching the console and actually *changing* configuration are also two different rights — Access restrictions governs who may reach the console at all, but applying a change requires a separate console-access right beyond merely reaching it.
+</Note>
+
+<Warning>
+**A response over the download buffer size is not scanned.** SqScan, Clam antivirus, Image analyzer, Text analyzer, and ICAP inspect a *downloaded body* — a response SafeSquid buffered before sending it on. The matching **System configuration → Compression and buffering policies** row sets **Maximum download buffer size** (`maxdbuffer`, default `10M`); a response larger than that streams straight to the browser instead — marked `Direct` rather than `Buffered` — and never reaches those scanners. Nothing in the response or the block page announces the skip.
+
+Verified on this build: fetching a 5 MB file (under the 10 MB default buffer) returned both `X-Virus-Scan` and `X-Text-Analyzer` debug headers; an otherwise identical 20 MB file (over the buffer) returned neither. Test your own buffer size the same way — set **System configuration → Send Debugging Headers To** to `CLIENT` (see [Debug response headers](/configuration/start_here/debug_response_headers)), fetch a file just under and just over the configured size, and compare the response headers. Size the buffer for the file sizes you actually need scanned.
+</Warning>
+
+{/* source: https://www.safesquid.com/md/architecture.md */}
+<Note>
+**Elevated Privacy strips in a fixed order as its level rises:** third-party cookies first, then Referer/Origin, then User-Agent. A lower level stops earlier in that order; the strictest level applies all three.
+</Note>
+
+<Tip>
+
+### Example — one blocked HTTPS visit
+
+A user on the LAN opens `https://social.example/` through the proxy:
+
+1. Network settings, Read the request, and the host check pass (public site).
+2. Not the Web UI. Time Profiler, Application Signatures, Request Types, then Categorize Web-Sites / SSqore: category may be Social.
+3. Access Profiles remembers Deny for Social — no block page yet.
+4. Access restrictions already allows this person; they have the HTTPS right.
+5. The **HTTPS** branch only (not Redirect). Permission and System configuration CONNECT ports pass. Inspection off: stay on the tunnel.
+6. Access Profiles now enforces Deny: **Templates** block page. Detailed logs show which rule fired.
+</Tip>
+
+<Tip>
+
+### Example — DLP on upload, malware on download
+
+1. A user POSTs a spreadsheet. After Access Profiles Allow, the upload body is inspected: **Clam antivirus**, **SqScan**, **Image analyzer**, then **DLP**. A DLP MIME policy match sends **Templates** and stops — Caching and the origin never see that body.
+2. A later GET of an executable is Allowed by Access Profiles. Caching misses, DNS Blacklist passes, Proxy chain fetches it. **SqScan** or **Clam antivirus** on the downloaded body match: **Templates** block page. DLP does not run on that download.
+</Tip>
+
+{/* source: https://www.safesquid.com/md/architecture.md */}
+<Note>
+**Upload scanner order is not fixed.** Which of Clam antivirus, SqScan, Image analyzer, and DLP actually runs first on an upload depends on which scan engines are installed on the appliance, not a built-in fixed order. Whichever module blocks first stops the request there with a block page.
+</Note>
+
+<Accordion title="Peer connection and FTP handling — not verified on this build">
+  {/* source: legacy docs site architecture.html */}
+  {/* NEEDS-SME-REVIEW: the SOCKS negotiation step and the retry-on-failure behaviour below come from legacy documentation alone, and that legacy content was itself fetched through a summarizing model. The live Proxy chain console section documents the peer Type enum (HTTP, SOCKS4, SOCKS5, CONNECT) but a full-DOM search of that section for "handshake", "negotiat", "retry", and "retries" returned zero hits, and nothing in public/ corroborates either claim. Neither behaviour can be exercised on this build without adding a SOCKS peer row or forcing an upstream connection failure, both configuration changes and out of scope for a read-only pass. Confirm the retry count, whether it differs by peer type, and whether an already-disconnected client really aborts the retry — operators size upstream and connection timeouts against exactly this. */}
+
+  Once Proxy chain has selected a peer, SafeSquid opens the transport before sending the request.
+  Legacy documentation states that a SOCKS4 or SOCKS5 peer is negotiated first, that a failed
+  connection attempt is retried a fixed number of times before the request fails, and that the
+  retry is abandoned if the client has already disconnected.
+
+  **Missing:** the retry count, and whether it changes by peer type. Legacy documentation states a
+  fixed number; nothing on this build corroborates it, and it cannot be exercised without forcing
+  an upstream failure. Confirm with SafeSquid support before sizing timeouts around a specific
+  retry budget.
+
+  {/* source: legacy docs site architecture.html */}
+  {/* NEEDS-SME-REVIEW: the claims that FTP directory listings receive no scanning or categorization, and that no FTP response gets Response Types categorization or a response-side Access Profiles check on any path, are asserted by legacy documentation alone. The live FTP console section exposes only Passive mode, Timeout, and anonymous Username/Password — nothing about response-side policy. The behavioural test could not be run: this browser's Chromium engine has no ftp:// support (removed in Chrome 95) and there is no other network path to the proxy from this environment. Confirm with engineering whether Response Types and the second Access Profiles pass are genuinely skipped for FTP — a reader tracing the pipeline above would otherwise assume FTP downloads get the same response-side treatment as HTTP, and Access Profiles' own page states that second pass without qualification. */}
+
+  Legacy documentation also states that FTP directory listings are not scanned or categorized, and
+  that no FTP response — buffered or streamed — gets Response Types categorization or a
+  response-side Access Profiles check, unlike HTTP.
+
+  **Missing:** confirmation of the FTP claim above. It could not be tested in this environment —
+  there is no network path to an FTP server through the proxy — and no other page in this tree
+  corroborates or contradicts it.
+</Accordion>
+
+## Policy matching styles
+
+- **Dual allow/deny lists** — Access restrictions, Cookie filter, Header filter. List order depends on the section default policy.
+{/* source: https://www.safesquid.com/md/architecture.md */}
+- **Opposite winners within that pair** — Header filter: the *first* matching entry decides. Cookie filter: the *last* matching entry decides.
+- **First match** — Clam antivirus, HTTPS Inspection, Redirect, DNS Blacklist block policies, and several scanners.
+- **All matches** — Access Profiles (secondary), Speed Limits, Content modifier, [Application Signatures](/configuration/custom_settings/application_signatures).
+{/* source: https://www.safesquid.com/md/architecture.md */}
+- **Cumulative score** — Text analyzer adds up scores across every matching rule instead of stopping at the first, so several mild matches together can block a page no single one would.
+- **Last match** — [DLP](/configuration/real_time_content_security/dlp) MIME policies (OCR uses cumulative score vs Threshold).
+- **Groups** — Menu groups (Accelerators, Real time content security) contain child sections only; they have no policy lists of their own.
+
+{/* source: https://www.safesquid.com/md/architecture.md */}
+## Verified gaps and non-claims
+
+- **Subscription**, **Content Signatures**, and **Suggested Profiles** are not part of the live pipeline above. Subscription is a licensing/entitlement check that can interrupt the flow at the request-modify stage, not a content-policy stage with its own list of entries. Content Signatures and Suggested Profiles exist as Web UI sections, but neither currently runs against a live request — nothing executes for them in this walk.
+- **WCCP** governs how traffic reaches SafeSquid in the first place (network-level redirection so clients need no proxy setting of their own) — it is not a step in what happens *after* a request has already arrived, so it is not part of this walk either. Confirm its current working status in your build before relying on it for a transparent deployment.
+
+## Bypass
+
+Access restrictions entries can grant **Bypass** for Header filter, Cookie filter, Redirect, Content modifier, Proxy chain, Text analyzer, DNS Blacklist, antivirus, ICAP, and DLP. That skips those modules for matching clients. Separate from Access Profiles temporary bypass cookies (**Allow bypassing**).
+
+## Debug headers
+
+When **System configuration → Send Debugging Headers To** is CLIENT, SERVER, or BOTH, SafeSquid adds identity and policy headers. Prefer CLIENT only on a test network. See [Debug response headers](/configuration/start_here/debug_response_headers).
+
+## See also
+
+- [First configuration](/configuration/start_here/first_configuration)
+- [Daemon and service](/configuration/start_here/daemon)
+- [Access restrictions](/configuration/application_setup/access_restrictions)
+- [Access Profiles](/configuration/restriction_policies/access_profiles)
+- [Logging](/configuration/start_here/logging)
+- [Application Signatures](/configuration/custom_settings/application_signatures)
+- [Clam antivirus](/configuration/real_time_content_security/clam_antivirus)
+- [SqScan](/configuration/real_time_content_security/sqscan)
+- [DLP](/configuration/real_time_content_security/dlp)
+- [SSqore](/configuration/application_setup/ssqore)
+- [Cloud / categorisation feeds](/configuration/start_here/cloud_feeds)
+- [Full section index](/configuration/main)

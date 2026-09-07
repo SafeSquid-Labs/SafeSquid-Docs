@@ -24,12 +24,12 @@ PAM integration validates proxy users against the system's Pluggable Authenticat
 **Prerequisites**
 - SafeSquid running on a PAM-capable operating system (typically Linux).
 - OS users and passwords already configured.
-- Admin access to the SafeSquid [Configuration Portal](/safesquid_swg/interface/configuration_portal).
+- Admin access to the SafeSquid [Configuration Portal](/architecture/interface/configuration_portal).
 :::
 
 ## Enable PAM in Access Rules
 
-1. **Access Configuration:** Open the [Configuration Portal](/safesquid_swg/interface/configuration_portal) and click **Configure**.
+1. **Access Configuration:** Open the [Configuration Portal](/architecture/interface/configuration_portal) and click **Configure**.
 2. **Navigate to Allow List:** **Application Setup** → **Access Restrictions** → **Allow List**.
 3. **Configure Rule:**
    - Edit the entry that matches your client segment.

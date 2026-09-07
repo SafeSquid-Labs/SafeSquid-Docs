@@ -73,9 +73,9 @@ Enterprise environments require continuous monitoring of system health, service 
 
 ## Forensic analysis and directory structure
 
-### [Architecture and file layout](/safesquid_swg/architecture/safesquid_swg)
+### [Architecture and file layout](/architecture/overview/safesquid_swg)
 Security teams require organized access to log files, configuration data, and forensic artifacts to support incident investigation, compliance auditing, and system analysis. Directory Structure provides documentation of SafeSquid's file organization including log locations, configuration directories, data storage paths, and forensic artifact locations through structured documentation and access guidelines. This organizational framework ensures efficient access to forensic data while supporting systematic investigation and analysis procedures. Reference the Directory Structure documentation to locate and access forensic data for security investigations and compliance audits.
 
 ## Next steps
 
-Correlate with [Security Logs](/use_cases/audit_and_forensics/security_logs) and [Troubleshooting](/troubleshooting/troubleshooting) for incident response; for policy configuration see [Access Restriction](/use_cases/access_restriction/access_restriction) and [Configuration Portal](/safesquid_swg/interface/configuration_portal).
+Correlate with [Security Logs](/use_cases/audit_and_forensics/security_logs) and [Troubleshooting](/troubleshooting/troubleshooting) for incident response; for policy configuration see [Access Restriction](/use_cases/access_restriction/access_restriction) and [Configuration Portal](/architecture/interface/configuration_portal).
