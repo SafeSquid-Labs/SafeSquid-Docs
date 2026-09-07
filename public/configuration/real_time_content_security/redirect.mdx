@@ -14,7 +14,7 @@ mode -->|No| fetch[Rewrite proto host file and port then fetch internally]
 
 ## Overview
 
-The `Redirect` section allows SafeSquid to intercept requests for specific URLs and either internally rewrite them (fetching content from a new destination on behalf of the client) or send an HTTP 302 redirect back to the client’s browser.
+The `Redirect` section allows SafeSquid to intercept requests for specific URLs and either internally rewrite them (fetching content from a new destination on behalf of the client) or send an HTTP 302 redirect back to the client’s browser. Typical uses include enforcing a search engine's safe-search mode, sending users away from a decommissioned internal site, or rewriting an insecure link a server returned into its secure equivalent before it reaches the browser.
 
 ## Core Mechanics (C++ Source Validation)
 
@@ -28,7 +28,7 @@ First-match URL/Location rewrite, send302 branching.
 
 ### Global Fields
 
-- **Enabled (enabled)**: Toggles URL redirection globally.
+- **Enabled (enabled)**: Toggles URL redirection globally, on for all connections unless the matching Access restrictions entry's Bypass grants Redirect.
 
 ### Rule-Based Fields (Per Connection Tuning)
 

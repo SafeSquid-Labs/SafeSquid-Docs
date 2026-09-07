@@ -53,7 +53,7 @@ Do not leave full DEBUG enabled in production. It grows disks quickly and makes 
 - `client_id`, `request_id` — correlate lines for one client
 - `client_ip`, `username`, `interface`
 - `method`, `url`, `status`, `size`
-- `filter_name`, `filtering_reason` — which module decided the outcome
+- `filter_name`, `filtering_reason` — which module decided the outcome. This pair is usually the single most useful value on the entry, because it names which section's configuration to open next instead of leaving you to guess.
 - `profiles`, `user_groups`, `categories`, `request_profiles`, `application_signatures`
 - `bypassed` — whether bypass was active on that request
 
@@ -82,7 +82,7 @@ Do not leave full DEBUG enabled in production. It grows disks quickly and makes 
 ### 3 — “Login keeps asking for a password”
 
 1. Note whether Kerberos / SSO or System authentication is enabled ([Authentication](/configuration/start_here/authentication)).
-2. Watch Native logs for `security:`, `pam:`, `ldap:`.
+2. Watch Native logs for `security:`, `pam:`, `ldap:`. The lines around the failed attempt usually name the specific step that failed — the password cache, the local system check, or the directory bind.
 3. Clear **Reports → Password Cache** after fixing credentials or PAM.
 </Tip>
 
@@ -108,6 +108,13 @@ On a single policy row in the Web UI, enable **Trace Entry** to log when that en
 4. For auth issues, look for `security:` and `ldap:` in Native logs.
 5. For surprise policy changes, check **Config logs** in the same time window.
 6. Turn DEBUG and CLIENT debug headers off when finished.
+
+## How to verify
+
+1. Reproduce the issue once and confirm a corresponding entry appears in Detailed logs with the expected timestamp, client, and URL.
+2. Confirm `filter_name` and `filtering_reason` on that entry name the module actually under suspicion before changing that module's configuration.
+3. If a Native log family or Trace Entry was enabled for the investigation, confirm the expected line appears, then turn it back off.
+4. After a fix, reproduce again and confirm the new entry shows the expected outcome.
 
 ## See also
 
