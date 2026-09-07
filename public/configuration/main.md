@@ -43,7 +43,7 @@ client licensing. See [Self-Service Portal](/architecture/interface/self_service
 - [Network settings and listeners](/configuration/application_setup/network_settings_and_listeners)
 - [Integrate LDAP](/configuration/application_setup/integrate_ldap)
 - [Access restrictions](/configuration/application_setup/access_restrictions)
-- [Accelerators](/configuration/application_setup/accelerators)
+- [Accelerators](/configuration/application_setup/accelerators/caching)
 - [System configuration](/configuration/application_setup/system_configuration)
 - [Proxy chain](/configuration/application_setup/proxy_chain)
 - [FTP browsing](/configuration/application_setup/ftp_browsing)
@@ -77,7 +77,7 @@ client licensing. See [Self-Service Portal](/architecture/interface/self_service
 
 ## Restriction Policies
 
-- [Privacy control](/configuration/restriction_policies/privacy_control) — Cookie filter, Header filter, Elevated Privacy
+- [Privacy control](/configuration/restriction_policies/privacy_control/cookie_filter) — Cookie filter, Header filter, Elevated Privacy
 - [Access Profiles](/configuration/restriction_policies/access_profiles)
 - [Speed Limits](/configuration/restriction_policies/speed_limits)
 

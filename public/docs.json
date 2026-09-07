@@ -300,7 +300,14 @@
               "configuration/application_setup/network_settings_and_listeners",
               "configuration/application_setup/integrate_ldap",
               "configuration/application_setup/access_restrictions",
-              "configuration/application_setup/accelerators",
+              {
+                "group": "Accelerators",
+                "expanded": false,
+                "pages": [
+                  "configuration/application_setup/accelerators/caching",
+                  "configuration/application_setup/accelerators/prefetching"
+                ]
+              },
               "configuration/application_setup/system_configuration",
               "configuration/application_setup/proxy_chain",
               "configuration/application_setup/ftp_browsing",
@@ -340,7 +347,15 @@
           {
             "group": "Restriction Policies",
             "pages": [
-              "configuration/restriction_policies/privacy_control",
+              {
+                "group": "Privacy control",
+                "expanded": false,
+                "pages": [
+                  "configuration/restriction_policies/privacy_control/cookie_filter",
+                  "configuration/restriction_policies/privacy_control/header_filter",
+                  "configuration/restriction_policies/privacy_control/elevated_privacy"
+                ]
+              },
               "configuration/restriction_policies/access_profiles",
               "configuration/restriction_policies/speed_limits"
             ]
@@ -839,27 +854,27 @@
     },
     {
       "source": "/admin_guide/filtering_and_privacy/cookie_filter",
-      "destination": "/configuration/restriction_policies/privacy_control"
+      "destination": "/configuration/restriction_policies/privacy_control/cookie_filter"
     },
     {
       "source": "/admin_guide/filtering_and_privacy/header_filter",
-      "destination": "/configuration/restriction_policies/privacy_control"
+      "destination": "/configuration/restriction_policies/privacy_control/header_filter"
     },
     {
       "source": "/admin_guide/filtering_and_privacy/elevated_privacy",
-      "destination": "/configuration/restriction_policies/privacy_control"
+      "destination": "/configuration/restriction_policies/privacy_control/elevated_privacy"
     },
     {
       "source": "/admin_guide/performance/caching",
-      "destination": "/configuration/application_setup/accelerators"
+      "destination": "/configuration/application_setup/accelerators/caching"
     },
     {
       "source": "/admin_guide/performance/prefetching",
-      "destination": "/configuration/application_setup/accelerators"
+      "destination": "/configuration/application_setup/accelerators/prefetching"
     },
     {
       "source": "/admin_guide/application_setup/accelerators",
-      "destination": "/configuration/application_setup/accelerators"
+      "destination": "/configuration/application_setup/accelerators/caching"
     },
     {
       "source": "/admin_guide/application_setup/access_restrictions",
@@ -987,7 +1002,7 @@
     },
     {
       "source": "/admin_guide/restriction_policies/privacy_control",
-      "destination": "/configuration/restriction_policies/privacy_control"
+      "destination": "/configuration/restriction_policies/privacy_control/cookie_filter"
     },
     {
       "source": "/admin_guide/restriction_policies/speed_limits",
@@ -1044,6 +1059,14 @@
     {
       "source": "/core_features/:slug*",
       "destination": "/getting_started/core_features/:slug*"
+    },
+    {
+      "source": "/configuration/restriction_policies/privacy_control",
+      "destination": "/configuration/restriction_policies/privacy_control/cookie_filter"
+    },
+    {
+      "source": "/configuration/application_setup/accelerators",
+      "destination": "/configuration/application_setup/accelerators/caching"
     }
   ]
 }
