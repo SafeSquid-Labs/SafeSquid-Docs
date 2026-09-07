@@ -47,25 +47,64 @@ Dual-list Allow/Deny walk, **last** match in pass wins — unlike most other sec
 </Warning>
 
 {/* source: https://www.safesquid.com/md/cookies-filtering.md */}
-### Global fields
+## Section fields
 
-- **Enabled (`cookie_enable`)** — off means `Cookie` and `Set-Cookie` headers pass through unmodified.
-- **Policy (`policy`)** — the walk-order selector described above, and also the default action when no configured row matches a cookie: **Allow** forwards it, **Deny** strips it.
+The console splits Cookie filter into three tabs. **Allow** and **Deny** use an identical row
+form — only their position in the walk and the meaning of a match differ — so the row fields are
+documented once, under **Allow**.
 
-### Important entry fields
+<Tabs>
+  <Tab title="Global">
 
-- **Profiles** — Limit the row to connections that carry these Access Profile tags. Blank ignores profiles. Prefix `!` negates a tag.
-{/* source: https://www.safesquid.com/md/cookies-filtering.md */}
-- **The built-in `Read Only` profile** is meant for Deny rows: apply it to a connection and matching cookies are blocked, so the user cannot stay signed in to that site. See the `cookie_profiles` catalog in [Suggested profiles](/configuration/custom_settings/suggested_profiles).
-- **Direction** — **OUT** — browser→server `Cookie` headers (what the live hooks filter). **IN** — server→browser `Set-Cookie` (domain, path, expiry tests in code; not invoked by current hooks). **BOTH** — either direction when filtering runs.
-- **Domain / Path** — Regular expressions. Used for Direction IN when Set-Cookie filtering runs. For OUT rows, only profiles and direction are tested.
-{/* source: https://www.safesquid.com/md/cookies-filtering.md */}
-- **Domain regex accepts pipe-separated alternatives** — for example `safesquid.com|google.com`. Applies only when Direction is IN, per the warning above.
-- **Expiry ranges / Time match mode** — Apply only to Set-Cookie with a parseable `Expires` attribute. **ABSOLUTE** — one continuous window from start through end fields. **ALL RANGES** — expiry must satisfy every configured range at once.
-{/* source: https://www.safesquid.com/md/cookies-filtering.md */}
-- **Expiry range fields (internal names)** — `year`, `month`, `day`, `weekday`, `hour`, `minute` — inclusive bounds tested against the cookie's own `Expires` attribute, not the appliance clock. For example, an hour range of 1–10 matches a cookie that expires between 1 AM and 10 AM. Configured but not enforced today — see the IN direction warning above.
-{/* source: https://www.safesquid.com/md/cookies-filtering.md */}
-- **`comment`** — an operator note only; does not affect matching.
+    ## Global fields
+
+    - **Enabled (`cookie_enable`)** — off means `Cookie` and `Set-Cookie` headers pass through unmodified.
+    - **Policy (`policy`)** — the walk-order selector described above, and also the default action when no configured row matches a cookie: **Allow** forwards it, **Deny** strips it.
+
+  </Tab>
+
+  <Tab title="Allow">
+
+    ## What an Allow row does
+
+    A matching Allow row keeps the cookie field. With Policy **Deny**, the Allow list is walked
+    **first** and is the only thing that lets a cookie through; with Policy **Allow**, it is
+    walked **second** and can restore a field the Deny pass stripped. The **last** matching row
+    in the pass wins, so a lower row overrides a higher one.
+
+    ## Row fields
+
+    - **Profiles** — Limit the row to connections that carry these Access Profile tags. Blank ignores profiles. Prefix `!` negates a tag.
+    {/* source: https://www.safesquid.com/md/cookies-filtering.md */}
+    - **The built-in `Read Only` profile** is meant for Deny rows: apply it to a connection and matching cookies are blocked, so the user cannot stay signed in to that site. See the `cookie_profiles` catalog in [Suggested profiles](/configuration/custom_settings/suggested_profiles).
+    - **Direction** — **OUT** — browser→server `Cookie` headers (what the live hooks filter). **IN** — server→browser `Set-Cookie` (domain, path, expiry tests in code; not invoked by current hooks). **BOTH** — either direction when filtering runs.
+    - **Domain / Path** — Regular expressions. Used for Direction IN when Set-Cookie filtering runs. For OUT rows, only profiles and direction are tested.
+    {/* source: https://www.safesquid.com/md/cookies-filtering.md */}
+    - **Domain regex accepts pipe-separated alternatives** — for example `safesquid.com|google.com`. Applies only when Direction is IN, per the warning above.
+    - **Expiry ranges / Time match mode** — Apply only to Set-Cookie with a parseable `Expires` attribute. **ABSOLUTE** — one continuous window from start through end fields. **ALL RANGES** — expiry must satisfy every configured range at once.
+    {/* source: https://www.safesquid.com/md/cookies-filtering.md */}
+    - **Expiry range fields (internal names)** — `year`, `month`, `day`, `weekday`, `hour`, `minute` — inclusive bounds tested against the cookie's own `Expires` attribute, not the appliance clock. For example, an hour range of 1–10 matches a cookie that expires between 1 AM and 10 AM. Configured but not enforced today — see the IN direction warning above.
+    {/* source: https://www.safesquid.com/md/cookies-filtering.md */}
+    - **`comment`** — an operator note only; does not affect matching.
+
+  </Tab>
+
+  <Tab title="Deny">
+
+    ## What a Deny row does
+
+    A matching Deny row strips the cookie field from the header list and adds
+    `Clear-Site-Data: "*"` to the connection. With Policy **Deny** the Deny list is walked
+    **second**, so it can revoke something the Allow pass permitted; with Policy **Allow** it is
+    walked **first**. Last match in the pass wins.
+
+    The built-in **Read Only** profile is intended for Deny rows: apply it to a connection and
+    matching cookies are blocked, so the user cannot stay signed in to that site.
+
+    Rows use the same form as the Allow list — see the **Allow** tab for every field.
+
+  </Tab>
+</Tabs>
 
 ## Examples
 

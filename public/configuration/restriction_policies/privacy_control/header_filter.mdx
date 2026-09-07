@@ -46,40 +46,113 @@ Allow/Deny list order (**first** match wins, unlike Cookie filter's last-match r
 </Warning>
 
 {/* source: https://www.safesquid.com/md/header-filtering.md */}
-### Global fields
+## Section fields
 
-- **Enabled (`header_enabled`)** — turns Header filter on or off for all connections, unless the matching Access entry's **Bypass** grants **Header filtering**.
-- **Policy (`header_policy`)** — the default outcome when no Allow/Deny row matches a header field: **Deny** strips it, **Allow** forwards it. It also decides which list is walked first (see step 2–3 above).
+The console splits Header filter into five tabs. **Allow** and **Deny** share one row form, so
+the fields are documented once under **Allow**; **Insert** reuses the same fields with different
+meanings, called out in that tab.
 
-### Important entry fields
+<Tabs>
+  <Tab title="Global">
 
-{/* source: https://www.safesquid.com/md/header-filtering.md */}
-- **Enabled (`enabled`)** — disabled rows are skipped and never match.
-- **Comment (`comment`)** — operator note; shown only in the configuration, never to end users.
-- **Profiles** — Apply only when the connection has one of these profiles. Blank = all connections. Prefix `!` to skip connections that have a profile (for example `!Guest`).
-- **Type** — On Allow/Deny: regex on the header field name (for example `Referer`, `User-Agent`); blank matches any name. On Insert: literal header name to add (not a regex).
-- **Value** — On Allow/Deny: regex on the field value; blank matches any value. On Insert: header body with variables expanded.
-- **Applies to** — **CLIENT HEADER** — request headers (browser → origin). **SERVER HEADER** — response headers (origin → browser). Row must include the direction being filtered.
-{/* source: https://www.safesquid.com/md/header-filtering.md */}
-- **Internal field names** — Profiles is `profiles`, Type is `type`, Value is `value`, Applies to is `which`.
-- **Insert non-blank requirement** — both Type and Value must be non-blank for an Insert row to apply.
+    ## Global fields
 
-{/* source: https://www.safesquid.com/md/header-filtering.md */}
-### Content-Security-Policy tiers
+    - **Enabled (`header_enabled`)** — turns Header filter on or off for all connections, unless the matching Access entry's **Bypass** grants **Header filtering**.
+    - **Policy (`header_policy`)** — the default outcome when no Allow/Deny row matches a header field: **Deny** strips it, **Allow** forwards it. It also decides which list is walked first (see step 2–3 above).
 
-Content-Security-Policy (CSP) is a response header that controls what an already-loaded page is allowed to do — which hosts its scripts may connect to, whether it may embed frames, whether it may submit forms elsewhere. Insert rows can write one, which makes Header filter a meaningful defense even for destinations you have chosen to allow: a legitimate site can still be abused to run injected scripts, load third-party tracking, or exfiltrate data to an unexpected destination.
+  </Tab>
 
-<Warning>
-  **Browsers combine multiple CSP headers by intersecting them**, taking whichever directive is more restrictive. A SafeSquid-authored CSP only takes clean effect if the destination's **own** `Content-Security-Policy` is stripped first with a Deny row. Skip that step and the browser merges the two — the practical result is usually **more** restrictive than intended, and pages can appear broken (missing fonts, broken widgets) for reasons that are not obvious from the Insert row alone.
-</Warning>
+  <Tab title="Allow">
 
-SafeSquid's built-in Profile catalog offers three tiers of increasing openness, applied via an Access Profile and referenced from Insert rows:
+    ## What an Allow row does
 
-- **Minimal content access** — baseline. Same-origin scripts and forms only; `connect-src` and `script-src` are restricted to the page's own host, and violations are reported back to SafeSquid.
-- **Standard content access** — relaxes `connect-src` and `child-src` to the page's own host domain, while keeping the other directives as tight as the minimal tier.
-- **Full content access** — removes the added restriction once a connection is confirmed trustworthy.
+    A matching Allow row keeps the header field. With Policy **Deny** the Allow list is walked
+    **first**; with Policy **Allow** it is walked **second**, where it can restore a field the
+    Deny pass stripped. The **first** matching row in that pass decides the field — the opposite
+    of Cookie filter's last-match rule — so put specific regexes above broad ones. A kept field
+    is logged as `allowed`.
 
-See the `header_filter_profiles` catalog in [Suggested profiles](/configuration/custom_settings/suggested_profiles), which names these same tiers plus `DROP ORIGINAL CSP`.
+    ## Row fields
+
+    {/* source: https://www.safesquid.com/md/header-filtering.md */}
+    - **Enabled (`enabled`)** — disabled rows are skipped and never match.
+    - **Comment (`comment`)** — operator note; shown only in the configuration, never to end users.
+    - **Profiles** — Apply only when the connection has one of these profiles. Blank = all connections. Prefix `!` to skip connections that have a profile (for example `!Guest`).
+    - **Type** — On Allow/Deny: regex on the header field name (for example `Referer`, `User-Agent`); blank matches any name. On Insert: literal header name to add (not a regex).
+    - **Value** — On Allow/Deny: regex on the field value; blank matches any value. On Insert: header body with variables expanded.
+    - **Applies to** — **CLIENT HEADER** — request headers (browser → origin). **SERVER HEADER** — response headers (origin → browser). Row must include the direction being filtered.
+    {/* source: https://www.safesquid.com/md/header-filtering.md */}
+    - **Internal field names** — Profiles is `profiles`, Type is `type`, Value is `value`, Applies to is `which`.
+    - **Insert non-blank requirement** — both Type and Value must be non-blank for an Insert row to apply.
+
+    {/* source: https://www.safesquid.com/md/header-filtering.md */}
+
+  </Tab>
+
+  <Tab title="Deny">
+
+    ## What a Deny row does
+
+    A matching Deny row strips the header field from the message and logs it as `removed` in the
+    native header logs. With Policy **Deny** the Deny list is walked **second**; with Policy
+    **Allow** it is walked **first**. First match in that pass wins.
+
+    Stripping the destination's own `Content-Security-Policy` with a Deny row is a prerequisite
+    for writing your own — see the **Insert** tab.
+
+    Rows use the same form as the Allow list — see the **Allow** tab for every field.
+
+  </Tab>
+
+  <Tab title="Insert">
+
+    ## What an Insert row does
+
+    Insert runs **after** the allow/deny pass and adds entirely new headers rather than filtering
+    existing ones. It is **cumulative, not first-match**: every enabled matching Insert row can
+    add a header to the same message.
+
+    Three fields behave differently here than on an Allow/Deny row:
+
+    - **Type** — a literal header name to add, not a regex.
+    - **Value** — the header body, with connection variables expanded at runtime, so a username
+      or client IP can be injected dynamically.
+    - Both **Type** and **Value** must be non-blank or the row does not apply.
+
+    ## Content-Security-Policy tiers
+
+    Content-Security-Policy (CSP) is a response header that controls what an already-loaded page is allowed to do — which hosts its scripts may connect to, whether it may embed frames, whether it may submit forms elsewhere. Insert rows can write one, which makes Header filter a meaningful defense even for destinations you have chosen to allow: a legitimate site can still be abused to run injected scripts, load third-party tracking, or exfiltrate data to an unexpected destination.
+
+    <Warning>
+      **Browsers combine multiple CSP headers by intersecting them**, taking whichever directive is more restrictive. A SafeSquid-authored CSP only takes clean effect if the destination's **own** `Content-Security-Policy` is stripped first with a Deny row. Skip that step and the browser merges the two — the practical result is usually **more** restrictive than intended, and pages can appear broken (missing fonts, broken widgets) for reasons that are not obvious from the Insert row alone.
+    </Warning>
+
+    SafeSquid's built-in Profile catalog offers three tiers of increasing openness, applied via an Access Profile and referenced from Insert rows:
+
+    - **Minimal content access** — baseline. Same-origin scripts and forms only; `connect-src` and `script-src` are restricted to the page's own host, and violations are reported back to SafeSquid.
+    - **Standard content access** — relaxes `connect-src` and `child-src` to the page's own host domain, while keeping the other directives as tight as the minimal tier.
+    - **Full content access** — removes the added restriction once a connection is confirmed trustworthy.
+
+    See the `header_filter_profiles` catalog in [Suggested profiles](/configuration/custom_settings/suggested_profiles), which names these same tiers plus `DROP ORIGINAL CSP`.
+
+  </Tab>
+
+  <Tab title="View headers">
+
+    ## View headers
+
+    A read-only panel listing the header fields SafeSquid has observed, provided so you can build
+    Allow, Deny and Insert rows against names that actually appear on your traffic instead of
+    guessing them.
+
+    {/* NEEDS-SME-REVIEW: tab confirmed present in the console menu (build 2026.0627.1344.3, 2026-09-07) but its contents and any controls were not exercised. Confirm what the panel shows and whether it is filterable before expanding this. */}
+
+    **Missing:** the panel's exact columns and whether it can be filtered or exported are not
+    documented here — they were not verified against a live build. Read it directly in the
+    console, and escalate to the SME before relying on it as an audit record.
+
+  </Tab>
+</Tabs>
 
 ## Examples
 

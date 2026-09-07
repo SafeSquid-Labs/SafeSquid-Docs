@@ -46,10 +46,23 @@ a:has(> img.nav-logo) {
  * has real contrast to sit on, rather than leaving the highlight as-is
  * and only swapping the text color.
  */
-#sidebar-content li[data-active] a {
+/*
+ * The `>` is load-bearing (fixed 2026-09-07). Mintlify sets data-active on a
+ * nested group's own <li> whenever that group *contains* the active page, not
+ * only on the active page's <li>. A descendant selector (`li[data-active] a`)
+ * therefore matched every anchor inside an open group, painting all three
+ * children of Privacy control — and both children of Accelerators — with the
+ * solid active highlight at once.
+ *
+ * The active page's <li> has the anchor as a DIRECT child; a group's <li> has a
+ * <button> (the expand toggle) as its direct child instead, with the child
+ * anchors nested deeper. So the child combinator hits exactly the real active
+ * item and nothing else, in flat and nested groups alike.
+ */
+#sidebar-content li[data-active] > a {
   color: rgb(22, 25, 29) !important;
 }
-.dark #sidebar-content li[data-active] a {
+.dark #sidebar-content li[data-active] > a {
   background-color: rgb(59, 130, 246) !important; /* docs.json colors.light, solid */
   color: rgb(22, 25, 29) !important;
 }
