@@ -10,6 +10,9 @@ title: "ICAP"
 
 The `ICAP` section sends HTTP request or response bodies to an external ICAP server for scanning or modification. Typical uses include antivirus ICAP services, DLP adapters, and content adaptation.
 
+{/* source: https://www.safesquid.com/md/icap.md */}
+ICAP lets SafeSquid delegate inspection to specialized third-party scanners rather than relying only on its own built-in engines.
+
 Access **Bypass** with ICAP skips all ICAP processing for matching clients.
 
 ## Core Mechanics (C++ Source Validation)
@@ -19,6 +22,9 @@ Policy walk, ICAP response handling.
 ### Row walk with fallback
 
 For each REQMOD or RESPMOD hook, enabled rows are walked top to bottom. Row must match Profiles, include the Applies to flag, and have a valid ICAP Service URL.
+
+{/* source: https://www.safesquid.com/md/icap.md */}
+If no row is eligible for the current hook — none match Profiles, include the Applies to flag, or carry a valid Service URL — ICAP does not run for that hook on this connection.
 
 ### Response codes
 
@@ -54,6 +60,8 @@ code -->|timeout| next
 - **ICAP Timeout (timeout)** — Seconds for connect and read/write.
 - **Applies to (flags)** — REQUESTS (REQMOD) and/or RESPONSES (RESPMOD).
 - **Threat ID Header (threatheader)** — Header name(s) on ICAP 200 response for threat name.
+{/* source: https://www.safesquid.com/md/icap.md */}
+- **Threat ID Header, first-match nuance** — the **first** of the configured names present in the response supplies the threat name used for logging and the block template; if none of them are present in a 200 response, the reason is recorded as a missing threat header.
 - **Profiles (profiles)** — Limit to connections with these tags. Blank matches all.
 
 ## Examples
