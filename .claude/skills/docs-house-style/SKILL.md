@@ -369,9 +369,19 @@ repo, not just that one restructure.
 `public/docs.json` is otherwise do-not-edit; **adding a new page to `navigation` is the
 sanctioned exception.**
 
-- **Exactly two levels site-wide**: `tab → group → flat array of page-path strings`.
-  Commit `4ce2f50` deliberately flattened the only nested groups. **Never** nest a group
-  object inside a `pages` array, and never add a `root` key — both were removed on purpose.
+- **Two levels by default**: `tab → group → flat array of page-path strings`. Commit
+  `4ce2f50` flattened the only nested groups at the time; that was a house decision, **not a
+  Mintlify limit** — the platform supports nested groups with `expanded` and `root`.
+- **Nest a group only to mirror a console menu group that drops down.** In the SafeSquid
+  console, a menu item carrying `href="#"` (Accelerators, Privacy control) is a *dropdown*
+  containing sibling sections; its children are separate pages, each with its own tabs. Model
+  that as a nested group with `expanded: false`, so it stays collapsed until the reader is
+  inside it — see `Restriction Policies → Privacy control` and
+  `Application Setup → Accelerators` (added 2026-09-07). Do not nest for any other reason, and
+  still do not add a `root` key.
+- **Do not confuse a console dropdown with a console tab strip.** A dropdown becomes nested nav
+  pages; the tabs *inside* one section page become `<Tabs>`. Getting this backwards merges
+  pages that should be siblings — which is exactly what happened before the 2026-09-07 fix.
 - Two tabs (`Troubleshooting`, `FAQs`) use a bare `pages` list with no groups. That is fine
   for small flat sections.
 - Page paths carry **no file extension**. `main.md` files are **not** registered.
