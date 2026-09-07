@@ -28,7 +28,7 @@ The tree holds three styles. Match **Style A** — the newest hand-written work:
 
 **Do not** pattern-match on `public/use_cases/**` generally (Style B: `## Problem statement`
 / `## Advantages` / `## Call to action` headings, `slug:` frontmatter, screenshot dumps)
-or on `public/admin_guide/**.mdx` (Style C: reference-manual voice). Those are legacy.
+or on `public/configuration/**.mdx` (Style C: reference-manual voice). Those are legacy.
 
 ---
 
@@ -127,7 +127,7 @@ keywords:
 - `description` is a one-sentence **outcome**, not a topic.
 - `keywords` is a YAML block list of 4–6 lowercase search phrases.
 - **Do not add** `slug:` (legacy redirect-compat only), `icon:` (only on the 16
-  `core_features/*.mdx` snippet wrappers), `sidebarTitle:` or `sidebar_position:` —
+  `getting_started/core_features/*.mdx` snippet wrappers), `sidebarTitle:` or `sidebar_position:` —
   none appear in any `.md` page.
 
 ### Headings
@@ -175,7 +175,7 @@ Use `-` (hyphen), not an em dash. Both exist in the tree; hyphen is the newer ma
 ## Mintlify components
 
 **In use:** `<Accordion>` (62), `<Note>` (68), `<Tip>` (100), `<Warning>` (29),
-`<Steps>`/`<Step>` (26), `<Tabs>`/`<Tab>` (15), `<Card>` (32), `<Frame>` (30, admin_guide only),
+`<Steps>`/`<Step>` (26), `<Tabs>`/`<Tab>` (15), `<Card>` (32), `<Frame>` (30, configuration/ only),
 `<AccordionGroup>` (1).
 
 **Never used — do not introduce:** `<CardGroup>`, `<Info>`, `<CodeGroup>`, `<Check>`,
@@ -418,7 +418,7 @@ sanctioned exception.**
 ## Naming, links, code, tables
 
 - **snake_case, no spaces**, for every file and folder. Enforced by `CLAUDE.md` line 3.
-- **`.md` for new hand-written content.** `.mdx` is used by `admin_guide/`, `core_features/`,
+- **`.md` for new hand-written content.** `.mdx` is used by `configuration/`, `getting_started/core_features/`,
   `snippets/`, and `getting_started/welcome|quickstart`. Note `{/* … */}` comments and
   component tags work in `.md` here regardless.
 - **Links** are absolute, extension-less: `/use_cases/scaling_and_high_availability/proxy_clustering`.
@@ -430,21 +430,32 @@ sanctioned exception.**
 - **Placeholders** are SHOUTY-HYPHEN tokens, never real values: `SAFESQUID-IP`, `VIP-ADDRESS`,
   `MASTER-IP`, `INTERFACE`, plus `example.com` / `.internal.example.com`. No real credentials.
 - **Images** at `/images/<category>/<name>.webp` with descriptive alt text. Mermaid preferred
-  over screenshots for conceptual/process-flow content. `<Frame>` wrappers are an admin_guide
+  over screenshots for conceptual/process-flow content. `<Frame>` wrappers are a `configuration/`
   convention only.
-  - **Exception — `admin_guide/` UI walkthroughs and worked examples**: a real, annotated console
+  - **Process-flow diagrams are Mermaid `flowchart TB`, never a checked-in SVG** (changed
+    2026-09-07). The 30 hand-authored `*_flowchart.svg` diagrams this tree used to carry were
+    converted and deleted: every one hardcoded light-mode fills (`#f5f8fa` boxes, `#222` text)
+    with no dark-mode handling, so they rendered badly against the site's dark theme, and a
+    binary-ish SVG is not reviewable in a diff. Mermaid is theme-aware for free and reads as
+    text in a PR. Node convention: bare ids, `[square]` for steps, `{curly}` for decisions,
+    `-->|Label|` for labelled edges, no `classDef`, no styling; quote a label only when it
+    contains `(`, `)`, `,`, `:`, `/` or `#`. Inside a `<Tab>`, indent the fence 4 spaces. Split
+    a flow that exceeds roughly 15 nodes into staged diagrams at its natural forks rather than
+    emitting one unreadable chart — `configuration/start_here/architecture.mdx` is the worked
+    example, in three stages.
+  - **Exception — `configuration/` UI walkthroughs and worked examples**: a real, annotated console
     screenshot is required, not just preferred, wherever a page currently just describes a
-    click-through sequence or a worked example in prose with no visual (this doesn't replace the
-    existing `*_flowchart.svg` logic diagrams, which stay — they show processing order, a
-    screenshot shows the console). Capture the **full page**, not a tight crop, from the live
+    click-through sequence or a worked example in prose with no visual (a screenshot shows the
+    console; the Mermaid diagram above shows processing order — they answer different questions
+    and a page often wants both). Capture the **full page**, not a tight crop, from the live
     console via `safesquid_sysadmin`/`safesquid_admin`. Annotate with an arrow or circle plus a
     short imperative callout naming the control (`Click **Get Access**`, not just a bare
     screenshot) — an unannotated screenshot is the same "walls of undescribed screenshots"
-    anti-pattern flagged below. Save as `public/images/admin_guide/<page>-<slug>.webp`, wrapped in
+    anti-pattern flagged below. Save as `public/images/configuration/<page>-<slug>.webp`, wrapped in
     `<Frame>`, same as the existing flowcharts.
 - **Never invent a CLI command, config file, or man-page name.** State one exists only if it's
   confirmed live, confirmed in an already-verified page, or confirmed by engineering — otherwise
-  flag it with `{/* NEEDS-SME-REVIEW: … */}` instead of asserting it. (Every `admin_guide/` page
+  flag it with `{/* NEEDS-SME-REVIEW: … */}` instead of asserting it. (Every `configuration/` page
   used to carry a fabricated `CLI man page: safesquid-*(N)` reference ported verbatim from a
   raw-HTML source and never checked against anything; they were removed — don't reintroduce the
   pattern.)
@@ -461,7 +472,7 @@ sanctioned exception.**
 - **Mermaid**: `flowchart TB`, plain-ASCII node labels (hyphens, no parentheses or commas
   inside labels), always introduced by a sentence explaining what it shows.
 - **No ✅ / ❌ / ⚠️ emoji.** They survive in only four files — three `snippets/*.mdx` and
-  `safesquid_swg/what_is_safesquid_swg.md`. Zero Style A pages use them. Use a `<Warning>`
+  `architecture/what_is_safesquid_swg.md`. Zero Style A pages use them. Use a `<Warning>`
   or a plain declarative sentence instead.
 - **British/American spelling is mixed** (`behavioural` alongside `analyzer`). Not normalized
   — match the surrounding page rather than introducing a global change.
@@ -517,6 +528,6 @@ below need a separate decision and edit.
 | `doc_writer/references/writing_standards.md` §Icons, §Content patterns | Prescribes ✅/❌/⚠️ markers, Before/After tables, "When to use / When not" with emoji. No Style A page uses any of it; emoji survive in only four legacy files. |
 | `writing_standards.md` §Document design vs `doc_program_standards/references/page_requirements.md` and `.claude/agents/doc-writer.md` | **Six-block** vs **eight-block** default page anatomy (the eight adds *Client Scenario* at 2 and *Related Controls / Next Steps* at 8). `CLAUDE.md` and `README.md` both say "six-block". Unresolved. |
 | `doc_writer/SKILL.md` items 4–5, §Source-of-truth rules; plus 7 other skill/agent files | Dead absolute paths `/home/administrator/Mintlify-Docs/…` and `/home/administrator/safesquid-labs/knowledge/`. The knowledge base at source-hierarchy position 5 is unreachable on this machine. |
-| `CLAUDE.md` §Repository Layout, and the same block in `README.md` | Stale — lists `getting-started/`, `guides/`, `api/`, `cli/`, `use-cases/` (hyphens), violating the repo's own snake_case rule. Actual tree is `getting_started/`, `use_cases/`, `admin_guide/`, `core_features/`, `deployment/`, `safesquid_swg/`, `snippets/`. |
+| `CLAUDE.md` §Repository Layout, and the same block in `README.md` | Stale — lists `getting-started/`, `guides/`, `api/`, `cli/`, `use-cases/` (hyphens), violating the repo's own snake_case rule. Actual tree is `getting_started/` (with `core_features/` nested inside it), `use_cases/`, `configuration/`, `deployment/`, `architecture/`, `snippets/`. |
 | `public/docs.json` `banner.content` | Live in production config: `"TODO before merge — set release version and link. [Placeholder](/)"`. |
-| No governance file | The `public/snippets/*.mdx` reuse pattern (single-source a feature blurb, import into both `core_features/` and `use_cases/`) is undocumented. Also unruled: `.md` vs `.mdx`, group-label casing, `&` vs `and`. |
+| No governance file | The `public/snippets/*.mdx` reuse pattern (single-source a feature blurb, import into both `getting_started/core_features/` and `use_cases/`) is undocumented. Also unruled: `.md` vs `.mdx`, group-label casing, `&` vs `and`. |

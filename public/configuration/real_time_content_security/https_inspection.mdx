@@ -2,9 +2,18 @@
 title: "HTTPS inspection"
 ---
 
-<Frame caption="CONNECT policy flow">
-  <img src="/images/configuration/https_inspection_flowchart.svg" alt="CONNECT policy flow" />
-</Frame>
+```mermaid
+flowchart TB
+connect[CONNECT request] --> enabled{HTTPS Inspection enabled and RCSC valid?}
+enabled -->|No| tunnel[Tunnel without decrypting]
+enabled -->|Yes| find[Load first matching Inspection Policy row]
+find --> deepscan{DeepScan TRUE?}
+deepscan -->|No| tunnel
+deepscan -->|Yes| validate[Validate upstream certificate against no-cert error level and domain mismatch rules]
+validate --> valid{Upstream certificate passes?}
+valid -->|No| dropconn[Drop connection]
+valid -->|Yes| handshake[Complete client TLS handshake and decrypt for filtering]
+```
 
 ## Overview
 

@@ -2,9 +2,17 @@
 title: "Clam antivirus"
 ---
 
-<Frame caption="ClamAV scan flow">
-  <img src="/images/configuration/clam_antivirus_flowchart.svg" alt="ClamAV scan flow" />
-</Frame>
+```mermaid
+flowchart TB
+buffer[Buffer the upload or download body] --> walk[Walk enabled clamav rows top to bottom]
+walk --> match{First row Profiles match?}
+match -->|No| next[Next row]
+match -->|Yes| scan[Stream body to clamd]
+scan --> result{clamd result}
+result -->|OK| allow[Allow]
+result -->|FOUND| block[DO NOT BYPASS block]
+block --> templ[Resolve template row then Default then built-in error]
+```
 
 ## Overview
 

@@ -15,9 +15,25 @@ The **Templates** section configures block pages and error bodies served when Sa
 5. Else built-in `PAGES[]` defaults.
 6. Else log undefined template error.
 
-<Frame caption="Template resolution">
-  <img src="/images/configuration/templates_flowchart.svg" alt="Template get flow" />
-</Frame>
+```mermaid
+flowchart TB
+walk[Walk configured rows top down] --> validRow{Row enabled and Name non-empty?}
+validRow -->|No| walk
+validRow -->|Yes| profiles{Profiles gate passes?}
+profiles -->|No| walk
+profiles -->|Yes| nameMatch{Name matches case-insensitively?}
+nameMatch -->|No| walk
+nameMatch -->|Yes| firstMatch[First match wins]
+firstMatch --> type{Type}
+type -->|FILE| cached[Serve preloaded file]
+type -->|EXECUTABLE| run[Run executable for stdout response]
+cached --> parsable{Parsable on?}
+parsable -->|Yes| substitute[Substitute template variables]
+parsable -->|No| send[Send as-is]
+walk -->|No rows left| builtin{Built-in PAGES default exists?}
+builtin -->|Yes| useDefault[Use built-in default]
+builtin -->|No| error[Log undefined template error]
+```
 
 ### FILE vs EXECUTABLE
 

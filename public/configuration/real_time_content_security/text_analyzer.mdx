@@ -2,9 +2,19 @@
 title: "Text analyzer"
 ---
 
-<Frame caption="Cumulative scoring flow">
-  <img src="/images/configuration/text_analyzer_flowchart.svg" alt="Cumulative scoring flow" />
-</Frame>
+```mermaid
+flowchart TB
+resp[Response Content-Type] --> mimeGate{Any enabled row MIME regex matches?}
+mimeGate -->|No| pass[Pass through unscanned]
+mimeGate -->|Yes| buffer[Buffer response body]
+buffer --> walk[Walk rows top to bottom]
+walk --> row{Row MIME and Keyword regex match body?}
+row -->|Yes| add[Add row Score to running total]
+row -->|No| next[Next row]
+add --> thresh{Total at or above Threshold?}
+thresh -->|Yes| block[DO NOT BYPASS and HTTP 451 block page]
+thresh -->|No| next
+```
 
 ## Overview
 

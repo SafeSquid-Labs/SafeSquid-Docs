@@ -28,9 +28,21 @@ Directory HTML listings use **Sort field** and **Sort order** when the client do
   **Caching checks the literal word `anonymous`, not your configured anonymous-login username.** FTP file caching only happens when directory information is available *and* the request's username is exactly the literal word `anonymous` (case-insensitive) — this check is against the fixed word itself, not against whatever value is set in **Username for anonymous login**. Rename that field to anything else (for example `ftpguest`) and anonymous logins keep working exactly as before, but files fetched anonymously silently stop being cached. Authenticated FTP transfers are never cached through this path, regardless of username.
 </Warning>
 
-<Frame caption="FTP login path">
-  <img src="/images/configuration/ftp_browsing_flowchart.svg" alt="FTP protocol flow" />
-</Frame>
+```mermaid
+flowchart TB
+req["Client requests ftp:// URL over HTTP"] --> userCheck{Client sent a username?}
+userCheck -->|No| subst[Substitute configured Username and Password before login]
+userCheck -->|Yes| login[Log in to remote FTP server with client credentials]
+subst --> login
+login --> mode{Passive mode?}
+mode -->|On| pasv[PASV data connection]
+mode -->|Off| port[PORT active - local bind on control connection interface]
+pasv --> op[LIST directory or RETR file]
+port --> op
+op --> cacheCheck{Username exactly anonymous and directory info available?}
+cacheCheck -->|Yes| cache[Cache the transfer]
+cacheCheck -->|No| noCache[Not cached - configured anonymous-login Username is not tested here]
+```
 
 ## Global fields
 

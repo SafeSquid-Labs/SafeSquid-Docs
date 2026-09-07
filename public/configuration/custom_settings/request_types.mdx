@@ -12,9 +12,21 @@ The **Request Types** section labels HTTP requests with tags consumed by [Access
 2. **Domains and Urls** — substring match; every matching row applies.
 3. **Request Types** rows — all gates must pass; every match applies.
 
-<Frame caption="Request Types — row gate order">
-  <img src="/images/configuration/request_types_flowchart.svg" alt="Request Types gate flow" />
-</Frame>
+```mermaid
+flowchart TB
+req[Request with host] --> sig{Application Signatures active and subscription valid?}
+sig -->|Yes| tagSig[Tag matching signature]
+sig -->|No| domains[Walk Domains and Urls rows]
+tagSig --> domains
+domains --> domMatch{Host or Referer substring matches?}
+domMatch -->|Yes| domApply[Apply row and add tags with optional DNSBL and categorization bypass]
+domMatch -->|No| domNext[Next row]
+domApply --> reqTypes[Walk Request Types rows]
+domNext --> reqTypes
+reqTypes --> gateAll{All configured gates on row pass?}
+gateAll -->|Yes| tagReq[Add or remove Request Types tags]
+gateAll -->|No| reqNext[Next row]
+```
 
 ### Domains and Urls
 

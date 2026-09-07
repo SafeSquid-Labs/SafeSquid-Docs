@@ -2,10 +2,6 @@
 title: "Content modifier"
 ---
 
-<Frame caption="Rewrite hook flow">
-  <img src="/images/configuration/content_modifier_flowchart.svg" alt="Rewrite hook flow" />
-</Frame>
-
 ## Overview
 
 The `Rewrite` section performs PCRE search-and-replace on HTTP headers and bodies. Use it to inject cookies, strip sensitive header values, or modify response body content before it reaches the client.
@@ -40,7 +36,7 @@ For **BODY** rewrites, a non-empty MIME type regex must match the response `Cont
 ## Processing flow
 
 ```mermaid
-flowchart TD
+flowchart TB
 msg[Request or response] --> flags{Applies to matches hook?}
 flags -->|No| skip[Skip row]
 flags -->|Yes| prof{Profiles match?}

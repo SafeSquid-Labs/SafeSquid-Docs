@@ -13,9 +13,20 @@ The **Time Profiler** section tags connections with time labels from the applian
 3. **Match mode** — ABSOLUTE timestamp window or ALL RANGES (month + day + minutes-from-midnight).
 4. Add/remove time labels.
 
-<Frame caption="Time Profiler — match flow">
-  <img src="/images/configuration/time_profiler_flowchart.svg" alt="Time Profiler match flow" />
-</Frame>
+```mermaid
+flowchart TB
+clock[Read appliance local time once] --> prereq{Time Profiles prerequisite tags present?}
+prereq -->|No| skip[Row skipped]
+prereq -->|Yes| weekday{Current weekday in configured range?}
+weekday -->|No| skip
+weekday -->|Yes| mode{Match mode}
+mode -->|ABSOLUTE| abs{Timestamp within abs_from and abs_to?}
+mode -->|ALL RANGES| all{Month and day and minute-of-day all in range?}
+abs -->|Yes| apply[Add or remove time labels]
+abs -->|No| skip
+all -->|Yes| apply
+all -->|No| skip
+```
 
 <Warning>
 **Weekday active flag** is stored but not checked — weekday bounds always apply. Set explicit 0–6 or 1–5 ranges; template default 0 alone matches Sunday only.

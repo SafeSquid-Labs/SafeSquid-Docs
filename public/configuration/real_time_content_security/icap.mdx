@@ -2,10 +2,6 @@
 title: "ICAP"
 ---
 
-<Frame caption="ICAP row walk">
-  <img src="/images/configuration/icap_flowchart.svg" alt="ICAP row walk" />
-</Frame>
-
 ## Overview
 
 The `ICAP` section sends HTTP request or response bodies to an external ICAP server for scanning or modification. Typical uses include antivirus ICAP services, DLP adapters, and content adaptation.
@@ -36,12 +32,12 @@ If no row is eligible for the current hook — none match Profiles, include the 
 ## Processing flow
 
 ```mermaid
-flowchart TD
+flowchart TB
 hook[REQMOD or RESPMOD hook] --> walk[Walk ICAP rows top-down]
 walk --> row{Match profiles flags URL?}
 row -->|No| next[Next row]
-row -->|Yes| call[Call ICAP server]
-call --> code{Response code?}
+row -->|Yes| icapcall[Call ICAP server]
+icapcall --> code{Response code?}
 code -->|204| clean[Allow stop]
 code -->|200 + threat| block[Block or replace stop]
 code -->|5xx| error[Error template]

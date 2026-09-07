@@ -18,9 +18,15 @@ Outbound walks Interface rows top-down: skip disabled; skip empty Source IP afte
 
 Non-local Source IPs are dropped silently at load. If all IPs are dropped, the row is skipped at runtime.
 
-<Frame caption="Outbound Interface selection">
-  <img src="/images/configuration/network_settings_flowchart.svg" alt="Interface selection flow" />
-</Frame>
+```mermaid
+flowchart TB
+outbound[Outbound TCP connect] --> walk[Walk Interface list top-down]
+walk --> gate{"Row disabled, empty Source IP, destination in Excluded Destination IPs, or profile mismatch?"}
+gate -->|Skip| more{More rows?}
+gate -->|Pass| bind["Bind source IP from row's list, keyed by client ID - stop"]
+more -->|Yes| walk
+more -->|No| noBind[No Interface row matched - no bind from this section]
+```
 
 ## Listen fields
 

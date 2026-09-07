@@ -2,9 +2,18 @@
 title: "External applications"
 ---
 
-<Frame caption="External parser flow">
-  <img src="/images/configuration/external_applications_flowchart.svg" alt="External parser flow" />
-</Frame>
+```mermaid
+flowchart TB
+walk[Walk enabled rows top to bottom] --> match{Profiles and Applies to and session mode match?}
+match -->|No| next[Next row]
+match -->|Yes| exec[Pipe or File body to Executable]
+exec --> parse{stdout parses as well-formed HTTP header?}
+parse -->|No| next
+parse -->|Yes| extract[Extract X-username and X-profiles on any exit code]
+extract --> exit{Exit code}
+exit -->|0| replace[Replace request or response content and stop]
+exit -->|Non-zero| preserve[Preserve original content]
+```
 
 ## Overview
 

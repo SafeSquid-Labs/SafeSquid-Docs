@@ -2,9 +2,27 @@
 title: "DNS Blacklist"
 ---
 
-<Frame caption="DNSBL check order">
-  <img src="/images/configuration/dns_blacklist_flowchart.svg" alt="DNSBL check order" />
-</Frame>
+```mermaid
+flowchart TB
+start[Request host] --> uncategorized{Website categories empty?}
+uncategorized -->|Yes| heuristics[Run uncategorized heuristics for name length then homograph then unique host count]
+uncategorized -->|No| category
+heuristics --> hBlock{Heuristic failed?}
+hBlock -->|Yes| block[DO NOT BYPASS and HTTP 451 block page]
+hBlock -->|No| category
+category[Walk Threatful Categories rows] --> catMatch{Category match?}
+catMatch -->|Yes| block
+catMatch -->|No| request[Walk Threatful Requests rows]
+request --> reqMatch{Request type match?}
+reqMatch -->|Yes| block
+reqMatch -->|No| dnsbl[Append DNSBL Domain suffix and resolve A record]
+dnsbl --> dnsblMatch{A record in Blocked IP addresses?}
+dnsblMatch -->|Yes| block
+dnsblMatch -->|No| ipcheck[Compare A record and reverse DNSBL answer and GeoIP country]
+ipcheck --> ipMatch{Match Blocked IP addresses or Threatful Countries?}
+ipMatch -->|Yes| block
+ipMatch -->|No| allow[Allow]
+```
 
 ## Overview
 

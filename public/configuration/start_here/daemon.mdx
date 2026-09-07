@@ -15,6 +15,32 @@ SafeSquid is the main proxy process on the Secure Web Gateway appliance. It acce
 6. **React to policy changes** — see [Live policy reload vs restart](#live-policy-reload-vs-restart).
 7. **Stop** — on a stop request, the daemon finishes or drops any in-flight connections cleanly and exits.
 
+```mermaid
+flowchart TB
+    start[Start — read startup config, open listeners, load saved policy]
+    accept[Accept — a new client connection lands on a configured listener]
+    evaluate[Evaluate — run the request pipeline against the policy in memory]
+    verdict{Permitted?}
+    forward[Forward the request to its destination]
+    block[Return a block response and close the connection]
+    log[Log the completed transaction]
+    react{Policy changed?}
+    reload[Apply the new policy to the next connections evaluated]
+    restart[Restart required for listener-level settings]
+    stop[Stop — finish or drop in-flight connections and exit]
+
+    start --> accept --> evaluate --> verdict
+    verdict -->|Yes| forward
+    verdict -->|No| block
+    forward --> log
+    block --> log
+    log --> react
+    react -->|Most sections| reload --> accept
+    react -->|Low-level resources| restart --> start
+    react -->|No| accept
+    accept -->|Stop request| stop
+```
+
 ### Live policy reload vs restart
 
 Saving a change in the Web UI updates the running daemon's policy for most sections with no restart — the new policy applies to the next connections evaluated. A small minority of low-level settings need a restart because they affect resources the daemon opens only once at startup, such as listener sockets.

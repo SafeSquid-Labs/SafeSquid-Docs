@@ -2,10 +2,6 @@
 title: "DLP"
 ---
 
-<Frame caption="Upload DLP flow">
-  <img src="/images/configuration/dlp_flowchart.svg" alt="Upload DLP flow" />
-</Frame>
-
 ## Overview
 
 The `DLP` section inspects **uploaded** content and can block sensitive data leaving the network. MIME-based DLP policies set allow or block actions; OCR policies score text extracted from uploads against a global Threshold.
@@ -41,7 +37,7 @@ Modern zip-based Office documents (`.docx`, `.xlsx`, `.pptx`) are unarchived dir
 ## Processing flow
 
 ```mermaid
-flowchart TD
+flowchart TB
 upload[Upload part] --> mimeWalk[Walk DLP MIME rows top-down]
 mimeWalk --> lastMatch[Last match sets action]
 lastMatch --> dnb{DO NOT BYPASS?}

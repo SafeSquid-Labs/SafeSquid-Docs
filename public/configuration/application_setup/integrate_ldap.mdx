@@ -22,9 +22,18 @@ Authentication walks servers until the domain and **Ldap Basedn** match; stops o
 
 Stored in config but not used in search code — groups come from **Group Identifier** attributes and DN OUs.
 
-<Frame caption="LDAP cache update">
-  <img src="/images/configuration/integrate_ldap_flowchart.svg" alt="LDAP sync flow" />
-</Frame>
+```mermaid
+flowchart TB
+cycle[Timer or config refresh triggers update cycle] --> walkServers[For each enabled valid LDAP servers row]
+walkServers --> bind[Bind and run paged cache search]
+bind --> accumulate[Accumulate user and group entries into maps]
+accumulate --> domain["The first valid row's Ldap Domain becomes the default domain"]
+domain --> keyCheck{"Login already includes a domain?"}
+keyCheck -->|No| append[Append the default domain]
+keyCheck -->|Yes| upper[Uppercase for the map key]
+append --> upper
+upper --> lookup["LOGIN@DOMAIN map key used for LDAP Profiles and Access"]
+```
 
 ## Examples
 

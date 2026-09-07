@@ -25,9 +25,20 @@ With **Default Access Policy = Deny** (recommended):
 
 With Default Allow, Deny is walked first, then Allow. Within one list, **first match wins** — lower rows are not evaluated for that pass.
 
-<Frame caption="Processing flow — policy Deny, Allow list pass">
-  <img src="/images/configuration/access_restrictions_flowchart.svg" alt="Access check flow for policy Deny" />
-</Frame>
+```mermaid
+flowchart TB
+conn[New connection] --> policy{Default Access Policy?}
+policy -->|Allow| inverted["List order inverts: walk Deny list first, then Allow - same first-match-wins mechanics per list"]
+policy -->|Deny - recommended| walkAllow[Walk Allow list top-down]
+walkAllow --> gate["Row gates: Profiles, Interface, IP, LDAP Profiles - any failure skips to next row"]
+gate --> firstMatch{First enabled row where gates pass?}
+firstMatch -->|Match found - lower rows not evaluated| allowMatched[Allow row matched]
+firstMatch -->|No match| denied[Access denied]
+allowMatched --> walkDeny[Walk Deny list]
+walkDeny --> denyMatch{Deny row matches?}
+denyMatch -->|Yes| revoke[Access revoked]
+denyMatch -->|No| grant["Apply access rights, groups, bypass, concurrency"]
+```
 
 ### Inner gate order
 

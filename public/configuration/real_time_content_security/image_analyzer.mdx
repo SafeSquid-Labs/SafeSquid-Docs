@@ -2,10 +2,6 @@
 title: "Image analyzer"
 ---
 
-<Frame caption="Image scoring flow">
-  <img src="/images/configuration/image_analyzer_flowchart.svg" alt="Image scoring flow" />
-</Frame>
-
 ## Overview
 
 The `Imgfilter` section scores `image/*` response and upload bodies and blocks or debug-replaces content when the engine score is at or above a threshold. Blocked images can be replaced with a template (default `checkeredgif`).
@@ -35,7 +31,7 @@ Bypass Image Scanning on a matching row skips buffering and scoring entirely.
 ## Processing flow
 
 ```mermaid
-flowchart TD
+flowchart TB
 part[image/* body] --> size{>= 50x50?}
 size -->|No| skip[Skip]
 size -->|Yes| walk[Walk policy rows]

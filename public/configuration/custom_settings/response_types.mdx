@@ -13,9 +13,30 @@ The **Response Types** section labels HTTP responses for [Access Profiles](/conf
 
 Every matching enabled row applies; no first-match stop.
 
-<Frame caption="Response Types — row gate order">
-  <img src="/images/configuration/response_types_flowchart.svg" alt="Response Types gate flow" />
-</Frame>
+```mermaid
+flowchart TB
+headers[Response headers received] --> pass1[First pass profiles response with no body buffer]
+pass1 --> buffer[Body buffered with detected MIME and size]
+buffer --> pass2[Second pass profiles again with detected MIME and size]
+pass2 --> walk[Walk enabled rows top to bottom]
+walk -.-> quirk[Multipart and byterange controls in the UI have no effect in the code]
+walk --> gate{Content size and MIME and extension gates pass?}
+gate -->|Yes| tag[Add or remove Response Types tags]
+gate -->|No| next[Next row]
+```
+
+{/* source: https://www.safesquid.com/md/respProfiles.md */}
+{/* NEEDS-SME-REVIEW: legacy source states the multipart/byterange controls are stored but never read at runtime. Not reproduced by live test in this repo — the console section was confirmed present (Global · Response Types tabs, 2026-09-07) but the control's inertness was not exercised. Confirm against the build before this is treated as settled. */}
+<Warning>
+The **multipart** and **byterange** controls appear in the row form but are reported by the
+legacy documentation as having no effect in the code — they are stored and never read. Do not
+build a policy that depends on either one.
+
+**Missing:** this is a legacy-source claim that has not been reproduced by a live test on the
+current build, unlike the comparable Speed Limits **Action** field. Treat it as a reason to
+avoid depending on these two controls, not as a confirmed defect, and escalate to the SME
+before quoting it to a customer.
+</Warning>
 
 ### Content size
 

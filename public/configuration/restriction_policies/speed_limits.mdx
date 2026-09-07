@@ -2,9 +2,16 @@
 title: "Speed Limits"
 ---
 
-<Frame caption="Limit enforcement flow">
-  <img src="/images/configuration/speed_limits_flowchart.svg" alt="Limit enforcement flow" />
-</Frame>
+```mermaid
+flowchart TB
+req[Request on connection] --> match[Evaluate every enabled row matching Profiles]
+match --> reqLimit{Request limit exceeded?}
+reqLimit -->|Yes| block429[HTTP 429 + row Template]
+reqLimit -->|No| bytes{Remaining transfer bytes reach 0 tightest cap?}
+bytes -->|Yes| blockXfer[Block further transfer + row Template]
+bytes -->|No| rate[Throttle at lowest non-zero Download rate among matching rows]
+rate --> counters[Increment counters unless Per-request limit or cache excluded]
+```
 
 ## Overview
 

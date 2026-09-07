@@ -28,6 +28,24 @@ Valid [Subscription](/configuration/infrastructure_and_access/subscription) is r
 3. Config reload or init hooks merge vendor data with custom dev XML from the Web UI.
 4. Per-request labelling runs in the pipeline: SSqore and local category editor for website categories; Application Signatures for application tags.
 
+```mermaid
+flowchart TB
+    hook["Background hooks fire on the UPDATE schedule"]
+    fetch["Signature updaters run — update_application_signatures, update_content_signatures, and related"]
+    land["Downloaded files land under /var/lib/safesquid/"]
+    merge["Config reload or init hooks merge vendor data with custom dev XML from the Web UI"]
+    label["Per-request labelling in the pipeline"]
+    sites["SSqore and the local category editor label websites"]
+    apps[Application Signatures label applications]
+
+    hook --> fetch --> land --> merge --> label
+    label --> sites
+    label --> apps
+```
+
+Custom rules and local category overrides layer on top of the vendor data at the merge step —
+they never replace it.
+
 {/* source: https://www.safesquid.com/md/feeds.md */}
 Custom Application Signature rules, custom Content Signature rules, and local category overrides all layer on top of the vendor data — they do not replace it.
 

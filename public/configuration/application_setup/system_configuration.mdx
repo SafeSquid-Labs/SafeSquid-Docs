@@ -31,9 +31,15 @@ The CONNECT port check applies only when a row matched. Port must be in the row 
 
 `maxdbuffer` only applies when Content-Length is known and the body is not chunked — a chunked or Content-Length-less response streams through without full buffering regardless of the configured size. `bufferwait` is the interval between re-sends of the "downloading" holding page while a large response is still buffering. Compress outgoing is effectively always on for SafeSquid's own Web interface, regardless of what the matched entry says — only traffic to external origins honours the matched entry's Compress outgoing setting.
 
-<Frame caption="General policy row selection">
-  <img src="/images/configuration/system_configuration_flowchart.svg" alt="General find flow" />
-</Frame>
+```mermaid
+flowchart TB
+conn[Connection with profiles] --> walk[Walk Compression and buffering policies top-down]
+walk --> row{Row enabled and profiles match? - blank profiles matches all}
+row -->|Yes| apply["Apply this row's timeouts, buffers, cportrange, compression - stop"]
+row -->|No| more{More rows?}
+more -->|Yes| walk
+more -->|No| defaults[Use built-in defaults - CONNECT ports unrestricted]
+```
 
 ## Global fields
 

@@ -8,9 +8,19 @@ title: "Privacy control"
   <Tab title="Cookie filter">
     The `Cookies-filtering` section (`safesquid-cookies-filtering(5)`) provides granular control over HTTP cookies passing between clients and servers.
 
-    <Frame caption="Cookie list walk">
-      <img src="/images/configuration/cookie_filter_flowchart.svg" alt="Cookie list walk" />
-    </Frame>
+    ```mermaid
+    flowchart TB
+    field[Cookie header field] --> policy{Policy Deny or Allow?}
+    policy -->|Deny| walkA1[Walk Allow list]
+    policy -->|Allow| walkD1[Walk Deny list]
+    walkA1 --> walkD2[Walk Deny list]
+    walkD1 --> walkA2[Walk Allow list]
+    walkD2 --> last[Last match in list pass wins]
+    walkA2 --> last
+    last --> result{Match outcome?}
+    result -->|Allow| keep[Keep cookie]
+    result -->|Deny| strip[Strip cookie field]
+    ```
 
     ## Core mechanics
 
@@ -103,9 +113,21 @@ title: "Privacy control"
   <Tab title="Header filter">
     The `Header-filtering` section (`safesquid-header-filtering(5)`) allows administrators to strip out or inject HTTP headers into client requests or server responses.
 
-    <Frame caption="Header filter flow">
-      <img src="/images/configuration/header_filter_flowchart.svg" alt="Header filter flow" />
-    </Frame>
+    ```mermaid
+    flowchart TB
+    field[Header field] --> policy{Policy Deny or Allow?}
+    policy -->|Deny| walkA1[Walk Allow list]
+    policy -->|Allow| walkD1[Walk Deny list]
+    walkA1 --> walkD2[Walk Deny list]
+    walkD1 --> walkA2[Walk Allow list]
+    walkD2 --> first[First matching row decides field]
+    walkA2 --> first
+    first --> result{Allow or strip?}
+    result -->|Allow| keep[Field kept]
+    result -->|Deny| strip[Field stripped]
+    keep --> insert[Insert rows apply cumulative]
+    strip --> insert
+    ```
 
     ## Core mechanics
 
@@ -230,10 +252,6 @@ title: "Privacy control"
   <Tab title="Elevated Privacy">
     The `Elevated` section reduces cross-site tracking by stripping third-party cookies and selected tracking headers. Without it, third-party cookies and related trackers can follow users from site to site.
 
-    <Frame caption="Privacy level selection">
-      <img src="/images/configuration/elevated_privacy_flowchart.svg" alt="Privacy level selection" />
-    </Frame>
-
     ## Core mechanics
 
     ### First match wins
@@ -250,7 +268,7 @@ title: "Privacy control"
     Changes are logged to the privacy log and Detailed logs with filter name Elevated-Privacy. Debug header `X-Elevated-Privacy` reports level when Send Debugging Headers includes client.
 
     ```mermaid
-    flowchart TD
+    flowchart TB
     hdr[Request or response headers] --> walk[Walk Elevated rows top-down]
     walk --> match{First enabled profile match?}
     match -->|No| none[No elevated changes]

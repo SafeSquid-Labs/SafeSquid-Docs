@@ -2,9 +2,15 @@
 title: "Redirect"
 ---
 
-<Frame caption="Redirect first-match flow">
-  <img src="/images/configuration/redirect_flowchart.svg" alt="Redirect first-match flow" />
-</Frame>
+```mermaid
+flowchart TB
+req[Client request or response Location header] --> walk[Walk enabled rows top to bottom]
+walk --> match{Profiles and direction and URL regex all match?}
+match -->|No| next[Next row]
+match -->|Yes| mode{302 redirect field}
+mode -->|Yes| send302[Send HTTP 302 to client with rewritten URL]
+mode -->|No| fetch[Rewrite proto host file and port then fetch internally]
+```
 
 ## Overview
 

@@ -2,10 +2,6 @@
 title: "SqScan"
 ---
 
-<Frame caption="SqScan policy flow">
-  <img src="/images/configuration/sqscan_flowchart.svg" alt="SqScan policy flow" />
-</Frame>
-
 ## Overview
 
 The `SqScan` section is SafeSquid’s built-in in-memory antivirus scanner. It scans buffered uploads and downloads without an external `clamd` process. When malware is detected, the connection is blocked with **DO NOT BYPASS**.
@@ -33,7 +29,7 @@ Virus detection sets the action to **DO NOT BYPASS**. Access restrictions **Bypa
 ## Processing flow
 
 ```mermaid
-flowchart TD
+flowchart TB
 part[Buffered upload/download] --> walk[Walk policy rows top-down]
 walk --> match{First profile match?}
 match -->|No| skip[No SqScan]

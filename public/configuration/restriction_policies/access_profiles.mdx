@@ -29,9 +29,19 @@ Access restrictions **User-Groups** populate `user_groups` (not `profiles`). Acc
 3. Walk **Secondary Policies** top-down — same cumulative rules.
 4. Final action not Allow → block (bypass cookie may apply).
 
-<Frame caption="Access Profiles — gate order per row">
-  <img src="/images/configuration/access_profiles_flowchart.svg" alt="Access Profiles row gate flow" />
-</Frame>
+```mermaid
+flowchart TB
+start[New request] --> clear["Clear profile tags, set Action = ALLOW"]
+clear --> walk[Walk Default Policies then Secondary Policies top-down]
+walk --> row{"Row: Profiles, Time Schedule, Request Types, Response Types, User Groups, Categories all match?"}
+row -->|Yes| apply["Add or remove profiles, update Action"]
+row -->|No| next["Next row - cumulative, no stop"]
+apply --> next
+next --> final{Final Action = Allow?}
+final -->|Yes| allow[Continue with applied profile tags]
+final -->|No| block[Block template]
+block --> bypass[451 + bypass cookie if Allow bypassing]
+```
 
 ### Action values
 

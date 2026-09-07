@@ -2,9 +2,23 @@
 title: "Proxy chain"
 ---
 
-<Frame caption="Forward peer selection">
-  <img src="/images/configuration/proxy_chain_flowchart.svg" alt="Forward peer selection" />
-</Frame>
+```mermaid
+flowchart TB
+req[Request] --> disabledCheck{Forwarding disabled or Access Bypass Forward set?}
+disabledCheck -->|Yes| direct[Send direct]
+disabledCheck -->|No| walk[Walk Forwarding proxies top to bottom]
+walk --> row{"Enabled row matches, non-self Proxy?"}
+row -->|Blank Proxy on match| stop[Stop collection immediately]
+row -->|Non-blank Proxy| add[Add to candidate list]
+add --> more{More rows?}
+more -->|Yes| walk
+more -->|No| connectCheck{CONNECT request?}
+stop --> connectCheck
+connectCheck -->|Yes| skipSel["Skip ICP/CARP selection logic"]
+connectCheck -->|No| select["Select peer: CARP hash, ICP priority, or random tie-break"]
+skipSel --> send["Send through selected peer, or direct if no candidate remains"]
+select --> send
+```
 
 ## Overview
 

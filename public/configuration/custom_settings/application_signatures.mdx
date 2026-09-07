@@ -23,6 +23,31 @@ Vendor signature databases download on the appliance update schedule. See [start
 5. Tags from earlier rules in the same pass are visible to later rules via the **Application signatures** prerequisite field.
 6. Final tags are copied to `request_types` and logged as application signatures.
 
+```mermaid
+flowchart TB
+    conn[Connection enters the signature stage]
+    sub{"SUBSCRIPTION_EXPIRED set?"}
+    skip[Skip signature processing entirely for this connection]
+    clear[Clear prior application-signature and request-type tags]
+    builtin["Add built-in tags where they apply — IPV4 Host, IPV6 Host, Cross Site Request"]
+    row[Take the next enabled row of the Application Signatures List]
+    filters{"Row filters pass? Application signatures, then Method and Protocol, then Mime type, then port, post size, File, host and referer, User Agent, X-Forwarded-For, Request header pattern"}
+    tag[Add Added application signatures and category tags; remove Removed application signatures]
+    more{More rows left?}
+    copy["Copy final tags to request_types and log them"]
+
+    conn --> sub
+    sub -->|Yes| skip
+    sub -->|No| clear --> builtin --> row --> filters
+    filters -->|Any filter fails| more
+    filters -->|All pass| tag --> more
+    more -->|Yes — no first-match stop| row
+    more -->|No| copy
+```
+
+Tags added by an earlier row are visible to later rows through the **Application signatures**
+prerequisite field, which is why the walk is cumulative rather than first-match.
+
 ### Global Enabled quirk
 
 The section global **Enabled** switch is stored in configuration but request-time matching checks only each rule's own **Enabled** flag. Per-rule Enabled off skips that row; global off does not stop the signature loop by itself.

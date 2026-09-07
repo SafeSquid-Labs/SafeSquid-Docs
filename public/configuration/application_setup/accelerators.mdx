@@ -8,9 +8,16 @@ title: "Accelerators"
   <Tab title="Caching">
     The **Cache** section controls in-memory HTTP caching, refresh policy, and ICP parameters for forwarding.
 
-    <Frame caption="Cache read path">
-      <img src="/images/configuration/caching_flowchart.svg" alt="Cache open flow" />
-    </Frame>
+    ```mermaid
+    flowchart TB
+    open[cache_open read request] --> bypassCheck{Connection flagged to bypass cache?}
+    bypassCheck -->|Yes| noLookup[No cache lookup happens]
+    bypassCheck -->|No| enabledCheck{Enabled and object not CACHE_INVALID?}
+    enabledCheck -->|No| close[Close - return NULL]
+    enabledCheck -->|Yes| violationCheck{Object is CACHE_VIOLATION and Violate RFC is off?}
+    violationCheck -->|Yes| close
+    violationCheck -->|No| serve[Serve from memory]
+    ```
 
     ## Core mechanics
 
@@ -140,9 +147,17 @@ title: "Accelerators"
   <Tab title="Prefetch">
     The **Prefetch** section configures SafeSquid to proactively download resources into its cache before the client actually requests them.
 
-    <Frame caption="Prefetch queue flow">
-      <img src="/images/configuration/prefetching_flowchart.svg" alt="Prefetch queue flow" />
-    </Frame>
+    ```mermaid
+    flowchart TB
+    html[HTML response tag scan] --> row{"Row profiles match and tag/attribute/pattern succeed?"}
+    row -->|No| next[Next row]
+    next --> row
+    row -->|Yes| cacheCheck{URL already cached?}
+    cacheCheck -->|Yes| abort[Abort prefetch]
+    cacheCheck -->|No| limits{Queue size and host limit allow?}
+    limits -->|No| reject[Reject - not queued]
+    limits -->|Yes| queue[Queue URL for background prefetch_thread]
+    ```
 
     ## Core mechanics
 

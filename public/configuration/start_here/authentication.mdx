@@ -52,6 +52,28 @@ Enable **System authentication** on an Access Restrictions entry (internal tag `
 
 Cache size and expiry: `PASSWORD_CACHE_SIZE` and `PASSWORD_CACHE_EXPIRE_TIME` in `startup.ini`. View entries under **Reports → Password Cache**.
 
+```mermaid
+flowchart TB
+    challenge[Login attempt on an entry with System authentication on]
+    cache{"Password cache — recent success or failure?"}
+    pam{"PAM — typically local Unix accounts via pam_unix"}
+    ldap{"LDAP bind — Integrate LDAP configured and user DN known?"}
+    done[Definite result — stop here]
+    fail[No mechanism returned a definite result]
+
+    challenge --> cache
+    cache -->|Definite success or failure| done
+    cache -->|Not applicable| pam
+    pam -->|Definite success or failure| done
+    pam -->|Not applicable| ldap
+    ldap -->|Definite success or failure| done
+    ldap -->|Not applicable| fail
+```
+
+The order is fixed and evaluation stops at the first **definite** result. A definite *failure*
+ends the chain — only a "not applicable" outcome, such as no LDAP configured, falls through to
+the next mechanism.
+
 {/* source: https://www.safesquid.com/md/auth.md */}
 The three checks always run in that fixed order for a given challenge, and SafeSquid stops at the first one that returns a definite result. A definite failure at one step is **not** passed through to the next step — only a "not applicable" result (for example, no LDAP configured) moves on. While System authentication is on for an entry, that entry's own **Password** field is never read at all — **User name** becomes purely a regular-expression filter restricting *who may use this entry*, not a password check.
 
