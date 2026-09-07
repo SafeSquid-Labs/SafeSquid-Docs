@@ -48,26 +48,43 @@ thresh -->|Yes| hardBlock
 thresh -->|No| allow[Continue or DENY with bypass option]
 ```
 
-## Schema Fields
+## Section fields
 
-### Global fields
+The console splits DLP into three tabs. The MIME walk and the OCR walk are separate stages of
+the same upload inspection — see **Processing flow** above for how they hand off.
 
-- **Enabled (enabled)** — Master switch for upload inspection and OCR scoring.
-- **Threshold (threshold)** — OCR keyword weights summed per upload; total ≥ Threshold yields DO NOT BYPASS.
+<Tabs>
+  <Tab title="Global">
 
-### DLP policy rows
+    ## Global fields
 
-- **Upload Content type (mime)** — POSIX regex against part MIME. Commas become alternation (`|`). Blank matches all.
-- **Profiles (profiles)** — Connection must match listed Access Profile tags.
-- **Action (action)** — ALLOW, DENY, or DO NOT BYPASS.
-{/* source: https://www.safesquid.com/md/dlp.md */}
-  The content-inspection layer can still escalate ALLOW or DENY to DO NOT BYPASS once the keyword score crosses Threshold; it never downgrades an existing DO NOT BYPASS.
-- **Comment (comment)** — Block reason when Action is DENY or DO NOT BYPASS.
+    - **Enabled (enabled)** — Master switch for upload inspection and OCR scoring.
+    - **Threshold (threshold)** — OCR keyword weights summed per upload; total ≥ Threshold yields DO NOT BYPASS.
 
-### OCR policy rows
+  </Tab>
 
-- **Search For (keyword)** — POSIX regex against extracted text.
-- **Weight (score)** — Added on match. Weight 0 skips the row.
+  <Tab title="DLP policies">
+
+    ## DLP policy row fields
+
+    - **Upload Content type (mime)** — POSIX regex against part MIME. Commas become alternation (`|`). Blank matches all.
+    - **Profiles (profiles)** — Connection must match listed Access Profile tags.
+    - **Action (action)** — ALLOW, DENY, or DO NOT BYPASS.
+    {/* source: https://www.safesquid.com/md/dlp.md */}
+      The content-inspection layer can still escalate ALLOW or DENY to DO NOT BYPASS once the keyword score crosses Threshold; it never downgrades an existing DO NOT BYPASS.
+    - **Comment (comment)** — Block reason when Action is DENY or DO NOT BYPASS.
+
+  </Tab>
+
+  <Tab title="OCR policies">
+
+    ## OCR policy row fields
+
+    - **Search For (keyword)** — POSIX regex against extracted text.
+    - **Weight (score)** — Added on match. Weight 0 skips the row.
+
+  </Tab>
+</Tabs>
 
 ## Examples
 

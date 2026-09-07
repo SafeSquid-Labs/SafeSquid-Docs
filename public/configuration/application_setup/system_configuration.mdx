@@ -41,44 +41,59 @@ more -->|Yes| walk
 more -->|No| defaults[Use built-in defaults - CONNECT ports unrestricted]
 ```
 
-## Global fields
+## Section fields
 
-Open **Configure → Application Setup → System configuration → Global**.
+The console splits this section into two tabs. Connection pool size and timeout are **Global**
+fields, not a tab of their own — the pool view is a read-only panel reached from Global.
 
-<Frame caption="System configuration — Global fields">
-  <img src="/images/configuration/system_configuration-global.webp" alt="SafeSquid console showing System configuration Global fields with Send Debugging Headers To set to CLIENT, the Edit Policy icon circled" />
-</Frame>
+<Tabs>
+  <Tab title="Global">
 
-{/* source: https://www.safesquid.com/md/general.md */}
-- **Proxy hostname (`hostname`)** — Identity in Via and Kerberos scripts; blank uses system hostname. Setting it to your organization's single LDAP domain name lets users log in without typing the domain themselves.
-- **Connection pool size / timeout (`poolsize` / `pooltimeout`)** — Resizes upstream `serverpool` immediately on config update. When the pool is full the oldest pooled connection is dropped to make room; the idle clock resets each time a pooled connection is reused.
-- **Send Debugging Headers To (`dheaders`)** — CLIENT, SERVER, BOTH, or NONE — see [Debug headers](/configuration/start_here/debug_response_headers).
-- **Dynamic Categorization (`catreferer`)** — Referer categories applied to dependency requests, so a permitted page's sub-resources render instead of showing broken pieces.
+    ## Global fields
 
-## Compression and buffering policies (entry fields)
+    Open **Configure → Application Setup → System configuration → Global**.
 
-{/* source: https://www.safesquid.com/md/general.md */}
-- **Enabled (`enabled`)** — disabled entries are skipped during the top-to-bottom walk.
-- **Comment (`comment`)** — administrator note; not evaluated.
-- **Profiles (`profiles`)** — blank matches every connection; a profile prefixed with `!` applies the entry when that profile is absent.
-- **Connection timeout (`ctimeout`)** — seconds allowed for the outbound connection to the origin server and its I/O before timing out.
-- **Header timeout (`timeout`)** — seconds allowed for the client to finish sending its request headers.
-- **Keepalive timeout (`keeptimeout`)** — seconds an idle client connection is kept open for reuse.
-- **Maximum download buffer size (`maxdbuffer`)** — largest response body SafeSquid will fully buffer for inspection.
-- **Maximum upload buffer size (`maxubuffer`)** — largest client upload SafeSquid will buffer for inspection.
-- **Buffer wait time (`bufferwait`)** — seconds between re-sends of the "downloading" holding page while a large response is still buffering.
-- **CONNECT ports (`cportrange`)** — ports allowed for HTTP CONNECT (tunneled HTTPS) when this entry matches. For example: `443,563`.
-- **Always compress mimetype (`encodemime`)** — comma-separated regular expressions matched against the response's Content-Type.
-- **Compress outgoing (`compressout`)** — gzip-compress eligible responses toward the client.
-- **Compress incoming (`compressin`)** — `FALSE`, `TRUE`, or `AUTO`; controls the Accept-Encoding SafeSquid advertises upstream.
-- **Buffer Chunked Responses (`buffer_chunked`)** — `NEVER`, `ENCODED`, or `ALWAYS`.
-- **Add X-Forwarded-For header (`xforwardedfor`)** — when on, upstream requests include the client's address in `X-Forwarded-For`.
-- **Add Via header (`via`)** — when on, upstream requests include a `Via` header naming this proxy hop.
+    <Frame caption="System configuration — Global fields">
+      <img src="/images/configuration/system_configuration-global.webp" alt="SafeSquid console showing System configuration Global fields with Send Debugging Headers To set to CLIENT, the Edit Policy icon circled" />
+    </Frame>
 
-## Connection pool (view)
+    {/* source: https://www.safesquid.com/md/general.md */}
+    - **Proxy hostname (`hostname`)** — Identity in Via and Kerberos scripts; blank uses system hostname. Setting it to your organization's single LDAP domain name lets users log in without typing the domain themselves.
+    - **Connection pool size / timeout (`poolsize` / `pooltimeout`)** — Resizes upstream `serverpool` immediately on config update. When the pool is full the oldest pooled connection is dropped to make room; the idle clock resets each time a pooled connection is reused.
+    - **Send Debugging Headers To (`dheaders`)** — CLIENT, SERVER, BOTH, or NONE — see [Debug headers](/configuration/start_here/debug_response_headers).
+    - **Dynamic Categorization (`catreferer`)** — Referer categories applied to dependency requests, so a permitted page's sub-resources render instead of showing broken pieces.
 
-{/* source: https://www.safesquid.com/md/general.md */}
-A read-only Web UI panel showing the connections currently held open in the pool, or awaiting reuse. Useful for confirming **Connection pool size** and **Connection pool timeout** are sized correctly under real load.
+    ### Connection pool panel
+
+    {/* source: https://www.safesquid.com/md/general.md */}
+    A read-only Web UI panel showing the connections currently held open in the pool, or awaiting reuse. Useful for confirming **Connection pool size** and **Connection pool timeout** are sized correctly under real load.
+
+  </Tab>
+
+  <Tab title="Compression and buffering policies">
+
+    ## Entry fields
+
+    {/* source: https://www.safesquid.com/md/general.md */}
+    - **Enabled (`enabled`)** — disabled entries are skipped during the top-to-bottom walk.
+    - **Comment (`comment`)** — administrator note; not evaluated.
+    - **Profiles (`profiles`)** — blank matches every connection; a profile prefixed with `!` applies the entry when that profile is absent.
+    - **Connection timeout (`ctimeout`)** — seconds allowed for the outbound connection to the origin server and its I/O before timing out.
+    - **Header timeout (`timeout`)** — seconds allowed for the client to finish sending its request headers.
+    - **Keepalive timeout (`keeptimeout`)** — seconds an idle client connection is kept open for reuse.
+    - **Maximum download buffer size (`maxdbuffer`)** — largest response body SafeSquid will fully buffer for inspection.
+    - **Maximum upload buffer size (`maxubuffer`)** — largest client upload SafeSquid will buffer for inspection.
+    - **Buffer wait time (`bufferwait`)** — seconds between re-sends of the "downloading" holding page while a large response is still buffering.
+    - **CONNECT ports (`cportrange`)** — ports allowed for HTTP CONNECT (tunneled HTTPS) when this entry matches. For example: `443,563`.
+    - **Always compress mimetype (`encodemime`)** — comma-separated regular expressions matched against the response's Content-Type.
+    - **Compress outgoing (`compressout`)** — gzip-compress eligible responses toward the client.
+    - **Compress incoming (`compressin`)** — `FALSE`, `TRUE`, or `AUTO`; controls the Accept-Encoding SafeSquid advertises upstream.
+    - **Buffer Chunked Responses (`buffer_chunked`)** — `NEVER`, `ENCODED`, or `ALWAYS`.
+    - **Add X-Forwarded-For header (`xforwardedfor`)** — when on, upstream requests include the client's address in `X-Forwarded-For`.
+    - **Add Via header (`via`)** — when on, upstream requests include a `Via` header naming this proxy hop.
+
+  </Tab>
+</Tabs>
 
 ## Examples
 

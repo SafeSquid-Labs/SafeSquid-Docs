@@ -25,49 +25,68 @@ HTTPS Inspection controls CONNECT handling and optional TLS man-in-the-middle (D
 - **Upstream Validation**: SafeSquid builds an OpenSSL certificate store and verification parameters to validate the upstream origin server’s certificate against known CA authorities.
 - **Strict Error Handling**: Handlers validate domain mismatches (`block_domain_mismatch`), missing certificates (`block_no_cert`), and maximum allowable OpenSSL error levels (`max_error_level`). Failures drop the connection to prevent MITM attacks from malicious servers.
 
-## Schema Fields
+## Section fields
 
-### Global Fields
+The console splits HTTPS Inspection into three tabs. There is **no Setup tab** — the Setup rows
+described under SSL Certs/Cache below are configuration the current build never reads.
 
-- **Enabled (enabled)**: Master switch for HTTPS Inspection. Off: The policy engine returns NULL and the inspection engine never enables Deep Scan. On: policies apply only when RCSC setup succeeds.
+<Tabs>
+  <Tab title="Global">
 
-### Rule-Based Fields (Per Connection Tuning)
+    ## Global field
 
-- **Enabled (enabled)**: When disabled, this row is skipped. First matching enabled row wins for each CONNECT.
-- **Comment (comment)**: Operator note only; not used in SSL verification logs.
-- **Profiles (profiles)**: Connection must match at least one listed profile (Access Profiles engine). Leave blank for all connections. Negated tags ( !profile ) skip the row when that profile is present. The engine stops at the first matching row from the top.
-- **DeepScan (deepscan)**: When TRUE, the inspection engine returns TRUE and SafeSquid performs a client TLS handshake on CONNECT, decrypting HTTP for inspection. When FALSE, CONNECT is tunneled without decrypting; upstream SSL checks in this row are not applied to tunneled traffic. Use FALSE for non-HTTP TLS (Drive, Subversion, WinSCP, etc.).
-- **Block Access to Sites that do not have an SSL Certificate (block\_no\_cert)**: When TRUE (default), upstream validation blocks if the upstream presents no certificate. When FALSE, connections without a server certificate are allowed to continue (logged at DEBUG).
-- **Acceptable Errors in SSL Verification (block\_err\_level)**: Maximum OpenSSL verification error SafeSquid tolerates on the upstream certificate. Upstream validation blocks when error limits are exceeded. Level 0 is strictest — only a fully valid chain passes. Hostname and IP mismatch are also gated by Block domain mismatch separately.
-- **Block domain mismatch in the web-site SSL certificate (block\_domain\_mismatch)**: When TRUE (default), hostname or IP mismatch errors from OpenSSL block the connection. When FALSE, X509\_V\_ERR\_HOSTNAME\_MISMATCH and X509\_V\_ERR\_IP\_ADDRESS\_MISMATCH are explicitly allowed even if they exceed the acceptable error level.
-- **Enabled (enabled)**: When disabled, this Setup row is skipped when the list is rebuilt on config reload. Note: rows are loaded into server\_config\_list but no runtime code in this tree reads that list (see ambiguities).
-- **Comment (comment)**: Operator note only; not referenced by SSL setup code.
-- **Proxy Host (proxy\_server)**: Intended to match this SafeSquid instance (hostname from startup parameters) so the row applies on the correct node.
-- **Encrypted Password (enc\_pwd)**: Encrypted passphrase for the RCSC private key, stored per Setup row. Runtime RCSC load uses the global activation password, not this field, in the current build.
-- **SSL Cache Store Size (ssl\_cache\_store\_size)**: Intended cap for outbound SSL context/session cache entries ( CTXcacheOUT ). Stored on each server\_config row but not applied by current cache code (cache sizing is internal to CTXcacheOUT ). Changing cache behaviour requires a restart when supported.
-- **appcontent (appcontent)**: No description provided.
+    - **Enabled (enabled)**: Master switch for HTTPS Inspection. Off: The policy engine returns NULL and the inspection engine never enables Deep Scan. On: policies apply only when RCSC setup succeeds.
 
-## How CONNECT is handled
+  </Tab>
 
-1. On CONNECT, the inspection engine loads the first matching Inspection Policy row.
-2. When Deep Scan is **FALSE**, CONNECT is forwarded as a tunnel without decrypting application data.
-3. When Deep Scan is **TRUE** and RCSC is valid, SafeSquid completes a client-side TLS handshake and decrypts HTTP for filtering.
-4. Before decrypting, the validation engine checks the upstream certificate (no cert, error level, domain mismatch rules).
-5. Deep Scan only works when the tunneled protocol is HTTP; many non-HTTP TLS clients break when forced through inspection.
+  <Tab title="Inspection Policies">
 
-## Inspection Policy fields
+    ## Row fields
 
-- **DeepScan** — TRUE enables client TLS handshake and HTTP inspection. FALSE tunnels HTTPS without decrypting.
-- **Block Access to Sites that do not have an SSL Certificate** — When TRUE (default), block if upstream presents no certificate.
-- **Acceptable Errors in SSL Verification** — Maximum OpenSSL verification error tolerated on the upstream chain. Level 0 is strictest. Hostname/IP mismatch is gated separately by Block domain mismatch.
-- **Block domain mismatch in the web-site SSL certificate** — When TRUE (default), hostname or IP mismatch errors block. When FALSE, mismatch errors are allowed even if they exceed the acceptable error level.
-- **Profiles** — First matching enabled row from the top applies. Blank matches all connections.
+    Every field here is per-connection tuning on an Inspection Policy row. The first matching
+    enabled row from the top wins for each CONNECT.
 
-## Code quirks — Setup subsection unused at runtime
+    - **Enabled (enabled)**: When disabled, this row is skipped. First matching enabled row wins for each CONNECT.
+    - **Comment (comment)**: Operator note only; not used in SSL verification logs.
+    - **Profiles (profiles)**: Connection must match at least one listed profile (Access Profiles engine). Leave blank for all connections. Negated tags ( !profile ) skip the row when that profile is present. The engine stops at the first matching row from the top.
+    - **DeepScan (deepscan)**: When TRUE, the inspection engine returns TRUE and SafeSquid performs a client TLS handshake on CONNECT, decrypting HTTP for inspection. When FALSE, CONNECT is tunneled without decrypting; upstream SSL checks in this row are not applied to tunneled traffic. Use FALSE for non-HTTP TLS (Drive, Subversion, WinSCP, etc.).
+    - **Block Access to Sites that do not have an SSL Certificate (block\_no\_cert)**: When TRUE (default), upstream validation blocks if the upstream presents no certificate. When FALSE, connections without a server certificate are allowed to continue (logged at DEBUG).
+    - **Acceptable Errors in SSL Verification (block\_err\_level)**: Maximum OpenSSL verification error SafeSquid tolerates on the upstream certificate. Upstream validation blocks when error limits are exceeded. Level 0 is strictest — only a fully valid chain passes. Hostname and IP mismatch are also gated by Block domain mismatch separately.
+    - **Block domain mismatch in the web-site SSL certificate (block\_domain\_mismatch)**: When TRUE (default), hostname or IP mismatch errors from OpenSSL block the connection. When FALSE, X509\_V\_ERR\_HOSTNAME\_MISMATCH and X509\_V\_ERR\_IP\_ADDRESS\_MISMATCH are explicitly allowed even if they exceed the acceptable error level.
 
-<Warning>
-**Setup rows are not used by current SSL setup code.** Fields Proxy Host, Encrypted Password, and SSL Cache Store Size are loaded into the internal configuration loader decrypts and loads the root CA using the global activation password only — not Setup row passphrases. Cache sizing is internal to `CTXcacheOUT`; Setup SSL Cache Store Size is not applied. Treat Setup as operator reference until wired in code; use activation for the RCSC passphrase and SSL Certs/Cache for certificate files.
-</Warning>
+    ## How CONNECT is handled
+
+    1. On CONNECT, the inspection engine loads the first matching Inspection Policy row.
+    2. When Deep Scan is **FALSE**, CONNECT is forwarded as a tunnel without decrypting application data.
+    3. When Deep Scan is **TRUE** and RCSC is valid, SafeSquid completes a client-side TLS handshake and decrypts HTTP for filtering.
+    4. Before decrypting, the validation engine checks the upstream certificate (no cert, error level, domain mismatch rules).
+    5. Deep Scan only works when the tunneled protocol is HTTP; many non-HTTP TLS clients break when forced through inspection.
+
+  </Tab>
+
+  <Tab title="SSL Certs/Cache">
+
+    Certificate files live here. The **Setup** rows below were intended to carry the RCSC
+    passphrase and cache sizing per node, but the current build does not read them — they are
+    listed so an operator who finds them populated knows they have no effect.
+
+    ### Setup row fields (stored, never read)
+
+    - **Enabled (enabled)**: When disabled, this Setup row is skipped when the list is rebuilt on config reload. Note: rows are loaded into server\_config\_list but no runtime code in this tree reads that list (see ambiguities).
+    - **Comment (comment)**: Operator note only; not referenced by SSL setup code.
+    - **Proxy Host (proxy\_server)**: Intended to match this SafeSquid instance (hostname from startup parameters) so the row applies on the correct node.
+    - **Encrypted Password (enc\_pwd)**: Encrypted passphrase for the RCSC private key, stored per Setup row. Runtime RCSC load uses the global activation password, not this field, in the current build.
+    - **SSL Cache Store Size (ssl\_cache\_store\_size)**: Intended cap for outbound SSL context/session cache entries ( CTXcacheOUT ). Stored on each server\_config row but not applied by current cache code (cache sizing is internal to CTXcacheOUT ). Changing cache behaviour requires a restart when supported.
+    - **appcontent (appcontent)**: No description provided.
+
+    ## Code quirks — the Setup rows are not read at runtime
+
+    <Warning>
+    **Setup rows are not used by current SSL setup code.** Fields Proxy Host, Encrypted Password, and SSL Cache Store Size are loaded into the internal configuration loader decrypts and loads the root CA using the global activation password only — not Setup row passphrases. Cache sizing is internal to `CTXcacheOUT`; Setup SSL Cache Store Size is not applied. Treat Setup as operator reference until wired in code; use activation for the RCSC passphrase and SSL Certs/Cache for certificate files.
+    </Warning>
+
+  </Tab>
+</Tabs>
 
 ## Examples
 
