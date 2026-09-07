@@ -10,6 +10,9 @@ title: "Clam antivirus"
 
 The `ClamAV` section configures integration with a clamd daemon for real-time malware scanning of HTTP traffic.
 
+{/* source: https://www.safesquid.com/md/clamav.md */}
+Clam antivirus is one of two built-in scan engines — the other is [SqScan](/admin_guide/real_time_content_security/sqscan), an in-memory scanner that needs no external daemon. Many deployments run both, or add ICAP, for defense in depth.
+
 ## Core Mechanics (C++ Source Validation)
 
 Policy walk, results cache.
@@ -47,6 +50,9 @@ Policy walk, results cache.
 <Warning>
 **Order matters.** Put specific profile rows above broad catch-all rows. The first match wins; later rows are not evaluated for that connection.
 </Warning>
+
+{/* source: https://www.safesquid.com/md/clamav.md */}
+Clam antivirus is first-match-wins — the same evaluation model as Access restrictions, and the **opposite** of Access Profiles, which is cumulative. A broad row with a blank Profiles field above a narrower one means the narrower row can never fire for any connection the broad row also matches.
 
 ## Bypass and block severity
 
@@ -106,3 +112,5 @@ ClamAV hostname or socket path, ClamAV port, and Default template.
 2. Open **Reports → Detailed logs**; look for filter name Clam antivirus and a virus name in the reason.
 3. Enable ANTIVIRUS and DEBUG log levels for native `clamav:` lines.
 4. Dashboard stats show Objects Scanned and Threats Detected when scanning is active.
+{/* source: https://www.safesquid.com/md/clamav.md */}
+5. A flat Objects Scanned counter usually means the connection to the scanner, the entry Profiles, or the Access-level Bypass setting needs checking.

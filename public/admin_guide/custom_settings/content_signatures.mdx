@@ -39,6 +39,35 @@ When off, the section reports itself disabled — signature database download/re
 
 Selectors such as **Transfer Encoding Chunk**, **multi-part byte-range**, and **Trace Entry** under Content Signatures are not bound to any template field in this tree — they have no effect here (the same labels on Response Types do affect matching).
 
+{/* source: https://www.safesquid.com/md/contentSignatures.md */}
+## Schema fields
+
+None of the fields below are matched against live traffic in the current build — see the warnings above.
+
+### Global
+
+- **`enabled`** — master switch for signature database download/reload and MIME-detection library setup. Entries you add are saved regardless of this setting.
+
+### Content Signatures List
+
+- **`enabled`** — off skips the entry on save or reload.
+- **`comment`** — administrator note.
+- **Mime type (`valueField`)** — a regex such as `^text/html` or `^image/`; blank represents all MIME types.
+- **`add_content_signatures`** — the signature value(s) this entry defines.
+- **category (`group`)** — category value(s) associated with this entry.
+
+### Content Categories List
+
+- **`enabled`**, **`comment`**, **`add_content_category`** — same fields as above, applied to a category definition rather than a signature.
+
+### Content File Extensions
+
+- **`enabled`**, **`comment`** — same fields as above.
+- **File Extension (`valueField`)** — a regex; comma-separated patterns are combined as an OR, the same convention Response Types uses; blank represents all extensions.
+- **`add_file_extensions`**, **`group`** — the extension value(s) this entry defines, and its category.
+
+A category name does **not** require a matching entry in Content Categories List to be usable — that list exists only to populate autocomplete pickers.
+
 ## Examples
 
 <Tip>
