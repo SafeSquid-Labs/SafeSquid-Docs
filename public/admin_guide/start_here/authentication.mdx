@@ -28,6 +28,9 @@ The Web UI shows **Kerberos / SSO** (internal tag `ntlm`).
 - After success, the username comes from the Kerberos ticket and is logged in Detailed logs.
 - When `SUBSCRIPTION_EXPIRED` is set, some modules (Application Signatures, SSqore) skip processing — see [Subscription](/admin_guide/infrastructure_and_access/subscription).
 - If the keytab is missing at startup, Negotiate is not offered even when the UI setting is on.
+{/* source: https://www.safesquid.com/md/auth.md */}
+- **Silent failure, no error anywhere.** A missing or invalid keytab produces no error anywhere in the Web UI — the global switch simply has no practical effect. Clients fall through silently to whatever fallback the matching entry provides (System authentication, a fixed User name/Password), or an outright deny if the entry required identity and offers none.
+- **Independent of licensing.** An expired subscription can stop licensed modules such as Application Signatures and cloud categorisation from processing a request further, but it does not itself affect Kerberos / SSO's ability to authenticate the user — these are independent checks.
 
 <Tip>
 
@@ -48,6 +51,11 @@ Enable **System authentication** on an Access Restrictions entry (internal tag `
 3. LDAP bind — when Integrate LDAP is configured and the user DN is known
 
 Cache size and expiry: `PASSWORD_CACHE_SIZE` and `PASSWORD_CACHE_EXPIRE_TIME` in `startup.ini`. View entries under **Reports → Password Cache**.
+
+{/* source: https://www.safesquid.com/md/auth.md */}
+The three checks always run in that fixed order for a given challenge, and SafeSquid stops at the first one that returns a definite result. A definite failure at one step is **not** passed through to the next step — only a "not applicable" result (for example, no LDAP configured) moves on. While System authentication is on for an entry, that entry's own **Password** field is never read at all — **User name** becomes purely a regular-expression filter restricting *who may use this entry*, not a password check.
+
+A stale cached *failure* keeps blocking an already-corrected login until it naturally expires — clearing **Reports → Password Cache** is the standard first step after fixing a password or a directory problem.
 
 <Tip>
 
@@ -75,6 +83,9 @@ Cache size and expiry: `PASSWORD_CACHE_SIZE` and `PASSWORD_CACHE_EXPIRE_TIME` in
 
 LDAP matches directory users and groups to rules, and acts as an authenticator after PAM when System authentication is enabled.
 
+{/* source: https://www.safesquid.com/md/auth.md */}
+A successful LDAP bind proves the password only — it says nothing on its own about which Access entry or which Access Profile then applies. That still depends on the User-Groups and LDAP Profiles matching Access restrictions performs separately.
+
 <Tip>
 
 ### Example — allow only the “ProxyUsers” LDAP group
@@ -95,6 +106,9 @@ SafeSquid challenges the browser when the matching Access entry has:
 
 If the entry matches only by IP or interface and none of the above apply, the connection may proceed without a prompt.
 
+{/* source: https://www.safesquid.com/md/auth.md */}
+The prompt itself is the browser's own native credential dialog, not a page SafeSquid renders.
+
 ## Username without a prompt
 
 SafeSquid can assign a username when:
@@ -109,12 +123,23 @@ The username appears in Detailed logs; **Add to User-Groups** on the Access entr
 
 Authentication runs early in the pipeline (after Time Profiler and Request Types, before Speed Limits and content filters). Until it completes, SafeSquid may reply with HTTP 407 (proxy) or 401 with `Proxy-Authenticate` or `WWW-Authenticate`. After success, Access rights, Bypass, and User Groups from the matching entry are applied.
 
+{/* source: https://www.safesquid.com/md/auth.md */}
+Once identity is known, Access restrictions re-walks the same Allow/Deny list with that identity now available — this is the only reason an entry that tests only **LDAP Profiles** can ever match; on the first, identity-less pass it has nothing to test.
+
 ## Common problems
 
 - **Repeated login prompts** — Check Kerberos / SSO, SPN, keytab, and clock skew. Clear Password Cache.
 - **Valid user denied** — Confirm Allow list match, LDAP Profiles, Interface, and IP. In Detailed logs look for access-related `filter_name`. Also confirm a broader entry above it in the list isn't matching first — see [Access restrictions](/admin_guide/application_setup/access_restrictions)'s first-match-wins rule.
 - **PAM failures** — Review `/etc/pam.d/safesquid`. Native log lines start with `pam:`.
 - **LDAP failures** — Enable LDAP in LOG\_LEVEL. Verify Integrate LDAP and LDAP Entries.
+{/* source: https://www.safesquid.com/md/auth.md */}
+- **PAM keeps failing for a known-good desktop account.** A valid desktop account is not automatically a valid PAM account on this appliance — confirm the account is actually usable for a login on the appliance itself.
+- **LDAP login fails even though PAM succeeds.** A missing LDAP directory sync is indistinguishable from a bad password from the browser's point of view — check the user actually appears under LDAP Entries before assuming the password is wrong.
+
+{/* source: https://www.safesquid.com/md/auth.md */}
+## Verify a successful login
+
+Check **Reports → Password Cache** immediately after a successful login — a fresh entry there confirms the cache step is populating correctly.
 
 ## See also
 

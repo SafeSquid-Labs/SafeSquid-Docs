@@ -8,6 +8,12 @@ title: "Suggested Profiles"
 
 **Suggested Profiles** shows built-in profile ideas you can pick when configuring cookie-related policy. It is a **UI-only** naming aid — no C++ section loads this configuration at runtime.
 
+{/* source: https://www.safesquid.com/md/buitins.md */}
+{/* NEEDS-SME-REVIEW: existing intro and Entry fields scope this section to cookie profile tags only; upstream https://www.safesquid.com/md/buitins.md documents fourteen catalogs feeding many sections. Scope statement needs an SME decision before the narrow wording is corrected. */}
+<Note>
+This section's catalog is not limited to cookie policy. It provides fourteen separate suggestion lists that feed autocomplete for Profiles-style fields across Access Profiles, Access restrictions, HTTPS Inspection, ClamAV, Text analyzer, Redirect, Image analyzer, DLP, Time Profiler, Cookie Filtering, Header Filtering, Elevated Privacy, Speed Limits, Network, and Request Types. Cookie profile tags — the only catalog documented in Subsections and Entry fields below — are one of the fourteen. See "The fourteen suggestion catalogs" below for the full set.
+</Note>
+
 <Note>
 To enforce cookie behaviour, configure [Cookie filter](/admin_guide/restriction_policies/privacy_control) and reference the same tag names in [Access Profiles](/admin_guide/restriction_policies/access_profiles) where `cookie_profiles` is used.
 </Note>
@@ -27,6 +33,148 @@ To enforce cookie behaviour, configure [Cookie filter](/admin_guide/restriction_
 - **Comment** — Label shown in the Cookie Filtering profile-tag picker.
 - **Suggested cookie profile tags** — Example tag name for the dropdown. Pair with deny rows under Cookie filter and Access Profiles `cookie_profiles`.
 
+{/* source: https://www.safesquid.com/md/buitins.md */}
+## The fourteen suggestion catalogs
+
+Each catalog is tied to one Web UI field elsewhere in the product. Fields accept free text — the catalog is a naming convention, not a whitelist, and an unused suggestion has no effect of any kind.
+
+### Network Settings (`network_settings_profiles`)
+
+Feeds: the Access Profiles field on **Network → Interface** entries.
+
+- **ALTERNATE OUTBOUND IP** — pair with a Network Interface entry so outbound connections for matching traffic bind to a specific source IP (or rotate among several), instead of the default outbound address.
+
+### HTTPS Inspection (`https_inspection_profiles`)
+
+Feeds: the Profiles field on **HTTPS Inspection → Scan policies** entries.
+
+- **BYPASS SSL INSPECTION** — pair with a scan policy entry that has deep scanning off, so matching HTTPS connections are tunneled through untouched.
+- **BYPASS SELF-SIGNED CERT ERROR** — pair with a scan policy entry configured to tolerate self-signed certificate errors.
+- **BYPASS NO ISSUER CERT LOCALLY ERROR** — pair with a scan policy entry configured to tolerate an incomplete or locally-untrusted certificate chain.
+
+### ClamAV (`clamav_profiles`)
+
+Feeds: the Profiles field on **Clam antivirus** policy entries.
+
+- **BYPASS CLAMAV SCANNING** — keep this profile off scan entries (or exclude it explicitly) so matching connections are not scanned.
+- **ENFORCE CLAMAV SCANNING** — pair with a Clam antivirus entry so matching connections' buffered uploads and downloads are sent to the antivirus engine; a positive detection blocks with that entry's template.
+
+### Text Analyzer (`text_analyzer_profiles`)
+
+Feeds: the Profiles field on **Text analyzer** keyword-scoring entries.
+
+- **BYPASS TEXT FILTER** — keep this profile off keyword-scoring entries (or exclude it explicitly) so matching connections' response bodies are not scored for keyword content.
+
+### Redirect (`redirection_profiles`)
+
+Feeds: the Profiles field on **Redirect** entries.
+
+- **ENFORCE BING SAFE SEARCH** — pair with a Redirect entry matching Bing search requests, rewriting or redirecting to the safe-search variant.
+- **ENFORCE GOOGLE SAFE SEARCH** — same idea for Google search requests.
+- **ENFORCE YOUTUBE SAFESEARCH** — same idea for YouTube search requests.
+- **ENFORCE YAHOO SAFE SEARCH** — same idea for Yahoo search requests.
+- **ENFORCE DUCKDUCKGO SAFE SEARCH** — same idea for DuckDuckGo search requests.
+
+### Image Analyzer (`image_analyzer_profiles`)
+
+Feeds: the Profiles field on **Image analyzer** entries.
+
+- **BYPASS IMAGE FILTER** — pair with an image-analyzer entry that has scanning bypassed, so matching image responses skip buffering and content scoring.
+- **ENFORCE PARANOID IMAGE SCAN** — pair with an image-analyzer entry with scanning enabled and a strict threshold, so matching image responses at or above the threshold are blocked (or blurred in a debug/testing mode).
+
+### DLP (`dlp_profiles`)
+
+Feeds: the Profiles field on **DLP** entries.
+
+- **ALLOW ALL UPLOADS** — pair with a DLP entry set to Allow for a broad upload pattern.
+- **BLOCK UPLOADS** — pair with a DLP entry set to Deny (or DO NOT BYPASS) for a broad upload pattern.
+- **ALLOW SPREADSHEET DOCUMENT UPLOAD** — pair with a DLP Allow entry whose upload content-type pattern matches spreadsheet formats.
+- **ALLOW WORD DOCUMENT UPLOAD** — pair with a DLP Allow entry matching word-processor document formats.
+- **ALLOW POWERPOINT DOCUMENT UPLOAD** — pair with a DLP Allow entry matching presentation document formats.
+- **ALLOW PDF FILE UPLOAD** — pair with a DLP Allow entry matching PDF uploads.
+- **ALLOW ZIP FILE UPLOAD** — pair with a DLP Allow entry matching archive/compressed-file uploads.
+- **ALLOW IMAGE FILE UPLOAD** — pair with a DLP Allow entry matching image uploads.
+- **ALLOW BASIC TEXT POSTS** — pair with a DLP Allow entry matching plain textual content types (JSON, HTML, plain text, or XML form submissions).
+
+### Time Profiler (`time_profiler_profiles`)
+
+Feeds: **Time Profiler** entries, and in turn any Time Schedule matching in Access Profiles or Speed Limits.
+
+- **LUNCH** — a Time Profiler entry with the matching clock window adds this profile during that window; other sections' Time Schedule fields match on it like any other Profiles field.
+- **OFFICE WORKING HOURS** — same mechanism, for a working-hours window.
+
+### Cookie Filtering (`cookie_profiles`)
+
+Feeds: **Cookie filter** deny entries, and the matching field elsewhere. This is the catalog documented in Subsections and Entry fields above.
+
+- **READ ONLY** — pair with a Cookie filter deny entry so that, when this profile is present and the entry's domain/path/expiry conditions match, outbound cookies are blocked — the user retains no login state for that site.
+
+### Header Filtering (`header_filter_profiles`)
+
+Feeds: **Header Filtering → Insert** entries, and (for RBI) the block outcome on **Access Profiles** entries.
+
+- **ENFORCE CORPORATE GOOGLE ACCOUNTS** — pair with a Header Filtering Insert entry adding the header Google Workspace uses to prefer your organization's accounts.
+- **ENFORCE YOUTUBE RESTRICTED MODE** — pair with a Header Filtering Insert entry adding YouTube's restricted-mode header to requests toward YouTube.
+- **MINIMAL CONTENT ACCESS** — pair with a Header Filtering Insert entry adding a strict Content-Security-Policy response header, tightly limiting what a page may load or execute.
+- **STANDARD CONTENT ACCESS** — a less restrictive Content-Security-Policy than Minimal, permitting connections back to your own organization's domain while still restricting most other content sources.
+- **FULL CONTENT ACCESS** — pair with a Header Filtering entry that removes the Minimal Content Access restriction once a connection is confirmed trusted.
+- **DROP ORIGINAL CSP** — pair with a Header Filtering entry that strips a response's own Content-Security-Policy header before any of the profiles above apply. Without this, the browser merges the site's own policy with yours — usually a *more* restrictive result than intended.
+- **RBI** — routes a connection into Remote Browser Isolation: an Access Profiles entry that denies the connection while adding this profile (typically paired with DROP ORIGINAL CSP) serves the isolated-browsing page instead of the standard block page. It is listed under Header Filtering as the closest fit, since it is really a routing profile rather than a header or content-policy transform.
+
+### Elevated Privacy (`elevated_privacy_profiles`)
+
+Feeds: the Profiles field on **Elevated Privacy** entries.
+
+- **BYPASS ELEVATED PRIVACY** — pair with an Elevated Privacy entry set to a not-required privacy level, so matching connections get no cookie, referrer, or user-agent stripping on cross-site traffic.
+- **ENFORCE LOW PRIVACY LEVEL** — pair with an Elevated Privacy entry set to its low level, which removes third-party cookie headers on cross-site requests and responses.
+- **ENFORCE PARANOID PRIVACY LEVEL** — pair with an Elevated Privacy entry set to its strictest level: low-level behavior plus stripping Referer, Origin, and User-Agent on client requests — this can break content that depends on browser identification.
+
+### Speed Limits (`speed_limits_profiles`)
+
+Feeds: the Profiles field on **Speed Limits** entries.
+
+- **RESTRICTED DOWNLOAD TRANSFER RATES** — pair with a Speed Limits entry that sets a non-zero Download rate; the lowest matching rate across all matching entries applies.
+- **RESTRICTED UPLOAD TRANSFER RATES** — pair with a Speed Limits entry that caps upload bytes or other upload-side limits; multiple matching entries can contribute stricter caps together.
+
+### User/Group suggestions (`suggested_user_group`)
+
+Feeds: **Add to User-Groups** on Access restrictions entries. This one list splits into three groupings in the Web UI:
+
+**Suggested: User Group** (organizational roles):
+
+- **ACCOUNTANTS** — finance and accounts-payable staff. Commonly paired with DLP Allow-Upload profiles for spreadsheets, word-processor documents, and PDFs, rather than default upload restrictions.
+- **IT SUPPORT TEAM** — helpdesk and infrastructure staff. Commonly paired with bypass-style profiles (HTTPS Inspection, ClamAV, Elevated Privacy) so diagnostic traffic isn't altered.
+- **HR TEAM** — Human Resources staff needing access to recruitment portals, background-check services, and personal data, balanced with stricter DLP controls on uploads.
+- **C-SUITE** — top executives. Often exempted from generic content restrictions, but also the organization's highest-value phishing target — many deployments pair this with stricter anti-spoofing or header-filtering profiles rather than a blanket bypass.
+- **DEPARTMENT HEADS** — mid-level managers: broader access than individual contributors, without the targeted-attack profile C-Suite gets.
+- **MARKETING TEAM** — marketing/communications staff needing access to social media, advertising platforms, and analytics tools normally blocked by default.
+- **LEGAL TEAM** — legal and compliance staff needing access to litigation research, e-discovery, and regulatory sites — frequently paired with elevated audit or trace-entry logging rather than a content bypass.
+- **DEVELOPERS** — engineering staff needing access to code repositories, package registries, and developer documentation sites.
+- **CONTRACTORS** — temporary or third-party staff, scoped more narrowly and monitored more closely — typically paired with stricter DLP and Elevated Privacy profiles than employees get.
+- **BYOD USERS** — authenticated staff on personal devices — often paired with stricter DLP and content controls than a managed device gets.
+
+**Suggested: Permissions Group** (browsing-activity permissions):
+
+- **YOUTUBE USERS** — users exempted from the default YouTube restricted-mode policy.
+- **PERMITTED PERSONAL GOOGLE ACCOUNT** — users allowed to sign in to a personal Google account on the corporate network, exempted from the corporate-accounts-only policy.
+- **SOCIAL MEDIA PERMITTED** — users allowed access to social media platforms normally blocked for general staff.
+- **GENERATIVE AI TOOLS PERMITTED** — users permitted to access generative-AI assistants where the organization otherwise restricts them. Kept as one durable category name rather than a specific product, since which tools are in use changes faster than policy should.
+- **PERSONAL CLOUD STORAGE PERMITTED** — users allowed to upload to personal cloud-storage accounts — a common DLP exception weighed against exfiltration risk for everyone else.
+
+**Suggested: System Access** (operational exemptions):
+
+- **USER_AUTHENTICATION_BYPASSED** — for applications that cannot complete a proxy-authentication challenge. A default configuration typically grants this User-Group from an Access restrictions entry matching a bypass-authentication Access Profile, with System authentication off.
+- **TUNNELLED_UI_ACCESS** — for administrators reaching the Web interface over a local loopback tunnel (for example, an SSH port-forward) rather than directly from a LAN address.
+- **PROXY_SLAVES** — for peer SafeSquid instances in a master/slave cluster, permitted configuration-only access to synchronize policy. Restrict the corresponding Access restrictions entry's IP Address field to the actual slave instances — never leave it open to any address.
+
+### Request Type (`suggested_request_type`)
+
+Feeds: the Request Types field on Request Types **Domains and Urls** entries, and Request Types matching elsewhere.
+
+- **Taxation Regulatory Sites** — tax regulatory websites.
+- **RBI ONLY** — hosts routed to Remote Browser Isolation instead of direct access. Add this Request Type to a Domains and Urls entry (and turn its DNS-blacklist check off, since the host list already reflects a manual risk judgment) to feed an RBI-routing Access Profiles entry.
+- **Authorized Software Sources** — IT-approved software vendor or update sites, exempted from a Response Types download restriction that applies to everyone else.
+
 ## Examples
 
 <Tip>
@@ -38,6 +186,25 @@ To enforce cookie behaviour, configure [Cookie filter](/admin_guide/restriction_
 - Access Profiles assigns users the matching `cookie_profiles` tag
 
 **Result:** the suggestion is only a naming aid; effective block comes from Cookie filter + Access Profiles, not from Suggested Profiles alone.
+</Tip>
+
+{/* source: https://www.safesquid.com/md/buitins.md */}
+<Tip>
+
+### Naming a custom DLP exception consistently
+
+**Config:** a DLP Allow entry for spreadsheet uploads uses the suggested Profiles value `ALLOW SPREADSHEET DOCUMENT UPLOAD` from the DLP catalog instead of an invented name. Separately, an Access Profiles entry adds that same profile to Accountants' connections.
+
+**Result:** the two entries agree on the exact same name, so the DLP exception reliably applies to Accountants' connections. The suggestion itself did nothing — the DLP entry and the Access Profiles entry are what make it work.
+</Tip>
+
+<Tip>
+
+### Onboarding a new CONTRACTORS User-Group
+
+**Config:** an Access restrictions entry's Add to User-Groups field uses the suggested value `CONTRACTORS` (from Suggested: User Group) for connections matching a contractor LDAP group. Elsewhere, DLP and Elevated Privacy entries are configured to require the `CONTRACTORS` User-Group.
+
+**Result:** any new contractor added to the matching LDAP group automatically picks up the stricter DLP and Elevated Privacy handling, because every entry involved agreed on the same User-Group name from the start.
 </Tip>
 
 ## How to verify

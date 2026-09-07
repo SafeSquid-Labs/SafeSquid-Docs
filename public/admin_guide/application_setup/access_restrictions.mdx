@@ -10,6 +10,11 @@ Configure authentication mechanisms in [Authentication](/admin_guide/start_here/
 
 ## Core mechanics
 
+{/* source: https://www.safesquid.com/md/access.md */}
+<Warning>
+**Access restrictions is not cumulative — it is first-match-wins, per list.** Access Profiles evaluates every enabled entry top to bottom, and a later entry can add to or override an earlier one. Access restrictions does not: within a list, the first enabled entry whose fields all match wins the pass, and every entry after it in that same list is skipped for that pass. A broad entry with no restriction (for example, a catch-all Allow meant for "everyone who authenticates") sitting above a narrower entry makes the narrow entry unreachable — it never fires, never logs as matched, and nothing in the Web UI flags the conflict. The only way to catch it is to read the list top to bottom, in order, before relying on it.
+</Warning>
+
 ### Default policy and list order
 
 With **Default Access Policy = Deny** (recommended):
@@ -36,10 +41,23 @@ When `X-Forwarded-For` is present, it replaces the TCP client IP for `ip` matchi
 **Spoofing risk:** a client sending `X-Forwarded-For: 127.0.0.1` can match localhost IP rows and receive CONFIG (Web UI) access. Expose the proxy only on trusted networks.
 </Warning>
 
+{/* source: https://www.safesquid.com/md/access.md */}
+### LDAP Profiles need identity first
+
+An entry that sets only **LDAP Profiles** cannot match on the first, identity-less request — SafeSquid has no directory group list to test yet — and by itself will not trigger a login prompt. LDAP Profiles only has anything to test once identity is already known, from a prior Kerberos/SSO login, a completed System authentication challenge, or an IP-to-user map.
+
 ### Two-pass authentication
 
 - **First pass (no credentials)** — If gates pass and `pamauth=TRUE` or User name is set, the row matches and issues a 407/401 challenge. If `pamauth=FALSE` and User name is blank, the row matches immediately — unauthenticated access.
 - **Second pass (credentials present)** — SafeSquid populates the connection's LDAP distinguished name with group strings (commas stored as spaces). LDAP Profiles rows can match; PAM validation runs during the access check.
+
+{/* source: https://www.safesquid.com/md/access.md */}
+- **If the first list produces no match at all** — not even a credential challenge — the second list is skipped entirely and Default Access Policy decides the outcome directly.
+
+{/* source: https://www.safesquid.com/md/access.md */}
+### User-Groups assembly on match
+
+On match, SafeSquid rebuilds the connection's User-Groups in this order: the entry's own **Add to User-Groups** values, then every LDAP group the signed-in user belongs to, then the user's own directory identity. **This assembled set — not just the entry's Add to User-Groups field — is what every later section's User-Groups matching actually tests** (Access Profiles, DLP, and similar).
 
 ### Kerberos / SSO (`ntlm_authentication`)
 
@@ -48,6 +66,11 @@ UI label **Kerberos / SSO**; internal field `ntlm_authentication`. When TRUE, Sa
 ### DLP bypass
 
 Requires both the **Allow bypassing** access right (`BYPASS`) and the **DLP** bypass checkbox. Either alone leaves DLP active.
+
+{/* source: https://www.safesquid.com/md/access.md */}
+### If nothing matches either list
+
+When neither list produces a match, the connection is denied outright: it receives a block page and the connection is closed. If a match still needed credentials that never arrived, the client instead receives an authentication challenge and can retry.
 
 ## Recommended entry ordering
 
@@ -84,7 +107,27 @@ All configured criteria on a row must match. Blank means any.
 - **Access** — CONFIG, PROXY, HTTP, TRANSPARENT, CONNECT, BYPASS — independent rights.
 - **MAX Concurrent Connections** — Keyed `username@client-ip`; 0 = no cap.
 
+{/* source: https://www.safesquid.com/md/access.md */}
+- **Profiles (`add_profiles`)** — limits the entry to connections that already carry a listed Access Profile. Blank = ignored.
+- **Negation** — `LDAP Profiles` and `Profiles` both accept `!value` to negate a match.
+- **Add to User-Groups (`add_user_groups`)** — group names added to the connection's User-Groups on match. LDAP groups and the user's directory identity are added automatically alongside these, regardless of this field — see "User-Groups assembly on match" above.
+- **Bypass (`bypass`)** — modules skipped on match: Header filtering, Redirect, Cookie filtering, Rewrite, External, Forward, Text analyzer/Keyword filtering, DNSBL, Limits, Antivirus, ICAP, DLP.
+- **Interface username / Interface password (`ifusername` / `ifpassword`)** — optional second Web UI login, required together; only relevant when this entry also grants the **Web interface** Access right.
+- **Comment (`comment`)** — written to native security logs when this entry matches.
+- **Trace Entry (`profile_tracing`)** — logs each User-Group this entry adds; turn off after testing.
+- **MAX Concurrent Connections — the uncapped case** — `0` removes the connection ceiling, but connections are still counted against the entry, not skipped from counting.
+
 ## Examples
+
+{/* source: https://www.safesquid.com/md/access.md */}
+<Tip>
+
+### The bug this file exists to prevent
+
+**Config:** Allow list, in this order — (1) a general Allow entry with no IP, no Interface, no LDAP Profiles, no User name, matching any authenticated user; (2) an Accountants entry with LDAP Profiles set to the Accountants directory group, granting `Add to User-Groups: ACCOUNTANTS`.
+
+**Result:** every accountant matches entry (1) first, because it is unconditional and sits above entry (2). Entry (2) is unreachable — never logged as matched, never adds the `ACCOUNTANTS` User-Group — and nothing anywhere flags this. Reorder so the Accountants entry sits above the general entry.
+</Tip>
 
 <Tip>
 
@@ -137,3 +180,5 @@ All configured criteria on a row must match. Blank means any.
 2. **Reports → Detailed logs** — username, IP, access filter.
 3. Enable **Trace Entry** on one row; check native logs.
 4. SECURITY log family for authentication outcomes.
+{/* source: https://www.safesquid.com/md/access.md */}
+5. If Default Access Policy is Deny and an Allow-listed client is unexpectedly blocked, check the Deny list for a second-pass override before suspecting the Allow entry.

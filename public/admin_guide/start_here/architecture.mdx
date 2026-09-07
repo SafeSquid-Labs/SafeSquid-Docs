@@ -166,6 +166,15 @@ send the page to the browser
 write logs
 ```
 
+{/* source: https://www.safesquid.com/md/architecture.md */}
+<Note>
+A few details from the walk above are easy to misread:
+
+- **Access Profiles runs more than once per request, and that is normal.** The walk calls it at least four separate times — before identity is known, again once identity resolves, again after the request-modify stage, and again once an upload's content type is known — plus further checks against response headers and downloaded content. Each call re-evaluates against whatever labels and identity exist at that point; the repetition is how an early verdict only gets enforced once the right stage is reached, not a duplicate check to remove.
+- **Incomplete requests are dropped silently.** If the client disconnects before sending a complete request, the connection is simply dropped at "Read the request" — there is nothing to inspect and nothing to log as a policy decision.
+- **Speed Limits can apply before Access restrictions has finished granting the connection's full rights** at the HTTP/HTTPS protocol branch further down this walk — worth knowing if a limit appears to take effect earlier than expected.
+</Note>
+
 Open a section: [Network settings](/admin_guide/application_setup/network_settings_and_listeners) · [System configuration](/admin_guide/application_setup/system_configuration) · [Templates](/admin_guide/custom_settings/templates) · [Time Profiler](/admin_guide/custom_settings/time_profiler) · [Application Signatures](/admin_guide/custom_settings/application_signatures) · [Request Types](/admin_guide/custom_settings/request_types) · [Categorize Web-Sites](/admin_guide/custom_settings/categorize_web_sites) · [SSqore](/admin_guide/application_setup/ssqore) · [Access Profiles](/admin_guide/restriction_policies/access_profiles) · [Access restrictions](/admin_guide/application_setup/access_restrictions) · [Integrate LDAP](/admin_guide/application_setup/integrate_ldap) · [External applications](/admin_guide/custom_settings/external_applications) · [Speed Limits](/admin_guide/restriction_policies/speed_limits) · [Content modifier](/admin_guide/real_time_content_security/content_modifier) · [ICAP](/admin_guide/real_time_content_security/icap) · [HTTPS Inspection](/admin_guide/real_time_content_security/https_inspection) · [Subscription](/admin_guide/infrastructure_and_access/subscription) · [Redirect](/admin_guide/real_time_content_security/redirect) · [DLP](/admin_guide/real_time_content_security/dlp) · [Caching](/admin_guide/application_setup/accelerators) · [DNS Blacklist](/admin_guide/real_time_content_security/dns_blacklist) · [Proxy chain](/admin_guide/application_setup/proxy_chain) · [Header filter](/admin_guide/restriction_policies/privacy_control) · [Cookie filter](/admin_guide/restriction_policies/privacy_control) · [Elevated Privacy](/admin_guide/restriction_policies/privacy_control) · [Response Types](/admin_guide/custom_settings/response_types) · [Clam antivirus](/admin_guide/real_time_content_security/clam_antivirus) · [SqScan](/admin_guide/real_time_content_security/sqscan) · [Image analyzer](/admin_guide/real_time_content_security/image_analyzer) · [Text analyzer](/admin_guide/real_time_content_security/text_analyzer) · [Prefetching](/admin_guide/application_setup/accelerators) · [FTP browsing](/admin_guide/application_setup/ftp_browsing)
 
 <Frame caption="Chart B — same procedure, Web UI section names in call order. Yes goes right and stops. No continues down. HTTPS and HTTP are a fork, then they meet again.">
@@ -176,11 +185,21 @@ Open a section: [Network settings](/admin_guide/application_setup/network_settin
 Open the Web UI at `http://safesquid.cfg/` from a machine that Access restrictions allows. That path skips Access Profiles so you can still fix a mistaken Deny. HTTPS Inspection does not continue this HTTPS request — it decrypts and runs the inner HTTP from Read the request again. **DLP** inspects upload bodies only. **Clam antivirus** and **SqScan** inspect uploads and downloaded bodies.
 </Note>
 
+{/* source: https://www.safesquid.com/md/architecture.md */}
+<Note>
+The **Header filter** module is bypassed for the Web UI path as well, not just Access Profiles content policy. Reaching the console and actually *changing* configuration are also two different rights — Access restrictions governs who may reach the console at all, but applying a change requires a separate console-access right beyond merely reaching it.
+</Note>
+
 <Warning>
 **A response over the download buffer size is not scanned.** SqScan, Clam antivirus, Image analyzer, Text analyzer, and ICAP inspect a *downloaded body* — a response SafeSquid buffered before sending it on. The matching **System configuration → Compression and buffering policies** row sets **Maximum download buffer size** (`maxdbuffer`, default `10M`); a response larger than that streams straight to the browser instead — marked `Direct` rather than `Buffered` — and never reaches those scanners. Nothing in the response or the block page announces the skip.
 
 Verified on this build: fetching a 5 MB file (under the 10 MB default buffer) returned both `X-Virus-Scan` and `X-Text-Analyzer` debug headers; an otherwise identical 20 MB file (over the buffer) returned neither. Test your own buffer size the same way — set **System configuration → Send Debugging Headers To** to `CLIENT` (see [Debug response headers](/admin_guide/start_here/debug_response_headers)), fetch a file just under and just over the configured size, and compare the response headers. Size the buffer for the file sizes you actually need scanned.
 </Warning>
+
+{/* source: https://www.safesquid.com/md/architecture.md */}
+<Note>
+**Elevated Privacy strips in a fixed order as its level rises:** third-party cookies first, then Referer/Origin, then User-Agent. A lower level stops earlier in that order; the strictest level applies all three.
+</Note>
 
 <Tip>
 
@@ -203,6 +222,11 @@ A user on the LAN opens `https://social.example/` through the proxy:
 1. A user POSTs a spreadsheet. After Access Profiles Allow, the upload body is inspected: **Clam antivirus**, **SqScan**, **Image analyzer**, then **DLP**. A DLP MIME policy match sends **Templates** and stops — Caching and the origin never see that body.
 2. A later GET of an executable is Allowed by Access Profiles. Caching misses, DNS Blacklist passes, Proxy chain fetches it. **SqScan** or **Clam antivirus** on the downloaded body match: **Templates** block page. DLP does not run on that download.
 </Tip>
+
+{/* source: https://www.safesquid.com/md/architecture.md */}
+<Note>
+**Upload scanner order is not fixed.** Which of Clam antivirus, SqScan, Image analyzer, and DLP actually runs first on an upload depends on which scan engines are installed on the appliance, not a built-in fixed order. Whichever module blocks first stops the request there with a block page.
+</Note>
 
 <Accordion title="Peer connection and FTP handling — not verified on this build">
   {/* source: legacy docs site architecture.html */}
@@ -233,10 +257,20 @@ A user on the LAN opens `https://social.example/` through the proxy:
 ## Policy matching styles
 
 - **Dual allow/deny lists** — Access restrictions, Cookie filter, Header filter. List order depends on the section default policy.
+{/* source: https://www.safesquid.com/md/architecture.md */}
+- **Opposite winners within that pair** — Header filter: the *first* matching entry decides. Cookie filter: the *last* matching entry decides.
 - **First match** — Clam antivirus, HTTPS Inspection, Redirect, DNS Blacklist block policies, and several scanners.
 - **All matches** — Access Profiles (secondary), Speed Limits, Content modifier, [Application Signatures](/admin_guide/custom_settings/application_signatures).
+{/* source: https://www.safesquid.com/md/architecture.md */}
+- **Cumulative score** — Text analyzer adds up scores across every matching rule instead of stopping at the first, so several mild matches together can block a page no single one would.
 - **Last match** — [DLP](/admin_guide/real_time_content_security/dlp) MIME policies (OCR uses cumulative score vs Threshold).
 - **Groups** — Menu groups (Accelerators, Real time content security) contain child sections only; they have no policy lists of their own.
+
+{/* source: https://www.safesquid.com/md/architecture.md */}
+## Verified gaps and non-claims
+
+- **Subscription**, **Content Signatures**, and **Suggested Profiles** are not part of the live pipeline above. Subscription is a licensing/entitlement check that can interrupt the flow at the request-modify stage, not a content-policy stage with its own list of entries. Content Signatures and Suggested Profiles exist as Web UI sections, but neither currently runs against a live request — nothing executes for them in this walk.
+- **WCCP** governs how traffic reaches SafeSquid in the first place (network-level redirection so clients need no proxy setting of their own) — it is not a step in what happens *after* a request has already arrived, so it is not part of this walk either. Confirm its current working status in your build before relying on it for a transparent deployment.
 
 ## Bypass
 

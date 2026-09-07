@@ -49,6 +49,44 @@ For each enabled row, filters run in fixed order; any failure skips to the next 
 
 Category definition rows are saved to the local dev XML for UI autocomplete. Runtime category tags come from the **category** field on Application Signatures List rules, not from the Categories list alone.
 
+{/* source: https://www.safesquid.com/md/applicationSignatures.md */}
+<Note>
+Application Categories List **Enabled** off means the category definition is not loaded into the in-memory category list on the next configuration reload. Neither On nor Off applies a category to live traffic by itself — that still requires an Application Signatures List entry whose **category** field references the same name.
+</Note>
+
+{/* source: https://www.safesquid.com/md/applicationSignatures.md */}
+## Schema fields
+
+Each Application Signatures List entry field, its internal name, and what it actually tests:
+
+| Field | Internal name | Tests |
+|---|---|---|
+| Application signatures | `app_signatures` | Prerequisite — signature(s) already present (or, with `!`, absent) before this entry's other conditions are checked |
+| Method | `method` | Request's HTTP method, exact match |
+| Protocol | `protocol` | Request's protocol (`HTTP`, `HTTPS`, `FTP`), exact match |
+| Mime type | `mime` | Regex against the request's Content-Type header |
+| Port range list | `portrange` | Request's destination port against the listed port(s)/range(s) |
+| Minimum Post Data Size | `postdata_min_length` | Content-Length ceiling — see the Post data size warning above |
+| Maximum Post Data Size | `postdata_max_length` | Content-Length floor — see the Post data size warning above |
+| File | `file` | Regex against the URL path |
+| Registered Domain | `registered_domain` | Regex against the request host's registered domain |
+| Host Name | `hostname` | Regex against the request's fully-qualified hostname |
+| Referer Domain Name | `referer_domain` | Regex against the referrer's registered domain |
+| Referer Host Name | `referer_host` | Regex against the referrer's fully-qualified hostname |
+| Referer | `referer` | Regex against the full Referer header |
+| User Agent | `user_agent` | Regex against the User-Agent header |
+| X-Forwarded-For | `xforwardedfor` | Regex against the X-Forwarded-For header |
+| Request header pattern | `requestheader` | Regex against the raw request headers |
+| Added application signatures | `add_app_signatures` | Signature values added to the connection on match |
+| Removed application signatures | `remove_app_signatures` | Signature values removed from the connection on match, applied after additions |
+| category | `group` | Category values added to the connection's signatures on match, same mechanism as Added application signatures |
+| Comment | `comment` | Administrator note; not read by the matching engine |
+| Enabled | `enabled` | When off, this entry is skipped in the top-to-bottom pass |
+
+Removals are applied **after** additions on the same matching entry — an entry that both adds and removes the same signature name ends with it removed.
+
+Where a tested value is absent from the request (for example, no Referer header when a Referer-based field is set), the entry is skipped.
+
 ## Examples
 
 <Tip>
