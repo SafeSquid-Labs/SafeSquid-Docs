@@ -97,7 +97,7 @@ Find SafeSquid's listen address and port in **Network settings → Listen** — 
 
 An `ftp://` URL opened in a browser follows the same explicit-proxy or transparent path as HTTP. A standalone FTP client needs its own proxy configuration, if it supports one at all.
 
-Configure the matching entry in [Access restrictions](/admin_guide/application_setup/access_restrictions) before troubleshooting client-side settings further.
+Configure the matching entry in [Access restrictions](/configuration/application_setup/access_restrictions) before troubleshooting client-side settings further.
 
 ## Start with a pilot
 

@@ -1,0 +1,66 @@
+---
+title: "WCCP"
+---
+
+WCCP works with WCCP routers to redirect traffic to SafeSquid without setting a proxy in each browser. The router intercepts traffic and hands it to SafeSquid, so clients need no proxy configuration.
+
+{/* source: legacy docs site wccp.html and architecture.html (whole page) */}
+{/* NEEDS-SME-REVIEW: both legacy source pages state WCCP redirection is broken in current builds and recommend explicit proxy instead, with architecture.html listing WCCP under modules not in the live request path. The console at build 2026.0627.1344.3 exposes the full WCCP section with no such caveat, and functional status cannot be tested without a WCCP router in the lab. Confirm with engineering whether redirection works in the shipping build before this page recommends WCCP for production. */}
+
+<Warning>
+**Confirm WCCP redirection works on your build before relying on it.** Legacy SafeSquid documentation states WCCP redirection is broken and recommends explicit proxy configuration instead. That claim could not be confirmed or refuted against build `2026.0627.1344.3` — the console exposes the section normally, but a working router is needed to test redirection end to end.
+
+**Missing:** the functional status of WCCP redirection in the shipping build. Test redirection in a lab with a real WCCP router before committing to it in production, and keep an explicit-proxy or PAC fallback ready. Escalate to engineering rather than treating the section's presence in the console as proof it works.
+</Warning>
+
+## Globals / subsections
+
+**Enabled** (global master switch, `FALSE` by default) and **WCCP policies** (the policy rows).
+
+## Processing
+
+All enabled WCCP policies can be used for router communication.
+
+## Schema Fields
+
+### Global fields
+
+- **Enabled (enabled)** — Master switch for WCCP router communication.
+
+### Policy rows
+
+- **Enabled (enabled)** — Enable or disable this policy.
+- **Comment (comment)** — Explains the entry's purpose for future readers.
+- **Proxy host (proxyhost)** — Regex matching the proxy hosts this entry applies to. Useful when one configuration file is shared between several proxy servers.
+- **WCCP Version (wccp_version)** — `WCCPV1` or `WCCPV2`.
+- **Router IP Address (router_ip)** — Router addresses SafeSquid interacts with for transparent redirection. WCCP v1 allows a single router per service group; v2 allows multiple.
+- **Application Protocol (traffic_capture)** — Traffic type the routers redirect: `HTTP`, `HTTPS`, `FTP`, `SFTP`.
+- **Service Type (service_type)** — `WELLKNOWN` (predefined, needs no service definition) or `DYNAMIC` (you define the service group with a service ID and parameters).
+- **Service Group ID (service_id)** — Service ID of the service group. **Must be between 97 and 255.**
+- **Service Group Name (service_name)** — Name of the service group.
+- **Security (security)** — `NOSECURITY` or `MD5SECURITY` for packet authorization. `NOSECURITY` needs no password.
+- **Encrypted Password (enc_pwd)** — Encrypted password for packet authentication. Required when Security is `MD5SECURITY`.
+- **Acceptable Forward Method (forward_method)** — How the router transfers packets to SafeSquid: `GRE` (default) or `L2`. Layer 2 requires supporting network architecture.
+- **Acceptable Assignment Method (assignment_method)** — Method used when SafeSquid becomes the designated proxy: `HASH` (default) or `MASK`.
+- **Acceptable Packet Return Method (packet_return_method)** — How SafeSquid returns packets to the router: `GRE` (default) or `L2`.
+- **Ports (portrange)** — Comma-separated list of ports or port ranges this entry applies to. WCCP v2 allows up to 8 ports.
+- **Network Protocol (network_protocol)** — `TCP` or `UDP`. SafeSquid informs the router of this selection.
+- **Webcache IP Address (webcache_ip)** — SafeSquid addresses that interact with the WCCP routers.
+
+## Important entry fields
+
+- **Service Group ID** — Values outside 97–255 are invalid. Coordinate the ID with the network team so it matches the router's service group.
+- **Security / Encrypted Password** — Set both together. `MD5SECURITY` without a password fails packet authentication.
+- **Acceptable Assignment Method / Acceptable Packet Return Method** — Do not select `GRE` as the return method when the assignment method is `L2`.
+- **Router IP Address / Webcache IP Address** — Both sides of the relationship. The router list must match the service group configured on the router itself.
+
+## Notes
+
+Coordinate service group IDs and passwords with the network team. The **Enabled** global is `FALSE` on a default appliance, so WCCP does nothing until it is switched on.
+
+## See also
+
+- [network](/configuration/application_setup/network_settings_and_listeners)
+- [integrations](/configuration/start_here/integrations)
+- [Architecture](/configuration/start_here/architecture)
+- [Logging](/configuration/start_here/logging)

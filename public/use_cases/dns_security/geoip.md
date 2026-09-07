@@ -42,8 +42,8 @@ Without destination geography visibility, organizations cannot enforce regional 
 - SafeSquid installed and operational (see [Getting Started](/getting_started/welcome))
 - Profiling Engine enabled (see [Profiling Engine](/use_cases/profiling_engine/profiling_engine))
 - Up-to-date GeoIP database (SafeSquid includes MaxMind GeoLite2 by default)
-- Admin access to [Configuration Portal](/safesquid_swg/interface/configuration_portal)
-- Consistent DNS resolution (see [Supporting Services: BIND](/safesquid_swg/interface/bind))
+- Admin access to [Configuration Portal](/architecture/interface/configuration_portal)
+- Consistent DNS resolution (see [Supporting Services: BIND](/architecture/interface/bind))
 
 
 
@@ -105,13 +105,13 @@ profile=Block-High-Risk-Countries rule=deny-non-compliant-regions user=jdoe
   - Fix: update GeoIP database; restart profiling service if required
 - CDN or anycast endpoints
   - Symptom: destination resolves to global POP; country differs from brand site location.
-  - Fix: allow-list CDNs by ASN where appropriate; use the [Architecture hub](/safesquid_swg/architecture/safesquid_swg).
+  - Fix: allow-list CDNs by ASN where appropriate; use the [Architecture hub](/architecture/overview/safesquid_swg).
 - Private or RFC1918 destinations
   - Symptom: no geo data for non-routable IPs
   - Fix: add explicit policy exceptions; rely on identity or application profiles. See [User Identities](/use_cases/authentication/user_identities).
 - DNS-based variance
   - Symptom: different resolver returns regionally distinct IPs.
-  - Fix: standardize resolvers; verify [Integrated DNS Security](/safesquid_swg/architecture/integrated_dns_security).
+  - Fix: standardize resolvers; verify [Integrated DNS Security](/architecture/overview/integrated_dns_security).
 - IPv6 classification gaps
   - Symptom: missing geo for v6-only hosts
   - Fix: ensure IPv6 ranges in GeoIP; confirm dual-stack handling

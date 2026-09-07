@@ -33,7 +33,7 @@ SafeSquid **Advanced DLP** in **SafeSquid SWG** analyzes post data, inspects arc
 
 
 
-## [Manage Keyword Signatures using Self Service portal](/safesquid_swg/architecture/safesquid_swg)
+## [Manage Keyword Signatures using Self Service portal](/architecture/overview/safesquid_swg)
 
 
 

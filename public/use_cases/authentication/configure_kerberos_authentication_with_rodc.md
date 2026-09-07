@@ -295,5 +295,5 @@ Ensure the **Ldap Bind Method** is set to **NEGOTIATE_LDAP_AUTH**. This is the t
 ## Next steps
 
 - [SSO Authentication](/use_cases/authentication/ad_sso_authentication) for standard RWDC paths.
-- [NTP](/safesquid_swg/interface/ntp) for clock sync.
+- [NTP](/architecture/interface/ntp) for clock sync.
 - [Authentication hub](/use_cases/authentication/authentication).

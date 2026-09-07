@@ -48,7 +48,7 @@ Reduces malware and tracking exposure from ad networks. Lowers bandwidth and CPU
 
 ## Enable BLOCK ADVERTISEMENT policy
 
-1. Access the SafeSquid interface via the [Configuration Portal](/safesquid_swg/interface/configuration_portal) — web interface for policy and system settings. In the interface header, click **Configure** to open the configuration menu.
+1. Access the SafeSquid interface via the [Configuration Portal](/architecture/interface/configuration_portal) — web interface for policy and system settings. In the interface header, click **Configure** to open the configuration menu.
 
 ![Configuration Portal header with Configure menu highlighted](/images/How_To/Block_Advertisements_And_Banners/image1.webp)
 

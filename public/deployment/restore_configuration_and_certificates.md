@@ -42,7 +42,7 @@ Confirm:
   <Step title="Activate with the original key">
     Activate the rebuilt appliance using the same activation key that produced the backup.
 
-    Confirm activation succeeds and the licensed state is visible in the [Configuration Portal](/safesquid_swg/interface/configuration_portal).
+    Confirm activation succeeds and the licensed state is visible in the [Configuration Portal](/architecture/interface/configuration_portal).
 
     If activation fails, resolve it before attempting restore — the restore prompt only appears for an activated instance.
   </Step>

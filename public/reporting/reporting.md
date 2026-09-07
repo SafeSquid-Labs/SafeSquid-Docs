@@ -18,8 +18,8 @@ This section covers planning retention before deployment, proving the audit trai
 
 1. **[Log-Retention Planning](/deployment/log_retention_planning)** - set the retention target and size the log volume before installation; retention is a sizing input, not an afterthought.
 2. **[Logging and Reporting](/deployment/logging_and_reporting)** - confirm access logs are written, retained, and forwarded before calling the deployment audit-ready.
-3. **[Tools and Reports](/admin_guide/start_here/tools_and_reports)** - locate Reports and Support utilities in the Web UI once the proxy is live.
-4. **[Logging and troubleshooting](/admin_guide/start_here/logging)** - pick the right log family for a specific symptom, instead of searching blind.
+3. **[Tools and Reports](/configuration/start_here/tools_and_reports)** - locate Reports and Support utilities in the Web UI once the proxy is live.
+4. **[Logging and troubleshooting](/configuration/start_here/logging)** - pick the right log family for a specific symptom, instead of searching blind.
 
 ## Next steps
 

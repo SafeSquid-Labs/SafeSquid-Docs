@@ -43,7 +43,7 @@ HTTPS Inspection should be enabled in SafeSquid. If not enabled, refer to the do
 
 
 
-## [Access the SafeSquid User Interface](/safesquid_swg/interface/configuration_portal)
+## [Access the SafeSquid User Interface](/architecture/interface/configuration_portal)
 ![Access safesquid user interface to enable Facebook read only mode](/images/How_To/Facebook_Read_Only_Mode/image1.webp)
 
 ![Search 'FACEBOOK READ ONLY MODE' in search section](/images/How_To/Facebook_Read_Only_Mode/image2.webp)

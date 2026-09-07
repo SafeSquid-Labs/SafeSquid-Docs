@@ -64,7 +64,7 @@ Note: No configuration required on Parent Proxy server. Just deploy the parent p
 
 ## Configure proxy chain in SafeSquid
 
-Access the [SafeSquid Configuration Portal](/safesquid_swg/interface/configuration_portal).
+Access the [SafeSquid Configuration Portal](/architecture/interface/configuration_portal).
 
 ### Open Configure page
 
@@ -140,7 +140,7 @@ Otherwise select No and click on submit.
 
 ## Verification and Evidence
 
-- **Interface Checks**: In [Configuration Portal](/safesquid_swg/interface/configuration_portal), open Application Setup → Proxy chain. Confirm Global is enabled and the forwarding proxy entry shows the correct parent IP and port.
+- **Interface Checks**: In [Configuration Portal](/architecture/interface/configuration_portal), open Application Setup → Proxy chain. Confirm Global is enabled and the forwarding proxy entry shows the correct parent IP and port.
 - **Log Analysis**: Check SafeSquid access logs for requests showing the parent proxy as upstream; connection failures to the parent appear in logs with connect errors.
 - **Performance Validation**: From a client behind the child proxy, browse an external site; traffic should succeed and appear in both child and parent proxy logs.
 

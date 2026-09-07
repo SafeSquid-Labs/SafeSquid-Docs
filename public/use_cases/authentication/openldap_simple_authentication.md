@@ -21,7 +21,7 @@ OpenLDAP environments still need directory-backed user identity on the proxy pat
 **Prerequisites**
 - SafeSquid installed and operational.
 - OpenLDAP server reachable from the SafeSquid server (default port 389).
-- Admin access to the SafeSquid [Configuration Portal](/safesquid_swg/interface/configuration_portal).
+- Admin access to the SafeSquid [Configuration Portal](/architecture/interface/configuration_portal).
 - A known-good bind account and correct Base DN.
 :::
 

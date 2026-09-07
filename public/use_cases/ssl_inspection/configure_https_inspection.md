@@ -490,7 +490,7 @@ tail -f /var/log/safesquid/access/extended.log
 
 | Topic | Status | Source |
 | ----- | ------ | ------ |
-| Root CA via Self-Service Portal | **Confirmed** | This guide, [Self-Service Portal](/safesquid_swg/interface/self_service_portal) |
+| Root CA via Self-Service Portal | **Confirmed** | This guide, [Self-Service Portal](/architecture/interface/self_service_portal) |
 | Enable inspection UI path | **Confirmed** | Steps in this guide |
 | Client trust stores (Windows, Firefox, macOS) | **Confirmed** | This guide, [Import Certificate Chrome/IE](/use_cases/ssl_inspection/import_certificate_chrome_ie) |
 
@@ -504,5 +504,5 @@ tail -f /var/log/safesquid/access/extended.log
 4. **[Troubleshooting](/troubleshooting/troubleshooting)** — SSL-specific issues and diagnostics
 
 **Related:**
-- [Self-Service Portal](/safesquid_swg/interface/self_service_portal) — Manage certificates
+- [Self-Service Portal](/architecture/interface/self_service_portal) — Manage certificates
 - [Import Certificate into Chrome/IE](/use_cases/ssl_inspection/import_certificate_chrome_ie) — Detailed Windows guide

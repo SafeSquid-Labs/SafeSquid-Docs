@@ -194,5 +194,5 @@ For automated password policy enforcement, migrate to [Directory Services](/use_
 - **Add group-based policies:** Combine authentication with [Access Restriction](/use_cases/access_restriction/access_restriction) to enforce different rules per user or group
 - **Attribute HTTPS traffic:** Enable [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) so encrypted traffic shows authenticated usernames in logs
 - **Upgrade to directory:** Migrate to [Directory Services](/use_cases/authentication/directory_services) when user count grows or centralized identity is required
-- **IP-based fallback:** Use the [Architecture hub](/safesquid_swg/architecture/safesquid_swg) for devices that cannot authenticate
+- **IP-based fallback:** Use the [Architecture hub](/architecture/overview/safesquid_swg) for devices that cannot authenticate
 - **Bypass apps:** Configure [Bypass Authentication](/use_cases/authentication/bypass_authentication) for OS updates and automatic processes

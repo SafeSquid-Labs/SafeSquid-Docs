@@ -45,7 +45,7 @@ I will use this file in the below configuration
 
 
 
-## [Access the SafeSquid user interface](/safesquid_swg/interface/configuration_portal)
+## [Access the SafeSquid user interface](/architecture/interface/configuration_portal)
 ### Go to Configure Page
 ![Clicking on configure in SafeSquid interface](/images/How_To/Create_Custom_Templates/image2.webp)
 
@@ -89,7 +89,7 @@ You must edit the original entry, because the entries in template section are pr
 
 ## Verification and Evidence
 
-- **Interface Checks**: In [Configuration Portal](/safesquid_swg/interface/configuration_portal), Custom Settings → Custom Templates: new template appears in the list with correct content and is assigned to the intended policy or block page.
+- **Interface Checks**: In [Configuration Portal](/architecture/interface/configuration_portal), Custom Settings → Custom Templates: new template appears in the list with correct content and is assigned to the intended policy or block page.
 - **Log Analysis**: When a block or redirect occurs, the custom template is served; config logs show the template change if applicable.
 - **Performance Validation**: Trigger a block or use case that invokes the template; the custom message or page displays as designed.
 

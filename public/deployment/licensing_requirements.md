@@ -42,7 +42,7 @@ Confirm which tier the deployment assumes, and record it, before policy design b
 
 ## Treat licence state as audit evidence
 
-Activation also matters for audit: licensed state is visible in the [Configuration Portal](/safesquid_swg/interface/configuration_portal) and serves as evidence that the gateway is correctly licensed. The activation key itself is not the audit artifact — store the key securely and capture licence-state evidence from the interface instead.
+Activation also matters for audit: licensed state is visible in the [Configuration Portal](/architecture/interface/configuration_portal) and serves as evidence that the gateway is correctly licensed. The activation key itself is not the audit artifact — store the key securely and capture licence-state evidence from the interface instead.
 
 ## Capture licensing evidence
 

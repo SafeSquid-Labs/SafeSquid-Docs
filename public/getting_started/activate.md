@@ -84,7 +84,7 @@ If categorization is blocked while everything else is reachable, policies that d
   <Step title="Open the proxied interface">
     Configure the pilot browser to use SafeSquid as proxy, open `http://safesquid.cfg/`, and sign in with the approved administrator account.
 
-    Confirm the [Configuration Portal](/safesquid_swg/interface/configuration_portal) loads through the SafeSquid proxy path.
+    Confirm the [Configuration Portal](/architecture/interface/configuration_portal) loads through the SafeSquid proxy path.
 
     If `safesquid.cfg` does not load, recheck pilot browser proxy settings and SafeSquid listener reachability.
 

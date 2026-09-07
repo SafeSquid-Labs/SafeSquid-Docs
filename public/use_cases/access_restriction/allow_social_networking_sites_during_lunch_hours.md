@@ -39,7 +39,7 @@ Social networking is allowed only during the configured time window. Outside tha
 - [HTTPS Inspection](/use_cases/ssl_inspection/configure_https_inspection) enabled in SafeSquid.
 
 - SScore section enabled as TRUE (Application setup → Score).
-- Access to [SafeSquid Configuration Portal](/safesquid_swg/interface/configuration_portal).
+- Access to [SafeSquid Configuration Portal](/architecture/interface/configuration_portal).
 
 
 

@@ -122,4 +122,4 @@ Store:
 
 - [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) - deploy trusted HTTPS inspection.
 - [Authentication](/use_cases/authentication/authentication) - add user and group attribution.
-- [Reporting Service](/safesquid_swg/interface/reporting_service) - preserve operating and audit evidence.
+- [Reporting Service](/architecture/interface/reporting_service) - preserve operating and audit evidence.

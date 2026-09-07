@@ -26,7 +26,7 @@ Roadmap items that should **not** be documented as current product capabilities:
 
 SafeSquid ties **Authentication** rules to the same policy engine as URL, content, and time rules ([Access Restriction](/use_cases/access_restriction/access_restriction)). **MFA:** SafeSquid does not render MFA UI itself; MFA arrives via directory or PAM backends (see note below).
 
-**Comparative authentication feature matrix vs other SWG products:** **Not SSOT-backed in this doc set**—see [What is SafeSquid SWG?](/safesquid_swg/what_is_safesquid_swg).
+**Comparative authentication feature matrix vs other SWG products:** **Not SSOT-backed in this doc set**—see [What is SafeSquid SWG?](/architecture/what_is_safesquid_swg).
 
 ## Acquire, deploy, use
 
@@ -44,7 +44,7 @@ SafeSquid itself does not provide MFA prompts. To enforce MFA, integrate with di
 | Method | Use When | User Experience | Infrastructure Required |
 |--------|----------|-----------------|-------------------------|
 | [BASIC Authentication](/use_cases/authentication/basic) | No directory service available | Browser login prompt | None |
-| [Architecture](/safesquid_swg/architecture/safesquid_swg) | IP-based policy needed (devices, legacy apps) | Transparent (no login) | Static IP addressing or DHCP reservations |
+| [Architecture](/architecture/overview/safesquid_swg) | IP-based policy needed (devices, legacy apps) | Transparent (no login) | Static IP addressing or DHCP reservations |
 | [Directory Services](/use_cases/authentication/directory_services) | Centralized identity required | Browser prompt or SSO | Active Directory or OpenLDAP |
 | [PAM Authentication](/use_cases/authentication/pam) | OS credentials should apply to proxy | Browser login prompt | PAM-capable OS |
 | [Bypass Authentication](/use_cases/authentication/bypass_authentication) | Some apps cannot authenticate | Transparent for bypassed apps | None |
@@ -54,7 +54,7 @@ SafeSquid itself does not provide MFA prompts. To enforce MFA, integrate with di
 ### [BASIC Authentication](/use_cases/authentication/basic)
 BASIC authentication (RFC 7617) with credentials stored locally in SafeSquid. Browser-prompt authentication with no directory infrastructure required; credentials managed locally. Use when you need identity-based policies without Active Directory or LDAP.
 
-### [IP-based recognition in architecture](/safesquid_swg/architecture/safesquid_swg)
+### [IP-based recognition in architecture](/architecture/overview/safesquid_swg)
 Maps source IPs or subnets to user-groups for group-based access restriction and reporting. No user login required; policy applies by IP. Use when user identity is unavailable (device-only, legacy apps) but you need group-based rules.
 
 ### [Directory Services](/use_cases/authentication/directory_services)

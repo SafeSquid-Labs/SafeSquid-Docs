@@ -60,7 +60,7 @@ systemctl enable monit
 
 
 
-## [Access the SafeSquid User Interface](/safesquid_swg/interface/configuration_portal)
+## [Access the SafeSquid User Interface](/architecture/interface/configuration_portal)
 ![Access the SafeSquid User Interface to configure cloud restore](/images/How_To/Setup_Cloud_Restore/image1.webp)
 
 ![verify same Activation key before configure cloud restore ](/images/How_To/Setup_Cloud_Restore/image2.webp)

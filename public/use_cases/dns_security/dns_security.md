@@ -20,19 +20,19 @@ Unrestricted DNS resolution reaches malicious, geo-noncompliant, or lookalike do
 
 - Block or flag domains via DNSBL before TCP connections complete ([DNS Blacklisting](/use_cases/dns_security/dnsbl)).
 - Apply geography- and ASN-aware context for policy and reporting ([Server Geo-Location](/use_cases/dns_security/geoip)).
-- Reduce IDN homograph impersonation at resolution time ([Homograph Detection](/core_features/homograph_detection)).
+- Reduce IDN homograph impersonation at resolution time ([Homograph Detection](/getting_started/core_features/homograph_detection)).
 
 ## Advantages vs “HTTP-only” policy
 
 DNS-layer controls fail closed earlier in the chain than URL filtering alone for many threats; combine with [Access Restriction](/use_cases/access_restriction/access_restriction) and [Profiling Engine](/use_cases/profiling_engine/profiling_engine) for full coverage.
 
-**Product-level comparative claims** (for example vs other SWG vendors): **Not SSOT-backed in this doc set**—see [What is SafeSquid SWG?](/safesquid_swg/what_is_safesquid_swg).
+**Product-level comparative claims** (for example vs other SWG vendors): **Not SSOT-backed in this doc set**—see [What is SafeSquid SWG?](/architecture/what_is_safesquid_swg).
 
 ## Acquire, deploy, use
 
 Configure DNS security features in the SafeSquid administration UI per each linked guide; verify blocks and log lines as described in those pages.
 
-SafeSquid provides DNS-level security at the domain resolution layer: DNS-based blacklisting, geographic IP filtering, and internationalized domain name (IDN) homograph detection. For architecture placement inside SWG, see [Integrated DNS Security](/safesquid_swg/architecture/integrated_dns_security).
+SafeSquid provides DNS-level security at the domain resolution layer: DNS-based blacklisting, geographic IP filtering, and internationalized domain name (IDN) homograph detection. For architecture placement inside SWG, see [Integrated DNS Security](/architecture/overview/integrated_dns_security).
 
 ```mermaid
 flowchart LR
@@ -57,17 +57,17 @@ Unrestricted DNS resolution allows access to known-malicious domains and increas
 ### [Server Geo-Location](/use_cases/dns_security/geoip)
 Organizations face regional compliance gaps and threat exposure when destination geography is unknown. Server Geo-Location classifies destinations by country and ASN for location-aware policies. Country-based access control and reporting support data residency and geo-restriction requirements. Enable geo profiles in Profiling Engine and reference them in Access Restriction and Reporting.
 
-### [Homograph Detection](/core_features/homograph_detection)
+### [Homograph Detection](/getting_started/core_features/homograph_detection)
 IDN homograph attacks use visually similar characters to impersonate legitimate domains and enable phishing. Homograph detection identifies and blocks these impersonation attempts at DNS resolution. The control reduces lookalike-domain risk and supports evidence in DNS security logs. Configure allowed or blocked IDN patterns in DNS Security when the feature is available.
 
 ## Source register
 
 | Topic | Status | Source |
 | ----- | ------ | ------ |
-| DNSBL integration and policy flow | **Confirmed** | [DNS Blacklisting](/use_cases/dns_security/dnsbl), [Integrated DNS Security](/safesquid_swg/architecture/integrated_dns_security) |
+| DNSBL integration and policy flow | **Confirmed** | [DNS Blacklisting](/use_cases/dns_security/dnsbl), [Integrated DNS Security](/architecture/overview/integrated_dns_security) |
 | GeoIP / `server_country` style fields | **Confirmed** | [Server Geo-Location](/use_cases/dns_security/geoip) |
-| Homograph UI availability by version | **Confirmed** | [Homograph Detection](/core_features/homograph_detection) (version checks) |
+| Homograph UI availability by version | **Confirmed** | [Homograph Detection](/getting_started/core_features/homograph_detection) (version checks) |
 
 ## Next steps
 
-Use DNS security together with [Access Restriction](/use_cases/access_restriction/access_restriction) and [Profiling Engine](/use_cases/profiling_engine/profiling_engine) for URL and application policy; see [Integrated DNS Security](/safesquid_swg/architecture/integrated_dns_security) for architecture context.
+Use DNS security together with [Access Restriction](/use_cases/access_restriction/access_restriction) and [Profiling Engine](/use_cases/profiling_engine/profiling_engine) for URL and application policy; see [Integrated DNS Security](/architecture/overview/integrated_dns_security) for architecture context.

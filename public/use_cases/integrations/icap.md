@@ -52,7 +52,7 @@ software to operate on the content.
 
 
 
-## [Access the SafeSquid interface](/safesquid_swg/interface/configuration_portal)
+## [Access the SafeSquid interface](/architecture/interface/configuration_portal)
 Go to Configure Page
 
 ![Configure page in SafeSquid interface](/images/ICAP_Config/image1.webp)
@@ -144,7 +144,7 @@ requirement.
 
 ## Verification and Evidence
 
-- **Interface Checks**: In [Configuration Portal](/safesquid_swg/interface/configuration_portal), Real-time content security → ICAP: Global enabled, policy entries show correct ICAP server Host, Port, and File; Applies to (Requests/Responses) matches intent.
+- **Interface Checks**: In [Configuration Portal](/architecture/interface/configuration_portal), Real-time content security → ICAP: Global enabled, policy entries show correct ICAP server Host, Port, and File; Applies to (Requests/Responses) matches intent.
 - **Log Analysis**: SafeSquid logs show ICAP request/response activity; timeouts or connection errors indicate unreachable ICAP server or wrong port/file.
 - **Performance Validation**: Trigger a request that matches the ICAP policy; verify the ICAP server receives the request and returns a valid response; content is modified or blocked per policy.
 

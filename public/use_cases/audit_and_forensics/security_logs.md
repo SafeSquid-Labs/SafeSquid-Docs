@@ -128,7 +128,7 @@ Adjusting this value requires a restart of SafeSquid service.
 :::
 This file stored all data related **to every request and response** processed by the SafeSquid. These logs will be useful for debugging purpose.
 
-[Access the SafeSquid  User Interface ](/safesquid_swg/interface/configuration_portal)
+[Access the SafeSquid  User Interface ](/architecture/interface/configuration_portal)
 
 On top right of Safesquid Interface view **Reports >> Dashboard**
 

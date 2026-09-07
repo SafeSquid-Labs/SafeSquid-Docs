@@ -51,7 +51,7 @@ The SafeSquid Self-Service Portal is the cloud-based management console for Safe
 
 The SafeSquid Self-Service Portal manages the activities like, SafeSquid cloud-backed features, Custom Web Categorization, Web Security Clients for Roaming users (VPN), Confidential Data Signatures, Subscription management, etc.
 
-Read more: [Self-Service Portal](/safesquid_swg/interface/self_service_portal).
+Read more: [Self-Service Portal](/architecture/interface/self_service_portal).
 
 
 
@@ -70,7 +70,7 @@ If all websites are accessible through the browser, the product is activated.
 ## Where to get license details
 After successful activation, license details appear on the Support page of the SafeSquid Web GUI.
 
-For more details see the [Support page](/admin_guide/infrastructure_and_access/support) (License Details panel, not under Reports) or [Activate your license](/getting_started/activate).
+For more details see the [Support page](/configuration/infrastructure_and_access/support) (License Details panel, not under Reports) or [Activate your license](/getting_started/activate).
 
 
 
@@ -219,7 +219,7 @@ Yes. SafeSquid has a reporting module that reduces processing time and provides 
 
 
 ## Why does SafeSquid become slow after running for some time?
-Slowness after sustained operation is often due to resource exhaustion (disk, memory, or connection state). Check the [Troubleshooting](/troubleshooting/troubleshooting) guide for resource diagnostics, clear or rotate logs, and review the **Performance Plot** card on the [Support](/admin_guide/infrastructure_and_access/support) page for resource usage. Restart the proxy after freeing resources if needed.
+Slowness after sustained operation is often due to resource exhaustion (disk, memory, or connection state). Check the [Troubleshooting](/troubleshooting/troubleshooting) guide for resource diagnostics, clear or rotate logs, and review the **Performance Plot** card on the [Support](/configuration/infrastructure_and_access/support) page for resource usage. Restart the proxy after freeing resources if needed.
 
 
 
