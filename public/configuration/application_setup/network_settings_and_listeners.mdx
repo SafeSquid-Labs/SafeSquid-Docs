@@ -8,6 +8,13 @@ The console splits this section into two tabs, and they are independent of each 
 binds the sockets clients connect to, **Interface** picks the source IP SafeSquid uses when it
 connects onward.
 
+These are infrastructure-plumbing settings, not a security control in themselves: Listen decides
+where clients may knock, and Interface decides which door SafeSquid walks out of. *Who* is
+allowed in, and what they may do, belongs to
+[Access restrictions](/configuration/application_setup/access_restrictions), which references the
+Listen sockets defined here through its own **Interface** match field. Nothing can reach SafeSquid
+at all unless a Listen entry is bound.
+
 <Tabs>
   <Tab title="Listen">
 
@@ -15,7 +22,7 @@ connects onward.
 
     ### Listen — startup bind
 
-    Every enabled Listen row with `port != -1` binds at startup. If no enabled row matches startup.ini `LISTEN_IP` and `LISTEN_PORT`, an additional fallback bind runs on those defaults. Restart required after Listen changes.
+    Every enabled Listen row with `port != -1` binds at startup. If no enabled row matches startup.ini `LISTEN_IP` and `LISTEN_PORT`, an additional fallback bind runs on those defaults — this fallback is extra, it does not replace or disable any entry you configured; it only fires when nothing in your list already covers that address. Restart required after Listen changes.
 
     ## Listen fields
 
@@ -25,7 +32,7 @@ connects onward.
       <img src="/images/configuration/network_settings-listen.webp" alt="SafeSquid console showing Network settings Listen rows including an SSL_TRANSPARENT binding, the Edit Policies icon on the first row circled" />
     </Frame>
 
-    - **IP / Port** — Bind address and client port. Blank IP = dual-stack any when IPv6 available.
+    - **IP / Port** — Bind address and client port. Blank IP binds every address dual-stack where IPv6 is available; `0.0.0.0` binds every IPv4 address; `::` binds every IPv6 address; a specific address binds only that one.
     - **Bindings** — `SSL_TRANSPARENT`, `CAPTIVE_PORTAL` implemented; `SSL_AUTHENTICATION` / `SSL_BRIDGE` have no effect.
 
     ## Examples
@@ -37,6 +44,19 @@ connects onward.
     **Config:** Listen enabled, blank IP, port 8080.
 
     **Result:** All interfaces accept on 8080 after restart; Access controls who may connect.
+    </Tip>
+
+    <Tip>
+
+    ### Separate management listener
+
+    **Config:** entry A Enabled, IP `0.0.0.0`, Port `8080` for regular users; entry B Enabled, IP
+    `127.0.0.1`, Port `8080` for administration.
+
+    **Result:** after a restart both sockets are open, and an Access restrictions entry matching
+    Interface `127.0.0.1:8080` can grant the Web interface right on the loopback listener while
+    entries matching `0.0.0.0:8080` grant proxy rights — separating administrative access from
+    ordinary browsing by which socket the connection arrived on.
     </Tip>
 
     ## How to verify
@@ -54,7 +74,7 @@ connects onward.
 
     ### Interface — first match wins
 
-    Outbound walks Interface rows top-down: skip disabled; skip empty Source IP after load; skip when destination is in **Excluded Destination IPs**; require a profile match (connection profiles plus hostname/service tags). The first match picks a source IP from the row's list, keyed by client ID.
+    Outbound walks Interface rows top-down: skip disabled; skip empty Source IP after load; skip when destination is in **Excluded Destination IPs**; require a profile match (connection profiles plus hostname/service tags). The first match picks a source IP from the row's list, keyed by client ID. If no row survives all the gates, SafeSquid sets no source IP at all and the connection uses whatever the operating system's own routing would normally choose.
 
     ### Source IP on host only
 
@@ -79,8 +99,8 @@ connects onward.
       <img src="/images/configuration/network_settings-interface.webp" alt="SafeSquid console showing a Network settings Interface row with the ALTERNATE OUTBOUND IP profile, the Edit Policies icon circled" />
     </Frame>
 
-    - **Profiles** — Blank matches all. Typical tag: `ALTERNATE OUTBOUND IP`.
-    - **Excluded Destination IPs** — Hyphen ranges; destination in list skips row (CIDR not supported).
+    - **Profiles** — Blank matches all. A value prefixed with `!` applies the entry when that value is absent instead of present. Typical tag: `ALTERNATE OUTBOUND IP`.
+    - **Excluded Destination IPs** — Hyphen ranges; destination in list skips row (CIDR not supported). This field excludes destinations, it does not restrict the entry to them. Blank excludes nothing.
     - **Source IP** — Comma-separated local addresses; only host IPs kept; rotated by client id.
 
     ## Examples
@@ -101,6 +121,18 @@ connects onward.
     **Config:** Source IP 198.51.100.99 not assigned to appliance.
 
     **Result:** IP ignored at load; row skipped — no outbound bind from this row.
+    </Tip>
+
+    <Tip>
+
+    ### Send specific traffic out a second IP
+
+    **Config:** an Interface entry with Profiles `ALTERNATE OUTBOUND IP` and Source IP
+    `203.0.113.5` (an address actually configured on the appliance), with an Access Profiles entry
+    elsewhere adding that same profile.
+
+    **Result:** matching connections bind outbound to `203.0.113.5`; everything else falls through
+    to a lower entry or to OS routing.
     </Tip>
 
     ## How to verify

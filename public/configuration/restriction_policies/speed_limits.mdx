@@ -17,6 +17,8 @@ rate --> counters[Increment counters unless Per-request limit or cache excluded]
 
 The `Limits` section allows administrators to constrain bandwidth, connection counts, and data transfer sizes on a per-profile basis.
 
+It shares bandwidth fairly and stops any single user or profile from consuming too much capacity. Unlike Access restrictions (first-match-wins) and System configuration's Compression and buffering policies (also first-match-wins), **Speed Limits is cumulative** — every enabled entry whose Profiles condition matches applies, not just the first.
+
 ## Core Mechanics (C++ Source Validation)
 
 Token-bucket rate, quota counters, request cap enforcement.
@@ -35,13 +37,13 @@ Token-bucket rate, quota counters, request cap enforcement.
 
 - **Enabled (enabled)**: Toggles the specific rule.
 - **Comment (comment)**: User description of the rule.
-- **Profiles (profiles)**: The trigger condition. The rule applies if the connection has this tag.
+- **Profiles (profiles)**: The trigger condition. The rule applies if the connection has this tag. Blank matches every connection; a Profile written with a leading `!` matches connections that do not carry it.
 - **Action (action)**: `Allow` or `Deny`. Verified on this build to have no runtime effect — see the note below.
 - **Template (templ)**: Name of the block-page template shown when this entry matches. Blank uses `blocked`. Built-in examples: `maxbandwidth`, `maxrequests`.
-- **Download transfer limit (maxdownloadbytes)**: Maximum bytes a client can download before being blocked.
-- **Upload transfer limit (maxuploadbytes)**: Maximum bytes a client can upload before being blocked.
-- **Request limit (maxrequests)**: Maximum number of HTTP requests allowed within the tracking window.
-- **Download rate (downloadrate)**: Bandwidth throttle (e.g., bytes per second) applied to downloads.
+- **Download transfer limit (maxdownloadbytes)**: Maximum bytes a client can download before being blocked, counted since the last counter reset (~10 s). `0` = no cap from this row for that direction.
+- **Upload transfer limit (maxuploadbytes)**: Maximum bytes a client can upload before being blocked, counted since the last counter reset (~10 s). `0` = no cap from this row for that direction.
+- **Request limit (maxrequests)**: Maximum number of HTTP requests allowed within the tracking window (~10 s). `0` = unlimited. Exceeded → HTTP 429.
+- **Download rate (downloadrate)**: Bandwidth throttle (e.g., bytes per second) applied to downloads. `0` = no rate from this row. Lowest non-zero matching rate wins.
 - **Adjust Transfer Limits (flags)**: Modifier flags for how limits are enforced or tracked.
 
 ## Troubleshooting
@@ -125,3 +127,4 @@ Adjust Transfer Limits.
 2. Enable LIMITS in `LOG_LEVEL` for native `limits:` download/upload limit and rate lines.
 3. Open **Reports → Detailed logs**; blocked transfers show `filter_name` for limits and reason such as `Max Requests` or upload limit text.
 4. Confirm counter reset behaviour by waiting ~10 seconds and retrying after hitting a window cap.
+5. If an entry seems to have no effect at all, check the section-wide **Enabled** switch first, then confirm the entry's **Profiles** actually matches the connection under test — and remember **Action** has no bearing on whether the entry is active.

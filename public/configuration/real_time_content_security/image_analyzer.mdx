@@ -6,6 +6,8 @@ title: "Image analyzer"
 
 The `Imgfilter` section scores `image/*` response and upload bodies and blocks or debug-replaces content when the engine score is at or above a threshold. Blocked images can be replaced with a template (default `checkeredgif`).
 
+It exists to keep unwanted image content (for example, adult material) off the network — useful both for blocking what users download and for stopping the same kind of content from being uploaded through the proxy.
+
 ## Core Mechanics (C++ Source Validation)
 
 ### First match wins
@@ -14,7 +16,7 @@ Walk enabled filtering policy rows top to bottom; first profile match sets thres
 
 ### MIME and size gates
 
-Only parts whose MIME starts with `image/` are candidates. Images smaller than 50×50 pixels are skipped.
+Only parts whose MIME starts with `image/` are candidates. Images smaller than 50×50 pixels are skipped — too small to meaningfully score, and excluding them avoids wasted work on tracking pixels and icons.
 
 ### Threshold scale
 
@@ -57,10 +59,10 @@ debug -->|No| templ[Block template]
 ### Policy rows
 
 - **Profiles (profiles)** — Limit to tagged connections. Blank matches all.
-- **Threshold (threshold)** — Block when score ≥ this value.
+- **Threshold (threshold)** — Block when score ≥ this value. A **lower** Threshold number is **stricter** (blocks more); a higher one is more permissive — for example, a Threshold of `-2` blocks less aggressively than a Threshold of `0`.
 - **Bypass Image Scanning (bypass)** — Skip scan for matching profiles.
-- **Debug (debug)** — Blur/annotate on response instead of block template.
-- **Template (template)** — Replacement on block.
+- **Debug (debug)** — Blur/annotate on response instead of block template. Has no equivalent effect on the upload path, which always uses the block template.
+- **Template (template)** — Replacement on block. Falls back through the matching entry's own Template, then the section's Default template, then the built-in checkered placeholder — whichever is first non-blank.
 
 ## Examples
 
@@ -90,4 +92,4 @@ are Enabled, Comment, Bypass Image Scanning, Profiles, Threshold, Template, and 
 
 1. Fetch image through profile with image-filter tag and imgfilter enabled.
 2. Enable imgfilter log level for score lines.
-3. Detailed logs show filter name imgfilter on block.
+3. Detailed logs show filter name imgfilter on block. If a request you expected to be scored is missing, check whether an earlier entry's Bypass Image Scanning claimed it first.

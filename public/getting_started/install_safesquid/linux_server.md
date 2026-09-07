@@ -211,6 +211,29 @@ If the installer itself fails, the usual causes are a missing library, running w
 
 </Accordion>
 
+{/* source: legacy docs site installation-and-setup.md §How it works — step by step */}
+
+<Accordion title="What the installer's post-install automation does">
+
+On a Debian-based system, `setup.sh` above carries out the whole post-install sequence on its own. In order, it:
+
+- Suspends any existing process-monitoring service for the duration of the install.
+- Detects the distribution family, to decide which remaining steps apply.
+- Creates the service account SafeSquid runs as (**not** `root`).
+- Removes leftovers from a previous installation on the same machine, if one existed.
+- Installs the supporting packages SafeSquid depends on.
+- Stops the service if it is already running (relevant on a re-install or upgrade).
+- Configures a local DNS resolver tuned for appliance use, with IPv6 disabled and the zone data **DNS Blacklist** depends on already in place.
+- Copies the appliance file tree into place.
+- Stands up a local DNS blacklist server bound only to loopback.
+- Enables and starts the service.
+
+**On a Red Hat-based system only the dependency-package installation step runs automatically.** The DNS resolver and DNS Blacklist setup is **not** configured for you and must be done separately. If DNS Blacklist does not appear to resolve anything, confirm the local resolver and blacklist server were actually set up — on a RHEL-family install this is a manual step, not an assumption.
+
+Two reasons some features need no extra setup on this path: the Kerberos and SASL components are installed by that step, which is why Kerberos/SSO and LDAP authentication need no extra package installation; and the OCR components are installed there too, which is why DLP and Image analyzer can score text in images without extra setup. If Kerberos/SSO or LDAP authentication misbehaves, confirm you are on the fully-automated Debian-based path.
+
+</Accordion>
+
 After extracting or installing the package, start SafeSquid:
 
 ```bash

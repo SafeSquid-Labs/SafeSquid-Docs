@@ -5,7 +5,7 @@ title: "Access Profiles"
 The **Access Profiles** section is the central content-policy hub. Access restrictions decide *who* connects; Access Profiles decide *what* they may fetch. It combines Time Profiler, Request Types, Response Types, categories, and User-Groups, then adds profile tags and sets Allow/Deny.
 
 <Note>
-Unlike Access restrictions (first match), **every** matching row in Default and Secondary Policies applies. Later rows see tags changed by earlier rows.
+Unlike Access restrictions (first match), **every** matching row in Default and Secondary Policies applies. Later rows see tags changed by earlier rows. A broad Deny early in the list is not final — a later, more specific Allow can still override it, and the reverse works too. The recommended shape is to deny broadly first and carve out specific exceptions after.
 </Note>
 
 ## Profile pipeline
@@ -54,12 +54,22 @@ block --> bypass[451 + bypass cookie if Allow bypassing]
 
 All configured criteria on a row must match. Blank = any. Use `!` to negate tags in list fields.
 
+- **Enabled** (`enabled`) — disabled entries are skipped entirely; they never match and never affect the connection.
+- **Comment** (`comment`) — free text describing why the entry exists; also shown to the user as the block reason when this entry's Action sets Deny or Do not bypass.
+- **Trace Entry** (`profile_tracing`) — writes a native log line every time this entry adds or removes a Profile label; switch it off again once testing is done.
+- **Proxy instance** (`proxyhost`) — a regular expression matched against this appliance's own hostname, for deployments where several instances share one configuration but should apply different entries. Blank applies on every instance.
 - **Applicable Profiles** — Tags on connection from earlier rows in this pass (list is cleared at start).
 - **Time Schedule** — Tags from [Time Profiler](/configuration/custom_settings/time_profiler).
 - **Request Types** — Tags from [Request Types](/configuration/custom_settings/request_types).
-- **Response Types** — Tags from [Response Types](/configuration/custom_settings/response_types); requires response header when field set.
-- **User Groups** — From Access restrictions. Non-blank + empty user\_groups → row skipped.
-- **Categories** — Domain categories; empty lookup tests as `UNCATEGORIZED`.
+- **Response Types** — Tags from [Response Types](/configuration/custom_settings/response_types); requires response header when field set. Also skipped for a response confirmed empty (not chunked, Content-Length zero).
+- **User Groups** — From Access restrictions. Non-blank + empty user\_groups → row skipped. Setting this field never by itself forces a login prompt.
+- **Categories** — Domain categories; empty lookup tests as `UNCATEGORIZED`. When referer categorization is enabled, the referer's category is matched too.
+- **Action** (`action`) — only changes the connection's running Action when it differs from the current Action and is not Inherit.
+- **Added Profiles** / **Removed profiles** — labels applied when the entry matches. Added runs first, then Removed, on the same entry — so one entry can add one label and remove a different one, but cannot remove a label it just added. A label already present is not duplicated; removing a label that is not present has no effect.
+
+### Default Policies vs. Secondary Policies
+
+**Default Policies** is evaluated first, for every connection, on every pass. **Secondary Policies** runs after it, using the labels and Action Default Policies left behind — the natural home for scoped exceptions layered on top of a broad Default Policies deny.
 
 ## Examples
 
@@ -103,3 +113,6 @@ Added Profiles inline, and the right-hand panel restates the evaluation order.
 1. **Reports → Detailed logs** — profiles, request/response/time profile columns.
 2. Enable **Trace Entry** on one row; check native logs.
 3. Debug headers — `X-SafeSquid-Profiles`, `X-SafeSquid-Access-Policy`.
+4. If an expected label is missing, check whether an earlier entry's gates actually fit the connection — a skipped entry contributes nothing.
+5. To confirm cumulative behaviour, deliberately place a Deny in Default Policies and a narrower Allow below it in Secondary Policies, and verify the connection is allowed — this is what most clearly distinguishes Access Profiles from Access restrictions.
+6. When a block is unexpected, check the Comment recorded as the block reason and whether the Action was Deny or Do not bypass — a Do not bypass block will not respond to a bypass cookie even for a user who otherwise holds the Allow bypassing right.

@@ -4,7 +4,7 @@ title: "Prefetching"
 
 Open **Configure → Application Setup → Accelerators → Prefetching**. This section sits under the **Accelerators** menu group alongside [Caching](/configuration/application_setup/accelerators/caching) and [Prefetching](/configuration/application_setup/accelerators/prefetching) — they interact, since a prefetched object is only useful if Caching later serves it.
 
-The **Prefetch** section configures SafeSquid to proactively download resources into its cache before the client actually requests them.
+The **Prefetch** section configures SafeSquid to proactively download linked content — stylesheets, scripts, images, and similar resources — into cache while the main HTML page is still being delivered to the client, so the browser's own later request for those resources can already be served from cache, improving page load time.
 
 ```mermaid
 flowchart TB
@@ -30,23 +30,23 @@ Async queue, cache pre-check, HTML parser first-match.
 
 - **Enabled (enabled)**: When off, setup\_callbacks does not register HTML parsers — no automatic prefetch.
 - **Threads (threads)**: Configured worker count for prefetch queue processing. This value is not applied in the current build.
-- **Queue size (queuesize)**: Maximum URLs waiting in the prefetch queue; full queue rejects new URLs. Already-cached URLs are not queued.
+- **Queue size (queuesize)**: Maximum URLs waiting in the prefetch queue; full queue rejects new URLs. Already-cached URLs are not queued. Rejected matches are not retried automatically — a later scan of that page, or another page linking the same resource, can queue it if there's room by then.
 - **Host limit (hostlimit)**: Maximum queued prefetches per host name (0 disables per-host cap). Duplicate URLs are never queued twice.
 
 ### Prefetch rule fields
 
-- **Profiles** — Limit the rule to connections with matching Access Profile tags. Blank matches all.
+- **Profiles** — Limit the rule to connections with matching Access Profile tags; a `!`-prefixed value applies the entry when that profile is absent instead of present. Blank matches all.
 - **Tag name** — HTML element to scan (case-insensitive), for example `a`, `img`, `link`. Blank skips the row.
 - **Tag attribute** — Attribute holding the URL (for example `href` or `src`).
 - **Attribute pattern** — POSIX regex on the attribute value after tag/attribute match. Blank accepts any non-empty value. On match, the URL is resolved and queued unless cached or queue full.
 - **Maximum file size** — Skip prefetch when response Content-Length exceeds this size. `0` = no cap.
-- **Recursion level** — How many levels prefetched HTML is analyzed for further links. Note: setting `0` follows links indefinitely per field help.
+- **Recursion level** — How many levels prefetched HTML is analyzed for further links. Note: setting `0` follows links indefinitely per field help — the opposite of what the number suggests, since it removes the limit rather than capping at zero levels; use `0` deliberately, and only if you intend genuinely open-ended recursive prefetching.
 
 ### Processing order
 
 1. Enable Prefetching and Caching.
 2. During HTML responses, enabled Prefetch rows are checked top to bottom.
-3. The first row whose profiles match and whose tag/attribute/pattern succeeds drives prefetch for that parser pass.
+3. The first row whose profiles match and whose tag/attribute/pattern succeeds wins for that element; rows below it are not tested against that same element, though they remain available for other elements later in the same page.
 4. Matched URLs enter the queue subject to queue size, host limit, and cache state.
 5. Caching **Prefetch window** limits duplicate prefetch writes for the same URL within N seconds.
 
@@ -100,3 +100,4 @@ Open **Configure → Application Setup → Accelerators → Prefetch → Prefetc
 2. Load an HTML page twice — second load should show cache hits for prefetched assets when Caching and rules allow.
 3. Use the Caching tab above to search for prefetched URLs among Manage cached objects.
 4. Watch queue rejection if Queue size or Host limit is exceeded (reduce rules or raise limits).
+5. Confirm Caching is enabled and not excluding the relevant profiles — Prefetching only queues the fetch, Caching decides whether the result is kept.
