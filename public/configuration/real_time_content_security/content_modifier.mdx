@@ -33,6 +33,8 @@ Pattern matching is **case-insensitive**: a pattern written `avif` matches `AVIF
 
 For **BODY** rewrites, a non-empty MIME type regex must match the response `Content-Type`. Empty mime matches any body when other gates pass.
 
+SafeSquid only buffers a response body when at least one enabled, matching BODY entry has a non-blank Pattern — bodies are not buffered needlessly when no BODY entry could possibly apply.
+
 ## Processing flow
 
 ```mermaid
@@ -61,7 +63,7 @@ more -->|No| done[Modified stream continues]
 
 - **Profiles (profiles)** — Connection must match tags. Blank matches all.
 - **MIME type (mime)** — Regex on Content-Type for body rewrites only. Console guidance: "It is highly advisable that you set this to some mime-type; otherwise, all files will be checked."
-- **Pattern (pattern)** — PCRE search pattern (required).
+- **Pattern (pattern)** — PCRE search pattern (required). May be trailed with a `/` followed by flag characters, Perl-style, and must be if a `/` character appears anywhere else in the pattern.
 - **Replace (replace)** — Replacement string; supports capture groups.
 - **Applies to (which)** — CLIENT HEADER, SERVER HEADER, BODY, POST DATA flags. Stored values are `CLIENT`, `SERVER`, `BODY`, `POST`.
 

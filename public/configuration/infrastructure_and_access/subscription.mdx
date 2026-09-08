@@ -2,7 +2,7 @@
 title: "Subscription"
 ---
 
-Subscription state controls whether the appliance considers its licence valid, and therefore whether update feeds and signature modules can run. It defines no proxy policy rows of its own.
+Subscription state controls whether the appliance considers its licence valid, and therefore whether update feeds and signature modules can run. It defines no proxy policy rows of its own. SafeSquid re-checks subscription validity on every request, not once at startup — this is a per-request check, not a one-time state.
 
 This is the on-appliance side of licensing only — it reflects the key you already hold. To register an account or obtain a new activation key, see [Support](/configuration/infrastructure_and_access/support) for where that key comes from on `key.safesquid.com`.
 
@@ -35,9 +35,10 @@ The panel is read-only apart from a **Refresh** control.
 1. On each request, SafeSquid sets or clears `SUBSCRIPTION_EXPIRED` on the connection from subscription validity checks.
 2. When expired, [Application Signatures](/configuration/custom_settings/application_signatures) processing is skipped for that connection and security logging records filter `subscription`.
 3. Background subscription accounting talks to the vendor service, refreshes entitlement, and drives scheduled update hooks (signatures, categorisation feeds, trusted CA updates, and similar).
+4. At certain points while a request is being processed, an expired subscription can occasionally interrupt it with a renewal notice instead of the normal response — not on every request, and not a permanent block, since browsing continues normally in between. The same mechanism can also interrupt Image analyzer processing specifically.
 
 {/* source: legacy docs site subscription.html §Expiry impact */}
-{/* NEEDS-SME-REVIEW: legacy sources also claim subscription expiry skips Header filter processing, not just Application Signatures. A full-DOM search of the header-filtering console section for "subscription", "SUBSCRIPTION", "expired", and "expiry" returned zero hits, and reproducing a genuine expiry condition isn't safely testable without letting a real licence lapse. Confirm with engineering whether Header filter is also gated on `SUBSCRIPTION_EXPIRED` before this page asserts it. */}
+{/* NEEDS-SME-REVIEW: legacy sources also claim subscription expiry skips Header filter processing, not just Application Signatures. A full-DOM search of the header-filtering console section for "subscription", "SUBSCRIPTION", "expired", and "expiry" returned zero hits, and reproducing a genuine expiry condition isn't safely testable without letting a real licence lapse. The current vendor /md/ knowledge base (not the legacy snapshot) independently repeats the identical claim, stated as step 3 of its "How it works" list: "Header filter is also skipped entirely for a connection marked expired." Two independent written sources now agree, which strengthens the case for engineering to confirm, but neither is a console or lab-reproduced confirmation. Confirm with engineering whether Header filter is also gated on `SUBSCRIPTION_EXPIRED` before this page asserts it. */}
 
 **Missing:** whether an expired subscription also skips Header filter processing, alongside the confirmed Application Signatures skip above. Legacy documentation claims it does, but the live Header filtering console section has no mention of subscription or expiry anywhere, and the condition cannot be reproduced without an actually-expired licence. Escalate to engineering for a source-level answer before documenting this as behaviour.
 
