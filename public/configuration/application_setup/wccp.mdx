@@ -43,7 +43,7 @@ Traffic selection is described two ways at once: **Application Protocol** tells 
 - **Security (security)** — `NOSECURITY` or `MD5SECURITY` for packet authorization. `NOSECURITY` needs no password.
 - **Encrypted Password (enc_pwd)** — Encrypted password for packet authentication. Required when Security is `MD5SECURITY`.
 - **Acceptable Forward Method (forward_method)** — How the router transfers packets to SafeSquid: `GRE` (default) or `L2`. Layer 2 requires supporting network architecture. SafeSquid negotiates with the router for a supported method if its preferred one isn't supported.
-- **Acceptable Assignment Method (assignment_method)** — Method used when SafeSquid becomes the designated proxy: `HASH` (default) or `MASK`. *Default disputed between sources — confirm against the live console before relying on either.*
+- **Acceptable Assignment Method (assignment_method)** — Method used when SafeSquid becomes the designated proxy: `HASH` or `MASK` (default, confirmed live on build `2026.0627.1344.3` — a brand-new, unsaved policy entry pre-fills `MASK`).
 - **Acceptable Packet Return Method (packet_return_method)** — How SafeSquid returns packets to the router: `GRE` (default) or `L2`.
 - **Ports (portrange)** — Comma-separated list of ports or port ranges this entry applies to. WCCP v2 allows up to 8 ports.
 - **Network Protocol (network_protocol)** — `TCP` or `UDP`. SafeSquid informs the router of this selection. Both `TCP` and `UDP` are enabled by default.
