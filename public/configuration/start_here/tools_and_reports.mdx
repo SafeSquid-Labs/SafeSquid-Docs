@@ -21,10 +21,9 @@ backup/restore, upgrade, restart, diagnostics, live chat).
 
 ## Other utilities
 
-{/* NEEDS-SME-REVIEW: "password" and "Upload templates" were listed here from the pre-restructure source as Web UI utilities distinct from the Support page's cards. Their exact menu location wasn't re-confirmed against the live console this session — confirm before treating this list as complete. */}
-
-- **password** — encrypt passwords for policy fields (for example HTTPS Inspection cached cert password). Fields that accept an encrypted password value show a dedicated button in the Web UI that opens this tool, rather than expecting you to type or paste an already-encrypted value by hand.
-- **Upload templates** — upload custom block/info templates used by DENY actions. Any policy section's Template field (Access Profiles DENY actions, ClamAV, DNS Blacklist, and others) can reference an uploaded template by name.
+{/* source: live UI verification, build 2026.0627.1344.3, 2026-09-08 */}
+- **password** — confirmed live as the `xx--password` mode of **Support → URL Commands** (the same "URL command executor" dialog used for Test the Functionalities), not a separate card. Whether individual password fields (for example HTTPS Inspection's cached cert password) also carry their own dedicated button that opens this same tool pre-filled was not exercised — confirmed only that the mode itself exists and is reachable this way.
+- **Upload templates** — not a standalone tool. Each entry under [Custom Settings → Templates](/configuration/custom_settings/templates) carries its own **File** field (for example `blocked.html`); uploading a custom block/info template is done per-entry there, via that field's own upload control, not through a separate global "Upload templates" utility. Any policy section's Template field (Access Profiles DENY actions, ClamAV, DNS Blacklist, and others) can then reference the uploaded template by name.
 - **[Subscription](/configuration/infrastructure_and_access/subscription)** — activation key upload and license view (on-appliance side; distinct from the Support page's License Details).
 - **[Categorize Web-Sites](/configuration/custom_settings/categorize_web_sites)** — local category overrides (Web UI app, not a policy section list).
 

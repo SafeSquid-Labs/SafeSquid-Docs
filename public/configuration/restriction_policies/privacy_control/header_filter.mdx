@@ -141,15 +141,15 @@ meanings, called out in that tab.
 
     ## View headers
 
-    A read-only panel listing the header fields SafeSquid has observed, provided so you can build
-    Allow, Deny and Insert rows against names that actually appear on your traffic instead of
-    guessing them.
-
-    {/* NEEDS-SME-REVIEW: tab confirmed present in the console menu (build 2026.0627.1344.3, 2026-09-07) but its contents and any controls were not exercised. Confirm what the panel shows and whether it is filterable before expanding this. */}
-
-    **Missing:** the panel's exact columns and whether it can be filtered or exported are not
-    documented here — they were not verified against a live build. Read it directly in the
-    console, and escalate to the SME before relying on it as an audit record.
+    {/* source: live UI verification, build 2026.0627.1344.3, 2026-09-08 */}
+    A read-only, unfiltered table (**type** / **value** columns) showing the headers on the
+    request that loaded the panel itself — Host, Proxy-Connection, Content-Length,
+    X-Requested-With, User-Agent, Accept, Content-Type, Origin, Referer, Accept-Encoding,
+    Accept-Language in this build. The console's own description calls these "example headers,"
+    confirming the panel is a live worked example of one request rather than a running log across
+    your traffic — use it to see the exact header names and casing your browser sends, to build
+    Allow, Deny and Insert rows against real names instead of guessing them. No filter or export
+    control is present.
 
   </Tab>
 </Tabs>
