@@ -80,9 +80,12 @@ After restore completes, SafeSquid restarts automatically. Wait 1-2 minutes for 
 1. Open the Configuration Portal.
 2. Navigate to **Configure → Application Setup → Access restrictions** (or any configured section).
 3. Confirm policies match the state from your original appliance.
-4. Check the SSL certificate, and confirm the certificate details match the original CA.
-
-{/* NEEDS-SME-REVIEW: no "SSL Inspection" section exists in the live admin UI as of 2026-08-28 — SSL/HTTPS-inspection-related policy exists only as individual rule entries inside Access Profiles (Configure → Restriction Policies → Access Profiles), not as a distinct navigable section. Step 4 above was left generic rather than guessing a replacement path; see the same flag on restore_configuration_and_certificates.md for the paired finding. */}
+4. Check the SSL certificate: there is no distinct "SSL Inspection" section in the console
+   (confirmed live, 2026-08-28, build `2026.0627.1344.3`) — HTTPS-inspection policy lives as
+   individual rule entries inside **Configure → Restriction Policies → Access Profiles** (for
+   example a `BYPASS SSL INSPECTION` Added Profile value). Confirm those entries match the
+   original appliance, and separately confirm the certificate details match the original CA by
+   inspecting the certificate in a client's browser.
 
 5. Test client connection to verify proxy functionality.
 

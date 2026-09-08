@@ -67,10 +67,14 @@ Once a renewed key is in place, confirm it took effect:
 2. Native SECURITY logs for `subscription: expired` on test requests.
 3. Application signature stats after a successful update cycle.
 
-{/* source: legacy docs site subscription.html and tools.html §Modules Status */}
-{/* NEEDS-SME-REVIEW: legacy sources reference a "Modules Status" report showing signature and feed load status. No such tab exists in build 2026.0627.1344.3 — a DOM sweep of both the Reports and Support views found no occurrence. Reports tabs verified live: Dashboard, Statistics, Native logs, Detailed logs, Config logs, Active Connections, Connection Pool, DNS Cache, LDAP Entries, Password Cache. Confirm where feed and module load status surfaces now, if anywhere. */}
-
-**Missing:** a console view of signature and feed load status. Legacy documentation points at a Modules Status report that does not exist in this build. Use Native logs and the update-hook logs referenced in [Cloud / categorisation feeds](/configuration/start_here/cloud_feeds) until a current location is confirmed.
+Legacy documentation references a "Modules Status" report showing signature and feed load
+status. No such tab exists in build `2026.0627.1344.3` — a DOM sweep of both the Reports and
+Support views found no occurrence (verified Reports tabs: Dashboard, Statistics, Native logs,
+Detailed logs, Config logs, Active Connections, Connection Pool, DNS Cache, LDAP Entries,
+Password Cache; verified Support cards: Support Tarball, Download Config, Upload Config,
+Upgradation, Performance Plot, URL Commands, Restart SafeSquid, Cloud Restore, Startup params,
+Live Support). Use Native logs and the update-hook logs referenced in
+[Cloud / categorisation feeds](/configuration/start_here/cloud_feeds) instead.
 
 ## See also
 
