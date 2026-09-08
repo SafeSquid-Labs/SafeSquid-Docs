@@ -8,8 +8,11 @@ The Web UI includes Reports and Support utilities that are not policy sections. 
 
 - **Dashboard and Statistics** — traffic overview and module counters (DLP blocks, scan totals, and similar).
 - **Native logs, Detailed logs, Config logs** — see [Logging and troubleshooting](/configuration/start_here/logging).
-- **Active Connections, Connection Pool, DNS Cache, Password Cache, SSL Certs/Cache** — live state alongside historical logs.
-- **LDAP Entries** — directory browse after [Integrate LDAP](/configuration/application_setup/integrate_ldap) is configured.
+- **Active Connections, Connection Pool** — live appliance state. Useful for diagnosing a specific client's session in real time, or when suspecting connection exhaustion under heavy load.
+- **DNS Cache** — live appliance state. Check here before assuming a stale DNS answer is a resolver problem outside SafeSquid — the appliance's own cache may be the one serving it.
+- **Password Cache** — live appliance state. Clear it when troubleshooting a credential change that doesn't seem to take effect — a cached failure or cached stale success can otherwise mask the real state for the remainder of the cache's expiry window.
+- **SSL Certs/Cache** — live appliance state. Relevant when a client reports certificate errors that persist even after you believe the underlying HTTPS Inspection configuration is fixed.
+- **LDAP Entries** — directory browse after [Integrate LDAP](/configuration/application_setup/integrate_ldap) is configured. Use it to confirm a directory sync actually populated the expected users and groups before writing Access restrictions or Access Profiles rules that depend on them.
 
 License and signature/feed status are not under Reports — that's the separate **Support**
 top-nav page, next to Configure. See [Support](/configuration/infrastructure_and_access/support)
@@ -20,8 +23,8 @@ backup/restore, upgrade, restart, diagnostics, live chat).
 
 {/* NEEDS-SME-REVIEW: "password" and "Upload templates" were listed here from the pre-restructure source as Web UI utilities distinct from the Support page's cards. Their exact menu location wasn't re-confirmed against the live console this session — confirm before treating this list as complete. */}
 
-- **password** — encrypt passwords for policy fields (for example HTTPS Inspection cached cert password).
-- **Upload templates** — upload custom block/info templates used by DENY actions.
+- **password** — encrypt passwords for policy fields (for example HTTPS Inspection cached cert password). Fields that accept an encrypted password value show a dedicated button in the Web UI that opens this tool, rather than expecting you to type or paste an already-encrypted value by hand.
+- **Upload templates** — upload custom block/info templates used by DENY actions. Any policy section's Template field (Access Profiles DENY actions, ClamAV, DNS Blacklist, and others) can reference an uploaded template by name.
 - **[Subscription](/configuration/infrastructure_and_access/subscription)** — activation key upload and license view (on-appliance side; distinct from the Support page's License Details).
 - **[Categorize Web-Sites](/configuration/custom_settings/categorize_web_sites)** — local category overrides (Web UI app, not a policy section list).
 
@@ -40,6 +43,18 @@ backup/restore, upgrade, restart, diagnostics, live chat).
 2. Open Support — the License Details panel's **Last Updated Time** should advance after the next UPDATE cycle.
 3. Reproduce a request; Detailed logs should show `application_signatures` when subscription is valid.
 </Tip>
+
+<Tip>
+
+### Recover a forgotten encrypted cache-certificate password
+
+Open the **password** utility, enter the plaintext, and paste the resulting encrypted value directly into the target policy field — do not hand-construct an encrypted value or reuse one copied from a different password.
+</Tip>
+
+## How to verify
+
+1. When troubleshooting with Reports, start with Detailed logs for a single-request question and only move to Native logs, with the matching log family enabled, once you know which module is involved.
+2. Treat Active Connections and Connection Pool as point-in-time snapshots — refresh and re-check rather than diagnosing a live capacity issue from one stale view.
 
 ## See also
 
