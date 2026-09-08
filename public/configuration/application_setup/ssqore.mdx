@@ -24,11 +24,12 @@ Enabled and Heuristic.
 
 SSqore is the last-resort cloud tier: it runs only if the site is still uncategorized after local [Categorize Web-Sites](/configuration/custom_settings/categorize_web_sites) entries and DNS category feeds have already been checked.
 
-1. During request profiling, SSqore resolves the request host (and referer host where applicable) against CCS.
-2. Returned category names are added to `website_categories` / connection profiles used by Access Profiles and other sections.
+1. During request profiling, SSqore first checks a fast in-memory cache of recently-categorized destinations, then a second, larger on-disk cache of previously-seen results; only on a double miss does it perform a live lookup against CCS for the request host (and referer host where applicable), caching the result for next time.
+2. Returned category names are added to `website_categories` / connection profiles used by Access Profiles and other sections. The result is always a Category **label** — SSqore never returns a numeric score, a risk rating, or a confidence percentage. Whatever filtering decision follows is entirely up to how an Access Profiles entry is written to match on that label.
 3. Results are cached under `/var/lib/safesquid/ssqore/cache` to reduce repeat lookups.
 4. URLs that cannot be categorized may be queued as uncategorized for later retry.
 5. When SSqore is disabled, categorization hooks exit without adding categories.
+6. If the appliance's subscription has expired, SSqore categorization is skipped for that connection, the same way other subscription-dependent labeling features are gated.
 
 <Warning>
 **Code quirk — Heuristic unused:** The Heuristic global is persisted in config XML but the runtime module does not consult `heuristic` when calling CCS. Enable/disable behaviour is controlled only by the Enabled switch.

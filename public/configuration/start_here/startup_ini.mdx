@@ -7,21 +7,23 @@ Many appliance behaviours are set in `/opt/safesquid/startup.ini` (defaults in `
 After edits, restart SafeSquid (`/etc/init.d/safesquid restart`). Path layout comes from `/opt/safesquid/setup.ini`.
 
 <Note>
-**Two layers:** Web UI / `sectionMaster` = policy XML. `startup.ini` = process and host tunables (listen, threads, logs, TLS, sync, DNS categorisation zone, and similar).
+**Two layers:** Web UI / `sectionMaster` = policy XML. `startup.ini` = process and host tunables (listen, threads, logs, TLS, sync, DNS categorisation zone, and similar). Every value here is read once, at process start — there is no partial-reload path; a config sync from a master, or a Web UI policy save, does not touch or re-read this file. An unrecognised key is silently ignored rather than rejected — consult the shipped default file if unsure a key is spelled correctly.
 </Note>
 
 ## Listen and identity
 
-- **LISTEN\_IP / LISTEN\_PORT** — Default bind address and port if no Network settings Listen entry is enabled. See [Network settings](/configuration/application_setup/network_settings_and_listeners).
+- **LISTEN\_IP / LISTEN\_PORT** — Default bind address and port if no Network settings Listen entry is enabled. See [Network settings](/configuration/application_setup/network_settings_and_listeners). Once you add and enable a real Listen entry that entry is used and this fallback becomes irrelevant — but it is never actively disabled, so if every Listen entry is later disabled or removed, the appliance silently falls back to these defaults again rather than refusing to bind at all.
 - **HOSTNAME / DOMAIN** — Appliance hostname and domain.
 
 ## Threads, memory, sockets
 
-- `MAXTHREADS`, `MAX_FDS` (about 4× threads), `STACKSIZE`, `OVERLOAD_FACTOR`
-- `SOCKET_TIMEOUT`, `THREAD_TIMEOUT`, `MAX_CONCURRENT`
+- `MAXTHREADS`, `MAX_FDS` (about 4× threads — sized at that ratio because each connection can hold more than one descriptor at once, such as a client socket, an origin socket, and a cache file), `STACKSIZE`, `OVERLOAD_FACTOR`
+- `SOCKET_TIMEOUT`, `THREAD_TIMEOUT`
+- **`MAX_CONCURRENT`** — a global concurrent-connection ceiling for the whole process, distinct from the per-user, per-client-IP ceiling set by **MAX Concurrent Connections** on an individual Access restrictions entry.
 - `HEAP_MEM`, `SOCK_MEM` — lower if the host is memory-starved
 - `SEND_SOCKET_BUFFERS`, `RECEIVE_SOCKET_BUFFERS` — `0` = no artificial limit
-- `TCP_KEEPIDLE_TIME`, `TCP_KEEPINTVL_TIME`, `TCP_KEEPCNT_COUNTS`, `CLIENT_DEFER_ACCEPT`
+- `TCP_KEEPIDLE_TIME`, `TCP_KEEPINTVL_TIME`, `TCP_KEEPCNT_COUNTS`
+- **`CLIENT_DEFER_ACCEPT`** — defers accepting a client connection until data has actually arrived, reducing wasted thread time on connections that open and immediately go idle.
 
 ## CPU placement
 
@@ -64,6 +66,23 @@ After edits, restart SafeSquid (`/etc/init.d/safesquid restart`). Path layout co
 ## Debugging
 
 `MALLOC_CHECKING` — glibc `MALLOC_CHECK_` mode (see comments in the default file).
+
+## Examples
+
+### Fitting resource limits to a smaller host
+
+On a lower-memory appliance, lower `HEAP_MEM` and `SOCK_MEM` alongside `MAXTHREADS` and `MAX_FDS` (keeping `MAX_FDS` at roughly four times `MAXTHREADS`), restart, then watch Dashboard and Statistics under load to confirm the appliance stays responsive.
+
+### Disabling DNS categorisation temporarily
+
+If the DNS categorisation zone is unreachable and producing errors rather than degrading gracefully, set `DNS_CAT_ZONE=.` and restart to disable that path while resolving the underlying DNS issue; other categorisation sources such as SSqore and local category overrides continue to function.
+
+## How to verify
+
+1. After any edit, restart the service, then confirm the appliance is actually running the new configuration — a misspelled tunable is silently ignored, which looks identical from the outside to the tunable simply not mattering.
+2. For listen-related changes, confirm with a direct connection test rather than trusting the Web UI Network settings page alone — that page shows configured Listen entries, not the process's actual fallback behavior when none are enabled.
+3. For master sync changes, confirm on the replica that a policy change made on the master actually arrives within the configured sync interval, and that any section in `NEVER_SYNC` genuinely does not change.
+4. Revert any temporary diagnostic change and restart again once the investigation is complete.
 
 ## See also
 

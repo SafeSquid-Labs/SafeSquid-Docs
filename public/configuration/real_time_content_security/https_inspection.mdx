@@ -19,6 +19,8 @@ valid -->|Yes| handshake[Complete client TLS handshake and decrypt for filtering
 
 HTTPS Inspection controls CONNECT handling and optional TLS man-in-the-middle (Deep Scan) for HTTP inside HTTPS. Requires a valid RCSC (root CA) loaded from activation; the policy engine returns no policy when the section is off or misconfigured. Enabled Master switch ( ssl\_policy ). Off: no inspection policy applies. Inspection Policies Profile rows; first match wins. Sets Deep Scan, no-certificate, domain-mismatch, and max SSL error level for that CONNECT. Setup Stored server/ passphrase rows (see field help — not read by current runtime setup code). SSL Certs/Cache Download, upload, or refresh RCSC files and view SSL session/context cache. On CONNECT, deep\_scan\_check() loads the first matching Inspection
 
+By default, general web traffic should be fully verified and fully inspected. The realistic exception is internal or development infrastructure whose certificates are self-signed, whose issuing chain is incomplete, or that is simply expired. Rather than relaxing verification globally, scope the relaxation to the specific traffic that needs it — ideally via a Request Type built for those internal hosts — rather than opening it up for everyone.
+
 ## Core Mechanics (C++ Source Validation)
 
 - **Deep Scan (MITM)**: The connection evaluator determines if `deepscan` is enabled for the connection. If true, SafeSquid performs full Man-in-the-Middle interception by generating a forged, trusted certificate for the client using the defined Root CA, enabling inspection of the encrypted payload.
@@ -44,14 +46,16 @@ described under SSL Certs/Cache below are configuration the current build never 
     ## Row fields
 
     Every field here is per-connection tuning on an Inspection Policy row. The first matching
-    enabled row from the top wins for each CONNECT.
+    enabled row from the top wins for each CONNECT — this is first-match-wins, **not
+    cumulative like Access Profiles**: only the first matching entry governs a given CONNECT,
+    and entries below it are never consulted for that connection.
 
     - **Enabled (enabled)**: When disabled, this row is skipped. First matching enabled row wins for each CONNECT.
     - **Comment (comment)**: Operator note only; not used in SSL verification logs.
     - **Profiles (profiles)**: Connection must match at least one listed profile (Access Profiles engine). Leave blank for all connections. Negated tags ( !profile ) skip the row when that profile is present. The engine stops at the first matching row from the top.
     - **DeepScan (deepscan)**: When TRUE, the inspection engine returns TRUE and SafeSquid performs a client TLS handshake on CONNECT, decrypting HTTP for inspection. When FALSE, CONNECT is tunneled without decrypting; upstream SSL checks in this row are not applied to tunneled traffic. Use FALSE for non-HTTP TLS (Drive, Subversion, WinSCP, etc.).
     - **Block Access to Sites that do not have an SSL Certificate (block\_no\_cert)**: When TRUE (default), upstream validation blocks if the upstream presents no certificate. When FALSE, connections without a server certificate are allowed to continue (logged at DEBUG).
-    - **Acceptable Errors in SSL Verification (block\_err\_level)**: Maximum OpenSSL verification error SafeSquid tolerates on the upstream certificate. Upstream validation blocks when error limits are exceeded. Level 0 is strictest — only a fully valid chain passes. Hostname and IP mismatch are also gated by Block domain mismatch separately.
+    - **Acceptable Errors in SSL Verification (block\_err\_level)**: Maximum OpenSSL verification error SafeSquid tolerates on the upstream certificate. Upstream validation blocks when error limits are exceeded. Level 0 is strictest — only a fully valid chain passes. Choosing a level tolerates that condition and everything listed above it in strictness; anything below it still blocks. Hostname and IP mismatch are also gated by Block domain mismatch separately.
     - **Block domain mismatch in the web-site SSL certificate (block\_domain\_mismatch)**: When TRUE (default), hostname or IP mismatch errors from OpenSSL block the connection. When FALSE, X509\_V\_ERR\_HOSTNAME\_MISMATCH and X509\_V\_ERR\_IP\_ADDRESS\_MISMATCH are explicitly allowed even if they exceed the acceptable error level.
 
     ## How CONNECT is handled
@@ -128,6 +132,15 @@ tabs: Global, SSL Certs/Cache). Row fields match the Inspection Policy fields li
 **Result:** internal servers with name mismatch may pass upstream validation while public sites remain strict.
 </Tip>
 
+<Tip>
+
+### 4 — Scoped relaxation for internal development servers
+
+- Inspection row, above the default: Profiles set to a label for known internal/development hosts, DeepScan TRUE, Acceptable Errors relaxed enough to tolerate a self-signed certificate or an incomplete local chain, Block domain mismatch left TRUE
+
+**Result:** internal staging servers with a self-signed or incomplete-chain certificate pass Deep Scan without a certificate block, while Block domain mismatch staying on still catches a genuine hostname mismatch even on this relaxed entry — every connection outside that Profile still gets the strict default.
+</Tip>
+
 ## Recommended practice
 
 - Deploy RCSC to all managed clients before enabling Deep Scan broadly.
@@ -141,3 +154,4 @@ tabs: Global, SSL Certs/Cache). Row fields match the Inspection Policy fields li
 2. Enable SSL log level for `SSLcertSection::` and certificate validation lines.
 3. Check Detailed logs for CONNECT handling and upstream certificate errors.
 4. SSL Certs/Cache → Cache Refresh after RCSC or trusted-CA changes.
+5. Confirm a destination with a genuinely broken certificate (expired, wrong hostname, self-signed) is blocked under the strict default entry, and only passes through when routed to an entry whose Acceptable Errors and Block domain mismatch settings were deliberately relaxed for it.
