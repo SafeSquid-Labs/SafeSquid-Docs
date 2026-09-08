@@ -141,6 +141,11 @@ tabs: Global, SSL Certs/Cache). Row fields match the Inspection Policy fields li
 **Result:** internal staging servers with a self-signed or incomplete-chain certificate pass Deep Scan without a certificate block, while Block domain mismatch staying on still catches a genuine hostname mismatch even on this relaxed entry — every connection outside that Profile still gets the strict default.
 </Tip>
 
+{/* source: https://www.safesquid.com/md/browser-configuration.md */}
+<Warning>
+**Turning on Deep Scan before clients trust the RCSC breaks HTTPS browsing for everyone behind it, not just for one site.** Test with one machine that already trusts the certificate before enabling Deep Scan network-wide.
+</Warning>
+
 ## Recommended practice
 
 - Deploy RCSC to all managed clients before enabling Deep Scan broadly.

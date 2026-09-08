@@ -6,10 +6,9 @@ title: "Suggested Profiles"
   **This section does not appear in the Configure console.** Verified 2026-09-04 against `http://safesquid.cfg`, build `2026.0627.1344.3`: the section is absent from the console's own section registry, not merely hidden from the menu. It is kept here as legacy and reference material, not a current UI path. Confirm against your own build before pointing an administrator at it.
 </Warning>
 
-**Suggested Profiles** shows built-in profile ideas you can pick when configuring cookie-related policy. It is a **UI-only** naming aid — no C++ section loads this configuration at runtime.
+**Suggested Profiles** is a curated catalog of ready-made names and short descriptions that the Web UI offers as autocomplete suggestions across Profiles-style fields throughout the product. It is a **UI-only** naming aid — no C++ section loads this configuration at runtime.
 
 {/* source: https://www.safesquid.com/md/buitins.md */}
-{/* NEEDS-SME-REVIEW: existing intro and Entry fields scope this section to cookie profile tags only; upstream https://www.safesquid.com/md/buitins.md documents fourteen catalogs feeding many sections. Scope statement needs an SME decision before the narrow wording is corrected. */}
 <Note>
 This section's catalog is not limited to cookie policy. It provides fourteen separate suggestion lists that feed autocomplete for Profiles-style fields across Access Profiles, Access restrictions, HTTPS Inspection, ClamAV, Text analyzer, Redirect, Image analyzer, DLP, Time Profiler, Cookie Filtering, Header Filtering, Elevated Privacy, Speed Limits, Network, and Request Types. Cookie profile tags — the only catalog documented in Subsections and Entry fields below — are one of the fourteen. See "The fourteen suggestion catalogs" below for the full set.
 </Note>
@@ -20,8 +19,16 @@ To enforce cookie behaviour, configure [Cookie filter](/configuration/restrictio
 
 ## What it does and does not do
 
-- **Does** — Show labels administrators can pick when configuring Cookie filtering or Access Profiles `cookie_profiles` fields.
-- **Does not** — Enforce policy, add connection tags, or appear in the request pipeline.
+Does:
+
+- Populate autocomplete suggestions for Profiles-style fields across all fourteen catalogs below — Access Profiles, Access restrictions, HTTPS Inspection, ClamAV, Text analyzer, Redirect, Image analyzer, DLP, Time Profiler, Cookie Filtering, Header Filtering, Elevated Privacy, Speed Limits, Network, and Request Types.
+- Document, in each suggestion's own description, which Web UI field and which kind of entry is expected to produce or consume that name.
+
+Does not:
+
+- Enforce anything on its own — it appears nowhere in the request-processing path. Enforcement always comes from the section whose entries you configure using these names.
+- Restrict you to only these names — every Profiles-style field elsewhere accepts free text; this catalog is a convenience, not a whitelist.
+- Require every suggested name to be used — an unused suggestion has no effect of any kind.
 
 ## Subsections
 
@@ -209,9 +216,9 @@ Feeds: the Request Types field on Request Types **Domains and Urls** entries, an
 
 ## How to verify
 
-1. Open Cookie filter — confirm the tag appears in the cookie profile picker after you add it under Suggested Profiles.
-2. Configure a Deny row and Access Profiles `cookie_profiles` with the same tag; reproduce a request with matching cookies.
-3. Detailed logs should show cookie filter outcome — Suggested Profiles alone produces no log lines.
+1. Open the Profiles-style field on the section you're configuring (for example, Cookie filter's Deny row, or DLP's Profiles field) and confirm the suggested name you expect appears in its autocomplete list.
+2. Remember that picking a suggestion changes nothing by itself — after selecting it, configure the entries on both the producing side (the entry that adds the profile or User-Group) and the consuming side (the entry that requires it).
+3. Reproduce a request that should pick up the suggested name and check **Reports → Detailed logs** to confirm the profile or User-Group is actually present on that connection. For the cookie-filter case specifically: configure a Deny row and Access Profiles `cookie_profiles` with the same tag, then reproduce a request with matching cookies — Suggested Profiles alone produces no log lines.
 
 ## See also
 
