@@ -40,7 +40,7 @@ SafeSquid SWG becomes a security control only after traffic is deliberately rout
     If a prerequisite is missing, resolve it before installation rather than accepting an undocumented exception.
   </Step>
   <Step title="Install the selected platform">
-    Choose the correct install path from [Install SafeSquid](/getting_started/install_safesquid), then verify service health and listener state before routing users.
+    Choose the correct install path from [Install SafeSquid](/getting_started/install_safesquid/main), then verify service health and listener state before routing users.
 
     Confirm service and listener evidence exists before any client rollout.
 
@@ -82,7 +82,7 @@ SafeSquid SWG becomes a security control only after traffic is deliberately rout
     If deployment scope is unclear, resolve ownership before choosing an install path.
   </Step>
   <Step title="Choose the install platform">
-    <Card title="Install platform" icon="server" href="/getting_started/install_safesquid">
+    <Card title="Install platform" icon="server" href="/getting_started/install_safesquid/main">
       Choose Appliance Builder, cloud deployment, or managed Linux based on ownership and operational constraints.
     </Card>
 

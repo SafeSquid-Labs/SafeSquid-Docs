@@ -181,6 +181,12 @@
             ]
           },
           {
+            "group": "Install SafeSquid",
+            "pages": [
+              "getting_started/install_safesquid/main"
+            ]
+          },
+          {
             "group": "Deploy locally",
             "pages": [
               "getting_started/install_safesquid/safesquid_appliance_builder",
