@@ -54,7 +54,7 @@ Deploy SafeSquid, it is up and running, no extra configuration required in paren
 
 
 ## Prerequisites
-Enable HTTPS inspection on child proxy (optionally on parent proxy also). Check our document to configure HTTPS inspection on SafeSquid - [How to configure HTTPS inspection](/SSL_Inspection)
+Enable HTTPS inspection on child proxy (optionally on parent proxy also). Check our document to configure HTTPS inspection on SafeSquid - [How to configure HTTPS inspection](/use_cases/ssl_inspection/ssl_inspection)
 
 Import SafeSquid child proxy ROOT CA in client browser
 
@@ -64,7 +64,7 @@ Note: No configuration required on Parent Proxy server. Just deploy the parent p
 
 ## Configure proxy chain in SafeSquid
 
-Access the [SafeSquid Configuration Portal](/Configuration_Portal).
+Access the [SafeSquid Configuration Portal](/architecture/interface/configuration_portal).
 
 ### Open Configure page
 
@@ -140,7 +140,7 @@ Otherwise select No and click on submit.
 
 ## Verification and Evidence
 
-- **Interface Checks**: In [Configuration Portal](/Configuration_Portal), open Application Setup → Proxy chain. Confirm Global is enabled and the forwarding proxy entry shows the correct parent IP and port.
+- **Interface Checks**: In [Configuration Portal](/architecture/interface/configuration_portal), open Application Setup → Proxy chain. Confirm Global is enabled and the forwarding proxy entry shows the correct parent IP and port.
 - **Log Analysis**: Check SafeSquid access logs for requests showing the parent proxy as upstream; connection failures to the parent appear in logs with connect errors.
 - **Performance Validation**: From a client behind the child proxy, browse an external site; traffic should succeed and appear in both child and parent proxy logs.
 
@@ -148,7 +148,7 @@ Otherwise select No and click on submit.
 
 ## Next steps
 
-- [Forward Proxy](/Forward_Proxy) for explicit proxy without chaining.
-- [SSL Inspection](/Configure_HTTPS_Inspection) for HTTPS inspection on the child proxy.
-- [Troubleshooting](/Troubleshooting) if connectivity or parent proxy errors occur.
+- [Forward Proxy](/use_cases/scaling_and_high_availability/forward_proxy) for explicit proxy without chaining.
+- [SSL Inspection](/use_cases/ssl_inspection/configure_https_inspection) for HTTPS inspection on the child proxy.
+- [Troubleshooting](/troubleshooting/troubleshooting) if connectivity or parent proxy errors occur.
 

@@ -19,7 +19,7 @@ This page documents the rule-wiring flow that applies OpenLDAP-backed identity i
 
 :::note
 **Prerequisites**
-- [OpenLDAP Simple Authentication](/OpenLDAP_Simple_Authentication) configured and successful.
+- [OpenLDAP Simple Authentication](/use_cases/authentication/openldap_simple_authentication) configured and successful.
 - LDAP users and groups must be visible in the **LDAP Entities** tab.
 :::
 
@@ -72,6 +72,6 @@ SafeSquid includes default entries under the **Allow List**. You can edit these 
 
 ## Next steps
 
-- [Access Restriction](/Access_Restriction) to define policies for your different LDAP groups.
-- [SSL Inspection](/SSL_Inspection) to attribute encrypted traffic to specific users.
-- [Bypass Authentication](/Bypass_Authentication) for automated services.
+- [Access Restriction](/use_cases/access_restriction/access_restriction) to define policies for your different LDAP groups.
+- [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) to attribute encrypted traffic to specific users.
+- [Bypass Authentication](/use_cases/authentication/bypass_authentication) for automated services.

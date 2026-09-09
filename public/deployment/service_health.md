@@ -67,7 +67,7 @@ If resolution fails:
 
 - Check BIND9 service state with `systemctl status bind9 --no-pager`.
 - Check `/etc/bind/named.conf` for syntax or forwarder errors.
-- Use [BIND](/safesquid_swg/interface/bind) to repair local DNS service configuration.
+- Use [BIND](/architecture/interface/bind) to repair local DNS service configuration.
 
 ## Capture service evidence
 
@@ -92,4 +92,4 @@ Store these artifacts with the deployment record:
 
 - [Proxy Connectivity](/deployment/proxy_connectivity) - prove a client can actually reach the listener.
 - [Production-Readiness Checklist](/getting_started/verify_your_setup) - work through the full validation sequence.
-- [Monit](/safesquid_swg/interface/supporting_services_monit) - keep the service supervised after validation passes.
+- [Monit](/architecture/interface/supporting_services_monit) - keep the service supervised after validation passes.

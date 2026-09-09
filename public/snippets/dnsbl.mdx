@@ -29,7 +29,7 @@ Unrestricted DNS resolution allows clients to reach domains listed as malicious 
 ## Prerequisites
 
 - SafeSquid SWG installed and operational.
-- SafeSquid configured as the primary DNS resolver (see [Supporting Services: BIND](/Bind)).
+- SafeSquid configured as the primary DNS resolver (see [Supporting Services: BIND](/architecture/interface/bind)).
 - A valid DNSBL service domain (e.g., `in.dnsbl.org` or a private threat intel list).
 - Outbound network access to the DNSBL service.
 
@@ -37,7 +37,7 @@ Unrestricted DNS resolution allows clients to reach domains listed as malicious 
 
 ## Configure DNSBL in Real-time content security
 
-1. [Access the SafeSquid User Interface](/Configuration_Portal).
+1. [Access the SafeSquid User Interface](/architecture/interface/configuration_portal).
 2. Open the Configure page.
 3. Go to Real-time content security.
 
@@ -100,7 +100,7 @@ Use blacklisting domain in.dnsbl.org and blocked IP addresses 127.0.0.1-127.0.0.
 
 - **Interface**: Confirm DNS Blacklist is enabled, Domain and Blocked IP addresses are set, and Template is correct.
 - **Block test**: Request a domain known to be listed; expect block page and no connection to origin.
-- **Logs**: In [Security Logs](/Security_Logs), confirm entries for blocked requests (action/result indicating DNSBL block).
+- **Logs**: In [Security Logs](/use_cases/audit_and_forensics/security_logs), confirm entries for blocked requests (action/result indicating DNSBL block).
 - **Audit**: Run a report filtered by block reason or DNSBL; export for evidence that the control is active and blocking malicious domains.
 
 
@@ -114,7 +114,7 @@ Use blacklisting domain in.dnsbl.org and blocked IP addresses 127.0.0.1-127.0.0.
 | **Cache causing stale results** | Site unblocked after DNSBL update | **Cause:** SafeSquid caches DNSBL responses for performance. **Fix:** Wait for cache expiry (TTL-based) or restart SafeSquid: `systemctl restart safesquid`. |
 | **False positive blocks** | Legitimate site blocked | **Identify:** Check DNSBL query logs to confirm it's a list issue. **Fix:** Add domain to bypass/allow-list in Access Restrictions. **Alternative:** Switch to a different DNSBL provider with lower false-positive rates. |
 | **DNSBL enabled but no blocks** | Malicious sites still accessible | **Check:** 1) **Enabled** is TRUE. 2) **Domain** field is correct. 3) **Blocked IP addresses** includes the range returned by your DNSBL. **Test:** Query a known-malicious domain (use a test entry from your DNSBL provider). |
-| **Direct IP access bypasses DNSBL** | Users access sites by IP instead of hostname | **Limitation:** DNSBL only works on DNS queries, not direct IP connections. **Mitigation:** Use [Access Restriction](/Access_Restriction) to block by IP range or category. |
+| **Direct IP access bypasses DNSBL** | Users access sites by IP instead of hostname | **Limitation:** DNSBL only works on DNS queries, not direct IP connections. **Mitigation:** Use [Access Restriction](/use_cases/access_restriction/access_restriction) to block by IP range or category. |
 
 **Still having issues?** Contact SafeSquid support with:
 - DNSBL service domain you're using
@@ -127,11 +127,11 @@ Use blacklisting domain in.dnsbl.org and blocked IP addresses 127.0.0.1-127.0.0.
 | ----- | ------ | ------ |
 | DNSBL UI path (Real-time content security) | **Confirmed** | This page |
 | Example DNSBL domain `in.dnsbl.org` | **Draft** | Third-party list; confirm contract and return codes before production |
-| Log evidence via [Security Logs](/Security_Logs) | **Confirmed** | Linked doc |
-| Direct-IP bypass limitation | **Confirmed** | This page, [Access Restriction](/Access_Restriction) |
+| Log evidence via [Security Logs](/use_cases/audit_and_forensics/security_logs) | **Confirmed** | Linked doc |
+| Direct-IP bypass limitation | **Confirmed** | This page, [Access Restriction](/use_cases/access_restriction/access_restriction) |
 
 ## Next steps
 
-- Return to [DNS Security](/DNS_Security).
-- Align resolver placement: [BIND](/Bind).
+- Return to [DNS Security](/use_cases/dns_security/dns_security).
+- Align resolver placement: [BIND](/architecture/interface/bind).
 

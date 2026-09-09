@@ -53,7 +53,7 @@ Remote applications like **Remote desktop applications, Download managers**, etc
 
 
 
-## [Access the SafeSquid interface](/Configuration_Portal)
+## [Access the SafeSquid interface](/architecture/interface/configuration_portal)
 
 
 
@@ -106,8 +106,8 @@ Bind that created user group and Request Type in Access Profiles and decide whet
 
 ## Verification and Evidence
 
-- **Interface Checks**: In [Configuration Portal](/Configuration_Portal), confirm Real-time content security → HTTPS Inspection has Bypass SSL Inspection policy enabled, and Restriction Policies → Access profiles show the allow policy for the remote desktop application with the correct request type and Bypass SSL Inspection profile.
+- **Interface Checks**: In [Configuration Portal](/architecture/interface/configuration_portal), confirm Real-time content security → HTTPS Inspection has Bypass SSL Inspection policy enabled, and Restriction Policies → Access profiles show the allow policy for the remote desktop application with the correct request type and Bypass SSL Inspection profile.
 - **Log Analysis**: SafeSquid access logs should show successful CONNECT or requests for the remote app when allowed; blocked attempts appear with deny or policy response codes.
 - **Performance Validation**: From an allowed user and device, launch [AnyDesk](https://anydesk.com/) (or the configured app) with proxy set; connection should succeed. From a non-allowed user or app, access should be blocked.
 
-**Related**: [SSL Inspection](/SSL_Inspection), [Access Restriction](/Access_Restriction), [Architecture](/safesquid_swg/architecture/safesquid_swg), [Restrict AnyDesk](/Restrict_anydesk), [Troubleshooting](/Troubleshooting)
+**Related**: [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection), [Access Restriction](/use_cases/access_restriction/access_restriction), [Architecture](/architecture/overview/safesquid_swg), [Restrict AnyDesk](/use_cases/access_restriction/restrict_anydesk), [Troubleshooting](/troubleshooting/troubleshooting)

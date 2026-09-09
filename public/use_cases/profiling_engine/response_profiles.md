@@ -153,6 +153,6 @@ Remediation:
 
 ## Related controls / next steps
 
-- Use [Access Restriction](/Access_Restriction) to block or allow content based on response classification.
-- Use [Content Fingerprints](/True-Mime_Fingerprints) when true MIME validation must support the final decision.
-- Use [Security Logs](/Security_Logs) to confirm MIME, headers, and final profile application.
+- Use [Access Restriction](/use_cases/access_restriction/access_restriction) to block or allow content based on response classification.
+- Use [Content Fingerprints](/use_cases/data_leakage_prevention/true_mime_fingerprints) when true MIME validation must support the final decision.
+- Use [Security Logs](/use_cases/audit_and_forensics/security_logs) to confirm MIME, headers, and final profile application.

@@ -33,7 +33,7 @@ When a user tries to access remote application software, First SafeSquid checks 
 
 
 ## How to Allow Remote Applications?
-Follow the Link: [Allow anydesk](/Allow_anydesk)
+Follow the Link: [Allow anydesk](/use_cases/access_restriction/allow_anydesk)
 
 
 

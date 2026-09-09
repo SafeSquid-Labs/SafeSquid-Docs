@@ -25,14 +25,14 @@ Detect and block Internationalized Domain Name (IDN) homograph attacks where att
 
 :::tip
 **Combine with Other Defenses**
-Homograph detection works best alongside [DNSBL](/DNSBL) (block known-bad domains), [SSL Inspection](/SSL_Inspection) (detect fake certificates), and user security awareness training.
+Homograph detection works best alongside [DNSBL](/use_cases/dns_security/dnsbl) (block known-bad domains), [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) (detect fake certificates), and user security awareness training.
 :::
 
 ## Prerequisites
 
-- SafeSquid installed and operational (see [Getting Started](/Getting_Started))
-- Admin access to [Configuration Portal](/Configuration_Portal)
-- DNS resolution handled by SafeSquid (see [Supporting Services: BIND](/Bind))
+- SafeSquid installed and operational (see [Getting Started](/getting_started/welcome))
+- Admin access to [Configuration Portal](/architecture/interface/configuration_portal)
+- DNS resolution handled by SafeSquid (see [Supporting Services: BIND](/architecture/interface/bind))
 
 ## Configuration Steps
 
@@ -74,7 +74,7 @@ curl -v -x http://YOUR-SAFESQUID-IP:8080 http://аpple.com
 
 ### Method 2: Browser Test
 
-1. Configure your browser to use SafeSquid as proxy (see [Connect Your Client](/Connect_Your_Client))
+1. Configure your browser to use SafeSquid as proxy (see [Connect Your Client](/getting_started/client_configuration/connect_your_client))
 2. Navigate to `http://аpple.com`
 3. **Expected result:** SafeSquid displays a block page
 
@@ -125,8 +125,8 @@ When detected, SafeSquid blocks the request and logs the attempt for audit trail
 
 ## Next Steps
 
-- **Layer defenses:** Combine with [DNSBL](/DNSBL) to block known-malicious domains
-- **Inspect certificates:** Enable [SSL Inspection](/SSL_Inspection) to detect fake TLS certificates on lookalike domains
-- **Monitor attempts:** Use [Security Logs](/Security_Logs) and [Reporting](/Reporting_Module) to track homograph attack patterns
+- **Layer defenses:** Combine with [DNSBL](/use_cases/dns_security/dnsbl) to block known-malicious domains
+- **Inspect certificates:** Enable [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) to detect fake TLS certificates on lookalike domains
+- **Monitor attempts:** Use [Security Logs](/use_cases/audit_and_forensics/security_logs) and [Reporting](/use_cases/audit_and_forensics/reporting_module) to track homograph attack patterns
 - **User training:** Educate users about IDN attacks and visual domain verification
 

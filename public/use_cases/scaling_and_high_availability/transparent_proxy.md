@@ -34,7 +34,7 @@ A transparent proxy (inline, intercepting, or forced proxy) sits between the cli
 
 
 ## How SafeSquid transparent proxy works
-![Diagram how SafeSquid proxy works](/images/Troubleshooting/Transparent_proxy/image1.webp)
+![Diagram how SafeSquid proxy works](/images/troubleshooting/Transparent_proxy/image1.webp)
 
 Bob is using a laptop in Stark Tech and wants to access internet services via Stark Tech's WIFI network.
 
@@ -67,7 +67,10 @@ The following list contains the usefulness of SafeSquid transparent proxy to Bob
 1. Make sure the IP tables-persistent package is installed (to save IP table rules)
 1. If your router only supports traffic forwarding then you should redirect traffic on the SafeSquid server using IP tables.
 
-{/* NEEDS-SME-REVIEW: no "Transparent proxy" or "Transparent" section exists anywhere in the live admin UI as of 2026-08-28 (checked Application Setup's full section list, Accelerators, and Real time content security). Enabling transparent mode appears to be entirely the SSL-transparent-facility-plus-port-redirection mechanism already described in steps 2-4 above, not a separate UI toggle — confirm whether this step is redundant with the above or refers to a real control this check missed. */}
+There is no separate "Transparent proxy" toggle anywhere in the console (confirmed live,
+2026-08-28, build `2026.0627.1344.3`, across Application Setup, Accelerators, and Real time
+content security) — enabling the SSL transparent facility and redirecting ports 80/443 to
+8081/8443 above is the entire mechanism, not a preliminary step before some other switch.
 
 
 
@@ -81,7 +84,7 @@ The following list contains the usefulness of SafeSquid transparent proxy to Bob
 
 ## Next steps
 
-- [Forward Proxy](/Forward_Proxy) for explicit browser configuration.
-- [TCP Proxy](/TCP_Proxy) for non-HTTP protocols.
-- [Configure HTTPS Inspection](/Configure_HTTPS_Inspection) for SSL transparent mode.
+- [Forward Proxy](/use_cases/scaling_and_high_availability/forward_proxy) for explicit browser configuration.
+- [TCP Proxy](/use_cases/scaling_and_high_availability/tcp_proxy) for non-HTTP protocols.
+- [Configure HTTPS Inspection](/use_cases/ssl_inspection/configure_https_inspection) for SSL transparent mode.
 

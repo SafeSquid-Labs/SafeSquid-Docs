@@ -1,6 +1,6 @@
 ---
 name: deployment_architect_writer
-description: Use when SafeSquid SWG documentation must explain enterprise deployment design, topology assumptions, proxy modes, client onboarding, rollout sequencing, clustering, high availability, disaster recovery, or other architecture-sensitive implementation choices.
+description: Use when SafeSquid SWG documentation must explain enterprise deployment design, topology assumptions, proxy modes, or HA/DR.
 ---
 
 # Deployment Architect Writer
@@ -8,39 +8,19 @@ description: Use when SafeSquid SWG documentation must explain enterprise deploy
 Use this skill when a documentation task depends on topology, rollout design, or deployment variation.
 
 ## Goal
+Write deployment guidance that is safe, explicit, and useful in mission-critical environments.
 
-Write deployment guidance that is safe, explicit, and useful in large enterprises and mission-critical environments.
+## Information Gathering
+- **MANDATORY:** Use `graphify query` and `graphify path` to locate architecture dependencies (e.g., `graphify explain "solution_topology"` or `graphify query "high_availability"`) before writing.
 
-## Read first
+## What to Cover
+- Deployment objective and trust boundaries.
+- SafeSquid-side setup vs. Client-side preparation.
+- Upstream and downstream dependencies.
+- Variations by environment (branch, cloud, hybrid, clustered).
+- Failure domains and blast radius.
 
-1. `/home/administrator/Mintlify-Docs/.claude/skills/doc_program_standards/references/world_class_quality_rubric.md`
-2. `/home/administrator/Mintlify-Docs/.claude/skills/doc_program_standards/references/source_of_truth_policy.md`
-3. `/home/administrator/safesquid-labs/knowledge/product/technical_architecture.md`
-4. `/home/administrator/safesquid-labs/knowledge/architecture/solution_topology.md`
-5. `/home/administrator/safesquid-labs/knowledge/architecture/complex_topology_solution_pattern.md`
-
-## What to cover
-
-- Deployment objective
-- Topology assumptions and trust boundaries
-- Client-side preparation
-- SafeSquid-side setup
-- Upstream and downstream dependencies
-- Variations by environment
-- Pilot and rollout sequencing
-- Rollback considerations
-- Monitoring and steady-state operations
-
-## Required output behaviors
-
+## Constraints
 - Distinguish lab guidance from production guidance.
-- Explain why a topology choice is appropriate.
-- Call out when guidance changes for branch, cloud, hybrid, clustered, or high-availability deployments.
-- Highlight failure domains and blast radius.
-- Prefer diagrams or tables when they reduce ambiguity.
-
-## Do not do
-
+- Prefer Mermaid diagrams (`flowchart TB`) or markdown tables over dense text.
 - Do not assume a single deployment pattern fits all enterprises.
-- Do not hide architecture dependencies inside a step list.
-- Do not describe high availability or disaster recovery vaguely.

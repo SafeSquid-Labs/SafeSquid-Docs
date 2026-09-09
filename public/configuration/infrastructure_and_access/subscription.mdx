@@ -1,0 +1,86 @@
+---
+title: "Subscription"
+---
+
+Subscription state controls whether the appliance considers its licence valid, and therefore whether update feeds and signature modules can run. It defines no proxy policy rows of its own. SafeSquid re-checks subscription validity on every request, not once at startup — this is a per-request check, not a one-time state.
+
+This is the on-appliance side of licensing only — it reflects the key you already hold. To register an account or obtain a new activation key, see [Support](/configuration/infrastructure_and_access/support) for where that key comes from on `key.safesquid.com`.
+
+## Where subscription state appears
+
+The authoritative view is the **License Details** panel on the **Support** page, reached from the top navigation bar next to **Configure**. Verified 2026-09-04 against build `2026.0627.1344.3`.
+
+There is no Subscription section under **Configure**, and no licence or module-status tab under **Reports**.
+
+## License Details fields
+
+The panel is read-only apart from a **Refresh** control.
+
+| Field | What it shows |
+|---|---|
+| Activation Key Name | Name of the activation key registered on the appliance |
+| Subscription Start | Date the current subscription began |
+| Creator Details | Account that created the key |
+| Contact Details | Contact address on the subscription |
+| Status | Current subscription state, for example `ACTIVE` |
+| Service ID | Identifier of the subscribed service |
+| Service Name | Name of the subscribed service |
+| Subscription Type | Basis the subscription is metered on, for example `CPU usage` |
+| Remaining Subscription Quantity | Entitlement left against the metered basis |
+| Service Location | Location recorded against the service |
+| Last Updated Time | When the appliance last refreshed this data |
+
+## How subscription affects the proxy
+
+1. On each request, SafeSquid sets or clears `SUBSCRIPTION_EXPIRED` on the connection from subscription validity checks.
+2. When expired, [Application Signatures](/configuration/custom_settings/application_signatures) processing is skipped for that connection and security logging records filter `subscription`.
+3. Background subscription accounting talks to the vendor service, refreshes entitlement, and drives scheduled update hooks (signatures, categorisation feeds, trusted CA updates, and similar).
+4. At certain points while a request is being processed, an expired subscription can occasionally interrupt it with a renewal notice instead of the normal response — not on every request, and not a permanent block, since browsing continues normally in between. The same mechanism can also interrupt Image analyzer processing specifically.
+
+{/* source: legacy docs site subscription.html §Expiry impact */}
+{/* NEEDS-SME-REVIEW: legacy sources also claim subscription expiry skips Header filter processing, not just Application Signatures. A full-DOM search of the header-filtering console section for "subscription", "SUBSCRIPTION", "expired", and "expiry" returned zero hits, and reproducing a genuine expiry condition isn't safely testable without letting a real licence lapse. The current vendor /md/ knowledge base (not the legacy snapshot) independently repeats the identical claim, stated as step 3 of its "How it works" list: "Header filter is also skipped entirely for a connection marked expired." Two independent written sources now agree, which strengthens the case for engineering to confirm, but neither is a console or lab-reproduced confirmation. Confirm with engineering whether Header filter is also gated on `SUBSCRIPTION_EXPIRED` before this page asserts it. */}
+
+**Missing:** whether an expired subscription also skips Header filter processing, alongside the confirmed Application Signatures skip above. Legacy documentation claims it does, but the live Header filtering console section has no mention of subscription or expiry anywhere, and the condition cannot be reproduced without an actually-expired licence. Escalate to engineering for a source-level answer before documenting this as behaviour.
+
+<Warning>
+An expired subscription is not the same as Access restrictions DENY — users may still connect while signature-dependent labelling and some update paths stop. Check the Support page's License Details panel and Native SECURITY logs when behaviour changes after expiry.
+</Warning>
+
+## Renewing an activation key
+
+{/* source: legacy docs site subscription.html §Renewal */}
+{/* NEEDS-SME-REVIEW: no activation-key upload control was found anywhere in build 2026.0627.1344.3. The Configure menu has no Subscription section, and the Support page's ten tool cards are Support Tarball, Download Config, Upload Config, Upgradation, Performance Plot, URL Commands, Restart SafeSquid, Cloud Restore, Startup params, and Live Support — none of them an activation-key upload. Upload Config was not opened (never-click list), so it remains an unconfirmed candidate. Re-confirmed 2026-09-08 in a live-console verification pass: same ten cards present, same License Details fields, still no key-upload control anywhere; also noted the live instance's Remaining Subscription Quantity reads 00:00:00 while Status still shows ACTIVE, which is itself worth a question for engineering. Confirm where key upload actually happens on the shipping build, or whether renewal is now entirely cloud-side, before this page documents a procedure. */}
+
+**Missing:** the on-appliance step for installing a renewed activation key. No upload control for one was found in the current build's console, so the procedure below is not documented here rather than guessed at. Obtain the renewed key from [key.safesquid.com](https://key.safesquid.com), then confirm the installation path with SafeSquid support for your build before a renewal window.
+
+Once a renewed key is in place, confirm it took effect:
+
+1. Open **Support → License Details** and select **Refresh**.
+2. Check that **Status** and **Subscription Start** reflect the new subscription.
+3. Confirm application signature tags apply again on new connections.
+
+**Expected result:** `SUBSCRIPTION_EXPIRED` clears on new connections and signature-dependent labelling resumes.
+
+## How to verify
+
+1. **Support → License Details** for subscription status, then **Refresh** to pull current state.
+2. Native SECURITY logs for `subscription: expired` on test requests.
+3. Application signature stats after a successful update cycle.
+
+Legacy documentation references a "Modules Status" report showing signature and feed load
+status. No such tab exists in build `2026.0627.1344.3` — a DOM sweep of both the Reports and
+Support views found no occurrence (verified Reports tabs: Dashboard, Statistics, Native logs,
+Detailed logs, Config logs, Active Connections, Connection Pool, DNS Cache, LDAP Entries,
+Password Cache; verified Support cards: Support Tarball, Download Config, Upload Config,
+Upgradation, Performance Plot, URL Commands, Restart SafeSquid, Cloud Restore, Startup params,
+Live Support). Use Native logs and the update-hook logs referenced in
+[Cloud / categorisation feeds](/configuration/start_here/cloud_feeds) instead.
+
+## See also
+
+- [Support](/configuration/infrastructure_and_access/support) — License Details panel and appliance tools
+- [Register and get your key](/getting_started/register)
+- [Handle expiry](/deployment/manage_subscription_state)
+- [Cloud / categorisation feeds](/configuration/start_here/cloud_feeds)
+- [Application Signatures](/configuration/custom_settings/application_signatures)
+- [Logging](/configuration/start_here/logging)

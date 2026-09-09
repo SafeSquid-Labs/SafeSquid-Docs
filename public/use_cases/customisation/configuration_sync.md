@@ -40,7 +40,7 @@ Without configuration synchronization, each proxy node must be updated manually.
 
 ## Prerequisites
 
-- Master and slave instances already connected (see [Master-Slave setup](/Master_Slave))
+- Master and slave instances already connected (see [Master-Slave setup](/use_cases/scaling_and_high_availability/master_slave))
 - If authentication is enabled on master, slave IP must be in Access restrictions → Allow list
 
 **Important**: If proxy authentication is required for all network traffic, create an allow-list policy on the master for the slave proxy IP. Otherwise the slave cannot reach the master Configuration Portal to sync policies.
@@ -110,7 +110,7 @@ After restart, the slave begins syncing configuration from the master. Policy ch
 
 **Policies not syncing to slave:**
 {/* source: live UI verification, Support → Startup params, and use_cases/scaling_and_high_availability/master_slave.md's own screenshot evidence (image3, image5, image6, image15) */}
-{/* NEEDS-SME-REVIEW: this section previously named port 8888 for the telnet check. No UI section or product log on the verified live instance names 8888; the MASTER_PORT field in the linked page's own screenshots is 8080, matching the master's configured LISTEN_PORT, and its raw sync log records the actual sync connection as `192.168.221.222:8080`. Confirm whether 8888 is ever used on some builds — this is the same open question flagged on use_cases/customisation/configure_cloud_restore.md's ":8888" claim and use_cases/scaling_and_high_availability/proxy_clustering.md. */}
+{/* NEEDS-SME-REVIEW: this section previously named port 8888 for the telnet check. No UI section or product log on the verified live instance names 8888; the MASTER_PORT field in the linked page's own screenshots is 8080, matching the master's configured LISTEN_PORT, and its raw sync log records the actual sync connection as `192.168.221.222:8080`. Reinforced 2026-09-08: a full read of Support → Startup params on the live instance lists ~50 named parameters, including MASTER_PORT (present but unset here) and every other port field (LISTEN_PORT 8080, NATIVE_UDP_PORT/EXTENDED_UDP_PORT/CONFIG_UDP_PORT all blank) — 8888 does not appear anywhere in that list either. Still open: MASTER_PORT is free-text, so some other deployment could set it to 8888; this only rules out 8888 being a hardcoded default in this build. Confirm with engineering whether 8888 is ever used on some builds — this is the same open question flagged on use_cases/customisation/configure_cloud_restore.md's former ":8888" claim (now resolved there) and use_cases/scaling_and_high_availability/proxy_clustering.md. */}
 - Verify slave Startup params show correct master IP and port: Configuration Portal → Support → Startup params
 - Check network connectivity from slave to master's configured LISTEN_PORT (8080 in verified screenshots; confirm the actual value on the master): `telnet <master-ip> <master-port>`
 - If authentication enabled, verify slave IP in master Access restrictions → Allow list
@@ -125,5 +125,5 @@ After restart, the slave begins syncing configuration from the master. Policy ch
 - Restart slave to apply configuration changes: Configuration Portal → Support → Restart SafeSquid
 - Some changes (network settings, startup params) require manual restart
 
-**Related**: [Master-Slave setup](/Master_Slave), [Configuration Portal](/Configuration_Portal), [Troubleshooting](/Troubleshooting)
+**Related**: [Master-Slave setup](/use_cases/scaling_and_high_availability/master_slave), [Configuration Portal](/architecture/interface/configuration_portal), [Troubleshooting](/troubleshooting/troubleshooting)
 

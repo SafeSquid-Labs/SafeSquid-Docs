@@ -34,7 +34,7 @@ Single-node deployments create both scale risk and availability risk. Clustering
 - Same SafeSquid version on all nodes
 - Same activation key on master and slaves
 {/* source: live UI verification, Support → Startup params, and use_cases/scaling_and_high_availability/master_slave.md's own screenshot evidence (image3, image5, image6, image15) */}
-{/* NEEDS-SME-REVIEW: this line previously stated the master Configuration Portal listens on "port 8888 by default". No UI section or product log on the verified live instance names 8888. The MASTER_PORT field entered in master_slave.md's own screenshots is 8080, matching the master's configured LISTEN_PORT, and that page's image15 shows a raw sync log recording the actual sync connection as `192.168.221.222:8080` — evidence against 8888 specifically for the master-slave sync channel. This does not resolve the separate ":8888" address question flagged on use_cases/customisation/configure_cloud_restore.md (external Configuration Portal access URL) — confirm whether that is a distinct, genuine listener before reconciling the two pages. */}
+{/* NEEDS-SME-REVIEW: this line previously stated the master Configuration Portal listens on "port 8888 by default". No UI section or product log on the verified live instance names 8888. The MASTER_PORT field entered in master_slave.md's own screenshots is 8080, matching the master's configured LISTEN_PORT, and that page's image15 shows a raw sync log recording the actual sync connection as `192.168.221.222:8080` — evidence against 8888 specifically for the master-slave sync channel. Reinforced 2026-09-08: a full read of Support → Startup params on the live instance lists ~50 named parameters, including MASTER_PORT (present but unset here) and every other port field (LISTEN_PORT 8080, NATIVE_UDP_PORT/EXTENDED_UDP_PORT/CONFIG_UDP_PORT all blank) — 8888 does not appear anywhere in that list either. Still open: MASTER_PORT is free-text, so some other deployment could set it to 8888; this only rules out 8888 being a hardcoded default in this build. The separate ":8888" address question on use_cases/customisation/configure_cloud_restore.md (external Configuration Portal access URL) is now resolved there — the same Startup params evidence found no distinct listener on that port either. Confirm with engineering whether 8888 is ever used on some builds. */}
 - Network connectivity: slaves can reach the master's configured proxy port (the same LISTEN_PORT the master serves its Configuration Portal on — 8080 in verified evidence; confirm the actual value on your master under Support → Startup params)
 - Load balancer configured to distribute traffic to slave nodes (not to master)
 - Time synchronization (NTP) across all nodes
@@ -75,12 +75,12 @@ The documents below cover master-slave setup and configuration sync.
 
 ## Clustering configuration guides
 
-### [Master-Slave](/Master_Slave)
+### [Master-Slave](/use_cases/scaling_and_high_availability/master_slave)
 Single-node deployments lack failover and scale limits. Master-Slave describes how to configure a master node for policy and reporting and slave nodes for traffic enforcement. Centralized policy and unified reporting reduce administrative overhead. Follow this document to set up master-slave relationships.
 
-### [Configuration Sync](/Configuration_Sync)
+### [Configuration Sync](/use_cases/customisation/configuration_sync)
 Configuration drift across nodes causes inconsistent enforcement and troubleshooting difficulty. Configuration Sync enables automatic propagation of policy and configuration from master to slaves. All nodes stay aligned without manual copy. Configure sync using this document.
 
 ## Next steps
 
-Place a load balancer in front of slave nodes; see [Disaster Recovery](/Disaster_Recovery) for backup and restore, and Verify your setup for post-cluster validation.
+Place a load balancer in front of slave nodes; see [Disaster Recovery](/use_cases/scaling_and_high_availability/disaster_recovery) for backup and restore, and Verify your setup for post-cluster validation.

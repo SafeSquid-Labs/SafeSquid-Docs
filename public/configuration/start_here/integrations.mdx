@@ -1,0 +1,65 @@
+---
+title: "Integrations"
+---
+
+SafeSquid works with external systems and bundled services. Configure most integrations in the Web UI; some host paths and daemons are appliance packages.
+
+SafeSquid rarely operates alone; this page maps every external system it integrates with, where each is configured, and what breaks when one is missing or misconfigured. It deliberately does not repeat each integration's own topic.
+
+## Directory and identity
+
+- [Integrate LDAP](/configuration/application_setup/integrate_ldap) / Active Directory — users, groups, LDAP Profiles on Access rows. Disabled means the cache is cleared and any Access entry relying on LDAP Profiles or LDAP-backed System authentication stops matching until re-enabled and re-synced. Get the **Group Identifier** attribute name wrong and **LDAP Profiles matching silently never fires, with no error anywhere**.
+- [Kerberos / SSO](/configuration/start_here/authentication) — keytab at `/usr/local/safesquid/security/HTTP.keytab`. Depends on a valid keytab present and readable **at process start**; if it is missing or invalid when the service starts, Negotiate is never offered to browsers even though the Web UI switch shows it enabled. Installing or replacing the keytab needs a service restart.
+- PAM stack `/etc/pam.d/safesquid` for System authentication. Credentials are validated in order: a short-lived password cache, then the appliance's own OS authentication stack, then an LDAP bind if Integrate LDAP is configured and the user is already known. Local OS accounts and directory accounts therefore share one authentication path on the same Access entry.
+- IP-to-user map: `USER_IP_DB_FILE` in [startup.ini](/configuration/start_here/startup_ini) (for example VPN clients).
+
+## Scanning and adaptation
+
+- [Clam antivirus](/configuration/real_time_content_security/clam_antivirus) — local `clamd` socket. SafeSquid does not manage virus signatures; keeping the `clamd` signature database current belongs to whatever manages that installation. An unreachable scan target **fails scanning for that connection rather than silently skipping it** — verify that matches your policy's expectation.
+- [SqScan](/configuration/real_time_content_security/sqscan) — built-in in-memory scanner. No external daemon and nothing to reach over the network; choose it when you want scanning with no external dependency, and ClamAV or ICAP when you need a separately maintained, swappable engine.
+- [ICAP](/configuration/real_time_content_security/icap) — third-party REQMOD/RESPMOD services. REQMOD for uploads, RESPMOD for downloads; a server error or timeout **falls through to the next matching ICAP entry**, if any.
+- [DLP](/configuration/real_time_content_security/dlp) — upload inspection and OCR scoring.
+- [Image analyzer](/configuration/real_time_content_security/image_analyzer) — optional image scoring module.
+
+## Categorisation and feeds
+
+- [SSqore](/configuration/application_setup/ssqore) — cloud URL categorisation (CCS). Needs reachability and a valid subscription. When it cannot reach the service, or the subscription is invalid, requests to previously-uncategorised hosts may pass through with **no category at all** — which matters if your policy denies by category, since an uncategorised host is not automatically denied unless you wrote policy that treats "no category" as denied.
+- [Categorize Web-Sites](/configuration/custom_settings/categorize_web_sites) — local category overrides. A purely local override list that **takes precedence over** whatever cloud categorisation returns for the same host, and needs no external connectivity.
+- [Application Signatures](/configuration/custom_settings/application_signatures) / [Content Signatures](/configuration/custom_settings/content_signatures) — vendor signature databases.
+- [Subscription](/configuration/infrastructure_and_access/subscription) — license and activation. Gates whether the scheduled update cycle can refresh feeds **and** whether per-request Application Signatures processing runs at all. An expired subscription is not an Access denial: existing traffic keeps flowing, but signature-dependent labelling stops being applied to new connections and feed refresh stops.
+- See [Cloud / categorisation feeds](/configuration/start_here/cloud_feeds) for UPDATE schedule and offline behaviour.
+
+## Network services
+
+- [WCCP](/configuration/application_setup/wccp) — transparent redirection to the proxy. Confirm WCCP redirection works on your build before planning a deployment around it — that topic records the caveat in full.
+- [Proxy chain](/configuration/application_setup/proxy_chain) — upstream peers and CARP. A parent proxy, sibling caches, or a CARP cluster of peer SafeSquid instances sharing load by URL hash; use it when SafeSquid must sit behind another proxy layer, or to distribute requests deterministically across multiple instances.
+- BIND / DNS stubs under the security DNS directory (appliance). Coordinate any change with whoever manages DNS; getting either the DNS categorisation zone or the appliance's own DNS resolution setup wrong affects ordinary browsing and categorisation accuracy at once, and the symptoms look identical from inside SafeSquid.
+- rbldnsd-style DNS blacklists used with [DNS Blacklist](/configuration/real_time_content_security/dns_blacklist). SafeSquid appends the configured suffix to the request's host name and treats specific returned addresses as a block signal; if you run your own zone, that zone server is the external dependency. **A zone that fails open — returning nothing rather than a clear miss — silently stops blocking anything.** Verify both a known-bad and a known-good host name.
+- DNS categorisation zone: `DNS_CAT_ZONE` in startup.ini.
+
+## Operations
+
+- Monit: `/etc/monit/conf.d/safesquid.monit` — a supervisor that is itself not running gives no safety net at all; confirm periodically, **from outside the Web UI**, that it is active and pointed at the SafeSquid service.
+- systemd / init: see [Daemon](/configuration/start_here/daemon)
+- logrotate: `/etc/logrotate.d/safesquid`
+- Master sync: `MASTER_IP`, `NEVER_SYNC`, `ALWAYS_SYNC` in startup.ini
+
+## Examples
+
+### Diagnosing feeds stopped updating
+
+Check licence state first: an expired subscription is the most common cause and also explains why signature processing stopped on live connections, not merely why the download stopped. If the subscription is valid, confirm outbound connectivity to the vendor update service before assuming a Web UI misconfiguration.
+
+## How to verify
+
+1. For any directory integration, confirm entries actually appear under **Reports → LDAP Entries** after enabling — an empty list after a full sync cycle means the connection, credentials, or base DN are wrong, not that there are no users.
+2. For any scanning integration, send a known test payload through a profile that should be scanned, and confirm both a block page and a matching filter name in **Reports → Detailed logs**.
+3. For subscription-gated feeds, check load timestamps rather than assuming a key upload refreshed anything — refresh happens on the next scheduled cycle.
+4. For any network-level redirection, confirm with the network team that traffic is actually arriving at SafeSquid before troubleshooting inside the Web UI.
+5. For host-level supervision, confirm outside the Web UI that the supervising process is running.
+
+## See also
+
+- [Architecture](/configuration/start_here/architecture)
+- [Logging and troubleshooting](/configuration/start_here/logging)
+- [Full section index](/configuration/main)

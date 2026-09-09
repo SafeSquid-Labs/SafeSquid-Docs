@@ -1,7 +1,6 @@
 ---
 title: Use Cases
 description: Navigation hub for the Use Cases section.
-slug: /Use_Cases
 keywords:
   - use cases
   - SafeSquid documentation

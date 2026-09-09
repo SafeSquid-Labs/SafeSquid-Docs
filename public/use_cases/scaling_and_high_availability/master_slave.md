@@ -47,7 +47,7 @@ flowchart TB
 - SafeSquid installed on all nodes (master and slaves)
 - Same activation key on all nodes
 {/* source: live UI verification, Support → Startup params, and this page's own screenshot evidence (image3, image5-8, image15) */}
-{/* NEEDS-SME-REVIEW: this page previously stated the master Configuration Portal listens on "port 8888 by default". No UI section or product log on the verified live instance names 8888. The MASTER_PORT field entered in this page's own screenshots (image3, image5, image6) is 8080, matching the master's configured LISTEN_PORT, and image15's raw sync log records the actual sync connection as `192.168.221.222:8080`. Confirm whether 8888 is ever used (e.g. a distinct clustering listener on some builds) — this is the same open question flagged on use_cases/customisation/configure_cloud_restore.md's ":8888" claim and use_cases/scaling_and_high_availability/proxy_clustering.md. */}
+{/* NEEDS-SME-REVIEW: this page previously stated the master Configuration Portal listens on "port 8888 by default". No UI section or product log on the verified live instance names 8888. The MASTER_PORT field entered in this page's own screenshots (image3, image5, image6) is 8080, matching the master's configured LISTEN_PORT, and image15's raw sync log records the actual sync connection as `192.168.221.222:8080`. Reinforced 2026-09-08: a full read of Support → Startup params on the live instance lists ~50 named parameters, including MASTER_PORT (present but unset here) and every other port field (LISTEN_PORT 8080, NATIVE_UDP_PORT/EXTENDED_UDP_PORT/CONFIG_UDP_PORT all blank) — 8888 does not appear anywhere in that list either. Still open: MASTER_PORT is free-text, so some other deployment could set it to 8888; this only rules out 8888 being a hardcoded default in this build. Confirm with engineering whether 8888 is ever used (e.g. a distinct clustering listener on some builds) — this is the same open question flagged on use_cases/customisation/configure_cloud_restore.md's former ":8888" claim (now resolved there) and use_cases/scaling_and_high_availability/proxy_clustering.md. */}
 - Network access from slaves to master's configured proxy port (the same LISTEN_PORT the master serves its Configuration Portal on — 8080 in this page's own screenshots; verify the actual port on your master under Support → Startup params before connecting a slave)
 - If authentication is enabled on master, slaves must be allowed in Access restrictions → Allow list
 
@@ -59,7 +59,7 @@ Follow these steps to connect a slave instance to a master. Perform slave config
 
 ## Step 1: Configure slave server
 
-### [Access the SafeSquid User Interface](/Configuration_Portal) on the slave server
+### [Access the SafeSquid User Interface](/architecture/interface/configuration_portal) on the slave server
 
 
 
@@ -118,7 +118,7 @@ On the slave Configuration Portal, confirm that sections synced from the master 
 
 ### Verify reporting flow
 
-On the master, open [Reporting Service](/Reporting_Service) and confirm logs from slave nodes appear in unified reports. Slave traffic should be visible on the master.
+On the master, open [Reporting Service](/architecture/interface/reporting_service) and confirm logs from slave nodes appear in unified reports. Slave traffic should be visible on the master.
 
 ## Verification checklist
 
@@ -145,5 +145,5 @@ On the master, open [Reporting Service](/Reporting_Service) and confirm logs fro
 - After policy changes on master, restart slave to apply: Configuration Portal → Support → Restart SafeSquid
 - Verify slave activation key matches master (same license)
 
-**Related**: [Configuration Sync](/Configuration_Sync), [Configuration Portal](/Configuration_Portal), [Reporting Service](/Reporting_Service), [Troubleshooting](/Troubleshooting)
+**Related**: [Configuration Sync](/use_cases/customisation/configuration_sync), [Configuration Portal](/architecture/interface/configuration_portal), [Reporting Service](/architecture/interface/reporting_service), [Troubleshooting](/troubleshooting/troubleshooting)
 

@@ -56,7 +56,7 @@ Where logs are forwarded, confirm arrival at the destination rather than departu
 
 ## Confirm reports load
 
-Open the [Configuration Portal](/safesquid_swg/interface/configuration_portal) and load a report covering the test window.
+Open the [Configuration Portal](/architecture/interface/configuration_portal) and load a report covering the test window.
 
 Expected result: the report renders and its contents match the access-log entries generated during validation.
 
@@ -99,5 +99,5 @@ This evidence supports SOC 2 change management, ISO 27001 operational control re
 ## Next steps
 
 - [Log-Retention Planning](/deployment/log_retention_planning) - set the retention target this evidence has to meet.
-- [Reporting Service](/safesquid_swg/interface/reporting_service) - connect and operate reporting.
+- [Reporting Service](/architecture/interface/reporting_service) - connect and operate reporting.
 - [Production-Readiness Checklist](/getting_started/verify_your_setup) - close out the full validation sequence.

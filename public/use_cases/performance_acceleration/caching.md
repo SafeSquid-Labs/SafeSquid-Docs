@@ -34,7 +34,7 @@ Cache and prefetch policy interacts with inspection and privacy scope. Do not ca
 
 ### Create the access policy
 
-1. Access the [SafeSquid User Interface](/safesquid_swg/interface/configuration_portal) and click **Configure**.
+1. Access the [SafeSquid User Interface](/architecture/interface/configuration_portal) and click **Configure**.
 
    ![Configure page](/images/How_To/Caching_Specific_websites/image1.webp)
 
@@ -68,43 +68,47 @@ Cache and prefetch policy interacts with inspection and privacy scope. Do not ca
 
 ### Configure the caching store
 
-{/* NEEDS-SME-REVIEW: image10.webp (Store tab) carries an in-app banner "Make sure Global section is with Enabled as TRUE" for the Caching accelerator, mirroring the Global > Enabled prerequisite already documented for Prefetching below. This page's caching steps do not currently instruct enabling Global > Enabled for Caching before configuring the Store. Confirm whether this is a required prerequisite and add a step if so. */}
+{/* source: live UI verification, build 2026.0627.1344.3, 2026-09-08 — confirms the Global tab prerequisite the in-app banner on image10.webp (Store tab) already stated */}
 
 9. Navigate to **Caching**, under **Accelerators** in Application Setup.
 
    ![Caching section](/images/How_To/Caching_Specific_websites/image9.webp)
 
-10. Click the **Store** tab.
+10. On the **Global** tab, confirm **Enabled** is set to `TRUE` — Caching, like Prefetching, only
+    takes effect once its own Global switch is on, separate from any individual Store entry's own
+    Enabled field.
+
+11. Click the **Store** tab.
 
     ![Store tab](/images/How_To/Caching_Specific_websites/image10.webp)
 
-11. Click **Clone it** to duplicate an existing policy.
+12. Click **Clone it** to duplicate an existing policy.
 
     ![Clone policy](/images/How_To/Caching_Specific_websites/image11.webp)
 
     ![Duplicated policy](/images/How_To/Caching_Specific_websites/image12.webp)
 
-12. Click **Edit Policies** on the cloned entry.
+13. Click **Edit Policies** on the cloned entry.
 
     ![Edit policy](/images/How_To/Caching_Specific_websites/image13.webp)
 
-13. Set **Enabled** to **True**.
+14. Set **Enabled** to **True**.
 
     ![Enable policy](/images/How_To/Caching_Specific_websites/image14.webp)
 
-14. Add an appropriate comment for future reference.
+15. Add an appropriate comment for future reference.
 
     ![Policy comment](/images/How_To/Caching_Specific_websites/image15.webp)
 
-15. Select the profile created earlier from the **Profiles** dropdown.
+16. Select the profile created earlier from the **Profiles** dropdown.
 
     ![Select profile](/images/How_To/Caching_Specific_websites/image16.webp)
 
-16. Click **Save Policy**.
+17. Click **Save Policy**.
 
     ![Save caching policy](/images/How_To/Caching_Specific_websites/image17.webp)
 
-17. Click **Save Config** to apply the configuration globally.
+18. Click **Save Config** to apply the configuration globally.
 
     ![Global save](/images/How_To/Caching_Specific_websites/image18.webp)
 
@@ -112,7 +116,7 @@ Cache and prefetch policy interacts with inspection and privacy scope. Do not ca
 
 Prefetching fetches and caches files referenced in HTML before the user requests them. It applies to a wider set of resources than caching alone.
 
-1. Access the [SafeSquid User Interface](/safesquid_swg/interface/configuration_portal) and click **Configure**.
+1. Access the [SafeSquid User Interface](/architecture/interface/configuration_portal) and click **Configure**.
 
    ![Configure page](/images/How_To/Prefetch_embedded_images/image1.webp)
 

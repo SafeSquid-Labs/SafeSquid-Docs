@@ -60,7 +60,7 @@ systemctl enable monit
 
 
 
-## [Access the SafeSquid User Interface](/Configuration_Portal)
+## [Access the SafeSquid User Interface](/architecture/interface/configuration_portal)
 ![Access the SafeSquid User Interface to configure cloud restore](/images/How_To/Setup_Cloud_Restore/image1.webp)
 
 ![verify same Activation key before configure cloud restore ](/images/How_To/Setup_Cloud_Restore/image2.webp)
@@ -75,14 +75,17 @@ After restore completes, SafeSquid restarts automatically. Wait 1-2 minutes for 
 
 ## Verify restoration
 
-{/* NEEDS-SME-REVIEW: this page's ":8888" Configuration Portal address does not match the access model used everywhere else in the docs (http://safesquid.cfg/, reached through the proxy, deliberately not DNS-resolved). A proxy-intercepted request to safesquid.cfg:8888 does return the same portal, but that's consistent with the proxy's hostname-interception behavior at any port over plain HTTP — it doesn't confirm 8888 is a distinct, real listener. Confirm whether :8888 is a genuine separate port (e.g. for clustering) or a stale carryover, and correct this step accordingly. */}
+{/* RESOLVED 2026-09-08: the ":8888" address this flag originally described was already removed from step 1's prose by an earlier edit; nothing in this file's visible text names a port. Independently confirmed via live Startup Parameters (Support → Startup params, build 2026.0627.1344.3): LISTEN_PORT is 8080, MASTER_PORT is present but unset on this instance, and every other port-shaped field (NATIVE_UDP_PORT, EXTENDED_UDP_PORT, CONFIG_UDP_PORT) is blank — 8888 appears nowhere in this build's startup parameters. Same conclusion as the recurring 8080-vs-8888 question on master_slave.md, proxy_clustering.md and configuration_sync.md. */}
 
 1. Open the Configuration Portal.
 2. Navigate to **Configure → Application Setup → Access restrictions** (or any configured section).
 3. Confirm policies match the state from your original appliance.
-4. Check the SSL certificate, and confirm the certificate details match the original CA.
-
-{/* NEEDS-SME-REVIEW: no "SSL Inspection" section exists in the live admin UI as of 2026-08-28 — SSL/HTTPS-inspection-related policy exists only as individual rule entries inside Access Profiles (Configure → Restriction Policies → Access Profiles), not as a distinct navigable section. Step 4 above was left generic rather than guessing a replacement path; see the same flag on restore_configuration_and_certificates.md for the paired finding. */}
+4. Check the SSL certificate: there is no distinct "SSL Inspection" section in the console
+   (confirmed live, 2026-08-28, build `2026.0627.1344.3`) — HTTPS-inspection policy lives as
+   individual rule entries inside **Configure → Restriction Policies → Access Profiles** (for
+   example a `BYPASS SSL INSPECTION` Added Profile value). Confirm those entries match the
+   original appliance, and separately confirm the certificate details match the original CA by
+   inspecting the certificate in a client's browser.
 
 5. Test client connection to verify proxy functionality.
 
@@ -123,11 +126,11 @@ This creates a restore point you can revert to if changes cause issues.
   ls -l /usr/local/safesquid/security/ssl/ROOT_X509File.cer
   ls -l /usr/local/safesquid/security/ssl/ROOT_PrivateKeyFile.pem
   ```
-- Reimport SSL certificate to client browsers if needed: [Import Certificate](/Import_Certificate_Chrome_IE)
+- Reimport SSL certificate to client browsers if needed: [Import Certificate](/use_cases/ssl_inspection/import_certificate_chrome_ie)
 
 **Monit not restarting SafeSquid automatically:**
 - Check Monit status: `systemctl status monit`
 - Verify Monit configuration includes SafeSquid: `monit status`
 - Manually restart if needed: `systemctl restart safesquid`
 
-**Related**: [Disaster Recovery overview](/Disaster_Recovery), [Proxy Clustering](/Proxy_Clustering), [Troubleshooting](/Troubleshooting)
+**Related**: [Disaster Recovery overview](/use_cases/scaling_and_high_availability/disaster_recovery), [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering), [Troubleshooting](/troubleshooting/troubleshooting)

@@ -42,7 +42,7 @@ Confirm:
   <Step title="Activate with the original key">
     Activate the rebuilt appliance using the same activation key that produced the backup.
 
-    Confirm activation succeeds and the licensed state is visible in the [Configuration Portal](/safesquid_swg/interface/configuration_portal).
+    Confirm activation succeeds and the licensed state is visible in the [Configuration Portal](/architecture/interface/configuration_portal).
 
     If activation fails, resolve it before attempting restore — the restore prompt only appears for an activated instance.
   </Step>
@@ -78,9 +78,12 @@ Restoring the original Root CA is what keeps already-deployed client trust valid
 2. Navigate to **Configure → Application Setup → Access restrictions**, or any configured section.
 
 3. Confirm policies match the state from the original appliance.
-4. Check the SSL certificate, and confirm the certificate details match the original CA.
-
-{/* NEEDS-SME-REVIEW: no "SSL Inspection" section exists in the live admin UI as of 2026-08-27/28 — SSL/HTTPS-inspection-related policy exists only as individual rule entries inside Access Profiles (Configure → Restriction Policies → Access Profiles), e.g. "BYPASS SSL INSPECTION" as an Added Profile value, not as a distinct navigable section. Step 4 above was left as a generic instruction rather than guessing a specific replacement path, since the right verification method (Access Profile inspection vs. direct browser certificate inspection) is a product decision, not just a label fix. Confirm and update. */}
+4. Check the SSL certificate: there is no distinct "SSL Inspection" section in the console
+   (confirmed live, 2026-08-27/28, build `2026.0627.1344.3`) — HTTPS-inspection policy lives as
+   individual rule entries inside **Configure → Restriction Policies → Access Profiles** (for
+   example a `BYPASS SSL INSPECTION` Added Profile value). Confirm those entries match the
+   original appliance, and separately confirm the certificate details match the original CA by
+   inspecting the certificate in a client's browser.
 
 5. Test a client connection through the rebuilt appliance.
 

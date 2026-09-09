@@ -1,0 +1,68 @@
+/*
+ * Site-wide overrides for the Mintlify "mint" theme.
+ * Auto-included on every page — Mintlify loads any .css file in the
+ * content directory (public/) without a docs.json reference.
+ */
+
+/*
+ * Fix: the top navbar logo distorts at intermediate viewport widths
+ * (roughly 900-1250px), which is exactly the range real browser zoom
+ * (e.g. Cmd/Ctrl + a few times on a standard 1280-1440px display)
+ * lands in before Mintlify's own mobile layout takes over below ~820px.
+ *
+ * Root cause: the anchor wrapping img.nav-logo has no flex-shrink
+ * override, so as the topbar's flex row runs low on space it shrinks
+ * the logo's box below its own `w-auto h-7` intrinsic-ratio width —
+ * object-contain then squeezes the wordmark into that narrow box
+ * instead of it staying full size. img.nav-logo itself already has
+ * shrink-0; its wrapping <a> needs the same. Verified: forces the
+ * logo back to its correct ~182px natural width (28px tall x its
+ * 1564:241 source aspect ratio) at every width from full desktop down
+ * to the mobile breakpoint, with the search bar (an intentionally
+ * flexible element) absorbing the space adjustment instead.
+ */
+a:has(> img.nav-logo) {
+  flex-shrink: 0 !important;
+}
+
+/*
+ * Fix: the active sidebar item used the accent blue for both its
+ * background highlight AND its text (Tailwind `bg-primary/10
+ * text-primary`, `dark:bg-primary-light/10 dark:text-primary-light`).
+ * Keep the blue background as the highlight; set the text to the same
+ * ink color the rest of the page uses for headings (`text-gray-900` /
+ * `dark:text-gray-200`), so the active state reads as "selected"
+ * through weight and the highlight pill, not through a second use of
+ * the accent color for both roles at once.
+ *
+ * Dark mode needs its own highlight strength, not just its own text
+ * color: Mintlify's default dark highlight is `bg-primary-light/10`
+ * (docs.json `colors.light` = #3B82F6, the site's own dark-mode accent,
+ * at 10% opacity over the near-black page background) — a highlight
+ * that subtle reads fine with light text on it, but the same ink color
+ * used in light mode (rgb(22,25,29), near-black) would sit almost
+ * unreadable on a highlight that faint. Brightened the dark-mode
+ * highlight to a solid fill of that same accent blue so the black text
+ * has real contrast to sit on, rather than leaving the highlight as-is
+ * and only swapping the text color.
+ */
+/*
+ * The `>` is load-bearing (fixed 2026-09-07). Mintlify sets data-active on a
+ * nested group's own <li> whenever that group *contains* the active page, not
+ * only on the active page's <li>. A descendant selector (`li[data-active] a`)
+ * therefore matched every anchor inside an open group, painting all three
+ * children of Privacy control — and both children of Accelerators — with the
+ * solid active highlight at once.
+ *
+ * The active page's <li> has the anchor as a DIRECT child; a group's <li> has a
+ * <button> (the expand toggle) as its direct child instead, with the child
+ * anchors nested deeper. So the child combinator hits exactly the real active
+ * item and nothing else, in flat and nested groups alike.
+ */
+#sidebar-content li[data-active] > a {
+  color: rgb(22, 25, 29) !important;
+}
+.dark #sidebar-content li[data-active] > a {
+  background-color: rgb(59, 130, 246) !important; /* docs.json colors.light, solid */
+  color: rgb(22, 25, 29) !important;
+}

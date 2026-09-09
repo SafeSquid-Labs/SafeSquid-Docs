@@ -29,11 +29,11 @@ Use the Image Analyzer to prevent users from viewing pornographic or inappropria
 
 
 ## Prerequisites
-HTTPS Inspection should be enabled in SafeSquid. If not enabled, see the document - [How to enable HTTPS Inspection](/SSL_Inspection).
+HTTPS Inspection should be enabled in SafeSquid. If not enabled, see the document - [How to enable HTTPS Inspection](/use_cases/ssl_inspection/ssl_inspection).
 
 
 
-## [Access the SafeSquid User Interface](/Configuration_Portal)
+## [Access the SafeSquid User Interface](/architecture/interface/configuration_portal)
 
 
 

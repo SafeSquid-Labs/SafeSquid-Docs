@@ -27,7 +27,7 @@ Not every device can participate in Kerberos SSO. Guest devices, non-domain syst
 
 :::note
 **Prerequisites**
-- [Setup Active Directory Integration](/Setup_Active_Directory_Integration) must be completed.
+- [Setup Active Directory Integration](/use_cases/authentication/setup_active_directory_integration) must be completed.
 - SafeSquid must be able to fetch LDAP entities (verify in **LDAP Entities** tab).
 - DNS and NTP must be healthy, even for prompt-based AD-backed authentication, because directory reachability and environment consistency still matter.
 :::
@@ -84,10 +84,10 @@ Not every device can participate in Kerberos SSO. Guest devices, non-domain syst
 | Topic | Status | Source |
 | ----- | ------ | ------ |
 | Browser prompt + AD bind | **Confirmed** | This page |
-| Time skew / DNS with AD | **Confirmed** | Troubleshooting, [NTP](/NTP) |
+| Time skew / DNS with AD | **Confirmed** | Troubleshooting, [NTP](/architecture/interface/ntp) |
 
 ## Next steps
 
-- [Configure SSO Authentication](/AD_SSO_Authentication) for a transparent user experience.
-- [Access Restriction](/Access_Restriction) to define policies by AD group.
-- [SSL Inspection](/SSL_Inspection) to attribute HTTPS traffic to AD users.
+- [Configure SSO Authentication](/use_cases/authentication/ad_sso_authentication) for a transparent user experience.
+- [Access Restriction](/use_cases/access_restriction/access_restriction) to define policies by AD group.
+- [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) to attribute HTTPS traffic to AD users.

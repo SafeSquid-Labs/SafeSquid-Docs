@@ -18,21 +18,21 @@ Unrestricted DNS resolution reaches malicious, geo-noncompliant, or lookalike do
 
 ## Outcomes operators expect
 
-- Block or flag domains via DNSBL before TCP connections complete ([DNS Blacklisting](/DNSBL)).
-- Apply geography- and ASN-aware context for policy and reporting ([Server Geo-Location](/GeoIP)).
-- Reduce IDN homograph impersonation at resolution time ([Homograph Detection](/Homograph_Detection)).
+- Block or flag domains via DNSBL before TCP connections complete ([DNS Blacklisting](/use_cases/dns_security/dnsbl)).
+- Apply geography- and ASN-aware context for policy and reporting ([Server Geo-Location](/use_cases/dns_security/geoip)).
+- Reduce IDN homograph impersonation at resolution time ([Homograph Detection](/getting_started/core_features/homograph_detection)).
 
 ## Advantages vs “HTTP-only” policy
 
-DNS-layer controls fail closed earlier in the chain than URL filtering alone for many threats; combine with [Access Restriction](/Access_Restriction) and [Profiling Engine](/Profiling_Engine) for full coverage.
+DNS-layer controls fail closed earlier in the chain than URL filtering alone for many threats; combine with [Access Restriction](/use_cases/access_restriction/access_restriction) and [Profiling Engine](/use_cases/profiling_engine/profiling_engine) for full coverage.
 
-**Product-level comparative claims** (for example vs other SWG vendors): **Not SSOT-backed in this doc set**—see [What is SafeSquid SWG?](/safesquid_swg/what_is_safesquid_swg#architecture-and-positioning-claims-draft-vs-confirmed).
+**Product-level comparative claims** (for example vs other SWG vendors): **Not SSOT-backed in this doc set**—see [What is SafeSquid SWG?](/architecture/what_is_safesquid_swg).
 
 ## Acquire, deploy, use
 
 Configure DNS security features in the SafeSquid administration UI per each linked guide; verify blocks and log lines as described in those pages.
 
-SafeSquid provides DNS-level security at the domain resolution layer: DNS-based blacklisting, geographic IP filtering, and internationalized domain name (IDN) homograph detection. For architecture placement inside SWG, see [Integrated DNS Security](/Integrated_DNS_Security).
+SafeSquid provides DNS-level security at the domain resolution layer: DNS-based blacklisting, geographic IP filtering, and internationalized domain name (IDN) homograph detection. For architecture placement inside SWG, see [Integrated DNS Security](/architecture/overview/integrated_dns_security).
 
 ```mermaid
 flowchart LR
@@ -51,23 +51,23 @@ flowchart LR
 
 ## DNS security controls and configuration
 
-### [DNS Blacklisting](/DNSBL)
+### [DNS Blacklisting](/use_cases/dns_security/dnsbl)
 Unrestricted DNS resolution allows access to known-malicious domains and increases malware, phishing, and compliance risk. DNSBL blocks dangerous sites before connection by querying DNS-based blacklist services. Blocking at resolution reduces exposure and supports audit evidence in logs and reports. Configure DNSBL in Real-time content security and verify blocks in Security Logs.
 
-### [Server Geo-Location](/GeoIP)
+### [Server Geo-Location](/use_cases/dns_security/geoip)
 Organizations face regional compliance gaps and threat exposure when destination geography is unknown. Server Geo-Location classifies destinations by country and ASN for location-aware policies. Country-based access control and reporting support data residency and geo-restriction requirements. Enable geo profiles in Profiling Engine and reference them in Access Restriction and Reporting.
 
-### [Homograph Detection](/Homograph_Detection)
+### [Homograph Detection](/getting_started/core_features/homograph_detection)
 IDN homograph attacks use visually similar characters to impersonate legitimate domains and enable phishing. Homograph detection identifies and blocks these impersonation attempts at DNS resolution. The control reduces lookalike-domain risk and supports evidence in DNS security logs. Configure allowed or blocked IDN patterns in DNS Security when the feature is available.
 
 ## Source register
 
 | Topic | Status | Source |
 | ----- | ------ | ------ |
-| DNSBL integration and policy flow | **Confirmed** | [DNS Blacklisting](/DNSBL), [Integrated DNS Security](/Integrated_DNS_Security) |
-| GeoIP / `server_country` style fields | **Confirmed** | [Server Geo-Location](/GeoIP) |
-| Homograph UI availability by version | **Confirmed** | [Homograph Detection](/Homograph_Detection) (version checks) |
+| DNSBL integration and policy flow | **Confirmed** | [DNS Blacklisting](/use_cases/dns_security/dnsbl), [Integrated DNS Security](/architecture/overview/integrated_dns_security) |
+| GeoIP / `server_country` style fields | **Confirmed** | [Server Geo-Location](/use_cases/dns_security/geoip) |
+| Homograph UI availability by version | **Confirmed** | [Homograph Detection](/getting_started/core_features/homograph_detection) (version checks) |
 
 ## Next steps
 
-Use DNS security together with [Access Restriction](/Access_Restriction) and [Profiling Engine](/Profiling_Engine) for URL and application policy; see [Integrated DNS Security](/Integrated_DNS_Security) for architecture context.
+Use DNS security together with [Access Restriction](/use_cases/access_restriction/access_restriction) and [Profiling Engine](/use_cases/profiling_engine/profiling_engine) for URL and application policy; see [Integrated DNS Security](/architecture/overview/integrated_dns_security) for architecture context.

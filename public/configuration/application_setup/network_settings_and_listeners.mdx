@@ -1,0 +1,144 @@
+---
+title: "Network settings"
+---
+
+The **Network** section defines client listen sockets and outbound source IP selection for origin connections.
+
+The console splits this section into two tabs, and they are independent of each other: **Listen**
+binds the sockets clients connect to, **Interface** picks the source IP SafeSquid uses when it
+connects onward.
+
+These are infrastructure-plumbing settings, not a security control in themselves: Listen decides
+where clients may knock, and Interface decides which door SafeSquid walks out of. *Who* is
+allowed in, and what they may do, belongs to
+[Access restrictions](/configuration/application_setup/access_restrictions), which references the
+Listen sockets defined here through its own **Interface** match field. Nothing can reach SafeSquid
+at all unless a Listen entry is bound.
+
+<Tabs>
+  <Tab title="Listen">
+
+    ## Core mechanics
+
+    ### Listen — startup bind
+
+    Every enabled Listen row with `port != -1` binds at startup. If no enabled row matches startup.ini `LISTEN_IP` and `LISTEN_PORT`, an additional fallback bind runs on those defaults — this fallback is extra, it does not replace or disable any entry you configured; it only fires when nothing in your list already covers that address. Restart required after Listen changes.
+
+    ## Listen fields
+
+    Open **Configure → Application Setup → Network settings → Listen**.
+
+    <Frame caption="Network settings — Listen rows">
+      <img src="/images/configuration/network_settings-listen.webp" alt="SafeSquid console showing Network settings Listen rows including an SSL_TRANSPARENT binding, the Edit Policies icon on the first row circled" />
+    </Frame>
+
+    - **IP / Port** — Bind address and client port. Blank IP binds every address dual-stack where IPv6 is available; `0.0.0.0` binds every IPv4 address; `::` binds every IPv6 address; a specific address binds only that one.
+    - **Bindings** — `SSL_TRANSPARENT`, `CAPTIVE_PORTAL` implemented; `SSL_AUTHENTICATION` / `SSL_BRIDGE` have no effect.
+
+    ## Examples
+
+    <Tip>
+
+    ### Single proxy port
+
+    **Config:** Listen enabled, blank IP, port 8080.
+
+    **Result:** All interfaces accept on 8080 after restart; Access controls who may connect.
+    </Tip>
+
+    <Tip>
+
+    ### Separate management listener
+
+    **Config:** entry A Enabled, IP `0.0.0.0`, Port `8080` for regular users; entry B Enabled, IP
+    `127.0.0.1`, Port `8080` for administration.
+
+    **Result:** after a restart both sockets are open, and an Access restrictions entry matching
+    Interface `127.0.0.1:8080` can grant the Web interface right on the loopback listener while
+    entries matching `0.0.0.0:8080` grant proxy rights — separating administrative access from
+    ordinary browsing by which socket the connection arrived on.
+    </Tip>
+
+    ## How to verify
+
+    1. Restart after Listen changes.
+    2. `curl -x http://APPLIANCE:8080 http://example.com/`
+    3. Enable NETWORK logs; confirm the bind lines.
+    4. Match listen socket in Access **Interface** for CONFIG vs PROXY tests.
+
+  </Tab>
+
+  <Tab title="Interface">
+
+    ## Core mechanics
+
+    ### Interface — first match wins
+
+    Outbound walks Interface rows top-down: skip disabled; skip empty Source IP after load; skip when destination is in **Excluded Destination IPs**; require a profile match (connection profiles plus hostname/service tags). The first match picks a source IP from the row's list, keyed by client ID. If no row survives all the gates, SafeSquid sets no source IP at all and the connection uses whatever the operating system's own routing would normally choose.
+
+    ### Source IP on host only
+
+    Non-local Source IPs are dropped silently at load. If all IPs are dropped, the row is skipped at runtime.
+
+    ```mermaid
+    flowchart TB
+    outbound[Outbound TCP connect] --> walk[Walk Interface list top-down]
+    walk --> gate{"Row disabled, empty Source IP, destination in Excluded Destination IPs, or profile mismatch?"}
+    gate -->|Skip| more{More rows?}
+    gate -->|Pass| bind["Bind source IP from row's list, keyed by client ID - stop"]
+    more -->|Yes| walk
+    more -->|No| noBind[No Interface row matched - no bind from this section]
+    ```
+
+    ## Interface fields
+
+    Open **Configure → Application Setup → Network settings → Interface**. The live row's outbound
+    address field is labeled **IP**, not Source IP as referenced below.
+
+    <Frame caption="Network settings — Interface row">
+      <img src="/images/configuration/network_settings-interface.webp" alt="SafeSquid console showing a Network settings Interface row with the ALTERNATE OUTBOUND IP profile, the Edit Policies icon circled" />
+    </Frame>
+
+    - **Profiles** — Blank matches all. A value prefixed with `!` applies the entry when that value is absent instead of present. Typical tag: `ALTERNATE OUTBOUND IP`.
+    - **Excluded Destination IPs** — Hyphen ranges; destination in list skips row (CIDR not supported). This field excludes destinations, it does not restrict the entry to them. Blank excludes nothing.
+    - **Source IP** — Comma-separated local addresses; only host IPs kept; rotated by client id.
+
+    ## Examples
+
+    <Tip>
+
+    ### Excluded destination
+
+    **Config:** Source IP 10.0.0.5, dest\_ips 10.0.0.0-10.255.255.255.
+
+    **Result:** Outbound to 10.x skips row; public destinations may match and bind 10.0.0.5.
+    </Tip>
+
+    <Tip>
+
+    ### Source IP not on host
+
+    **Config:** Source IP 198.51.100.99 not assigned to appliance.
+
+    **Result:** IP ignored at load; row skipped — no outbound bind from this row.
+    </Tip>
+
+    <Tip>
+
+    ### Send specific traffic out a second IP
+
+    **Config:** an Interface entry with Profiles `ALTERNATE OUTBOUND IP` and Source IP
+    `203.0.113.5` (an address actually configured on the appliance), with an Access Profiles entry
+    elsewhere adding that same profile.
+
+    **Result:** matching connections bind outbound to `203.0.113.5`; everything else falls through
+    to a lower entry or to OS routing.
+    </Tip>
+
+    ## How to verify
+
+    1. Enable NETWORK logs; confirm the `interface_select` lines.
+    2. Confirm the chosen source IP on the origin side, not only in the log.
+
+  </Tab>
+</Tabs>

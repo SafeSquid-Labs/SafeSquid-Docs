@@ -59,13 +59,13 @@ If you already know the domains that should never be accessed, category and cust
 
 ### Add image inspection for visual risk
 
-Use [Image Analyzer](/Image_Analyser_AI) where visual content matters, especially on social, media-rich, and user-generated platforms.
+Use [Image Analyzer](/use_cases/data_leakage_prevention/image_analyser_ai) where visual content matters, especially on social, media-rich, and user-generated platforms.
 
 This closes a gap that text-only filtering cannot see.
 
 ### Add text inspection for page and payload content
 
-Use [Text Analyzer](/Text_Analyser) to score risky keywords, sensitive terms, or policy markers in HTML and other text-based content.
+Use [Text Analyzer](/use_cases/data_leakage_prevention/text_analyser) to score risky keywords, sensitive terms, or policy markers in HTML and other text-based content.
 
 This helps with uncategorized pages, regulated data patterns, and sites that contain mixed content.
 
@@ -141,6 +141,6 @@ Remediation:
 
 ## Related controls / next steps
 
-- Use [Text Analyzer](/Text_Analyser) for keyword and pattern scoring.
-- Use [Image Analyzer](/Image_Analyser_AI) for visual-content control.
-- Use [Content Fingerprints](/True-Mime_Fingerprints) when file-type spoofing and upload control also matter.
+- Use [Text Analyzer](/use_cases/data_leakage_prevention/text_analyser) for keyword and pattern scoring.
+- Use [Image Analyzer](/use_cases/data_leakage_prevention/image_analyser_ai) for visual-content control.
+- Use [Content Fingerprints](/use_cases/data_leakage_prevention/true_mime_fingerprints) when file-type spoofing and upload control also matter.

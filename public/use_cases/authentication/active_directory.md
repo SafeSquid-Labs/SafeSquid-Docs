@@ -20,10 +20,10 @@ Large Windows environments need proxy policy and reporting tied to Active Direct
 
 | Step | Task | Goal |
 |------|------|------|
-| 1 | [Setup AD Integration](/Setup_Active_Directory_Integration) | Link SafeSquid with AD and fetch user/group entities. |
+| 1 | [Setup AD Integration](/use_cases/authentication/setup_active_directory_integration) | Link SafeSquid with AD and fetch user/group entities. |
 | 2 | **Choose Auth Method** | Decide between Simple (prompt) or SSO (transparent) authentication. |
-| 3 | [Simple Authentication](/AD_Simple_Authentication) | Browser prompts users for AD credentials. |
-| 4 | [SSO Authentication](/AD_SSO_Authentication) | Transparent authentication for domain-joined users via Kerberos. |
+| 3 | [Simple Authentication](/use_cases/authentication/ad_simple_authentication) | Browser prompts users for AD credentials. |
+| 4 | [SSO Authentication](/use_cases/authentication/ad_sso_authentication) | Transparent authentication for domain-joined users via Kerberos. |
 
 ## Which AD authentication method to use?
 
@@ -76,10 +76,10 @@ After completing the integration:
 | Topic | Status | Source |
 | ----- | ------ | ------ |
 | Setup → Simple → SSO flow | **Confirmed** | Linked task pages in this hub |
-| Kerberos / time sync prerequisites | **Confirmed** | [SSO Authentication](/AD_SSO_Authentication), [NTP](/NTP) |
-| RODC path | **Confirmed** | [Kerberos with RODC](/Configure_Kerberos_Authentication_With_RODC) |
+| Kerberos / time sync prerequisites | **Confirmed** | [SSO Authentication](/use_cases/authentication/ad_sso_authentication), [NTP](/architecture/interface/ntp) |
+| RODC path | **Confirmed** | [Kerberos with RODC](/use_cases/authentication/configure_kerberos_authentication_with_rodc) |
 
 ## Next steps
 
-- Start with [Setup Active Directory Integration](/Setup_Active_Directory_Integration) to establish the initial connection.
-- Configure [Access Restriction](/Access_Restriction) to apply policies based on AD groups.
+- Start with [Setup Active Directory Integration](/use_cases/authentication/setup_active_directory_integration) to establish the initial connection.
+- Configure [Access Restriction](/use_cases/access_restriction/access_restriction) to apply policies based on AD groups.

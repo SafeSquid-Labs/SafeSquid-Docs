@@ -56,7 +56,7 @@ Return one line per path, in the same order:
 - Do not browse unrelated hosts while verifying.
 - Capture screenshots when they materially help confirm or explain a mismatch. When a screenshot
   is meant for the doc itself (not just internal proof of a mismatch), capture the **full page**,
-  not a tight crop, then hand it off to be annotated per `docs-house-style/SKILL.md`'s admin_guide
+  not a tight crop, then hand it off to be annotated per `docs-house-style/SKILL.md`'s configuration/
   screenshot convention (arrow/circle plus a short "Click **X**" callout) — don't publish a bare,
   unannotated capture into a doc.
 - If login blocks access, report the block and mark remaining paths as not attempted.

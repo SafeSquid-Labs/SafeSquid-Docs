@@ -33,7 +33,7 @@ SafeSquid **Advanced DLP** in **SafeSquid SWG** analyzes post data, inspects arc
 
 
 
-## [Manage Keyword Signatures using Self Service portal](/safesquid_swg/architecture/safesquid_swg)
+## [Manage Keyword Signatures using Self Service portal](/architecture/overview/safesquid_swg)
 
 
 
@@ -70,7 +70,7 @@ After configuring the policy as above, go to the Support page and click Refresh 
 
 
 ## Testing signature detection
-HTTPS Inspection must be enabled in SafeSquid. If not, see [How to enable HTTPS Inspection](/SSL_Inspection).
+HTTPS Inspection must be enabled in SafeSquid. If not, see [How to enable HTTPS Inspection](/use_cases/ssl_inspection/ssl_inspection).
 
 ### Test using office documents
 Set proxy in the client browser and open Gmail. Confirm HTTPS traffic is inspected by SafeSquid; otherwise SafeSquid cannot block mail containing the configured keyword(s).

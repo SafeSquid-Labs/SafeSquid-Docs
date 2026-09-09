@@ -52,4 +52,4 @@ Each incident record should include the affected user or source IP address, requ
 
 - Use [Audit and Forensics](/use_cases/audit_and_forensics/audit_forensics) to plan retention and investigation evidence.
 - Use [Reporting Module](/use_cases/audit_and_forensics/reporting_module) to validate reports after recovery.
-- Use [Configuration Portal](/safesquid_swg/interface/configuration_portal) to confirm policy changes in the SafeSquid interface.
+- Use [Configuration Portal](/architecture/interface/configuration_portal) to confirm policy changes in the SafeSquid interface.

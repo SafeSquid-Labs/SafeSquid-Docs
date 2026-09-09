@@ -28,7 +28,7 @@ Ensure the **sscore** section is enabled and the categorization engine is loaded
 
 ## Procedure
 
-1. [Access the SafeSquid interface](/safesquid_swg/interface/configuration_portal)
+1. [Access the SafeSquid interface](/architecture/interface/configuration_portal)
 
 2. Go to configure page
 
@@ -62,7 +62,7 @@ Use Categorize websites to Create and add websites to the "whitelist category".
 
 ## Verification and Evidence
 
-- **Interface Checks**: In [Configuration Portal](/safesquid_swg/interface/configuration_portal), Custom Settings -> Categorize Web-sites: site shows whitelist category. Restriction Policies -> Access profiles: default whitelist policy is enabled and above GLOBAL BLOCK.
+- **Interface Checks**: In [Configuration Portal](/architecture/interface/configuration_portal), Custom Settings -> Categorize Web-sites: site shows whitelist category. Restriction Policies -> Access profiles: default whitelist policy is enabled and above GLOBAL BLOCK.
 
 - **Log Analysis**: Access logs show allowed response for the whitelisted URL; no block template or category block for that domain.
 

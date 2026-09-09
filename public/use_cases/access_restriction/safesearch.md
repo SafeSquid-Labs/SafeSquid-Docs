@@ -36,7 +36,7 @@ SafeSquid can enforce SafeSearch centrally for supported search engines so the p
 
 ### SafeSquid-side setup
 
-- Enable [SSL Inspection](/SSL_Inspection) because major search engines use HTTPS.
+- Enable [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) because major search engines use HTTPS.
 - Confirm the default SafeSearch-related rules are present in the existing SafeSquid policy set.
 
 ## Setup instructions
@@ -129,5 +129,5 @@ Remediation:
 
 ## Related controls / next steps
 
-- Use [SSL Inspection](/SSL_Inspection) for the HTTPS visibility required by this control.
-- Use [Web Categorization](/Web_Categorization) and [Access Restriction](/Access_Restriction) when search-result filtering must sit alongside broader destination controls.
+- Use [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) for the HTTPS visibility required by this control.
+- Use [Web Categorization](/getting_started/core_features/web_categorization) and [Access Restriction](/use_cases/access_restriction/access_restriction) when search-result filtering must sit alongside broader destination controls.

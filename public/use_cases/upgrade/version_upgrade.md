@@ -70,7 +70,7 @@ rm -rf *
 
 
 ## Steps
-### [Access the SafeSquid User Interface](/safesquid_swg/interface/configuration_portal)
+### [Access the SafeSquid User Interface](/architecture/interface/configuration_portal)
 
 ![your current version of safesquid will be shown in the right hand bottom corner in the safesquid interface](/images/How_To/Upgrade_SafeSquid_To_A_Newer_Version/image1.webp)
 
@@ -92,8 +92,6 @@ Select the latest SafeSquid tarball downloaded and saved in your machine before.
 ![selecting the tarball file from the pc](/images/How_To/Upgrade_SafeSquid_To_A_Newer_Version/image5.webp)
 
 ![you can see the browsed tarball beside browse button](/images/How_To/Upgrade_SafeSquid_To_A_Newer_Version/image6.webp)
-
-{/* NEEDS-SME-REVIEW: this page previously referenced image6.webp twice with different captions ("browsed tarball beside browse button" and "Tarball file selected and ready to upload"). Only one screenshot exists for this step (verified 2026-08-28 — the image genuinely matches the first caption, an "Upload new tar file" dialog with the browsed filename shown next to Browse). The duplicate reference was removed rather than left wrong or backed by a fabricated image; capturing the actual "ready to upload" state would require running a real tarball upload, which is a disruptive action out of scope for a read-only docs check. */}
 
 Click on upload button to upload new tar file.
 

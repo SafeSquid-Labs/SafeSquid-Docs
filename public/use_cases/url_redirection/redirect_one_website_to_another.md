@@ -11,7 +11,7 @@ keywords:
 
 # Redirect One Website to Another
 
-### [Access the SafeSquid User Interface ](/Configuration_Portal)
+### [Access the SafeSquid User Interface ](/architecture/interface/configuration_portal)
 SafeSquid includes sample policies to support policy creation. The sample policy "Enable interface access through authentication" is already present. Enable those policies to make them applicable.
 
 Click on 'Configure' which is at top right of the SafeSquid Interface.

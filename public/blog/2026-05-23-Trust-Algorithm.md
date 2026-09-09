@@ -35,4 +35,4 @@ Shared-context inspection — where authentication, URL categorisation, content 
 
 - [Zero-Trust requires Layer-7 inspection](/blog/2026-05-23-Zero-Trust-Principles) - five principles for the web perimeter.
 - [Command and control blends into HTTPS](/blog/2026-05-23-Command-and-Control-Threats) - behavioural correlation for APT detection.
-- [What is SafeSquid SWG](/safesquid_swg/what_is_safesquid_swg) - product implementation of the inspection pipeline.
+- [What is SafeSquid SWG](/architecture/what_is_safesquid_swg) - product implementation of the inspection pipeline.

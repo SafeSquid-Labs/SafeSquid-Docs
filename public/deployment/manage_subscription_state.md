@@ -47,7 +47,7 @@ Account**. **Missing:** whether a "Renew Subscription" action is available there
 it wasn't visible for a Trial-plan account when last checked (2026-09-02); a Commercial plan may
 show it. If you don't see it, contact SafeSquid support rather than assuming renewal isn't
 possible. After renewing, download the updated activation key and upload it under
-[Subscription](/admin_guide/infrastructure_and_access/subscription) using the same steps as the
+[Subscription](/configuration/infrastructure_and_access/subscription) using the same steps as the
 initial activation.
 
 **Option 2 — conserve the subscription.** From **Manage Account**, use **Conserve Subscription**
@@ -58,7 +58,7 @@ renewal, not a substitute for it — treat repeated use as a signal that subscri
 needs attention.
 
 Restart SafeSquid from the interface after either action — see
-[Support](/admin_guide/infrastructure_and_access/support) — so the new state takes effect.
+[Support](/configuration/infrastructure_and_access/support) — so the new state takes effect.
 
 <Steps>
   <Step title="Confirm subscription ownership">
@@ -77,7 +77,7 @@ Restart SafeSquid from the interface after either action — see
     ![Conserve Subscription option on the Manage Account tab — screenshot predates the current "Conserve Subscription" label, shown here as "Extend Conservation Period"](/images/getting_started/activate_06_extend_conservation_period.webp)
   </Step>
   <Step title="Restart and verify">
-    Restart SafeSquid from the interface, then confirm subscription state in the [Configuration Portal](/safesquid_swg/interface/configuration_portal).
+    Restart SafeSquid from the interface, then confirm subscription state in the [Configuration Portal](/architecture/interface/configuration_portal).
 
     Confirm the expiry banner is cleared and feed schedules have returned to the commercial cadence.
 

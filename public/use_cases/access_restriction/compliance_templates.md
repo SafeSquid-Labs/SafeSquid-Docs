@@ -25,13 +25,13 @@ Organizations must detect and control sensitive data in web traffic to meet PCI-
 
 ## Key benefits
 
-Pre-built patterns reduce implementation time for PCI-DSS, HIPAA, GDPR, and similar programs. Organizations can show auditors configured detection rules and logs of matches or blocks. Combine templates with [Access Restriction](/Access_Restriction) to block, log, or alert on matches after tuning.
+Pre-built patterns reduce implementation time for PCI-DSS, HIPAA, GDPR, and similar programs. Organizations can show auditors configured detection rules and logs of matches or blocks. Combine templates with [Access Restriction](/use_cases/access_restriction/access_restriction) to block, log, or alert on matches after tuning.
 
 
 
 ## Prerequisites
 
-- HTTPS inspection enabled so SafeSquid can inspect request/response body content. See [Configure HTTPS Inspection](/Configure_HTTPS_Inspection).
+- HTTPS inspection enabled so SafeSquid can inspect request/response body content. See [Configure HTTPS Inspection](/use_cases/ssl_inspection/configure_https_inspection).
 - Access to Configure → Real Time Content Security → Text Analyser in the Configuration Portal.
 - Decision on which regulations apply and which data types to protect (assess before configuring).
 
@@ -42,7 +42,7 @@ Pre-built patterns reduce implementation time for PCI-DSS, HIPAA, GDPR, and simi
 SafeSquid's Text Analyser supports pattern-based detection of sensitive data. Use the sections below as starting points for PCI-DSS, HIPAA, GDPR, and other regulatory requirements.
 
 :::note
-These templates provide detection patterns only. They do not by themselves make an environment compliant. Combine them with [Access Restriction](/Access_Restriction), HTTPS inspection, logging, governance, retention, and review processes.
+These templates provide detection patterns only. They do not by themselves make an environment compliant. Combine them with [Access Restriction](/use_cases/access_restriction/access_restriction), HTTPS inspection, logging, governance, retention, and review processes.
 :::
 
 
@@ -223,7 +223,7 @@ Adjust scores and thresholds based on observed traffic:
 After tuning, enable blocking for high-confidence matches. Avoid broad hard enforcement before you have verified false-positive behavior on real traffic.
 
 ### Step 5: Monitor and Report
-Use [Reporting Module](/Reporting_Module) to track DLP events for compliance audits.
+Use [Reporting Module](/use_cases/audit_and_forensics/reporting_module) to track DLP events for compliance audits.
 
 ---
 
@@ -258,4 +258,4 @@ Create organization-specific patterns for:
 - Customer account numbers
 - Proprietary terminology
 
-**Related**: [Text Analyser](/Text_Analyser), [Image Analyser](/Image_Analyser_AI), [Access Restriction](/Access_Restriction), [Reporting Module](/Reporting_Module)
+**Related**: [Text Analyser](/use_cases/data_leakage_prevention/text_analyser), [Image Analyser](/use_cases/data_leakage_prevention/image_analyser_ai), [Access Restriction](/use_cases/access_restriction/access_restriction), [Reporting Module](/use_cases/audit_and_forensics/reporting_module)

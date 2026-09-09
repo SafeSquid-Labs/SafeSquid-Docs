@@ -1,0 +1,153 @@
+---
+title: "First configuration"
+---
+
+This page is for a new administrator who has a working SafeSquid appliance and needs a safe, minimal setup: browsers can use the proxy, only intended clients are allowed, and you can see why a request was allowed or blocked.
+
+<Note>
+Open the Web UI at `http://safesquid.cfg/` from a machine that can reach the appliance. Policy lives in the Web UI; process tunables live in [startup.ini](/configuration/start_here/startup_ini).
+</Note>
+
+## What you will set up
+
+1. Confirm the service is running
+2. Confirm how clients reach SafeSquid (listen address)
+3. Lock down who may use the proxy (Access restrictions)
+4. Point a browser at the proxy and test
+5. Add a simple content rule (Access Profiles)
+6. Learn where to look when something fails (logs)
+
+## 1. Confirm the service
+
+On the appliance:
+
+```
+/etc/init.d/safesquid status
+```
+
+If it is not running: `/etc/init.d/safesquid start`. Details: [Daemon, service, and files](/configuration/start_here/daemon).
+
+{/* source: https://www.safesquid.com/md/first-configuration.md */}
+If it fails to start, run it in the foreground instead of as a background service for this first attempt — foreground mode prints startup errors directly to the console instead of only to log files, the fastest way to spot a listen address already in use or a permissions problem on a box being set up for the first time.
+
+## 2. Confirm listen address
+
+In the Web UI open **Network settings → Listen**.
+
+- You should see at least one enabled listener (IP and port), often port **8080**.
+- If Listen is empty, SafeSquid falls back to `LISTEN_IP` / `LISTEN_PORT` in [startup.ini](/configuration/start_here/startup_ini).
+{/* source: https://www.safesquid.com/md/first-configuration.md */}
+- Each enabled Listen entry binds when the service starts. Adding or changing a Listen entry only takes effect after a service restart, not on a configuration save.
+
+<Tip>
+
+### Example — dual listeners
+
+- **0.0.0.0:8080** — proxy traffic from the LAN
+- **10.0.0.5:80** — Web UI only on a management address (optional)
+
+Later you can restrict Web UI access in Access restrictions using the **Interface** field so only the management listener may open `http://safesquid.cfg/`.
+</Tip>
+
+More detail: [Network settings](/configuration/application_setup/network_settings_and_listeners).
+
+## 3. Lock down Access restrictions
+
+{/* source: https://www.safesquid.com/md/first-configuration.md */}
+A freshly installed appliance with a reachable listen socket and no Access restrictions configured yet will, depending on **Default Access Policy**, either deny everyone or — if that policy is set to Allow before any restrictions exist — let anyone who can reach the socket use the proxy. Treat this step as the real priority, even though the walkthrough covers the service check first, for the practical reason that you cannot configure a Web UI that is not running.
+
+Open **Access restrictions**. This is the security perimeter: who may connect and what they may do.
+
+1. Set **Default Access Policy** to **Deny** (recommended).
+2. Leave **Kerberos / SSO** off for this first pass (add it later; see [Authentication](/configuration/start_here/authentication)).
+3. Add one **Allow list** entry for your office or lab network.
+
+<Tip>
+
+### Example — allow the LAN to use the proxy
+
+On the Allow list entry:
+
+- **Enabled** — on
+- **Comment** — `LAN proxy users`
+- **IP Address** — `10.0.0.0-10.255.255.255` (use your real range; SafeSquid does not use CIDR like `10.0.0.0/8`)
+- **Access** — enable at least proxy / HTTP rights your deployment needs (Web interface only if this entry should also reach the UI)
+- Leave Profiles, LDAP, username blank so the rule matches by IP only
+
+**Expected result:** a PC in `10.0.0.0`–`10.255.255.255` can use the proxy; a client outside that range is denied.
+</Tip>
+
+<Warning>
+Blank match fields mean “match any.” An Allow entry with nothing filled in can open the proxy to everyone. Always set IP, Interface, or identity criteria.
+</Warning>
+
+Full guide: [Access restrictions](/configuration/application_setup/access_restrictions).
+
+## 4. Point a browser and test
+
+1. On a PC inside the allowed range, set the HTTP/HTTPS proxy to the appliance IP and listen port (for example `10.0.0.5:8080`).
+2. Browse to a simple HTTP site (or HTTPS if your clients already trust the appliance for inspection — skip HTTPS Inspection for day one if unsure).
+3. Open **Reports → Detailed logs**. You should see your request with username (or anonymous), URL, and status.
+
+<Tip>
+
+### Example — quick deny check
+
+Temporarily change the Allow entry IP to a range that does *not* include your PC, save, and reload a page. The browser should fail to use the proxy. Restore the correct range afterward.
+
+{/* source: https://www.safesquid.com/md/first-configuration.md */}
+This confirms Access restrictions is being *enforced*, not merely present, and catches the most common first-configuration mistake — an Allow entry that looks right but was saved against the wrong subnet.
+</Tip>
+
+## 5. Add a simple Access Profiles rule
+
+**Access restrictions** decides who may use SafeSquid. **Access Profiles** decides what those users may fetch (categories, sites, profiles).
+
+1. Open **Access Profiles → Default Policies** (or Secondary Policies).
+2. Add a DENY rule for a category you can test safely (or a specific host if categories are not ready yet).
+
+<Tip>
+
+### Example — block one test site for everyone
+
+- **Enabled** — on
+- **Comment** — `Block example test host`
+- Match the host or category your lab uses
+- **Action** — **DENY** (use **DO NOT BYPASS** if you do not want a temporary bypass cookie)
+
+**Expected result:** matching requests show a block page; Detailed logs show a profiles-related `filter_name` / reason. See [Access Profiles](/configuration/restriction_policies/access_profiles).
+</Tip>
+
+## 6. When something fails
+
+1. Note the time, client IP, and URL.
+2. Search **Reports → Detailed logs** for `filter_name` and `filtering_reason`.
+3. On a test network only, set **System configuration → Send Debugging Headers To → CLIENT** and inspect response headers in the browser. See [Debug response headers](/configuration/start_here/debug_response_headers).
+4. Turn debugging headers back to **NONE** when finished.
+
+Full workflow: [Logging and troubleshooting](/configuration/start_here/logging).
+
+{/* source: https://www.safesquid.com/md/first-configuration.md */}
+## How to verify
+
+1. Confirm the service reports running before doing anything else — a Web UI you cannot reach means every later step is moot.
+2. Confirm the Listen entry you expect is enabled, and that the service was restarted after any change — Listen entries only bind at service start.
+3. Read the Allow list top to bottom before trusting it: first-match-wins means a broad entry above your intended one silently claims its connections, with no warning anywhere in the Web UI.
+4. Generate one allowed and one denied request, and confirm both appear in Detailed logs with the outcome you expect.
+5. Confirm Detailed logs attribute the Access Profiles block to Access Profiles rather than Access restrictions — the two sections produce different filter reasons, and confusing one for the other is a common early debugging mistake.
+
+## What to do next
+
+- [Authentication](/configuration/start_here/authentication) — Kerberos / SSO or System authentication so logs show real usernames
+- [Integrate LDAP](/configuration/application_setup/integrate_ldap) — groups for policy
+- [HTTPS Inspection](/configuration/real_time_content_security/https_inspection) — decrypt HTTPS when your policy requires it (plan client trust carefully)
+- [SSqore](/configuration/application_setup/ssqore) and [Categorize Web-Sites](/configuration/custom_settings/categorize_web_sites) — category-based Access Profiles
+- [Application Signatures](/configuration/custom_settings/application_signatures) — tag client applications for policy
+- [SqScan](/configuration/real_time_content_security/sqscan) or [Clam antivirus](/configuration/real_time_content_security/clam_antivirus) — malware scanning
+- [Subscription](/configuration/infrastructure_and_access/subscription) — license and feed updates
+- [Architecture](/configuration/start_here/architecture) — how sections fit together
+
+## See also
+
+- [Full documentation index](/configuration/main)
+- [Daemon, service, and files](/configuration/start_here/daemon)

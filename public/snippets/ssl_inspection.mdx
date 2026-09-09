@@ -14,11 +14,11 @@ SafeSquid's documented TLS support covers **TLS 1.0 through TLS 1.3**. This matt
 
 ## Advantages vs “TLS blind proxying”
 
-Inspection restores Layer 7 visibility on the proxy path at the cost of **client trust** in the SafeSquid root CA and operational work for bypass rules. **Comparative performance or legal suitability vs other vendors:** **Not SSOT-backed here**—see [What is SafeSquid SWG?](/safesquid_swg/what_is_safesquid_swg#architecture-and-positioning-claims-draft-vs-confirmed).
+Inspection restores Layer 7 visibility on the proxy path at the cost of **client trust** in the SafeSquid root CA and operational work for bypass rules. **Comparative performance or legal suitability vs other vendors:** **Not SSOT-backed here**—see [What is SafeSquid SWG?](/architecture/what_is_safesquid_swg).
 
 ## Acquire, deploy, use
 
-Follow [Configure HTTPS Inspection](/Configure_HTTPS_Inspection): Root CA, enable inspection, deploy trust to clients, define bypasses, verify.
+Follow [Configure HTTPS Inspection](/use_cases/ssl_inspection/configure_https_inspection): Root CA, enable inspection, deploy trust to clients, define bypasses, verify.
 
 HTTPS inspection (SSL/TLS interception) allows SafeSquid to decrypt, inspect, and re-encrypt HTTPS traffic. Without inspection, encrypted sessions remain a blind spot for content-level malware, phishing, and data-leakage policy.
 
@@ -104,7 +104,7 @@ All client browsers and applications must trust the SafeSquid Root CA certificat
 
 ## Configuration Guides
 
-### [Configure HTTPS Inspection](/Configure_HTTPS_Inspection)
+### [Configure HTTPS Inspection](/use_cases/ssl_inspection/configure_https_inspection)
 
 **Complete setup guide covering:**
 - Generate or import Root CA certificate (Self-Service Portal)
@@ -117,7 +117,7 @@ All client browsers and applications must trust the SafeSquid Root CA certificat
 
 ---
 
-### [Import Certificate into Chrome/IE](/Import_Certificate_Chrome_IE)
+### [Import Certificate into Chrome/IE](/use_cases/ssl_inspection/import_certificate_chrome_ie)
 
 **Step-by-step walkthrough** for importing the SafeSquid Root CA into the Windows Trusted Root Certification Authorities store (used by Chrome, Edge, and Internet Explorer).
 
@@ -127,15 +127,15 @@ All client browsers and applications must trust the SafeSquid Root CA certificat
 
 ## Quick Start Checklist
 
-1. ✅ **[Generate Root CA](/Configure_HTTPS_Inspection#generating-ssl-certificates)** in Self-Service Portal
-2. ✅ **[Enable HTTPS Inspection](/Configure_HTTPS_Inspection#enabling-ssl-inspection)** in SafeSquid Configuration Portal
-3. ✅ **[Configure bypass policies](/Configure_HTTPS_Inspection#bypass-policies)** for banking/healthcare sites
+1. ✅ **[Generate Root CA](/use_cases/ssl_inspection/configure_https_inspection#generate-certificate-in-self-service-portal)** in Self-Service Portal
+2. ✅ **[Enable HTTPS Inspection](/use_cases/ssl_inspection/configure_https_inspection#step-2-enable-https-inspection-in-safesquid)** in SafeSquid Configuration Portal
+3. ✅ **[Configure bypass policies](/use_cases/ssl_inspection/configure_https_inspection#step-5-configure-bypass-policies)** for banking/healthcare sites
 4. ✅ **Deploy Root CA** to all clients:
-   - [Windows (Chrome/IE)](/Import_Certificate_Chrome_IE)
-   - [Firefox](/Configure_HTTPS_Inspection#import-certificate-into-firefox)
+   - [Windows (Chrome/IE)](/use_cases/ssl_inspection/import_certificate_chrome_ie)
+   - [Firefox](/use_cases/ssl_inspection/configure_https_inspection#firefox-all-platforms)
    - macOS via MDM or Keychain
    - Mobile via MDM
-5. ✅ **[Verify](/Configure_HTTPS_Inspection#verification)** inspection is working (check padlock icon, test bypass)
+5. ✅ **[Verify](/use_cases/ssl_inspection/configure_https_inspection#verification)** inspection is working (check padlock icon, test bypass)
 
 ## Verification and validation
 
@@ -194,13 +194,13 @@ A: Add those apps' domains to the bypass list. They cannot be inspected.
 
 | Topic | Status | Source |
 | ----- | ------ | ------ |
-| HTTPS inspection workflow (client → SafeSquid → origin) | **Confirmed** | [Configure HTTPS Inspection](/Configure_HTTPS_Inspection), this page |
+| HTTPS inspection workflow (client → SafeSquid → origin) | **Confirmed** | [Configure HTTPS Inspection](/use_cases/ssl_inspection/configure_https_inspection), this page |
 | Client trust requirement for Root CA | **Confirmed** | This page, certificate import guides |
 | PCI / SOC framing as compliance context | **Context only** | Helpful for risk framing, not a compliance guarantee |
 
 ## Next Steps
 
-1. **[Configure HTTPS Inspection](/Configure_HTTPS_Inspection)** — Complete setup guide
-2. **[Authentication](/Authentication)** — Enable user-aware policies after SSL Inspection
-3. **[Access Restriction](/Access_Restriction)** — Configure URL filtering (now works on HTTPS)
-4. **[Data Leakage Prevention](/Data_Leakage_Prevention)** — Scan HTTPS uploads for sensitive data
+1. **[Configure HTTPS Inspection](/use_cases/ssl_inspection/configure_https_inspection)** — Complete setup guide
+2. **[Authentication](/use_cases/authentication/authentication)** — Enable user-aware policies after SSL Inspection
+3. **[Access Restriction](/use_cases/access_restriction/access_restriction)** — Configure URL filtering (now works on HTTPS)
+4. **[Data Leakage Prevention](/use_cases/data_leakage_prevention/data_leakage_prevention)** — Scan HTTPS uploads for sensitive data

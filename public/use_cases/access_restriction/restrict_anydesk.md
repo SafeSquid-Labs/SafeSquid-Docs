@@ -22,7 +22,7 @@ You keep actionable policy control close to operations, with verifiable outcomes
 ## Call to action
 Use the steps in this guide to implement the control, then validate behavior with a real user-flow test.
 
-## [Access the SafeSquid User Interface](/Configuration_Portal)
+## [Access the SafeSquid User Interface](/architecture/interface/configuration_portal)
 
 
 

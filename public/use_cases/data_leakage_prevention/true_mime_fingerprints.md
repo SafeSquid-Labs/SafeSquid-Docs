@@ -138,6 +138,6 @@ Remediation:
 
 ## Related controls / next steps
 
-- Use [Content Moderation](/Profiling_Engine/Content_Analyser) for broader content-risk controls.
-- Use [Adaptable External Parser](/Adaptable_External_Parser) when custom downstream inspection logic is required.
-- Use [Security Logs](/Security_Logs) for evidence collection during spoofing and malware investigations.
+- Use [Content Moderation](/use_cases/data_leakage_prevention/content_analyser) for broader content-risk controls.
+- Use [Adaptable External Parser](/use_cases/data_leakage_prevention/adaptable_external_parser) when custom downstream inspection logic is required.
+- Use [Security Logs](/use_cases/audit_and_forensics/security_logs) for evidence collection during spoofing and malware investigations.

@@ -1,80 +1,36 @@
-# SafeSquid Page Templates
+# SafeSquid Page Templates (PBAC Framework)
 
-## Frontmatter + body template
+Every feature, how-to, and deployment page in the SafeSquid documentation must strictly adhere to the PBAC (Problem, Benefit, Act, Call to Action) framework.
 
-```markdown
----
-title: "Document Title"
-description: "Brief purpose statement"
-keywords: [keyword1, keyword2, keyword3]
-# optional: sidebar_position
----
-# Bottom-line title
-## Bottom-line section heading
-### Specific subheading
-`inline code` and code blocks with syntax highlighting
-```
+## Default PBAC Page Anatomy
 
-## Standard feature page structure
+### 1. P - Problem Definition
+- **Execution:** The opening 1-2 paragraphs. 
+- **Content:** State the real security or operational problem. Name the threat vectors (ransomware, MITM, data exfiltration) and the business impact (downtime, compliance failure).
+- **Rule:** Never use the heading `## Problem Statement`. Just write the prose.
 
-For feature overviews, sections in this order:
+### 2. B - Benefit
+- **Execution:** The 3rd paragraph or a comparative markdown table immediately following the problem.
+- **Content:** State the exact outcome, compliance win (NIST, ISO, PCI-DSS), or operational advantage achieved after using the SafeSquid solution. 
 
-1. **Hero** — threat-focused headline + 2–3 sentence hook: **The problem** / **What SafeSquid does** / **Outcome**
-2. **Why This Matters** — threat narrative: scenario, cost, why current approaches fail
-3. **How [Feature] Works** — components with examples; Mermaid if helpful
-4. **Before/After** table — `| Scenario | Without [Feature] | With [Feature] |` with ❌/✅
-5. **When to Use / When NOT** — ✅ Use when… / ❌ Don't use when…
-6. **How to Configure** — links to task docs; optional config snippet
-7. **⚠️ Common Pitfalls** — **[Mistake]:** [What breaks] → [Fix or link]
-8. **Related Topics** — Prerequisites, Next Steps, Troubleshooting
+### 3. A - Act on it
+- **Execution:** The core procedure of the page.
+- **Content:** Ordered, imperative steps. 
+- **Rules:**
+  - One action per step.
+  - Explain *why* each step matters.
+  - Every runnable command must be followed by `Expected result:`.
+  - Wrap advanced depth, OS variations, or legacy reference tables inside `<Accordion>` tags to keep the main flow clean.
 
-**Threat narrative shape:** **[Scenario]** — who does what; what data is at risk; consequence. **[Cost]** — quantify if possible. **[Problem]** — why current approaches fail.
+### 4. C - Call to Action
+- **Execution:** The final sections of the page.
+- **Content:** Must include testing/verification, troubleshooting, and next steps.
+- **Rules:**
+  - Use `## Verify [Feature]` to show how to prove the setup works (log snippets, UI state).
+  - Use `## Troubleshoot [Feature]` with a markdown table (`| Symptom | Likely cause | Fix |`).
+  - End the page with `## Next steps` containing exactly 3 glossed bullet links.
 
-## Page type templates
-
-### Feature overview
-
-Hero → Why This Matters → How It Works → Before/After → When to Use / When NOT → Config overview (links) → Common Pitfalls → Related.
-
-### Task guide
-
-Action-oriented title → Prerequisites (links) → numbered steps with screenshots where helpful → Verification → link to troubleshooting → Related tasks.
-
-### Use case
-
-Clear goal as title → business context (one paragraph) → requirements → configuration steps → testing → variations for different environments.
-
-### get_started
-
-Goal → Prerequisites → minimal Day-1 steps → Verification → Next steps. Prefer general path; defer advanced variants.
-
-## Writing quality — good vs bad
-
-### Opening prose
-
-**Bad** (feature-focused, passive):
-> "This section provides information about Application Signatures and how they work."
-
-**Good** (threat-focused, active):
-> "Your proxy sees thousands of requests per second. Is that your CEO downloading an M&A contract? A contractor uploading customer data? Without application profiling, every request is a mystery box."
-
-### Config instructions
-
-**Bad** (passive, vague):
-> "The certificate must be deployed to clients using various methods depending on OS."
-
-**Good** (active, specific):
-> "Deploy the Root CA to your clients: **Windows (AD):** Group Policy → Trusted Root store; **macOS:** MDM or Keychain import; **Linux:** copy to `/usr/local/share/ca-certificates/` and run `update-ca-certificates`."
-
-### Feature descriptions
-
-**Bad** (abstract):
-> "Application Signatures enable identification by application."
-
-**Good** (concrete):
-> "Block **TeamViewer** and **AnyDesk** for contractors; detect **Tor Browser** and **Psiphon**; allow **Zoom** and **Teams** but block **Discord** and **Telegram**. SafeSquid inspects SNI, headers, and behavioral patterns."
-
-## Code blocks
-
-- Complete and working; syntax highlighting; include context and expected output.
-- Test before publishing or scope clearly ("example only — adjust paths for your environment").
+## Quality Benchmarks
+- **Consequence-first:** Lead with what breaks if this isn't configured, then what the page gives you.
+- **Tone:** Factual, confident, free of hype. No "we" or "our".
+- **Visuals:** Use Mermaid diagrams or annotated screenshots (`safesquid_admin` MCP) only when text is insufficient.

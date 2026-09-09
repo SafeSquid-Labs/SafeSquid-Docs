@@ -207,6 +207,6 @@ Remediation:
 
 ## Related controls / next steps
 
-- Use [Disaster Recovery](/Disaster_Recovery) for recovery planning beyond single-host service restarts.
-- Use [Proxy Clustering](/Proxy_Clustering) when you need resilient scale-out instead of local process recovery alone.
-- Use [Security Logs](/Security_Logs) to confirm outage timing and recovery evidence during investigations.
+- Use [Disaster Recovery](/use_cases/scaling_and_high_availability/disaster_recovery) for recovery planning beyond single-host service restarts.
+- Use [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering) when you need resilient scale-out instead of local process recovery alone.
+- Use [Security Logs](/use_cases/audit_and_forensics/security_logs) to confirm outage timing and recovery evidence during investigations.

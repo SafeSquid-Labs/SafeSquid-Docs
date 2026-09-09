@@ -1,0 +1,103 @@
+---
+title: "Prefetching"
+---
+
+Open **Configure → Application Setup → Accelerators → Prefetching**. This section sits under the **Accelerators** menu group alongside [Caching](/configuration/application_setup/accelerators/caching) and [Prefetching](/configuration/application_setup/accelerators/prefetching) — they interact, since a prefetched object is only useful if Caching later serves it.
+
+The **Prefetch** section configures SafeSquid to proactively download linked content — stylesheets, scripts, images, and similar resources — into cache while the main HTML page is still being delivered to the client, so the browser's own later request for those resources can already be served from cache, improving page load time.
+
+```mermaid
+flowchart TB
+html[HTML response tag scan] --> row{"Row profiles match and tag/attribute/pattern succeed?"}
+row -->|No| next[Next row]
+next --> row
+row -->|Yes| cacheCheck{URL already cached?}
+cacheCheck -->|Yes| abort[Abort prefetch]
+cacheCheck -->|No| limits{Queue size and host limit allow?}
+limits -->|No| reject[Reject - not queued]
+limits -->|Yes| queue[Queue URL for background prefetch_thread]
+```
+
+## Core mechanics
+
+Async queue, cache pre-check, HTML parser first-match.
+
+- **Asynchronous Queue**: Prefetching is driven by an asynchronous, background worker thread (`prefetch_thread`) that monitors a `PREFETCH_QUEUE`. It does not block the primary client connection.
+- **Cache Pre-Validation**: Before initiating a prefetch download, the thread checks if the object exists in the cache. If the object is already cached, the prefetch is aborted to save bandwidth.
+- **Request Spoofing**: The background thread creates a synthetic, unattached HTTP connection, forces it through the routing pipeline, and uses a hardcoded User-Agent to request the file from the origin.
+
+### Global fields
+
+- **Enabled (enabled)**: When off, setup\_callbacks does not register HTML parsers — no automatic prefetch.
+- **Threads (threads)**: Configured worker count for prefetch queue processing. This value is not applied in the current build.
+- **Queue size (queuesize)**: Maximum URLs waiting in the prefetch queue; full queue rejects new URLs. Already-cached URLs are not queued. Rejected matches are not retried automatically — a later scan of that page, or another page linking the same resource, can queue it if there's room by then.
+- **Host limit (hostlimit)**: Maximum queued prefetches per host name (0 disables per-host cap). Duplicate URLs are never queued twice.
+
+### Prefetch rule fields
+
+- **Profiles** — Limit the rule to connections with matching Access Profile tags; a `!`-prefixed value applies the entry when that profile is absent instead of present. Blank matches all.
+- **Tag name** — HTML element to scan (case-insensitive), for example `a`, `img`, `link`. Blank skips the row.
+- **Tag attribute** — Attribute holding the URL (for example `href` or `src`).
+- **Attribute pattern** — POSIX regex on the attribute value after tag/attribute match. Blank accepts any non-empty value. On match, the URL is resolved and queued unless cached or queue full.
+- **Maximum file size** — Skip prefetch when response Content-Length exceeds this size. `0` = no cap.
+- **Recursion level** — How many levels prefetched HTML is analyzed for further links. Note: setting `0` follows links indefinitely per field help — the opposite of what the number suggests, since it removes the limit rather than capping at zero levels; use `0` deliberately, and only if you intend genuinely open-ended recursive prefetching.
+
+### Processing order
+
+1. Enable Prefetching and Caching.
+2. During HTML responses, enabled Prefetch rows are checked top to bottom.
+3. The first row whose profiles match and whose tag/attribute/pattern succeeds wins for that element; rows below it are not tested against that same element, though they remain available for other elements later in the same page.
+4. Matched URLs enter the queue subject to queue size, host limit, and cache state.
+5. Caching **Prefetch window** limits duplicate prefetch writes for the same URL within N seconds.
+
+<Note>
+  Some prefetch hooks and the **Prefetch now** CGI handler require `ENABLE_PREFETCH` at build time. If manual prefetch fails, confirm your build includes prefetch support.
+</Note>
+
+## Examples
+
+The **Prefetch** rule-row list ships empty by default — no live example available for a rule
+row. **Prefetch now** is populated and matches Example 3 below.
+
+Open **Configure → Application Setup → Accelerators → Prefetch → Prefetch now**.
+
+<Frame caption="Prefetch — Prefetch now">
+  <img src="/images/configuration/accelerators-prefetch_now.webp" alt="SafeSquid console showing the Prefetch now URL field for manually queuing a page" />
+</Frame>
+
+<Tip>
+
+### 1 — Prefetch linked CSS and scripts
+
+- Row 1: Tag `link`, attribute `href`, pattern `\.css$`
+- Row 2: Tag `script`, attribute `src`, pattern blank
+
+**Result:** on HTML pages, stylesheets matching `.css` and all script `src` URLs are queued for early fetch when row 1 or 2 matches first for that element scan order.
+</Tip>
+
+<Tip>
+
+### 2 — Staff-only prefetch
+
+- Prefetch row Profiles: `STAFF`
+- Access Profiles adds `STAFF` for internal users only
+
+**Result:** only staff connections trigger automatic prefetch; other users parse HTML without prefetch queue activity from that row.
+</Tip>
+
+<Tip>
+
+### 3 — Manual warm-up of a portal page
+
+- **Prefetch now**: enter `https://intranet.example.com/`
+
+**Result:** when the handler is enabled, the URL is queued and fetched into cache so the next user request may hit cache immediately.
+</Tip>
+
+## How to verify
+
+1. Enable CACHE in `LOG_LEVEL`; look for cache writes with prefetch-related flags.
+2. Load an HTML page twice — second load should show cache hits for prefetched assets when Caching and rules allow.
+3. Use the Caching tab above to search for prefetched URLs among Manage cached objects.
+4. Watch queue rejection if Queue size or Host limit is exceeded (reduce rules or raise limits).
+5. Confirm Caching is enabled and not excluding the relevant profiles — Prefetching only queues the fetch, Caching decides whether the result is kept.

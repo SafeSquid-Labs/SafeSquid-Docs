@@ -256,7 +256,7 @@ All clients must trust the SafeSquid Root CA to avoid certificate warnings.
 
 ### Windows (Chrome, Edge, IE)
 
-**See detailed guide:** [Import Certificate into Chrome/IE](/Import_Certificate_Chrome_IE)
+**See detailed guide:** [Import Certificate into Chrome/IE](/use_cases/ssl_inspection/import_certificate_chrome_ie)
 
 **Quick summary:**
 1. Double-click the downloaded certificate
@@ -490,19 +490,19 @@ tail -f /var/log/safesquid/access/extended.log
 
 | Topic | Status | Source |
 | ----- | ------ | ------ |
-| Root CA via Self-Service Portal | **Confirmed** | This guide, [Self-Service Portal](/Self-Service_Portal) |
+| Root CA via Self-Service Portal | **Confirmed** | This guide, [Self-Service Portal](/architecture/interface/self_service_portal) |
 | Enable inspection UI path | **Confirmed** | Steps in this guide |
-| Client trust stores (Windows, Firefox, macOS) | **Confirmed** | This guide, [Import Certificate Chrome/IE](/Import_Certificate_Chrome_IE) |
+| Client trust stores (Windows, Firefox, macOS) | **Confirmed** | This guide, [Import Certificate Chrome/IE](/use_cases/ssl_inspection/import_certificate_chrome_ie) |
 
 ---
 
 ## Next Steps
 
-1. **[Authentication](/Authentication)** — Enable user-aware policies (SSL Inspection must be working first)
-2. **[Access Restriction](/Access_Restriction)** — Configure URL filtering (now works on HTTPS)
-3. **[Data Leakage Prevention](/Data_Leakage_Prevention)** — Scan HTTPS uploads for sensitive data
-4. **[Troubleshooting](/Troubleshooting)** — SSL-specific issues and diagnostics
+1. **[Authentication](/use_cases/authentication/authentication)** — Enable user-aware policies (SSL Inspection must be working first)
+2. **[Access Restriction](/use_cases/access_restriction/access_restriction)** — Configure URL filtering (now works on HTTPS)
+3. **[Data Leakage Prevention](/use_cases/data_leakage_prevention/data_leakage_prevention)** — Scan HTTPS uploads for sensitive data
+4. **[Troubleshooting](/troubleshooting/troubleshooting)** — SSL-specific issues and diagnostics
 
 **Related:**
-- [Self-Service Portal](/Self-Service_Portal) — Manage certificates
-- [Import Certificate into Chrome/IE](/Import_Certificate_Chrome_IE) — Detailed Windows guide
+- [Self-Service Portal](/architecture/interface/self_service_portal) — Manage certificates
+- [Import Certificate into Chrome/IE](/use_cases/ssl_inspection/import_certificate_chrome_ie) — Detailed Windows guide

@@ -24,7 +24,7 @@ SafeSquid evaluates Network Signature rules (Allow List) **top to bottom** and a
 
 - SafeSquid deployed and operational
 
-- Admin access to [Configuration Portal](/safesquid_swg/architecture/safesquid_swg)
+- Admin access to [Configuration Portal](/architecture/overview/safesquid_swg)
 
 - Known client IP addresses or subnets (static or predictable ranges)
 
@@ -32,7 +32,7 @@ Network Signature attributes traffic to IP/subnet and group, **not to a named us
 
 ## Configure IP-based user-groups
 
-1. **Access SafeSquid Configuration** Open the [Configuration Portal](/safesquid_swg/architecture/safesquid_swg) and click **Configure**.
+1. **Access SafeSquid Configuration** Open the [Configuration Portal](/architecture/overview/safesquid_swg) and click **Configure**.
 
 2. **Navigate to Access Restrictions** **Application Setup** -> **Access Restrictions** -> **Allow List**
 
