@@ -95,16 +95,6 @@
             ]
           },
           {
-            "group": "Featured Use Cases",
-            "pages": [
-              "use_cases/scaling_and_high_availability/proxy_clustering",
-              "use_cases/audit_and_forensics/audit_forensics",
-              "use_cases/integrations/integrations",
-              "use_cases/customisation/customisation",
-              "use_cases/performance_acceleration/performance_accelerators"
-            ]
-          },
-          {
             "group": "Core Features",
             "pages": [
               "getting_started/core_features/dns_blacklisting",
