@@ -29,7 +29,7 @@ Before writing or editing any documentation, follow this execution sequence:
 - **Content-first. Infrastructure-never.** Never touch `package.json`, `.github/`, or root scripts.
 - **3-Tier Branching:**
   1. `main` — Merge destination only. Never commit directly.
-  2. `docs/config-tab-content` (Integration) — Aggregates finished work; PR target.
+  2. `docs/next` (Integration) — Aggregates finished work; PR target.
   3. `docs/<task>` (Worktree) — Where changes happen. Merged up and deleted when done.
 - **Filesystem Warning (`core.ignorecase=true`):** Never delete apparent duplicate casing directories (e.g., `Troubleshooting` vs `troubleshooting`). On macOS, this deletes tracked content. Use `git checkout HEAD -- <path>` to restore.
 
