@@ -81,6 +81,6 @@ Feature velocity needn’t equal vulnerability velocity. By intercepting unautho
 
 ## Related posts
 
-- [Execution hides inside encrypted sessions](/blog/2026-05-23-Execution-Threats) - how XSS/CSRF injection fits the Layer-7 execution phase.
-- [Zero-Hour Phishing: Beyond URL filters](/blog/2025-05-17-Zero-Hour-Phishing-Beyond-URL-filters) - the initial-access stage that often precedes CSRF abuse.
-- [Last Mile Reassembly of Drive-By Malware](/blog/2025-06-02-Last-Mile-Reassembly-of-Drive‑By-Malware) - another response-injection delivery technique.
+- [The Death of the Blocklist: Eliminating Zero-Hour Phishing](/blog/2025-05-17-Zero-Hour-Phishing-Beyond-URL-filters) - the initial-access stage that often precedes CSRF abuse.
+- [Last-Mile Reassembly of Drive-By Malware](/blog/2025-06-02-Last-Mile-Reassembly-of-Drive‑By-Malware) - another response-injection delivery technique.
+- [DNS Tunnelling: The Insider's Invisible Exit Route](/blog/2025-06-02-DNS-Tunneling) - another covert channel that hides inside traffic legacy gateways treat as benign.
