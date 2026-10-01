@@ -125,8 +125,11 @@ The extended.log (NCSA / Extended log format) records maximum details of each re
 
 "record_id"     "client_id"     "request_id"    "date_time"     "elapsed_time"  "status"        "size"  "upload"  "download"      "bypassed"      "client_ip"     "username"      "method"        "url"   "http_referer"    "useragent"     "mime"  "filter_name"   "filtering_reason"      "interface"     "cachecode"     "peercode"        "peer"  "request_host"  "request_tld"   "referer_host"  "referer_tld"   "range" "time_profiles"   "user_groups"   "request_profiles"      "application_signatures"        "categories"    "response_profiles"       "upload_content_types"  "download_content_types"        "profiles"
 
-**Example Log Line1:
-"1531492103912WfkgX"    "91"    "2"    "13/Jul/2018:19:58:26"    "3663"    "200"    "626"    "0"    "626"    "FALSE"    "192.168.0.24"    "anonymous@192.168.0.24"    "GET"    ""    "https://accounts.google.com/"    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0"    "image/png"    "-"    "-"    "192.168.24.74:8080"    "TCP_MISS"    "DIRECT"    "ssl.gstatic.com"    "ssl.gstatic.com"    "gstatic.com"    "accounts.google.com"    "google.com"    "100-1K"    ""    "ADMINS"    ""    "Unidentified Web2.0,Firefox,Internet Browser"    "Search Engines & Portals"    "POTENTIAL MALWARE THREATS,SMALL DOWNLOADS"    "-"    "image/png"    "READ ONLY,ANTIVIRUS"**
+**Example Log Line1:**
+
+```text
+"1531492103912WfkgX"    "91"    "2"    "13/Jul/2018:19:58:26"    "3663"    "200"    "626"    "0"    "626"    "FALSE"    "192.168.0.24"    "anonymous@192.168.0.24"    "GET"    ""    "https://accounts.google.com/"    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0"    "image/png"    "-"    "-"    "192.168.24.74:8080"    "TCP_MISS"    "DIRECT"    "ssl.gstatic.com"    "ssl.gstatic.com"    "gstatic.com"    "accounts.google.com"    "google.com"    "100-1K"    ""    "ADMINS"    ""    "Unidentified Web2.0,Firefox,Internet Browser"    "Search Engines & Portals"    "POTENTIAL MALWARE THREATS,SMALL DOWNLOADS"    "-"    "image/png"    "READ ONLY,ANTIVIRUS"
+```
 
 **Example Log Line2:**
 ```
@@ -197,11 +200,17 @@ Config logs contain the details related to the **SafeSquid user interface activi
 
 "ACCESS_TIME"    "SAFESQUID_INTERFACE"    "USERNAME@IP"    "PAGE"    "SECTION"    "ACTION"    "HTTP_METHOD"    "URL"    "REFERER"    "ARGUMENTS"    "CONFIG_FILE"    "REASON"
 
-**Example Log Line1**:
-**"01/Aug/2018:01:30:19"    "192.168.24.74:8080"    "anonymous@192.168.0.27"    ""    "dlp"    "edit"    "POST"    "[http://safesquid.cfg:80/](http://safesquid.cfg/)"    "http://safesquid.cfg/"    "F0=TRUE&F1=Block the uploading of PDF and Microsoft Word Documents. &F2=BLOCK-ALL-UPLOADS&F3=application/octet-stream,application/x-msdownload|application/x-dosexec&F4=.bat$|.exe$,.exe$&F5=MIME_OR_FILE&F6=DO_NOT_BYPASS&handler=configuration&section=dlp&subsection=DLP&id=3&action=edit"    ""    ""**
+**Example Log Line1:**
 
-**Example Log Line2**:
-**"01/Aug/2018:18:29:38"    "192.168.24.74:8080"    "anonymous@192.168.0.27"    ""    ""    ""    "POST"    "[http://safesquid.cfg:80/](http://safesquid.cfg/)"    "http://safesquid.cfg/"    "handler=save&filename=config.xml" "/usr/local/safesquid/security/policies/config_anonymous@192.168.0.27_2018-08-27-18-29-38.xml"    ""**
+```text
+"01/Aug/2018:01:30:19"    "192.168.24.74:8080"    "anonymous@192.168.0.27"    ""    "dlp"    "edit"    "POST"    "[http://safesquid.cfg:80/](http://safesquid.cfg/)"    "http://safesquid.cfg/"    "F0=TRUE&F1=Block the uploading of PDF and Microsoft Word Documents. &F2=BLOCK-ALL-UPLOADS&F3=application/octet-stream,application/x-msdownload|application/x-dosexec&F4=.bat$|.exe$,.exe$&F5=MIME_OR_FILE&F6=DO_NOT_BYPASS&handler=configuration&section=dlp&subsection=DLP&id=3&action=edit"    ""    ""
+```
+
+**Example Log Line2:**
+
+```text
+"01/Aug/2018:18:29:38"    "192.168.24.74:8080"    "anonymous@192.168.0.27"    ""    ""    ""    "POST"    "[http://safesquid.cfg:80/](http://safesquid.cfg/)"    "http://safesquid.cfg/"    "handler=save&filename=config.xml" "/usr/local/safesquid/security/policies/config_anonymous@192.168.0.27_2018-08-27-18-29-38.xml"    ""
+```
 
 The details of the fields in config.log are as follows:
 
@@ -216,7 +225,7 @@ The details of the fields in config.log are as follows:
 | HTTP_METHOD | HTTP method to request sent by client to the server. Example1> POST |
 | URL | SafeSquid interface URL is a reference to open WebGUI to View/change configuration. Example> [http://safesquid.cfg:80/](http://safesquid.cfg/) |
 | REFERER | Referer address of the SafeSquid interface URL. Example1> http://safesquid.cfg/ |
-| ARGUMENTS | This field displays the SafeSquid policy details which was modified. Where F## shows the field values of the all fields. section=## displays section name. id=## determines the policy number from top. action=## shows the action performed on that policy. Example1> F0=TRUE&F1=Block the uploading of PDF and Microsoft Word Documents. &F2=BLOCK UPLOADS&F3=application/octet-stream, application/<wbr />x-msdownload\|<wbr />application/<wbr />x-dosexec&<wbr />F4=<wbr />.bat$\|<wbr />.exe$,<wbr />.exe$&<wbr />F5=<wbr />MIME_<wbr />OR_<wbr />FILE&<wbr />F6=<wbr />DO_<wbr />NOT_<wbr />BYPASS&<wbr />handler=<wbr />configuration&<wbr />section=<wbr />dlp&<wbr />subsection=<wbr />DLP&<wbr />id=<wbr />3&<wbr />action=<wbr />edit |
+| ARGUMENTS | This field displays the SafeSquid policy details which was modified. Where F## shows the field values of the all fields. section=## displays section name. id=## determines the policy number from top. action=## shows the action performed on that policy. Example1> F0=TRUE&F1=Block the uploading of PDF and Microsoft Word Documents. &F2=BLOCK UPLOADS&F3=application/octet-stream, application/<wbr />x-msdownload\|<wbr />application/<wbr />x-dosexec&<wbr />F4=<wbr />.bat\$\|<wbr />.exe\$,<wbr />.exe\$&<wbr />F5=<wbr />MIME_<wbr />OR_<wbr />FILE&<wbr />F6=<wbr />DO_<wbr />NOT_<wbr />BYPASS&<wbr />handler=<wbr />configuration&<wbr />section=<wbr />dlp&<wbr />subsection=<wbr />DLP&<wbr />id=<wbr />3&<wbr />action=<wbr />edit |
 | CONFIG_FILE | A backup config.xml file along with the path which can be restored at any time by the administrator. Example2>/<wbr />usr/<wbr />local/<wbr />safesquid/<wbr />security/<wbr />policies/<wbr />config_<wbr />anonymous@<wbr />192.168.0.27_<wbr />2018-08-27-18-29-38.xml |
 | REASON |  |
 
@@ -239,13 +248,17 @@ SafeSquid performance log has been extended to make it easier for analysis with 
 
 Time Stamp (YYYYMMDDhhmmss),Elapsed Time,Client Connections Handled,Client Connections Closed,Client Transactions Handled,Client Connections in Pool,Spare Client Threads,Client Threads in Use,Client Threads in Waiting,Threads Starting up,Threads Reserved for Prefetching,Threading Errors,Outbound Connections created,Outbound Connections Failed,Outbound Connection Pool Reused,Outbound Connections in Pool,Bytes in (KBytes),Bytes Out (KBytes),Caching Objects Created in Memory,Caching Objects Removed from Memory,DNS Queries Reused,New DNS Queries,DNS Query failures,Total System Memory (KBytes),Free System Memory (KBytes),SafeSquid Virtual Memory (KBytes),SafeSquid Resident Memory (KBytes),SafeSquid Shared Memory (KBytes),SafeSquid Code Memory (KBytes),SafeSquid Data Memory (KBytes),SafeSquid Library Memory (KBytes),Connections Handled Delta,Connections Closed Delta,Transactions Handled Delta,Client Pool Delta,Spare Threads Delta,Active Threads Delta,Threads Waiting Delta,Threads Starting up Delta,Threads Prefetching Delta,Threading Errors Delta,Outbound Connections created Delta,Outbound Connections Failed Delta,Outbound Connection Pool Reused Delta,Outbound Connections in Pool Delta,Bytes in (KBytes) Delta,Bytes Out (KBytes) Delta,Caching Objects Created in Memory Delta,Caching Objects Removed from Memory Delta,DNS Queries Reused Delta,New DNS Queries Delta,DNS Query failures Delta,load avg.(1 min),load avg.(5 min),load avg.(15 min),Running Processes,Waiting Processes,User Time,System Time,Total (user + system) Time,User Time Delta,System Time Delta,Total Time Delta
 
-**Example Log Line1**:
-**20180905172137,1603,21151,20941,44316,119,8016,91,68,17,0,0,13640,975,20650,139,1853191,2012552,0,0,11317,3185,41,5976008,2389076,596224,98868,4204,2472,0,
-472172,13,32,52,11,0,-30,30,0,0,0,5,3,27,0,1698,884,0,0,5,2,0,0.25,0.21,0.49,1,562,60.000000,56.000000,116.000000,0.000000,0.000000,0.000000**
+**Example Log Line1:**
 
-**Example Log Line2**:
-**20180905172139,1605,21170,20972,44346,132,8016,66,93,17,0,0,13654,976,20660,139,1854126,2014492,0,0,11328,3186,41,5976008,2387184,596224,98888,4204,2472,0,
-472172,19,31,30,13,0,-25,25,0,0,0,14,1,10,0,935,1940,0,0,11,1,0,0.23,0.21,0.49,1,562,60.000000,56.000000,116.000000,0.000000,0.000000,0.000000**
+```text
+20180905172137,1603,21151,20941,44316,119,8016,91,68,17,0,0,13640,975,20650,139,1853191,2012552,0,0,11317,3185,41,5976008,2389076,596224,98868,4204,2472,0,472172,13,32,52,11,0,-30,30,0,0,0,5,3,27,0,1698,884,0,0,5,2,0,0.25,0.21,0.49,1,562,60.000000,56.000000,116.000000,0.000000,0.000000,0.000000
+```
+
+**Example Log Line2:**
+
+```text
+20180905172139,1605,21170,20972,44346,132,8016,66,93,17,0,0,13654,976,20660,139,1854126,2014492,0,0,11328,3186,41,5976008,2387184,596224,98888,4204,2472,0,472172,19,31,30,13,0,-25,25,0,0,0,14,1,10,0,935,1940,0,0,11,1,0,0.23,0.21,0.49,1,562,60.000000,56.000000,116.000000,0.000000,0.000000,0.000000
+```
 
 The details of the fields in performance.log are as follows:
 
@@ -329,11 +342,17 @@ Bypass logs contain the details related to the execution of bypass privilege gra
 
 "TimeStamp"    "Action"    "User    "Referrer.Domain"    "Requested.Domain"    "From/Referral/URL"    "Method"    "Requested/URL"    "Categories,Applied"    "Suggested,Categories"
 
-**Example Log Line1**:
-**"2018.09.12:21:07:11"    "NOT BYPASSED"    "anonymous@192.168.0.24"    "microsoft.com"    "optimizely.com"    "https://powerbi.microsoft.com/"    "POST"    "[https://logx.optimizely.com:443/v1/events](https://logx.optimizely.com/v1/events)"    "business,computersandsoftware"    "-"**
+**Example Log Line1:**
 
-**Example Log Line2**:
-**"2018.09.12:21:07:51"    "HOST ADDED"    "anonymous@192.168.0.24"    "microsoft.com"    "optimizely.com"    "https://powerbi.microsoft.com/"    "POST"    "[https://logx.optimizely.com:443/v1/events](https://logx.optimizely.com/v1/events)"    "business,computersandsoftware"    "test"**
+```text
+"2018.09.12:21:07:11"    "NOT BYPASSED"    "anonymous@192.168.0.24"    "microsoft.com"    "optimizely.com"    "https://powerbi.microsoft.com/"    "POST"    "[https://logx.optimizely.com:443/v1/events](https://logx.optimizely.com/v1/events)"    "business,computersandsoftware"    "-"
+```
+
+**Example Log Line2:**
+
+```text
+"2018.09.12:21:07:51"    "HOST ADDED"    "anonymous@192.168.0.24"    "microsoft.com"    "optimizely.com"    "https://powerbi.microsoft.com/"    "POST"    "[https://logx.optimizely.com:443/v1/events](https://logx.optimizely.com/v1/events)"    "business,computersandsoftware"    "test"
+```
 
 The details of the fields in bypass.log are as follows:
 
