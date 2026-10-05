@@ -2,12 +2,13 @@
 title: LDAP Entries Not Fetched
 description: Diagnose and resolve SafeSquid ldap entries not fetched incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
-  - failed to fetch ldap entries
+  - failed to fetch LDAP entries
+  - SafeSquid LDAP troubleshooting
+  - Active Directory LDAP integration
+  - LDAP group lookup failure
 ---
 
-# LDAP Entries Not Fetched
+# Fix LDAP Entries That Fail to Load
 
 LDAP Entries Not Fetched can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
@@ -109,7 +110,7 @@ root@sabproxy:~# ldapsearch -x -h 192.168.221.1 -b "dc=safesquid,dc=test" -D [ad
 
 The above command gives you the result of all the fetch entries of users from AD only if the configuration of LDAP integration is correct.
 
-Follow the [Link](https://help.safesquid.com/portal/en/kb/articles/integrate-ad-or-openldap-with-safesquid) for How to integrate AD or Open LDAP with SafeSquid.
+Follow the [How to integrate AD or OpenLDAP with SafeSquid](https://help.safesquid.com/portal/en/kb/articles/integrate-ad-or-openldap-with-safesquid) for How to integrate AD or Open LDAP with SafeSquid.
 
 ### Case2: Check the connection to Active Directory
 
@@ -178,3 +179,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [SSO Authentication Fail](/troubleshooting/sso_authentication_fail) to fix SSO authentication failures.

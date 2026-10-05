@@ -9,7 +9,6 @@ keywords:
   - Application Layer Firewall
   - Configuration Portal
   - Proxy Cluster
-  - Zero-Trust Web Security
 ---
 
 # SafeSquid SWG architecture and components
@@ -127,4 +126,3 @@ Use the supporting services pages for Monit, BIND, and NTP because those service
 - [What is SafeSquid SWG](/architecture/what_is_safesquid_swg) for the security problem and product role
 - [Application Ecosystem](/architecture/application_ecosystem/main) for feed, portal, reporting, and supporting-service relationships
 - [SafeSquid Proxy Cluster](/use_cases/scaling_and_high_availability/proxy_clustering) for resilience and scale
-- [Deployment](/deployment/licensing_requirements) for sizing, dependencies, and rollout preparation

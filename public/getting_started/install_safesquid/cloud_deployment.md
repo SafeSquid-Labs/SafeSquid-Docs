@@ -17,7 +17,7 @@ Cloud deployment places SafeSquid near cloud workloads, remote users, or hybrid 
 
 ## Avoid backhauling remote traffic
 
-Routing remote and branch traffic back to an on-premises gateway before it reaches the internet adds a round trip to every request, consumes bandwidth twice through the gateway link, and degrades the experience for exactly the users who are least able to report it well.
+Routing remote and branch traffic back to an on-premises gateway before it reaches the internet adds a round trip to every request and consumes bandwidth twice through the gateway link. It also degrades the experience for exactly the users who are least able to report it well.
 
 Placing the gateway in the cloud removes that detour:
 
@@ -112,7 +112,7 @@ Confirm:
   <Tab title="Existing cloud VM">
     Use an existing cloud VM only when the operating system lifecycle is already owned. Confirm dependencies, hardening, backup, monitoring, and rollback before installing SafeSquid.
 
-    Existing VMs need extra review for local services that may conflict with the proxy listener, disk layouts that cannot handle logs, and security groups that were created for a different workload.
+    Existing VMs need extra review. Check for local services that can conflict with the proxy listener, disk layouts that cannot handle logs, and security groups created for a different workload.
   </Tab>
 </Tabs>
 
@@ -144,7 +144,7 @@ Before routing clients, enforce:
 
 **Transport for management.** Require TLS 1.2 or higher on the management interface.
 
-{/* NEEDS-SME-REVIEW: no menu section named "SSL settings" (or similar) exists in the live safesquid.cfg admin UI as of 2026-08-28 — SSL/TLS-related controls only appear as individual Access Profile rule entries (e.g. "BYPASS SSL INSPECTION", "ALLOW SELF SIGNED SSL CERTIFICATE"), not as a distinct management-interface TLS-version setting. Confirm whether minimum TLS version for the management interface is actually admin-UI-configurable, or is a server/OS-level setting outside this page's scope, and update this claim accordingly. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: no menu section named "SSL settings" (or similar) exists in the live safesquid.cfg admin UI as of 2026-08-28 — SSL/TLS-related controls only appear as individual Access Profile rule entries (e.g. "BYPASS SSL INSPECTION", "ALLOW SELF SIGNED SSL CERTIFICATE"), not as a distinct management-interface TLS-version setting. Confirm whether minimum TLS version for the management interface is actually admin-UI-configurable, or is a server/OS-level setting outside this page's scope, and update this claim accordingly. */}
 
 **Logging.** Forward SafeSquid logs to the platform's logging service — CloudWatch, Azure Monitor, or Cloud Logging — and enable VPC or VNet flow logs for network-level visibility. Alert on proxy downtime and on sustained connection-drop rates.
 

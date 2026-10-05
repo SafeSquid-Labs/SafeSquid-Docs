@@ -2,12 +2,13 @@
 title: DNS Failure
 description: Diagnose and resolve SafeSquid dns failure incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
-  - dns failure
+  - DNS failure
+  - SafeSquid DNS troubleshooting
+  - DNS resolution errors
+  - proxy DNS configuration
 ---
 
-# DNS Failure
+# Fix DNS Failures
 
 DNS Failure can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
@@ -78,3 +79,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [BIND Local DNS Resolver](/architecture/interface/bind) to run BIND as the local DNS resolver.

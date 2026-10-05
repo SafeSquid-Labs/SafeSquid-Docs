@@ -149,7 +149,7 @@ Shell exports last only for the current session. Use one of these files when the
 
 **All users on the host** — edit `/etc/environment`:
 
-```
+```text
 http_proxy="http://SAFESQUID-IP:8080"
 https_proxy="http://SAFESQUID-IP:8080"
 ftp_proxy="http://SAFESQUID-IP:8080"
@@ -162,7 +162,7 @@ Package managers do not read these variables. Configure them separately or updat
 
 **APT (Debian, Ubuntu)** — create `/etc/apt/apt.conf.d/95proxies`:
 
-```
+```text
 Acquire::http::Proxy "http://SAFESQUID-IP:8080";
 Acquire::https::Proxy "http://SAFESQUID-IP:8080";
 ```

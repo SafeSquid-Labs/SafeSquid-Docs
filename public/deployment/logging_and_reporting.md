@@ -11,7 +11,7 @@ keywords:
 
 # Prove the Audit Trail Exists
 
-Enforcement you cannot evidence is enforcement you cannot defend. A deployment that blocks correctly but logs nothing fails the review that matters — and the gap is usually discovered during an incident, when the logs for the window in question turn out never to have been written or forwarded.
+Enforcement you cannot evidence is enforcement you cannot defend. A deployment that blocks correctly but logs nothing fails the review that matters. The gap is usually discovered during an incident, when the logs for the window in question turn out never to have been written or forwarded.
 
 Confirm the evidence path end to end before declaring the deployment ready.
 

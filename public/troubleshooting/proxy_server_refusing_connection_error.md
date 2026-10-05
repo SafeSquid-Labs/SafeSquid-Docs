@@ -2,12 +2,13 @@
 title: Proxy Server Refusing Connections Error
 description: Diagnose and resolve SafeSquid proxy server refusing connections error incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
-  - proxy server refusing connection error
+  - proxy server refusing connections
+  - SafeSquid connection refused
+  - proxy listener troubleshooting
+  - proxy connection error
 ---
 
-# Proxy Server Refusing Connections Error
+# Fix Proxy Server Connection Refusals
 
 Proxy Server Refusing Connections Error can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
@@ -86,3 +87,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [Connection Failure to Websites](/troubleshooting/connection_failure_on_websites) to fix connection failures to websites.

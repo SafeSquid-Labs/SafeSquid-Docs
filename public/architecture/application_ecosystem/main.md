@@ -8,7 +8,7 @@ keywords:
   - SafeSquid threat intelligence
 ---
 
-# Application Ecosystem
+# Navigate the SafeSquid Application Ecosystem
 
 SafeSquid SWG is an operating ecosystem, not a single proxy daemon. The proxy service enforces policy, DNS security reduces resolution-time risk, reporting preserves evidence, the Self-Service Portal manages cloud-linked workflows, and threat-intelligence feeds keep controls current.
 

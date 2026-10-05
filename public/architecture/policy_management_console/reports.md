@@ -8,7 +8,7 @@ keywords:
   - audit evidence
 ---
 
-# Reports
+# Review Policy Evidence in Reports
 
 Use **Reports** to prove what SafeSquid allowed, blocked, inspected, bypassed, or forwarded. A policy without reportable evidence cannot support audit, incident response, or executive risk decisions.
 
@@ -34,3 +34,4 @@ After a policy change, trigger a controlled request and confirm:
 
 - Use [Reporting Service](/architecture/interface/reporting_service) for deployment patterns and troubleshooting.
 - Use [Configure](/architecture/policy_management_console/configure) to adjust the policy that generated the report.
+- Use [Support](/architecture/policy_management_console/support) to collect evidence before you escalate.

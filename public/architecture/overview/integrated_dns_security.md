@@ -8,14 +8,13 @@ keywords:
   - DNS threat protection
   - DNS tunneling
   - homograph detection
-  - GeoIP
 ---
 
-# Integrated DNS Security
+# Block Malicious Domains at DNS Resolution
 
 ## Problem statement
 
-DNS is often the first successful step in phishing, malware delivery, command-and-control, and covert exfiltration. If malicious or deceptive resolution succeeds, the organisation pays for the connection attempt even when a later HTTP policy might still block the session. In tunnelling scenarios, DNS itself becomes the covert channel.
+DNS is often the first successful step in phishing, malware delivery, command-and-control, and covert exfiltration. If malicious or deceptive resolution succeeds, the organisation pays for the connection attempt even when a later HTTP policy can still block the session. In tunnelling scenarios, DNS itself becomes the covert channel.
 
 ## Client scenario
 
@@ -108,4 +107,3 @@ Useful evidence includes:
 - [DNS Security](/use_cases/dns_security/dns_security) for the configuration guide
 - [Access Restriction](/use_cases/access_restriction/access_restriction) for Layer 7 policy aligned to DNS decisions
 - [SafeSquid SWG Overview](/architecture/overview/safesquid_swg) for the architecture context
-- [Deployment](/deployment/licensing_requirements) for DNS dependency and allowlist planning

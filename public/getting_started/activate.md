@@ -44,7 +44,7 @@ prove is reachable. Confirm both groups in
 
 <Accordion title="Which endpoints block activation, and which do not">
 
-Only one endpoint has to be reachable for activation itself to succeed. The rest affect ongoing updates, so a blocked path there produces a licensed gateway with stale intelligence rather than a failed activation — a quieter failure, and an easier one to miss.
+Only one endpoint has to be reachable for activation itself to succeed. The rest affect ongoing updates, so a blocked path there produces a licensed gateway with stale intelligence rather than a failed activation. It is a quieter failure, and an easier one to miss.
 
 **Required for activation**
 
@@ -74,7 +74,7 @@ Each of these is reached on port `8080` at the path `/URLCategorizerService/URLC
 | `prourl.itonlinesecure.in` |
 | `encurl.itonlinesecure.in` |
 
-If categorization is blocked while everything else is reachable, policies that depend on category matching will fail open rather than error, so verify this group explicitly rather than inferring it from a working activation.
+If categorization is blocked while everything else is reachable, policies that depend on category matching will fail open rather than error. Verify this group explicitly rather than inferring it from a working activation.
 
 </Accordion>
 

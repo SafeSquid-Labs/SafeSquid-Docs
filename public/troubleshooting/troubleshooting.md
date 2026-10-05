@@ -9,8 +9,6 @@ keywords:
   - proxy error resolution
   - SafeSquid logs analysis
   - network connectivity issues
-  - proxy configuration problems
-  - SafeSquid support procedures
 ---
 
 
@@ -64,4 +62,6 @@ Administrators need advanced diagnostic tools to analyze specific connection iss
 
 ## Next steps
 
-After resolving the issue, verify with [Getting Started](/getting_started/welcome); for configuration changes see [Configuration Portal](/architecture/interface/configuration_portal).
+- [Getting Started](/getting_started/welcome) - verify the fix against the basic request flow.
+- [Management Console](/architecture/interface/configuration_portal) - review where policy and system settings live.
+- [FAQs](/faqs/faqs) - check common questions on installation, licensing, and configuration.

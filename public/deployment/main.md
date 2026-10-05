@@ -10,7 +10,7 @@ keywords:
 
 # Deploy SafeSquid Into Production
 
-SafeSquid only enforces policy on traffic that reaches it. This section takes a deployment from sizing and network placement, through installation and client routing, to a verified control with evidence an auditor can read — and then to the scaling, resilience, and upgrade decisions that keep it running.
+SafeSquid only enforces policy on traffic that reaches it. This section takes a deployment from sizing and network placement, through installation and client routing, to a verified control with evidence an auditor can read. It then covers the scaling, resilience, and upgrade decisions that keep it running.
 
 ## Quickstart path
 

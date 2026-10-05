@@ -10,9 +10,9 @@ keywords:
 
 # Turn Enforcement Into Evidence
 
-SafeSquid blocks and allows traffic in real time, but that decision only survives an audit or an incident review once it is logged, retained long enough to matter, and reachable through the right report. A control you cannot evidence is a control nobody will credit.
+SafeSquid blocks and allows traffic in real time. That decision only survives an audit or an incident review once it is logged, retained long enough to matter, and reachable through the right report. A control you cannot evidence is a control nobody will credit.
 
-This section covers planning retention before deployment, proving the audit trail works once SafeSquid is live, and finding the right report or log for a specific question.
+Plan retention before deployment, prove the audit trail works once SafeSquid is live, and find the right report or log for a specific question.
 
 ## Quickstart path
 

@@ -2,19 +2,20 @@
 title: SSL Certification Errors
 description: Diagnose and resolve SafeSquid ssl certification errors incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
-  - ssl inspection issues
+  - SSL certificate errors
+  - SSL inspection issues
+  - HTTPS inspection troubleshooting
+  - browser certificate import
 ---
 
-# SSL Certification Errors
+# Fix SSL Certificate Errors
 
 SSL Certification Errors can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
 ## SSL certificate and inspection issues
 
 | Symptom | Likely cause | Resolution | Verification |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | Browser shows "Your connection is not private" after certificate import | HTTPS Inspection policies not configured correctly | Configure Enforce SSL scanning and Bypass rules in Configure -> Real-time content security -> HTTPS Inspection | Reload HTTPS site; confirm no certificate warning |
 | youtube.com (or one site) fails; other HTTPS sites work | Global subsection not set to Enabled TRUE | Set HTTPS Inspection -> Global -> Enabled to TRUE | Access the previously failing site |
 | "Secured connection fail" after certificate installed in browser | Passphrase mismatch or password encryption failed | Re-enter correct passphrase; ensure password encryption step completed | Retry HTTPS; confirm connection succeeds |
@@ -26,11 +27,11 @@ SSL Certification Errors can interrupt web access, policy enforcement, or eviden
 
 1. When the SSL certificate is imported into the Chrome browser and the browser still shows **Your connection is not private** (or similar) for HTTPS sites.
 
-->Policies in the HTTPS Inspection subsection may not be configured correctly.
+->Policies in the HTTPS Inspection subsection are misconfigured.
 
 1. While the **successful configuration of HTTPS Inspection**, accessing youtube.com shows an error while all other HTTPS sites work fine.
 
-->In the HTTPS inspection section, if the Global subsection is not set to Enabled as TRUE then this problem may arise.
+->In the HTTPS inspection section, if the Global subsection is not set to Enabled as TRUE then this problem can arise.
 
 1. While the SafeSquid certificate is installed inside the browser however HTTPS sites show the error **Secured connection fail**.
 

@@ -129,7 +129,7 @@ Expected result: the server returns a successful response and the PAC file conte
 
 <Accordion title="Point clients at the PAC URL">
 
-Hosting the file does nothing until clients are told where it is. Disable auto-detection at the same time, or WPAD discovery may override the URL you set.
+Hosting the file does nothing until clients are told where it is. Disable auto-detection at the same time, or WPAD discovery can override the URL you set.
 
 **Windows — Chrome, Edge, and most applications**
 
@@ -259,13 +259,13 @@ If WPAD is approved, three conditions must all hold or discovery silently fails:
 
 1. A DNS A record for `wpad.<your-domain>` points at the host serving the file.
 
-   ```
+   ```text
    wpad.example.com.  IN  A  PAC-SERVER-IP
    ```
 
 2. The file is served as `wpad.dat`, not `proxy.pac`. Browsers request that exact name.
 
-   ```
+   ```text
    http://wpad.example.com/wpad.dat
    ```
 

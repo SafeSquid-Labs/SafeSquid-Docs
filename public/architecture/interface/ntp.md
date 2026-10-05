@@ -10,11 +10,11 @@ keywords:
   - Kerberos
 ---
 
-# NTP Time Synchronization
+# Keep System Time Accurate With NTP
 
 NTP (Network Time Protocol) keeps your SafeSquid server's clock synchronized with enterprise time sources. Accurate time is critical for SSO/Kerberos authentication, TLS certificate validation, and audit log timestamps.
 
-**Why you need this:** Clock drift breaks Kerberos (requires ≤5 minutes skew), causes TLS certificate errors, and makes log correlation impossible.
+**Why you need this:** Clock drift breaks Kerberos (requires ≤5 minutes skew), causes TLS certificate errors, and makes log correlation unreliable.
 
 ## Prerequisites
 
@@ -78,7 +78,7 @@ sudo nano /etc/chrony/chrony.conf
 
 **Replace default pool servers with your enterprise NTP servers:**
 
-```
+```text
 # For Active Directory environments, prefer domain controllers:
 server dc1.company.com iburst
 server dc2.company.com iburst
@@ -130,7 +130,7 @@ chronyc tracking
 ```
 
 **Expected output:**
-```
+```text
 Reference ID    : 192.168.1.10 (ntp1.company.com)
 Stratum         : 3
 System time     : 0.000123 seconds slow of NTP time
@@ -151,7 +151,7 @@ chronyc sources -v
 ```
 
 **Expected output:**
-```
+```text
   .-- Source mode  '^' = server, '=' = peer
  / .- Source state '*' = current best, '+' = combined, '-' = not combined,
 | /             '?' = unreachable, 'x' = time may be in error
@@ -235,7 +235,7 @@ sudo tail -f /var/log/chrony/tracking.log
 ```
 
 **Expected log entries:**
-```
+```text
 Selected source 192.168.1.10
 System time wrong by 0.123 seconds
 Clock was stepped
@@ -283,14 +283,14 @@ Clock was stepped
 ## Production Best Practices
 
 1. **Use at least 3 NTP sources** for redundancy:
-   ```
+   ```text
    server ntp1.company.com iburst
    server ntp2.company.com iburst
    server ntp3.company.com iburst
    ```
 
 2. **For Active Directory, prefer domain controllers:**
-   ```
+   ```text
    server dc1.company.com iburst prefer
    server dc2.company.com iburst
    ```
@@ -298,7 +298,7 @@ Clock was stepped
 3. **Monitor time drift with Monit:**
    
    Add to `/etc/monit/conf.d/chrony`:
-   ```
+   ```text
    check process chronyd matching chronyd
      start program = "/bin/systemctl start chronyd"
      stop program = "/bin/systemctl stop chronyd"
@@ -314,7 +314,7 @@ Clock was stepped
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ----- |
+|---|---|---|
 | Chrony / NTP for Kerberos and TLS | **Confirmed** | This guide, [Authentication](/use_cases/authentication/authentication) |
 | AD clock skew tolerance | **Draft** | **5 minutes** called out in the [Supporting Services hub](/architecture/interface/supporting_services_monit); **CTO** confirm max skew for supported builds |
 
@@ -322,9 +322,7 @@ Clock was stepped
 
 ## Next Steps
 
-1. **[Monit](/architecture/interface/supporting_services_monit)** — Monitor chronyd and auto-restart if needed
-2. **[BIND](/architecture/interface/bind)** — DNSSEC validation requires accurate time
-3. **[Authentication](/use_cases/authentication/authentication)** — Configure SSO/Kerberos (requires NTP)
-4. **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** — TLS certificate validation requires accurate time
+1. **[Monit](/architecture/interface/supporting_services_monit)** - Monitor chronyd and auto-restart if needed
+2. **[BIND](/architecture/interface/bind)** - DNSSEC validation requires accurate time
+3. **[Authentication](/use_cases/authentication/authentication)** - Configure SSO/Kerberos (requires NTP)
 
-**Related:** [Supporting Services Overview](/architecture/interface/supporting_services_monit)

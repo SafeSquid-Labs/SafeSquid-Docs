@@ -12,7 +12,7 @@ keywords:
 ---
 
 
-# FAQs
+# Find Answers to Common SafeSquid Questions
 
 Common questions about SafeSquid SWG: installation, activation, licensing, proxy modes, reporting, transparent proxy, WCCP, DLP, SafeSearch, and troubleshooting. Use the list below to jump to a topic.
 
@@ -26,7 +26,7 @@ Common questions about SafeSquid SWG: installation, activation, licensing, proxy
 - [Who has access to the SafeSquid Web GUI](#who-has-access-to-the-safesquid-web-gui)
 - [How to confirm SafeSquid is activated](#how-to-confirm-safesquid-is-activated)
 - [Where to get license details](#where-to-get-license-details)
-- [Why does "Proxy Access Denied" appear?](#why-does-proxy-access-denied-appear)
+- [Why does Proxy Access Denied appear?](#why-does-proxy-access-denied-appear)
 - [Does SafeSquid supports transparent proxy?](#does-safesquid-supports-transparent-proxy)
 - [When to enable WCCP](#when-to-enable-wccp)
 - [How does SafeSquid licensing work?](#how-does-safesquid-licensing-work)
@@ -74,7 +74,7 @@ For more details see the [Support page](/configuration/infrastructure_and_access
 
 
 
-## Why does "Proxy Access Denied" appear?
+## Why does Proxy Access Denied appear?
 "Proxy Access Denied" appears when access restriction policies are misconfigured or the administrator has not granted SafeSquid Interface access.
 
 
@@ -93,7 +93,7 @@ Users receive the SafeSquid Captive Portal landing page when accessing the inter
 
 SafeSquid captive portal validates user credentials using various authentication mechanisms and maintains database of authenticated source IP addresses and usernames for lookup.
 
-If a user from a source IP address authenticated through captive portal, then SafeSquid will pick the username from the database and attach to the traffic coming from the same source IP address
+If a user from a source IP address authenticated through captive portal, SafeSquid picks the username from the database. It attaches that username to the traffic coming from the same source IP address.
 
 This way SafeSquid captive portal secures WIFI network by only granting access to valid users
 
@@ -139,7 +139,7 @@ SafeSquid allows full Facebook access for a social media group, partial access t
 ## Preventing users from uploading confidential data
 Yes. SafeSquid can prevent users from uploading confidential data. When an organization has confidential information and an internal user leaks it intentionally or unintentionally, productivity loss can be large.
 
-Data leakage can occur through many channels. Users may upload important documents to the internet; even when content filtering blocks Microsoft Word and Excel files, users can create archives of those files and attempt to upload them. Blocking all archives is not practical because staff use archives to transfer large log files.
+Data leakage can occur through many channels. Users can upload important documents to the internet; even when content filtering blocks Microsoft Word and Excel files, users can create archives of those files and attempt to upload them. Blocking all archives is not practical because staff use archives to transfer large log files.
 
 There are other users who simply take information out of Microsoft Word and Microsoft XL and simply send an Email to third party.
 
@@ -147,7 +147,7 @@ In modern era, these kind of data leaks become a challenge for organizations. Or
 
 This challenge is also big for security experts because when there is an upload the post data formation is different for Gmail / Google Drive/ Media fire/ Drobox etc. The wide range of formations of post data made it difficult for security experts to derive concrete solution to these challenges.
 
-But SafeSquid come up with **Advanced DLP** solution embedded into **SafeSquid SWG**, which analyzes post data, deeply inspect archives using file decomposition methods and able to identify whether archive or emails or social media posts contains certain keyword matches. Based on the match, the administrator can block uploads by user or by destination website. The Advanced DLP solution is managed from the SafeSquid Self-Service Portal, where administrators create keyword expression matches. SafeSquid SWG will download those keyword expressions and loads into memory. When an archive uploads or an email write, SafeSquid SWG analyses Post data and transmit it to the Clam AV daemon for Signatures verification. If the keyword expression matches Clam AV daemon responds with match. SafeSquid will take respective action based on match.
+SafeSquid embeds an **Advanced DLP** solution in the **SafeSquid SWG**. It analyzes post data, inspects archives deeply using file decomposition methods, and identifies whether archives, emails, or social media posts contain certain keyword matches. Based on the match, the administrator can block uploads by user or by destination website. The Advanced DLP solution is managed from the SafeSquid Self-Service Portal, where administrators create keyword expression matches. SafeSquid SWG will download those keyword expressions and loads into memory. When an archive uploads or an email write, SafeSquid SWG analyses Post data and transmit it to the Clam AV daemon for Signatures verification. If the keyword expression matches Clam AV daemon responds with match. SafeSquid will take respective action based on match.
 
 
 
@@ -214,7 +214,7 @@ SafeSquid reporting supports export to PDF and Excel. Open the SafeSquid interfa
 
 
 ## Can reports be generated for specific dates?
-Yes. SafeSquid has a reporting module that reduces processing time and provides detailed reports, hour-wise reports, filtering options, deeper data analysis, an automated data mining engine, and export to PDF and Excel.
+Yes. SafeSquid has a reporting module that reduces processing time. It provides detailed reports, hour-wise reports, filtering options, deeper data analysis, an automated data mining engine, and export to PDF and Excel.
 
 
 
@@ -251,7 +251,7 @@ Opt for a SafeSquid SWG subscription by paying online via PayPal or by wire or b
 
 
 ## What happens if the subscription is not renewed?
-{/* NEEDS-SME-REVIEW: this FAQ previously stated flatly that the product stops working on expiry. That contradicts deployment/manage_subscription_state.md, which is source-cited (_migration_source_v3/docs/01-Getting_Started/04-Activate.md §Troubleshooting case4 License Expired) and describes a detailed degrade-not-stop behavior instead. Per house style, neither unverified variant should be asserted outright — confirm actual behavior against a live expired subscription or with engineering, then resolve this note. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: this FAQ previously stated flatly that the product stops working on expiry. That contradicts deployment/manage_subscription_state.md, which is source-cited (_migration_source_v3/docs/01-Getting_Started/04-Activate.md §Troubleshooting case4 License Expired) and describes a detailed degrade-not-stop behavior instead. Per house style, neither unverified variant should be asserted outright — confirm actual behavior against a live expired subscription or with engineering, then resolve this note. */}
 
 **Missing:** whether the proxy stops passing traffic on expiry, or keeps running with reduced
 threat-feed coverage, is stated two different ways elsewhere in this documentation set and hasn't
@@ -259,3 +259,9 @@ been reconciled. See [Handle expiry before it degrades enforcement](/deployment/
 for the detailed, sourced breakdown of what keeps working and what doesn't — treat that page as
 more current until this is confirmed, and don't assume the proxy goes down on expiry without
 checking your own deployment's behavior first.
+
+## Next steps
+
+- [Troubleshooting](/troubleshooting/troubleshooting) - find the runbook that matches your symptom.
+- [Getting Started](/getting_started/welcome) - learn what SafeSquid does before you configure it.
+- [Self-Service Portal](/architecture/interface/self_service_portal) - manage activation keys and licensing.

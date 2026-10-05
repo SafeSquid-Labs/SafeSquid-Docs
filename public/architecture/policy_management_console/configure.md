@@ -8,7 +8,7 @@ keywords:
   - DLP policy
 ---
 
-# Configure
+# Configure Policy From One Entry Point
 
 Use **Configure** as the controlled change path for SafeSquid policy. Changes here influence web access, inspection depth, identity enforcement, logging, and business availability.
 
@@ -17,7 +17,7 @@ Every production change should have a reason, an expected result, a rollback pat
 ## Common configuration domains
 
 | Domain | Use it to control | Evidence to check |
-| --- | --- | --- |
+|---|---|---|
 | Access restrictions | Category, application, user, group, and time-based access | Reports and `extended.log` |
 | Authentication | Identity-aware policy and SSO behavior | Authentication logs and user-attributed reports |
 | SSL inspection | HTTPS visibility and selective decryption | Inspection reports and certificate validation results |
@@ -36,3 +36,4 @@ Every production change should have a reason, an expected result, a rollback pat
 
 - Use [Policy Management Console](/architecture/interface/configuration_portal) for the complete interface guide.
 - Use [Reports](/architecture/policy_management_console/reports) to prove the change worked.
+- Use [Support](/architecture/policy_management_console/support) to collect evidence before you escalate.

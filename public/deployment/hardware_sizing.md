@@ -14,7 +14,7 @@ keywords:
 
 Averages hide the burst that drops sessions. A node sized for the mean sails through the working day and fails between 09:00 and 11:00, when every browser tab, background application, and API client opens connections at once. Sizing from a user count alone produces a node that passes a demo and drops sessions at 09:30.
 
-The inputs that actually drive capacity — peak concurrency, inspection scope, and log volume — are measurable, and a short pilot measures them far more cheaply than a production rollback does.
+The inputs that actually drive capacity — peak concurrency, inspection scope, and log volume — are measurable. A short pilot measures them far more cheaply than a production rollback does.
 
 ## Measure before you size
 
@@ -37,7 +37,7 @@ Use the first deployment as a measured pilot, not a blind production cutover.
 | High availability | Plan shared routing, health checks, same activation key, and synchronized configuration |
 | Disaster recovery | Preserve activation key, configuration backup, certificate material, and rebuild procedure |
 
-Size conservatively when HTTPS inspection, [malware scanning](/use_cases/malware_scanning/malware_scanners), [DLP](/use_cases/data_leakage_prevention/data_leakage_prevention), or detailed logging is enabled. These controls add security value, but they also increase CPU, memory, and disk-write demand — a node sized for plain forwarding will not carry the same user count once inspection is on.
+Size conservatively when HTTPS inspection, [malware scanning](/use_cases/malware_scanning/malware_scanners), [DLP](/use_cases/data_leakage_prevention/data_leakage_prevention), or detailed logging is enabled. These controls add security value, but they also increase CPU, memory, and disk-write demand. A node sized for plain forwarding will not carry the same user count once inspection is on.
 
 <Accordion title="Capacity factors to record">
   Include these values in the sizing worksheet:
@@ -61,7 +61,7 @@ Confirm:
 - The candidate CPU supports AES-NI.
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/01-Deployment_Planning.md §Hardware sizing */}
-{/* NEEDS-SME-REVIEW: connection ceilings below are undated in the source and predate the current build. Confirm before quoting to a customer. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: connection ceilings below are undated in the source and predate the current build. Confirm before quoting to a customer. */}
 
 ## Read the sizing matrix
 
@@ -102,7 +102,7 @@ Expected result: the flags line includes `aes`. An empty result means this CPU s
 
 ## Choose the storage media
 
-SafeSquid writes continuously for session logging, behavioural analysis, and threat detection. Storage media choice is a correctness concern, not only a performance one: when writes fall behind, log entries are delayed or missed, and the audit trail you depend on during an incident has holes in it.
+SafeSquid writes continuously for session logging, behavioural analysis, and threat detection. Storage media choice is a correctness concern, not only a performance one. When writes fall behind, log entries are delayed or missed, and the audit trail you depend on during an incident has holes in it.
 
 **Use NVMe SSDs** — M.2 or PCIe-attached — for these paths:
 

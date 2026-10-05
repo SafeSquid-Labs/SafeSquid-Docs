@@ -9,7 +9,7 @@ keywords:
   - SSL updates
 ---
 
-# Threat Intelligence Feeds
+# Keep Threat Intelligence Feeds Current
 
 Threat-intelligence feeds keep SafeSquid policy decisions current. Static rules decay quickly against phishing kits, malware delivery domains, remote-access tooling, and newly abused cloud services.
 
@@ -20,7 +20,7 @@ The application ecosystem places feed delivery beside the proxy, DNS, reporting,
 SafeSquid ecosystem documentation identifies these intelligence categories:
 
 | Feed | Control value |
-| --- | --- |
+|---|---|
 | Threat Intelligence | Identifies malicious destinations and suspicious behavior. |
 | URL Classification | Supports category-based access policy and exception handling. |
 | Application Identification | Helps distinguish sanctioned and unsanctioned application use. |
@@ -42,7 +42,7 @@ Verify feed health during deployment and incident response:
 ## Failure symptoms
 
 | Symptom | Likely cause | Verification |
-| --- | --- | --- |
+|---|---|---|
 | New malicious sites are not classified | Feed update path blocked | Check cloud allowlists and update status. |
 | Category policy behaves inconsistently | Outdated or unsynced feed state | Compare feed timestamps across nodes. |
 | SSL trust decisions look stale | SSL update path unavailable | Review update logs and certificate behavior. |
@@ -51,3 +51,4 @@ Verify feed health during deployment and incident response:
 
 - Use [Self-Service Portal](/architecture/interface/self_service_portal) to understand cloud-linked operational workflows.
 - Use [Reporting Service](/architecture/interface/reporting_service) to verify intelligence-driven policy events.
+- Use [Proxy Service](/architecture/application_ecosystem/proxy_service) to review the service that enforces policy on every request.

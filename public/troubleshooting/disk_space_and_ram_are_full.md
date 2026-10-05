@@ -2,9 +2,10 @@
 title: Free disk and RAM to restore proxy operation
 description: Diagnose and resolve SafeSquid free disk and ram to restore proxy operation incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
-  - disk space and ram are full
+  - disk space and RAM full
+  - SafeSquid disk usage
+  - free disk space proxy
+  - proxy operation restore
 ---
 
 # Free disk and RAM to restore proxy operation
@@ -61,7 +62,7 @@ none 100M 0 100M 0% /run/user
 
 ## /dev/ram1 62M 1.3M 58M 3% /tmp/safesquid
 
-If any of the above partitions are observed to be used over 80%, then you may take a backup of the following files and delete files as per your requirement.
+If any of the above partitions are observed to be used over 80%, then you can take a backup of the following files and delete files as per your requirement.
 
 ## Partitions
 
@@ -163,7 +164,7 @@ cd
  /var/log/safesquid/config/
 ```
 
-config logs used to store the data related to safesquid interface requests and responses. No need to take a backup of these files.
+config logs used to store the data related to SafeSquid interface requests and responses. No need to take a backup of these files.
 
 **Example file name to be deleted: 20161223132118-config.log.gz**
 
@@ -195,3 +196,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [Monit Service Governance](/architecture/interface/supporting_services_monit) to supervise SafeSquid processes and host resources with Monit.

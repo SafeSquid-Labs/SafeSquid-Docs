@@ -10,11 +10,11 @@ keywords:
 ---
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/01-SafeSquid_Appliance_Builder.md (whole page) and _old_getting_started_backup/03-Installation Guide/01-SafeSquid Appliance Builder.md §Preparation, §Installation Steps (Debian), §Post-Installation Checklist */}
-{/* NEEDS-SME-REVIEW: the two sources give opposite BIOS boot orders — the current guide says removable media first, the older backup says hard disk first. Confirm before an operator follows either. */}
-{/* NEEDS-SME-REVIEW: minimum RAM and disk are stated four different ways — 8 GB/100 GB in the SAB source, 4 GB/160 GB in quickstart.mdx, no disk figure in the sizing matrix, and a 32 GB disk in the installer screenshots. Confirm the authoritative baseline for the shipping release. */}
-{/* NEEDS-SME-REVIEW: the boot menu reads "debian 13" but the first-login banner reads "built using Linux #236-Ubuntu SMP". Both sources describe SAB as a Debian ISO. Confirm the shipping base OS. */}
-{/* NEEDS-SME-REVIEW: both sources give the portal as https://safesquid.cfg/ while 43 other pages in public/ use http://. This page uses http:// for internal consistency — confirm which is correct. */}
-{/* NEEDS-SME-REVIEW: the /usr/local/safesquid/ row in the component table appears in neither source. Confirm the path before an operator relies on it. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: the two sources give opposite BIOS boot orders — the current guide says removable media first, the older backup says hard disk first. Confirm before an operator follows either. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: minimum RAM and disk are stated four different ways — 8 GB/100 GB in the SAB source, 4 GB/160 GB in quickstart.mdx, no disk figure in the sizing matrix, and a 32 GB disk in the installer screenshots. Confirm the authoritative baseline for the shipping release. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: the boot menu reads "debian 13" but the first-login banner reads "built using Linux #236-Ubuntu SMP". Both sources describe SAB as a Debian ISO. Confirm the shipping base OS. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: both sources give the portal as https://safesquid.cfg/ while 43 other pages in public/ use http://. This page uses http:// for internal consistency — confirm which is correct. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: the /usr/local/safesquid/ row in the component table appears in neither source. Confirm the path before an operator relies on it. */}
 
 # Build the Standard Appliance
 
@@ -279,7 +279,7 @@ ssh installer@SAFESQUID-SERVER-IP
 
 Expected result: the installer resumes in the SSH session at the prompt the console had reached.
 
-Compare the displayed SHA256 fingerprint before accepting the host key. This is useful for a headless server or a remote data centre — treat it as a management-network action and connect from an approved administrator workstation, not from a general user network.
+Compare the displayed SHA256 fingerprint before accepting the host key. This is useful for a headless server or a remote data centre. Treat it as a management-network action and connect from an approved administrator workstation, not from a general user network.
 
 ![Installer notice offering to continue the installation remotely over SSH](/images/getting_started/safesquid_appliance_builder_13_ssh_notice.webp)
 

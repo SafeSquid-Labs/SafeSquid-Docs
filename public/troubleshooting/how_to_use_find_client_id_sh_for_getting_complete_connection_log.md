@@ -31,9 +31,14 @@ To use find\_client\_id.sh you are first required to get your connection's clien
 
 Client id can be extracted from the response headers section in browsers network tab.
 
-(Note: we are assuming that you know how to open developer tools in a browser)
+(Note: this assumes you know how to open developer tools in a browser.)
 
 ![find_client_id script output or connection log example](/images/picture1.jpg)
 
 Also, client id can be extracted from SafeSquid's native logs
 
+## Next steps
+
+- [Troubleshooting](/troubleshooting/troubleshooting) - find the runbook that matches your symptom.
+- [Security Logs](/use_cases/audit_and_forensics/security_logs) - read the logged decision for the client you identified.
+- [Support](/architecture/policy_management_console/support) - collect evidence before you escalate.

@@ -62,7 +62,7 @@ The instance activates without these, then quietly stops receiving current data.
 | `download.quickheal.com` | `80` | Antivirus signature updates |
 
 <Accordion title="Additional categorization endpoints seen in some releases">
-  {/* NEEDS-SME-REVIEW: the itsecure.co.in and itonlinesecure.in categorization endpoints below are listed inconsistently across sources — activate.md includes encurl.itonlinesecure.in, the former Deployment Overview page did not. Confirm the authoritative set for the shipping release before an operator allowlists them. */}
+  {/* [VERIFY WITH SAFESQUID TEAM]: the itsecure.co.in and itonlinesecure.in categorization endpoints below are listed inconsistently across sources — activate.md includes encurl.itonlinesecure.in, the former Deployment Overview page did not. Confirm the authoritative set for the shipping release before an operator allowlists them. */}
 
   | Endpoint | Port |
   |---|---:|

@@ -2,12 +2,13 @@
 title: Login Issues on Specific Websites
 description: Diagnose and resolve SafeSquid login issues on specific websites incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
-  - unable to login specific website
+  - login issues on specific websites
+  - website login fails through proxy
+  - Facebook login through proxy
+  - Google account login proxy
 ---
 
-# Login Issues on Specific Websites
+# Fix Login Failures on Specific Websites
 
 Login Issues on Specific Websites can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
@@ -56,3 +57,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [SSL Certification Errors](/troubleshooting/ssl_inspection_issues) to fix SSL certificate errors.

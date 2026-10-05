@@ -2,12 +2,13 @@
 title: Blank Report Page
 description: Diagnose and resolve SafeSquid blank report page incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
   - blank report page
+  - SafeSquid reports not loading
+  - report page troubleshooting
+  - SafeSquid report evidence
 ---
 
-# Blank Report Page
+# Fix a Blank Report Page
 
 Blank Report Page can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
@@ -34,3 +35,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [Reports](/architecture/policy_management_console/reports) to review policy evidence in reports.

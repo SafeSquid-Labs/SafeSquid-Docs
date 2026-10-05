@@ -2,12 +2,13 @@
 title: Product Activation Failure
 description: Diagnose and resolve SafeSquid product activation failure incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
-  - product failure
+  - product activation failure
+  - SafeSquid activation key
+  - activation key file
+  - SafeSquid licensing troubleshooting
 ---
 
-# Product Activation Failure
+# Fix Product Activation Failures
 
 Product Activation Failure can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
@@ -128,3 +129,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [Self-Service Portal](/architecture/interface/self_service_portal) to manage activation and licensing.

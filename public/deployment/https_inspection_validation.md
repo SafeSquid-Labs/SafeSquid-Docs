@@ -11,7 +11,7 @@ keywords:
 
 # Prove HTTPS Is Inspected, Not Tunnelled
 
-An HTTPS site that loads through the proxy proves nothing about inspection. SafeSquid can tunnel the session untouched and the page still renders perfectly — so the control appears to work while [malware scanning](/use_cases/malware_scanning/malware_scanners), [DLP](/use_cases/data_leakage_prevention/data_leakage_prevention), and content policy see nothing but an opaque stream.
+An HTTPS site that loads through the proxy proves nothing about inspection. SafeSquid can tunnel the session untouched and the page still renders perfectly. The control appears to work while [malware scanning](/use_cases/malware_scanning/malware_scanners), [DLP](/use_cases/data_leakage_prevention/data_leakage_prevention), and content policy see nothing but an opaque stream.
 
 The certificate issuer is the only reliable positive test. Everything else is a page that loaded.
 
@@ -58,7 +58,7 @@ Expected result: the issuer is the SafeSquid CA, and no warning appears.
 
 An issuer showing the original site's certificate authority means the connection is being tunnelled rather than inspected, even though the page loads normally. That is the failure this page exists to catch.
 
-Check an excluded destination too. A destination on the bypass list should show its original issuer — if it shows the SafeSquid CA, the exclusion is not matching, and traffic the business agreed not to decrypt is being decrypted.
+Check an excluded destination too. A destination on the bypass list should show its original issuer. If it shows the SafeSquid CA, the exclusion is not matching, and traffic the business agreed not to decrypt is being decrypted.
 
 ## Capture inspection evidence
 

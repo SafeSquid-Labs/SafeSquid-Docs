@@ -9,7 +9,7 @@ keywords:
 ---
 
 
-# Policy Management Console
+# Control Policy From the Management Console
 
 The Policy Management Console (Configuration Portal) is the SafeSquid web interface for defining, simulating, and enforcing access control, URL filtering, SSL inspection, and DLP policies. Administrators use it to configure restriction profiles, real-time content security, authentication, and operational settings.
 
@@ -180,7 +180,7 @@ After making a change in the portal, confirm all of the following:
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | Policy Management Console / sidebar structure | **Confirmed** | This page (UI paths) |
 | Default credentials **administrator** / **safesquid** | **Confirmed** | This page; change after first login |
 | `safesquid.cfg` / **8443** access | **Confirmed** | This page, [Getting Started](/getting_started/welcome) |
@@ -189,7 +189,6 @@ After making a change in the portal, confirm all of the following:
 
 ## Next Steps
 
-1. **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** — Enable HTTPS decryption
-2. **[Authentication](/use_cases/authentication/authentication)** — Configure user authentication
-3. **[Access Restriction](/use_cases/access_restriction/access_restriction)** — Set up URL filtering and content policies
-4. **[Troubleshooting](/troubleshooting/troubleshooting)** — Reference for common issues
+1. **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** - Enable HTTPS decryption
+2. **[Authentication](/use_cases/authentication/authentication)** - Configure user authentication
+3. **[Access Restriction](/use_cases/access_restriction/access_restriction)** - Set up URL filtering and content policies

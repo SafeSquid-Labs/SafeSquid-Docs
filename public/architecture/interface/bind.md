@@ -10,7 +10,7 @@ keywords:
   - DNSSEC
 ---
 
-# BIND Local DNS Resolver
+# Run BIND as the Local DNS Resolver
 
 BIND provides a local DNS resolver for SafeSquid, reducing lookup latency and improving cache hit rates for frequently accessed domains.
 
@@ -63,7 +63,7 @@ sudo nano /etc/bind/named.conf.options
 ```
 
 **Add/modify:**
-```
+```text
 options {
   directory "/var/cache/bind";
   
@@ -126,7 +126,7 @@ sudo nano /etc/bind/named.conf.local
 ```
 
 Add:
-```
+```text
 zone "corp.local" {
   type forward;
   forwarders { 10.0.0.10; 10.0.0.11; };  // Your internal DNS servers
@@ -165,12 +165,12 @@ sudo nano /etc/resolv.conf
 ```
 
 **Set:**
-```
+```text
 nameserver 127.0.0.1
 ```
 
 **Or if BIND is on a different server:**
-```
+```text
 nameserver 10.0.0.1  # BIND server IP
 ```
 
@@ -269,7 +269,7 @@ sudo tail -f /var/log/named/default.log
 ```
 
 **Expected log entries:**
-```
+```text
 [date] info: client 192.168.1.1#port: query: example.com IN A
 [date] info: resolver: success for example.com
 ```
@@ -316,7 +316,7 @@ sudo tail -f /var/log/named/default.log
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ----- |
+|---|---|---|
 | Recursion, forwarding, `safesquid.dns.conf` stub patterns | **Confirmed** | This guide |
 | DNSSEC validation dependency on NTP | **Confirmed** | This page, [NTP](/architecture/interface/ntp) |
 
@@ -324,9 +324,7 @@ sudo tail -f /var/log/named/default.log
 
 ## Next Steps
 
-1. **[Monit](/architecture/interface/supporting_services_monit)** — Monitor BIND and auto-restart if it crashes
-2. **[NTP](/architecture/interface/ntp)** — Required for DNSSEC validation
-3. **[Integrated DNS Security](/architecture/overview/integrated_dns_security)** — Configure DNSBL for malicious domain blocking
-4. **[Troubleshooting](/troubleshooting/troubleshooting)** — DNS-specific troubleshooting
+1. **[Monit](/architecture/interface/supporting_services_monit)** - Monitor BIND and auto-restart if it crashes
+2. **[NTP](/architecture/interface/ntp)** - Required for DNSSEC validation
+3. **[Integrated DNS Security](/architecture/overview/integrated_dns_security)** - Configure DNSBL for malicious domain blocking
 
-**Related:** [Supporting Services Overview](/architecture/interface/supporting_services_monit)

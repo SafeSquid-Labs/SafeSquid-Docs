@@ -158,12 +158,12 @@ Expected result: the request succeeds and appears in SafeSquid access logs.
 
 For persistent per-user configuration, both tools read a dotfile:
 
-```
+```text
 # ~/.curlrc
 proxy = "http://SAFESQUID-IP:8080"
 ```
 
-```
+```text
 # ~/.wgetrc
 http_proxy = http://SAFESQUID-IP:8080
 https_proxy = http://SAFESQUID-IP:8080

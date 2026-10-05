@@ -2,12 +2,13 @@
 title: SafeSearch Not Working
 description: Diagnose and resolve SafeSquid safesearch not working incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
-  - safesearch not working
+  - SafeSearch not working
+  - SafeSquid SafeSearch enforcement
+  - SafeSearch troubleshooting
+  - search engine safe search policy
 ---
 
-# SafeSearch Not Working
+# Fix SafeSearch That Does Not Enforce
 
 SafeSearch Not Working can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
@@ -21,7 +22,7 @@ Then check the SSL certificate in the browser. See [Test certificate in Firefox]
 
 Removes the cache and restart the browser and test it again.
 
-You may see block template when "Text Analyzer" and default entry to block pornogrophy in policies and profiles are enabled.
+You can see block template when "Text Analyzer" and default entry to block pornogrophy in policies and profiles are enabled.
 
 ## Capture useful evidence
 
@@ -38,3 +39,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [Enforce SafeSearch](/use_cases/access_restriction/safesearch) to configure SafeSearch enforcement.

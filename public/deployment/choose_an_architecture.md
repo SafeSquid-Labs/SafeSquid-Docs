@@ -11,11 +11,11 @@ keywords:
 
 # Decide Where Traffic Is Intercepted
 
-The interception point determines what SafeSquid can enforce. Choose it before sizing, before firewall changes, and before any client is touched — the choice drives client configuration effort, coverage gaps, and how easily a user can route around the control.
+The interception point determines what SafeSquid can enforce. Choose it before sizing, before firewall changes, and before any client is touched. The choice drives client configuration effort, coverage gaps, and how easily a user can route around the control.
 
 SafeSquid cannot enforce policy on traffic that bypasses the proxy. Every mode below is a different answer to how you stop that from happening.
 
-Work through the decision in this order — direction of traffic, then whether the client can be configured, then protocol and upstream constraints — and confirm the result against the table below.
+Work through the decision in this order: direction of traffic, then whether the client can be configured, then protocol and upstream constraints. Confirm the result against the table below.
 
 ```mermaid
 flowchart TB

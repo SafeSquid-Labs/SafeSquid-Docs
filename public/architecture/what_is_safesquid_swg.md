@@ -8,10 +8,6 @@ keywords:
   - web security
   - HTTPS inspection
   - proxy
-  - multi-threaded
-  - content security gateway
-  - DLP
-  - SSL inspection
 ---
 
 # SafeSquid: Zero-Trust Web Security at the Application Layer
@@ -62,7 +58,7 @@ SafeSquid operates as an inline HTTP(S) proxy with a multi-threaded, SMP-aware p
 
 ### On-The-Wire Security Neural Network
 
-SafeSquid's enforcement engine implements what the platform calls the **On-The-Wire Security Neural Network**: a real-time intelligence cache that accumulates behavioral patterns, threat indicators, and content context from active connections and applies that intelligence to subsequent sessions on the same gateway instance. This means that inspection decisions for session N benefit from the context of sessions already in flight — not only from static feed data. The cache updates continuously, so threat correlation occurs without batch processing delays.
+SafeSquid's enforcement engine implements what the platform calls the **On-The-Wire Security Neural Network**. It is a real-time intelligence cache that accumulates behavioral patterns, threat indicators, and content context from active connections. The gateway applies that intelligence to subsequent sessions on the same instance. This means that inspection decisions for session N benefit from the context of sessions already in flight — not only from static feed data. The cache updates continuously, so threat correlation occurs without batch processing delays.
 
 This architecture eliminates two bottlenecks found in legacy gateways:
 
@@ -102,16 +98,16 @@ Deployment success depends on planning for identity integration, TLS trust distr
 
 | Scenario | Without SafeSquid | With SafeSquid |
 |---|---|---|
-| Ransomware delivered via HTTPS download | ❌ Payload passes through encrypted; endpoint AV is last line of defense | ✅ Payload scanned by ClamAV before delivery; transaction blocked and logged |
-| Phishing site over HTTPS | ❌ Domain may pass firewall reputation check; URL and page content not inspected | ✅ URL category and threat intelligence evaluated at Layer 7; session blocked with user redirect |
-| Data exfiltration via personal webmail | ❌ Upload POST body not visible; no policy applied | ✅ Upload body inspected; DLP keyword rules applied; transfer blocked if policy matches |
-| Cyber-slacking (streaming, social media) | ❌ HTTPS traffic categorized only by domain; blocking is coarse | ✅ URL category, time profile, and user identity combined; per-user or per-group enforcement |
-| Unsanctioned remote-access tool (AnyDesk) | ❌ Application uses port 443; firewall cannot distinguish from legitimate HTTPS | ✅ Application signature matches AnyDesk behavioral pattern; session blocked and logged |
-| Compliance audit for web access controls | ❌ Logs show IP-to-IP connections; no user attribution or enforcement evidence | ✅ Per-user logs with URL, action, rule, and timestamp exported from Reporting Service |
+| Ransomware delivered via HTTPS download | Payload passes through encrypted; endpoint AV is last line of defense | Payload scanned by ClamAV before delivery; transaction blocked and logged |
+| Phishing site over HTTPS | Domain may pass firewall reputation check; URL and page content not inspected | URL category and threat intelligence evaluated at Layer 7; session blocked with user redirect |
+| Data exfiltration via personal webmail | Upload POST body not visible; no policy applied | Upload body inspected; DLP keyword rules applied; transfer blocked if policy matches |
+| Cyber-slacking (streaming, social media) | HTTPS traffic categorized only by domain; blocking is coarse | URL category, time profile, and user identity combined; per-user or per-group enforcement |
+| Unsanctioned remote-access tool (AnyDesk) | Application uses port 443; firewall cannot distinguish from legitimate HTTPS | Application signature matches AnyDesk behavioral pattern; session blocked and logged |
+| Compliance audit for web access controls | Logs show IP-to-IP connections; no user attribution or enforcement evidence | Per-user logs with URL, action, rule, and timestamp exported from Reporting Service |
 
 ## When to deploy SafeSquid
 
-✅ **Deploy SafeSquid when:**
+**Deploy SafeSquid when:**
 
 - The network carries HTTPS traffic that must be inspected at Layer 7 for policy enforcement, malware scanning, or DLP.
 - User identity must be attributed to web transactions for forensic investigation or compliance reporting.
@@ -120,7 +116,7 @@ Deployment success depends on planning for identity integration, TLS trust distr
 - The deployment environment is Linux-based, virtualized, or cloud-hosted on standard Intel infrastructure.
 - The security team requires exportable, audit-grade evidence for SOC 2, ISO 27001, PCI-DSS, HIPAA, or GDPR reviews.
 
-❌ **Do not deploy SafeSquid as a substitute for:**
+**Do not deploy SafeSquid as a substitute for:**
 
 - A next-generation firewall handling east-west lateral movement — SafeSquid inspects outbound HTTP(S) web traffic, not all TCP/UDP flows.
 - An email security gateway — SafeSquid does not process SMTP, IMAP, or POP3 traffic.
@@ -135,7 +131,7 @@ Create an account on the [SafeSquid Self-Service Portal](https://key.safesquid.c
 
 ### Step 2 — Deploy the gateway
 
-The fastest deployment path uses the **SafeSquid Appliance Builder (SAB) ISO**, which automates the installation of SafeSquid and all supporting services on any standard Intel-based Linux system in under 15 minutes. The SAB ISO handles OS preparation, service configuration, and dependency resolution without manual package management.
+The fastest deployment path uses the **SafeSquid Appliance Builder (SAB) ISO**. It automates the installation of SafeSquid and all supporting services on any standard Intel-based Linux system in under 15 minutes. The SAB ISO handles OS preparation, service configuration, and dependency resolution without manual package management.
 
 Alternative deployment paths:
 
@@ -162,15 +158,15 @@ Log in to the **Configuration Portal** at `http://safesquid.cfg` (accessible fro
 
 See [Configuration Portal](/architecture/interface/configuration_portal) for the full administration reference.
 
-## ⚠️ Common deployment pitfalls
+## Common deployment pitfalls
 
-**⚠️ SSL inspection not enabled at deployment:** HTTPS traffic bypasses content inspection if SSL inspection is not configured. The gateway logs a connection but cannot evaluate URL, payload, or application signature. Enable SSL inspection under **Configuration → SSL Inspection** and distribute the SafeSquid Root CA to all managed endpoints before routing production traffic.
+**SSL inspection not enabled at deployment:** HTTPS traffic bypasses content inspection if SSL inspection is not configured. The gateway logs a connection but cannot evaluate URL, payload, or application signature. Enable SSL inspection under **Configuration → SSL Inspection** and distribute the SafeSquid Root CA to all managed endpoints before routing production traffic.
 
-**⚠️ Activation key not applied before traffic routing:** The SafeSquid proxy engine operates in restricted mode without a valid activation key. Apply the key from the Self-Service Portal under **Configuration → Activate** before directing live traffic through the gateway.
+**Activation key not applied before traffic routing:** The SafeSquid proxy engine operates in restricted mode without a valid activation key. Apply the key from the Self-Service Portal under **Configuration → Activate** before directing live traffic through the gateway.
 
-**⚠️ Client traffic bypasses the proxy:** Transparent proxy mode requires a network-layer redirect rule on the firewall or router. If endpoints can reach the internet directly, policy enforcement and logging do not occur. Verify that all outbound HTTP and HTTPS traffic traverses the SafeSquid listener ports.
+**Client traffic bypasses the proxy:** Transparent proxy mode requires a network-layer redirect rule on the firewall or router. If endpoints can reach the internet directly, policy enforcement and logging do not occur. Verify that all outbound HTTP and HTTPS traffic traverses the SafeSquid listener ports.
 
-**⚠️ Intelligence feeds blocked by egress firewall:** SafeSquid requires outbound HTTPS access to cloud intelligence feed endpoints for URL classification, threat data, and application signatures. Block these feeds and the policy engine falls back to cached or empty category data. Review feed connectivity requirements in the [Architecture](/architecture/overview/safesquid_swg) reference before deploying in restricted-egress environments.
+**Intelligence feeds blocked by egress firewall:** SafeSquid requires outbound HTTPS access to cloud intelligence feed endpoints for URL classification, threat data, and application signatures. Block these feeds and the policy engine falls back to cached or empty category data. Review feed connectivity requirements in the [Architecture](/architecture/overview/safesquid_swg) reference before deploying in restricted-egress environments.
 
 ## Next steps
 

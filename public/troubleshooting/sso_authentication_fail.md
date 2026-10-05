@@ -2,12 +2,13 @@
 title: SSO Authentication Fail
 description: Diagnose and resolve SafeSquid sso authentication fail incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
-  - sso authentication fail
+  - SSO authentication failure
+  - SafeSquid Kerberos troubleshooting
+  - SSO login not working
+  - SafeSquid authentication troubleshooting
 ---
 
-# SSO Authentication Fail
+# Fix SSO Authentication Failures
 
 SSO Authentication Fail can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
@@ -118,3 +119,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [LDAP Entries Not Fetched](/troubleshooting/failed_to_fetch_ldap_entries) to fix LDAP entries that fail to load.

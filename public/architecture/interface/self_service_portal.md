@@ -10,7 +10,7 @@ keywords:
   - SafeSquid confidential data signatures
 ---
 
-# Self-Service Portal
+# Manage Activation and Licensing in the Self-Service Portal
 
 The Self-Service Portal is a SafeSquid-managed cloud service at `https://key.safesquid.com`. It is part of the product operating model, not just a convenience website. It handles activation-key distribution and other cloud-managed workflows that influence licensing, categorization, backup, and certificate-related operations.
 
@@ -142,7 +142,7 @@ SSL inspection configuration — this step alone doesn't complete an HTTPS Inspe
    **Keywords** field (one keyword per line, with live regex detection — the form flags whether
    what you typed reads as a regex pattern). **Submit** to save.
 
-{/* NEEDS-SME-REVIEW: the Add New form's two fields (Signature name, Keywords) and its regex-detection behavior are confirmed live. How and when a saved signature here actually syncs to the appliance's DLP OCR keyword scoring (dlp.mdx's "Enabled OCR rows are walked... each keyword regex match adds Weight") was not tested — this page states the two are related, not that sync was observed. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: the Add New form's two fields (Signature name, Keywords) and its regex-detection behavior are confirmed live. How and when a saved signature here actually syncs to the appliance's DLP OCR keyword scoring (dlp.mdx's "Enabled OCR rows are walked... each keyword regex match adds Weight") was not tested — this page states the two are related, not that sync was observed. */}
 
 **Use for:** feeding custom keyword-based signatures into
 [DLP](/configuration/real_time_content_security/dlp) OCR scoring on the appliance.
@@ -159,7 +159,7 @@ SSL inspection configuration — this step alone doesn't complete an HTTPS Inspe
 4. **Modify Category** instead opens with a **Select Category** field (dropdown/autocomplete over
    existing categories, not a URL search) — pick a category to act on.
 
-{/* NEEDS-SME-REVIEW: confirmed live — Check Website Category is single-URL search; Modify Category starts from an existing-category picker instead, which does imply named categories exist here (unlike an earlier pass through this page which concluded otherwise). What appears after selecting a category in Modify Category — URL list, add/remove controls, anything else — was not observed; don't describe it further without checking. If bulk custom-category upload also exists separately, it may be the local console's [Categorize Web-Sites](/configuration/custom_settings/categorize_web_sites) feature instead — the portal homepage's marketing copy for "Custom Category Management" describes uploading category lists "from SafeSquid User Interface," which points at the appliance, not confirmed as this portal tab. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: confirmed live — Check Website Category is single-URL search; Modify Category starts from an existing-category picker instead, which does imply named categories exist here (unlike an earlier pass through this page which concluded otherwise). What appears after selecting a category in Modify Category — URL list, add/remove controls, anything else — was not observed; don't describe it further without checking. If bulk custom-category upload also exists separately, it may be the local console's [Categorize Web-Sites](/configuration/custom_settings/categorize_web_sites) feature instead — the portal homepage's marketing copy for "Custom Category Management" describes uploading category lists "from SafeSquid User Interface," which points at the appliance, not confirmed as this portal tab. */}
 
 **Use for:** looking up a site's current category, or changing which category an existing
 category-set applies to.
@@ -190,7 +190,7 @@ plan, or lives somewhere else, is unconfirmed.
 3. The tab lists your C-code and activation key against a **URL** field (unset by default —
    shows "Not Defined") with a **Set URL** action.
 
-{/* NEEDS-SME-REVIEW: confirmed live that this tab and its C-code/activation-key/URL/Set URL layout exist, but what the URL is used for once set (a roaming-client gateway address, most likely, given faqs.md's existing "Web Security Clients for Roaming users (VPN)" description) was not confirmed by actually setting one. Don't describe the effect of Set URL beyond what's stated here without testing it. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: confirmed live that this tab and its C-code/activation-key/URL/Set URL layout exist, but what the URL is used for once set (a roaming-client gateway address, most likely, given faqs.md's existing "Web Security Clients for Roaming users (VPN)" description) was not confirmed by actually setting one. Don't describe the effect of Set URL beyond what's stated here without testing it. */}
 
 **Use for:** licensing SafeSquid's roaming-user VPN web-security clients against this activation
 key. This is also where the "Manage VPN settings" topic once flagged as missing from
@@ -220,5 +220,3 @@ After using the portal, verify all of the following:
 - [Register and get your key](/getting_started/register) to establish the activation path
 - [Activate your license](/getting_started/activate) to bind the deployment to the key
 - [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) for certificate-dependent HTTPS inspection workflows
-- [DLP](/configuration/real_time_content_security/dlp) for how Manage Signatures' keyword signatures get scanned
-- [Support](/configuration/infrastructure_and_access/support) for the on-appliance License Details view and Cloud Restore

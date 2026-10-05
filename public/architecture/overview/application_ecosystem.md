@@ -8,10 +8,9 @@ keywords:
   - Threat intelligence updates
   - DNSBL integration
   - Web reporting and analytics
-  - SafeSquid supporting services
 ---
 
-# Application Ecosystem
+# See How the Application Ecosystem Fits Together
 
 SafeSquid is not only a proxy. The production system also depends on intelligence feeds, licensing workflows, reporting paths, backup and restore paths, directory integration, DNS behavior, and supporting services. If those relationships are not understood, deployment succeeds in the lab but becomes fragile in production.
 
@@ -133,4 +132,3 @@ If these are misconfigured, operators can see symptoms that look like proxy fail
 - [SafeSquid SWG Overview](/architecture/overview/safesquid_swg) for the full product architecture
 - [Integrated DNS Security](/architecture/overview/integrated_dns_security) for DNS-layer controls
 - [Reporting Service](/architecture/interface/reporting_service) for evidence and analytics
-- [Deployment](/deployment/licensing_requirements) for infrastructure, dependency, and rollout planning

@@ -64,7 +64,7 @@ Confirm:
 
     If drift remains, rerun the job and inspect local configuration precedence.
   </Step>
-  {/* NEEDS-SME-REVIEW: this Step and Card describe a "browser policy" rollout path, but no "Deploy with browser policy" section exists on this page — unlike the GPO/MDM/configuration-management options above, all of which resolve to a real section. Confirm whether browser-only PAC/proxy-policy deployment belongs on this page as its own section, on a different page (see explicit_proxy.md, pac_file.md), or should be removed as a rollout option here. */}
+  {/* [VERIFY WITH SAFESQUID TEAM]: this Step and Card describe a "browser policy" rollout path, but no "Deploy with browser policy" section exists on this page — unlike the GPO/MDM/configuration-management options above, all of which resolve to a real section. Confirm whether browser-only PAC/proxy-policy deployment belongs on this page as its own section, on a different page (see explicit_proxy.md, pac_file.md), or should be removed as a rollout option here. */}
   <Step title="Choose browser policy">
     <Card title="Browser Policy">
       Use when only managed browsers need PAC or proxy enforcement. Evidence is policy result pages and controlled tests.
@@ -104,7 +104,7 @@ Confirm:
 
 <Accordion title="Ring sizes and dwell time">
 
-Rings only surface problems if each one runs long enough for users to hit their real workload — a ring that advances in a day catches outages but not the weekly finance app.
+Rings only surface problems if each one runs long enough for users to hit their real workload. A ring that advances in a day catches outages but not the weekly finance app.
 
 | Ring | Size | Dwell |
 |---|---|---|
@@ -115,7 +115,7 @@ Rings only surface problems if each one runs long enough for users to hit their 
 
 Review SafeSquid logs and helpdesk tickets at each boundary before advancing.
 
-**PAC hosting.** Host on redundant web servers rather than one host, address it through internal DNS so the endpoint policy never has to change, keep the file body in version control, and stage changes before production.
+**PAC hosting.** Host on redundant web servers rather than one host. Address it through internal DNS so the endpoint policy never has to change. Keep the file body in version control. Stage changes before production.
 
 **Monitoring.** Use Group Policy Modeling in the Group Policy Management Console to predict which machines a change will affect before you link it. Run configuration-compliance reports on a schedule, alert on proxy configuration drift, and confirm through SafeSquid logs that managed endpoints are actually routing.
 
@@ -171,7 +171,7 @@ Use Group Policy to set proxy or PAC settings for a scoped pilot group.
 
 Navigate to:
 
-```
+```text
 Computer Configuration → Policies → Administrative Templates →
 Windows Components → Internet Explorer
 ```

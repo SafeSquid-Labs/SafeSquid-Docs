@@ -9,9 +9,9 @@ keywords:
 ---
 
 
-# Reporting & Forensics
+# Investigate Incidents With Reporting and Forensics
 
-Reporting is not optional in an enterprise SWG. If SafeSquid enforces policy but the team cannot prove what happened, who accessed what, which policy fired, or how an override occurred, the control cannot support investigations, audits, or serious operations.
+Reporting is not optional in an enterprise SWG. If SafeSquid enforces policy but the team cannot prove what happened, the control cannot support investigations, audits, or serious operations. Proof means who accessed what, which policy fired, and how an override occurred.
 
 ## Problem statement
 
@@ -140,4 +140,3 @@ Useful evidence includes:
 - [Audit & Forensics](/use_cases/audit_and_forensics/audit_forensics) for the broader logging and evidence model
 - [Security Logs](/use_cases/audit_and_forensics/security_logs) for detailed log classes and locations
 - [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering) for multi-node evidence planning
-- [Authentication](/use_cases/authentication/authentication) for identity-rich reporting

@@ -115,7 +115,7 @@ sudo zypper install -y wget tar libopenssl-devel pcre-devel zlib-devel \
   </Tab>
 </Tabs>
 
-Package names drift between releases. If one is not found, locate the equivalent for your distribution rather than skipping it — a missing library surfaces later as a service that installs cleanly and then refuses to start.
+Package names drift between releases. If one is not found, locate the equivalent for your distribution rather than skipping it. A missing library surfaces later as a service that installs cleanly and then refuses to start.
 
 </Accordion>
 
@@ -205,7 +205,7 @@ Confirm every linked library resolved:
 ldd /opt/safesquid/bin/safesquid
 ```
 
-Expected result: no line reads `not found`. Any that does names a package still to install — resolve it before starting the service, because the failure otherwise appears at runtime as an immediate exit rather than a missing dependency.
+Expected result: no line reads `not found`. Any that does names a package still to install — resolve it before starting the service. The failure otherwise appears at runtime as an immediate exit rather than a missing dependency.
 
 If the installer itself fails, the usual causes are a missing library, running without `sudo`, or insufficient free space. Check the terminal output first, then `df -h`.
 
@@ -228,9 +228,9 @@ On a Debian-based system, `setup.sh` above carries out the whole post-install se
 - Stands up a local DNS blacklist server bound only to loopback.
 - Enables and starts the service.
 
-**On a Red Hat-based system only the dependency-package installation step runs automatically.** The DNS resolver and DNS Blacklist setup is **not** configured for you and must be done separately. If DNS Blacklist does not appear to resolve anything, confirm the local resolver and blacklist server were actually set up — on a RHEL-family install this is a manual step, not an assumption.
+**On a Red Hat-based system only the dependency-package installation step runs automatically.** The DNS resolver and DNS Blacklist setup is **not** configured for you and must be done separately. If DNS Blacklist does not appear to resolve anything, confirm the local resolver and blacklist server were actually set up. On a RHEL-family install this is a manual step, not an assumption.
 
-Two reasons some features need no extra setup on this path: the Kerberos and SASL components are installed by that step, which is why Kerberos/SSO and LDAP authentication need no extra package installation; and the OCR components are installed there too, which is why DLP and Image analyzer can score text in images without extra setup. If Kerberos/SSO or LDAP authentication misbehaves, confirm you are on the fully-automated Debian-based path.
+Two reasons some features need no extra setup on this path: the Kerberos and SASL components are installed by that step. That is why Kerberos/SSO and LDAP authentication need no extra package installation. The OCR components are installed there too. That is why DLP and Image analyzer can score text in images without extra setup. If Kerberos/SSO or LDAP authentication misbehaves, confirm you are on the fully-automated Debian-based path.
 
 </Accordion>
 
@@ -314,7 +314,7 @@ Before routing users:
 
 Change the shipped administrator password before the host is reachable from any client network.
 
-{/* NEEDS-SME-REVIEW: the :8443 management interface's TLS certificate was inspected on 2026-08-28 and found expired (self-signed, CN=safesquid.cfg, valid 2021-08-19 to 2022-08-19 — over 4 years past expiry). The "System → User Management" path below is unverified against the live UI as a result; strict certificate validation correctly blocked automated verification, and an expired cert should not be trusted just to check a menu label. Renew the certificate, then re-verify this path. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: the :8443 management interface's TLS certificate was inspected on 2026-08-28 and found expired (self-signed, CN=safesquid.cfg, valid 2021-08-19 to 2022-08-19 — over 4 years past expiry). The "System → User Management" path below is unverified against the live UI as a result; strict certificate validation correctly blocked automated verification, and an expired cert should not be trusted just to check a menu label. Renew the certificate, then re-verify this path. */}
 
 1. Open the management interface at `https://SERVER-IP:8443/` from an approved administrator network.
 2. Go to **System** and open **User Management**.
@@ -328,7 +328,7 @@ Record that the change was made in the deployment evidence. A proxy carrying all
 
 Without rotation, SafeSquid logs grow until the volume fills and evidence is silently truncated. Create `/etc/logrotate.d/safesquid`:
 
-```
+```text
 /var/log/safesquid/*.log {
     daily
     rotate 30

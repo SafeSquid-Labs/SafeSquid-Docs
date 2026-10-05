@@ -8,14 +8,14 @@ keywords:
   - SafeSquid setup.ini
 ---
 
-# Application Binaries and Modules
+# Locate Application Binaries and Modules
 
 SafeSquid binaries and modules load the enforcement engine and optional feature capabilities. Treat these paths as product-owned. Removing, replacing, or manually modifying files can disable controls, break the interface, or create unsupported runtime behavior.
 
 ## Core binary paths
 
 | Path | Purpose | Inspect when | Evidence and risk |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | `/opt/safesquid/bin/safesquid` | SafeSquid executable link for the running SafeSquid version. | Service fails to start, upgrade verification, or binary integrity review. | Proves which runtime binary the service uses. The wiki warns that deleting this file stops SafeSquid from working. |
 | `/opt/safesquid/bin/sections` | Stores SafeSquid feature XML files, except add-on module XMLs. SafeSquid uses these XML files to render the user interface. | Interface sections are missing, feature pages fail to render, or support asks for UI structure evidence. | Shows product section definitions. Manual edits can break management interface rendering. |
 | `/opt/safesquid/default` | Stores default `startup.ini` and `setup.ini`. | Startup parameter review, setup parameter recovery, or upgrade comparison. | Keep default files unchanged. Modified startup parameters belong in `/opt/safesquid/startup.ini`; manual setup changes require a copied `/opt/safesquid/setup.ini`. |
@@ -23,13 +23,13 @@ SafeSquid binaries and modules load the enforcement engine and optional feature 
 ## Module root
 
 | Path | Purpose | Inspect when | Evidence and risk |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | `/opt/safesquid/bin/modules` | Stores add-on modules loaded when SafeSquid starts. Modules include shared objects and XML files. | Feature fails to load, startup errors mention modules, or support asks for module inventory. | Confirms which add-on capability files exist. Mismatched files can disable features or prevent clean startup. |
 
 ## Feature module paths
 
 | Path | Purpose | Inspect when | Evidence and risk |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | `/opt/safesquid/bin/modules/dlp` | Stores DLP module shared objects and XML. DLP detects and blocks potential data exfiltration. | Upload control fails, DLP policies do not apply, or module inventory is required. | Supports evidence that the DLP module is present. Missing files can remove data-loss controls. |
 | `/opt/safesquid/bin/modules/elevated` | Stores Elevated Privacy module files. This feature can block third-party cookies and hide referer and user-agent details according to privacy level. | Privacy controls fail or policy behavior differs from expectation. | Shows whether Elevated Privacy module files are installed. Changes can affect privacy enforcement. |
 | `/opt/safesquid/bin/modules/icap` | Stores ICAP module files. ICAP enables request or response modification through an ICAP server. | ICAP integration fails, external content filtering breaks, or request modification is not applied. | Confirms ICAP module presence. Incorrect changes can disrupt external scanning or transformation workflows. |
@@ -48,3 +48,4 @@ Do not manually replace module files during normal administration. Use supported
 
 - Use [Runtime Data and Signatures](/architecture/files_and_folders/runtime_data_and_signatures) to review downloaded signature and library stores.
 - Use [Proxy Service](/architecture/application_ecosystem/proxy_service) to understand how service startup affects enforcement.
+- Use [Service and Startup Files](/architecture/files_and_folders/service_and_startup_files) to locate the service control and startup files.

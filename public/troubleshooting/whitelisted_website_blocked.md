@@ -2,21 +2,22 @@
 title: Whitelisted Websites Blocked
 description: Diagnose and resolve SafeSquid whitelisted websites blocked incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
   - whitelisted website blocked
+  - SafeSquid whitelist category
+  - sscore whitelist
+  - whitelisted site still blocked
 ---
 
-# Whitelisted Websites Blocked
+# Fix Whitelisted Websites That Are Still Blocked
 
 Whitelisted Websites Blocked can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
 ## Whitelisted sites still blocked
 
-Company policy blocks the social network category for all employees, but a few social networking sites must be whitelisted. Those sites are added to the whitelist category yet still show a block template. Similarly, after whitelisting the corporate website, employees may still be unable to access it.
+Company policy blocks the social network category for all employees, but a few social networking sites must be whitelisted. Those sites are added to the whitelist category yet still show a block template. Similarly, after whitelisting the corporate website, employees can still fail to access it.
 
 | Symptom | Likely cause | Resolution | Verification |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | Whitelisted site still shows block template | Site not in whitelist category; policy order wrong; policy disabled | Add site to whitelist in Categorize Web-sites ; enable default whitelist policy and place above GLOBAL BLOCK | Open site from client; page loads without block |
 | Corporate site blocked after whitelist | sscore/categorization not loaded or category not applied | Enable sscore ; add site to whitelist category; ensure policy enabled and above block | Check Categorize Web-sites for site category; retest access |
 
@@ -85,3 +86,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [Custom Categorization Not Working](/troubleshooting/custom_categorisation_not_working) to fix custom categorization that does not apply.

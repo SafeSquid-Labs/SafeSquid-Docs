@@ -75,14 +75,14 @@ Confirm:
 ## Grant the matching Access restrictions right
 
 {/* source: https://www.safesquid.com/md/browser-configuration.md */}
-Client routing only delivers traffic to SafeSquid — whether that traffic is actually allowed through still depends on the Access restrictions entry that matches the client, and specifically on which rights that entry grants. Configuring the client correctly but leaving the matching right ungranted looks identical to a routing failure: the client reaches SafeSquid, and SafeSquid still blocks it.
+Client routing only delivers traffic to SafeSquid. Whether that traffic is actually allowed through still depends on the Access restrictions entry that matches the client, and specifically on which rights that entry grants. Configuring the client correctly but leaving the matching right ungranted looks identical to a routing failure: the client reaches SafeSquid, and SafeSquid still blocks it.
 
 | Delivery mode | How the client is configured | Right required |
 |---|---|---|
 | Explicit proxy | The browser or OS is given SafeSquid's address and port directly | Proxy requests |
 | Transparent | Network-level redirection sends traffic to SafeSquid; the client has no proxy setting | Transparent proxying |
 
-These two rights are independent — a client can be granted one and denied the other — and both are independent of CONNECT requests, which separately gates HTTPS tunnels regardless of which delivery mode got the traffic there.
+These two rights are independent: a client can be granted one and denied the other. Both are independent of CONNECT requests, which separately gates HTTPS tunnels regardless of which delivery mode got the traffic there.
 
 Six rights exist on an Access restrictions entry, and none of them implies another:
 

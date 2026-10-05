@@ -151,7 +151,7 @@ Escalate to the operations owner if service restart, DNS repair, or activation u
 
 ## Verification is complete
 
-The setup is ready for policy rollout when service state, interface access, activation status, client routing, HTTPS inspection, and log evidence all pass, and every artifact above is attached to the deployment record.
+The setup is ready for policy rollout when service state, interface access, activation status, client routing, HTTPS inspection, and log evidence all pass. Attach every artifact above to the deployment record.
 
 ## Next steps
 

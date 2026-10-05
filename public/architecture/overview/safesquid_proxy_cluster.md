@@ -11,7 +11,7 @@ keywords:
 ---
 
 
-# SafeSquid Proxy Cluster
+# Scale Enforcement With a Proxy Cluster
 
 ## Problem statement
 
@@ -105,4 +105,3 @@ Useful evidence includes:
 - [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering) for the implementation runbook
 - [Deployment](/deployment/licensing_requirements) for sizing and failover preparation
 - [Reporting Service](/architecture/interface/reporting_service) for clustered evidence collection
-- [SafeSquid SWG Overview](/architecture/overview/safesquid_swg) for the full component model

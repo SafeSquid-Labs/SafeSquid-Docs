@@ -2,12 +2,13 @@
 title: Troubleshooting
 description: Diagnostic runbooks for SafeSquid SWG service, policy, DNS, authentication, SSL inspection, reporting, and installation incidents.
 keywords:
-  - troubleshooting
-  - diagnostics
-  - SafeSquid SWG
+  - SafeSquid troubleshooting
+  - diagnostic runbooks
+  - SafeSquid SWG diagnostics
+  - troubleshooting evidence
 ---
 
-# Troubleshooting
+# Find the Right Troubleshooting Runbook
 
 SafeSquid troubleshooting must restore service without destroying audit evidence. Start with the broad diagnostic checklist, then use the incident-specific runbook that matches the symptom, affected control, and business impact.
 

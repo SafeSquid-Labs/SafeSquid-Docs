@@ -8,7 +8,7 @@ keywords:
   - SafeSquid support evidence
 ---
 
-# Files and Folders
+# Find the Right File and Folder Reference
 
 SafeSquid server paths hold service controls, module files, policy data, activation material, runtime databases, signature stores, and audit logs. Know these paths before an outage, upgrade, policy dispute, or support escalation so evidence is preserved and changes stay reviewable.
 

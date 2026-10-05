@@ -11,7 +11,7 @@ keywords:
 
 # Restore Policy, Then Rebuild the Rest
 
-Cloud Restore brings back policy and SSL material bound to the activation key. It does not bring back the host — networking, OS configuration, and integration secrets stay missing, and a restore declared complete before those are checked leaves a proxy that looks configured and cannot pass traffic.
+Cloud Restore brings back policy and SSL material bound to the activation key. It does not bring back the host — networking, OS configuration, and integration secrets stay missing. A restore declared complete before those are checked leaves a proxy that looks configured and cannot pass traffic.
 
 Restore in two halves: what the backup covers, then what it does not. The two halves split like this:
 

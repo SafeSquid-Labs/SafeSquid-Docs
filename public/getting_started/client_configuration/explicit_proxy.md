@@ -53,7 +53,7 @@ Confirm:
 
 <Accordion title="Firefox: configure separately from the OS">
 
-Firefox maintains its own proxy settings and ignores the operating system configuration by default. A pilot that only sets the OS proxy will show Chrome and Edge routing through SafeSquid while Firefox goes direct — and the traffic that bypasses the proxy is the traffic you will not see in any log.
+Firefox maintains its own proxy settings and ignores the operating system configuration by default. A pilot that only sets the OS proxy will show Chrome and Edge routing through SafeSquid while Firefox goes direct. The traffic that bypasses the proxy is the traffic you will not see in any log.
 
 Configure it explicitly, on every platform:
 

@@ -8,7 +8,7 @@ keywords:
   - proxy diagnostics
 ---
 
-# Support
+# Collect Evidence Before You Escalate
 
 Use **Support** when an issue needs structured evidence, not guesswork. Good support data shortens outages and prevents risky emergency changes that bypass security controls.
 
@@ -36,3 +36,4 @@ Before escalating, confirm:
 
 - Use [Files and Folders](/architecture/files_and_folders/files_and_folders) to locate server-side evidence.
 - Use [Supporting Services](/architecture/interface/supporting_services) to validate dependencies.
+- Use [Reports](/architecture/policy_management_console/reports) to review policy evidence in reports.

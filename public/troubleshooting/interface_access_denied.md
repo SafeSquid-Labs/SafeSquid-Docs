@@ -2,12 +2,13 @@
 title: Interface Access Denied
 description: Diagnose and resolve SafeSquid interface access denied incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
   - interface access denied
+  - SafeSquid interface login
+  - management console access error
+  - SafeSquid access denied troubleshooting
 ---
 
-# Interface Access Denied
+# Fix Interface Access Denied Errors
 
 Interface Access Denied can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
@@ -48,3 +49,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [Policy Management Console](/architecture/interface/configuration_portal) to review the management console that serves the interface.

@@ -2,12 +2,13 @@
 title: Troubleshooting Installation Issues
 description: Diagnose and resolve SafeSquid troubleshooting installation issues incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
-  - installation issues
+  - SafeSquid installation issues
+  - ISO installation failure
+  - installation network checks
+  - SafeSquid installation troubleshooting
 ---
 
-# Troubleshooting Installation Issues
+# Fix Installation Issues
 
 Troubleshooting Installation Issues can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
@@ -23,7 +24,7 @@ Solutions involve checking system requirements, verifying the integrity of the i
 
 Issues during installation can range from partitioning errors, and network configuration problems, to software selection difficulties.
 
-Resolutions may include checking disk space, reviewing network settings, and ensuring proper selection of software packages.
+Resolutions can include checking disk space, reviewing network settings, and ensuring proper selection of software packages.
 
 For network-related issues such as those mentioned below, you can use the installer console to identify the root cause of the issue and act based on it.
 
@@ -98,3 +99,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [Linux Server Install](/getting_started/install_safesquid/linux_server) to follow the Linux server installation steps.

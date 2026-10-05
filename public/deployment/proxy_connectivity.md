@@ -11,7 +11,7 @@ keywords:
 
 # Prove Traffic Reaches the Proxy
 
-A healthy proxy that clients cannot reach passes every check run on the server. The failure only appears from the client side — and by then users are already escalating, and the fastest workaround an impatient administrator reaches for is removing the proxy setting entirely.
+A healthy proxy that clients cannot reach passes every check run on the server. The failure only appears from the client side. By then users are already escalating, and the fastest workaround an impatient administrator reaches for is removing the proxy setting entirely.
 
 Run this check from a pilot client, not from the SafeSquid host.
 

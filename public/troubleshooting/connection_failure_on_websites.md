@@ -2,18 +2,19 @@
 title: Connection Failure to Websites
 description: Diagnose and resolve SafeSquid connection failure to websites incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
   - connection failure on websites
+  - proxy connection failed
+  - SafeSquid website connection error
+  - origin server unreachable
 ---
 
-# Connection Failure to Websites
+# Fix Connection Failures to Websites
 
 Connection Failure to Websites can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
 ## Connection failed to proxy or origin
 
-When the user accesses the website, the browser displays "**Connection to 192.168.27.30:80 failed**". When the user accesses [https://abc.safesquid.com/](https://abc.safesquid.com/) via proxy and logs in with a corporate email ID, the browser may show "**Connection to abc.safesquid.com:443 failed**".
+When the user accesses the website, the browser displays "**Connection to 192.168.27.30:80 failed**". When the user accesses [https://abc.safesquid.com/](https://abc.safesquid.com/) via proxy and logs in with a corporate email ID, the browser can show "**Connection to abc.safesquid.com:443 failed**".
 
 ![Error showing "Connection to abc.safesquid.com:443 failed"](/images/troubleshooting/connection_failure_on_websites_01_error_showing_connection_to_abc_safesquid_com_44.webp)
 
@@ -163,3 +164,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [Website Not Accessible](/troubleshooting/website_not_accessible) to fix websites that are not accessible.

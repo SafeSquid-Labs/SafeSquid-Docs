@@ -2,12 +2,14 @@
 title: Supporting Services
 description: Supporting Services reference and operational guidance for SafeSquid SWG administrators.
 keywords:
-  - supporting services
-  - SafeSquid
-  - concepts
+  - SafeSquid supporting services
+  - Monit process supervision
+  - BIND local DNS resolver
+  - NTP time synchronization
+  - SafeSquid service dependencies
 ---
 
-# Supporting Services
+# Set Up the Services SafeSquid Depends On
 
 Supporting services ensure SafeSquid SWG operates reliably, performs well, and maintains accurate time synchronization.
 
@@ -16,7 +18,7 @@ Supporting services ensure SafeSquid SWG operates reliably, performs well, and m
 ## Why You Need These Services
 
 | Service | Purpose | What Happens Without It |
-| --- | --- | --- |
+|---|---|---|
 | Monit | Process monitoring and auto-restart | SafeSquid crashes stay down until manual restart |
 | BIND | Local DNS resolver with caching | Slow DNS lookups, dependency on external resolvers |
 | NTP | Time synchronization | SSO fails, TLS certificate errors, log timestamps incorrect |

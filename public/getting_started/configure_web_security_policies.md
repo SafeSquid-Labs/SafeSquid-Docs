@@ -8,8 +8,6 @@ keywords:
   - authentication
   - access restriction
   - DLP
-  - malware scanning
-  - audit evidence
 ---
 
 # Turn Proxy Traffic Into Enforced Controls

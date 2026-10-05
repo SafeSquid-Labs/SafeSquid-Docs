@@ -11,7 +11,7 @@ keywords:
 
 # Decide How Long Evidence Survives
 
-SafeSquid deployment evidence must survive troubleshooting and audit review. The default retention is shorter than most compliance regimes require, and a full log volume truncates evidence silently — the gap is discovered during an incident, when the window you need turns out to have rolled off.
+SafeSquid deployment evidence must survive troubleshooting and audit review. The default retention is shorter than most compliance regimes require, and a full log volume truncates evidence silently. The gap is discovered during an incident, when the window you need turns out to have rolled off.
 
 Set the target before installation. Retention is a storage decision, and storage is a sizing input.
 
