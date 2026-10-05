@@ -18,7 +18,7 @@ Administrators can be locked out when creating or reordering policies in the Acc
 
 ## Root causes
 
-SafeSquid evaluates Access Restrictions entries top to bottom and matches each entry to the connection. After an entry matching the connection's IP or username is applied, later entries are not evaluated for that connection. When creating or editing entries, ensure at least one entry allows access to the web interface ([http://safesquid.cfg/](http://safesquid.cfg/)  -  an embedded Rest UI interface built into SafeSquid, NOT resolved by DNS): an entry that matches the administrator's connection and has Web interface (Config) selected in the Access field.
+SafeSquid evaluates Access Restrictions entries top to bottom and matches each entry to the connection. After an entry matching the connection's IP or username is applied, later entries are not evaluated for that connection. When creating or editing entries, ensure at least one entry allows access to the web interface. The web interface ([http://safesquid.cfg/](http://safesquid.cfg/)) is an embedded Rest UI interface built into SafeSquid, NOT resolved by DNS. Such an entry must match the administrator's connection and has Web interface (Config) selected in the Access field.
 
 **Example:**
 

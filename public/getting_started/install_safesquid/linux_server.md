@@ -197,7 +197,7 @@ Run the installer from the directory you extracted into:
 sudo _mkappliance/installation/setup.sh
 ```
 
-The installer checks dependencies, creates the `safesquid` system user and group, installs binaries under `/opt/safesquid/`, writes init and systemd service units, and places default configuration under `/etc/safesquid/`.
+The installer checks dependencies, creates the `safesquid` system user and group, installs binaries under `/opt/safesquid/`. It also writes init and systemd service units and places default configuration under `/etc/safesquid/`.
 
 Confirm every linked library resolved:
 

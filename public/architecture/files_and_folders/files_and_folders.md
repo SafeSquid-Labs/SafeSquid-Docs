@@ -12,7 +12,7 @@ keywords:
 
 SafeSquid server paths are part of the enforcement boundary. They hold service control scripts, module binaries, policy XML, activation material, SSL data, reporting databases, signature stores, runtime files, and logs. Uncontrolled edits can break proxy availability, weaken inspection, erase rollback evidence, or create audit gaps.
 
-Use this section when you need to prove what changed, locate operational evidence, or decide which files need change control before an upgrade or incident response.
+Use this section to prove what changed, locate operational evidence, and decide which files need change control. Do this before an upgrade or incident response.
 
 ## Control the file surface
 
@@ -34,7 +34,7 @@ Before exporting or sharing evidence, redact personal data unless an approved au
 
 ## Use change control
 
-Do not edit SafeSquid-controlled files directly unless a documented procedure requires it. Record the path, owner, reason, backup location, reviewer, and rollback step before changing service scripts, startup parameters, policy XML, SSL material, modules, templates, or log settings.
+Do not edit SafeSquid-controlled files directly unless a documented procedure requires it. Record the path, owner, reason, backup location, reviewer, and rollback step. Do this before changing service scripts, startup parameters, policy XML, SSL material, modules, templates, or log settings.
 
 For policy work, prefer the SafeSquid interface. File-level edits should be reserved for recovery, support-directed remediation, or documented administrative tasks.
 

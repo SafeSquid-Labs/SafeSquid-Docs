@@ -12,7 +12,7 @@ keywords:
 
 # Turn Proxy Traffic Into Enforced Controls
 
-Routing traffic through SafeSquid proves reachability, but it does not finish the deployment. Production value starts when SafeSquid decrypts approved HTTPS sessions, attributes requests to users, applies policy, blocks unsafe activity, and records evidence for operations, audit, and incident response.
+Routing traffic through SafeSquid proves reachability, but it does not finish the deployment. Production value starts when SafeSquid decrypts approved HTTPS sessions and attributes requests to users. It then applies policy, blocks unsafe activity, and records evidence for operations, audit, and incident response.
 
 ## Validate prerequisites
 

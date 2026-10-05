@@ -12,7 +12,7 @@ keywords:
 
 # Size Against Peak, Not Average
 
-Averages hide the burst that drops sessions. A node sized for the mean sails through the working day and fails between 09:00 and 11:00, when every browser tab, background application, and API client opens connections at once. Sizing from a user count alone produces a node that passes a demo and drops sessions at 09:30.
+Averages hide the burst that drops sessions. A node sized for the mean sails through the working day. It fails between 09:00 and 11:00, when every browser tab, background application, and API client opens connections at once. Sizing from a user count alone produces a node that passes a demo and drops sessions at 09:30.
 
 The inputs that actually drive capacity — peak concurrency, inspection scope, and log volume — are measurable. A short pilot measures them far more cheaply than a production rollback does.
 
@@ -119,7 +119,7 @@ SATA-connected SSDs have substantially lower write throughput than PCIe-attached
 <Accordion title="NIC, LACP, and routing checks">
   Use one interface for simple pilot deployments unless a separate management or high-availability design has been approved. For production networks with bonded interfaces, confirm switch-side LACP configuration, VLAN tagging, MTU, gateway selection, and failover behavior before routing users.
 
-  Evidence should include interface names, MAC addresses, bond mode, switch ports, VLAN IDs, and the owner of any routing or firewall policy that forwards traffic toward SafeSquid.
+  Evidence should include interface names, MAC addresses, bond mode, switch ports, VLAN IDs. Also record the owner of any routing or firewall policy that forwards traffic toward SafeSquid.
 
   Link Aggregation Control Protocol (LACP) bonding combines physical interfaces into one logical link for bandwidth and redundancy. Without bonding, a single failed NIC can take the proxy offline entirely.
 
@@ -142,7 +142,7 @@ SATA-connected SSDs have substantially lower write throughput than PCIe-attached
 
   **Establish a light-load baseline.** Record session latency from `/var/log/safesquid/extended.log`, CPU utilisation, and disk I/O wait while a small number of clients browse. Keep the figures with the deployment record — the absolute values matter less than having a comparison point.
 
-  **Stress test to the sizing target.** Simulate the peak concurrent connections you sized for, using a load generator configured for HTTP proxy mode such as JMeter, or multiple concurrent browser sessions driven by Selenium. Confirm session counts hold without dropped connections.
+  **Stress test to the sizing target.** Simulate the peak concurrent connections you sized for. Use a load generator configured for HTTP proxy mode such as JMeter, or multiple concurrent browser sessions driven by Selenium. Confirm session counts hold without dropped connections.
 
   **Check logs during and after the run:**
 

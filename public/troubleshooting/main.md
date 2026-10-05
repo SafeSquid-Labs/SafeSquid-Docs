@@ -47,7 +47,7 @@ SafeSquid troubleshooting must restore service without destroying audit evidence
 
 ## Evidence expectations
 
-Each incident record should include the affected user or source IP address, requested URL, timestamp, browser error, SafeSquid log excerpt, screenshots of policy changes, and post-fix verification. Keep this evidence with the incident ticket for SOC 2 change management, ISO 27001 incident handling, and NIST SP 800-53 auditability.
+Each incident record should include the affected user or source IP address, requested URL, timestamp, browser error, and SafeSquid log excerpt. Add screenshots of policy changes and post-fix verification. Keep this evidence with the incident ticket for SOC 2 change management, ISO 27001 incident handling, and NIST SP 800-53 auditability.
 
 ## Next steps
 

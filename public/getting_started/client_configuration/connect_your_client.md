@@ -75,7 +75,7 @@ Confirm:
 ## Grant the matching Access restrictions right
 
 {/* source: https://www.safesquid.com/md/browser-configuration.md */}
-Client routing only delivers traffic to SafeSquid. Whether that traffic is actually allowed through still depends on the Access restrictions entry that matches the client, and specifically on which rights that entry grants. Configuring the client correctly but leaving the matching right ungranted looks identical to a routing failure: the client reaches SafeSquid, and SafeSquid still blocks it.
+Client routing only delivers traffic to SafeSquid. Whether that traffic is actually allowed through still depends on the Access restrictions entry that matches the client. Specifically, it depends on which rights that entry grants. Configuring the client correctly but leaving the matching right ungranted looks identical to a routing failure: the client reaches SafeSquid, and SafeSquid still blocks it.
 
 | Delivery mode | How the client is configured | Right required |
 |---|---|---|
@@ -93,7 +93,7 @@ Six rights exist on an Access restrictions entry, and none of them implies anoth
 - **CONNECT requests** — permits CONNECT tunnels (HTTPS and similar). A denied client fails HTTPS even when HTTP requests are allowed.
 - **Allow bypassing** — permits a temporary continue after an Access Profiles Deny, using a bypass cookie. An Access Profiles entry marked "do not bypass" still blocks regardless of this right. This is narrower than it sounds, and distinct from the per-entry Bypass checkboxes that skip individual filtering modules.
 
-Find SafeSquid's listen address and port in **Network settings → Listen** — port 8080 is common, but it is set per deployment; confirm it before assuming it.
+Find SafeSquid's listen address and port in **Network settings → Listen**. Port 8080 is common, but it is set per deployment. Confirm it before assuming it.
 
 An `ftp://` URL opened in a browser follows the same explicit-proxy or transparent path as HTTP. A standalone FTP client needs its own proxy configuration, if it supports one at all.
 
@@ -152,7 +152,7 @@ Expected result: the log records the pilot request with source, destination, tim
 
 <Accordion title="Confirm routing from the client, without server access">
 
-The access log is the authoritative check, but it needs shell access to the SafeSquid host. When you are walking a pilot user through the change, or verifying an endpoint you cannot log into, check the egress address from the browser instead.
+The access log is the authoritative check, but it needs shell access to the SafeSquid host. For a pilot user, or an endpoint you cannot log into, check the egress address from the browser instead.
 
 Visit an address-reflection service such as `whatismyip.com` from the configured client.
 

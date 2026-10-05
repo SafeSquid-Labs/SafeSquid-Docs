@@ -26,7 +26,7 @@ Issues during installation can range from partitioning errors, and network confi
 
 Resolutions can include checking disk space, reviewing network settings, and ensuring proper selection of software packages.
 
-For network-related issues such as those mentioned below, you can use the installer console to identify the root cause of the issue and act based on it.
+For the network-related issues below, use the installer console to identify the root cause and act on it.
 
 ## Network Checks for Issue Identification
 
@@ -34,9 +34,22 @@ Network issues can significantly impact the installation and functionality of Sa
 
 Administrators can perform various checks to identify and resolve network-related problems:
 
-1. **Network Configuration**: Review and modify network settings using the `ip` commands. `ip addr show # Display all interface IP addresses ip route show # Display routing table` **What to check:** IP address is assigned to the correct interface (e.g., `eth0: inet 192.168.1.100/24`) Default gateway is present in routing table (e.g., `default via 192.168.1.1 dev eth0`) **Common issues:** No IP address shown -> interface not configured or DHCP failed No default route -> gateway not set during network configuration step
+1. **Network Configuration**: Review and modify network settings using the `ip` commands. `ip addr show # Display all interface IP addresses ip route show # Display routing table` 
+   **What to check:**
+   - IP address is assigned to the correct interface (e.g., `eth0: inet 192.168.1.100/24`)
+   - Default gateway is present in routing table (e.g., `default via 192.168.1.1 dev eth0`)
+   **Common issues:**
+   - No IP address shown -> interface not configured or DHCP failed
+   - No default route -> gateway not set during network configuration step
 
-2. **DNS Resolution and Ping check**: Since busybox is a minimal Linux environment, use `ping` to verify both DNS resolution and connectivity. `ping -c 3 google.com` **Expected success output:** `PING google.com (142.250.x.x): 56 data bytes 64 bytes from 142.250.x.x: icmp_seq=0 ttl=xx time=x.x ms` **Failure symptoms:** `ping: bad address 'google.com'` -> DNS resolution failed (check `/etc/resolv.conf` for nameserver entries) `Network is unreachable` -> No default gateway configured `Request timeout` or 100% packet loss -> Firewall blocking ICMP, or no internet connectivity
+2. **DNS Resolution and Ping check**: Since busybox is a minimal Linux environment, use `ping` to verify both DNS resolution and connectivity. `ping -c 3 google.com`
+
+   **Expected success output:** `PING google.com (142.250.x.x): 56 data bytes 64 bytes from 142.250.x.x: icmp_seq=0 ttl=xx time=x.x ms`
+
+   **Failure symptoms:**
+   - `ping: bad address 'google.com'` -> DNS resolution failed (check `/etc/resolv.conf` for nameserver entries)
+   - `Network is unreachable` -> No default gateway configured
+   - `Request timeout` or 100% packet loss -> Firewall blocking ICMP, or no internet connectivity
 
 3. **Firewall Rules**: check your network firewall rules for possible port blocking.
 

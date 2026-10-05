@@ -16,7 +16,7 @@ SafeSquid SWG is not a single feature or console. It is a software-defined Secur
 
 ## Understand the control boundary first
 
-The architecture matters because SafeSquid changes where web control is enforced, where TLS inspection occurs, where evidence is generated, and which dependencies must be available during deployment.
+The architecture matters because SafeSquid changes where web control is enforced and where TLS inspection occurs. It also changes where evidence is generated, and which dependencies must be available during deployment.
 
 At a high level, the canonical topology includes:
 

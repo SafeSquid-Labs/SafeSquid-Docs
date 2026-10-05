@@ -21,9 +21,9 @@ Treat the key as deployment evidence and operational secret material. Keep it un
 
 ## Control the activation path
 
-The activation key establishes the trust path between the organization, the Self-Service Portal, and the SafeSquid instance. A controlled registration process reduces deployment delays, prevents key loss, and gives operations teams a clear audit trail for who created the account and where the key is stored.
+The activation key establishes the trust path between the organization, the Self-Service Portal, and the SafeSquid instance. A controlled registration process reduces deployment delays, prevents key loss. It gives operations teams a clear audit trail for who created the account and where the key is stored.
 
-Use one portal account ownership model for the deployment. Do not let individual engineers register independent keys for the same production environment unless the change record explicitly requires separate test, staging, or production activation contexts.
+Use one portal account ownership model for the deployment. Do not let individual engineers register independent keys for the same production environment. Make an exception only when the change record explicitly requires separate test, staging, or production activation contexts.
 
 ## Validate prerequisites
 
@@ -39,13 +39,13 @@ Before registering, confirm:
 {/* source: _migration_source_v3/docs/01-Getting_Started/02-Register.md §Use Your Business Email */}
 
 <Accordion title="Why the account must use a corporate domain">
-  Beyond traceability, registering from a corporate email domain rather than a personal one — Gmail, Yahoo, or personal Outlook — enables enterprise account handling on the portal:
+  Beyond traceability, register from a corporate email domain, not a personal one such as Gmail, Yahoo, or personal Outlook. A corporate domain enables enterprise account handling on the portal:
 
   - Priority support during a proof of concept.
   - The ability to invite team members to the same account.
   - Extended trial options.
 
-  An evaluation registered under a personal address cannot be transferred cleanly to the organization later, so decide the owning identity before the first registration rather than after.
+  An evaluation registered under a personal address cannot be transferred cleanly to the organization later. Decide the owning identity before the first registration rather than after.
 </Accordion>
 
 ## Create the portal account
@@ -187,7 +187,7 @@ After the profile is saved, the portal generates the activation key.
 
 Do not rename, edit, or reformat the `activation_key` file. SafeSquid expects the file name and contents to remain intact during license activation.
 
-The same activation key can be used across multiple SafeSquid instances when the deployment requires synchronized instance behavior, such as cluster members sharing the same activation context.
+The same activation key can be used across multiple SafeSquid instances when the deployment requires synchronized instance behavior. An example is cluster members sharing the same activation context.
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/02-Register.md §About Your Activation Key */}
 

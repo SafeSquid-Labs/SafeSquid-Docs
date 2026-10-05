@@ -11,7 +11,7 @@ keywords:
 
 # Untested Failover Is Not High Availability
 
-A configured cluster proves nothing until a node has actually been taken away from it. Split-brain, a truncated `auth_pass`, a health check that never drops priority — every one of these looks correct in the configuration file and fails only under the condition the cluster exists for.
+A configured cluster proves nothing until a node has actually been taken away from it. Split-brain, a truncated `auth_pass`, a health check that never drops priority. Every one of these looks correct in the configuration file and fails only under the condition the cluster exists for.
 
 Test it deliberately, on a schedule, and keep the output.
 
@@ -86,7 +86,7 @@ ip a show INTERFACE | grep VIP-ADDRESS
 
 Expected result: the address now appears on the Backup and is gone from the Master.
 
-Prove it from a client, not only from the nodes. Browse through the VIP and confirm the request appears in the surviving node's access log — a VIP that moved but carries no traffic is a half-successful failover.
+Prove it from a client, not only from the nodes. Browse through the VIP and confirm the request appears in the surviving node's access log. A VIP that moved but carries no traffic is a half-successful failover.
 
 ## Restore the Master
 

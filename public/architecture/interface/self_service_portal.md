@@ -66,7 +66,7 @@ Internal product knowledge confirms the portal is used for:
    Support SSL inspection deployment workflows that depend on trusted certificate handling.
 
 5. **Configuration and policy synchronization functions**  
-   The knowledge base identifies the Self-Service Portal as part of the cloud path for licensing, activation-key distribution, threat-intelligence delivery, and policy or configuration synchronization across deployments.
+   The knowledge base identifies the Self-Service Portal as part of the cloud path. It covers licensing, activation-key distribution, threat-intelligence delivery, and policy or configuration synchronization across deployments.
 
 6. **Backup and restore support**  
    The broader architecture model places configuration backup and restore as a peer operational service in the SafeSquid ecosystem.

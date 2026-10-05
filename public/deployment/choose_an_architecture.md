@@ -75,7 +75,7 @@ Once the mode is chosen, document where it sits:
 - Firewall or routing policy only when the network team can enforce bypass controls safely.
 - Cloud egress placement for workloads or remote sites that already route through a cloud network.
 
-Record source networks, proxy listener ports, DNS servers, NTP sources, upstream gateways, and firewall rules. Name an owner for every routing or firewall policy that forwards traffic toward SafeSquid — an unowned redirect is the one nobody restores after an outage.
+Record source networks, proxy listener ports, DNS servers, NTP sources, upstream gateways, and firewall rules. Name an owner for every routing or firewall policy that forwards traffic toward SafeSquid. An unowned redirect is the one nobody restores after an outage.
 
 ## Capture the architecture decision
 

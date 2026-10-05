@@ -17,7 +17,7 @@ Cloud deployment places SafeSquid near cloud workloads, remote users, or hybrid 
 
 ## Avoid backhauling remote traffic
 
-Routing remote and branch traffic back to an on-premises gateway before it reaches the internet adds a round trip to every request and consumes bandwidth twice through the gateway link. It also degrades the experience for exactly the users who are least able to report it well.
+Routing remote and branch traffic back to an on-premises gateway before it reaches the internet adds a round trip to every request. It consumes bandwidth twice through the gateway link. It also degrades the experience for exactly the users who are least able to report it well.
 
 Placing the gateway in the cloud removes that detour:
 
@@ -146,7 +146,7 @@ Before routing clients, enforce:
 
 {/* [VERIFY WITH SAFESQUID TEAM]: no menu section named "SSL settings" (or similar) exists in the live safesquid.cfg admin UI as of 2026-08-28 — SSL/TLS-related controls only appear as individual Access Profile rule entries (e.g. "BYPASS SSL INSPECTION", "ALLOW SELF SIGNED SSL CERTIFICATE"), not as a distinct management-interface TLS-version setting. Confirm whether minimum TLS version for the management interface is actually admin-UI-configurable, or is a server/OS-level setting outside this page's scope, and update this claim accordingly. */}
 
-**Logging.** Forward SafeSquid logs to the platform's logging service — CloudWatch, Azure Monitor, or Cloud Logging — and enable VPC or VNet flow logs for network-level visibility. Alert on proxy downtime and on sustained connection-drop rates.
+**Logging.** Forward SafeSquid logs to the platform's logging service (CloudWatch, Azure Monitor, or Cloud Logging). Enable VPC or VNet flow logs for network-level visibility. Alert on proxy downtime and on sustained connection-drop rates.
 
 </Accordion>
 

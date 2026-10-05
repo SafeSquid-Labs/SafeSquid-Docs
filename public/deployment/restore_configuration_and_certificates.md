@@ -70,7 +70,7 @@ These files are restored:
 | `/usr/local/safesquid/security/ssl/ROOT_X509File.cer` | SSL root certificate |
 | `/usr/local/safesquid/security/ssl/ROOT_PrivateKeyFile.pem` | SSL private key |
 
-Restoring the original Root CA is what keeps already-deployed client trust valid. A rebuilt appliance with a newly generated CA forces a fresh trust rollout to every endpoint — which is usually discovered when users start seeing certificate warnings.
+Restoring the original Root CA is what keeps already-deployed client trust valid. A rebuilt appliance with a newly generated CA forces a fresh trust rollout to every endpoint. Teams usually discover this when users start seeing certificate warnings.
 
 ## Verify what was restored
 

@@ -11,7 +11,7 @@ keywords:
 
 # Activate Before Policy Rollout
 
-SafeSquid must be activated before the deployment can be treated as ready for enforcement. Activation ties the instance to the Self-Service Portal, unlocks licensed capability, and gives operators a checkpoint before SSL inspection, authentication, URL controls, malware scanning, and DLP are enabled.
+SafeSquid must be activated before the deployment can be treated as ready for enforcement. Activation ties the instance to the Self-Service Portal, unlocks licensed capability. It gives operators a checkpoint before SSL inspection, authentication, URL controls, malware scanning, and DLP are enabled.
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/04-Activate.md §Key Benefits (licensing tiers) */}
 

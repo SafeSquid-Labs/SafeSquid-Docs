@@ -165,7 +165,7 @@ Use Group Policy to set proxy or PAC settings for a scoped pilot group.
 
 <Accordion title="GPO console paths and values">
 
-**Create the object** — open the Group Policy Management Console (`gpmc.msc`), right-click the target domain or OU, select **Create a GPO in this domain, and Link it here**, name it for the proxy method and change record, then right-click it and select **Edit**.
+**Create the object** — open the Group Policy Management Console (`gpmc.msc`), right-click the target domain or OU. Select **Create a GPO in this domain, and Link it here**. Name it for the proxy method and change record, then right-click it and select **Edit**.
 
 **Option A — deliver a PAC URL (preferred)**
 

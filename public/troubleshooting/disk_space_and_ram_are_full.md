@@ -62,7 +62,7 @@ none 100M 0 100M 0% /run/user
 
 ## /dev/ram1 62M 1.3M 58M 3% /tmp/safesquid
 
-If any of the above partitions are observed to be used over 80%, then you can take a backup of the following files and delete files as per your requirement.
+If any of the above partitions is used over 80%, back up the following files and then delete files as required.
 
 ## Partitions
 

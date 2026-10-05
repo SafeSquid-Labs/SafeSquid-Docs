@@ -10,7 +10,7 @@ keywords:
 
 # Validate One Client First
 
-Explicit proxy configuration is the fastest way to prove that a client can reach SafeSquid, send HTTP and HTTPS traffic through the proxy listener, and generate access-log evidence. Use it for a pilot or troubleshooting session only. Do not rely on manual browser settings for production-wide enforcement.
+Explicit proxy configuration is the fastest way to prove that a client can reach SafeSquid. It also proves the client can send HTTP and HTTPS traffic through the proxy listener and generate access-log evidence. Use it for a pilot or troubleshooting session only. Do not rely on manual browser settings for production-wide enforcement.
 
 ## Use this method when
 
@@ -36,13 +36,13 @@ Confirm:
 
 <Tabs>
   <Tab title="Windows">
-    Open **Settings** > **Network & Internet** > **Proxy**, enable manual proxy, set HTTP proxy to `SAFESQUID-IP`, and set the port to `8080` or the approved listener port. Add only approved internal bypass entries.
+    Open **Settings** > **Network & Internet** > **Proxy** and enable manual proxy. Set HTTP proxy to `SAFESQUID-IP`, and set the port to `8080` or the approved listener port. Add only approved internal bypass entries.
   </Tab>
   <Tab title="Linux">
     Use the desktop environment proxy settings for a browser pilot, or use a command-line test with `curl --proxy`. For production desktop rollout, prefer PAC, GPO-equivalent endpoint management, or configuration management instead of manual user settings.
   </Tab>
   <Tab title="macOS">
-    Open **System Settings** > **Network** > selected interface > **Details** > **Proxies**, enable Web Proxy and Secure Web Proxy, then enter `SAFESQUID-IP` and the approved listener port.
+    Open **System Settings** > **Network** > selected interface > **Details** > **Proxies** and enable Web Proxy and Secure Web Proxy. Then enter `SAFESQUID-IP` and the approved listener port.
   </Tab>
   <Tab title="Browser">
     Use browser proxy settings only for a controlled pilot or troubleshooting session. Apply the same proxy for HTTP and HTTPS traffic, save the settings, and browse to `http://example.com`.
@@ -80,7 +80,7 @@ Enter the proxy address and port there. The values apply to Chrome, Edge, and mo
 </Accordion>
 
 <Note>
-  **Bypass list syntax differs by platform.** Windows separates entries with semicolons (`;`); macOS and Linux use commas (`,`). Using the wrong separator makes the whole list parse as a single entry, so every internal destination silently routes through the proxy instead of bypassing it.
+  **Bypass list syntax differs by platform.** Windows separates entries with semicolons (`;`); macOS and Linux use commas (`,`). Using the wrong separator makes the whole list parse as a single entry. Every internal destination then silently routes through the proxy instead of bypassing it.
 </Note>
 
 <Steps>

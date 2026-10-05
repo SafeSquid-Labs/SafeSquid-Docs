@@ -18,7 +18,7 @@ SafeSquid is not only a proxy. The production system also depends on intelligenc
 
 ## Problem statement
 
-Enterprises often assemble web security from unrelated parts: a proxy, a DNS control, a reporting platform, a SIEM connector, a licensing workflow, and a set of update feeds. That fragmented model creates policy drift, operational friction, inconsistent evidence, and hidden dependencies that fail during rollout or outage conditions.
+Enterprises often assemble web security from unrelated parts. These include a proxy, a DNS control, a reporting platform, a SIEM connector, a licensing workflow, and a set of update feeds. That fragmented model creates policy drift, operational friction, inconsistent evidence, and hidden dependencies that fail during rollout or outage conditions.
 
 ## Client scenario
 
@@ -61,7 +61,7 @@ SafeSquid consumes named cloud-based feeds that enrich policy decisions:
 
 These feeds matter because URL reputation, application detection, image-based DLP, malware heuristics, SSL trust evaluation, and geographic policy cannot stay current through static rules alone.
 
-The internal product language describes the feed-consumption model as **Zero Threat Window**: intelligence is injected directly into the processing pipeline so updated knowledge is available immediately to policy decisions.
+The internal product language describes the feed-consumption model as **Zero Threat Window**. Intelligence is injected directly into the processing pipeline so updated knowledge is available immediately to policy decisions.
 
 ### Control and Management Plane
 

@@ -69,7 +69,7 @@ Record the download date and, where the organisation's process requires it, a ch
 <Accordion title="Prepare physical hardware">
 
 1. Write the ISO to USB or DVD. Rufus, Etcher, and `dd` all work for USB; ImgBurn for CD or DVD. Use whichever is approved for the administrator workstation.
-2. Set the BIOS or UEFI boot order so the removable media is tried **before** the internal disk, and disable Secure Boot if the installer will not start.
+2. Set the BIOS or UEFI boot order so the removable media is tried **before** the internal disk. Disable Secure Boot if the installer will not start.
 3. Confirm the CPU exposes AES-NI before committing the hardware:
 
    ```bash
@@ -240,7 +240,7 @@ Record the download date and, where the organization's process requires it, a ch
     ![GRUB bootloader installation prompt listing available disks](/images/getting_started/safesquid_appliance_builder_15_grub.webp)
   </Step>
   <Step title="Wait for the automated build">
-    The preseed script partitions the disk, installs the Debian base with security updates, installs SafeSquid with Monit and BIND9, applies hardening, and sets SafeSquid to start on boot. The host reboots by itself when it finishes.
+    The preseed script partitions the disk, installs the Debian base with security updates. It then installs SafeSquid with Monit and BIND9, applies hardening, and sets SafeSquid to start on boot. The host reboots by itself when it finishes.
 
     Confirm the progress screen advances and the host reboots without installer errors.
 
@@ -298,7 +298,7 @@ The installer runs on a virtual console. Switch between consoles to see what it 
 | **ALT + F3** | Shell prompt for troubleshooting |
 | **ALT + F4** | System messages |
 
-Switch to the live log (**ALT + F2**) when installation appears stuck, network configuration fails, or partitioning errors appear — it distinguishes a slow step from a failed one.
+Switch to the live log (**ALT + F2**) when installation appears stuck, network configuration fails, or partitioning errors appear. It distinguishes a slow step from a failed one.
 
 From the shell (**ALT + F3**):
 

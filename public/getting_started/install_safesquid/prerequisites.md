@@ -11,7 +11,7 @@ keywords:
 
 # Confirm Readiness Before Install
 
-Most failed SafeSquid pilots are caused by missing prerequisites: wrong sizing, blocked proxy ports, no DNS or NTP, no activation key, or no plan for Root CA deployment. Every one of them is cheaper to fix now than during the cutover window.
+Most failed SafeSquid pilots are caused by missing prerequisites. These include wrong sizing, blocked proxy ports, no DNS or NTP, no activation key, or no plan for Root CA deployment. Every one of them is cheaper to fix now than during the cutover window.
 
 Work this checklist to completion before starting any installer.
 
@@ -78,7 +78,7 @@ The specific ports, endpoints, and source scopes are listed in [Ports and Firewa
 {/* source: _migration_source_v3/docs/01-Getting_Started/01-Deployment_Planning.md §Prepare the host before install, step 8 */}
 
 <Accordion title="Mandatory access controls: SELinux and AppArmor">
-  SELinux or AppArmor in enforcing mode can block proxy operations during initial setup, and the failure presents as unexplained permission errors rather than a clear policy denial.
+  SELinux or AppArmor in enforcing mode can block proxy operations during initial setup. The failure presents as unexplained permission errors rather than a clear policy denial.
 
   Set permissive mode for the setup window, or author a policy that covers SafeSquid before you start:
 
@@ -111,7 +111,7 @@ The specific ports, endpoints, and source scopes are listed in [Ports and Firewa
   | `80`, `443` | Web access on behalf of clients, plus update and subscription paths |
   | `53` | Upstream DNS resolution |
 
-  The specific licensing, update, and categorization hosts that must be reachable on 80 and 443 are listed in [Ports and Firewall Rules](/deployment/ports_and_firewall_rules) and [Activate Your License](/getting_started/activate).
+  [Ports and Firewall Rules](/deployment/ports_and_firewall_rules) and [Activate Your License](/getting_started/activate) list the specific licensing, update, and categorization hosts that must be reachable on 80 and 443.
 </Accordion>
 
 ## Validate identity and trust

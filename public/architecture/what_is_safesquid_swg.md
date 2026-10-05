@@ -12,7 +12,7 @@ keywords:
 
 # SafeSquid: Zero-Trust Web Security at the Application Layer
 
-SafeSquid is a high-performance, multi-threaded Content Security Gateway that enforces Zero-Trust Web Security at the Application Layer. The gateway operates as an inline HTTP(S) proxy, terminates and evaluates every web session at Layer 7, and applies user-aware and content-aware policy to requests, responses, uploads, downloads, and payloads. The software-only architecture removes the need for proprietary hardware and deploys on any standard Intel-based server, virtual machine, or cloud platform.
+SafeSquid is a high-performance, multi-threaded Content Security Gateway that enforces Zero-Trust Web Security at the Application Layer. The gateway operates as an inline HTTP(S) proxy. It terminates and evaluates every web session at Layer 7 and applies user-aware and content-aware policy to requests, responses, uploads, downloads, and payloads. The software-only architecture removes the need for proprietary hardware and deploys on any standard Intel-based server, virtual machine, or cloud platform.
 
 ## Encrypted traffic leaves the network blind
 
@@ -72,8 +72,8 @@ The inspection pipeline operates on every HTTP and HTTPS transaction:
 1. **TLS termination** — SSL/TLS sessions are terminated at the gateway, decrypted, inspected, and re-encrypted toward the destination. This gives the policy engine access to the full Layer 7 payload.
 2. **Identity and context resolution** — user identity is resolved against Active Directory, LDAP, Kerberos, NTLM, or RADIUS before policy evaluation. Every enforcement decision carries an authenticated identity context.
 3. **Policy evaluation** — each transaction is evaluated against URL category, application signature, content type, file type, destination reputation, time profile, and user/group rule sets. Rules are evaluated in order; the first matching rule determines the enforcement action.
-4. **Content scanning** — downloads and uploads are inspected by ClamAV malware scanning, image analysis AI, and keyword-based content filtering before the payload reaches the endpoint or destination.
-5. **Logging and evidence** — every transaction produces a structured log entry: user identity, source, destination, HTTP method, URL, rule matched, action taken, bytes transferred, and timestamp. Logs are written to `/var/log/safesquid/` and accessible through the Reporting Service for export and SIEM forwarding.
+4. **Content scanning** — downloads and uploads are inspected by ClamAV malware scanning, image analysis AI, and keyword-based content filtering. This happens before the payload reaches the endpoint or destination.
+5. **Logging and evidence** — every transaction produces a structured log entry. Each entry holds user identity, source, destination, HTTP method, URL, rule matched, action taken, bytes transferred, and timestamp. Logs are written to `/var/log/safesquid/` and accessible through the Reporting Service for export and SIEM forwarding.
 
 ### Platform components
 

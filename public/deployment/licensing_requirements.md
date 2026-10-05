@@ -11,7 +11,7 @@ keywords:
 
 # Know What the Licence Buys
 
-An unactivated instance runs with limited capability regardless of which tier you hold. Planning a deployment around threat intelligence or categorization that the licence does not include produces a control that passes the pilot and fails the first real policy decision.
+An unactivated instance runs with limited capability regardless of which tier you hold. A deployment planned around threat intelligence or categorization that the licence does not include passes the pilot. It fails the first real policy decision.
 
 Settle the tier before sizing and before policy design — both depend on which feeds are available.
 

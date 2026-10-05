@@ -12,7 +12,7 @@ keywords:
 
 SafeSearch Not Working can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
-You have enabled all the entries required for Safe Searches, but you are able to access the in appropriate content through search engines, then follow the below steps to Troubleshoot
+You have enabled all the entries required for Safe Searches, but you can still access inappropriate content through search engines. Follow the steps below to troubleshoot.
 
 Test your configuration once. All required entries must be enabled.
 

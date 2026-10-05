@@ -33,7 +33,7 @@ Set the target before installation. Retention is a storage decision, and storage
 - [Reporting Service](/architecture/interface/reporting_service).
 - Cloud object storage such as S3 or Azure Blob.
 
-Forwarding does not remove the need for local retention. Keep enough local history to diagnose an outage and to recover from a forwarder failure — the forwarder is exactly what breaks during the incident you need the logs for.
+Forwarding does not remove the need for local retention. Keep enough local history to diagnose an outage and to recover from a forwarder failure. The forwarder is exactly what breaks during the incident you need the logs for.
 
 <Accordion title="Disk and retention planning">
   Separate high-write log and cache storage where the deployment model allows it. For production nodes, record the retention target for:

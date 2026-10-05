@@ -49,7 +49,7 @@ Register to create an account on **SafeSquid self-service portal** and **downloa
 ## What is SafeSquid Self Service portal?
 The SafeSquid Self-Service Portal is the cloud-based management console for SafeSquid.
 
-The SafeSquid Self-Service Portal manages the activities like, SafeSquid cloud-backed features, Custom Web Categorization, Web Security Clients for Roaming users (VPN), Confidential Data Signatures, Subscription management, etc.
+The SafeSquid Self-Service Portal manages these activities: cloud-backed features, Custom Web Categorization, Web Security Clients for Roaming users (VPN), Confidential Data Signatures, and Subscription management.
 
 Read more: [Self-Service Portal](/architecture/interface/self_service_portal).
 
@@ -108,7 +108,7 @@ SafeSquid support both HTTP and HTTPS websites in transparent mode. The HTTPS we
 
 The traffic will come to router and router will send traffic to SafeSquid Secure web gate way with port 80 and 443 respectively.
 
-The **redirection rules on SafeSquid Secure web gateway** will redirect traffic to SafeSquid Proxy with port 8080 and 8443 (SSL transparent) respectively (By enabling IP forwarding).
+The **redirection rules on SafeSquid Secure web gateway** redirect traffic to SafeSquid Proxy on ports 8080 and 8443 (SSL transparent) respectively. This requires IP forwarding to be enabled.
 
 
 
@@ -139,13 +139,13 @@ SafeSquid allows full Facebook access for a social media group, partial access t
 ## Preventing users from uploading confidential data
 Yes. SafeSquid can prevent users from uploading confidential data. When an organization has confidential information and an internal user leaks it intentionally or unintentionally, productivity loss can be large.
 
-Data leakage can occur through many channels. Users can upload important documents to the internet; even when content filtering blocks Microsoft Word and Excel files, users can create archives of those files and attempt to upload them. Blocking all archives is not practical because staff use archives to transfer large log files.
+Data leakage can occur through many channels. Users can upload important documents to the internet. Even when content filtering blocks Microsoft Word and Excel files, users can create archives of those files and attempt to upload them. Blocking all archives is not practical because staff use archives to transfer large log files.
 
 There are other users who simply take information out of Microsoft Word and Microsoft XL and simply send an Email to third party.
 
-In modern era, these kind of data leaks become a challenge for organizations. Organizations are in a quest for content filtering software's which can deeply inspect archive files and able to identify whether the archive or emails which contains certain keyword matches.
+In modern era, these kind of data leaks become a challenge for organizations. Organizations look for content filtering software that can deeply inspect archive files. It must also identify whether an archive or email contains certain keyword matches.
 
-This challenge is also big for security experts because when there is an upload the post data formation is different for Gmail / Google Drive/ Media fire/ Drobox etc. The wide range of formations of post data made it difficult for security experts to derive concrete solution to these challenges.
+This challenge is also big for security experts. The post data format of an upload differs for Gmail, Google Drive, Mediafire, Dropbox, and similar services. The wide range of formations of post data made it difficult for security experts to derive concrete solution to these challenges.
 
 SafeSquid embeds an **Advanced DLP** solution in the **SafeSquid SWG**. It analyzes post data, inspects archives deeply using file decomposition methods, and identifies whether archives, emails, or social media posts contain certain keyword matches. Based on the match, the administrator can block uploads by user or by destination website. The Advanced DLP solution is managed from the SafeSquid Self-Service Portal, where administrators create keyword expression matches. SafeSquid SWG will download those keyword expressions and loads into memory. When an archive uploads or an email write, SafeSquid SWG analyses Post data and transmit it to the Clam AV daemon for Signatures verification. If the keyword expression matches Clam AV daemon responds with match. SafeSquid will take respective action based on match.
 
@@ -163,7 +163,7 @@ It is possible by blocking the specific file types or file extensions based on C
 ## Can I prevent users to use anonymous proxy?
 Yes. SafeSquid can prevent users from using anonymous proxy.
 
-An anonymous proxy will allow users to surf the web anonymously, since it tunnels traffic through servers that spread out across the globe and involve other IP addresses.
+An anonymous proxy lets users surf the web anonymously. It tunnels traffic through servers spread across the globe, which involve other IP addresses.
 
 Anonymous Proxy service can enhance security and lets users access some restricted websites online.
 

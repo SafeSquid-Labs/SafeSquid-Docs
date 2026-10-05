@@ -72,7 +72,7 @@ return "PROXY SAFESQUID-A:8080; PROXY SAFESQUID-B:8080; DIRECT";
 ```
 
 <Warning>
-  **A trailing `DIRECT` fails open.** If every SafeSquid node is unreachable, clients browse the internet unfiltered and unlogged, and nothing in the browser tells the user or the operator that enforcement stopped. Use it only where an availability requirement has been weighed against losing the control, and where the decision has a named owner. Omitting `DIRECT` fails closed instead: users lose web access, which is visible and reported immediately.
+  **A trailing `DIRECT` fails open.** If every SafeSquid node is unreachable, clients browse the internet unfiltered and unlogged. Nothing in the browser tells the user or the operator that enforcement stopped. Use it only where an availability requirement has been weighed against losing the control, and where the decision has a named owner. Omitting `DIRECT` fails closed instead: users lose web access, which is visible and reported immediately.
 </Warning>
 
 </Accordion>
@@ -104,7 +104,7 @@ Expected result: the server returns a successful response and the PAC file conte
 {/* source: _migration_source_v3/docs/01-Getting_Started/05-Connect_Your_Client/02-PAC_File.md §Deploy the PAC File, Step 1 */}
 
 <Warning>
-  **Serve the file with the correct MIME type.** Browsers expect `application/x-ns-proxy-autoconfig`. Served as `text/plain` or `text/html`, some browsers silently ignore the file and fall back to direct connections — the most common reason a correct PAC file appears to do nothing.
+  **Serve the file with the correct MIME type.** Browsers expect `application/x-ns-proxy-autoconfig`. Served as `text/plain` or `text/html`, some browsers silently ignore the file and fall back to direct connections. This is the most common reason a correct PAC file appears to do nothing.
 
   ```apache
   # Apache
@@ -243,7 +243,7 @@ Expected result: the command prints the proxy string the client would use, such 
 
 Run one test per routing rule you added, including at least one destination that must go `DIRECT`. Save the output with the change record as proof the file was validated before rollout.
 
-A PAC file is JavaScript, so a syntax error breaks proxy selection for every rule, not only the faulty one. The common causes are a missing semicolon, bracket, or quote; a misspelled function name; and a file served with the wrong MIME type or from an unreachable URL.
+A PAC file is JavaScript, so a syntax error breaks proxy selection for every rule, not only the faulty one. The common causes are a missing semicolon, bracket, or quote and a misspelled function name. A file served with the wrong MIME type or from an unreachable URL also fails.
 
 </Accordion>
 

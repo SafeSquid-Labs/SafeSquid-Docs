@@ -59,7 +59,7 @@ Native log verbosity is controlled by `LOG_LEVEL`:
 |---|---|---|---|
 | `/var/log/safesquid/performance` | Stores `performance.log`, which records performance metrics for outages, resource shortfall, internet connectivity failure, and traffic surge analysis. Rotated files are named like `XXXX-performance.log`. | Slow browsing, connection exhaustion, memory pressure, DNS failures, or capacity review. | Provides progressive line-based metrics that can be analyzed with third-party tools such as GNU Plot. Missing data weakens capacity root-cause analysis. |
 
-`performance.log` includes metrics for timestamps, elapsed time, client connections, transactions, thread pools, outbound connection pools, bytes in and out, cache object counts, DNS query reuse and failures, memory, connection deltas, load averages, process counts, and CPU time.
+`performance.log` includes metrics for timestamps, elapsed time, client connections, transactions, thread pools, and outbound connection pools. It also records bytes in and out, cache object counts, DNS query reuse and failures, memory, connection deltas, load averages, process counts, and CPU time.
 
 ## Privacy and process paths
 

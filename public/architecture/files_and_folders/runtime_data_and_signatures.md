@@ -10,7 +10,7 @@ keywords:
 
 # Locate Runtime Data and Signatures
 
-Runtime data and signature stores explain what SafeSquid is processing now, what it cached, and which local data supports categorization, content inspection, image analysis, and malware scanning. These files support investigation and capacity review, but they can also contain sensitive traffic or user context.
+Runtime data and signature stores explain what SafeSquid is processing now, what it cached. They also show which local data supports categorization, content inspection, image analysis, and malware scanning. These files support investigation and capacity review, but they can also contain sensitive traffic or user context.
 
 ## Temporary and cache paths
 
