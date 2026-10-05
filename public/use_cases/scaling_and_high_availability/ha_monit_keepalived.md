@@ -10,7 +10,7 @@ keywords:
 ---
 
 {/* source: _migration_source_v3/03-High Availability Monit Keepalived.md (whole page) */}
-{/* NEEDS-SME-REVIEW: source states testing on Ubuntu VMs with Monit 5.34.x and Keepalived 2.x only. Platform scope unverified for RHEL-family hosts and the current SafeSquid release. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: source states testing on Ubuntu VMs with Monit 5.34.x and Keepalived 2.x only. Platform scope unverified for RHEL-family hosts and the current SafeSquid release. */}
 
 # Survive a Proxy Node Failure
 
@@ -269,7 +269,7 @@ ip a show INTERFACE | grep VIP-ADDRESS
 
 Expected output on the Master only:
 
-```
+```text
 inet VIP-ADDRESS/32 scope global proto keepalived INTERFACE
 ```
 
@@ -286,7 +286,7 @@ sudo journalctl -u keepalived -n 30 --no-pager
 
 Expected output on the Master includes:
 
-```
+```text
 (SAFESQUID_VIP) Entering MASTER STATE
 VRRP_Script(check_safesquid) succeeded
 ```
@@ -307,7 +307,7 @@ sudo systemctl stop safesquid
 
 Within 10–15 seconds the log shows the handover:
 
-```
+```text
 (SAFESQUID_VIP) Changing effective priority from 101 to 0
 (SAFESQUID_VIP) Master received advert from BACKUP-IP with higher priority 100
 (SAFESQUID_VIP) Entering BACKUP STATE

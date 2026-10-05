@@ -143,7 +143,7 @@ If you found that ClamAV daemon is not running then restart using following comm
 ### Check signatures file
 
 If ClamAV service is running then check whether you have signatures database file on disk or not using locate command.
-```
+```text
    updatedb && locate safesquid.ldb
    /var/lib/clamav/safesquid.ldb
    /var/lib/safesquid/content_signatures/safesquid.ldb

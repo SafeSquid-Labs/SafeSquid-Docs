@@ -1,5 +1,11 @@
 ---
 title: "Time Profiler"
+description: Tag connections with time labels from the appliance clock so Access Profiles can apply policy by weekday and time of day.
+keywords:
+  - time profiler
+  - time-based policy labels
+  - time of day access rules
+  - time profiler match modes
 ---
 
 The **Time Profiler** section tags connections with time labels from the appliance local clock. [Access Profiles](/configuration/restriction_policies/access_profiles) **Time Schedule** matches these tags. Every enabled entry that matches applies — this is not first-match-wins — and a later entry's condition can even depend on a label an earlier entry just added. Time Profiler runs early in request processing, before Request Types and Access Profiles, so its labels are already available by the time those sections evaluate the connection.

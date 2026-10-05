@@ -1,5 +1,12 @@
 ---
 title: "Response Types"
+description: "Label HTTP responses by their real content type, such as executable, archive, or image, so Access Profiles can block by actual file type."
+keywords:
+  - response types
+  - HTTP response labelling
+  - MIME and extension rules
+  - two-pass response evaluation
+  - response content size
 ---
 
 The **Response Types** section labels HTTP responses for [Access Profiles](/configuration/restriction_policies/access_profiles) and content filters. It does not block by itself.
@@ -28,7 +35,7 @@ gate -->|No| next[Next row]
 ```
 
 {/* source: https://www.safesquid.com/md/respProfiles.md */}
-{/* NEEDS-SME-REVIEW: legacy source states the multipart/byterange controls are stored but never read at runtime. Not reproduced by live test in this repo — the console section was confirmed present (Global · Response Types tabs, 2026-09-07) but the control's inertness was not exercised. Confirm against the build before this is treated as settled. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: legacy source states the multipart/byterange controls are stored but never read at runtime. Not reproduced by live test in this repo — the console section was confirmed present (Global · Response Types tabs, 2026-09-07) but the control's inertness was not exercised. Confirm against the build before this is treated as settled. */}
 <Warning>
 The **multipart** and **byterange** controls appear in the row form but are reported by the
 legacy documentation as having no effect in the code — they are stored and never read. Do not

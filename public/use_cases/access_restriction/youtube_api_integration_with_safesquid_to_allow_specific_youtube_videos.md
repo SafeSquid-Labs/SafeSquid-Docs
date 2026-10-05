@@ -73,7 +73,7 @@ To Request the Category of Specific Video
 
 To extract Video Category from Video ID
 
-Go To https://console.developers.google.com/apis/library [Link](https://console.cloud.google.com/apis/library)
+Go To https://console.developers.google.com/apis/library [Google Cloud API Library](https://console.cloud.google.com/apis/library)
 
 ![Create a Youtube V3 API using google account for Youtube API integration with safesquid](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image2.webp)
 

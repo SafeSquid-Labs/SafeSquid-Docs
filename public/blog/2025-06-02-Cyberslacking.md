@@ -1,6 +1,12 @@
 ---
 slug: cyberslacking
 title: 'Cyberslacking Deterrence: Behavioral Security, Not Surveillance'
+keywords:
+  - cyberslacking deterrence
+  - cyberslacking
+  - employee web usage monitoring
+  - risk-adaptive web policy
+  - insider risk web security
 description: 'Zero-tolerance monitoring backfires and blind neglect invites breaches. The evidence points to a third path: risk-adaptive, trust-preserving deterrence.'
 # authors: [Vashistha]
 mode: "center"

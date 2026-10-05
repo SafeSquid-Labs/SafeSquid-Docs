@@ -1,5 +1,11 @@
 ---
 title: "Text analyzer"
+description: Score text in HTTP payloads against keyword patterns and block content once its cumulative score passes the threshold.
+keywords:
+  - text analyzer
+  - text scoring policy
+  - pattern-based content scoring
+  - DLP text analysis
 ---
 
 ```mermaid
@@ -16,8 +22,7 @@ thresh -->|Yes| block[DO NOT BYPASS and HTTP 451 block page]
 thresh -->|No| next
 ```
 
-## Overview
-
+## What does this section do?
 The `Keywords-filtering` section (`safesquid-keywords-filtering(5)`) scans the textual content of HTTP payloads for specific patterns and assigns scores to determine if the content should be blocked.
 
 Cumulative scoring suits content that no single keyword proves is a problem, but that is clearly objectionable once several related terms appear on the same page — acceptable-use enforcement against gambling, adult, or extremist material.

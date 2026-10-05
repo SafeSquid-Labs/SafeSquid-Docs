@@ -1,5 +1,11 @@
 ---
 title: "Configuration"
+description: "Find the Configure console section you need: each group here mirrors a menu in the SafeSquid console."
+keywords:
+  - SafeSquid configuration
+  - Configure console
+  - configuration quickstart
+  - administration basics
 ---
 
 Every Configuration group below mirrors a menu you can actually click in the SafeSquid Configure console — **Application Setup**, **Real Time Content Security**, **Custom Settings**, and **Restriction Policies** match the console's own left-hand navigation, verified against a live instance. **Administration Basics** and **Licensing and Self-Service Portal** cover day-2 operator tasks that sit above any single Configure section.

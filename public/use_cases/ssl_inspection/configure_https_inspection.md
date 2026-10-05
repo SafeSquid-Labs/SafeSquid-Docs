@@ -413,7 +413,7 @@ Bypass HTTPS inspection for:
 4. **No certificate warnings** should appear
 
 **Expected certificate chain:**
-```
+```text
 www.google.com (issued by SafeSquid Root CA)
   └─ SafeSquid Root CA (self-signed or your enterprise CA)
 ```

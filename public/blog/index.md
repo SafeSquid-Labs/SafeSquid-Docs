@@ -1,6 +1,12 @@
 ---
 slug: blog
 title: 'SafeSquid Security Blog'
+keywords:
+  - SafeSquid security blog
+  - web threat research
+  - phishing and malware research
+  - insider risk
+  - HTTPS perimeter security
 description: 'Threat research and security analysis on phishing, malware delivery, insider risk, and web security at the HTTPS perimeter.'
 mode: "center"
 ---

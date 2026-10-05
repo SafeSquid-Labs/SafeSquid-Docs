@@ -14,7 +14,7 @@ When no Active Directory (AD) server is available for SafeSquid LDAP, administra
 
 ## Adding users using SafeSquid interface for authentication
 
-![clicking on configure in safesquid interface](/images/How_To/Adding_users_using_SafeSquid_interface_for_authentication/image1.webp)
+![clicking on configure in SafeSquid interface](/images/How_To/Adding_users_using_SafeSquid_interface_for_authentication/image1.webp)
 
 ![click on search in access profiles](/images/How_To/Adding_users_using_SafeSquid_interface_for_authentication/image2.webp)
 

@@ -1,5 +1,11 @@
 ---
 title: "DNS Blacklist"
+description: "Block malicious and unauthorized domains by category, DNS blacklist, and heuristics that catch newly registered attack domains."
+keywords:
+  - DNS blacklist
+  - DNSBL configuration
+  - DNS blacklisting
+  - DNSBL domain blocking
 ---
 
 ```mermaid
@@ -24,8 +30,7 @@ ipMatch -->|Yes| block
 ipMatch -->|No| allow[Allow]
 ```
 
-## Overview
-
+## What does this section do?
 The `Dnsbl` section provides domain blocking, category-based routing, and DNS-based blacklisting to prevent access to malicious or unauthorized websites.
 
 {/* source: https://www.safesquid.com/md/dnsbl.md */}

@@ -1,6 +1,12 @@
 ---
 slug: csrf-abuse
 title: 'How XSS‑Powered CSRF Abuses Trust Boundaries'
+keywords:
+  - XSS-powered CSRF
+  - XSS CSRF attack chain
+  - CSRF token injection
+  - cross-site request forgery protection
+  - XSS session hijacking
 description: 'See how XSS hijacks sessions to forge transactions, and how SafeSquid injects tokens and origin checks to neutralise cross-site requests.'
 # authors: [Vashistha]
 mode: "center"
@@ -29,7 +35,7 @@ The attacker scans customer‑facing apps—signup forms, search bars, comment b
 
 Using mutation techniques—**XSS Polyglots**, double URL‑encoding, and DOM clobbering—the attacker creates a payload that sails past simplistic sanitisers. Example (URL‑encoded):
 
-```
+```text
 <img src=x onerror=document.body.append((new Image()).src='/profile/update?phone=+911234567890')>
 ```
 

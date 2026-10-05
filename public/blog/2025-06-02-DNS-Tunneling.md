@@ -1,6 +1,12 @@
 ---
 slug: dns-tunnelling
 title: 'DNS Tunnelling: The Insider’s Invisible Exit Route'
+keywords:
+  - DNS tunnelling
+  - DNS tunneling detection
+  - DNS exfiltration
+  - DGA and fast-flux domains
+  - insider data exfiltration
 description: 'DNS is the one protocol every security stack waves through unchecked. Learn how attackers turn it into a covert exfiltration channel, and how to close it.'
 # authors: [Vashistha]
 mode: "center"

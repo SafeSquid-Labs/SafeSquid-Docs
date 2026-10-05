@@ -1,5 +1,10 @@
 ---
 title: "Redirect"
+description: "Intercept requests for specific URLs and rewrite them internally or send an HTTP 302 to the browser, for example to enforce safe search."
+keywords:
+  - redirect
+  - URL redirection rules
+  - HTTP redirect policy
 ---
 
 ```mermaid
@@ -12,8 +17,7 @@ mode -->|Yes| send302[Send HTTP 302 to client with rewritten URL]
 mode -->|No| fetch[Rewrite proto host file and port then fetch internally]
 ```
 
-## Overview
-
+## What does this section do?
 The `Redirect` section allows SafeSquid to intercept requests for specific URLs and either internally rewrite them (fetching content from a new destination on behalf of the client) or send an HTTP 302 redirect back to the client’s browser. Typical uses include enforcing a search engine's safe-search mode, sending users away from a decommissioned internal site, or rewriting an insecure link a server returned into its secure equivalent before it reaches the browser.
 
 ## Core Mechanics (C++ Source Validation)

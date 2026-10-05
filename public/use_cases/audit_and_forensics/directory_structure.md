@@ -517,7 +517,7 @@ Time Stamp (YYYYMMDDhhmmss) , Elapsed Time , Client Connections Handled , Client
 /var/log/safesquid/privacy
 ```
 
-Contains the privacy logs record cookies, cross-site exchange, and Safesquid Elevated Privacy policy enforcements.
+Contains the privacy logs record cookies, cross-site exchange, and SafeSquid Elevated Privacy policy enforcements.
 
 ## SafeSquid PID
 

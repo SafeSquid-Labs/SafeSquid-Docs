@@ -84,7 +84,7 @@ Blocking specific YouTube channels while allowing other videos is a common polic
    ![Create T-SERIES CHANNEL profile](/images/How_To/Block_Specific_Youtube_Channel/image8.webp)
 
 10. Add the Channel-ID and List-ID to the **File** field using the format:
-    ```
+    ```text
     (UCq-Fj5jknLsUf-MWSy4_brA|PL9bw4S5ePsEE2KMw53rY40A00t4I-otqy)
     ```
     Save the policy.

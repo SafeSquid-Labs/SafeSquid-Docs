@@ -134,7 +134,7 @@ if the total configuration in all sections is completed and validated.
 
 Otherwise select No and click on submit.
 
-{/* NEEDS-SME-REVIEW: this Yes/No cloud-storage confirmation prompt and its "submit" control could not be verified live — clicking Save Config is out of scope for read-only UI verification (it commits configuration). None of this page's 23 screenshots actually shows this dialog either (image18/19 show the per-entry "Save Policy" button and the saved entry view, not a Save Config confirmation prompt). Confirm the prompt's exact wording and button labels ("Yes"/"No"/"Submit" vs. something else) against a live Save Config click before relying on this section. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: this Yes/No cloud-storage confirmation prompt and its "submit" control could not be verified live — clicking Save Config is out of scope for read-only UI verification (it commits configuration). None of this page's 23 screenshots actually shows this dialog either (image18/19 show the per-entry "Save Policy" button and the saved entry view, not a Save Config confirmation prompt). Confirm the prompt's exact wording and button labels ("Yes"/"No"/"Submit" vs. something else) against a live Save Config click before relying on this section. */}
 
 
 

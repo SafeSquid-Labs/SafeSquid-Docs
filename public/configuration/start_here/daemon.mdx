@@ -1,5 +1,11 @@
 ---
 title: "SafeSquid daemon"
+description: "Learn how the SafeSquid daemon handles connections and policy, when a change needs a reload or a restart, and how to control the service."
+keywords:
+  - SafeSquid daemon
+  - service control
+  - daemon command-line options
+  - live policy reload
 ---
 
 SafeSquid is the main proxy process on the Secure Web Gateway appliance. It accepts client connections, applies policies from the Web UI, and forwards allowed traffic.
@@ -68,7 +74,7 @@ Most tunables (listen address, thread limits, log levels) are set in `/opt/safes
 
 ## Service control
 
-```
+```text
 /etc/init.d/safesquid start
 /etc/init.d/safesquid stop
 /etc/init.d/safesquid restart

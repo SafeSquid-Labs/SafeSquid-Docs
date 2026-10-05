@@ -1,5 +1,11 @@
 ---
 title: "Templates"
+description: Configure the block pages and error bodies SafeSquid serves when it denies traffic or returns an error.
+keywords:
+  - SafeSquid templates
+  - block page templates
+  - error page templates
+  - template resolution order
 ---
 
 The **Templates** section configures block pages and error bodies served when SafeSquid denies traffic or returns configured errors. Other sections never embed page content themselves — they ask Templates for a page by name (for example a block page named `blocked`), and this section resolves the name to a file. That indirection is what lets you replace default block pages with branded versions without touching the sections that trigger them.

@@ -1,9 +1,15 @@
 ---
 title: "Image analyzer"
+description: "Score images in downloads and uploads, and replace any image that scores above the threshold with a block template."
+keywords:
+  - image analyzer
+  - inappropriate image blocking
+  - image size gates
+  - image threshold scale
+  - image analyzer debug mode
 ---
 
-## Overview
-
+## What does this section do?
 The `Imgfilter` section scores `image/*` response and upload bodies and blocks or debug-replaces content when the engine score is at or above a threshold. Blocked images can be replaced with a template (default `checkeredgif`).
 
 It exists to keep unwanted image content (for example, adult material) off the network — useful both for blocking what users download and for stopping the same kind of content from being uploaded through the proxy.

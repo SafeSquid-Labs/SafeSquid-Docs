@@ -72,7 +72,7 @@ rm -rf *
 ## Steps
 ### [Access the SafeSquid User Interface](/architecture/interface/configuration_portal)
 
-![your current version of safesquid will be shown in the right hand bottom corner in the safesquid interface](/images/How_To/Upgrade_SafeSquid_To_A_Newer_Version/image1.webp)
+![your current version of safesquid will be shown in the right hand bottom corner in the SafeSquid interface](/images/How_To/Upgrade_SafeSquid_To_A_Newer_Version/image1.webp)
 
 ### Go to Support Page
 ![clicking on support](/images/How_To/Upgrade_SafeSquid_To_A_Newer_Version/image2.webp)

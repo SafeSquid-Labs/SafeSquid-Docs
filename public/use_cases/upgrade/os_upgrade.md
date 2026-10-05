@@ -102,7 +102,7 @@ df -h
 
 **Expected output for sufficient free space:**
 
-```
+```text
 Filesystem                                     Size  Used Avail Use% Mounted on
 /dev/mapper/vgsab--ubantu-root                  20G  4.0G  16G  20% /
 tmpfs                                          392M  900K  391M   1% /run
@@ -139,7 +139,7 @@ lsb_release -a
 
 **Expected Output:**
 
-```
+```text
 description:    Ubuntu 20.04 LTS
 ```
 
@@ -369,7 +369,7 @@ lsb_release -a
 
 **Expected:**
 
-```
+```text
 description:    Ubuntu 24.04 LTS
 ```
 

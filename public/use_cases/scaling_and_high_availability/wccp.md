@@ -43,7 +43,7 @@ The story is over. Now all your client's traffic will be transparently redirecte
 
 The below picture will tell you whole story.
 
-![Safesquid and WCCP - Describes the communication between WCCP enabled Router and SafeSquid Proxy ](/images/How_To/Transparent_Redirection_With_SafeSquid_And_WCCP/image1.webp)
+![SafeSquid and WCCP - Describes the communication between WCCP enabled Router and SafeSquid Proxy ](/images/How_To/Transparent_Redirection_With_SafeSquid_And_WCCP/image1.webp)
 
 WCCP Describes the communication between WCCP enabled Router and SafeSquid Proxy (Web-cache) to implement transparent redirection with scaling and fail-safe benefits.
 

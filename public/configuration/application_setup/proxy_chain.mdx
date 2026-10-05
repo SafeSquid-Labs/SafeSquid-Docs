@@ -1,5 +1,11 @@
 ---
 title: "Proxy chain"
+description: "Route requests through upstream proxies, siblings, or CARP clusters, and understand how SafeSquid picks the next hop."
+keywords:
+  - proxy chain
+  - upstream proxy configuration
+  - peer proxy types HTTP SOCKS
+  - proxy chaining
 ---
 
 ```mermaid
@@ -20,8 +26,7 @@ skipSel --> send["Send through selected peer, or direct if no candidate remains"
 select --> send
 ```
 
-## Overview
-
+## What does this section do?
 The `Forward` section configures upstream proxy routing, enabling SafeSquid to chain requests to parents, siblings, or Cache Array Routing Protocol (CARP) clusters.
 
 {/* source: https://www.safesquid.com/md/forward.md */}

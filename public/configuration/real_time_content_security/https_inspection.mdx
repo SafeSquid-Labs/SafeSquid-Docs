@@ -1,5 +1,11 @@
 ---
 title: "HTTPS inspection"
+description: "Control how SafeSquid handles HTTPS CONNECT requests and when it decrypts traffic for inspection, using ordered inspection policies."
+keywords:
+  - HTTPS inspection
+  - TLS interception
+  - SSL inspection
+  - RDP-over-TLS inspection
 ---
 
 ```mermaid
@@ -15,8 +21,7 @@ valid -->|No| dropconn[Drop connection]
 valid -->|Yes| handshake[Complete client TLS handshake and decrypt for filtering]
 ```
 
-## Overview
-
+## What does this section do?
 HTTPS Inspection controls CONNECT handling and optional TLS man-in-the-middle (Deep Scan) for HTTP inside HTTPS. Requires a valid RCSC (root CA) loaded from activation; the policy engine returns no policy when the section is off or misconfigured. Enabled Master switch ( ssl\_policy ). Off: no inspection policy applies. Inspection Policies Profile rows; first match wins. Sets Deep Scan, no-certificate, domain-mismatch, and max SSL error level for that CONNECT. Setup Stored server/ passphrase rows (see field help — not read by current runtime setup code). SSL Certs/Cache Download, upload, or refresh RCSC files and view SSL session/context cache. On CONNECT, deep\_scan\_check() loads the first matching Inspection
 
 By default, general web traffic should be fully verified and fully inspected. The realistic exception is internal or development infrastructure whose certificates are self-signed, whose issuing chain is incomplete, or that is simply expired. Rather than relaxing verification globally, scope the relaxation to the specific traffic that needs it — ideally via a Request Type built for those internal hosts — rather than opening it up for everyone.

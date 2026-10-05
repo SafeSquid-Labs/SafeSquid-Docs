@@ -1,5 +1,10 @@
 ---
 title: "Speed Limits"
+description: "Cap bandwidth, connection counts, and transfer sizes per profile so no single user consumes the proxy's capacity."
+keywords:
+  - speed limits
+  - bandwidth throttling
+  - connection speed policy
 ---
 
 ```mermaid
@@ -13,8 +18,7 @@ bytes -->|No| rate[Throttle at lowest non-zero Download rate among matching rows
 rate --> counters[Increment counters unless Per-request limit or cache excluded]
 ```
 
-## Overview
-
+## What does this section do?
 The `Limits` section allows administrators to constrain bandwidth, connection counts, and data transfer sizes on a per-profile basis.
 
 It shares bandwidth fairly and stops any single user or profile from consuming too much capacity. Unlike Access restrictions (first-match-wins) and System configuration's Compression and buffering policies (also first-match-wins), **Speed Limits is cumulative** — every enabled entry whose Profiles condition matches applies, not just the first.

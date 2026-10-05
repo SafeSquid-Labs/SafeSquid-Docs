@@ -1,5 +1,11 @@
 ---
 title: "Clam antivirus"
+description: Scan HTTP traffic for malware in real time by integrating the ClamAV clamd daemon with SafeSquid.
+keywords:
+  - Clam antivirus
+  - ClamAV scanning
+  - antivirus scanning for web traffic
+  - malware scanning policy
 ---
 
 ```mermaid
@@ -14,8 +20,7 @@ result -->|FOUND| block[DO NOT BYPASS block]
 block --> templ[Resolve template row then Default then built-in error]
 ```
 
-## Overview
-
+## What does this section do?
 The `ClamAV` section configures integration with a clamd daemon for real-time malware scanning of HTTP traffic.
 
 {/* source: https://www.safesquid.com/md/clamav.md */}

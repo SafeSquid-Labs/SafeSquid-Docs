@@ -108,7 +108,7 @@ This file stored all data related **to every request and response** processed by
 
 [Access the SafeSquid User Interface](/architecture/interface/configuration_portal)
 
-On top right of Safesquid Interface view **Reports >> Dashboard**
+On top right of SafeSquid Interface view **Reports >> Dashboard**
 
 Click on "**Native logs**" to see the run time native logs.
 
@@ -132,7 +132,7 @@ The extended.log (NCSA / Extended log format) records maximum details of each re
 ```
 
 **Example Log Line2:**
-```
+```text
 "153157359815951WfkgX"    "1595"    "1"    "14/Jul/2018:18:36:38"    "106"    "403"    "1517132"    "1517132"    "0"    "FALSE"    "192.168.0.24"    "anonymous@192.168.0.24"    "POST"    [http://www.csm-testcenter.org:80/test](http://www.csm-testcenter.org/test)    "-"    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0"    "text/html"    "DLP"    "application/vnd.ms-excel"    "192.168.24.74:8080"    "TCP_DENIED"    "DIRECT"    "safesquid"    "www.csm-testcenter.org"    "csm-testcenter.org"    www.csm-testcenter.org    "csm-testcenter.org"    "1M-10M"    ""    "ADMINS"    "MEDIUM UPLOADS"    "Unidentified Web2.0,All Posts,All Uploads,Uploads,Firefox,Internet Browser"    "Unknown"    ""    "application/vnd.ms-excel,text/plain"    "-"    "READ ONLY,ANTIVIRUS,BLOCK UPLOADS"
 ```
 
@@ -178,7 +178,7 @@ The details of the fields in extended.log are as follows:
 | download_content_types | Comma separated list of Download Content Type. "-" is substituted when no profiles are applied or content types are unknown. Example1> image/png |
 | profiles | Comma separated list of profiles that were applied to the request. "" is substituted when no profiles are applied. Example2> READ ONLY,ANTIVIRUS,BLOCK UPLOADS |
 
-On top right of Safesquid Interface view **Reports >> Dashboard**
+On top right of SafeSquid Interface view **Reports >> Dashboard**
 
 Click on "**Detailed logs**" to see the run time extended logs.
 
@@ -229,7 +229,7 @@ The details of the fields in config.log are as follows:
 | CONFIG_FILE | A backup config.xml file along with the path which can be restored at any time by the administrator. Example2>/<wbr />usr/<wbr />local/<wbr />safesquid/<wbr />security/<wbr />policies/<wbr />config_<wbr />anonymous@<wbr />192.168.0.27_<wbr />2018-08-27-18-29-38.xml |
 | REASON |  |
 
-On top right of Safesquid Interface view **Reports >> Dashboard**
+On top right of SafeSquid Interface view **Reports >> Dashboard**
 
 Click on **"Config logs"**
 

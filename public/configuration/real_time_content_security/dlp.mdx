@@ -1,9 +1,15 @@
 ---
 title: "DLP"
+description: Inspect uploads and block sensitive data from leaving the network using MIME-based DLP policies and OCR text scoring.
+keywords:
+  - DLP
+  - data leakage prevention
+  - OCR scoring
+  - MIME policy
+  - bypass severity
 ---
 
-## Overview
-
+## What does this section do?
 The `DLP` section inspects **uploaded** content and can block sensitive data leaving the network. MIME-based DLP policies set allow or block actions; OCR policies score text extracted from uploads against a global Threshold.
 
 DLP runs on the request (upload) path only — not on downloaded responses. Access **Bypass** with DLP skips inspection; Access **Allow bypassing** can soften a DENY block when a valid bypass cookie is present.

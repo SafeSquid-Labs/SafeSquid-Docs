@@ -1,11 +1,17 @@
 ---
 title: "WCCP"
+description: "Understand how WCCP router redirection works with SafeSquid, and what to confirm on your build before relying on it."
+keywords:
+  - WCCP
+  - WCCP router redirection
+  - transparent proxy without browser settings
+  - WCCP policy rows
 ---
 
 WCCP works with WCCP routers to redirect traffic to SafeSquid without setting a proxy in each browser. The router intercepts traffic and hands it to SafeSquid, so clients need no proxy configuration. The router or switch, not SafeSquid, decides which packets get redirected, based on the service group both sides have agreed on — SafeSquid's role is to register itself with the router(s) as willing to serve one or more service groups, describe which traffic it wants redirected, and accept and process the redirected packets.
 
 {/* source: legacy docs site wccp.html and architecture.html (whole page) */}
-{/* NEEDS-SME-REVIEW: both legacy source pages state WCCP redirection is broken in current builds and recommend explicit proxy instead, with architecture.html listing WCCP under modules not in the live request path. The console at build 2026.0627.1344.3 exposes the full WCCP section with no such caveat, and functional status cannot be tested without a WCCP router in the lab. Confirm with engineering whether redirection works in the shipping build before this page recommends WCCP for production. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: both legacy source pages state WCCP redirection is broken in current builds and recommend explicit proxy instead, with architecture.html listing WCCP under modules not in the live request path. The console at build 2026.0627.1344.3 exposes the full WCCP section with no such caveat, and functional status cannot be tested without a WCCP router in the lab. Confirm with engineering whether redirection works in the shipping build before this page recommends WCCP for production. */}
 
 <Warning>
 **Confirm WCCP redirection works on your build before relying on it.** Legacy SafeSquid documentation states WCCP redirection is broken and recommends explicit proxy configuration instead. That claim could not be confirmed or refuted against build `2026.0627.1344.3` — the console exposes the section normally, but a working router is needed to test redirection end to end.

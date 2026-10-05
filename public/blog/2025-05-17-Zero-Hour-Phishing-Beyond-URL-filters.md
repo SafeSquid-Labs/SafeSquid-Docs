@@ -1,6 +1,13 @@
 ---
 slug: zero-hour-phishing-beyond-url-filters
 title: 'The Death of the Blocklist: Eliminating Zero-Hour Phishing'
+keywords:
+  - zero-hour phishing
+  - AiTM phishing protection
+  - submit-on-trust policy
+  - reputation-based blocklist limits
+  - phishing-as-a-service
+  - credential theft prevention
 description: 'Why reputation-based secure gateways fail to stop zero-hour and AiTM phishing, and how a submit-on-trust policy stops credential theft in real time.'
 # authors: [Vashistha]
 mode: "center"
