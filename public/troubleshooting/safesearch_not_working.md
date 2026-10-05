@@ -16,7 +16,7 @@ You have enabled all the entries required for Safe Searches, but you are able to
 
 Test your configuration once. All required entries must be enabled.
 
-Then test your HTTPS Inspection enabled or not. If if not enabled see our document - [How to configure HTTPS inspection](/use_cases/ssl_inspection/ssl_inspection)
+Then test your HTTPS Inspection enabled or not. If it is not enabled, see [How to configure HTTPS inspection](/use_cases/ssl_inspection/ssl_inspection)
 
 Then check the SSL certificate in the browser. See [Test certificate in Firefox](/use_cases/ssl_inspection/ssl_inspection).
 

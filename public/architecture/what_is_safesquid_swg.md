@@ -12,7 +12,7 @@ keywords:
 
 # SafeSquid: Zero-Trust Web Security at the Application Layer
 
-SafeSquid is a high-performance, multi-threaded Content Security Gateway that enforces Zero-Trust Web Security at the Application Layer. The gateway operates as an inline HTTP(S) proxy, terminates and evaluates every web session at Layer 7, and applies user-aware and content-aware policy to requests, responses, uploads, downloads, and payloads. The software-only architecture eliminates proprietary hardware lock-in and deploys on any standard Intel-based server, virtual machine, or cloud platform.
+SafeSquid is a high-performance, multi-threaded Content Security Gateway that enforces Zero-Trust Web Security at the Application Layer. The gateway operates as an inline HTTP(S) proxy, terminates and evaluates every web session at Layer 7, and applies user-aware and content-aware policy to requests, responses, uploads, downloads, and payloads. The software-only architecture removes the need for proprietary hardware and deploys on any standard Intel-based server, virtual machine, or cloud platform.
 
 ## Encrypted traffic leaves the network blind
 
@@ -60,7 +60,7 @@ SafeSquid operates as an inline HTTP(S) proxy with a multi-threaded, SMP-aware p
 
 SafeSquid's enforcement engine implements what the platform calls the **On-The-Wire Security Neural Network**. It is a real-time intelligence cache that accumulates behavioral patterns, threat indicators, and content context from active connections. The gateway applies that intelligence to subsequent sessions on the same instance. This means that inspection decisions for session N benefit from the context of sessions already in flight — not only from static feed data. The cache updates continuously, so threat correlation occurs without batch processing delays.
 
-This architecture eliminates two bottlenecks found in legacy gateways:
+This architecture avoids two bottlenecks found in legacy gateways:
 
 - **Inter-process communication overhead:** multi-process proxies fork separate security worker processes per connection, requiring context serialization and IPC calls. SafeSquid threads share memory directly, eliminating serialization.
 - **Feed-only intelligence:** static feed lookups treat every session in isolation. The On-The-Wire cache propagates live behavioral context across concurrent connections.

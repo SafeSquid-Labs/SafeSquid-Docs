@@ -8,7 +8,7 @@ keywords:
   - proxy operation restore
 ---
 
-# Free disk and RAM to restore proxy operation
+# Restore Proxy Operation by Freeing Disk and RAM
 
 Free disk and RAM to restore proxy operation can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 

@@ -33,7 +33,7 @@ Client id can be extracted from the response headers section in browsers network
 
 (Note: this assumes you know how to open developer tools in a browser.)
 
-![find_client_id script output or connection log example](/images/picture1.jpg)
+![find_client_id script output or connection log example](/images/picture1.webp)
 
 Also, client id can be extracted from SafeSquid's native logs
 
