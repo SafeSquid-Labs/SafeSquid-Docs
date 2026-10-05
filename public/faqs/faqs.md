@@ -1,6 +1,5 @@
 ---
 title: FAQs
-slug: /FAQs
 description: Frequently asked questions about SafeSquid Secure Web Gateway covering installation, configuration, licensing, and troubleshooting common issues.
 keywords:
   - SafeSquid FAQ

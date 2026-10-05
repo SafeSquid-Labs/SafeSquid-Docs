@@ -1,6 +1,5 @@
 ---
 title: "Troubleshooting"
-slug: /Troubleshooting
 description: "Comprehensive diagnostic procedures and resolution guides for common SafeSquid proxy issues, connection failures, and configuration problems"
 keywords:
   - SafeSquid troubleshooting guide

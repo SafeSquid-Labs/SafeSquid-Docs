@@ -1,6 +1,5 @@
 ---
 title: SafeSquid SWG Overview
-slug: /SafeSquid_SWG
 description: SafeSquid Secure Web Gateway overview — software-defined deployment, core architecture, enforcement components, intelligence feeds, browser security, and operational services.
 keywords:
   - SafeSquid SWG
