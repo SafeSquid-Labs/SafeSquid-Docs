@@ -255,7 +255,9 @@ Opt for a SafeSquid SWG subscription by paying online via PayPal or by wire or b
 
 **Missing:** whether the proxy stops passing traffic on expiry, or keeps running with reduced
 threat-feed coverage, is stated two different ways elsewhere in this documentation set and hasn't
-been reconciled. See [Handle expiry before it degrades enforcement](/deployment/manage_subscription_state)
+been reconciled.
+
+See [Handle expiry before it degrades enforcement](/deployment/manage_subscription_state)
 for the detailed, sourced breakdown of what keeps working and what doesn't — treat that page as
 more current until this is confirmed, and don't assume the proxy goes down on expiry without
 checking your own deployment's behavior first.

@@ -75,6 +75,7 @@ MAN_PAGE = re.compile(r"CLI man page|\bsafesquid-\w+\(\d\)", re.I)
 SPELLING = re.compile(r"\b(Safesquid|Safe Squid)\b|\b(?:in|the|of) safesquid (?:interface|swg|proxy|server)\b")
 IMG = re.compile(r"!\[([^\]]*)\]\(([^)\s]+)")
 MD_LINK_TARGET = re.compile(r"(?<!!)\[[^\]\n]*\]\(([^)\s]+)")
+LIST_ITEM = re.compile(r"^\s*([-*+]|\d+\.)\s")
 SPACED_TABLE = re.compile(r"^\|\s+:?-{2,}:?\s+\|")
 RUNNABLE = {"bash", "sh", "shell", "powershell", "cmd", "zsh"}
 FM_FORBIDDEN = ("slug", "sidebarTitle", "sidebar_position")
@@ -208,6 +209,9 @@ def extra_checks(path, raw, masked_lines, offset, tag, fm, own_words, add):
     prose = list(_prose(masked_lines, offset))
     prev = -2
     for ln, s in prose:
+        if LIST_ITEM.match(raw_lines[ln - 1]):
+            para_run, prev = 0, ln  # list items are not paragraphs
+            continue
         para_run = para_run + 1 if ln == prev + 1 else 1
         if para_run == 6:
             para_long += 1

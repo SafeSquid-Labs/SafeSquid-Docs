@@ -39,15 +39,16 @@ Use the portal when you need to:
 
 ## Portal layout
 
-Confirmed live (2026-09-02, logged-in session, all six tabs inspected): **Manage Key**
-(default landing tab — key details, instance list, Download Key), **Manage Categories** (Check
-Website Category / Modify Category, single-URL search), **Manage Certificates** (Generate then
-Download an SSL certificate for the key), **Manage VPN** (C-code/activation key against a URL
-field, Set URL), **Manage Signatures** ("Available Signatures for [C-code]", Add New, a
-Keywords/Signature table), **Manage Account** (subscription details, Conserve Subscription). A
-standing **Download Key** action and **Download latest ISO** / **Download latest tarball** links
-(`downloads.safesquid.com/appliance/safesquid.iso` and `.../binary/safesquid_latest.tar.gz`)
-appear on every tab.
+Confirmed live (2026-09-02, logged-in session, all six tabs inspected):
+
+- **Manage Key** (default landing tab): key details, instance list, Download Key.
+- **Manage Categories**: Check Website Category, Modify Category, single-URL search.
+- **Manage Certificates**: Generate, then Download, an SSL certificate for the key.
+- **Manage VPN**: C-code/activation key against a URL field, Set URL.
+- **Manage Signatures**: "Available Signatures for [C-code]", Add New, a Keywords/Signature table.
+- **Manage Account**: subscription details, Conserve Subscription.
+
+A standing **Download Key** action and **Download latest ISO** / **Download latest tarball** links (`downloads.safesquid.com/appliance/safesquid.iso` and `.../binary/safesquid_latest.tar.gz`) appear on every tab.
 
 ## What the portal is used for
 

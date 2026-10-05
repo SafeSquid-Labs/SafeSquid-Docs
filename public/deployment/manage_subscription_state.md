@@ -43,16 +43,22 @@ Free licences do not expire, so this applies only to commercial subscriptions.
 {/* [VERIFY WITH SAFESQUID TEAM]: confirmed live 2026-09-02 (logged-in portal view) — "Manage Account" is a real, current portal tab (alongside Manage Key, Manage Categories, Manage Certificates, Manage VPN, Manage Signatures), still absent from the local safesquid.cfg Support page as expected. Its subscription panel shows Subscription ID, C-Code, Key Name, Plan, Named Users, No of Instances, Support Validity, and one action button labeled **"Conserve Subscription"** — not "Extend Conservation Period" as below; that label matches only the old screenshot referenced further down (dated 1 July 2022, Subscription ID 2263), which is now stale. No "Renew Subscription" button was visible for this account's Plan: Trial — whether it appears for a Commercial-plan account is unconfirmed, so Option 1 below is not verified as currently written. Also unresolved: the Manage Key panel's Support Validity for this key read "25-Aug-2027" while the Manage Account panel read "24-Sep-2026" for what should be the same subscription — don't treat either as authoritative without asking which one the portal actually enforces. The "each extension adds three days" figure is still unverified. */}
 
 **Option 1 — renew.** Sign in to [key.safesquid.com](https://key.safesquid.com) and go to **Manage
-Account**. **Missing:** whether a "Renew Subscription" action is available there is unconfirmed —
+Account**.
+
+**Missing:** whether a "Renew Subscription" action is available there is unconfirmed —
 it wasn't visible for a Trial-plan account when last checked (2026-09-02); a Commercial plan may
 show it. If you don't see it, contact SafeSquid support rather than assuming renewal isn't
-possible. After renewing, download the updated activation key and upload it under
+possible.
+
+After renewing, download the updated activation key and upload it under
 [Subscription](/configuration/infrastructure_and_access/subscription) using the same steps as the
 initial activation.
 
 **Option 2 — conserve the subscription.** From **Manage Account**, use **Conserve Subscription**
 (this button was previously labeled "Extend Conservation Period" — confirm which label your
-portal shows, since this has changed at least once). It extends the support window and clears
+portal shows, since this has changed at least once).
+
+It extends the support window and clears
 the expiry banner for that period. It can be applied more than once, but it is a bridge to
 renewal, not a substitute for it — treat repeated use as a signal that subscription ownership
 needs attention.
