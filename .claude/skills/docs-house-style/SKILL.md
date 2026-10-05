@@ -3,7 +3,7 @@ name: docs-house-style
 description: >
   READ THIS FIRST before creating or modifying ANY content under public/ or blog/.
   Defines the current SafeSquid docs house style: voice, page structure, Mintlify
-  component rules, source-provenance comments, NEEDS-SME-REVIEW flags, and docs.json
+  component rules, source-provenance comments, [VERIFY WITH SAFESQUID TEAM] flags, and docs.json
   navigation conventions. Triggers: writing a new page, editing an existing page,
   drafting a guide or how-to, adding a main.md, restructuring a section, updating
   navigation. Applies to "small" edits too.
@@ -92,7 +92,7 @@ reader skipped every accordion on the page, they must still be able to complete 
 Canonical Style A order:
 
 1. Frontmatter
-2. `{/* source: … */}` (+ `{/* NEEDS-SME-REVIEW: … */}`) if the whole page derives from one source
+2. `{/* source: … */}` (+ `{/* [VERIFY WITH SAFESQUID TEAM]: … */}`) if the whole page derives from one source
 3. `# Imperative Title-Cased H1` — a conclusion, not the frontmatter title
 4. Consequence-first lead, 2–3 short paragraphs
 5. `## Use this method when` — decision gate, closing with a `Do not …` anti-pattern line
@@ -134,8 +134,11 @@ keywords:
 
 - **H1** — Title Case, imperative, states the outcome. Exactly one per page.
   `# Survive a Proxy Node Failure` · `# Plan the Control Path First` · `# Route Browsers With PAC`
-- **H2/H3** — **sentence case**, verb-first, 2–5 words, state the conclusion.
+- **H2/H3** — **sentence case**; phrase as a question wherever that reads naturally
+  (`## How do you verify failover?`), never forced. Where a question sounds unnatural, use
+  verb-first, 2–5 words, stating the conclusion.
   `## Split responsibilities between two tools` · `## Verify and evidence failover`
+  Other search and AI-retrieval rules: `doc_writer/references/writing_standards.md`.
 - Never `## Overview`, `## Introduction`, or a bare noun heading.
 - `###` for sub-sections only. **No `####`** in Style A.
 
@@ -281,15 +284,15 @@ Content you write yourself — from live product behaviour, UI verification, or 
 confirmation — carries **no** source comment. The comment is a migration-provenance marker,
 not a citation requirement.
 
-### `{/* NEEDS-SME-REVIEW: … */}`
+### `{/* [VERIFY WITH SAFESQUID TEAM]: … */}`
 
 An invisible flag for a human SME, always paired with a `{/* source: … */}` line directly
-above it. Grammar: `{/* NEEDS-SME-REVIEW: <what is unverified>. <what to confirm and why it
+above it. Grammar: `{/* [VERIFY WITH SAFESQUID TEAM]: <what is unverified>. <what to confirm and why it
 matters>. */}`
 
 ```
-{/* NEEDS-SME-REVIEW: connection ceilings below are undated in the source and predate the current build. Confirm before quoting to a customer. */}
-{/* NEEDS-SME-REVIEW: source states testing on Ubuntu VMs with Monit 5.34.x and Keepalived 2.x only. Platform scope unverified for RHEL-family hosts and the current SafeSquid release. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: connection ceilings below are undated in the source and predate the current build. Confirm before quoting to a customer. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: source states testing on Ubuntu VMs with Monit 5.34.x and Keepalived 2.x only. Platform scope unverified for RHEL-family hosts and the current SafeSquid release. */}
 ```
 
 **Use it when** — and only when:
@@ -304,7 +307,7 @@ product, the UI, or an existing page, just write it. Three flags exist across th
 
 ### `**Missing:**` — the reader-facing twin
 
-Where `NEEDS-SME-REVIEW` warns the SME, `**Missing:**` warns the reader, in the body copy.
+Where `[VERIFY WITH SAFESQUID TEAM]` warns the SME, `**Missing:**` warns the reader, in the body copy.
 Shape: *what is absent* — *why it is absent* — *what to do instead / who to escalate to*.
 
 > **Missing:** these connection ceilings are undated in the legacy source and predate the
@@ -346,10 +349,10 @@ repo, not just that one restructure.
   example that references real field names.
 - **What does not need a live click-through**: prose that only explains a concept, a
   cross-reference, or content already covered by an existing `{/* source: … */}` +
-  `{/* NEEDS-SME-REVIEW: … */}` pair that has *not* been touched in this edit.
+  `{/* [VERIFY WITH SAFESQUID TEAM]: … */}` pair that has *not* been touched in this edit.
 - **When live verification is not possible in-session** (interface unreachable, control is on
   the never-click list, ambiguous evidence): do not guess and do not silently drop the claim.
-  Use `{/* NEEDS-SME-REVIEW: … */}` (paired with `{/* source: … */}`) for the SME-facing flag,
+  Use `{/* [VERIFY WITH SAFESQUID TEAM]: … */}` (paired with `{/* source: … */}`) for the SME-facing flag,
   and add a `**Missing:**` paragraph when the reader needs to know the gap directly — same
   mechanics as the two rules above. Never present an unverified legacy-source claim as
   settled fact just because it reads plausibly or matches older documentation.
@@ -465,7 +468,7 @@ sanctioned exception.**
     `<Frame>`, same as the existing flowcharts.
 - **Never invent a CLI command, config file, or man-page name.** State one exists only if it's
   confirmed live, confirmed in an already-verified page, or confirmed by engineering — otherwise
-  flag it with `{/* NEEDS-SME-REVIEW: … */}` instead of asserting it. (Every `configuration/` page
+  flag it with `{/* [VERIFY WITH SAFESQUID TEAM]: … */}` instead of asserting it. (Every `configuration/` page
   used to carry a fabricated `CLI man page: safesquid-*(N)` reference ported verbatim from a
   raw-HTML source and never checked against anything; they were removed — don't reintroduce the
   pattern.)
@@ -519,7 +522,7 @@ counter-example. Do not reproduce:
    depth into `<Accordion>`, main flow inline.
 8. For anything lifted from `_migration_source_v3/`, add `{/* source: … §Heading */}`. For an
    undated number, unverified endpoint, or untested platform scope, add
-   `{/* NEEDS-SME-REVIEW: … */}` **and** a reader-facing `**Missing:**` paragraph — and do
+   `{/* [VERIFY WITH SAFESQUID TEAM]: … */}` **and** a reader-facing `**Missing:**` paragraph — and do
    not write the number.
 9. Close with `## Next steps` — exactly 3 glossed links.
 10. Register the page in `docs.json`, add it to the section `main.md`, and add a `redirects`

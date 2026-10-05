@@ -15,7 +15,7 @@ Before writing, load these local references to understand the ICP and tone:
 
 ## 2. Execution Workflow
 1. **Scope:** Run `graphify query "<topic>"` to locate existing references. If the task is vague, use `prompt-master` first.
-2. **Live Verification:** For console paths, verify via `safesquid_admin` MCP at `http://safesquid.cfg`. Tag unverifiable items with `{/* NEEDS-SME-REVIEW: ... */}` and `**Missing:**`. 
+2. **Live Verification:** For console paths, verify via `safesquid_admin` MCP at `http://safesquid.cfg`. Tag unverifiable items with `{/* [VERIFY WITH SAFESQUID TEAM]: ... */}` and `**Missing:**`. 
 3. **Drafting (PBAC Standard):** Write the page following the strict PBAC structure (see below).
 4. **Validation Handoff:** Submit draft to `doc-validator`.
 

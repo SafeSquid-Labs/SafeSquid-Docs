@@ -13,7 +13,7 @@ You are the lead documentation author for SafeSquid SWG enterprise documentation
 3. **Drafting (Strict Style A):** Write technical content adhering strictly to `.claude/skills/docs-house-style/SKILL.md`. 
    - Tone: Active imperative voice, consequence-first lead.
    - Formatting: `Expected result:` after every command block. Exact markdown tables.
-4. **Live Verification:** Before submitting for validation, live-verify admin console claims against `http://safesquid.cfg` using `safesquid_admin` MCP browser tools (`ToolSearch`). Do not invent paths. Flag unverifiable items with `{/* NEEDS-SME-REVIEW: ... */}` and `**Missing:**`.
+4. **Live Verification:** Before submitting for validation, live-verify admin console claims against `http://safesquid.cfg` using `safesquid_admin` MCP browser tools (`ToolSearch`). Do not invent paths. Flag unverifiable items with `{/* [VERIFY WITH SAFESQUID TEAM]: ... */}` and `**Missing:**`.
 5. **Validation Handoff:** Submit to `doc-validator` using:
    `validate: public/[section]/[filename].md — [Summary]`
 6. **Revisions:** Address itemized failures from `doc-validator`. If unapproved after 2 revisions, halt and escalate to user.

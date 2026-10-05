@@ -51,7 +51,7 @@ Contents: (1) section overview (one paragraph); (2) **Quickstart path** — sequ
 
 - **Voice:** Active; imperative for procedures ("Click **Save**"). "You" permitted in explanatory prose. No hedging ("may," "might") or marketing fluff. Sentences ≤20 words; 8–12 preferred.
 - **PBAC:** Problem-first; benefit and risk mandatory; advantage factual and comparative; call-to-action procedural and testable.
-- **Headings:** 3–7 words; state conclusion not topic; action-oriented; no "Overview" or "Introduction." Lists: parallel structure; lead with action verbs. Lead paragraphs and list items with the main concept.
+- **Headings:** question-based H2/H3 wherever natural (see Search, AI-retrieval, and content rules); never forced; no "Overview" or "Introduction." Lists: parallel structure; lead with action verbs. Lead paragraphs and list items with the main concept.
 - **Clarity:** Acronyms on first use; name exact target for "configure/set/update"; descriptive link text (no "click here"); relative paths. Concrete examples and numbers ("Block downloads >100 MB during business hours").
 - **Formatting:** Lead with threat or outcome (never "This section describes…"); tables for comparisons; Mermaid for workflows; paragraphs ≤5 lines.
 - **Evidence:** Images in `public/images/` → `/images/category/name.webp` with alt text. Mermaid preferred for diagrams. Language tags and expected output on code blocks.
@@ -102,3 +102,49 @@ Flag for follow-up: missing screenshots, version-specific UI notes, missing defa
 - Warn on risky settings; provide rollback guidance.
 - No real user data; anonymized examples only.
 - Validate external links and third-party references.
+
+## Search, AI-retrieval, and content rules
+
+Source: `SS docs rules.docx` (2026-09-12). Priority order: humans first, search engines second, AI search third. Never trade technical accuracy for SEO.
+Tags for the audit: **[M]** mechanical (script can check), **[J]** judgment (needs a reader).
+
+### Structure and headings
+- [M] One H1 per page; H1 → H2 → H3 with no skipped levels.
+- [J] H2/H3 are phrased as questions wherever that reads naturally ("How do you configure DNS blacklisting?"). Do not force it: statement headings are fine where a question sounds unnatural. Replaces the old 3–7-word conclusion rule.
+- [J] Open with a short introduction: what the topic is and why it matters.
+- [J] Answer the main question directly, then explain in detail.
+- [J] Flow where it fits: Problem → Risk → Explanation → Solution → Example → Practical Use.
+- [J] Explain the topic first, then how SafeSquid relates to it. Do not force SafeSquid in where it is not relevant.
+
+### Keywords and search intent
+- [J] The page serves one primary keyword/topic and a clear search intent; secondary and related keywords appear where relevant.
+- [J] No keyword stuffing, no unnatural repetition.
+- [M] Title and meta description present; primary keyword in the title.
+
+### AI-search readability
+- [J] Key answers and facts are explicit and easy to extract; important sections state question, answer, and context.
+- [J] Important concepts and technical terms are defined on first use.
+- [J] Paragraphs are short; lists and tables used where they clarify.
+- [J] Terminology is consistent across the document.
+
+### FAQ
+- [J] Add an FAQ section only on pages where it fits (not required on every page).
+- [J] Answers are direct, accurate, and self-contained. If no FAQs are supplied, derive them from real user questions.
+
+### Accuracy and uncertainty
+- [J] Never invent SafeSquid features, capabilities, integrations, specifications, or claims. Do not invent technical information.
+- [M] Uncertain technical information is marked `[VERIFY WITH SAFESQUID TEAM]`. Replaces `NEEDS-SME-REVIEW`.
+
+### Links
+- [M] Link to related SafeSquid docs and site pages; anchor text is descriptive, never "click here".
+- [J] Do not copy or closely rewrite competitor content.
+
+### Tone
+- [M] No unverified hype words ("revolutionary", "game-changing", "best-in-class").
+- [J] Professional, educational, trustworthy; accessible to beginners with enough depth for professionals.
+
+### Structured data
+- [J] Add schema (FAQ, Article, HowTo, Breadcrumb, Organization, SoftwareApplication) only when the page genuinely qualifies and the markup is accurate. Never add misleading structured data.
+
+### Pre-publish check
+SEO, AI-search readability, technical accuracy, originality, readability, search-intent satisfaction.

@@ -20,7 +20,7 @@ Scan the file for compliance with `.claude/skills/docs-house-style/SKILL.md`:
 ### Gate 2: UI Path Verification
 - Extract every menu path, button label, and field name from the document.
 - Ensure these paths were live-verified via the `safesquid_admin` MCP browser tool (`http://safesquid.cfg`). Do NOT attempt to call `safesquid-sysadmin`.
-- If unverified elements are present, fail the gate unless the doc explicitly tags them with `{/* NEEDS-SME-REVIEW: ... */}` and `**Missing:**`.
+- If unverified elements are present, fail the gate unless the doc explicitly tags them with `{/* [VERIFY WITH SAFESQUID TEAM]: ... */}` and `**Missing:**`.
 
 ### Gate 3: Build Gate
 - Execute `npm run validate` from the repository root.

@@ -19,7 +19,7 @@ Run these gates in order and report all findings:
 ### Gate 2: UI-Path Verification
 - Extract all UI paths and button labels.
 - Ensure they are verified via the `safesquid_admin` MCP browser tool at `http://safesquid.cfg`. 
-- Flag invented CLI/man-page references or unverified console paths with `{/* NEEDS-SME-REVIEW: ... */}` and `**Missing:**`.
+- Flag invented CLI/man-page references or unverified console paths with `{/* [VERIFY WITH SAFESQUID TEAM]: ... */}` and `**Missing:**`.
 
 ### Gate 3: Repo Validation Readiness
 - Execute `npm run validate` from the repository root. Note any build failures.
