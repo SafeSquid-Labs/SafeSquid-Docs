@@ -135,6 +135,8 @@ Run these checks immediately after activation.
     systemctl status safesquid --no-pager
     ```
 
+    Expected result: the first lines read `safesquid.service - SafeSquid Secure Web Gateway Proxy Server`, `Loaded: loaded` and `Active: active (running)`.
+
     Confirm the service is active and no startup error appears in the recent log.
 
     If the service is inactive, inspect the service journal and restart SafeSquid from the server console after correcting the cause.
@@ -156,6 +158,8 @@ Run these checks immediately after activation.
     ```bash
     ss -lntp | grep ':8080'
     ```
+
+    Expected result: a `LISTEN` line for `*:8080` (the proxy listener). No line means nothing is listening on 8080, so check the service state first.
 
     Confirm SafeSquid listens on the approved proxy port.
 

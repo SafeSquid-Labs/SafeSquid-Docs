@@ -19,7 +19,7 @@ Content Modifier uses regex-based rewriting policies to modify web page body con
 
 ## Global section enables or disables all rewriting
 
-Access the Content Modifier section in the SafeSquid interface under **Configure → Real-time Content Security → Content Modifier**.
+Access the Content Modifier section in the SafeSquid interface under **Configure → Real time content security → Content modifier**.
 
 ### Enabled
 

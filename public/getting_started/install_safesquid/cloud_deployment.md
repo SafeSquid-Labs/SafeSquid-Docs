@@ -181,11 +181,15 @@ Check DNS and activation reachability:
 nslookup key.safesquid.com
 ```
 
+Expected result: a `Non-authoritative answer` with `Name: key.safesquid.com` and an `Address` line. A `server can't find` or timeout means DNS resolution is broken.
+
 Check service health:
 
 ```bash
 systemctl status safesquid --no-pager
 ```
+
+Expected result: the first lines read `safesquid.service - SafeSquid Secure Web Gateway Proxy Server`, `Loaded: loaded` and `Active: active (running)`.
 
 Check listener state:
 

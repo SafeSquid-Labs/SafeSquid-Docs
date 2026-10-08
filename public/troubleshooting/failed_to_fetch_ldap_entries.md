@@ -18,7 +18,7 @@ I configured LDAP with Active Directory, but LDAP entries are still not fetched.
 
 ## Root Cause
 
-1. **Case 1:** You should not have properly configured LDAP with Active Directory.
+1. **Case 1:** LDAP is not properly configured with Active Directory.
 
 2. **Case 2:** You are not able to contact AD (Active Directory).
 

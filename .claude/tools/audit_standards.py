@@ -180,9 +180,9 @@ def extra_checks(path, raw, masked_lines, offset, tag, fm, own_words, add):
             if links != 3:
                 add(start, "WARN", "next-steps-count", f"{links} links (house style: exactly 3)")
     has_proc = bool(re.search(r"<Steps>|^\s*\d+\.\s", raw, re.M)) or any(i.split()[:1] and i.split()[0] in RUNNABLE for _, i, _ in _fences(raw_lines))
-    ref_section = path.relative_to(PUB).parts[0] in ("troubleshooting", "architecture", "faqs", "reporting") or path.name == "main.md"
+    ref_section = path.relative_to(PUB).parts[0] in ("troubleshooting", "architecture", "faqs", "reporting") or path.name in ("main.md", "welcome.mdx")  # welcome is conceptual; its numbered list is a reading order
     if is_page and has_proc and own_words >= 300 and not ref_section:  # troubleshooting/reference pages are not how-tos
-        if not any("verif" in t or "validat" in t or "confirm" in t for t in titles):
+        if not any("verif" in t or "validat" in t or "confirm" in t or "evidence" in t for t in titles):  # house style: "Evidence to capture"
             add(1, "WARN", "missing-verification", "procedural page, no Verify heading")
         if not any("troubleshoot" in t or "symptom" in t or "fail" in t for t in titles):
             add(1, "WARN", "missing-troubleshooting", "procedural page, no Troubleshoot heading")

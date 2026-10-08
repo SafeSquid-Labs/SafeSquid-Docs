@@ -171,7 +171,7 @@ For enterprise rollouts, GPO or another managed certificate-deployment path is s
    - Edge: `edge://net-internals/#proxy`
 3. **Verify SafeSquid HTTPS Inspection is enabled:**
    - Navigate to SafeSquid Configuration Portal
-   - Real-time Content Security → HTTPS Inspection → Global → Enabled = True
+   - Real time content security → HTTPS Inspection → Global → Enabled = True
 
 ---
 

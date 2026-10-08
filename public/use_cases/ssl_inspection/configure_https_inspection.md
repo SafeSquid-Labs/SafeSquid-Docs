@@ -465,7 +465,7 @@ tail -f /var/log/safesquid/extended/extended.log
 **Still not working?**
 
 1. **Verify HTTPS Inspection is enabled:**
-   - Configuration Portal → Real-time Content Security → HTTPS Inspection → Global = True
+   - Configuration Portal → Real time content security → HTTPS Inspection → Global = True
 
 2. **Check certificate is deployed:**
    - Windows: Run `certmgr.msc` → Trusted Root Certification Authorities → Certificates

@@ -254,11 +254,15 @@ Check service state:
 systemctl status safesquid --no-pager
 ```
 
+Expected result: the first lines read `safesquid.service - SafeSquid Secure Web Gateway Proxy Server`, `Loaded: loaded` and `Active: active (running)`.
+
 Check listener state:
 
 ```bash
 ss -lntp | grep ':8080'
 ```
+
+Expected result: a `LISTEN` line for `*:8080` (the proxy listener). No line means nothing is listening on 8080, so check the service state first.
 
 Check access-log creation after a pilot request:
 

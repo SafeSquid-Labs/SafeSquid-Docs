@@ -1,5 +1,5 @@
 ---
-title: Allow Anydesk
+title: Allow AnyDesk
 description: Allow AnyDesk and other remote desktop apps through SafeSquid with user profiles, SSL bypass, and request-type filters.
 keywords:
   - Allow Anydesk SafeSquid

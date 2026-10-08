@@ -12,8 +12,8 @@ One node is a single point of failure and a ceiling on capacity.
 
 ## Quickstart path
 
-1. **[Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering)** - scale SafeSquid with master-slave clustering, configuration sync, and load balancer integration for high availability and horizontal scaling.
-2. **[Choose an Architecture](/deployment/choose_an_architecture)** - decide where SafeSquid intercepts traffic — forward, transparent, TCP, reverse, or chained — and what each choice costs you in client configuration, coverage, and bypass risk.
+1. **[Choose an Architecture](/deployment/choose_an_architecture)** - decide where SafeSquid intercepts traffic — forward, transparent, TCP, reverse, or chained — and what each choice costs you in client configuration, coverage, and bypass risk.
+2. **[Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering)** - scale SafeSquid with master-slave clustering, configuration sync, and load balancer integration for high availability and horizontal scaling.
 3. **[Backup Strategy](/use_cases/scaling_and_high_availability/disaster_recovery)** - decide what SafeSquid backs up, what it does not, and what the disaster-recovery plan must cover separately before the deployment depends on Cloud Restore.
 4. **[Master-Slave](/use_cases/scaling_and_high_availability/master_slave)** - configure SafeSquid master-slave architecture for centralized policy sync and reporting across slave instances.
 5. **[VPN Integration](/use_cases/scaling_and_high_availability/vpn)** - configure and manage VPN settings for SafeSquid Web Security Clients via Self-Service Portal, including FQDN setup and verification.

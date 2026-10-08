@@ -10,7 +10,7 @@ keywords:
 
 # Isolate Risky Browsing From Endpoints
 
-Remote Browser Isolation (RBI) separates high-risk web activity from the endpoint. Use it when the business must allow access to uncertain or risky sites. Active web content then never gets direct execution access on managed devices.
+Remote Browser Isolation (RBI) separates high-risk web activity from the endpoint. Use it when the business must allow access to uncertain or risky sites. Active web content then does not get direct execution access on managed devices.
 
 RBI is part of the application ecosystem because it complements proxy policy. The proxy decides whether a request is allowed, blocked, inspected, or redirected into a safer browsing path. Isolation reduces endpoint exposure when a complete block would interrupt legitimate work.
 
