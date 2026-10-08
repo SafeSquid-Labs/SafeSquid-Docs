@@ -47,7 +47,7 @@ sudo dnf install -y monit
 ```bash
 monit -V
 ```
-Should print Monit version.
+Expected result: `This is Monit version 5.34.3` (the number varies by release), followed by the build options.
 
 ---
 
@@ -59,7 +59,7 @@ systemctl is-active monit
 systemctl is-enabled monit
 ```
 
-**Expected:** Both commands return `active` and `enabled`.
+Expected result: `systemctl is-active monit` prints `active` and `systemctl is-enabled monit` prints `enabled`.
 
 ---
 
@@ -87,7 +87,7 @@ sudo monit reload
 ```bash
 curl -s http://localhost:2812 | head -n1
 ```
-Should return HTML header.
+Expected result: the first line of an HTML page that starts with `<!DOCTYPE html>` and contains the title `Monit: ` followed by the hostname.
 
 ---
 
@@ -101,7 +101,7 @@ sudo nano /etc/monit/conf.d/safesquid
 
 Add:
 ```text
-check process safesquid with pidfile /var/run/safesquid.pid
+check process safesquid with pidfile /var/run/safesquid/safesquid.pid
   start program = "/bin/systemctl start safesquid"
   stop  program = "/bin/systemctl stop safesquid"
   if failed port 8080 protocol http then restart
@@ -120,7 +120,7 @@ sudo monit reload
 sudo monit status safesquid
 ```
 
-**Expected:** Status shows `Running` and `OK`.
+Expected result: status shows `Running` and `OK`.
 
 ---
 
@@ -136,7 +136,7 @@ sudo nano /etc/monit/conf.d/safesquid-logs
 
 Add:
 ```text
-check file ss-log-size with path /var/log/safesquid/access.log
+check file ss-log-size with path /var/log/safesquid/extended/extended.log
   if size > 500 MB then exec "/usr/sbin/logrotate -f /etc/logrotate.d/safesquid"
 ```
 
@@ -180,6 +180,8 @@ check file ss-upgrade-flag with path /var/lib/safesquid/upgrade.flag
 ```
 
 **Note:** You'll need to create the `/usr/local/bin/safesquid-upgrade` script separately.
+
+{/* [VERIFY WITH SAFESQUID TEAM]: the flag path /var/lib/safesquid/upgrade.flag and the safesquid-upgrade script were not found on a live appliance. The appliance Monit config watches /srv/safesquid/upgrade instead (checked over SSH, build 2026.0627.1344.3). Confirm the intended upgrade trigger. */}
 
 ---
 
@@ -270,7 +272,7 @@ Or open in a browser on the server (if GUI available): `http://localhost:2812`
 3. **Verify SafeSquid PID file location:**
    ```bash
    ps aux | grep safesquid
-   cat /var/run/safesquid.pid
+   cat /var/run/safesquid/safesquid.pid
    ```
    If PID file doesn't exist, update the Monit check to use process name instead.
 

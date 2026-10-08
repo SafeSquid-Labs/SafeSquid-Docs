@@ -47,7 +47,7 @@ sudo dnf install -y bind bind-utils
 ```bash
 named -v
 ```
-Should print BIND version.
+Expected result: one line starting with `BIND 9.`, for example `BIND 9.20.26-1~deb13u1-Debian (Stable Release)`. If the shell reports `command not found`, run `/usr/sbin/named -v`, because `/usr/sbin` is not on the default PATH of a non-root user.
 
 ---
 
@@ -152,7 +152,7 @@ sudo systemctl enable --now named
 systemctl is-active named
 ```
 
-**Expected:** Service shows `active`.
+Expected result: each `is-active` command prints `active`.
 
 ---
 
@@ -179,7 +179,7 @@ nameserver 10.0.0.1  # BIND server IP
 dig @127.0.0.1 example.com
 ```
 
-**Expected:** Answer section with IP address and low query time.
+Expected result: `status: NOERROR`, flags `qr rd ra`, an `ANSWER SECTION` listing one or more `A` records, and `SERVER: 127.0.0.1#53(127.0.0.1) (UDP)`. A cached repeat answers in about 0 msec.
 
 ---
 
@@ -228,7 +228,8 @@ sudo systemctl restart bind9  # or named
 dig @127.0.0.1 example.com +stats
 ```
 
-**Expected output:**
+Expected result:
+- `status: NOERROR`
 - **ANSWER SECTION** with IP address
 - **Query time** in milliseconds
 - **SERVER: 127.0.0.1#53** (confirming local resolver)

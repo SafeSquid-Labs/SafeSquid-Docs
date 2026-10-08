@@ -49,7 +49,7 @@ sudo dnf install -y chrony
 ```bash
 chronyd -v
 ```
-Should print chrony version.
+Expected result: a line that names the installed chrony version.
 
 :::tip
 **Alternative: ntpd**
@@ -118,7 +118,7 @@ systemctl is-active chronyd
 systemctl is-enabled chronyd
 ```
 
-**Expected:** Both commands return `active` and `enabled`.
+Expected result: Both commands return `active` and `enabled`.
 
 ---
 
@@ -129,7 +129,7 @@ systemctl is-enabled chronyd
 chronyc tracking
 ```
 
-**Expected output:**
+Expected result:
 ```text
 Reference ID    : 192.168.1.10 (ntp1.company.com)
 Stratum         : 3
@@ -150,7 +150,7 @@ RMS offset      : 0.000123 seconds
 chronyc sources -v
 ```
 
-**Expected output:**
+Expected result:
 ```text
   .-- Source mode  '^' = server, '=' = peer
  / .- Source state '*' = current best, '+' = combined, '-' = not combined,
@@ -188,7 +188,7 @@ net time \\DC1.company.com /set /yes
 ntpdate -q dc1.company.com
 ```
 
-**Expected:** Offset less than 300 seconds (5 minutes).
+Expected result: Offset less than 300 seconds (5 minutes).
 
 :::caution
 **Kerberos Requirement**
@@ -207,7 +207,7 @@ Kerberos authentication fails if time skew exceeds 5 minutes. For production Act
 chronyc tracking
 ```
 
-**Expected:**
+Expected result:
 - **Reference ID:** Shows your NTP server (not `0.0.0.0`)
 - **System time offset:** < 0.1 seconds
 - **Stratum:** 2-4 (depending on your NTP server)
@@ -220,7 +220,7 @@ chronyc tracking
 chronyc sourcestats -v
 ```
 
-**Expected:** All sources show reasonable offsets and low jitter.
+Expected result: All sources show reasonable offsets and low jitter.
 
 ---
 
@@ -234,7 +234,7 @@ sudo journalctl -u chronyd -n 50
 sudo tail -f /var/log/chrony/tracking.log
 ```
 
-**Expected log entries:**
+Expected result (log entries):
 ```text
 Selected source 192.168.1.10
 System time wrong by 0.123 seconds
@@ -310,6 +310,8 @@ Clock was stepped
    - Check for network latency to NTP servers
 
 ---
+
+{/* [VERIFY WITH SAFESQUID TEAM]: the chrony commands and outputs on this page were not reproduced on a live appliance. The appliance checked over SSH (build 2026.0627.1344.3) has no chrony and keeps time with systemd-timesyncd, reported by `timedatectl` as "System clock synchronized: yes". Confirm which time service the supported appliance image ships. */}
 
 ## Source register
 

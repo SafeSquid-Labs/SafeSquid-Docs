@@ -106,6 +106,8 @@ tail -100 /var/log/safesquid/native/safesquid.log
 tail -100 /var/log/syslog
 ```
 
+Expected result: the native log prints up to 100 recent lines. Each line starts with a date and time, then a `[thread or request id]` and a module name such as `network:`.
+
 Record the affected user, source IP address, requested URL, timestamp, browser error, SafeSquid policy section changed, and verification result.
 
 ## Next steps
