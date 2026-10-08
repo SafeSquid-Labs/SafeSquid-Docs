@@ -12,6 +12,8 @@ keywords:
 
 
 
+# Offload Scanning Through ICAP Integration
+
 ## What is the advantage of using ICAP?
 ICAP is a protocol designed to off-load specific Internet-based content to dedicated servers, thereby freeing up resources and standardizing the way in which features are implemented.
 For example, a server that handles only language translation is inherently more efficient than any standard Web server performing many additional tasks.

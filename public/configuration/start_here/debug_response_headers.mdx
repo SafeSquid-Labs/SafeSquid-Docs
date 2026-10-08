@@ -8,6 +8,8 @@ keywords:
   - module debug headers
 ---
 
+# Turn On Debug Response Headers
+
 SafeSquid can attach diagnostic information to HTTP messages as `X-SafeSquid-*` and module-specific headers. Modules push entries onto the connection `dheader` list; when headers are sent, SafeSquid may insert a fixed identity block plus every marked `dheader` entry.
 
 This is the supported way to see which profiles, categories, and filters applied to a request.

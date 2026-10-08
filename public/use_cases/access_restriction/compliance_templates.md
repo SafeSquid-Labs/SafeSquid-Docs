@@ -13,7 +13,7 @@ keywords:
 ---
 
 
-# Compliance Templates
+# Apply Compliance Templates for Regulated Data
 
 Uncontrolled exfiltration of cardholder data, PHI, or PII creates regulatory exposure, investigation burden, and reputational harm. SafeSquid Text Analyser supports pattern-based detection for PCI, HIPAA, GDPR, and custom data. Use these templates as a starting point for detection and enforcement, not as a substitute for a full compliance program.
 

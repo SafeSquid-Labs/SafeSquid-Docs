@@ -9,7 +9,7 @@ keywords:
 ---
 
 
-# Configure Cloud Restore
+# Complete Cloud Restore Setup for SafeSquid
 
 Cloud Restore links backup and restore behavior to the SafeSquid activation key. It is useful for replacing or rebuilding appliances, but it does not restore the full operating environment.
 

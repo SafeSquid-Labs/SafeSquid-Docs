@@ -8,6 +8,8 @@ keywords:
   - intranet SSO cookies
 ---
 
+# Control Which Cookies Pass With the Cookie Filter
+
 Open **Configure → Restriction Policies → Privacy control → Cookie filter**. This section sits under the **Privacy control** menu group alongside [Cookie filter](/configuration/restriction_policies/privacy_control/cookie_filter), [Header filter](/configuration/restriction_policies/privacy_control/header_filter) and [Elevated Privacy](/configuration/restriction_policies/privacy_control/elevated_privacy) — configure them together, since a Cookie filter allow row and an Elevated Privacy STANDARD row can otherwise fight over the same header.
 
 The `Cookies-filtering` section (`safesquid-cookies-filtering(5)`) provides granular control over HTTP cookies passing between clients and servers.

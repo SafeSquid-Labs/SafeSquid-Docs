@@ -7,7 +7,7 @@ keywords:
   - reference
 ---
 
-# Network Signature
+# Apply Policy by Network Signature
 
 Maps client IP addresses or ranges to user-groups so access restriction rules and reporting apply by network segment. No user login required; policy is enforced by source IP or subnet. Use when user identity is unavailable (device-only access, legacy apps, shared kiosks).
 

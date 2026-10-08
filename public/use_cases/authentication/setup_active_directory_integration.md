@@ -9,7 +9,7 @@ keywords:
   - ldap configuration for SafeSquid
 ---
 
-# Setup Active Directory Integration
+# Complete Active Directory Setup to Sync Users and Groups
 
 Establish a connection between SafeSquid and Active Directory (AD) to synchronize user and group entities. This is the foundational step for both Simple and SSO authentication.
 

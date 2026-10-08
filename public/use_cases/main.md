@@ -1,14 +1,14 @@
 ---
 title: Use Cases
-description: Navigation hub for the Use Cases section.
+description: Find the SafeSquid use case that closes a specific attack surface, compliance gap, or operational risk.
 keywords:
   - use cases
   - SafeSquid documentation
 ---
 
-# Use Cases
+# Browse SafeSquid Use Cases
 
-Navigation hub for the Use Cases section.
+Start from the risk you need to close, not from a feature list.
 
 ## Foundation
 

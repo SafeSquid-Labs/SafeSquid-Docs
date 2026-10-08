@@ -10,6 +10,8 @@ keywords:
 ---
 
 
+# Allow Outlook Through the SafeSquid Proxy
+
 ## Problem
 Security teams need predictable control over app and web usage to reduce policy bypass and data-risk exposure.
 

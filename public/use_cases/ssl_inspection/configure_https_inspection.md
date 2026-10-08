@@ -9,7 +9,7 @@ keywords:
   - Firefox certificate import
 ---
 
-# Configure HTTPS Inspection
+# Configure SSL Inspection for HTTPS Traffic
 
 This guide covers the complete HTTPS inspection setup: generate or import a Root CA certificate, enable inspection in SafeSquid, deploy the certificate to clients, and configure bypass rules for sensitive domains.
 

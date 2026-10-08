@@ -10,6 +10,8 @@ keywords:
 ---
 
 
+# Restrict AnyDesk Access Through SafeSquid
+
 ## Problem
 Security teams need predictable control over app and web usage to reduce policy bypass and data-risk exposure.
 

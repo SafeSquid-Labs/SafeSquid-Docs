@@ -7,7 +7,7 @@ keywords:
   - reference
 ---
 
-# SafeSquid SWG Directories
+# Locate Files Using the SafeSquid Directory Structure
 
 SafeSquid installation and operational directories adhere to the Linux Filesystem Hierarchy Standard (FHS) and house core components for Layer 7 security, system management, and performance optimization. Key directories and their purposes are outlined below:
 

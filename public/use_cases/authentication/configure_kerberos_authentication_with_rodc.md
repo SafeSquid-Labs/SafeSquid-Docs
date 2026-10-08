@@ -10,6 +10,8 @@ keywords:
 ---
 
 
+# Set Up Active Directory SSO With RODC
+
 ## Problem: Kerberos SSO in RODC Environments
 
 In distributed networks where Read-Only Domain Controllers (RODCs) are used, direct configuration of Kerberos identities is impossible due to the read-only nature of the database. Attempts to create computer objects or modify SPNs on an RODC will fail. Users at RODC-controlled sites often face 407 authentication prompts because the RODC is "blind" to the SafeSquid computer object until it is explicitly created on a Writable DC and replicated.

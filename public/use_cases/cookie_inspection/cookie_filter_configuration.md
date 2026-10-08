@@ -9,7 +9,7 @@ keywords:
 ---
 
 
-# Cookie Filter Configuration and Reference
+# Review Cookie Filter Configuration Options
 
 Cookie filtering changes application behavior at the session layer. Treat it as a control that can intentionally break login persistence, not as a cosmetic privacy toggle.
 

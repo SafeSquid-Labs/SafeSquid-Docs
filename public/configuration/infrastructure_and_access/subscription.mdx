@@ -9,6 +9,8 @@ keywords:
   - signature module updates
 ---
 
+# Check How Subscription State Affects SafeSquid
+
 Subscription state controls whether the appliance considers its licence valid, and therefore whether update feeds and signature modules can run. It defines no proxy policy rows of its own. SafeSquid re-checks subscription validity on every request, not once at startup — this is a per-request check, not a one-time state.
 
 This is the on-appliance side of licensing only — it reflects the key you already hold. To register an account or obtain a new activation key, see [Support](/configuration/infrastructure_and_access/support) for where that key comes from on `key.safesquid.com`.

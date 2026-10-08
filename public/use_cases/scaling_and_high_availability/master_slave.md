@@ -11,6 +11,8 @@ keywords:
 
 
 
+# Plan Master-Slave Configuration for Central Policy
+
 ## How master-slave works
 
 In a master-slave configuration, one SafeSquid instance (the master) manages policy and reporting for multiple slave instances. Slaves enforce policy and process traffic; master provides centralized control.

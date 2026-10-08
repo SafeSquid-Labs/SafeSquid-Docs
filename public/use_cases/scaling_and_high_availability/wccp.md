@@ -9,6 +9,8 @@ keywords:
   - High availability proxy setup
 ---
 
+# Plan WCCP Configuration for Transparent Redirection
+
 ## GOAL
 Are you looking for Transparent redirection of traffic?
 

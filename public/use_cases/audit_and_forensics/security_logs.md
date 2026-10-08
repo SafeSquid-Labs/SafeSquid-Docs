@@ -10,7 +10,7 @@ keywords:
 ---
 
 
-# Security Logs
+# Investigate Issues With SafeSquid Logs
 
 ## Problem statement
 

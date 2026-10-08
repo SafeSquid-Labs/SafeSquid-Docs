@@ -9,6 +9,8 @@ keywords:
   - response content size
 ---
 
+# Label Responses With Response Types
+
 The **Response Types** section labels HTTP responses for [Access Profiles](/configuration/restriction_policies/access_profiles) and content filters. It does not block by itself.
 
 This is the only section that can answer whether a response is actually an executable, an archive, or an image — Request Types, which only ever sees the outbound request, cannot determine that, because the true nature of a response is only knowable once the destination has replied. A security administrator who wants to block downloads by actual file type, not by what the URL merely suggests, depends on this section for that label.

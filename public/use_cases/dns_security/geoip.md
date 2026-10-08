@@ -15,7 +15,7 @@ keywords:
 ---
 
 
-# Server Geo-Location
+# Apply Location-Aware Policy With Server Geo-Location on SafeSquid SWG
 
 Classify destination servers by country, region, and ASN (Autonomous System Number) to enforce location-aware access policies, meet data residency requirements, and block high-risk regions.
 

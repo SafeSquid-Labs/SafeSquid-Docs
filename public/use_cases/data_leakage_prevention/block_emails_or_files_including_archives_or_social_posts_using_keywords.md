@@ -10,6 +10,8 @@ keywords:
 ---
 
 
+# Block Emails, Files and Social Posts Using Keywords
+
 ## Problem
 Security teams need predictable control over app and web usage to reduce policy bypass and data-risk exposure.
 

@@ -9,7 +9,7 @@ keywords:
 ---
 
 
-# Redirect One Website to Another
+# Set Up URL Redirection Between Websites
 
 ### [Access the SafeSquid User Interface ](/architecture/interface/configuration_portal)
 SafeSquid includes sample policies to support policy creation. The sample policy "Enable interface access through authentication" is already present. Enable those policies to make them applicable.

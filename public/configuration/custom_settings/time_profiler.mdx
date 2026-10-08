@@ -8,6 +8,8 @@ keywords:
   - time profiler match modes
 ---
 
+# Apply Policy by Time With the Time Profiler
+
 The **Time Profiler** section tags connections with time labels from the appliance local clock. [Access Profiles](/configuration/restriction_policies/access_profiles) **Time Schedule** matches these tags. Every enabled entry that matches applies — this is not first-match-wins — and a later entry's condition can even depend on a label an earlier entry just added. Time Profiler runs early in request processing, before Request Types and Access Profiles, so its labels are already available by the time those sections evaluate the connection.
 
 ## Core mechanics

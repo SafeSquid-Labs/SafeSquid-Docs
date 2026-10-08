@@ -8,6 +8,8 @@ keywords:
   - proxy accelerators
 ---
 
+# Speed Up Pages With Prefetching
+
 Open **Configure → Application Setup → Accelerators → Prefetching**. This section sits under the **Accelerators** menu group alongside [Caching](/configuration/application_setup/accelerators/caching) and [Prefetching](/configuration/application_setup/accelerators/prefetching) — they interact, since a prefetched object is only useful if Caching later serves it.
 
 The **Prefetch** section configures SafeSquid to proactively download linked content — stylesheets, scripts, images, and similar resources — into cache while the main HTML page is still being delivered to the client, so the browser's own later request for those resources can already be served from cache, improving page load time.

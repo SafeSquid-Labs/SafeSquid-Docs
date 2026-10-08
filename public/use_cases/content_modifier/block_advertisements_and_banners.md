@@ -22,7 +22,7 @@ You keep actionable policy control close to operations, with verifiable outcomes
 ## Call to action
 Use the steps in this guide to implement the control, then validate behavior with a real user-flow test.
 
-# Block advertisements and banners
+# Block Advertisements to Speed Up and Secure Browsing
 
 
 

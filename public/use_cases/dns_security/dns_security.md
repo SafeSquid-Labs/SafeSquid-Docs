@@ -10,7 +10,7 @@ keywords:
 ---
 
 
-# DNS Security
+# Apply DNS-Level Security Controls
 
 ## Problems addressed
 

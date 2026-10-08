@@ -8,6 +8,8 @@ keywords:
   - WCCP policy rows
 ---
 
+# Check WCCP Redirection Before You Rely on It
+
 WCCP works with WCCP routers to redirect traffic to SafeSquid without setting a proxy in each browser. The router intercepts traffic and hands it to SafeSquid, so clients need no proxy configuration. The router or switch, not SafeSquid, decides which packets get redirected, based on the service group both sides have agreed on — SafeSquid's role is to register itself with the router(s) as willing to serve one or more service groups, describe which traffic it wants redirected, and accept and process the redirected packets.
 
 {/* source: legacy docs site wccp.html and architecture.html (whole page) */}

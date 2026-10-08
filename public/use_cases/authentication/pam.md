@@ -8,7 +8,7 @@ keywords:
   - system authentication proxy
 ---
 
-# PAM Authentication
+# Set Up PAM Authentication
 
 PAM integration validates proxy users against the system's Pluggable Authentication Modules (PAM) stack. This allows you to use a single set of credentials for both OS-level access (SSH, Login) and proxy access.
 

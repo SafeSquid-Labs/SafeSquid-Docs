@@ -10,6 +10,8 @@ keywords:
 ---
 
 
+# Allow Social Media During Lunch Hours
+
 ## Problem
 Security teams need predictable control over app and web usage to reduce policy bypass and data-risk exposure.
 

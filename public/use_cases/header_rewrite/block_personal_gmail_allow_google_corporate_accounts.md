@@ -22,7 +22,7 @@ You keep actionable policy control close to operations, with verifiable outcomes
 ## Call to action
 Use the steps in this guide to implement the control, then validate behavior with a real user-flow test.
 
-# Block Personal Gmail, Allow Google Corporate Accounts
+# Block Personal Gmail and Allow Only Corporate Google Accounts
 
 
 
