@@ -259,3 +259,9 @@ Create organization-specific patterns for:
 - Proprietary terminology
 
 **Related**: [Text Analyser](/use_cases/data_leakage_prevention/text_analyser), [Image Analyser](/use_cases/data_leakage_prevention/image_analyser_ai), [Access Restriction](/use_cases/access_restriction/access_restriction), [Reporting Module](/use_cases/audit_and_forensics/reporting_module)
+
+## Next steps
+
+- **[Access Restriction](/use_cases/access_restriction/access_restriction)** - build SafeSquid access policies that make web decisions by identity, destination, time, application, and content so enforcement stays precise and auditable.
+- **[Configure HTTPS Inspection](/use_cases/ssl_inspection/configure_https_inspection)** - prerequisites, certificate generation, enabling SSL inspection, client certificate import, bypass rules, and verification for SafeSquid HTTPS inspection.
+- **[Reporting Module](/use_cases/audit_and_forensics/reporting_module)** - use SafeSquid reporting to investigate activity, drill into users and destinations, and export time-bounded evidence for operations and audit review.

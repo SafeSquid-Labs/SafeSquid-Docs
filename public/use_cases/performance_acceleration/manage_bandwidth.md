@@ -65,3 +65,6 @@ When I click on upload, I will get the below error, Because I am uploading 4MB f
 
 ![Error template of Maximum limit on the Upload size](/images/How_To/Setup_Maximum_limit_on_the_Upload_size/image4.webp)
 
+## Next steps
+
+- **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** - configure HTTPS inspection in SafeSquid to decrypt and analyze encrypted traffic for web security, malware detection, and policy enforcement.

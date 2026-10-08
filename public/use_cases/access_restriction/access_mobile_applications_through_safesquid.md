@@ -60,3 +60,7 @@ In this case it is not possible to allow some of the applications to work with p
 Note: The same scenario is applicable in transparent mode also.
 :::
 
+## Next steps
+
+- **[Access Remote Desktop Applications Through SafeSquid](/use_cases/access_restriction/access_remote_desktop_applications_through_safesquid)** - understand how remote desktop applications like AnyDesk, TeamViewer, and AmmyAdmin interact with SafeSquid in different network scenarios and how to effectively block or allow access using HTTPS inspection and access profiles.
+- **[Accessing Business Applications Through SafeSquid](/use_cases/access_restriction/accessing_business_applications_through_safesquid)** - troubleshoot and configure SafeSquid to allow business applications by identifying blocked URLs, authentication issues, and SSL inspection requirements.

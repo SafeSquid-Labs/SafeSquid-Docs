@@ -45,3 +45,7 @@ The logline legend mentioning what each field means is shown below:
 
 2) One of the other reasons may be, that you have authentication and/or HTTPS inspection enabled and the application may not support the authentication (Negotiate/Basic) and/or HTTPS inspection. Authentication failure can be verified by observing the logs and checking for a status code of '407' which indicates "Invalid SSO Auth" (if you have enabled Negotiate authentication)
 
+## Next steps
+
+- **[Allow Outlook to Work Through SafeSquid](/use_cases/access_restriction/allow_outlook_to_work_through_safesquid)** - configure SafeSquid and firewall rules so Microsoft Outlook works with proxy authentication and SSL inspection enabled.
+- **[Access Mobile Applications Through SafeSquid](/use_cases/access_restriction/access_mobile_applications_through_safesquid)** - control mobile app internet access through SafeSquid SWG with proxy enforcement and firewall-aware policies.

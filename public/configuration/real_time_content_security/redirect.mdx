@@ -130,3 +130,8 @@ default rows enforce safe search on Bing, Google, Yahoo, and DuckDuckGo.
 2. Enable REDIRECT in `LOG_LEVEL` for native lines showing match, internal rewrite, or an HTTP 302.
 3. Open **Reports → Detailed logs** for the requested URL and response code.
 4. Pair Redirect profile tags with rows in Access Profiles (tags are not hard-coded — both sections must reference the same tag string).
+
+## Next steps
+
+- **[Content modifier](/configuration/real_time_content_security/content_modifier)** - rewrite HTTP headers and bodies with PCRE search-and-replace to inject cookies, strip sensitive header values, or change response content.
+- **[Access Profiles](/configuration/restriction_policies/access_profiles)** - decide what each user can fetch by combining time, request type, response type, category, and group labels into ordered allow and deny rules.

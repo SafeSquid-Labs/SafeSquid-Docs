@@ -111,3 +111,8 @@ Header rewrite uses hooks; body rewrite uses buffcheck. Both walk the full polic
 To confirm rows compose rather than short-circuit, send one request whose header matches two enabled rows and inspect what reaches the origin. Request `http://httpbin.org/headers` through the proxy with an `Accept` header containing both `image/avif` and `image/webp`.
 
 **Expected result:** both tokens are rewritten in the header the origin receives. If only the first is rewritten, the rows are not composing and the configuration should be re-checked.
+
+## Next steps
+
+- **[Header filter](/configuration/restriction_policies/privacy_control/header_filter)** - strip or inject HTTP headers on client requests and server responses using global, allow, deny, and insert rules.
+- **[Cookie filter](/configuration/restriction_policies/privacy_control/cookie_filter)** - control which HTTP cookies pass between clients and servers using a global policy plus allow and deny override lists.

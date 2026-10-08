@@ -54,3 +54,9 @@ Configure user groups for group-based web access policies. User groups enable di
 ### Multifactor Authentication
 
 For elevated security, SafeSquid combines identity sources. A typical flow begins with IP-based recognition---identifying the device---followed by a credential challenge through AD, OpenLDAP, PAM, or local store. Access is granted only when both factors align, ensuring dual-layer assurance without external token systems.
+
+## Next steps
+
+- **[SafeSquid SWG Overview](/architecture/overview/safesquid_swg)** - SafeSquid Secure Web Gateway overview — software-defined deployment, core architecture, enforcement components, intelligence feeds, browser security, and operational services.
+- **[OpenLDAP](/use_cases/authentication/openldap)** - integrate SafeSquid with OpenLDAP for centralized user authentication and group-based access control in Linux/Unix environments.
+- **[Active Directory](/use_cases/authentication/active_directory)** - integrate SafeSquid with Active Directory for seamless user authentication, SSO, and group-based access control.

@@ -134,3 +134,8 @@ session, Send header) once at least one row is added.
 {/* source: https://www.safesquid.com/md/external.md */}
 5. Confirm whether unexpected profile or username changes are coming from an entry you assumed only ran on failure — extraction is not exit-code-conditional, so it can happen on exit 0 too.
 6. If a REQUESTS entry is meant to answer the client directly, confirm its script returns a complete HTTP *response* header (not a request header) on exit code 0 — the wrong header type parses differently and won't produce the intended short-circuit.
+
+## Next steps
+
+- **[Authentication](/configuration/start_here/authentication)** - choose how SafeSquid identifies users, including Kerberos SSO and system authentication, so Access Profiles and logs can name them.
+- **[Content modifier](/configuration/real_time_content_security/content_modifier)** - rewrite HTTP headers and bodies with PCRE search-and-replace to inject cookies, strip sensitive header values, or change response content.

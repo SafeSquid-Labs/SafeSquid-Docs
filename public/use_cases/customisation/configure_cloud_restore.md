@@ -134,3 +134,9 @@ This creates a restore point you can revert to if changes cause issues.
 - Manually restart if needed: `systemctl restart safesquid`
 
 **Related**: [Disaster Recovery overview](/use_cases/scaling_and_high_availability/disaster_recovery), [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering), [Troubleshooting](/troubleshooting/troubleshooting)
+
+## Next steps
+
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.
+- **[Import Certificate into Chrome or Internet Explorer](/use_cases/ssl_inspection/import_certificate_chrome_ie)** - step-by-step import of SafeSquid SSL certificate into Chrome or Internet Explorer for HTTPS inspection trust.
+- **[Backup Strategy](/use_cases/scaling_and_high_availability/disaster_recovery)** - decide what SafeSquid backs up, what it does not, and what the disaster-recovery plan must cover separately before the deployment depends on Cloud Restore.

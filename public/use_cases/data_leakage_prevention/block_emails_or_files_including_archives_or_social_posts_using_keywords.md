@@ -155,3 +155,8 @@ If ClamAV service is running then check whether you have signatures database fil
 ![Check ANTIVIRUS profiles applicability](/images/How_To/Block_Emails_or_Files_including_archives_or_Social_Posts_using_Keywords/image18.webp)
 
 If you still got any problem, you can send us mail at support@safesquid.net
+
+## Next steps
+
+- **[SafeSquid SWG Overview](/architecture/overview/safesquid_swg)** - SafeSquid Secure Web Gateway overview — software-defined deployment, core architecture, enforcement components, intelligence feeds, browser security, and operational services.
+- **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** - configure HTTPS inspection in SafeSquid to decrypt and analyze encrypted traffic for web security, malware detection, and policy enforcement.

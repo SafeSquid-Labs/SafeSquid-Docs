@@ -302,3 +302,9 @@ Cookies will be dropped for both incoming and outgoing requests.
 - **Performance Validation**: Browsing with Allow profile allows login and cookies; with Deny or Drop profile, target sites do not receive or retain cookies as configured.
 
 **Related**: [Access Restriction](/use_cases/access_restriction/access_restriction), [Header Obfuscation](/use_cases/header_rewrite/header_obfuscation), [Configuration Portal](/architecture/interface/configuration_portal), [Troubleshooting](/troubleshooting/troubleshooting)
+
+## Next steps
+
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.
+- **[Access Restriction](/use_cases/access_restriction/access_restriction)** - build SafeSquid access policies that make web decisions by identity, destination, time, application, and content so enforcement stays precise and auditable.
+- **[Header Re-Write](/use_cases/header_rewrite/header_obfuscation)** - configure SafeSquid header filter to allow, deny, or insert HTTP headers for client-server communication control.

@@ -95,3 +95,8 @@ You must edit the original entry, because the entries in template section are pr
 
 **Related**: [Startup Parameters](/use_cases/customisation/startup_parameters), [Customisation](/use_cases/customisation/customisation), [Access Restriction](/use_cases/access_restriction/access_restriction), [Troubleshooting](/troubleshooting/troubleshooting)
 
+## Next steps
+
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.
+- **[Startup Parameters](/use_cases/customisation/startup_parameters)** - configure SafeSquid startup parameters (LISTEN_IP, MASTER_IP, LOG_LEVEL, threading) for performance and reliability.
+- **[Customisation](/use_cases/customisation/customisation)** - customize SafeSquid's behavior through custom templates for error pages and branding, and startup parameters for performance tuning and operational configuration.

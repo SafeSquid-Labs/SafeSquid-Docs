@@ -125,3 +125,9 @@ Added Profiles inline, and the right-hand panel restates the evaluation order.
 4. If an expected label is missing, check whether an earlier entry's gates actually fit the connection — a skipped entry contributes nothing.
 5. To confirm cumulative behaviour, deliberately place a Deny in Default Policies and a narrower Allow below it in Secondary Policies, and verify the connection is allowed — this is what most clearly distinguishes Access Profiles from Access restrictions.
 6. When a block is unexpected, check the Comment recorded as the block reason and whether the Action was Deny or Do not bypass — a Do not bypass block will not respond to a bypass cookie even for a user who otherwise holds the Allow bypassing right.
+
+## Next steps
+
+- **[Time Profiler](/configuration/custom_settings/time_profiler)** - tag connections with time labels from the appliance clock so Access Profiles can apply policy by weekday and time of day.
+- **[Request Types](/configuration/custom_settings/request_types)** - label HTTP requests with tags that Access Profiles and other filters match on, based on what the client asked for.
+- **[Response Types](/configuration/custom_settings/response_types)** - label HTTP responses by their real content type, such as executable, archive, or image, so Access Profiles can block by actual file type.

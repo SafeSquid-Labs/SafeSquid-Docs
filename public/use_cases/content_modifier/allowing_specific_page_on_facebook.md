@@ -106,3 +106,7 @@ HTTPS Inspection should be enabled in SafeSquid. If not enabled, refer to the do
 
 ![Save configuration that allow only that allow only specific page of Facebook ](/images/How_To/Allowing_Specific_Page_on_Facebook/image34.webp)
 
+## Next steps
+
+- **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** - configure HTTPS inspection in SafeSquid to decrypt and analyze encrypted traffic for web security, malware detection, and policy enforcement.
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.

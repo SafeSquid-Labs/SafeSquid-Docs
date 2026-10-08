@@ -167,3 +167,8 @@ tabs: Global, SSL Certs/Cache). Row fields match the Inspection Policy fields li
 3. Check Detailed logs for CONNECT handling and upstream certificate errors.
 4. SSL Certs/Cache → Cache Refresh after RCSC or trusted-CA changes.
 5. Confirm a destination with a genuinely broken certificate (expired, wrong hostname, self-signed) is blocked under the strict default entry, and only passes through when routed to an entry whose Acceptable Errors and Block domain mismatch settings were deliberately relaxed for it.
+
+## Next steps
+
+- **[Clam antivirus](/configuration/real_time_content_security/clam_antivirus)** - scan HTTP traffic for malware in real time by integrating the ClamAV clamd daemon with SafeSquid.
+- **[SqScan](/configuration/real_time_content_security/sqscan)** - scan uploads and downloads for malware with SafeSquid's built-in in-memory scanner, with no external clamd process.

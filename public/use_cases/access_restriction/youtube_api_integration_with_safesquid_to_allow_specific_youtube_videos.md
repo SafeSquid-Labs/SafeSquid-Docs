@@ -221,3 +221,7 @@ To do so, I will help you out in creating a simple Policy which will only allow 
 
 ![Youtube Video policy to allow specific video](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image18.webp)
 
+## Next steps
+
+- **[Allow Specific YouTube Channel and its Playlist](/use_cases/access_restriction/allow_specific_youtube_channel_and_its_playlist)** - block general YouTube but allow specific channels and playlists in SafeSquid for education.
+- **[Block Specific YouTube Channel](/use_cases/access_restriction/block_specific_youtube_channel)** - block a specific YouTube channel using SafeSquid by creating policies based on Channel-ID and List-ID for targeted video restriction.

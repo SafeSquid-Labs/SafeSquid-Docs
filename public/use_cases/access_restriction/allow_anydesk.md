@@ -113,3 +113,9 @@ Bind that created user group and Request Type in Access Profiles and decide whet
 - **Performance Validation**: From an allowed user and device, launch [AnyDesk](https://anydesk.com/) (or the configured app) with proxy set; connection should succeed. From a non-allowed user or app, access should be blocked.
 
 **Related**: [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection), [Access Restriction](/use_cases/access_restriction/access_restriction), [Architecture](/architecture/overview/safesquid_swg), [Restrict AnyDesk](/use_cases/access_restriction/restrict_anydesk), [Troubleshooting](/troubleshooting/troubleshooting)
+
+## Next steps
+
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.
+- **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** - configure HTTPS inspection in SafeSquid to decrypt and analyze encrypted traffic for web security, malware detection, and policy enforcement.
+- **[Access Restriction](/use_cases/access_restriction/access_restriction)** - build SafeSquid access policies that make web decisions by identity, destination, time, application, and content so enforcement stays precise and auditable.

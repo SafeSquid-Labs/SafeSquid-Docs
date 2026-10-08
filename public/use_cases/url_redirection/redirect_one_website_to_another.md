@@ -39,3 +39,6 @@ In a browser, open https://www.rediff.com/, it must redirect to SafeSquid.com; v
 
 ![Verify Redirect One Website To Another Website in Native logs on](/images/How_To/Redirect_One_Website_To_Another_Website/image4.webp)
 
+## Next steps
+
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.

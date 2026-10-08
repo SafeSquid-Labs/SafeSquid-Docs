@@ -108,3 +108,7 @@ iptables -P FORWARD DROP
 ```
 The above iptables rules are enough for Outlook to work in an environment where authentication and/or SSL inspection in SafeSquid are enabled.
 
+## Next steps
+
+- **[Accessing Business Applications Through SafeSquid](/use_cases/access_restriction/accessing_business_applications_through_safesquid)** - troubleshoot and configure SafeSquid to allow business applications by identifying blocked URLs, authentication issues, and SSL inspection requirements.
+- **[Configure HTTPS Inspection](/use_cases/ssl_inspection/configure_https_inspection)** - prerequisites, certificate generation, enabling SSL inspection, client certificate import, bypass rules, and verification for SafeSquid HTTPS inspection.

@@ -202,3 +202,9 @@ All configured criteria on a row must match. Blank means any.
 4. SECURITY log family for authentication outcomes.
 {/* source: https://www.safesquid.com/md/access.md */}
 5. If Default Access Policy is Deny and an Allow-listed client is unexpectedly blocked, check the Deny list for a second-pass override before suspecting the Allow entry.
+
+## Next steps
+
+- **[Authentication](/configuration/start_here/authentication)** - choose how SafeSquid identifies users, including Kerberos SSO and system authentication, so Access Profiles and logs can name them.
+- **[Integrate LDAP](/configuration/application_setup/integrate_ldap)** - sync directory users and groups into SafeSquid so Access Profiles and sign-in can apply policy by group membership, not IP address alone.
+- **[Access Profiles](/configuration/restriction_policies/access_profiles)** - decide what each user can fetch by combining time, request type, response type, category, and group labels into ordered allow and deny rules.

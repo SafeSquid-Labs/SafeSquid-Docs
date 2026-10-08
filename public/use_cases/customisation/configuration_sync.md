@@ -127,3 +127,8 @@ After restart, the slave begins syncing configuration from the master. Policy ch
 
 **Related**: [Master-Slave setup](/use_cases/scaling_and_high_availability/master_slave), [Configuration Portal](/architecture/interface/configuration_portal), [Troubleshooting](/troubleshooting/troubleshooting)
 
+## Next steps
+
+- **[Master-Slave](/use_cases/scaling_and_high_availability/master_slave)** - configure SafeSquid master-slave architecture for centralized policy sync and reporting across slave instances.
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.
+- **[Troubleshooting](/troubleshooting/troubleshooting)** - comprehensive diagnostic procedures and resolution guides for common SafeSquid proxy issues, connection failures, and configuration problems.

@@ -167,3 +167,6 @@ This configuration will work only for videos sourced from the channel page and n
 To allow all the videos of any specific YouTube Channel you have to insert List-ID's (of every playlist in that channel) and file part (of each individual unlisted video) of the URL in the File field of the Request Types Section.
 :::
 
+## Next steps
+
+- **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** - configure HTTPS inspection in SafeSquid to decrypt and analyze encrypted traffic for web security, malware detection, and policy enforcement.

@@ -133,3 +133,8 @@ OCR policies). Row fields are Enabled, Comment, Profiles, Upload Content type, a
 
 {/* source: https://www.safesquid.com/md/dlp.md */}
 5. Test keyword scoring with `.docx`/`.xlsx`/`.pptx` uploads — testing with `.doc`/`.xls`/`.ppt` or PDF does not exercise the content-inspection layer at all, by design.
+
+## Next steps
+
+- **[Text analyzer](/configuration/real_time_content_security/text_analyzer)** - score text in HTTP payloads against keyword patterns and block content once its cumulative score passes the threshold.
+- **[ICAP](/configuration/real_time_content_security/icap)** - send HTTP request and response bodies to ICAP services, built-in or third-party, at the REQMOD and RESPMOD hooks.

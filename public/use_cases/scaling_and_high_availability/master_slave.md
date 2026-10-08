@@ -149,3 +149,8 @@ On the master, open [Reporting Service](/architecture/interface/reporting_servic
 
 **Related**: [Configuration Sync](/use_cases/customisation/configuration_sync), [Configuration Portal](/architecture/interface/configuration_portal), [Reporting Service](/architecture/interface/reporting_service), [Troubleshooting](/troubleshooting/troubleshooting)
 
+## Next steps
+
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.
+- **[Reporting & Forensics](/architecture/interface/reporting_service)** - reporting and forensics in SafeSquid — centralized visibility, SIEM-ready logging, audit evidence, and operational investigation workflows for proxy deployments.
+- **[Configuration Sync](/use_cases/customisation/configuration_sync)** - discover how to enable configuration synchronization across a SafeSquid proxy cluster to ensure consistent policy deployment, reduce administrative overhead, and improve system reliability and security.

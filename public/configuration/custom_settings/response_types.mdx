@@ -119,3 +119,7 @@ Minimum/Maximum Content Size, and Added Response Types.
 1. **Trace Entry**; fetch test URL; check native logs.
 2. Detailed logs — `response_profiles`, `download_content_types`.
 3. To confirm a Response Types DENY blocks as strongly as a request-side DENY, trigger one against a large download and verify the client's transfer is cut off with the HTTP 451 page, even though SafeSquid may have already retrieved some or all of the body from the origin in a buffered configuration.
+
+## Next steps
+
+- **[Access Profiles](/configuration/restriction_policies/access_profiles)** - decide what each user can fetch by combining time, request type, response type, category, and group labels into ordered allow and deny rules.

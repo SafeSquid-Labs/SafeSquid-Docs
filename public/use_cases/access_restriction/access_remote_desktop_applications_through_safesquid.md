@@ -72,3 +72,7 @@ How to block in the above(B) scenario:
 1. It is not possible to block Any desk and team viewer with direct Internet connection, because they don't use the proxy settings configured in settings.
 2. You can block AmmyAdmin by enabling default entry in Access profiles (or) By enabling HTTPS Inspection.
 
+## Next steps
+
+- **[Allow Anydesk](/use_cases/access_restriction/allow_anydesk)** - allow AnyDesk and other remote desktop apps through SafeSquid with user profiles, SSL bypass, and request-type filters.
+- **[Restrict AnyDesk](/use_cases/access_restriction/restrict_anydesk)** - restrict AnyDesk access via SafeSquid policies and proxy configuration for secure network access control.

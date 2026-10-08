@@ -132,3 +132,8 @@ keyword rows contain explicit search terms, unsuitable to publish verbatim.
 3. Enable TEXT\_ANALYZER in `LOG_LEVEL` for native `match:` and `blocked` / `allowed` lines.
 4. Open **Reports → Detailed logs**; blocked responses show `filter_name` for text analyzer and the score reason.
 5. If a page you expect to be blocked passes through, check its actual `Content-Type` first — a Mime type mismatch is the most common reason a response is never scanned.
+
+## Next steps
+
+- **[DLP](/configuration/real_time_content_security/dlp)** - inspect uploads and block sensitive data from leaving the network using MIME-based DLP policies and OCR text scoring.
+- **[Image analyzer](/configuration/real_time_content_security/image_analyzer)** - score images in downloads and uploads, and replace any image that scores above the threshold with a block template.

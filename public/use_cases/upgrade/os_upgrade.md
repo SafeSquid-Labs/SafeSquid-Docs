@@ -387,3 +387,7 @@ ls -rlt /opt/safesquid/bin/safesquid
 lrwxrwxrwx 1 ssquid root 39 Oct 13 22:22 /opt/safesquid/bin/safesquid -> safesquid-2025.1001.1232.3-swg-standard
 ```
 
+## Next steps
+
+- **[Upgrade SafeSquid](/use_cases/upgrade/version_upgrade)** - upgrade SafeSquid SWG via Web GUI: prerequisites, cleanup, and applying the new tarball package.
+- **[Troubleshooting](/troubleshooting/troubleshooting)** - comprehensive diagnostic procedures and resolution guides for common SafeSquid proxy issues, connection failures, and configuration problems.

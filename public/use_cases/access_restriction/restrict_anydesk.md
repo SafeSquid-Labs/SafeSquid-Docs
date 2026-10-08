@@ -61,3 +61,6 @@ If authentication is enabled you have to specify Username and Password on any de
 
 Anydesk should not take auto proxy settings: If you set proxy in IE browser or chrome browser and you select "Try to detect the proxy server" option on anydesk, it should not take proxy automatically. You must have to configure proxy on anydesk application.
 
+## Next steps
+
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.

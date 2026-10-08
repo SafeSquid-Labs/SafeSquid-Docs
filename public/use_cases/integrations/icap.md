@@ -152,3 +152,8 @@ requirement.
 
 **Related**: [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection), [Malware Scanners](/use_cases/malware_scanning/malware_scanners), [Troubleshooting](/troubleshooting/troubleshooting)
 
+## Next steps
+
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.
+- **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** - configure HTTPS inspection in SafeSquid to decrypt and analyze encrypted traffic for web security, malware detection, and policy enforcement.
+- **[Malware Scanners](/use_cases/malware_scanning/malware_scanners)** - multi-layer malware detection in SafeSquid using SqScan, ClamAV, ICAP, and adaptable external parsers for threat prevention.

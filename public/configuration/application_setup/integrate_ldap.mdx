@@ -138,3 +138,8 @@ or, for a domain like `test1.testdomain1.com`, `dc=testdomain1,dc=com`.
 3. Sign in; confirm LDAP profile application in Detailed logs.
 4. Cross-check the group strings offered in Access restrictions' LDAP Profiles picker against LDAP Entries — they must match exactly, spaces rather than commas.
 5. If a server never appears to sync, re-check Ldap Basedn, Ldap Domain, and Login Attributes — any one missing makes the entry silently invalid — and, on a multi-node deployment, that Host Name matches this appliance.
+
+## Next steps
+
+- **[Authentication](/configuration/start_here/authentication)** - choose how SafeSquid identifies users, including Kerberos SSO and system authentication, so Access Profiles and logs can name them.
+- **[Access Profiles](/configuration/restriction_policies/access_profiles)** - decide what each user can fetch by combining time, request type, response type, category, and group labels into ordered allow and deny rules.

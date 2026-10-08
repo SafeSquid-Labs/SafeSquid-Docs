@@ -108,3 +108,7 @@ Try login to your Gmail account it will show you the below page:
 
 ![testing the policy by login](/images/How_To/Block_Particular_User_Login_To_Facebook_Or_Gmail/image20.webp)
 
+## Next steps
+
+- **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** - configure HTTPS inspection in SafeSquid to decrypt and analyze encrypted traffic for web security, malware detection, and policy enforcement.
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.
