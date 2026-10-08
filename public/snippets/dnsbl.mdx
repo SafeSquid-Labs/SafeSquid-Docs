@@ -9,7 +9,7 @@ Unrestricted DNS resolution reaches malicious or abused domains before HTTP poli
 
 ## Advantages vs URL-only filtering
 
-DNSBL fails closed earlier in the chain for **list-based** domain risk; URL and content rules still apply for paths, categories, and payloads.
+DNSBL fails closed earlier in the chain for **list-based** domain risk. URL and content rules still apply for paths, categories, and payloads.
 
 ## Acquire, deploy, use
 
@@ -101,7 +101,7 @@ Use blacklisting domain in.dnsbl.org and blocked IP addresses 127.0.0.1-127.0.0.
 - **Interface**: Confirm DNS Blacklist is enabled, Domain and Blocked IP addresses are set, and Template is correct.
 - **Block test**: Request a domain known to be listed; expect block page and no connection to origin.
 - **Logs**: In [Security Logs](/use_cases/audit_and_forensics/security_logs), confirm entries for blocked requests (action/result indicating DNSBL block).
-- **Audit**: Run a report filtered by block reason or DNSBL; export for evidence that the control is active and blocking malicious domains.
+- **Audit**: Run a report filtered by block reason or DNSBL. Export for evidence that the control is active and blocking malicious domains.
 
 
 
@@ -119,12 +119,12 @@ Use blacklisting domain in.dnsbl.org and blocked IP addresses 127.0.0.1-127.0.0.
 **Still having issues?** Contact SafeSquid support with:
 - DNSBL service domain you're using
 - Sample blocked domain query results
-- Contents of `/var/log/safesquid/safesquid.log` showing DNS resolution attempts
+- Contents of `/var/log/safesquid/native/safesquid.log` showing DNS resolution attempts
 
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | DNSBL UI path (Real-time content security) | **Confirmed** | This page |
 | Example DNSBL domain `in.dnsbl.org` | **Draft** | Third-party list; confirm contract and return codes before production |
 | Log evidence via [Security Logs](/use_cases/audit_and_forensics/security_logs) | **Confirmed** | Linked doc |

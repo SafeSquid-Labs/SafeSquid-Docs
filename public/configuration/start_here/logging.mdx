@@ -1,6 +1,15 @@
 ---
 title: "Logging and troubleshooting"
+description: Find which SafeSquid log proves what happened when a user reports a blocked site or a page that will not load.
+keywords:
+  - logging troubleshooting
+  - SafeSquid log files
+  - log level
+  - detailed log columns
+  - which log to open
 ---
+
+# Find Answers With Logging and Troubleshooting
 
 When a user says “the proxy blocked me” or “nothing loads,” logs are how you prove what SafeSquid did. You do not need every log family on day one — start with Detailed logs, then add Native families only for the module you are debugging.
 
@@ -42,7 +51,7 @@ Set `LOG_LEVEL` in `/opt/safesquid/startup.ini`. It is a bitmask — add family 
 - **WARN (16777216), ERROR (33554432)** — Review on every incident
 - **DEBUG (134217728)** — Very verbose. Enable only temporarily; default install excludes DEBUG (`134217727`). Full debug: `268435455`.
 
-Other families include HEADER, COOKIE, REDIRECT, REWRITE, CACHE, FORWARD, SSL, CATEGORY, ANTIVIRUS, ICAP, and MODULE — enable the one that matches `filter_name` in Detailed logs.
+Other families include HEADER, COOKIE, REDIRECT, REWRITE, CACHE, FORWARD, SSL, CATEGORY, ANTIVIRUS, ICAP, and MODULE. Enable the one that matches `filter_name` in Detailed logs.
 
 <Warning>
 Do not leave full DEBUG enabled in production. It grows disks quickly and makes logs harder to read.
@@ -74,7 +83,7 @@ Do not leave full DEBUG enabled in production. It grows disks quickly and makes 
 
 1. Find the URL in Detailed logs.
 2. Read `filter_name` and `filtering_reason` (often Access Profiles, redirect, or a scanner).
-3. Check profiles and categories on that row; adjust the matching [Access Profiles](/configuration/restriction_policies/access_profiles) entry or enable Trace Entry on the suspect rule.
+3. Check profiles and categories on that row. Adjust the matching [Access Profiles](/configuration/restriction_policies/access_profiles) entry or enable Trace Entry on the suspect rule.
 </Tip>
 
 <Tip>
@@ -82,7 +91,7 @@ Do not leave full DEBUG enabled in production. It grows disks quickly and makes 
 ### 3 — “Login keeps asking for a password”
 
 1. Note whether Kerberos / SSO or System authentication is enabled ([Authentication](/configuration/start_here/authentication)).
-2. Watch Native logs for `security:`, `pam:`, `ldap:`. The lines around the failed attempt usually name the specific step that failed — the password cache, the local system check, or the directory bind.
+2. Watch Native logs for `security:`, `pam:`, `ldap:`. The lines around the failed attempt usually name the specific step that failed. The password cache, the local system check, or the directory bind.
 3. Clear **Reports → Password Cache** after fixing credentials or PAM.
 </Tip>
 
@@ -116,7 +125,7 @@ On a single policy row in the Web UI, enable **Trace Entry** to log when that en
 3. If a Native log family or Trace Entry was enabled for the investigation, confirm the expected line appears, then turn it back off.
 4. After a fix, reproduce again and confirm the new entry shows the expected outcome.
 
-## See also
+## Next steps
 
 - [First configuration](/configuration/start_here/first_configuration)
 - [Access restrictions](/configuration/application_setup/access_restrictions)

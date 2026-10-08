@@ -88,7 +88,7 @@ The two paths diverge from here — prebuilt image for the fastest known-good ba
 
     Expected result: the log reaches completion without error.
 
-    A cloud-init failure often leaves a reachable instance running no proxy at all, so check this before assuming the launch succeeded. An instance that answers SSH is not an instance that is proxying.
+    A cloud-init failure often leaves a reachable instance running no proxy at all. So check this before assuming the launch succeeded. An instance that answers SSH is not an instance that is proxying.
   </Tab>
 </Tabs>
 
@@ -99,7 +99,7 @@ Whichever path was used, confirm before routing clients:
 - Service and listener state — see [Service Health](/deployment/service_health).
 - DNS resolution from the instance.
 - Activation endpoint reachability — see [Ports and Firewall Rules](/deployment/ports_and_firewall_rules).
-- Access-log creation under `/var/log/safesquid/access/`.
+- Access-log creation under `/var/log/safesquid/extended/`.
 - The default administrator password has been changed.
 
 ## Capture provisioning evidence

@@ -1,9 +1,16 @@
 ---
 title: "SqScan"
+description: "Scan uploads and downloads for malware with SafeSquid's built-in in-memory scanner, with no external clamd process."
+keywords:
+  - SqScan
+  - SqScan malware scanner
+  - malware scan levels
+  - malware scanning enforcement
 ---
 
-## Overview
+# Scan Uploads and Downloads With SqScan
 
+## What does this section do?
 The `SqScan` section is SafeSquid’s built-in in-memory antivirus scanner. It scans buffered uploads and downloads without an external `clamd` process. When malware is detected, the connection is blocked with **DO NOT BYPASS**.
 
 Use **sqscan status** in the Web UI to confirm Ready state and signature currency. See also ClamAV and ICAP for defense in depth.
@@ -16,7 +23,7 @@ Enabled virus scanning policy rows are walked top to bottom. The **first** row w
 
 ### Scan levels — BYPASS only
 
-Malware Security Level **BYPASS** skips scanning. Values STANDARD, HIGH, and PARANOID are stored but the engine uses fixed scan options — only **BYPASS** changes runtime behaviour today.
+Malware Security Level **BYPASS** skips scanning. Values STANDARD, HIGH, and PARANOID are stored but the engine uses fixed scan options. Only **BYPASS** changes runtime behaviour today.
 
 ### Malware Types unused
 
@@ -82,4 +89,9 @@ are Enabled, Comment, Malware Security Level, and Malware Types.
 1. **sqscan status** — module Ready, signatures current.
 2. Download EICAR test file through proxy.
 3. Enable ANTIVIRUS log level for native `sqscan:` lines.
-4. Dashboard counters: Objects Scanned, Threats Detected, Scan bypassed — a rising Scan Bypassed count with no corresponding BYPASS entries usually points to the scanner not being Ready, not to a misconfigured policy.
+4. Dashboard counters: Objects Scanned, Threats Detected, Scan bypassed. A rising Scan Bypassed count with no corresponding BYPASS entries usually points to the scanner not being Ready, not to a misconfigured policy.
+
+## Next steps
+
+- **[Clam antivirus](/configuration/real_time_content_security/clam_antivirus)** - scan HTTP traffic for malware in real time by integrating the ClamAV clamd daemon with SafeSquid.
+- **[ICAP](/configuration/real_time_content_security/icap)** - send HTTP request and response bodies to ICAP services, built-in or third-party, at the REQMOD and RESPMOD hooks.

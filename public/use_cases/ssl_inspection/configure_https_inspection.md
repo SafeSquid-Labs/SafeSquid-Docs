@@ -9,9 +9,9 @@ keywords:
   - Firefox certificate import
 ---
 
-# Configure HTTPS Inspection
+# Configure SSL Inspection for HTTPS Traffic
 
-This guide covers the complete HTTPS inspection setup: generate or import a Root CA certificate, enable inspection in SafeSquid, deploy the certificate to clients, and configure bypass rules for sensitive domains.
+Complete HTTPS inspection setup means you generate or import a Root CA certificate, enable inspection in SafeSquid, deploy the certificate to clients, and configure bypass rules for sensitive domains.
 
 **Time to complete (Draft):** Plan **30–60 minutes** including client trust rollout; duration varies by fleet size and MDM maturity.
 
@@ -413,7 +413,7 @@ Bypass HTTPS inspection for:
 4. **No certificate warnings** should appear
 
 **Expected certificate chain:**
-```
+```text
 www.google.com (issued by SafeSquid Root CA)
   └─ SafeSquid Root CA (self-signed or your enterprise CA)
 ```
@@ -437,7 +437,7 @@ www.google.com (issued by SafeSquid Root CA)
 **On SafeSquid server:**
 
 ```bash
-tail -f /var/log/safesquid/access/extended.log
+tail -f /var/log/safesquid/extended/extended.log
 ```
 
 **Expected for inspected sites:**
@@ -465,7 +465,7 @@ tail -f /var/log/safesquid/access/extended.log
 **Still not working?**
 
 1. **Verify HTTPS Inspection is enabled:**
-   - Configuration Portal → Real-time Content Security → HTTPS Inspection → Global = True
+   - Configuration Portal → Real time content security → HTTPS Inspection → Global = True
 
 2. **Check certificate is deployed:**
    - Windows: Run `certmgr.msc` → Trusted Root Certification Authorities → Certificates
@@ -480,8 +480,8 @@ tail -f /var/log/safesquid/access/extended.log
 
 4. **Check SafeSquid logs:**
    ```bash
-   tail -50 /var/log/safesquid/safesquid.log
-   grep -i "ssl\|cert\|handshake" /var/log/safesquid/safesquid.log
+   tail -50 /var/log/safesquid/native/safesquid.log
+   grep -i "ssl\|cert\|handshake" /var/log/safesquid/native/safesquid.log
    ```
 
 ---
@@ -489,7 +489,7 @@ tail -f /var/log/safesquid/access/extended.log
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | Root CA via Self-Service Portal | **Confirmed** | This guide, [Self-Service Portal](/architecture/interface/self_service_portal) |
 | Enable inspection UI path | **Confirmed** | Steps in this guide |
 | Client trust stores (Windows, Firefox, macOS) | **Confirmed** | This guide, [Import Certificate Chrome/IE](/use_cases/ssl_inspection/import_certificate_chrome_ie) |

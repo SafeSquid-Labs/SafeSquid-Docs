@@ -1,9 +1,17 @@
 ---
 title: "Image analyzer"
+description: "Score images in downloads and uploads, and replace any image that scores above the threshold with a block template."
+keywords:
+  - image analyzer
+  - inappropriate image blocking
+  - image size gates
+  - image threshold scale
+  - image analyzer debug mode
 ---
 
-## Overview
+# Block Risky Images With the Image Analyzer
 
+## What does this section do?
 The `Imgfilter` section scores `image/*` response and upload bodies and blocks or debug-replaces content when the engine score is at or above a threshold. Blocked images can be replaced with a template (default `checkeredgif`).
 
 It exists to keep unwanted image content (for example, adult material) off the network — useful both for blocking what users download and for stopping the same kind of content from being uploaded through the proxy.
@@ -24,7 +32,7 @@ Roughly **-10** (unlikely inappropriate) through **0** (very likely). Block when
 
 ### Debug mode
 
-On responses with Debug enabled, images at or above threshold are blurred and annotated in-place; connection still marked blocked but block template not sent.
+On responses with Debug enabled, images at or above threshold are blurred and annotated in-place. Connection still marked blocked but block template not sent.
 
 ### Bypass
 
@@ -59,7 +67,7 @@ debug -->|No| templ[Block template]
 ### Policy rows
 
 - **Profiles (profiles)** — Limit to tagged connections. Blank matches all.
-- **Threshold (threshold)** — Block when score ≥ this value. A **lower** Threshold number is **stricter** (blocks more); a higher one is more permissive — for example, a Threshold of `-2` blocks less aggressively than a Threshold of `0`.
+- **Threshold (threshold)** — Block when score ≥ this value. A **lower** Threshold number is **stricter** (blocks more). A higher one is more permissive — for example, a Threshold of `-2` blocks less aggressively than a Threshold of `0`.
 - **Bypass Image Scanning (bypass)** — Skip scan for matching profiles.
 - **Debug (debug)** — Blur/annotate on response instead of block template. Has no equivalent effect on the upload path, which always uses the block template.
 - **Template (template)** — Replacement on block. Falls back through the matching entry's own Template, then the section's Default template, then the built-in checkered placeholder — whichever is first non-blank.
@@ -93,3 +101,8 @@ are Enabled, Comment, Bypass Image Scanning, Profiles, Threshold, Template, and 
 1. Fetch image through profile with image-filter tag and imgfilter enabled.
 2. Enable imgfilter log level for score lines.
 3. Detailed logs show filter name imgfilter on block. If a request you expected to be scored is missing, check whether an earlier entry's Bypass Image Scanning claimed it first.
+
+## Next steps
+
+- **[Text analyzer](/configuration/real_time_content_security/text_analyzer)** - score text in HTTP payloads against keyword patterns and block content once its cumulative score passes the threshold.
+- **[DLP](/configuration/real_time_content_security/dlp)** - inspect uploads and block sensitive data from leaving the network using MIME-based DLP policies and OCR text scoring.

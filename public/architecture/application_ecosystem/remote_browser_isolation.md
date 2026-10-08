@@ -8,16 +8,16 @@ keywords:
   - SafeSquid SWG
 ---
 
-# Remote Browser Isolation
+# Isolate Risky Browsing From Endpoints
 
-Remote Browser Isolation (RBI) separates high-risk web activity from the endpoint. Use it when the business must allow access to uncertain or risky sites without giving active web content direct execution access on managed devices.
+Remote Browser Isolation (RBI) separates high-risk web activity from the endpoint. Use it when the business must allow access to uncertain or risky sites. Active web content then does not get direct execution access on managed devices.
 
 RBI is part of the application ecosystem because it complements proxy policy. The proxy decides whether a request is allowed, blocked, inspected, or redirected into a safer browsing path. Isolation reduces endpoint exposure when a complete block would interrupt legitimate work.
 
 ## Risk and control fit
 
 | Scenario | Proxy-only outcome | RBI-assisted outcome |
-| --- | --- | --- |
+|---|---|---|
 | Unknown research site | User reaches active content on the endpoint if allowed | Site opens away from the endpoint trust boundary |
 | High-risk category with business need | Teams choose between block and exception | Access can be constrained to an isolated session |
 | Phishing investigation | Analysts risk endpoint exposure | Analysts review content with reduced local execution risk |
@@ -42,3 +42,4 @@ Pair RBI decisions with proxy and reporting evidence:
 
 - Use [Proxy Service](/architecture/application_ecosystem/proxy_service) to understand the enforcement point.
 - Use [Reporting Service](/architecture/interface/reporting_service) to retain investigation evidence.
+- Use [Threat Intelligence Feeds](/architecture/application_ecosystem/threat_intelligence_feeds) to review the feeds behind URL classification and signatures.

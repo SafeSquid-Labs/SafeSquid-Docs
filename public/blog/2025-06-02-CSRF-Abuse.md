@@ -1,6 +1,12 @@
 ---
 slug: csrf-abuse
 title: 'How XSS‑Powered CSRF Abuses Trust Boundaries'
+keywords:
+  - XSS-powered CSRF
+  - XSS CSRF attack chain
+  - CSRF token injection
+  - cross-site request forgery protection
+  - XSS session hijacking
 description: 'See how XSS hijacks sessions to forge transactions, and how SafeSquid injects tokens and origin checks to neutralise cross-site requests.'
 # authors: [Vashistha]
 mode: "center"
@@ -10,7 +16,7 @@ mode: "center"
 
 ## Legacy Defences: Ship Now, Secure Later
 
-Modern web apps ship faster than security reviews can keep pace. Free JavaScript libraries come and go; developers copy snippets, unaware they inherit unvetted attack surface. **Cross‑Site Scripting (XSS)** still ranks in the OWASP Top 10, and when an attacker combines XSS with **Cross‑Site Request Forgery (CSRF)**, they can weaponise the victim’s own browser to execute privileged actions—no credentials required.
+Modern web apps ship faster than security reviews can keep pace. Free JavaScript libraries come and go; developers copy snippets, unaware they inherit unvetted attack surface. **Cross‑Site Scripting (XSS)** still ranks in the OWASP Top 10. When an attacker combines XSS with **Cross‑Site Request Forgery (CSRF)**, they can weaponise the victim’s own browser to execute privileged actions—no credentials required.
 
 Pressure to release new features drives teams to adopt “good‑enough” escape‑html helpers or CSP headers and call it a day. Yet libraries age, input filters miss polyglot payloads, and security debt accumulates. XSS sneaks in; CSRF exploits the trust browsers place in first‑party cookies and passwords already present in the session.
 
@@ -29,7 +35,7 @@ The attacker scans customer‑facing apps—signup forms, search bars, comment b
 
 Using mutation techniques—**XSS Polyglots**, double URL‑encoding, and DOM clobbering—the attacker creates a payload that sails past simplistic sanitisers. Example (URL‑encoded):
 
-```
+```text
 <img src=x onerror=document.body.append((new Image()).src='/profile/update?phone=+911234567890')>
 ```
 
@@ -39,7 +45,7 @@ The payload is posted in a public “Contact Us” thread. Because the field str
 
 ### 4 Victim Engagement: Trust Exploited
 
-A logged‑in BankEase customer views the thread. The browser parses the HTML, triggers `onerror`, and the hidden image fires a **POST** request that changes the account phone number—complete with session cookies—no click needed.
+A logged‑in BankEase customer views the thread. The browser parses the HTML, triggers `onerror`. The hidden image fires a **POST** request that changes the account phone number—complete with session cookies—no click needed.
 
 ### 5 Stealth Persistence: Hijack & Harvest
 

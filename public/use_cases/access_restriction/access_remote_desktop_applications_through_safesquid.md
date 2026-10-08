@@ -10,6 +10,8 @@ keywords:
 ---
 
 
+# Block or Allow Remote Desktop Apps Through the Proxy
+
 ## Problem
 Security teams need predictable control over app and web usage to reduce policy bypass and data-risk exposure.
 
@@ -53,7 +55,7 @@ How to block in the above(B) scenario:
 
 **Any desk** :  Any desk is able to connect to the remote server (It should not use proxy settings if there is a direct Internet connection).
 
-**Team viewer** : Team viewer is able to connect to the remote  server through proxy (It should use proxy settings, but if we apply blocking rules on proxy, then it will use direct Internet connection, so it is not possible to block team viewer with proxy in direct internet connection ).
+**Team viewer** : Team viewer is able to connect to the remote  server through proxy (It should use proxy settings, but if blocking rules are applied on the proxy, it uses a direct Internet connection, so it is not possible to block team viewer with proxy in direct internet connection ).
 
 **AmmyAdmin** : AmmyAdmin is not able to connect to  the remote  server through proxy.
 
@@ -70,3 +72,7 @@ How to block in the above(B) scenario:
 1. It is not possible to block Any desk and team viewer with direct Internet connection, because they don't use the proxy settings configured in settings.
 2. You can block AmmyAdmin by enabling default entry in Access profiles (or) By enabling HTTPS Inspection.
 
+## Next steps
+
+- **[Allow Anydesk](/use_cases/access_restriction/allow_anydesk)** - allow AnyDesk and other remote desktop apps through SafeSquid with user profiles, SSL bypass, and request-type filters.
+- **[Restrict AnyDesk](/use_cases/access_restriction/restrict_anydesk)** - restrict AnyDesk access via SafeSquid policies and proxy configuration for secure network access control.

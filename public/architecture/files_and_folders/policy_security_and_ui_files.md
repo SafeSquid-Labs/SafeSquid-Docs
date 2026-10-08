@@ -8,21 +8,21 @@ keywords:
   - SafeSquid UI files
 ---
 
-# Policy, Security, and UI Files
+# Locate Policy, Security, and UI Files
 
-Policy, security, and interface files define who can use SafeSquid, which controls apply, how SSL material is stored, and how the management interface renders. Treat these paths as sensitive. Unreviewed edits can stop the service, expose certificates, break policy rollback, or make support evidence unreliable.
+Policy, security, and interface files define who can use SafeSquid and which controls apply. They also define how SSL material is stored and how the management interface renders. Treat these paths as sensitive. Unreviewed edits can stop the service, expose certificates, break policy rollback, or make support evidence unreliable.
 
 ## Product-owned root
 
 | Path | Purpose | Inspect when | Evidence and risk |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | `/usr/local/safesquid` | Contains `security`, `ui_root`, `sqlite`, and `bin` subdirectories for activation, user interface rendering, SQLite database configuration, SSL certificates, and scripts. | Building a server inventory, preparing support evidence, or confirming product-owned paths. | Shows the local SafeSquid application data root. Apply least privilege and backup controls. |
 | `/usr/local/safesquid/bin` | Stores scripts that can run through the External Applications section. User-created scripts belong here when execution is required. | External application integrations fail or script execution needs review. | Shows executable extension points. Treat scripts as privileged automation and review them before deployment. |
 
 ## Security and policy paths
 
 | Path | Purpose | Inspect when | Evidence and risk |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | `/usr/local/safesquid/security` | Contains `policies`, `ssl`, and `dns` subdirectories plus activation files such as `activation_key`, `activation_key.updates`, and `activation_key.updates.backup`. | Activation fails, service stops unexpectedly, or license state needs evidence. | Activation files are service-critical. The wiki warns they should never be deleted because SafeSquid can stop. |
 | `/usr/local/safesquid/security/policies` | Stores policy XML. The wiki identifies `default.config.xml`, current `config.xml`, and timestamped backup files named like `config_XXXX@YYYY_ZZZZ.xml`. | Policy rollback, audit review, change dispute, or configuration recovery. | `config.xml` is the latest saved configuration. Backup files preserve prior saves by username, IP address, and modification time. Treat all policy XML as sensitive. |
 | `/usr/local/safesquid/security/ssl/` | Stores SSL root certificates, trusted bundle files, and `subca` material used in OpenVPN configuration. | HTTPS inspection issues, certificate trust review, or incident evidence collection. | Contains certificate material. Restrict access, back up securely, and avoid casual copying. |
@@ -31,7 +31,7 @@ Policy, security, and interface files define who can use SafeSquid, which contro
 ## Interface and template paths
 
 | Path | Purpose | Inspect when | Evidence and risk |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | `/usr/local/safesquid/ui_root/` | Root for files used to render the SafeSquid web user interface. | Interface rendering breaks or support asks for UI file evidence. | Product-owned interface surface. Customization can affect supportability. |
 | `/usr/local/safesquid/ui_root/cgi-bin` | Stores scripts for defined functions such as support tarball generation, performance plot generation, and Kerberos setup. | Support bundle generation fails, performance plots fail, or Kerberos setup scripts need review. | Contains executable UI-backed functionality. Review changes as privileged code. |
 | `/usr/local/safesquid/ui_root/css` | Stores CSS files that define interface display. | Interface layout breaks after change or upgrade. | Unsupported edits can disrupt the management interface. Use change control for any customization. |
@@ -42,9 +42,10 @@ Policy, security, and interface files define who can use SafeSquid, which contro
 
 ## Rollback guidance
 
-Before changing policy, SSL, activation, UI, or script paths, preserve the original files and record owner, timestamp, reason, and rollback path. For policy rollback, use timestamped `config_XXXX@YYYY_ZZZZ.xml` files only after confirming the correct user, source IP, and modification time.
+Before changing policy, SSL, activation, UI, or script paths, preserve the original files. Record owner, timestamp, reason, and rollback path. For policy rollback, use timestamped `config_XXXX@YYYY_ZZZZ.xml` files only after confirming the correct user, source IP, and modification time.
 
 ## Next steps
 
 - Use [Logs and Audit Evidence](/architecture/files_and_folders/logs_and_audit_evidence) to correlate policy changes with `config.log`.
 - Use [Configure](/architecture/policy_management_console/configure) for normal policy administration.
+- Use [Runtime Data and Signatures](/architecture/files_and_folders/runtime_data_and_signatures) to locate runtime data and signature stores.

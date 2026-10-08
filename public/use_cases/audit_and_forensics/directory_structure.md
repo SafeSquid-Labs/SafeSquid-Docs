@@ -7,7 +7,7 @@ keywords:
   - reference
 ---
 
-# SafeSquid SWG Directories
+# Locate Files Using the SafeSquid Directory Structure
 
 SafeSquid installation and operational directories adhere to the Linux Filesystem Hierarchy Standard (FHS) and house core components for Layer 7 security, system management, and performance optimization. Key directories and their purposes are outlined below:
 
@@ -135,7 +135,7 @@ SafeSquid has a library of add-on modules that can be easily added or removed, t
 /opt/safesquid/bin/modules/dlp
 ```
 
-SafeSquid has a DLP feature as an add-on module. This folder contains a shared object (.so) and XML files of the DLP module. The data loss prevention (DLP) feature detects potential data breaches/data ex-filtration transmissions and prevents end-users from sending sensitive or critical information outside the corporate network. For example, if an employee tries to upload a corporate file via email, then the file will not be uploaded, and the template will be displayed.
+SafeSquid has a DLP feature as an add-on module. This folder contains a shared object (.so) and XML files of the DLP module. The data loss prevention (DLP) feature detects potential data breaches/data ex-filtration transmissions and prevents end-users from sending sensitive or critical information outside the corporate network. For example, if an employee tries to upload a corporate file via email, then the file will not be uploaded. The template will be displayed.
 
 ## SafeSquid Elevated Privacy Module
 
@@ -187,7 +187,7 @@ Contains a shared object (.so) and XML files of the Ssqore module. Ssqore allows
 /opt/safesquid/bin/modules/sqscan
 ```
 
-Contains a shared object (.so) and XML files of the SqScan module. SqScan is a high-speed in-memory virus scanner built into a module that protects users against malware. SqScan uses an anti-malware signature database which is constantly updated to ensure the application of the latest anti-malware definitions. SqScan uses proactive protection, such as generic detection routines, a heuristic engine, and a behavior-based engine to proactively prevent unknown or previously unseen malware.
+Contains a shared object (.so) and XML files of the SqScan module. SqScan is a high-speed in-memory virus scanner built into a module that protects users against malware. SqScan uses an anti-malware signature database which is constantly updated to ensure the application of the latest anti-malware definitions. SqScan uses proactive protection, such as generic detection routines, a heuristic engine. A behavior-based engine to proactively prevent unknown or previously unseen malware.
 
 ## SafeSquid WCCP Module
 
@@ -517,7 +517,7 @@ Time Stamp (YYYYMMDDhhmmss) , Elapsed Time , Client Connections Handled , Client
 /var/log/safesquid/privacy
 ```
 
-Contains the privacy logs record cookies, cross-site exchange, and Safesquid Elevated Privacy policy enforcements.
+Contains the privacy logs record cookies, cross-site exchange, and SafeSquid Elevated Privacy policy enforcements.
 
 ## SafeSquid PID
 

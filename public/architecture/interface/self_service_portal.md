@@ -10,7 +10,7 @@ keywords:
   - SafeSquid confidential data signatures
 ---
 
-# Self-Service Portal
+# Manage Activation and Licensing in the Self-Service Portal
 
 The Self-Service Portal is a SafeSquid-managed cloud service at `https://key.safesquid.com`. It is part of the product operating model, not just a convenience website. It handles activation-key distribution and other cloud-managed workflows that influence licensing, categorization, backup, and certificate-related operations.
 
@@ -18,7 +18,7 @@ The Self-Service Portal is a SafeSquid-managed cloud service at `https://key.saf
 
 ## Problem statement
 
-If licensing, categorization, backup, or certificate workflows are scattered across email threads and manual files, deployments become fragile and support-dependent. Teams need a controlled place to retrieve activation material, manage cloud-linked settings, and align multiple installations to the same organizational context.
+If licensing, categorization, backup, or certificate workflows are scattered across email threads and manual files, deployments become fragile and support-dependent. Teams need a controlled place to retrieve activation material and manage cloud-linked settings. They also need to align multiple installations to the same organizational context.
 
 ## Client scenario
 
@@ -39,15 +39,16 @@ Use the portal when you need to:
 
 ## Portal layout
 
-Confirmed live (2026-09-02, logged-in session, all six tabs inspected): **Manage Key**
-(default landing tab — key details, instance list, Download Key), **Manage Categories** (Check
-Website Category / Modify Category, single-URL search), **Manage Certificates** (Generate then
-Download an SSL certificate for the key), **Manage VPN** (C-code/activation key against a URL
-field, Set URL), **Manage Signatures** ("Available Signatures for [C-code]", Add New, a
-Keywords/Signature table), **Manage Account** (subscription details, Conserve Subscription). A
-standing **Download Key** action and **Download latest ISO** / **Download latest tarball** links
-(`downloads.safesquid.com/appliance/safesquid.iso` and `.../binary/safesquid_latest.tar.gz`)
-appear on every tab.
+Confirmed live (2026-09-02, logged-in session, all six tabs inspected):
+
+- **Manage Key** (default landing tab): key details, instance list, Download Key.
+- **Manage Categories**: Check Website Category, Modify Category, single-URL search.
+- **Manage Certificates**: Generate, then Download, an SSL certificate for the key.
+- **Manage VPN**: C-code/activation key against a URL field, Set URL.
+- **Manage Signatures**: "Available Signatures for [C-code]", Add New, a Keywords/Signature table.
+- **Manage Account**: subscription details, Conserve Subscription.
+
+A standing **Download Key** action appears on every tab. So do the **Download latest ISO** and **Download latest tarball** links (`downloads.safesquid.com/appliance/safesquid.iso` and `.../binary/safesquid_latest.tar.gz`).
 
 ## What the portal is used for
 
@@ -66,7 +67,7 @@ Internal product knowledge confirms the portal is used for:
    Support SSL inspection deployment workflows that depend on trusted certificate handling.
 
 5. **Configuration and policy synchronization functions**  
-   The knowledge base identifies the Self-Service Portal as part of the cloud path for licensing, activation-key distribution, threat-intelligence delivery, and policy or configuration synchronization across deployments.
+   The knowledge base identifies the Self-Service Portal as part of the cloud path. It covers licensing, activation-key distribution, threat-intelligence delivery, and policy or configuration synchronization across deployments.
 
 6. **Backup and restore support**  
    The broader architecture model places configuration backup and restore as a peer operational service in the SafeSquid ecosystem.
@@ -142,7 +143,7 @@ SSL inspection configuration — this step alone doesn't complete an HTTPS Inspe
    **Keywords** field (one keyword per line, with live regex detection — the form flags whether
    what you typed reads as a regex pattern). **Submit** to save.
 
-{/* NEEDS-SME-REVIEW: the Add New form's two fields (Signature name, Keywords) and its regex-detection behavior are confirmed live. How and when a saved signature here actually syncs to the appliance's DLP OCR keyword scoring (dlp.mdx's "Enabled OCR rows are walked... each keyword regex match adds Weight") was not tested — this page states the two are related, not that sync was observed. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: the Add New form's two fields (Signature name, Keywords) and its regex-detection behavior are confirmed live. How and when a saved signature here actually syncs to the appliance's DLP OCR keyword scoring (dlp.mdx's "Enabled OCR rows are walked... each keyword regex match adds Weight") was not tested — this page states the two are related, not that sync was observed. */}
 
 **Use for:** feeding custom keyword-based signatures into
 [DLP](/configuration/real_time_content_security/dlp) OCR scoring on the appliance.
@@ -159,7 +160,7 @@ SSL inspection configuration — this step alone doesn't complete an HTTPS Inspe
 4. **Modify Category** instead opens with a **Select Category** field (dropdown/autocomplete over
    existing categories, not a URL search) — pick a category to act on.
 
-{/* NEEDS-SME-REVIEW: confirmed live — Check Website Category is single-URL search; Modify Category starts from an existing-category picker instead, which does imply named categories exist here (unlike an earlier pass through this page which concluded otherwise). What appears after selecting a category in Modify Category — URL list, add/remove controls, anything else — was not observed; don't describe it further without checking. If bulk custom-category upload also exists separately, it may be the local console's [Categorize Web-Sites](/configuration/custom_settings/categorize_web_sites) feature instead — the portal homepage's marketing copy for "Custom Category Management" describes uploading category lists "from SafeSquid User Interface," which points at the appliance, not confirmed as this portal tab. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: confirmed live — Check Website Category is single-URL search; Modify Category starts from an existing-category picker instead, which does imply named categories exist here (unlike an earlier pass through this page which concluded otherwise). What appears after selecting a category in Modify Category — URL list, add/remove controls, anything else — was not observed; don't describe it further without checking. If bulk custom-category upload also exists separately, it may be the local console's [Categorize Web-Sites](/configuration/custom_settings/categorize_web_sites) feature instead — the portal homepage's marketing copy for "Custom Category Management" describes uploading category lists "from SafeSquid User Interface," which points at the appliance, not confirmed as this portal tab. */}
 
 **Use for:** looking up a site's current category, or changing which category an existing
 category-set applies to.
@@ -190,7 +191,7 @@ plan, or lives somewhere else, is unconfirmed.
 3. The tab lists your C-code and activation key against a **URL** field (unset by default —
    shows "Not Defined") with a **Set URL** action.
 
-{/* NEEDS-SME-REVIEW: confirmed live that this tab and its C-code/activation-key/URL/Set URL layout exist, but what the URL is used for once set (a roaming-client gateway address, most likely, given faqs.md's existing "Web Security Clients for Roaming users (VPN)" description) was not confirmed by actually setting one. Don't describe the effect of Set URL beyond what's stated here without testing it. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: confirmed live that this tab and its C-code/activation-key/URL/Set URL layout exist, but what the URL is used for once set (a roaming-client gateway address, most likely, given faqs.md's existing "Web Security Clients for Roaming users (VPN)" description) was not confirmed by actually setting one. Don't describe the effect of Set URL beyond what's stated here without testing it. */}
 
 **Use for:** licensing SafeSquid's roaming-user VPN web-security clients against this activation
 key. This is also where the "Manage VPN settings" topic once flagged as missing from
@@ -220,5 +221,3 @@ After using the portal, verify all of the following:
 - [Register and get your key](/getting_started/register) to establish the activation path
 - [Activate your license](/getting_started/activate) to bind the deployment to the key
 - [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection) for certificate-dependent HTTPS inspection workflows
-- [DLP](/configuration/real_time_content_security/dlp) for how Manage Signatures' keyword signatures get scanned
-- [Support](/configuration/infrastructure_and_access/support) for the on-appliance License Details view and Cloud Restore

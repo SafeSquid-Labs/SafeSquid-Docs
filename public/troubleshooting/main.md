@@ -2,18 +2,19 @@
 title: Troubleshooting
 description: Diagnostic runbooks for SafeSquid SWG service, policy, DNS, authentication, SSL inspection, reporting, and installation incidents.
 keywords:
-  - troubleshooting
-  - diagnostics
-  - SafeSquid SWG
+  - SafeSquid troubleshooting
+  - diagnostic runbooks
+  - SafeSquid SWG diagnostics
+  - troubleshooting evidence
 ---
 
-# Troubleshooting
+# Find the Right Troubleshooting Runbook
 
 SafeSquid troubleshooting must restore service without destroying audit evidence. Start with the broad diagnostic checklist, then use the incident-specific runbook that matches the symptom, affected control, and business impact.
 
 ## Quickstart path
 
-1. [Run the base diagnostic checklist](/troubleshooting/troubleshooting) to identify whether the fault is network, DNS, proxy, authentication, SSL inspection, reporting, or local system health.
+1. [Run the base diagnostic checklist](/troubleshooting/troubleshooting) to identify whether the fault is network, DNS, or proxy. It can also be authentication, SSL inspection, reporting, or local system health.
 2. [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) when a user, device, or URL needs transaction-level evidence.
 3. Select the runbook below, collect screenshots and logs before changes, then verify user access and policy enforcement after recovery.
 
@@ -46,7 +47,7 @@ SafeSquid troubleshooting must restore service without destroying audit evidence
 
 ## Evidence expectations
 
-Each incident record should include the affected user or source IP address, requested URL, timestamp, browser error, SafeSquid log excerpt, screenshots of policy changes, and post-fix verification. Keep this evidence with the incident ticket for SOC 2 change management, ISO 27001 incident handling, and NIST SP 800-53 auditability.
+Each incident record should include the affected user or source IP address and the requested URL. It should also include the timestamp, browser error, and SafeSquid log excerpt. Add screenshots of policy changes and post-fix verification. Keep this evidence with the incident ticket. It supports SOC 2 change management, ISO 27001 incident handling, and NIST SP 800-53 auditability.
 
 ## Next steps
 

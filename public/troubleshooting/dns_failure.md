@@ -2,12 +2,13 @@
 title: DNS Failure
 description: Diagnose and resolve SafeSquid dns failure incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
-  - dns failure
+  - DNS failure
+  - SafeSquid DNS troubleshooting
+  - DNS resolution errors
+  - proxy DNS configuration
 ---
 
-# DNS Failure
+# Fix DNS Failures
 
 DNS Failure can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
@@ -29,9 +30,9 @@ Via proxy sometimes occur an error "DNS Lookup for safesqddns.com failed".
 
 ## Solution
 
-If the FQDN of the website is incorrect you will face a DNS failure issue to that website while accessing via proxy. So, you have to enter the correct FQDN of that particular website.
+If the website FQDN is incorrect, accessing it via proxy gives a DNS failure. So, you have to enter the correct FQDN of that particular website.
 
-If the FQDN of a particular website is correct but the local DNS server service is not running still you can face a DNS failure issue. So, you make sure that the local DNS server service is running.
+If the website FQDN is correct, you can still hit a DNS failure. This happens when the local DNS server service is not running. So, you make sure that the local DNS server service is running.
 
 Run the below commands to verify DNS server service
 
@@ -68,9 +69,11 @@ server can't find test.safesquiddns.com: NXDOMAIN
 Collect evidence before restarting services or changing policy. Keep screenshots, command output, and relevant SafeSquid logs with the incident ticket.
 
 ```sh
-tail -100 /var/log/safesquid/safesquid.log
+tail -100 /var/log/safesquid/native/safesquid.log
 tail -100 /var/log/syslog
 ```
+
+Expected result: the native log prints up to 100 recent lines. Each line starts with a date and time, then a `[thread or request id]` and a module name such as `network:`.
 
 Record the affected user, source IP address, requested URL, timestamp, browser error, SafeSquid policy section changed, and verification result.
 
@@ -78,3 +81,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [BIND Local DNS Resolver](/architecture/interface/bind) to run BIND as the local DNS resolver.

@@ -72,7 +72,7 @@ rm -rf *
 ## Steps
 ### [Access the SafeSquid User Interface](/architecture/interface/configuration_portal)
 
-![your current version of safesquid will be shown in the right hand bottom corner in the safesquid interface](/images/How_To/Upgrade_SafeSquid_To_A_Newer_Version/image1.webp)
+![your current version of safesquid will be shown in the right hand bottom corner in the SafeSquid interface](/images/How_To/Upgrade_SafeSquid_To_A_Newer_Version/image1.webp)
 
 ### Go to Support Page
 ![clicking on support](/images/How_To/Upgrade_SafeSquid_To_A_Newer_Version/image2.webp)
@@ -112,3 +112,7 @@ You can download **SafeSquid SWG for Windows** package from - http://downloads.s
 
 You can download **SafeSquid SWG for Linux** package from - http://downloads.safesquid.net/appliance/binary/safesquid_latest.tar.gz
 
+## Next steps
+
+- **[Upgrade Ubuntu](/use_cases/upgrade/os_upgrade)** - non-interactive upgrade of SafeSquid SWG from Ubuntu 20.04 LTS to 24.04 LTS: prerequisites, OS upgrade, DNS, Netplan, and verification.
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.

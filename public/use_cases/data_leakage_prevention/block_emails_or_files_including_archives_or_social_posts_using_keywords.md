@@ -10,6 +10,8 @@ keywords:
 ---
 
 
+# Block Emails, Files and Social Posts Using Keywords
+
 ## Problem
 Security teams need predictable control over app and web usage to reduce policy bypass and data-risk exposure.
 
@@ -23,7 +25,7 @@ You keep actionable policy control close to operations, with verifiable outcomes
 Use the steps in this guide to implement the control, then validate behavior with a real user-flow test.
 
 ## Problem and benefit
-When an employee or user on the network leaks confidential information intentionally or unintentionally, the organization can suffer large losses. Data leakage can occur through many channels. Users may upload important documents to the internet; even when content filtering blocks Microsoft Word and Excel uploads, users can create archives and attempt to upload them. Many organizations do not block archive files because administrators use them to transfer large log files. Organizations may protect data from external intruders but not from theft or accidental disclosure by employees and partners, who may copy content from Word or Excel and email it to third parties.
+When an employee or user on the network leaks confidential information intentionally or unintentionally, the organization can suffer large losses. Data leakage can occur through many channels. Users may upload important documents to the internet. Even when content filtering blocks Microsoft Word and Excel uploads, users can create archives and attempt to upload them. Many organizations do not block archive files because administrators use them to transfer large log files. Organizations may protect data from external intruders but not from theft or accidental disclosure by employees and partners, who may copy content from Word or Excel and email it to third parties.
 
 In modern era, these kind of data leaks are become a challenge for organizations. Organizations are in a quest for content filtering software's which can deeply inspect archive files and able to identify whether the archive or emails contains any confidential details of organization. Most of such archive files and emails have important keywords that should be matched while tracing the Data Leakage.
 
@@ -143,7 +145,7 @@ If you found that ClamAV daemon is not running then restart using following comm
 ### Check signatures file
 
 If ClamAV service is running then check whether you have signatures database file on disk or not using locate command.
-```
+```text
    updatedb && locate safesquid.ldb
    /var/lib/clamav/safesquid.ldb
    /var/lib/safesquid/content_signatures/safesquid.ldb
@@ -153,3 +155,8 @@ If ClamAV service is running then check whether you have signatures database fil
 ![Check ANTIVIRUS profiles applicability](/images/How_To/Block_Emails_or_Files_including_archives_or_Social_Posts_using_Keywords/image18.webp)
 
 If you still got any problem, you can send us mail at support@safesquid.net
+
+## Next steps
+
+- **[SafeSquid SWG Overview](/architecture/overview/safesquid_swg)** - SafeSquid Secure Web Gateway overview — software-defined deployment, core architecture, enforcement components, intelligence feeds, browser security, and operational services.
+- **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** - configure HTTPS inspection in SafeSquid to decrypt and analyze encrypted traffic for web security, malware detection, and policy enforcement.

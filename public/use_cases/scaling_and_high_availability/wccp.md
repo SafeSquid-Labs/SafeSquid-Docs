@@ -9,6 +9,8 @@ keywords:
   - High availability proxy setup
 ---
 
+# Plan WCCP Configuration for Transparent Redirection
+
 ## GOAL
 Are you looking for Transparent redirection of traffic?
 
@@ -43,7 +45,7 @@ The story is over. Now all your client's traffic will be transparently redirecte
 
 The below picture will tell you whole story.
 
-![Safesquid and WCCP - Describes the communication between WCCP enabled Router and SafeSquid Proxy ](/images/How_To/Transparent_Redirection_With_SafeSquid_And_WCCP/image1.webp)
+![SafeSquid and WCCP - Describes the communication between WCCP enabled Router and SafeSquid Proxy ](/images/How_To/Transparent_Redirection_With_SafeSquid_And_WCCP/image1.webp)
 
 WCCP Describes the communication between WCCP enabled Router and SafeSquid Proxy (Web-cache) to implement transparent redirection with scaling and fail-safe benefits.
 
@@ -60,3 +62,7 @@ WCCP Describes the communication between WCCP enabled Router and SafeSquid Proxy
 3. Scale Up - Add any number of proxies without disturbing environment
 4. Load balance- Traffic will be distributed across all proxies.
 
+## Next steps
+
+- **[Transparent Proxy](/use_cases/scaling_and_high_availability/transparent_proxy)** - deploy SafeSquid in transparent proxy mode to intercept HTTP/HTTPS without client config for policy enforcement and SSL inspection.
+- **[Choose an Architecture](/deployment/choose_an_architecture)** - decide where SafeSquid intercepts traffic — forward, transparent, TCP, reverse, or chained — and what each choice costs you in client configuration, coverage, and bypass risk.

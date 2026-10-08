@@ -2,14 +2,17 @@
 title: FAQs
 description: Navigation hub for the FAQs section.
 keywords:
-  - faqs
+  - SafeSquid FAQs
+  - SafeSquid activation key
+  - SafeSquid licensing
+  - SafeSquid installation questions
   - SafeSquid documentation
 ---
 
-# FAQs
+# Find the Right FAQ
 
 Navigation hub for the FAQs section.
 
-## Available items
+## Quickstart path
 
-- [FAQs](/faqs/faqs)
+1. **[FAQs](/faqs/faqs)** - find answers on installation, activation, licensing, and configuration.

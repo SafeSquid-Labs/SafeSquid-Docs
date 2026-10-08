@@ -1,9 +1,11 @@
 ---
 title: "ICAP"
+description: "Send HTTP request and response bodies to ICAP services, built-in or third-party, at the REQMOD and RESPMOD hooks."
 ---
 
-## Overview
+# Send Request and Response Bodies to ICAP Services
 
+## What does this section do?
 The `ICAP` section sends HTTP request or response bodies to an external ICAP server for scanning or modification. Typical uses include antivirus ICAP services, DLP adapters, and content adaptation.
 
 {/* source: https://www.safesquid.com/md/icap.md */}
@@ -57,7 +59,7 @@ code -->|timeout| next
 - **Applies to (flags)** — REQUESTS (REQMOD) and/or RESPONSES (RESPMOD).
 - **Threat ID Header (threatheader)** — Header name(s) on ICAP 200 response for threat name.
 {/* source: https://www.safesquid.com/md/icap.md */}
-- **Threat ID Header, first-match nuance** — the **first** of the configured names present in the response supplies the threat name used for logging and the block template; if none of them are present in a 200 response, the reason is recorded as a missing threat header.
+- **Threat ID Header, first-match nuance**. The **first** of the configured names present in the response supplies the threat name used for logging and the block template. If none of them are present in a 200 response, the reason is recorded as a missing threat header.
 - **Profiles (profiles)** — Limit to connections with these tags. Blank matches all.
 
 ## Examples
@@ -91,3 +93,8 @@ those two fields render on a fresh row.
 1. Enable ICAP log level; look for `ICAPSection::` lines and response codes.
 2. Detailed logs show filter name ICAP on block.
 3. Test EICAR through ICAP-enabled profile.
+
+## Next steps
+
+- **[SqScan](/configuration/real_time_content_security/sqscan)** - scan uploads and downloads for malware with SafeSquid's built-in in-memory scanner, with no external clamd process.
+- **[Clam antivirus](/configuration/real_time_content_security/clam_antivirus)** - scan HTTP traffic for malware in real time by integrating the ClamAV clamd daemon with SafeSquid.

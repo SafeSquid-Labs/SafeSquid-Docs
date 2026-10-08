@@ -10,7 +10,7 @@ keywords:
 ---
 
 
-# Speed Limits
+# Control Bandwidth With Speed Limits
 
 > 🚧 **This page is under construction.** Content coming soon.
 

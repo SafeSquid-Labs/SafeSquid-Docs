@@ -13,13 +13,13 @@ keywords:
 
 # Rewriting policies control what SafeSquid modifies
 
-Content Modifier uses regex-based rewriting policies to modify web page body content, client request headers, server response headers, and POST data in real time. Each policy defines a match pattern, a replacement, a MIME scope, and a target (body, client header, server header, or POST data). Policies are ordered; SafeSquid evaluates them top-to-bottom and applies all matching rules to each connection.
+Content Modifier uses regex-based rewriting policies to modify web page body content, client request headers, server response headers, and POST data in real time. Each policy defines a match pattern, a replacement, a MIME scope. A target (body, client header, server header, or POST data). Policies are ordered; SafeSquid evaluates them top-to-bottom and applies all matching rules to each connection.
 
 
 
 ## Global section enables or disables all rewriting
 
-Access the Content Modifier section in the SafeSquid interface under **Configure → Real-time Content Security → Content Modifier**.
+Access the Content Modifier section in the SafeSquid interface under **Configure → Real time content security → Content modifier**.
 
 ### Enabled
 
@@ -119,3 +119,8 @@ SafeSquid strips the AVIF and WEBP entries from the Accept header, causing the s
 
 **Next steps:** [Content Modifier overview](/use_cases/content_modifier/content_modifier) for prerequisites, implementation actions, and troubleshooting. [Header Obfuscation](/use_cases/header_rewrite/header_obfuscation) for header-specific filtering. [Cookie Inspection](/use_cases/cookie_inspection/cookie_inspection) for cookie-level policies.
 
+## Next steps
+
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.
+- **[Content Modifier](/use_cases/content_modifier/content_modifier)** - configure SafeSquid's Content Modifier to dynamically alter HTML, headers, and data in real-time for security and custom web policies.
+- **[Header Re-Write](/use_cases/header_rewrite/header_obfuscation)** - configure SafeSquid header filter to allow, deny, or insert HTTP headers for client-server communication control.

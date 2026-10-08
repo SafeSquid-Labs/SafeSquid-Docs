@@ -1,6 +1,14 @@
 ---
 title: "Network settings"
+description: Set the sockets clients connect to and the source IP SafeSquid uses for outbound connections to origin servers.
+keywords:
+  - network settings
+  - proxy listener ports
+  - outbound source IP selection
+  - client listen sockets
 ---
+
+# Set Network Settings for Clients and Outbound Traffic
 
 The **Network** section defines client listen sockets and outbound source IP selection for origin connections.
 
@@ -22,7 +30,7 @@ at all unless a Listen entry is bound.
 
     ### Listen — startup bind
 
-    Every enabled Listen row with `port != -1` binds at startup. If no enabled row matches startup.ini `LISTEN_IP` and `LISTEN_PORT`, an additional fallback bind runs on those defaults — this fallback is extra, it does not replace or disable any entry you configured; it only fires when nothing in your list already covers that address. Restart required after Listen changes.
+    Every enabled Listen row with `port != -1` binds at startup. If no enabled row matches startup.ini `LISTEN_IP` and `LISTEN_PORT`, an additional fallback bind runs on those defaults. This fallback is extra, it does not replace or disable any entry you configured. It only fires when nothing in your list already covers that address. Restart required after Listen changes.
 
     ## Listen fields
 
@@ -32,7 +40,7 @@ at all unless a Listen entry is bound.
       <img src="/images/configuration/network_settings-listen.webp" alt="SafeSquid console showing Network settings Listen rows including an SSL_TRANSPARENT binding, the Edit Policies icon on the first row circled" />
     </Frame>
 
-    - **IP / Port** — Bind address and client port. Blank IP binds every address dual-stack where IPv6 is available; `0.0.0.0` binds every IPv4 address; `::` binds every IPv6 address; a specific address binds only that one.
+    - **IP / Port** — Bind address and client port. Blank IP binds every address dual-stack where IPv6 is available; `0.0.0.0` binds every IPv4 address; `::` binds every IPv6 address. A specific address binds only that one.
     - **Bindings** — `SSL_TRANSPARENT`, `CAPTIVE_PORTAL` implemented; `SSL_AUTHENTICATION` / `SSL_BRIDGE` have no effect.
 
     ## Examples
@@ -74,7 +82,7 @@ at all unless a Listen entry is bound.
 
     ### Interface — first match wins
 
-    Outbound walks Interface rows top-down: skip disabled; skip empty Source IP after load; skip when destination is in **Excluded Destination IPs**; require a profile match (connection profiles plus hostname/service tags). The first match picks a source IP from the row's list, keyed by client ID. If no row survives all the gates, SafeSquid sets no source IP at all and the connection uses whatever the operating system's own routing would normally choose.
+    Outbound walks Interface rows top-down: skip disabled; skip empty Source IP after load. Skip when destination is in **Excluded Destination IPs**; require a profile match (connection profiles plus hostname/service tags). The first match picks a source IP from the row's list, keyed by client ID. If no row survives all the gates, SafeSquid sets no source IP at all and the connection uses whatever the operating system's own routing would normally choose.
 
     ### Source IP on host only
 
@@ -142,3 +150,7 @@ at all unless a Listen entry is bound.
 
   </Tab>
 </Tabs>
+
+## Next steps
+
+- **[Access restrictions](/configuration/application_setup/access_restrictions)** - define who can connect through SafeSquid, whether they must authenticate, and which proxy features they get, using ordered first-match rules.

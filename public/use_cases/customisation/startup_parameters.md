@@ -10,6 +10,8 @@ keywords:
 
 
 
+# Tune SafeSquid Configuration With Startup Parameters
+
 ## Startup parameters control proxy behavior and tuning
 SafeSquid loads default configuration/startup parameters from the startup.ini file. You can modify the startup parameter values from SafeSquid GUI. Modified values of startup parameters are stored in **/opt/safesquid/startup.ini** file.
 
@@ -59,3 +61,7 @@ SafeSquid loads default setup parameters from the setup.ini file. To modify setu
 You can tune up the SafeSquid for better results. You can modify Startup Parameters to obtain better performance by tweaking the overall system & application tuning. Quite a few users have experienced difficulties due to a lack of understanding of SafeSquid\'s configuration, and possibly due to insufficient documentation on the subject.
 :::
 
+## Next steps
+
+- **[Master-Slave](/use_cases/scaling_and_high_availability/master_slave)** - configure SafeSquid master-slave architecture for centralized policy sync and reporting across slave instances.
+- **[Configuration Sync](/use_cases/customisation/configuration_sync)** - discover how to enable configuration synchronization across a SafeSquid proxy cluster to ensure consistent policy deployment, reduce administrative overhead, and improve system reliability and security.

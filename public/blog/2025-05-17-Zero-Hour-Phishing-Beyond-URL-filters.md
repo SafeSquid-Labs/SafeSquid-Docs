@@ -1,6 +1,13 @@
 ---
 slug: zero-hour-phishing-beyond-url-filters
 title: 'The Death of the Blocklist: Eliminating Zero-Hour Phishing'
+keywords:
+  - zero-hour phishing
+  - AiTM phishing protection
+  - submit-on-trust policy
+  - reputation-based blocklist limits
+  - phishing-as-a-service
+  - credential theft prevention
 description: 'Why reputation-based secure gateways fail to stop zero-hour and AiTM phishing, and how a submit-on-trust policy stops credential theft in real time.'
 # authors: [Vashistha]
 mode: "center"
@@ -80,7 +87,7 @@ Traditional Zero Trust Network Access evaluates device posture once, at login. I
 
 ## Eliminating Zero-Hour Risk with Submit-on-Trust
 
-Protecting against zero-hour threats means abandoning the legacy gateway and isolation models that try to predict site safety *before* the user interacts with it. The alternative is an architectural shift: **submit-on-trust** — every page may load, but no form can post unless the destination host is explicitly trusted.
+Protecting against zero-hour threats means abandoning the legacy gateway and isolation models that try to predict site safety *before* the user interacts with it. The alternative is an architectural shift: **submit-on-trust** — every page may load. But no form can post unless the destination host is explicitly trusted.
 
 ```mermaid
 flowchart TB
@@ -92,9 +99,9 @@ flowchart TB
     E -->|No| G[Submission blocked — warning shown, SIEM/SOAR telemetry fired]
 ```
 
-- **Read-only by default** — Users can view content on uncategorised or newly flipped sites without interruption. Because risk arises only at the moment of data submission, this avoids blocklists and web delays entirely; browsing stays natural until the user actively tries to share credentials or session data.
+- **Read-only by default** — Users can view content on uncategorised or newly flipped sites without interruption. Because risk arises only at the moment of data submission, this avoids blocklists and web delays entirely. Browsing stays natural until the user actively tries to share credentials or session data.
 - **Trusted-submit whitelist** — Administrators pre-approve high-volume, verified destinations — search engines (`accounts.google.com`), government sites (`*.gov.in`), enterprise cloud portals (`login.microsoftonline.com`) — so forms submit seamlessly where legitimate business actually happens.
-- **Dynamic POST/PUT intercept** — When a user clicks Login, Pay, or Send, the browser session is intercepted to inspect the form's HTML `action` attribute. If the destination host isn't on the administrator-maintained trusted-submit list, the request is blocked immediately, the credentials never leave the browser, and a clear security warning is shown.
+- **Dynamic POST/PUT intercept** — When a user clicks Login, Pay, or Send, the browser session is intercepted to inspect the form's HTML `action` attribute. If the destination host isn't on the administrator-maintained trusted-submit list, the request is blocked immediately, the credentials never leave the browser. A clear security warning is shown.
 - **Wildcard and regex rules** — Security teams approve entire SaaS estates (`*.dropbox.com`) or define precise pathways (`https://bank.icici.com/auth/*`) with a single configuration entry, keeping the policy engine lean.
 - **Instant telemetry** — Every blocked submission is an active attack attempt. Each one triggers a violation event with full execution context, routed immediately to enterprise SIEM/SOAR pipelines for rapid triage and threat hunting.
 - **No reputation lag** — Enforcement is tied to user intent — the act of submitting data — not historical domain scores. This protects the organization during the critical sub-50-minute window when a zero-hour phishing domain is live and completely unchecked by external threat feeds.
@@ -117,7 +124,7 @@ By cutting the attacker off at the point of exfiltration — while granting seam
 ## FAQ
 
 **What is a submit-on-trust policy?**
-It's a security framework where every web page is allowed to load freely, but form submissions — POST or PUT requests — are strictly blocked unless the destination domain is explicitly listed on an administrator-maintained trusted-submit whitelist.
+It's a security framework where every web page is allowed to load freely. But form submissions — POST or PUT requests — are strictly blocked unless the destination domain is explicitly listed on an administrator-maintained trusted-submit whitelist.
 
 **How does this address reputation lag in threat-intelligence feeds?**
 Traditional gateways rely on feeds that can take hours to categorize a new domain. Submit-on-trust is reputation-independent: it evaluates the destination of the form submission at the exact moment the user clicks submit. If the host isn't trusted, the submission is blocked — eliminating risk during the critical sub-50-minute window when a phishing site is live but undetected.
@@ -126,7 +133,7 @@ Traditional gateways rely on feeds that can take hours to categorize a new domai
 No. Because enforcement is read-only by default, users can visit, read, and browse uncategorized, new, or personal pages without interruption. The check triggers only at the moment of data submission, so everyday browsing sees zero friction.
 
 **Can it stop session hijacking and AiTM attacks?**
-Yes. During an AiTM attack, the user is tricked into submitting credentials to an attacker's proxy rather than the real corporate application. The proxy domain isn't on the trusted-submit whitelist, so the form submission is blocked — preventing both password harvesting and session-cookie theft.
+Yes. During an AiTM attack, the user is tricked into submitting credentials to an attacker's proxy rather than the real corporate application. The proxy domain isn't on the trusted-submit whitelist. So the form submission is blocked — preventing both password harvesting and session-cookie theft.
 
 ## Related posts
 

@@ -10,13 +10,13 @@ keywords:
 
 # Turn Enforcement Into Evidence
 
-SafeSquid blocks and allows traffic in real time, but that decision only survives an audit or an incident review once it is logged, retained long enough to matter, and reachable through the right report. A control you cannot evidence is a control nobody will credit.
+SafeSquid blocks and allows traffic in real time. That decision only survives an audit or an incident review once it is logged and retained long enough to matter. It must also be reachable through the right report. A control you cannot evidence is a control nobody will credit.
 
-This section covers planning retention before deployment, proving the audit trail works once SafeSquid is live, and finding the right report or log for a specific question.
+Plan retention before deployment and prove the audit trail works once SafeSquid is live. Then find the right report or log for a specific question.
 
 ## Quickstart path
 
-1. **[Log-Retention Planning](/deployment/log_retention_planning)** - set the retention target and size the log volume before installation; retention is a sizing input, not an afterthought.
+1. **[Log-Retention Planning](/deployment/log_retention_planning)** - set the retention target and size the log volume before installation. Retention is a sizing input, not an afterthought.
 2. **[Logging and Reporting](/deployment/logging_and_reporting)** - confirm access logs are written, retained, and forwarded before calling the deployment audit-ready.
 3. **[Tools and Reports](/configuration/start_here/tools_and_reports)** - locate Reports and Support utilities in the Web UI once the proxy is live.
 4. **[Logging and troubleshooting](/configuration/start_here/logging)** - pick the right log family for a specific symptom, instead of searching blind.

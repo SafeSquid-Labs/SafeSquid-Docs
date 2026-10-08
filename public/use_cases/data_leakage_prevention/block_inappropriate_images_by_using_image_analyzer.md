@@ -65,3 +65,7 @@ Try to open any pornographic website you will see that the images will block due
 
 ![Block search due to Image Analyzer](/images/How_To/Block_inappropriate_images_by_using_Image_Analyzer/image6.webp)
 
+## Next steps
+
+- **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** - configure HTTPS inspection in SafeSquid to decrypt and analyze encrypted traffic for web security, malware detection, and policy enforcement.
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.

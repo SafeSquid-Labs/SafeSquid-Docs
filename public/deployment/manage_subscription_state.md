@@ -11,9 +11,9 @@ keywords:
 
 # Handle Expiry Before It Degrades Enforcement
 
-Expiry degrades the deployment; it does not stop it. Core proxy and filtering keep running, so nothing obvious breaks — and that is the risk. Threat feeds quietly drop to a weekly schedule while the deployment reports itself healthy, and the gap only becomes visible when something current gets through.
+Expiry degrades the deployment; it does not stop it. Core proxy and filtering keep running, so nothing obvious breaks — and that is the risk. Threat feeds quietly drop to a weekly schedule while the deployment reports itself healthy. The gap only becomes visible when something current gets through.
 
-Knowing which half still works prevents an unnecessary emergency, and knowing which half does not prevents a false sense of coverage.
+Knowing which half still works prevents an unnecessary emergency. Knowing which half does not prevents a false sense of coverage.
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/04-Activate.md §Troubleshooting case4 License Expired */}
 
@@ -40,19 +40,25 @@ Free licences do not expire, so this applies only to commercial subscriptions.
 
 ## Choose the recovery option
 
-{/* NEEDS-SME-REVIEW: confirmed live 2026-09-02 (logged-in portal view) — "Manage Account" is a real, current portal tab (alongside Manage Key, Manage Categories, Manage Certificates, Manage VPN, Manage Signatures), still absent from the local safesquid.cfg Support page as expected. Its subscription panel shows Subscription ID, C-Code, Key Name, Plan, Named Users, No of Instances, Support Validity, and one action button labeled **"Conserve Subscription"** — not "Extend Conservation Period" as below; that label matches only the old screenshot referenced further down (dated 1 July 2022, Subscription ID 2263), which is now stale. No "Renew Subscription" button was visible for this account's Plan: Trial — whether it appears for a Commercial-plan account is unconfirmed, so Option 1 below is not verified as currently written. Also unresolved: the Manage Key panel's Support Validity for this key read "25-Aug-2027" while the Manage Account panel read "24-Sep-2026" for what should be the same subscription — don't treat either as authoritative without asking which one the portal actually enforces. The "each extension adds three days" figure is still unverified. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: confirmed live 2026-09-02 (logged-in portal view) — "Manage Account" is a real, current portal tab (alongside Manage Key, Manage Categories, Manage Certificates, Manage VPN, Manage Signatures), still absent from the local safesquid.cfg Support page as expected. Its subscription panel shows Subscription ID, C-Code, Key Name, Plan, Named Users, No of Instances, Support Validity, and one action button labeled **"Conserve Subscription"** — not "Extend Conservation Period" as below; that label matches only the old screenshot referenced further down (dated 1 July 2022, Subscription ID 2263), which is now stale. No "Renew Subscription" button was visible for this account's Plan: Trial — whether it appears for a Commercial-plan account is unconfirmed, so Option 1 below is not verified as currently written. Also unresolved: the Manage Key panel's Support Validity for this key read "25-Aug-2027" while the Manage Account panel read "24-Sep-2026" for what should be the same subscription — don't treat either as authoritative without asking which one the portal actually enforces. The "each extension adds three days" figure is still unverified. */}
 
 **Option 1 — renew.** Sign in to [key.safesquid.com](https://key.safesquid.com) and go to **Manage
-Account**. **Missing:** whether a "Renew Subscription" action is available there is unconfirmed —
+Account**.
+
+**Missing:** whether a "Renew Subscription" action is available there is unconfirmed —
 it wasn't visible for a Trial-plan account when last checked (2026-09-02); a Commercial plan may
 show it. If you don't see it, contact SafeSquid support rather than assuming renewal isn't
-possible. After renewing, download the updated activation key and upload it under
+possible.
+
+After renewing, download the updated activation key and upload it under
 [Subscription](/configuration/infrastructure_and_access/subscription) using the same steps as the
 initial activation.
 
 **Option 2 — conserve the subscription.** From **Manage Account**, use **Conserve Subscription**
 (this button was previously labeled "Extend Conservation Period" — confirm which label your
-portal shows, since this has changed at least once). It extends the support window and clears
+portal shows, since this has changed at least once).
+
+It extends the support window and clears
 the expiry banner for that period. It can be applied more than once, but it is a bridge to
 renewal, not a substitute for it — treat repeated use as a signal that subscription ownership
 needs attention.
@@ -66,15 +72,15 @@ Restart SafeSquid from the interface after either action — see
 
     Confirm the account owner approves the renewal or conservation-period path.
 
-    If subscription ownership is unclear, pause and resolve it — an extension applied without an owner defers the problem without assigning it.
+    If subscription ownership is unclear, pause and resolve it. An extension applied without an owner defers the problem without assigning it.
   </Step>
   <Step title="Apply the renewal or extension">
     Use the Self-Service Portal workflow for the approved option.
 
     Confirm the action completes and the updated key is downloaded, where renewing.
 
-    {/* NEEDS-SME-REVIEW: this screenshot is stale — dated 1 July 2022 (Subscription ID 2263), and shows the action button labeled "Extend Conservation Period". The live portal as of 2026-09-02 labels the equivalent button "Conserve Subscription". Recapture before publishing further revisions of this page. */}
-    ![Conserve Subscription option on the Manage Account tab — screenshot predates the current "Conserve Subscription" label, shown here as "Extend Conservation Period"](/images/getting_started/activate_06_extend_conservation_period.webp)
+    {/* [VERIFY WITH SAFESQUID TEAM]: this screenshot is stale — dated 1 July 2022 (Subscription ID 2263), and shows the action button labeled "Extend Conservation Period". The live portal as of 2026-09-02 labels the equivalent button "Conserve Subscription". Recapture before publishing further revisions of this page. */}
+    ![Manage Account tab showing the Extend Conservation Period option, now labelled Conserve Subscription](/images/getting_started/activate_06_extend_conservation_period.webp)
   </Step>
   <Step title="Restart and verify">
     Restart SafeSquid from the interface, then confirm subscription state in the [Configuration Portal](/architecture/interface/configuration_portal).

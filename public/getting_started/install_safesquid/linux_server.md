@@ -10,7 +10,7 @@ keywords:
 
 # Install on a Managed Linux Host
 
-Use the Linux server path only when the organization already owns the operating system lifecycle, hardening baseline, monitoring, backup, and rollback. For new deployments, the SafeSquid Appliance Builder is the standard path because it provides a repeatable appliance build and supporting services.
+Use the Linux server path only when the organization already owns the operating system lifecycle. It must also own the hardening baseline, monitoring, backup, and rollback. For new deployments, the SafeSquid Appliance Builder is the standard path. It provides a repeatable appliance build and supporting services.
 
 ## Use this method when
 
@@ -115,7 +115,7 @@ sudo zypper install -y wget tar libopenssl-devel pcre-devel zlib-devel \
   </Tab>
 </Tabs>
 
-Package names drift between releases. If one is not found, locate the equivalent for your distribution rather than skipping it — a missing library surfaces later as a service that installs cleanly and then refuses to start.
+Package names drift between releases. If one is not found, locate the equivalent for your distribution rather than skipping it. A missing library surfaces later as a service that installs cleanly and then refuses to start.
 
 </Accordion>
 
@@ -123,7 +123,7 @@ Package names drift between releases. If one is not found, locate the equivalent
 
 <Accordion title="Prepare directories, firewall, SELinux, and time">
 
-**Create the data directories** so the installer writes into a known layout, and so you can mount dedicated volumes underneath them:
+**Create the data directories** so the installer writes into a known layout. This also lets you mount dedicated volumes underneath them:
 
 ```bash
 sudo mkdir -p /var/log/safesquid /var/lib/safesquid /var/db/safesquid
@@ -152,7 +152,7 @@ sudo iptables -A INPUT -p tcp --dport 8443 -j ACCEPT
 sudo iptables-save
 ```
 
-**Set SELinux to permissive for the setup window** on RHEL-family hosts, then write a targeted policy once the deployment is stable:
+**Set SELinux to permissive for the setup window** on RHEL-family hosts. Then write a targeted policy once the deployment is stable:
 
 ```bash
 sudo setenforce 0
@@ -197,7 +197,7 @@ Run the installer from the directory you extracted into:
 sudo _mkappliance/installation/setup.sh
 ```
 
-The installer checks dependencies, creates the `safesquid` system user and group, installs binaries under `/opt/safesquid/`, writes init and systemd service units, and places default configuration under `/etc/safesquid/`.
+The installer checks dependencies, creates the `safesquid` system user and group, installs binaries under `/opt/safesquid/`. It also writes init and systemd service units and places default configuration under `/etc/safesquid/`.
 
 Confirm every linked library resolved:
 
@@ -205,7 +205,7 @@ Confirm every linked library resolved:
 ldd /opt/safesquid/bin/safesquid
 ```
 
-Expected result: no line reads `not found`. Any that does names a package still to install — resolve it before starting the service, because the failure otherwise appears at runtime as an immediate exit rather than a missing dependency.
+Expected result: no line reads `not found`. Any that does names a package still to install — resolve it before starting the service. The failure otherwise appears at runtime as an immediate exit rather than a missing dependency.
 
 If the installer itself fails, the usual causes are a missing library, running without `sudo`, or insufficient free space. Check the terminal output first, then `df -h`.
 
@@ -223,14 +223,14 @@ On a Debian-based system, `setup.sh` above carries out the whole post-install se
 - Removes leftovers from a previous installation on the same machine, if one existed.
 - Installs the supporting packages SafeSquid depends on.
 - Stops the service if it is already running (relevant on a re-install or upgrade).
-- Configures a local DNS resolver tuned for appliance use, with IPv6 disabled and the zone data **DNS Blacklist** depends on already in place.
+- Configures a local DNS resolver tuned for appliance use, with IPv6 disabled. The zone data **DNS Blacklist** depends on is already in place.
 - Copies the appliance file tree into place.
 - Stands up a local DNS blacklist server bound only to loopback.
 - Enables and starts the service.
 
-**On a Red Hat-based system only the dependency-package installation step runs automatically.** The DNS resolver and DNS Blacklist setup is **not** configured for you and must be done separately. If DNS Blacklist does not appear to resolve anything, confirm the local resolver and blacklist server were actually set up — on a RHEL-family install this is a manual step, not an assumption.
+**On a Red Hat-based system only the dependency-package installation step runs automatically.** The DNS resolver and DNS Blacklist setup is **not** configured for you. Do it separately. If DNS Blacklist does not appear to resolve anything, confirm the local resolver and blacklist server were actually set up. On a RHEL-family install this is a manual step, not an assumption.
 
-Two reasons some features need no extra setup on this path: the Kerberos and SASL components are installed by that step, which is why Kerberos/SSO and LDAP authentication need no extra package installation; and the OCR components are installed there too, which is why DLP and Image analyzer can score text in images without extra setup. If Kerberos/SSO or LDAP authentication misbehaves, confirm you are on the fully-automated Debian-based path.
+Some features need no extra setup on this path for two reasons. That step installs the Kerberos and SASL components. That is why Kerberos/SSO and LDAP authentication need no extra package installation. The OCR components are installed there too. That is why DLP and Image analyzer can score text in images without extra setup. If Kerberos/SSO or LDAP authentication misbehaves, confirm you are on the fully-automated Debian-based path.
 
 </Accordion>
 
@@ -254,16 +254,20 @@ Check service state:
 systemctl status safesquid --no-pager
 ```
 
+Expected result: the first lines read `safesquid.service - SafeSquid Secure Web Gateway Proxy Server`, `Loaded: loaded` and `Active: active (running)`.
+
 Check listener state:
 
 ```bash
 ss -lntp | grep ':8080'
 ```
 
+Expected result: a `LISTEN` line for `*:8080` (the proxy listener). No line means nothing is listening on 8080, so check the service state first.
+
 Check access-log creation after a pilot request:
 
 ```bash
-tail -20 /var/log/safesquid/access/extended.log
+tail -20 /var/log/safesquid/extended/extended.log
 ```
 
 Expected result: SafeSquid runs, listens on the approved port, and records pilot traffic.
@@ -314,7 +318,7 @@ Before routing users:
 
 Change the shipped administrator password before the host is reachable from any client network.
 
-{/* NEEDS-SME-REVIEW: the :8443 management interface's TLS certificate was inspected on 2026-08-28 and found expired (self-signed, CN=safesquid.cfg, valid 2021-08-19 to 2022-08-19 — over 4 years past expiry). The "System → User Management" path below is unverified against the live UI as a result; strict certificate validation correctly blocked automated verification, and an expired cert should not be trusted just to check a menu label. Renew the certificate, then re-verify this path. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: the :8443 management interface's TLS certificate was inspected on 2026-08-28 and found expired (self-signed, CN=safesquid.cfg, valid 2021-08-19 to 2022-08-19 — over 4 years past expiry). The "System → User Management" path below is unverified against the live UI as a result; strict certificate validation correctly blocked automated verification, and an expired cert should not be trusted just to check a menu label. Renew the certificate, then re-verify this path. */}
 
 1. Open the management interface at `https://SERVER-IP:8443/` from an approved administrator network.
 2. Go to **System** and open **User Management**.
@@ -328,7 +332,7 @@ Record that the change was made in the deployment evidence. A proxy carrying all
 
 Without rotation, SafeSquid logs grow until the volume fills and evidence is silently truncated. Create `/etc/logrotate.d/safesquid`:
 
-```
+```text
 /var/log/safesquid/*.log {
     daily
     rotate 30

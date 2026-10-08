@@ -102,7 +102,7 @@ df -h
 
 **Expected output for sufficient free space:**
 
-```
+```text
 Filesystem                                     Size  Used Avail Use% Mounted on
 /dev/mapper/vgsab--ubantu-root                  20G  4.0G  16G  20% /
 tmpfs                                          392M  900K  391M   1% /run
@@ -139,7 +139,7 @@ lsb_release -a
 
 **Expected Output:**
 
-```
+```text
 description:    Ubuntu 20.04 LTS
 ```
 
@@ -369,7 +369,7 @@ lsb_release -a
 
 **Expected:**
 
-```
+```text
 description:    Ubuntu 24.04 LTS
 ```
 
@@ -387,3 +387,7 @@ ls -rlt /opt/safesquid/bin/safesquid
 lrwxrwxrwx 1 ssquid root 39 Oct 13 22:22 /opt/safesquid/bin/safesquid -> safesquid-2025.1001.1232.3-swg-standard
 ```
 
+## Next steps
+
+- **[Upgrade SafeSquid](/use_cases/upgrade/version_upgrade)** - upgrade SafeSquid SWG via Web GUI: prerequisites, cleanup, and applying the new tarball package.
+- **[Troubleshooting](/troubleshooting/troubleshooting)** - comprehensive diagnostic procedures and resolution guides for common SafeSquid proxy issues, connection failures, and configuration problems.

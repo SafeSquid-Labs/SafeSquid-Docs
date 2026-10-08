@@ -7,7 +7,7 @@ keywords:
   - reference
 ---
 
-# Network Signature
+# Apply Policy by Network Signature
 
 Maps client IP addresses or ranges to user-groups so access restriction rules and reporting apply by network segment. No user login required; policy is enforced by source IP or subnet. Use when user identity is unavailable (device-only access, legacy apps, shared kiosks).
 
@@ -16,7 +16,7 @@ SafeSquid evaluates Network Signature rules (Allow List) **top to bottom** and a
 ## When to use Network Signature
 
 | Use Network Signature When | Use User Authentication Instead |
-| --- | --- |
+|---|---|
 | IoT devices, printers, shared kiosks | User workstations with logins |
 | Legacy apps without proxy auth support | Modern apps with credential prompts |
 | Policy by location/VLAN/segment | Policy by individual user |
@@ -63,7 +63,7 @@ Set **PAM Authentication** to **TRUE** or add **Username/Password** if you want 
 ## Example: Segmented network policies
 
 | Segment | IP Range | User-Group | Authentication | Policy Goal |
-| --- | --- | --- | --- | --- |
+|---|---|---|---|---|
 | Finance workstations | 192.168.10.0/24 | FINANCE | PAM required | User-level + department policy |
 | Guest kiosks | 192.168.20.10-20 | GUEST_KIOSKS | None | Restricted browsing, no login |
 | IoT devices | 192.168.30.0/24 | IOT_DEVICES | None | Update servers only |
@@ -82,7 +82,7 @@ Set **PAM Authentication** to **TRUE** or add **Username/Password** if you want 
 ## Troubleshooting
 
 | Symptom | Likely Cause | Fix |
-| --- | --- | --- |
+|---|---|---|
 | Wrong policy applied | Client IP not in range or rule order issue | Verify client IP is within the configured range; check rule order in Allow List (more specific rules should be above broader ones) |
 | No group assigned | IP mismatch or typo in range | Confirm IP field syntax; test from a known IP in the range |
 | Unexpected auth prompt | Rule has PAM or credentials set | For IP-only policy (no user login), ensure PAM is set to FALSE and username/password fields are empty |

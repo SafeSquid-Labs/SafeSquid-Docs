@@ -52,7 +52,7 @@ OpenLDAP environments still need directory-backed user identity on the proxy pat
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | **Test User Extraction** | Go to **LDAP Entities** tab. | You should see all users and groups from your OpenLDAP server. |
-| **Check Logs** | `tail -f /var/log/safesquid/safesquid.log` | Look for "LDAP bind successful" messages. |
+| **Check Logs** | `tail -f /var/log/safesquid/native/safesquid.log` | Look for "LDAP bind successful" messages. |
 | **Network Test** | `ldapsearch -h <IP> -D "<BindDN>" -W` | Successful response from the LDAP server confirms credentials and connectivity. |
 
 ## Troubleshooting
@@ -69,7 +69,7 @@ OpenLDAP environments still need directory-backed user identity on the proxy pat
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ----- |
+|---|---|---|
 | OpenLDAP bind, **LDAP Entities** | **Confirmed** | This page |
 | Port **389** | **Confirmed** | Troubleshooting (standard LDAP) |
 

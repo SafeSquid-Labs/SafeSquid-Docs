@@ -57,7 +57,7 @@ Installation quality determines whether SafeSquid can inspect traffic safely und
 | AWS, Azure, GCP, or DigitalOcean | [Cloud Deployment](/getting_started/install_safesquid/cloud_deployment) | Cloud-optimised images and cloud-init support |
 | Existing Linux server | [Linux Server Install](/getting_started/install_safesquid/linux_server) | Minimal footprint; you keep ownership of the OS and services |
 
-If the environment is not listed, choose by ownership rather than by platform: Appliance Builder when SafeSquid can own the whole host, Linux Server when something else already does.
+If the environment is not listed, choose by ownership rather than by platform. Use Appliance Builder when SafeSquid can own the whole host. Use Linux Server when something else already does.
 
 </Accordion>
 
@@ -86,7 +86,7 @@ If the environment is not listed, choose by ownership rather than by platform: A
     If listener state is missing, inspect service logs and network binding configuration.
   </Step>
   <Step title="Route one pilot client">
-    Send one browser or test client through SafeSquid and prove that traffic appears in `/var/log/safesquid/access/extended.log`.
+    Send one browser or test client through SafeSquid and prove that traffic appears in `/var/log/safesquid/extended/extended.log`.
 
     Confirm the access log records source, destination, timestamp, and action.
 

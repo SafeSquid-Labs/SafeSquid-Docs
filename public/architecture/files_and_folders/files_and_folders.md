@@ -8,18 +8,18 @@ keywords:
   - SafeSquid configuration files
 ---
 
-# Files and Folders
+# Locate SafeSquid Files and Folders
 
-SafeSquid server paths are part of the enforcement boundary. They hold service control scripts, module binaries, policy XML, activation material, SSL data, reporting databases, signature stores, runtime files, and logs. Uncontrolled edits can break proxy availability, weaken inspection, erase rollback evidence, or create audit gaps.
+SafeSquid server paths are part of the enforcement boundary. They hold service control scripts, module binaries, policy XML, and activation material. They also hold SSL data, reporting databases, signature stores, runtime files, and logs. Uncontrolled edits can break proxy availability, weaken inspection, erase rollback evidence, or create audit gaps.
 
-Use this section when you need to prove what changed, locate operational evidence, or decide which files need change control before an upgrade or incident response.
+Use this section to prove what changed, locate operational evidence, and decide which files need change control. Do this before an upgrade or incident response.
 
 ## Control the file surface
 
 Treat these paths as production controls, not ordinary local files:
 
 | Path group | Control value | Primary risk |
-| --- | --- | --- |
+|---|---|---|
 | Service and startup files | Prove how SafeSquid starts, restarts, and tunes the host | Unapproved runtime changes or service outage |
 | Binaries and modules | Load SafeSquid features and interface section definitions | Missing modules, mismatched libraries, or unsupported edits |
 | Policy and security files | Store activation, policy, SSL, SQLite, and UI assets | Policy drift, certificate exposure, or support risk |
@@ -34,14 +34,14 @@ Before exporting or sharing evidence, redact personal data unless an approved au
 
 ## Use change control
 
-Do not edit SafeSquid-controlled files directly unless a documented procedure requires it. Record the path, owner, reason, backup location, reviewer, and rollback step before changing service scripts, startup parameters, policy XML, SSL material, modules, templates, or log settings.
+Do not edit SafeSquid-controlled files directly unless a documented procedure requires it. Record the path, owner, reason, backup location, reviewer, and rollback step. Do this before changing service scripts, startup parameters, policy XML, SSL material, modules, templates, or log settings.
 
 For policy work, prefer the SafeSquid interface. File-level edits should be reserved for recovery, support-directed remediation, or documented administrative tasks.
 
 ## Locate the right path
 
 | Need | Start here |
-| --- | --- |
+|---|---|
 | Verify service controls, startup behavior, TCP tuning, log rotation, Monit, PAM, or kernel tuning | [Service and Startup Files](/architecture/files_and_folders/service_and_startup_files) |
 | Understand binaries, modules, section XMLs, and default startup or setup files | [Application Binaries and Modules](/architecture/files_and_folders/application_binaries_and_modules) |
 | Locate activation, policy, SSL, SQLite, UI, CGI, template, CSS, JS, image, or font files | [Policy, Security, and UI Files](/architecture/files_and_folders/policy_security_and_ui_files) |
@@ -64,3 +64,4 @@ For an operational incident, preserve:
 
 - Use [Logs and Audit Evidence](/architecture/files_and_folders/logs_and_audit_evidence) to collect proof for investigation and audit.
 - Use [Support](/architecture/policy_management_console/support) to prepare escalation evidence.
+- Use [Policy, Security, and UI Files](/architecture/files_and_folders/policy_security_and_ui_files) to locate policy, security, and UI files.

@@ -1073,6 +1073,18 @@
     {
       "source": "/configuration/application_setup/accelerators",
       "destination": "/configuration/application_setup/accelerators/caching"
+    },
+    {
+      "source": "/FAQs",
+      "destination": "/faqs/faqs"
+    },
+    {
+      "source": "/Troubleshooting",
+      "destination": "/troubleshooting/troubleshooting"
+    },
+    {
+      "source": "/SafeSquid_SWG",
+      "destination": "/architecture/overview/safesquid_swg"
     }
   ]
 }

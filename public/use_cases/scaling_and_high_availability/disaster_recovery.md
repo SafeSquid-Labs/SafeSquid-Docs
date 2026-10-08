@@ -48,7 +48,7 @@ The broader SafeSquid architecture treats backup and restore as a cloud-backed e
 - **Manual backup** — **Support → Restart SafeSquid**, selecting **Yes** for cloud backup.
 - **Retention** — the latest backup overwrites the previous one. A single version is stored per activation key.
 
-Single-version retention is the constraint most DR plans miss. There is no point-in-time history to roll back through, so a bad configuration that gets backed up replaces the good one. Take a manual backup before a major change, and keep an exported copy outside the cloud store where the change is significant.
+Single-version retention is the constraint most DR plans miss. There is no point-in-time history to roll back through. So a bad configuration that gets backed up replaces the good one. Take a manual backup before a major change, and keep an exported copy outside the cloud store where the change is significant.
 
 <Accordion title="Disaster recovery checks">
   Before declaring production readiness, confirm:

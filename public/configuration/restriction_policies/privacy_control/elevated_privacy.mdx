@@ -1,6 +1,9 @@
 ---
 title: "Elevated Privacy"
+description: Reduce cross-site tracking by stripping third-party cookies and selected tracking headers.
 ---
+
+# Reduce Cross-Site Tracking With Elevated Privacy
 
 Open **Configure → Restriction Policies → Privacy control → Elevated Privacy**. This section sits under the **Privacy control** menu group alongside [Cookie filter](/configuration/restriction_policies/privacy_control/cookie_filter), [Header filter](/configuration/restriction_policies/privacy_control/header_filter) and [Elevated Privacy](/configuration/restriction_policies/privacy_control/elevated_privacy) — configure them together, since a Cookie filter allow row and an Elevated Privacy STANDARD row can otherwise fight over the same header.
 
@@ -89,3 +92,8 @@ connection.
 2. Check `privacy.log` under Reports.
 3. Enable elevated log level for native privacy lines.
 4. Debug header `X-Elevated-Privacy` on client when configured.
+
+## Next steps
+
+- **[Cookie filter](/configuration/restriction_policies/privacy_control/cookie_filter)** - control which HTTP cookies pass between clients and servers using a global policy plus allow and deny override lists.
+- **[Header filter](/configuration/restriction_policies/privacy_control/header_filter)** - strip or inject HTTP headers on client requests and server responses using global, allow, deny, and insert rules.

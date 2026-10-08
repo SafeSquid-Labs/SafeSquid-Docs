@@ -67,7 +67,7 @@ SafeSquid enforces policy only for traffic that traverses the proxy. Client onbo
 
 <Steps>
   <Step title="Prove one explicit pilot">
-    Configure one browser or test client and verify a new access-log entry under `/var/log/safesquid/access/extended.log`.
+    Configure one browser or test client and verify a new access-log entry under `/var/log/safesquid/extended/extended.log`.
 
     Confirm the access log records the pilot source, destination, timestamp, and action.
 
@@ -88,7 +88,7 @@ SafeSquid enforces policy only for traffic that traverses the proxy. Client onbo
     If users lose access, roll back the management profile or policy for that ring.
   </Step>
   <Step title="Cover bypassing applications">
-    Configure application-specific proxy settings for Git, npm, pip, Docker, APT, YUM/DNF, curl, wget, Outlook, Thunderbird, and other tools that bypass OS settings.
+    Configure application-specific proxy settings for Git, npm, pip, Docker, APT, YUM/DNF, curl, and wget. Do the same for Outlook, Thunderbird, and other tools that bypass OS settings.
 
     Confirm each named application generates the expected SafeSquid log entry or approved bypass evidence.
 

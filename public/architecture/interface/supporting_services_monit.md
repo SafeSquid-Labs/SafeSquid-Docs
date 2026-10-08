@@ -10,7 +10,7 @@ keywords:
   - health checks
 ---
 
-# Monit Service Governance
+# Supervise SafeSquid Processes With Monit
 
 Monit automatically monitors SafeSquid and restarts it if it crashes or becomes unresponsive. It also performs housekeeping tasks like log rotation and temporary file cleanup.
 
@@ -47,7 +47,7 @@ sudo dnf install -y monit
 ```bash
 monit -V
 ```
-Should print Monit version.
+Expected result: `This is Monit version 5.34.3` (the number varies by release), followed by the build options.
 
 ---
 
@@ -59,7 +59,7 @@ systemctl is-active monit
 systemctl is-enabled monit
 ```
 
-**Expected:** Both commands return `active` and `enabled`.
+Expected result: `systemctl is-active monit` prints `active` and `systemctl is-enabled monit` prints `enabled`.
 
 ---
 
@@ -72,7 +72,7 @@ sudo nano /etc/monit/monitrc
 ```
 
 Add or uncomment:
-```
+```text
 set httpd port 2812 and
   use address localhost
   allow localhost
@@ -87,7 +87,7 @@ sudo monit reload
 ```bash
 curl -s http://localhost:2812 | head -n1
 ```
-Should return HTML header.
+Expected result: the first line of an HTML page that starts with `<!DOCTYPE html>` and contains the title `Monit: ` followed by the hostname.
 
 ---
 
@@ -100,8 +100,8 @@ sudo nano /etc/monit/conf.d/safesquid
 ```
 
 Add:
-```
-check process safesquid with pidfile /var/run/safesquid.pid
+```text
+check process safesquid with pidfile /var/run/safesquid/safesquid.pid
   start program = "/bin/systemctl start safesquid"
   stop  program = "/bin/systemctl stop safesquid"
   if failed port 8080 protocol http then restart
@@ -120,7 +120,7 @@ sudo monit reload
 sudo monit status safesquid
 ```
 
-**Expected:** Status shows `Running` and `OK`.
+Expected result: status shows `Running` and `OK`.
 
 ---
 
@@ -135,15 +135,15 @@ sudo nano /etc/monit/conf.d/safesquid-logs
 ```
 
 Add:
-```
-check file ss-log-size with path /var/log/safesquid/access.log
+```text
+check file ss-log-size with path /var/log/safesquid/extended/extended.log
   if size > 500 MB then exec "/usr/sbin/logrotate -f /etc/logrotate.d/safesquid"
 ```
 
 **Temporary Files Cleanup:**
 
 Add to the same file:
-```
+```text
 check directory ss-tmp with path /tmp
   if timestamp > 24 hours then exec "/usr/bin/find /tmp -type f -mtime +1 -delete"
 ```
@@ -174,12 +174,14 @@ sudo nano /etc/monit/conf.d/safesquid-upgrade
 ```
 
 Add:
-```
+```text
 check file ss-upgrade-flag with path /var/lib/safesquid/upgrade.flag
   if changed checksum then exec "/usr/local/bin/safesquid-upgrade"
 ```
 
 **Note:** You'll need to create the `/usr/local/bin/safesquid-upgrade` script separately.
+
+{/* [VERIFY WITH SAFESQUID TEAM]: the flag path /var/lib/safesquid/upgrade.flag and the safesquid-upgrade script were not found on a live appliance. The appliance Monit config watches /srv/safesquid/upgrade instead (checked over SSH, build 2026.0627.1344.3). Confirm the intended upgrade trigger. */}
 
 ---
 
@@ -222,7 +224,7 @@ sudo tail -20 /var/log/monit.log
 ```
 
 **Expected log entries:**
-```
+```text
 [UTC] info     : 'safesquid' process is not running
 [UTC] info     : 'safesquid' trying to restart
 [UTC] info     : 'safesquid' process started
@@ -270,7 +272,7 @@ Or open in a browser on the server (if GUI available): `http://localhost:2812`
 3. **Verify SafeSquid PID file location:**
    ```bash
    ps aux | grep safesquid
-   cat /var/run/safesquid.pid
+   cat /var/run/safesquid/safesquid.pid
    ```
    If PID file doesn't exist, update the Monit check to use process name instead.
 
@@ -279,7 +281,7 @@ Or open in a browser on the server (if GUI available): `http://localhost:2812`
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | Monit restart / port checks for SafeSquid | **Confirmed** | This guide, `monitrc` examples |
 | Threat-intelligence housekeeping mentions | **Draft** | **CTO:** confirm which jobs Monit triggers per product build |
 
@@ -287,9 +289,7 @@ Or open in a browser on the server (if GUI available): `http://localhost:2812`
 
 ## Next Steps
 
-1. **[BIND](/architecture/interface/bind)** — Configure local DNS resolver
-2. **[NTP](/architecture/interface/ntp)** — Ensure accurate time synchronization
-3. **[Audit & Forensics](/use_cases/audit_and_forensics/audit_forensics)** — Monitor SafeSquid logs and events
-4. **[Troubleshooting](/troubleshooting/troubleshooting)** — Common issues and fixes
+1. **[BIND](/architecture/interface/bind)** - Configure local DNS resolver
+2. **[NTP](/architecture/interface/ntp)** - Ensure accurate time synchronization
+3. **[Audit & Forensics](/use_cases/audit_and_forensics/audit_forensics)** - Monitor SafeSquid logs and events
 
-**Related:** [Supporting Services Overview](/architecture/interface/supporting_services_monit)

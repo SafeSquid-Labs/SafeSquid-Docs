@@ -1,12 +1,20 @@
 ---
 title: "DLP"
+description: Inspect uploads and block sensitive data from leaving the network using MIME-based DLP policies and OCR text scoring.
+keywords:
+  - DLP
+  - data leakage prevention
+  - OCR scoring
+  - MIME policy
+  - bypass severity
 ---
 
-## Overview
+# Block Sensitive Uploads With DLP
 
+## What does this section do?
 The `DLP` section inspects **uploaded** content and can block sensitive data leaving the network. MIME-based DLP policies set allow or block actions; OCR policies score text extracted from uploads against a global Threshold.
 
-DLP runs on the request (upload) path only — not on downloaded responses. Access **Bypass** with DLP skips inspection; Access **Allow bypassing** can soften a DENY block when a valid bypass cookie is present.
+DLP runs on the request (upload) path only — not on downloaded responses. Access **Bypass** with DLP skips inspection. Access **Allow bypassing** can soften a DENY block when a valid bypass cookie is present.
 
 {/* source: https://www.safesquid.com/md/dlp.md */}
 Because the MIME layer only sees declared content type, pair a MIME allow entry (for example, allowing spreadsheet uploads) with a matching destination restriction in Access Profiles — otherwise allowing a common upload type through DLP is effectively blanket permission to upload that type anywhere, defeating the control.
@@ -24,7 +32,7 @@ Unlike most SafeSquid lists, DLP MIME rows use **last matching enabled row wins*
 Unless MIME action is already **DO NOT BYPASS**, SafeSquid extracts text once (`text/*` uses text extraction; `image/*` uses OCR). Enabled OCR rows are walked while score \< Threshold; each keyword regex match adds Weight. Score ≥ Threshold → **DO NOT BYPASS**.
 
 {/* source: https://www.safesquid.com/md/dlp.md */}
-Modern zip-based Office documents (`.docx`, `.xlsx`, `.pptx`) are unarchived directly: their real paragraph or cell text is extracted with no OCR needed, and any images embedded inside the document are separately OCR'd for text they contain.
+Modern zip-based Office documents (`.docx`, `.xlsx`, `.pptx`) are unarchived directly: their real paragraph or cell text is extracted with no OCR needed. Any images embedded inside the document are separately OCR'd for text they contain.
 
 <Warning>
 **Legacy binary Office formats (`.doc`, `.xls`, `.ppt` — pre-2007) and PDF are not zip containers, so the unarchive-and-extract step cannot open them.** They pass through as a single unmodified block of data — neither their text nor any embedded images are inspected. This is a known gap in today's content inspection, not something a configuration change can work around.
@@ -71,7 +79,7 @@ the same upload inspection — see **Processing flow** above for how they hand o
     - **Profiles (profiles)** — Connection must match listed Access Profile tags.
     - **Action (action)** — ALLOW, DENY, or DO NOT BYPASS.
     {/* source: https://www.safesquid.com/md/dlp.md */}
-      The content-inspection layer can still escalate ALLOW or DENY to DO NOT BYPASS once the keyword score crosses Threshold; it never downgrades an existing DO NOT BYPASS.
+      The content-inspection layer can still escalate ALLOW or DENY to DO NOT BYPASS once the keyword score crosses Threshold. It never downgrades an existing DO NOT BYPASS.
     - **Comment (comment)** — Block reason when Action is DENY or DO NOT BYPASS.
 
   </Tab>
@@ -113,8 +121,8 @@ OCR policies). Row fields are Enabled, Comment, Profiles, Upload Content type, a
 {/* source: https://www.safesquid.com/md/dlp.md */}
 ### Legacy document format bypasses content inspection
 
-- **Configuration:** Threshold 100; an OCR row looking for a sensitive keyword; a user uploads a `.doc` file (legacy binary Word format) containing that keyword in its body text.
-- **Result:** the MIME layer's action for `.doc` applies as configured, but the content-inspection layer cannot open the legacy binary format to extract its text, so the keyword is never seen and never contributes to the score. This is a known limitation of the pre-2007 Office formats and PDF, not a misconfiguration — a policy relying on keyword detection alone should not be assumed to cover these formats.
+- **Configuration:** Threshold 100; an OCR row looking for a sensitive keyword. A user uploads a `.doc` file (legacy binary Word format) containing that keyword in its body text.
+- **Result:** the MIME layer's action for `.doc` applies as configured. But the content-inspection layer cannot open the legacy binary format to extract its text. So the keyword is never seen and never contributes to the score. This is a known limitation of the pre-2007 Office formats and PDF, not a misconfiguration. A policy relying on keyword detection alone should not be assumed to cover these formats.
 
 ## How to verify
 
@@ -125,3 +133,8 @@ OCR policies). Row fields are Enabled, Comment, Profiles, Upload Content type, a
 
 {/* source: https://www.safesquid.com/md/dlp.md */}
 5. Test keyword scoring with `.docx`/`.xlsx`/`.pptx` uploads — testing with `.doc`/`.xls`/`.ppt` or PDF does not exercise the content-inspection layer at all, by design.
+
+## Next steps
+
+- **[Text analyzer](/configuration/real_time_content_security/text_analyzer)** - score text in HTTP payloads against keyword patterns and block content once its cumulative score passes the threshold.
+- **[ICAP](/configuration/real_time_content_security/icap)** - send HTTP request and response bodies to ICAP services, built-in or third-party, at the REQMOD and RESPMOD hooks.

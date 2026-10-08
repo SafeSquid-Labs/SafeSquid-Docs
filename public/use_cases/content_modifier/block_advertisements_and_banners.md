@@ -22,7 +22,7 @@ You keep actionable policy control close to operations, with verifiable outcomes
 ## Call to action
 Use the steps in this guide to implement the control, then validate behavior with a real user-flow test.
 
-# Block advertisements and banners
+# Block Advertisements to Speed Up and Secure Browsing
 
 
 
@@ -34,7 +34,7 @@ Ad networks can deliver malware, tracking, and unwanted scripts; ads also increa
 
 ## Key benefits
 
-Reduces malware and tracking exposure from ad networks. Lowers bandwidth and CPU use. Cleaner pages with fewer distractions. Evidence for auditors: policy is visible in **Configure** → **Access Profiles** (or **Templates**); access logs show traffic that matched the policy. **Limitation:** Some sites may break if they depend on specific ad endpoints; use bypass or allow rules for exceptions.
+Reduces malware and tracking exposure from ad networks. Lowers bandwidth and CPU use. Cleaner pages with fewer distractions. Evidence for auditors: policy is visible in **Configure** → **Access Profiles** (or **Templates**). Access logs show traffic that matched the policy. **Limitation:** Some sites may break if they depend on specific ad endpoints; use bypass or allow rules for exceptions.
 
 
 

@@ -9,7 +9,7 @@ keywords:
 ---
 
 
-# Configure Cloud Restore
+# Complete Cloud Restore Setup for SafeSquid
 
 Cloud Restore links backup and restore behavior to the SafeSquid activation key. It is useful for replacing or rebuilding appliances, but it does not restore the full operating environment.
 
@@ -118,7 +118,7 @@ This creates a restore point you can revert to if changes cause issues.
 **Restore completes but policies missing:**
 - Verify you restarted SafeSquid after restore: Configuration Portal → Support → Restart SafeSquid
 - Check file permissions: `ls -l /usr/local/safesquid/security/policies/config.xml` (should be owned by safesquid user)
-- Check logs: `tail -f /var/log/safesquid/extended.log` (look for restore errors)
+- Check logs: `tail -f /var/log/safesquid/extended/extended.log` (look for restore errors)
 
 **SSL certificates not working after restore:**
 - Verify certificate files exist:
@@ -134,3 +134,9 @@ This creates a restore point you can revert to if changes cause issues.
 - Manually restart if needed: `systemctl restart safesquid`
 
 **Related**: [Disaster Recovery overview](/use_cases/scaling_and_high_availability/disaster_recovery), [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering), [Troubleshooting](/troubleshooting/troubleshooting)
+
+## Next steps
+
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.
+- **[Import Certificate into Chrome or Internet Explorer](/use_cases/ssl_inspection/import_certificate_chrome_ie)** - step-by-step import of SafeSquid SSL certificate into Chrome or Internet Explorer for HTTPS inspection trust.
+- **[Backup Strategy](/use_cases/scaling_and_high_availability/disaster_recovery)** - decide what SafeSquid backs up, what it does not, and what the disaster-recovery plan must cover separately before the deployment depends on Cloud Restore.

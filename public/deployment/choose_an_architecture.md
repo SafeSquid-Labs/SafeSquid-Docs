@@ -11,11 +11,11 @@ keywords:
 
 # Decide Where Traffic Is Intercepted
 
-The interception point determines what SafeSquid can enforce. Choose it before sizing, before firewall changes, and before any client is touched — the choice drives client configuration effort, coverage gaps, and how easily a user can route around the control.
+The interception point determines what SafeSquid can enforce. Choose it before sizing, before firewall changes, and before any client is touched. The choice drives client configuration effort, coverage gaps, and how easily a user can route around the control.
 
 SafeSquid cannot enforce policy on traffic that bypasses the proxy. Every mode below is a different answer to how you stop that from happening.
 
-Work through the decision in this order — direction of traffic, then whether the client can be configured, then protocol and upstream constraints — and confirm the result against the table below.
+Work through the decision in this order: direction of traffic, then whether the client can be configured. Then consider protocol and upstream constraints. Confirm the result against the table below.
 
 ```mermaid
 flowchart TB
@@ -51,7 +51,7 @@ Each mode trades control, coverage, and rollback differently. Open the one that 
 </Accordion>
 
 <Accordion title="What transparent proxy requires">
-  Intercepts traffic through network-level redirection, with no client configuration. Coverage is comprehensive for everything on the redirected path, including devices you cannot configure. The cost moves to the network team, and a routing change made without coordination can take the control offline for everyone at once.
+  Intercepts traffic through network-level redirection, with no client configuration. Coverage is comprehensive for everything on the redirected path, including devices you cannot configure. The cost moves to the network team. A routing change made without coordination can take the control offline for everyone at once.
 </Accordion>
 
 <Accordion title="What TCP proxy requires">
@@ -63,7 +63,7 @@ Each mode trades control, coverage, and rollback differently. Open the one that 
 </Accordion>
 
 <Accordion title="What proxy chain requires">
-  [Proxy chain](/use_cases/scaling_and_high_availability/proxy_chain) places SafeSquid in a multi-tier architecture, forwarding to or receiving from another proxy. Use it where an existing upstream proxy cannot be removed, and confirm which tier owns policy before splitting enforcement across both.
+  [Proxy chain](/use_cases/scaling_and_high_availability/proxy_chain) places SafeSquid in a multi-tier architecture, forwarding to or receiving from another proxy. Use it where an existing upstream proxy cannot be removed. Confirm which tier owns policy before splitting enforcement across both.
 </Accordion>
 
 ## Design the network placement
@@ -75,7 +75,7 @@ Once the mode is chosen, document where it sits:
 - Firewall or routing policy only when the network team can enforce bypass controls safely.
 - Cloud egress placement for workloads or remote sites that already route through a cloud network.
 
-Record source networks, proxy listener ports, DNS servers, NTP sources, upstream gateways, and firewall rules. Name an owner for every routing or firewall policy that forwards traffic toward SafeSquid — an unowned redirect is the one nobody restores after an outage.
+Record source networks, proxy listener ports, DNS servers, NTP sources, upstream gateways, and firewall rules. Name an owner for every routing or firewall policy that forwards traffic toward SafeSquid. An unowned redirect is the one nobody restores after an outage.
 
 ## Capture the architecture decision
 

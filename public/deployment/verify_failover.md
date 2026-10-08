@@ -11,7 +11,7 @@ keywords:
 
 # Untested Failover Is Not High Availability
 
-A configured cluster proves nothing until a node has actually been taken away from it. Split-brain, a truncated `auth_pass`, a health check that never drops priority — every one of these looks correct in the configuration file and fails only under the condition the cluster exists for.
+A configured cluster proves nothing until a node has actually been taken away from it. Split-brain, a truncated `auth_pass`, a health check that never drops priority. Every one of these looks correct in the configuration file and fails only under the condition the cluster exists for.
 
 Test it deliberately, on a schedule, and keep the output.
 
@@ -35,7 +35,7 @@ sudo journalctl -u keepalived -n 30 --no-pager
 
 Expected output on the Master includes:
 
-```
+```text
 (SAFESQUID_VIP) Entering MASTER STATE
 VRRP_Script(check_safesquid) succeeded
 ```
@@ -48,7 +48,7 @@ ip a show INTERFACE | grep VIP-ADDRESS
 
 Expected output on the Master only:
 
-```
+```text
 inet VIP-ADDRESS/32 scope global proto keepalived INTERFACE
 ```
 
@@ -70,7 +70,7 @@ sudo systemctl stop safesquid
 
 Within 10–15 seconds the log shows the handover:
 
-```
+```text
 (SAFESQUID_VIP) Changing effective priority from 101 to 0
 (SAFESQUID_VIP) Master received advert from BACKUP-IP with higher priority 100
 (SAFESQUID_VIP) Entering BACKUP STATE
@@ -86,7 +86,7 @@ ip a show INTERFACE | grep VIP-ADDRESS
 
 Expected result: the address now appears on the Backup and is gone from the Master.
 
-Prove it from a client, not only from the nodes. Browse through the VIP and confirm the request appears in the surviving node's access log — a VIP that moved but carries no traffic is a half-successful failover.
+Prove it from a client, not only from the nodes. Browse through the VIP and confirm the request appears in the surviving node's access log. A VIP that moved but carries no traffic is a half-successful failover.
 
 ## Restore the Master
 

@@ -8,14 +8,14 @@ keywords:
   - SafeSquid performance log
 ---
 
-# Logs and Audit Evidence
+# Locate Logs and Audit Evidence
 
 SafeSquid logs prove who changed policy, what users accessed, which controls matched, and whether the proxy had enough capacity. Preserve these files before remediation. Reboots, rotation, compression, or emergency cleanup can remove the only evidence that explains a security incident.
 
 ## Configuration audit logs
 
 | Path | Purpose | Inspect when | Evidence and risk |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | `/var/log/safesquid/config` | Stores `config.log`, which records SafeSquid configuration changes made through the interface. Rotated files are named like `XXXX-config.log`. | Policy dispute, rollback, unauthorized change review, or audit evidence collection. | Shows who changed configuration, from which source, on which page or section, and why. Missing logs weaken change accountability. |
 
 `config.log` records this legend:
@@ -27,7 +27,7 @@ SafeSquid logs prove who changed policy, what users accessed, which controls mat
 ## Traffic and policy logs
 
 | Path | Purpose | Inspect when | Evidence and risk |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | `/var/log/safesquid/extended` | Stores `extended.log`, which details users, applications, security breaches, and each request or response processed by SafeSquid. Rotated files are named like `XXXX-extended.log`. | Incident investigation, user activity review, SIEM comparison, or policy verification. | Contains user, destination, policy, profile, category, application, and content-type evidence. Treat as sensitive personal and security data. |
 
 `extended.log` records this legend:
@@ -39,13 +39,13 @@ SafeSquid logs prove who changed policy, what users accessed, which controls mat
 ## Native troubleshooting logs
 
 | Path | Purpose | Inspect when | Evidence and risk |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | `/var/log/safesquid/native` | Stores `native.log`, which records functional details for requests, security, redirects, and feature behavior. Rotated files are named like `XXXX-native.log`. | Feature behavior is unclear, request handling needs debugging, or support requests native evidence. | Supports deep troubleshooting. High verbosity can grow quickly and expose detailed traffic context. |
 
 Native log verbosity is controlled by `LOG_LEVEL`:
 
 | Value | Meaning |
-| --- | --- |
+|---|---|
 | `16777216` | Warnings only |
 | `33554432` | Errors only |
 | `67108864` | Profiles only |
@@ -56,15 +56,15 @@ Native log verbosity is controlled by `LOG_LEVEL`:
 ## Performance evidence
 
 | Path | Purpose | Inspect when | Evidence and risk |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | `/var/log/safesquid/performance` | Stores `performance.log`, which records performance metrics for outages, resource shortfall, internet connectivity failure, and traffic surge analysis. Rotated files are named like `XXXX-performance.log`. | Slow browsing, connection exhaustion, memory pressure, DNS failures, or capacity review. | Provides progressive line-based metrics that can be analyzed with third-party tools such as GNU Plot. Missing data weakens capacity root-cause analysis. |
 
-`performance.log` includes metrics for timestamps, elapsed time, client connections, transactions, thread pools, outbound connection pools, bytes in and out, cache object counts, DNS query reuse and failures, memory, connection deltas, load averages, process counts, and CPU time.
+`performance.log` includes metrics for timestamps, elapsed time, client connections, transactions, thread pools, and outbound connection pools. It also records bytes in and out, cache object counts, and DNS query reuse and failures. It tracks memory, connection deltas, load averages, process counts, and CPU time.
 
 ## Privacy and process paths
 
 | Path | Purpose | Inspect when | Evidence and risk |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | `/var/log/safesquid/privacy` | Privacy log path listed in the wiki source. | Privacy-related logging is enabled or support asks for the path. | The wiki does not describe contents. Verify live product behavior before making definitive claims. |
 | `/var/run/safesquid` | Stores `safesquid.pid`, the current SafeSquid process ID. The file changes on every restart. | Service status differs between tools, process restart is disputed, or incident timeline needs confirmation. | Confirms runtime process state. Stale PID data can mislead operations during outage response. |
 
@@ -76,3 +76,4 @@ SafeSquid log rotation controls large log files. The wiki states SafeSquid rotat
 
 - Use [Service and Startup Files](/architecture/files_and_folders/service_and_startup_files) to verify logrotate and startup controls.
 - Use [Reports](/architecture/policy_management_console/reports) to compare log evidence with report views.
+- Use [Files and Folders](/architecture/files_and_folders/files_and_folders) to return to the full server path reference.

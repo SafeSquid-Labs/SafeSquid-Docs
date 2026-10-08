@@ -18,7 +18,7 @@ keywords:
 
 ## Problem statement
 
-Many websites and third-party services track user behavior through cookies, referrer headers, and user-agent details. That exposure can weaken privacy posture and increase unnecessary data disclosure, but aggressive privacy controls can also break federated login, embedded services, and browser-specific web behavior if rolled out carelessly.
+Many websites and third-party services track user behavior through cookies, referrer headers, and user-agent details. That exposure can weaken privacy posture and increase unnecessary data disclosure. But aggressive privacy controls can also break federated login, embedded services, and browser-specific web behavior if rolled out carelessly.
 
 ## Client scenario
 

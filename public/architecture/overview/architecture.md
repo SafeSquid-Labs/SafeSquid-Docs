@@ -8,16 +8,15 @@ keywords:
   - traffic flow
   - intelligence feeds
   - reporting
-  - DNS security
 ---
 
-# Architecture
+# Understand the SafeSquid Architecture
 
-SafeSquid SWG is not a single feature or console. It is a software-defined Secure Web Gateway architecture that places an HTTP(S) proxy cluster on the enterprise egress path, enriches traffic decisions with cloud-delivered intelligence, and gives operations teams the supporting services needed to run inspection safely in production.
+SafeSquid SWG is not a single feature or console. It is a software-defined Secure Web Gateway architecture. It places an HTTP(S) proxy cluster on the enterprise egress path and enriches traffic decisions with cloud-delivered intelligence. Supporting services let operations teams run inspection safely in production.
 
 ## Understand the control boundary first
 
-The architecture matters because SafeSquid changes where web control is enforced, where TLS inspection occurs, where evidence is generated, and which dependencies must be available during deployment.
+The architecture matters because SafeSquid changes where web control is enforced and where TLS inspection occurs. It also changes where evidence is generated, and which dependencies must be available during deployment.
 
 At a high level, the canonical topology includes:
 
@@ -47,4 +46,3 @@ This page is the architecture hub. It does not replace deployment runbooks such 
 - [SafeSquid SWG Overview](/architecture/overview/safesquid_swg)
 - [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering)
 - [Deployment](/deployment/licensing_requirements)
-- [Getting Started](/getting_started/welcome)

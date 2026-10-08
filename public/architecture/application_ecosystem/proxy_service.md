@@ -8,9 +8,9 @@ keywords:
   - proxy evidence
 ---
 
-# Proxy Service
+# Keep the Proxy Service Enforcing Policy
 
-The SafeSquid proxy service is the enforcement point for user web traffic. It receives client requests, evaluates policy, applies inspection controls, and generates evidence that administrators use for operations, audit, and incident response.
+The SafeSquid proxy service is the enforcement point for user web traffic. It receives client requests, evaluates policy and applies inspection controls. It also generates evidence that administrators use for operations, audit, and incident response.
 
 The Application Eco-system source calls out SafeSquid startup parameters as part of the operating model. Treat those parameters as production controls because incorrect service startup can change listening behavior, logging behavior, or enforcement availability.
 
@@ -26,7 +26,7 @@ The Application Eco-system source calls out SafeSquid startup parameters as part
 The proxy service depends on a clear operating boundary:
 
 | Responsibility | Control value | Evidence to retain |
-| --- | --- | --- |
+|---|---|---|
 | Start with approved parameters | Prevents accidental listener, cache, or log changes | Service unit, startup parameters, change ticket |
 | Enforce Layer 7 policy | Blocks or allows HTTP and HTTPS traffic by rule | `extended.log`, policy reports, SIEM events |
 | Preserve configuration history | Supports audit and rollback | `config.log`, backup record |

@@ -10,6 +10,8 @@ keywords:
 ---
 
 
+# Allow Business Applications Through SafeSquid
+
 ## Problem
 Security teams need predictable control over app and web usage to reduce policy bypass and data-risk exposure.
 
@@ -22,7 +24,7 @@ You keep actionable policy control close to operations, with verifiable outcomes
 ## Call to action
 Use the steps in this guide to implement the control, then validate behavior with a real user-flow test.
 
-There have been several instances where it has been reported that certain applications that the organizations use do not work through SafeSquid. This article describes a generalized way of identifying what is wrong with the application and solving it.
+Some business applications stop working once traffic goes through SafeSquid. The steps below identify what is blocking the application and fix it.
 
 There is more than one reason because of why the application may not work through SafeSquid. They can be listed as:
 
@@ -32,7 +34,7 @@ There is more than one reason because of why the application may not work throug
 tail -F /var/log/safesquid/extended/extended.log | grep "192.168.0.17" | grep '403'
 ```
 Where "192.168.0.17" is the IP of the machine accessing the application. You will be displayed with something like the following log line. The status code 403 describes the blocked URLs.
-```
+```text
 "1496477492.50.1.2386.zx5NhVkA9enUdJEC"    "50"    "1"    "03/Jun/2017:13:41:32"    "78"    "403"    "0"    "0"    "0"    "-"    "192.168.0.17"    "anonymous@192.168.0.17"    "GET"    https://www.bing.com:80/search?q=porn&qs=n&form=QBLH&sp=-1&pq=porn&sc=0-0&sk=&cvid=ADEF7442BA9A41FEB3857DD679E8124F    https://www.bing.com/  "Mozilla"
 /5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0"    "text/html"    "Profiles"    "-"    "192.168.17.1:8080"    "TCP_DENIED"    "DIRECT"    "safesquid"    "www.bing.com"    "bing.comnp"    "www.bing.com"    "bing.com"    "0"    "LUNCH"    "ADMINS"    ""    "Firefox Browser,Browsers,Bing,Search Engine,Bing Search,Bing UnSafe Search"    "pornography,searchengines"    ""    "-"    "-"    "GLOBAL BLOCK"
 
@@ -43,3 +45,7 @@ The logline legend mentioning what each field means is shown below:
 
 2) One of the other reasons may be, that you have authentication and/or HTTPS inspection enabled and the application may not support the authentication (Negotiate/Basic) and/or HTTPS inspection. Authentication failure can be verified by observing the logs and checking for a status code of '407' which indicates "Invalid SSO Auth" (if you have enabled Negotiate authentication)
 
+## Next steps
+
+- **[Allow Outlook to Work Through SafeSquid](/use_cases/access_restriction/allow_outlook_to_work_through_safesquid)** - configure SafeSquid and firewall rules so Microsoft Outlook works with proxy authentication and SSL inspection enabled.
+- **[Access Mobile Applications Through SafeSquid](/use_cases/access_restriction/access_mobile_applications_through_safesquid)** - control mobile app internet access through SafeSquid SWG with proxy enforcement and firewall-aware policies.

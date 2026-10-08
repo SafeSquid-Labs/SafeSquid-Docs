@@ -16,7 +16,7 @@ keywords:
 
 ## Why transparent proxy is used
 
-Uncontrolled direct internet access increases malware, data loss, and compliance risk. A secure web gateway (SWG) intercepts and examines web traffic so the organization can enforce policy and block threats. Explicit proxy requires every browser or application to be configured; transparent proxy uses network-level redirection so traffic is sent to the proxy without endpoint configuration. Applications believe they connect directly to the destination; in reality, a router or firewall redirects traffic to SafeSquid, which then forwards it. This reduces deployment effort and ensures all HTTP/HTTPS traffic from the segment is inspected.
+Uncontrolled direct internet access increases malware, data loss, and compliance risk. A secure web gateway (SWG) intercepts and examines web traffic so the organization can enforce policy and block threats. Explicit proxy requires every browser or application to be configured. Transparent proxy uses network-level redirection so traffic is sent to the proxy without endpoint configuration. Applications believe they connect directly to the destination. In reality, a router or firewall redirects traffic to SafeSquid, which then forwards it. This reduces deployment effort and ensures all HTTP/HTTPS traffic from the segment is inspected.
 
 
 

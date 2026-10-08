@@ -1,9 +1,16 @@
 ---
 title: "Content modifier"
+description: "Rewrite HTTP headers and bodies with PCRE search-and-replace to inject cookies, strip sensitive header values, or change response content."
+keywords:
+  - content modifier
+  - HTTP content rewriting
+  - response body substitution
+  - content modifier hook points
 ---
 
-## Overview
+# Rewrite Headers and Bodies With the Content Modifier
 
+## What does this section do?
 The `Rewrite` section performs PCRE search-and-replace on HTTP headers and bodies. Use it to inject cookies, strip sensitive header values, or modify response body content before it reaches the client.
 
 ## Core Mechanics (C++ Source Validation)
@@ -17,7 +24,7 @@ The `Rewrite` section performs PCRE search-and-replace on HTTP headers and bodie
 
 ### Every matching row applies, in list order
 
-Rows are walked top to bottom and **every** row that matches applies. Evaluation does not stop at the first match. Each row operates on the text left by the row above it, so rewrites compose — a later row can match text an earlier row produced.
+Rows are walked top to bottom and **every** row that matches applies. Evaluation does not stop at the first match. Each row operates on the text left by the row above it, so rewrites compose. A later row can match text an earlier row produced.
 
 Row skipped when: disabled, Applies to flag mismatch, profiles fail, blank pattern, or MIME regex fails (body only).
 
@@ -104,3 +111,8 @@ Header rewrite uses hooks; body rewrite uses buffcheck. Both walk the full polic
 To confirm rows compose rather than short-circuit, send one request whose header matches two enabled rows and inspect what reaches the origin. Request `http://httpbin.org/headers` through the proxy with an `Accept` header containing both `image/avif` and `image/webp`.
 
 **Expected result:** both tokens are rewritten in the header the origin receives. If only the first is rewritten, the rows are not composing and the configuration should be re-checked.
+
+## Next steps
+
+- **[Header filter](/configuration/restriction_policies/privacy_control/header_filter)** - strip or inject HTTP headers on client requests and server responses using global, allow, deny, and insert rules.
+- **[Cookie filter](/configuration/restriction_policies/privacy_control/cookie_filter)** - control which HTTP cookies pass between clients and servers using a global policy plus allow and deny override lists.

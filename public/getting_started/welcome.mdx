@@ -10,11 +10,13 @@ keywords:
   - application proxy daemon
 ---
 
+# Understand What SafeSquid Does and Why
+
 ## What is SafeSquid?
 
 SafeSquid is a multi-threaded, SMP-aware HTTP/1.1 application proxy daemon built for Zero-Trust web-security enforcement.
 
-Every HTTP exchange routed through SafeSquid crosses an inline Layer-7 policy boundary. The proxy accepts downstream connections, parses requests, establishes identity and application context, evaluates access and security policy, manages upstream connections, processes origin responses, and records enforcement decisions.
+Every HTTP exchange routed through SafeSquid crosses an inline Layer-7 policy boundary. The proxy accepts downstream connections, parses requests, establishes identity and application context, evaluates access and security policy. It then manages upstream connections, processes origin responses, and records enforcement decisions.
 
 HTTPS follows the same control path. Policy can permit `CONNECT` tunnelling or invoke [TLS interception](/use_cases/ssl_inspection/ssl_inspection). Interception terminates downstream TLS, validates and establishes independent upstream TLS, then submits decrypted HTTP to the normal request-processing pipeline.
 
@@ -28,7 +30,7 @@ Phishing, malware delivery, credential abuse, command-and-control traffic, appli
 
 Network firewalls authorize connections. URL filters classify destinations. Endpoint controls enforce host-local policy. TLS protects transport confidentiality. Authentication establishes identity.
 
-None of those controls, independently, determines whether a specific HTTP request, upload, download, API call, or application action satisfies security policy.
+None of those controls, independently, determines whether a specific request satisfies security policy. That applies to any HTTP request, upload, download, API call, or application action.
 
 The resulting gap appears inside already permitted traffic. A trusted SaaS service can receive prohibited data. An authenticated account can perform prohibited operations. A valid TLS session can carry malware. A newly registered destination can evade reputation-based filtering.
 
@@ -42,13 +44,13 @@ Processing starts at a configured listener.
 
 Explicit HTTPS proxying begins with `CONNECT`. Policy can allow tunnelling or invoke [HTTPS Inspection](/use_cases/ssl_inspection/configure_https_inspection). [Transparent HTTPS](/use_cases/scaling_and_high_availability/transparent_proxy) reaches an `SSL_TRANSPARENT` listener without an explicit proxy request. TLS interception creates separate downstream and upstream TLS sessions and exposes decrypted HTTP to Layer-7 processing.
 
-HTTP parsing exposes method, request target, headers, [cookies](/use_cases/cookie_inspection/cookie_inspection), content metadata, and application characteristics. Content processing can identify [true MIME type](/use_cases/data_leakage_prevention/true_mime_fingerprints), decode supported transfer representations, inspect compressed payloads and archives, [analyse text](/use_cases/data_leakage_prevention/text_analyser) and [images](/use_cases/data_leakage_prevention/image_analyser_ai), [scan malware](/use_cases/malware_scanning/malware_scanners), and examine uploaded or downloaded data.
+HTTP parsing exposes method, request target, headers, [cookies](/use_cases/cookie_inspection/cookie_inspection), content metadata, and application characteristics. Content processing can identify [true MIME type](/use_cases/data_leakage_prevention/true_mime_fingerprints), decode supported transfer representations, inspect compressed payloads and archives. It can also [analyse text](/use_cases/data_leakage_prevention/text_analyser) and [images](/use_cases/data_leakage_prevention/image_analyser_ai), [scan malware](/use_cases/malware_scanning/malware_scanners), and examine uploaded or downloaded data.
 
-Additional context can include user identity, group membership, source network, destination classification, [application signatures](/use_cases/profiling_engine/application_signatures), [DNS intelligence](/use_cases/dns_security/dns_security), TLS certificate state, content signatures, malware results, session state, cross-site activity, transfer properties, and behavioural indicators.
+Additional context can include user identity, group membership, source network, destination classification, [application signatures](/use_cases/profiling_engine/application_signatures), and [DNS intelligence](/use_cases/dns_security/dns_security). Further context includes TLS certificate state, content signatures, malware results, session state, cross-site activity, transfer properties, and behavioural indicators.
 
 The [Polymath Profiling Engine](/use_cases/profiling_engine/profiling_engine) correlates applicable context before enforcement.
 
-Policy can authenticate, permit, deny, [redirect](/use_cases/url_redirection/url_redirection), rate-limit, control cookies, [modify headers](/use_cases/header_rewrite/header_obfuscation), [rewrite payloads](/use_cases/content_modifier/content_modifier), scan malware, restrict uploads or downloads, [enforce data-loss controls](/use_cases/data_leakage_prevention/data_leakage_prevention), sanitize content, or invoke external [ICAP services](/use_cases/integrations/icap).
+Policy can authenticate, permit, deny, [redirect](/use_cases/url_redirection/url_redirection), rate-limit, control cookies, [modify headers](/use_cases/header_rewrite/header_obfuscation), or [rewrite payloads](/use_cases/content_modifier/content_modifier). Policy can also scan malware, restrict uploads or downloads, [enforce data-loss controls](/use_cases/data_leakage_prevention/data_leakage_prevention), sanitize content, or invoke external [ICAP services](/use_cases/integrations/icap).
 
 Origin responses cross response-side parsing, profiling, inspection, and enforcement before downstream delivery.
 
@@ -86,11 +88,11 @@ SafeSquid converts network reachability into transaction-level authorization.
 
 SafeSquid integrates inspection, correlation, enforcement, and logging inside a multi-threaded proxy process.
 
-SMP-aware execution distributes concurrent processing across available CPU cores. Shared-memory structures expose common context to active security processors. In-memory DNS caching, upstream connection reuse, TLS session reuse, configurable object caching, streaming controls, and multi-queue NIC support reduce avoidable proxy-path overhead.
+SMP-aware execution distributes concurrent processing across available CPU cores. Shared-memory structures expose common context to active security processors. In-memory DNS caching, upstream connection reuse, and TLS session reuse reduce avoidable proxy-path overhead. So do configurable object caching, streaming controls, and multi-queue NIC support.
 
 Standard x86_64 Linux infrastructure supports bare-metal, virtual-machine, cloud, and clustered deployments. Deployment modes include [explicit forward proxy](/use_cases/scaling_and_high_availability/forward_proxy), [transparent interception](/use_cases/scaling_and_high_availability/transparent_proxy), [reverse proxy](/use_cases/scaling_and_high_availability/reverse_proxy), [proxy chaining](/use_cases/scaling_and_high_availability/proxy_chain), and selected [TCP-proxy configurations](/use_cases/scaling_and_high_availability/tcp_proxy).
 
-LDAP, Active Directory, PAM, Kerberos, ICAP, SNMP, [WCCP](/use_cases/scaling_and_high_availability/wccp), REST-based management, external parsers, SIEM pipelines, and [open-format logs](/use_cases/audit_and_forensics/security_logs) support integration with existing infrastructure.
+LDAP, Active Directory, PAM, Kerberos, ICAP, and SNMP support integration with existing infrastructure. So do [WCCP](/use_cases/scaling_and_high_availability/wccp), REST-based management, external parsers, SIEM pipelines, and [open-format logs](/use_cases/audit_and_forensics/security_logs).
 
 [Cluster deployments](/use_cases/scaling_and_high_availability/proxy_clustering) support active-active or [active-standby](/use_cases/scaling_and_high_availability/master_slave) operation with synchronization of supported policy, categorization, and certificate state.
 
@@ -98,13 +100,13 @@ LDAP, Active Directory, PAM, Kerberos, ICAP, SNMP, [WCCP](/use_cases/scaling_and
 
 SafeSquid implements HTTP/1.1 in conformance with RFC 2616 and successor HTTP specifications while preserving RFC 2616 backward compatibility.
 
-Supported protocol and integration capabilities include HTTP/HTTPS proxying, `CONNECT`, WebSocket traffic, IPv6 clients, active and passive FTP over HTTP/HTTPS, SNMP, ICAP, WCCP, LDAP, Kerberos, PAM, and configurable TLS handling.
+Supported protocol and integration capabilities include HTTP/HTTPS proxying, `CONNECT`, WebSocket traffic, IPv6 clients, active and passive FTP over HTTP/HTTPS. Further capabilities include SNMP, ICAP, WCCP, LDAP, Kerberos, PAM, and configurable TLS handling.
 
 ## Enforcement remains observable
 
 Inline control requires explainable decisions.
 
-SafeSquid records web activity, authentication events, filtering results, bypasses, security processing, DNS activity, connection failures, integration state, resource utilization, and proxy performance.
+SafeSquid records web activity, authentication events, filtering results, bypasses, and security processing. It also records DNS activity, connection failures, integration state, resource utilization, and proxy performance.
 
 [Detailed Logs](/use_cases/audit_and_forensics/security_logs) expose request processing, matched filters, and enforcement reasons. Process logs expose daemon activity, module operation, security updates, external integrations, [cluster synchronization](/use_cases/customisation/configuration_sync), and diagnostic failures.
 
@@ -135,4 +137,8 @@ Prove the complete control path before enabling advanced security functions.
 
 A successful test confirms traffic insertion, HTTP processing, policy enforcement, and decision visibility.
 
-Continue with [First Configuration](/configuration/start_here/first_configuration).
+## Next steps
+
+- [First Configuration](/configuration/start_here/first_configuration) - set up a safe minimal configuration on the appliance.
+- [Security Logs](/use_cases/audit_and_forensics/security_logs) - read the evidence behind each allow or block decision.
+- [Access Restriction](/use_cases/access_restriction/access_restriction) - add your first explicit access rule.

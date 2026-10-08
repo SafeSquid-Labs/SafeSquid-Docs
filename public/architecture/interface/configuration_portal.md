@@ -9,13 +9,13 @@ keywords:
 ---
 
 
-# Policy Management Console
+# Control Policy From the Management Console
 
-The Policy Management Console (Configuration Portal) is the SafeSquid web interface for defining, simulating, and enforcing access control, URL filtering, SSL inspection, and DLP policies. Administrators use it to configure restriction profiles, real-time content security, authentication, and operational settings.
+The Policy Management Console (Configuration Portal) is the SafeSquid web interface for defining, simulating, and enforcing policy. It covers access control, URL filtering, SSL inspection, and DLP. Administrators use it to configure restriction profiles, real-time content security, authentication, and operational settings.
 
 ## Problems addressed
 
-Operators need a single **authoritative** place to define Layer 7 policy, simulate or review impact, and push consistent rules to proxy nodes. Fragmented tooling increases misconfiguration risk and weakens audit narratives.
+Operators need a single **authoritative** place to define Layer 7 policy. They also need to simulate or review impact and push consistent rules to proxy nodes. Fragmented tooling increases misconfiguration risk and weakens audit narratives.
 
 ## Outcomes operators expect
 
@@ -29,7 +29,7 @@ SafeSquid ships the console **with** the SWG so policy and enforcement stay prod
 
 ## Acquire, deploy, use
 
-Install SafeSquid, reach the UI via **Access Methods** below, then follow linked sections (SSL Inspection, Authentication, Access Restriction) for each control.
+Install SafeSquid and reach the UI via **Access Methods** below. Then follow the linked sections (SSL Inspection, Authentication, Access Restriction) for each control.
 
 ## Access Methods
 
@@ -180,7 +180,7 @@ After making a change in the portal, confirm all of the following:
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | Policy Management Console / sidebar structure | **Confirmed** | This page (UI paths) |
 | Default credentials **administrator** / **safesquid** | **Confirmed** | This page; change after first login |
 | `safesquid.cfg` / **8443** access | **Confirmed** | This page, [Getting Started](/getting_started/welcome) |
@@ -189,7 +189,6 @@ After making a change in the portal, confirm all of the following:
 
 ## Next Steps
 
-1. **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** — Enable HTTPS decryption
-2. **[Authentication](/use_cases/authentication/authentication)** — Configure user authentication
-3. **[Access Restriction](/use_cases/access_restriction/access_restriction)** — Set up URL filtering and content policies
-4. **[Troubleshooting](/troubleshooting/troubleshooting)** — Reference for common issues
+1. **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** - Enable HTTPS decryption
+2. **[Authentication](/use_cases/authentication/authentication)** - Configure user authentication
+3. **[Access Restriction](/use_cases/access_restriction/access_restriction)** - Set up URL filtering and content policies

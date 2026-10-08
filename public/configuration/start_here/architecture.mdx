@@ -1,11 +1,20 @@
 ---
 title: "Architecture and request pipeline"
+description: "Follow a request through SafeSquid from admission and identity, through protocol fork and enforcement, to fetch and response delivery."
+keywords:
+  - architecture request pipeline
+  - SafeSquid request pipeline
+  - admission and identity stage
+  - protocol fork enforcement
+  - worker processes
 ---
+
+# Trace Request Pipeline Architecture From Admission to Response
 
 SafeSquid sits between client browsers and the Internet (or upstream proxies). Each connection is handled by a worker that processes one HTTP transaction at a time, or a CONNECT tunnel for HTTPS.
 
 <Note>
-Setting up for the first time? Follow [First configuration](/configuration/start_here/first_configuration). This page explains how the pieces fit together.
+Setting up for the first time? Follow [First configuration](/configuration/start_here/first_configuration). The sections below show how the pieces fit together.
 </Note>
 
 ## Two configuration layers
@@ -151,8 +160,8 @@ System configuration fields.
 <Note>
 A few details from the walk above are easy to misread:
 
-- **Access Profiles runs more than once per request, and that is normal.** The walk calls it at least four separate times — before identity is known, again once identity resolves, again after the request-modify stage, and again once an upload's content type is known — plus further checks against response headers and downloaded content. Each call re-evaluates against whatever labels and identity exist at that point; the repetition is how an early verdict only gets enforced once the right stage is reached, not a duplicate check to remove.
-- **Incomplete requests are dropped silently.** If the client disconnects before sending a complete request, the connection is simply dropped at "Read the request" — there is nothing to inspect and nothing to log as a policy decision.
+- **Access Profiles runs more than once per request, and that is normal.** The walk calls it at least four separate times — before identity is known, again once identity resolves, again after the request-modify stage, and again once an upload's content type is known — plus further checks against response headers and downloaded content. Each call re-evaluates against whatever labels and identity exist at that point. The repetition is how an early verdict only gets enforced once the right stage is reached, not a duplicate check to remove.
+- **Incomplete requests are dropped silently.** If the client disconnects before sending a complete request, the connection is simply dropped at "Read the request". There is nothing to inspect and nothing to log as a policy decision.
 - **Speed Limits can apply before Access restrictions has finished granting the connection's full rights** at the HTTP/HTTPS protocol branch further down this walk — worth knowing if a limit appears to take effect earlier than expected.
 </Note>
 
@@ -160,18 +169,18 @@ Open a section: [Network settings](/configuration/application_setup/network_sett
 
 
 <Note>
-Open the Web UI at `http://safesquid.cfg/` from a machine that Access restrictions allows. That path skips Access Profiles so you can still fix a mistaken Deny. HTTPS Inspection does not continue this HTTPS request — it decrypts and runs the inner HTTP from Read the request again. **DLP** inspects upload bodies only. **Clam antivirus** and **SqScan** inspect uploads and downloaded bodies.
+Open the Web UI at `http://safesquid.cfg/` from a machine that Access restrictions allows. That path skips Access Profiles so you can still fix a mistaken Deny. HTTPS Inspection does not continue this HTTPS request. It decrypts and runs the inner HTTP from Read the request again. **DLP** inspects upload bodies only. **Clam antivirus** and **SqScan** inspect uploads and downloaded bodies.
 </Note>
 
 {/* source: https://www.safesquid.com/md/architecture.md */}
 <Note>
-The **Header filter** module is bypassed for the Web UI path as well, not just Access Profiles content policy. Reaching the console and actually *changing* configuration are also two different rights — Access restrictions governs who may reach the console at all, but applying a change requires a separate console-access right beyond merely reaching it.
+The **Header filter** module is bypassed for the Web UI path as well, not just Access Profiles content policy. Reaching the console and actually *changing* configuration are also two different rights — Access restrictions governs who may reach the console at all. But applying a change requires a separate console-access right beyond merely reaching it.
 </Note>
 
 <Warning>
-**A response over the download buffer size is not scanned.** SqScan, Clam antivirus, Image analyzer, Text analyzer, and ICAP inspect a *downloaded body* — a response SafeSquid buffered before sending it on. The matching **System configuration → Compression and buffering policies** row sets **Maximum download buffer size** (`maxdbuffer`, default `10M`); a response larger than that streams straight to the browser instead — marked `Direct` rather than `Buffered` — and never reaches those scanners. Nothing in the response or the block page announces the skip.
+**A response over the download buffer size is not scanned.** SqScan, Clam antivirus, Image analyzer, Text analyzer, and ICAP inspect a *downloaded body*. A response SafeSquid buffered before sending it on. The matching **System configuration → Compression and buffering policies** row sets **Maximum download buffer size** (`maxdbuffer`, default `10M`). A response larger than that streams straight to the browser instead — marked `Direct` rather than `Buffered` — and never reaches those scanners. Nothing in the response or the block page announces the skip.
 
-Verified on this build: fetching a 5 MB file (under the 10 MB default buffer) returned both `X-Virus-Scan` and `X-Text-Analyzer` debug headers; an otherwise identical 20 MB file (over the buffer) returned neither. Test your own buffer size the same way — set **System configuration → Send Debugging Headers To** to `CLIENT` (see [Debug response headers](/configuration/start_here/debug_response_headers)), fetch a file just under and just over the configured size, and compare the response headers. Size the buffer for the file sizes you actually need scanned.
+Verified on this build: fetching a 5 MB file (under the 10 MB default buffer) returned both `X-Virus-Scan` and `X-Text-Analyzer` debug headers. An otherwise identical 20 MB file (over the buffer) returned neither. Test your own buffer size the same way. Set **System configuration → Send Debugging Headers To** to `CLIENT` (see [Debug response headers](/configuration/start_here/debug_response_headers)), fetch a file just under and just over the configured size, and compare the response headers. Size the buffer for the file sizes you actually need scanned.
 </Warning>
 
 {/* source: https://www.safesquid.com/md/architecture.md */}
@@ -208,7 +217,7 @@ A user on the LAN opens `https://social.example/` through the proxy:
 
 <Accordion title="Peer connection and FTP handling — not verified on this build">
   {/* source: legacy docs site architecture.html */}
-  {/* NEEDS-SME-REVIEW: the SOCKS negotiation step and the retry-on-failure behaviour below come from legacy documentation alone, and that legacy content was itself fetched through a summarizing model. The live Proxy chain console section documents the peer Type enum (HTTP, SOCKS4, SOCKS5, CONNECT) but a full-DOM search of that section for "handshake", "negotiat", "retry", and "retries" returned zero hits, and nothing in public/ corroborates either claim. Neither behaviour can be exercised on this build without adding a SOCKS peer row or forcing an upstream connection failure, both configuration changes and out of scope for a read-only pass. Confirm the retry count, whether it differs by peer type, and whether an already-disconnected client really aborts the retry — operators size upstream and connection timeouts against exactly this. */}
+  {/* [VERIFY WITH SAFESQUID TEAM]: the SOCKS negotiation step and the retry-on-failure behaviour below come from legacy documentation alone, and that legacy content was itself fetched through a summarizing model. The live Proxy chain console section documents the peer Type enum (HTTP, SOCKS4, SOCKS5, CONNECT) but a full-DOM search of that section for "handshake", "negotiat", "retry", and "retries" returned zero hits, and nothing in public/ corroborates either claim. Neither behaviour can be exercised on this build without adding a SOCKS peer row or forcing an upstream connection failure, both configuration changes and out of scope for a read-only pass. Confirm the retry count, whether it differs by peer type, and whether an already-disconnected client really aborts the retry — operators size upstream and connection timeouts against exactly this. */}
 
   Once Proxy chain has selected a peer, SafeSquid opens the transport before sending the request.
   Legacy documentation states that a SOCKS4 or SOCKS5 peer is negotiated first, that a failed
@@ -221,7 +230,7 @@ A user on the LAN opens `https://social.example/` through the proxy:
   retry budget.
 
   {/* source: legacy docs site architecture.html */}
-  {/* NEEDS-SME-REVIEW: the claims that FTP directory listings receive no scanning or categorization, and that no FTP response gets Response Types categorization or a response-side Access Profiles check on any path, are asserted by legacy documentation alone. The live FTP console section exposes only Passive mode, Timeout, and anonymous Username/Password — nothing about response-side policy. The behavioural test could not be run: this browser's Chromium engine has no ftp:// support (removed in Chrome 95) and there is no other network path to the proxy from this environment. Confirm with engineering whether Response Types and the second Access Profiles pass are genuinely skipped for FTP — a reader tracing the pipeline above would otherwise assume FTP downloads get the same response-side treatment as HTTP, and Access Profiles' own page states that second pass without qualification. */}
+  {/* [VERIFY WITH SAFESQUID TEAM]: the claims that FTP directory listings receive no scanning or categorization, and that no FTP response gets Response Types categorization or a response-side Access Profiles check on any path, are asserted by legacy documentation alone. The live FTP console section exposes only Passive mode, Timeout, and anonymous Username/Password — nothing about response-side policy. The behavioural test could not be run: this browser's Chromium engine has no ftp:// support (removed in Chrome 95) and there is no other network path to the proxy from this environment. Confirm with engineering whether Response Types and the second Access Profiles pass are genuinely skipped for FTP — a reader tracing the pipeline above would otherwise assume FTP downloads get the same response-side treatment as HTTP, and Access Profiles' own page states that second pass without qualification. */}
 
   Legacy documentation also states that FTP directory listings are not scanned or categorized, and
   that no FTP response — buffered or streamed — gets Response Types categorization or a
@@ -242,13 +251,13 @@ A user on the LAN opens `https://social.example/` through the proxy:
 {/* source: https://www.safesquid.com/md/architecture.md */}
 - **Cumulative score** — Text analyzer adds up scores across every matching rule instead of stopping at the first, so several mild matches together can block a page no single one would.
 - **Last match** — [DLP](/configuration/real_time_content_security/dlp) MIME policies (OCR uses cumulative score vs Threshold).
-- **Groups** — Menu groups (Accelerators, Real time content security) contain child sections only; they have no policy lists of their own.
+- **Groups** — Menu groups (Accelerators, Real time content security) contain child sections only. They have no policy lists of their own.
 
 {/* source: https://www.safesquid.com/md/architecture.md */}
 ## Verified gaps and non-claims
 
-- **Subscription**, **Content Signatures**, and **Suggested Profiles** are not part of the live pipeline above. Subscription is a licensing/entitlement check that can interrupt the flow at the request-modify stage, not a content-policy stage with its own list of entries. Content Signatures and Suggested Profiles exist as Web UI sections, but neither currently runs against a live request — nothing executes for them in this walk.
-- **WCCP** governs how traffic reaches SafeSquid in the first place (network-level redirection so clients need no proxy setting of their own) — it is not a step in what happens *after* a request has already arrived, so it is not part of this walk either. Confirm its current working status in your build before relying on it for a transparent deployment.
+- **Subscription**, **Content Signatures**, and **Suggested Profiles** are not part of the live pipeline above. Subscription is a licensing/entitlement check that can interrupt the flow at the request-modify stage, not a content-policy stage with its own list of entries. Content Signatures and Suggested Profiles exist as Web UI sections. But neither currently runs against a live request — nothing executes for them in this walk.
+- **WCCP** governs how traffic reaches SafeSquid in the first place (network-level redirection so clients need no proxy setting of their own). It is not a step in what happens *after* a request has already arrived. So it is not part of this walk either. Confirm its current working status in your build before relying on it for a transparent deployment.
 
 ## Bypass
 
@@ -258,7 +267,7 @@ Access restrictions entries can grant **Bypass** for Header filter, Cookie filte
 
 When **System configuration → Send Debugging Headers To** is CLIENT, SERVER, or BOTH, SafeSquid adds identity and policy headers. Prefer CLIENT only on a test network. See [Debug response headers](/configuration/start_here/debug_response_headers).
 
-## See also
+## Next steps
 
 - [First configuration](/configuration/start_here/first_configuration)
 - [Daemon and service](/configuration/start_here/daemon)

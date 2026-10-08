@@ -10,7 +10,7 @@ keywords:
   - DNSSEC
 ---
 
-# BIND Local DNS Resolver
+# Run BIND as the Local DNS Resolver
 
 BIND provides a local DNS resolver for SafeSquid, reducing lookup latency and improving cache hit rates for frequently accessed domains.
 
@@ -47,7 +47,7 @@ sudo dnf install -y bind bind-utils
 ```bash
 named -v
 ```
-Should print BIND version.
+Expected result: one line starting with `BIND 9.`, for example `BIND 9.20.26-1~deb13u1-Debian (Stable Release)`. If the shell reports `command not found`, run `/usr/sbin/named -v`, because `/usr/sbin` is not on the default PATH of a non-root user.
 
 ---
 
@@ -63,7 +63,7 @@ sudo nano /etc/bind/named.conf.options
 ```
 
 **Add/modify:**
-```
+```text
 options {
   directory "/var/cache/bind";
   
@@ -126,7 +126,7 @@ sudo nano /etc/bind/named.conf.local
 ```
 
 Add:
-```
+```text
 zone "corp.local" {
   type forward;
   forwarders { 10.0.0.10; 10.0.0.11; };  // Your internal DNS servers
@@ -152,7 +152,7 @@ sudo systemctl enable --now named
 systemctl is-active named
 ```
 
-**Expected:** Service shows `active`.
+Expected result: each `is-active` command prints `active`.
 
 ---
 
@@ -165,12 +165,12 @@ sudo nano /etc/resolv.conf
 ```
 
 **Set:**
-```
+```text
 nameserver 127.0.0.1
 ```
 
 **Or if BIND is on a different server:**
-```
+```text
 nameserver 10.0.0.1  # BIND server IP
 ```
 
@@ -179,7 +179,7 @@ nameserver 10.0.0.1  # BIND server IP
 dig @127.0.0.1 example.com
 ```
 
-**Expected:** Answer section with IP address and low query time.
+Expected result: `status: NOERROR`, flags `qr rd ra`, an `ANSWER SECTION` listing one or more `A` records, and `SERVER: 127.0.0.1#53(127.0.0.1) (UDP)`. A cached repeat answers in about 0 msec.
 
 ---
 
@@ -228,7 +228,8 @@ sudo systemctl restart bind9  # or named
 dig @127.0.0.1 example.com +stats
 ```
 
-**Expected output:**
+Expected result:
+- `status: NOERROR`
 - **ANSWER SECTION** with IP address
 - **Query time** in milliseconds
 - **SERVER: 127.0.0.1#53** (confirming local resolver)
@@ -269,7 +270,7 @@ sudo tail -f /var/log/named/default.log
 ```
 
 **Expected log entries:**
-```
+```text
 [date] info: client 192.168.1.1#port: query: example.com IN A
 [date] info: resolver: success for example.com
 ```
@@ -316,7 +317,7 @@ sudo tail -f /var/log/named/default.log
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ----- |
+|---|---|---|
 | Recursion, forwarding, `safesquid.dns.conf` stub patterns | **Confirmed** | This guide |
 | DNSSEC validation dependency on NTP | **Confirmed** | This page, [NTP](/architecture/interface/ntp) |
 
@@ -324,9 +325,7 @@ sudo tail -f /var/log/named/default.log
 
 ## Next Steps
 
-1. **[Monit](/architecture/interface/supporting_services_monit)** — Monitor BIND and auto-restart if it crashes
-2. **[NTP](/architecture/interface/ntp)** — Required for DNSSEC validation
-3. **[Integrated DNS Security](/architecture/overview/integrated_dns_security)** — Configure DNSBL for malicious domain blocking
-4. **[Troubleshooting](/troubleshooting/troubleshooting)** — DNS-specific troubleshooting
+1. **[Monit](/architecture/interface/supporting_services_monit)** - Monitor BIND and auto-restart if it crashes
+2. **[NTP](/architecture/interface/ntp)** - Required for DNSSEC validation
+3. **[Integrated DNS Security](/architecture/overview/integrated_dns_security)** - Configure DNSBL for malicious domain blocking
 
-**Related:** [Supporting Services Overview](/architecture/interface/supporting_services_monit)

@@ -8,21 +8,21 @@ keywords:
   - SafeSquid cache
 ---
 
-# Runtime Data and Signatures
+# Locate Runtime Data and Signatures
 
-Runtime data and signature stores explain what SafeSquid is processing now, what it cached, and which local data supports categorization, content inspection, image analysis, and malware scanning. These files support investigation and capacity review, but they can also contain sensitive traffic or user context.
+Runtime data and signature stores explain what SafeSquid is processing now, what it cached. They also show which local data supports categorization, content inspection, image analysis, and malware scanning. These files support investigation and capacity review, but they can also contain sensitive traffic or user context.
 
 ## Temporary and cache paths
 
 | Path | Purpose | Inspect when | Evidence and risk |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | `/tmp/safesquid` | Stores temporary files created while SafeSquid runs or upgrades. | Upgrade fails, temporary disk use grows, or support requests runtime artifacts. | Temporary files can explain interrupted operations. Review before cleanup during an incident. |
 | `/var/cache/safesquid` | Default store for cacheable objects when caching is enabled. | Disk growth, cache behavior, or performance issues. | Cache content can contain requested objects. Treat as sensitive and align cleanup with policy. |
 
 ## Database paths
 
 | Path | Purpose | Inspect when | Evidence and risk |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | `/var/db/safesquid/report` | Stores SQLite reporting database files such as `main.db`, `safesquid2.db`, `main.db-shm`, `main.db-wal`, `safesquid2.db-shm`, `safesquid2.db-wal`, and timestamped `YYYYMMDDhhmmss-main.db` files. | Reports are missing, SIEM results differ from local data, or investigation needs database evidence. | The wiki states a timestamped `YYYYMMDDhhmmss-main.db` file is created after every `1000` transactions. `DB-WAL` files hold pending write-ahead log changes; `DB-SHM` files hold shared memory state. |
 | `/var/db/safesquid/ssl` | Stores temporary SSL certificates created for web servers during HTTPS inspection. | HTTPS inspection fails or certificate cache behavior needs review. | Contains generated certificate material. Restrict access and avoid exporting without approval. |
 | `/var/db/safesquid/users` | Reserved user database path in the wiki source. | User database behavior needs investigation or support asks for the path. | The wiki does not describe contents. Verify live product behavior before making claims. |
@@ -30,7 +30,7 @@ Runtime data and signature stores explain what SafeSquid is processing now, what
 ## Signature and library paths
 
 | Path | Purpose | Inspect when | Evidence and risk |
-| --- | --- | --- | --- |
+|---|---|---|---|
 | `/var/lib/safesquid/application_signatures` | Stores the `applications3` file in an `updates` folder. SafeSquid checks and downloads the latest application signature file from the cloud hourly. | Application detection fails or signature update state needs evidence. | Shows local application signature state. Failed hourly updates can reduce application-aware controls. |
 | `/var/lib/safesquid/category` | Stores `category.db`, the local database for custom categories. | Custom categories do not match expected policy results. | Contains local category data. Back up before category recovery work. |
 | `/var/lib/safesquid/content_signatures` | Stores `magic.mgc`, `libmagic.so`, and an `updates` folder containing `content4`. SafeSquid checks and downloads the latest content signature file hourly. | Content-type detection fails or content inspection results change unexpectedly. | Shows local content signature and library state. Failed updates can weaken content classification. |
@@ -46,3 +46,4 @@ Database, cache, SSL, and signature files can contain sensitive operational data
 
 - Use [Application Binaries and Modules](/architecture/files_and_folders/application_binaries_and_modules) to confirm the related feature modules exist.
 - Use [Reporting Service](/architecture/interface/reporting_service) to compare local reporting data with centralized evidence.
+- Use [Logs and Audit Evidence](/architecture/files_and_folders/logs_and_audit_evidence) to locate the logs that record audit evidence.

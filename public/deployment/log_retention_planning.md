@@ -11,13 +11,13 @@ keywords:
 
 # Decide How Long Evidence Survives
 
-SafeSquid deployment evidence must survive troubleshooting and audit review. The default retention is shorter than most compliance regimes require, and a full log volume truncates evidence silently — the gap is discovered during an incident, when the window you need turns out to have rolled off.
+SafeSquid deployment evidence must survive troubleshooting and audit review. The default retention is shorter than most compliance regimes require, and a full log volume truncates evidence silently. The gap is discovered during an incident, when the window you need turns out to have rolled off.
 
 Set the target before installation. Retention is a storage decision, and storage is a sizing input.
 
 ## Plan what has to be retained
 
-- Local access logs under `/var/log/safesquid/access/`.
+- Local access logs under `/var/log/safesquid/extended/`.
 - Reporting Service or SIEM forwarding where required.
 - Change records for activation, policy, Root CA rollout, and client routing.
 - Time synchronization so log timestamps match incident timelines.
@@ -33,12 +33,12 @@ Set the target before installation. Retention is a storage decision, and storage
 - [Reporting Service](/architecture/interface/reporting_service).
 - Cloud object storage such as S3 or Azure Blob.
 
-Forwarding does not remove the need for local retention. Keep enough local history to diagnose an outage and to recover from a forwarder failure — the forwarder is exactly what breaks during the incident you need the logs for.
+Forwarding does not remove the need for local retention. Keep enough local history to diagnose an outage and to recover from a forwarder failure. The forwarder is exactly what breaks during the incident you need the logs for.
 
 <Accordion title="Disk and retention planning">
   Separate high-write log and cache storage where the deployment model allows it. For production nodes, record the retention target for:
 
-  - `/var/log/safesquid/access/` access logs.
+  - `/var/log/safesquid/extended/` access logs.
   - Configuration backups and exported reports.
   - Support bundles and temporary diagnostics.
   - OS logs, Monit logs, BIND9 logs, and package-manager logs.

@@ -2,12 +2,13 @@
 title: Free disk and RAM to restore proxy operation
 description: Diagnose and resolve SafeSquid free disk and ram to restore proxy operation incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
-  - disk space and ram are full
+  - disk space and RAM full
+  - SafeSquid disk usage
+  - free disk space proxy
+  - proxy operation restore
 ---
 
-# Free disk and RAM to restore proxy operation
+# Restore Proxy Operation by Freeing Disk and RAM
 
 Free disk and RAM to restore proxy operation can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
@@ -17,7 +18,7 @@ When SafeSquid partitions or RAM are full, the proxy can fail or behave unpredic
 
 Give the enough size to backup store.
 
-Example: If you want to take a backup of files of size 5GB then consider the store up to 5.5 GB
+Example: to back up files of size 5GB, allow for a store of 5.5 GB.
 
 Don't delete the original log files (.log extension) and database files.
 
@@ -61,7 +62,7 @@ none 100M 0 100M 0% /run/user
 
 ## /dev/ram1 62M 1.3M 58M 3% /tmp/safesquid
 
-If any of the above partitions are observed to be used over 80%, then you may take a backup of the following files and delete files as per your requirement.
+If any of the above partitions is used over 80%, back up the following files. Then delete files as required.
 
 ## Partitions
 
@@ -119,7 +120,7 @@ These files will be used to store the data required for reports generation
 
 you can take a backup or directly delete these files.
 
-If you delete or move the above files to another destination then restart the SafeSquid server, in order to create the deleted or moved files.
+If you delete or move the above files to another destination, restart the SafeSquid server. This recreates the deleted or moved files.
 
 ### /var/log/safesquid
 
@@ -163,7 +164,7 @@ cd
  /var/log/safesquid/config/
 ```
 
-config logs used to store the data related to safesquid interface requests and responses. No need to take a backup of these files.
+config logs used to store the data related to SafeSquid interface requests and responses. No need to take a backup of these files.
 
 **Example file name to be deleted: 20161223132118-config.log.gz**
 
@@ -185,9 +186,11 @@ This memory will be used only in upgradation time.
 Collect evidence before restarting services or changing policy. Keep screenshots, command output, and relevant SafeSquid logs with the incident ticket.
 
 ```sh
-tail -100 /var/log/safesquid/safesquid.log
+tail -100 /var/log/safesquid/native/safesquid.log
 tail -100 /var/log/syslog
 ```
+
+Expected result: the native log prints up to 100 recent lines. Each line starts with a date and time, then a `[thread or request id]` and a module name such as `network:`.
 
 Record the affected user, source IP address, requested URL, timestamp, browser error, SafeSquid policy section changed, and verification result.
 
@@ -195,3 +198,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [Monit Service Governance](/architecture/interface/supporting_services_monit) to supervise SafeSquid processes and host resources with Monit.

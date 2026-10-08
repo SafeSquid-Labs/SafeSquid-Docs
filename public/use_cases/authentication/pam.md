@@ -8,7 +8,7 @@ keywords:
   - system authentication proxy
 ---
 
-# PAM Authentication
+# Set Up PAM Authentication
 
 PAM integration validates proxy users against the system's Pluggable Authentication Modules (PAM) stack. This allows you to use a single set of credentials for both OS-level access (SSH, Login) and proxy access.
 
@@ -61,7 +61,7 @@ If you create a user via `useradd` on the Linux host, SafeSquid will be able to 
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | PAM stack delegation to OS | **Confirmed** | This page |
 | Allow List **PAM Authentication** = TRUE | **Confirmed** | Verification table |
 

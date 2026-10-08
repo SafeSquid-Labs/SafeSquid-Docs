@@ -16,7 +16,7 @@ keywords:
 
 # Enforce access by time range
 
-Time Profiler enforces time-based internet access using configurable ranges: month, day, weekday, hour, and minute. Create Time Profile entries as combinations of these ranges; SafeSquid allows or blocks categories and websites according to the active profile.
+Time Profiler enforces time-based internet access using configurable ranges: month, day, weekday, hour, and minute. Create Time Profile entries as combinations of these ranges. SafeSquid allows or blocks categories and websites according to the active profile.
 
 
 
@@ -112,3 +112,6 @@ Lunch hours: 2 PM to 2:30 PM, Monday to Friday. Allow Social Media during lunch.
 
 ![Lunch hours rule](/images/Configure/Custom_Settings/Time_Profiler/image8.webp)
 
+## Next steps
+
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.

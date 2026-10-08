@@ -10,15 +10,15 @@ keywords:
 ---
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/01-SafeSquid_Appliance_Builder.md (whole page) and _old_getting_started_backup/03-Installation Guide/01-SafeSquid Appliance Builder.md §Preparation, §Installation Steps (Debian), §Post-Installation Checklist */}
-{/* NEEDS-SME-REVIEW: the two sources give opposite BIOS boot orders — the current guide says removable media first, the older backup says hard disk first. Confirm before an operator follows either. */}
-{/* NEEDS-SME-REVIEW: minimum RAM and disk are stated four different ways — 8 GB/100 GB in the SAB source, 4 GB/160 GB in quickstart.mdx, no disk figure in the sizing matrix, and a 32 GB disk in the installer screenshots. Confirm the authoritative baseline for the shipping release. */}
-{/* NEEDS-SME-REVIEW: the boot menu reads "debian 13" but the first-login banner reads "built using Linux #236-Ubuntu SMP". Both sources describe SAB as a Debian ISO. Confirm the shipping base OS. */}
-{/* NEEDS-SME-REVIEW: both sources give the portal as https://safesquid.cfg/ while 43 other pages in public/ use http://. This page uses http:// for internal consistency — confirm which is correct. */}
-{/* NEEDS-SME-REVIEW: the /usr/local/safesquid/ row in the component table appears in neither source. Confirm the path before an operator relies on it. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: the two sources give opposite BIOS boot orders — the current guide says removable media first, the older backup says hard disk first. Confirm before an operator follows either. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: minimum RAM and disk are stated four different ways — 8 GB/100 GB in the SAB source, 4 GB/160 GB in quickstart.mdx, no disk figure in the sizing matrix, and a 32 GB disk in the installer screenshots. Confirm the authoritative baseline for the shipping release. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: the boot menu reads "debian 13" but the first-login banner reads "built using Linux #236-Ubuntu SMP". Both sources describe SAB as a Debian ISO. Confirm the shipping base OS. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: both sources give the portal as https://safesquid.cfg/ while 43 other pages in public/ use http://. This page uses http:// for internal consistency — confirm which is correct. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: the /usr/local/safesquid/ row in the component table appears in neither source. Confirm the path before an operator relies on it. */}
 
 # Build the Standard Appliance
 
-Installing SafeSquid by hand means hardening the OS, partitioning disks correctly, resolving dependency libraries, configuring networking, and standing up Monit and BIND9. One mistake in partitioning or networking costs hours — and it costs them again on the next node, because nothing about the build is repeatable.
+Installing SafeSquid by hand means hardening the OS and partitioning disks correctly. It also means resolving dependency libraries, configuring networking, and standing up Monit and BIND9. One mistake in partitioning or networking costs hours. It costs them again on the next node, because nothing about the build is repeatable.
 
 SafeSquid Appliance Builder (SAB) is a security-hardened Debian ISO that does all of it from one boot. You answer a short sequence of prompts; a preseed script does the rest and reboots into a working appliance.
 
@@ -31,7 +31,7 @@ Use SAB when:
 - The organisation wants a repeatable baseline instead of adapting an existing server.
 - You need a clean VM or hardware appliance for production, pilot, or DR testing.
 
-Do not use SAB when the host must preserve an existing OS, application stack, or custom hardening image — the install erases the target disk. Use [Install on a Managed Linux Host](/getting_started/install_safesquid/linux_server) instead.
+Do not use SAB when the host must preserve an existing OS, application stack, or custom hardening image. The install erases the target disk. Use [Install on a Managed Linux Host](/getting_started/install_safesquid/linux_server) instead.
 
 ## Know what SAB automates
 
@@ -64,19 +64,19 @@ Obtain the ISO from the SafeSquid appliance download path:
 https://downloads.safesquid.com/appliance/safesquid.iso
 ```
 
-Record the download date and, where the organisation's process requires it, a checksum of the retrieved image in the change record.
+Record the download date in the change record. Where the organisation's process requires it, record a checksum of the retrieved image too.
 
 <Accordion title="Prepare physical hardware">
 
 1. Write the ISO to USB or DVD. Rufus, Etcher, and `dd` all work for USB; ImgBurn for CD or DVD. Use whichever is approved for the administrator workstation.
-2. Set the BIOS or UEFI boot order so the removable media is tried **before** the internal disk, and disable Secure Boot if the installer will not start.
+2. Set the BIOS or UEFI boot order so the removable media is tried **before** the internal disk. Disable Secure Boot if the installer will not start.
 3. Confirm the CPU exposes AES-NI before committing the hardware:
 
    ```bash
    lscpu | grep aes
    ```
 
-   Expected result: `aes` appears in the CPU flags. If it does not, HTTPS inspection will be substantially slower on this host — see the AES-NI requirement in [Hardware Sizing](/deployment/hardware_sizing).
+   Expected result: `aes` appears in the CPU flags. If it does not, HTTPS inspection will be substantially slower on this host. See the AES-NI requirement in [Hardware Sizing](/deployment/hardware_sizing).
 
 </Accordion>
 
@@ -94,7 +94,7 @@ SAB runs on both Type 1 and Type 2 hypervisors. On a Type 2 hypervisor such as V
    | **NAT** | The VM sits behind the host, routing through the host's address | Isolated lab only |
 
    Bridged is the recommended choice. NAT complicates client routing and certificate testing later.
-4. Allocate CPU, RAM, and disk according to the approved sizing plan, and confirm the hypervisor actually reserves them rather than overcommitting.
+4. Allocate CPU, RAM, and disk according to the approved sizing plan. Confirm the hypervisor actually reserves them rather than overcommitting.
 
 </Accordion>
 
@@ -110,7 +110,7 @@ Obtain the ISO from the SafeSquid appliance download path:
 https://downloads.safesquid.com/appliance/safesquid.iso
 ```
 
-Record the download date and, where the organization's process requires it, a checksum of the retrieved image in the change record.
+Record the download date in the change record. Where the organization's process requires it, record a checksum of the retrieved image too.
 
 <Accordion title="Prepare physical hardware">
 
@@ -131,7 +131,7 @@ Record the download date and, where the organization's process requires it, a ch
 1. Create the VM on VMware, Hyper-V, KVM, or VirtualBox.
 2. Attach the ISO as a virtual CD or DVD drive.
 3. Configure networking as **bridged** so the appliance holds a routable address on the client network. NAT works for an isolated lab but complicates client routing and certificate testing later.
-4. Allocate CPU, RAM, and disk according to the approved sizing plan, and confirm the hypervisor actually reserves them rather than overcommitting.
+4. Allocate CPU, RAM, and disk according to the approved sizing plan. Confirm the hypervisor actually reserves them rather than overcommitting.
 
 </Accordion>
 
@@ -153,7 +153,7 @@ Record the download date and, where the organization's process requires it, a ch
 
     Confirm **Standard Installation** is selected. It is the recommended path and the one this page documents.
 
-    If the host is reachable only over a serial console, use the matching serial variant — the prompt sequence is the same.
+    If the host is reachable only over a serial console, use the matching serial variant. The prompt sequence is the same.
 
     ![SafeSquid Appliance Builder boot menu showing Standard, Expert, and two Serial Console installation modes](/images/getting_started/safesquid_appliance_builder_01_sab_boot_menu.webp)
   </Step>
@@ -162,7 +162,7 @@ Record the download date and, where the organization's process requires it, a ch
 
     Confirm the choice matches the approved network plan. Production appliances use a static address.
 
-    If DHCP is selected for a production host, restart the installer — a proxy whose address moves breaks every client that points at it.
+    If DHCP is selected for a production host, restart the installer. A proxy whose address moves breaks every client that points at it.
 
     ![Network autoconfiguration prompt asking whether to use DHCP](/images/getting_started/safesquid_appliance_builder_02_dhcp_prompt.webp)
   </Step>
@@ -193,7 +193,7 @@ Record the download date and, where the organization's process requires it, a ch
 
     Confirm the gateway is reachable **from the address you just assigned**, not merely that it is correct in general.
 
-    If the gateway is unreachable, the installer fails later at mirror selection rather than here, so the real cause surfaces several screens away.
+    If the gateway is unreachable, the installer fails later at mirror selection rather than here. So the real cause surfaces several screens away.
 
     ![Installer prompt for the default gateway address](/images/getting_started/safesquid_appliance_builder_07_gateway.webp)
   </Step>
@@ -202,14 +202,14 @@ Record the download date and, where the organization's process requires it, a ch
 
     Confirm both resolve names correctly from the appliance network.
 
-    If only one resolver is given and it fails, categorization and update paths fail with it — SafeSquid cannot categorise a destination it cannot resolve.
+    If only one resolver is given and it fails, categorization and update paths fail with it. SafeSquid cannot categorise a destination it cannot resolve.
 
     ![Installer prompt for name server addresses](/images/getting_started/safesquid_appliance_builder_08_dns.webp)
   </Step>
   <Step title="Assign hostname and domain">
     Set a hostname that fits your naming convention, then the domain name.
 
-    Confirm the resulting fully qualified domain name is the one you intend, and that both forward and reverse DNS entries exist for it.
+    Confirm the resulting fully qualified domain name is the one you intend. That both forward and reverse DNS entries exist for it.
 
     If the FQDN is wrong, directory integration is the first thing to break — Active Directory integration depends on it. Changing the hostname later means revisiting certificate and logging references, so settle it now.
 
@@ -229,18 +229,18 @@ Record the download date and, where the organization's process requires it, a ch
     ![Installer prompt for HTTP proxy information, blank for none](/images/getting_started/safesquid_appliance_builder_12_http_proxy.webp)
   </Step>
   <Step title="Confirm the disk and the GRUB target">
-    SAB auto-partitions the selected disk. Select the target drive — typically `/dev/sda` or `/dev/nvme0n1` — for partitioning, then the same drive again for the GRUB bootloader.
+    SAB auto-partitions the selected disk. Select the target drive for partitioning, typically `/dev/sda` or `/dev/nvme0n1`. Then select the same drive again for the GRUB bootloader.
 
     Confirm the selected disk matches the allocation approved for SafeSquid, and that the GRUB target is the same internal disk.
 
-    If you are installing from a USB stick, unselect the USB drive at the partitioning prompt so it cannot be chosen by mistake.
+    If you are installing from a USB stick, unselect the USB drive at the partitioning prompt. This stops it being chosen by mistake.
 
     ![Disk partitioning prompt listing available disks](/images/getting_started/safesquid_appliance_builder_14_disk_selection.webp)
 
     ![GRUB bootloader installation prompt listing available disks](/images/getting_started/safesquid_appliance_builder_15_grub.webp)
   </Step>
   <Step title="Wait for the automated build">
-    The preseed script partitions the disk, installs the Debian base with security updates, installs SafeSquid with Monit and BIND9, applies hardening, and sets SafeSquid to start on boot. The host reboots by itself when it finishes.
+    The preseed script partitions the disk, installs the Debian base with security updates. It then installs SafeSquid with Monit and BIND9, applies hardening, and sets SafeSquid to start on boot. The host reboots by itself when it finishes.
 
     Confirm the progress screen advances and the host reboots without installer errors.
 
@@ -260,11 +260,11 @@ Record the download date and, where the organization's process requires it, a ch
 </Steps>
 
 <Warning>
-  **Do not defer the password reset.** The appliance ships with `administrator` / `safesquid`, and those credentials are printed on the login screen. Complete the reset before the host is reachable from any client network, and record that it was done in the deployment evidence. Leaving the shipped password in place on a proxy that sees all corporate web traffic is a direct compromise path.
+  **Do not defer the password reset.** The appliance ships with `administrator` / `safesquid`. Those credentials are printed on the login screen. Complete the reset before the host is reachable from any client network. Record that it was done in the deployment evidence. Leaving the shipped password in place on a proxy that sees all corporate web traffic is a direct compromise path.
 </Warning>
 
 <Warning>
-  **Confirm the GRUB target disk.** The bootloader prompt is separate from the partitioning prompt, and it is easy to accept an external USB device instead of the internal disk. Installing GRUB to the wrong drive leaves the appliance unbootable once the media is removed.
+  **Confirm the GRUB target disk.** The bootloader prompt is separate from the partitioning prompt. It is easy to accept an external USB device instead of the internal disk. Installing GRUB to the wrong drive leaves the appliance unbootable once the media is removed.
 </Warning>
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/01-SafeSquid_Appliance_Builder.md §Installation Steps step 6 SSH tip */}
@@ -279,7 +279,7 @@ ssh installer@SAFESQUID-SERVER-IP
 
 Expected result: the installer resumes in the SSH session at the prompt the console had reached.
 
-Compare the displayed SHA256 fingerprint before accepting the host key. This is useful for a headless server or a remote data centre — treat it as a management-network action and connect from an approved administrator workstation, not from a general user network.
+Compare the displayed SHA256 fingerprint before accepting the host key. This is useful for a headless server or a remote data centre. Treat it as a management-network action and connect from an approved administrator workstation, not from a general user network.
 
 ![Installer notice offering to continue the installation remotely over SSH](/images/getting_started/safesquid_appliance_builder_13_ssh_notice.webp)
 
@@ -298,7 +298,7 @@ The installer runs on a virtual console. Switch between consoles to see what it 
 | **ALT + F3** | Shell prompt for troubleshooting |
 | **ALT + F4** | System messages |
 
-Switch to the live log (**ALT + F2**) when installation appears stuck, network configuration fails, or partitioning errors appear — it distinguishes a slow step from a failed one.
+Switch to the live log (**ALT + F2**) when installation appears stuck, network configuration fails, or partitioning errors appear. It distinguishes a slow step from a failed one.
 
 From the shell (**ALT + F3**):
 
@@ -354,7 +354,7 @@ Expected result: the SafeSquid admin login loads. If it prompts for license acti
 | Configuration Portal | `http://safesquid.cfg/` — an embedded interface reachable only through the proxy, and deliberately not resolved by SafeSquid's own DNS resolver |
 | Direct management access | `https://SAFESQUID-SERVER-IP:8443/` — before a proxy is configured, or when the proxy path is unavailable |
 
-Use the direct `:8443` path only from an approved administrator network. It bypasses the proxy path that every other client uses, so it changes the trust boundary and should not become the routine way in.
+Use the direct `:8443` path only from an approved administrator network. It bypasses the proxy path that every other client uses. So it changes the trust boundary and should not become the routine way in.
 
 </Accordion>
 
@@ -391,7 +391,7 @@ Store these artifacts with the deployment record:
 | Installation hangs at mirror selection | Outbound access blocked, an upstream proxy is required, or the gateway is unreachable from the assigned IP | Confirm outbound HTTP and HTTPS and gateway reachability; enter proxy details if the network requires one |
 | `Failed to partition disk` | Disk in use, too small, or the wrong drive was selected | Confirm the target disk against the approved allocation; unselect the USB installation media and detach other drives |
 | Appliance unbootable after removing media | GRUB was installed to the removable device | Reinstall, selecting the internal disk for the bootloader as well as for partitioning |
-| Port `8080` not listening after reboot | SafeSquid failed to start | Run `systemctl status safesquid --no-pager` and check `/var/log/safesquid/safesquid.log` |
+| Port `8080` not listening after reboot | SafeSquid failed to start | Run `systemctl status safesquid --no-pager` and check `/var/log/safesquid/native/safesquid.log` |
 | Management interface unreachable on `:8443` | Host or network firewall blocks the port | Check host firewall rules with `iptables -L` and permit the port from the administrator network only |
 | SSH connection refused after reboot | SSH is not running, or the address changed | Confirm the address with `ip addr`, then check `systemctl status ssh` |
 | Directory integration fails after install | Hostname or domain does not produce the expected FQDN, or reverse DNS is missing | Correct the FQDN and confirm both forward and reverse DNS entries resolve |

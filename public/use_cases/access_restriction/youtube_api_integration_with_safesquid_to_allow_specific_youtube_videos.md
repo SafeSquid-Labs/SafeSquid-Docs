@@ -31,7 +31,7 @@ YouTube offers entertainment and educational content; unrestricted viewing can r
 ## Client scenario (case study)
 Ganpat University provides graduate programs to various colleges. All the staff's PC/Laptop traffic is going via SafeSquid SWG.
 
-Ganpat University wants to block entire youtube.com for faculty and students, but wants some of the YouTube channels allowed which are helpful for faculty/students.
+Ganpat University wants to block entire youtube.com for faculty and students. But wants some of the YouTube channels allowed which are helpful for faculty/students.
 
 Ganpat University challenges are:
 
@@ -64,7 +64,7 @@ You can now allow/block specific category of videos on YouTube.
 
 
 ## Prerequisites
-HTTPS Inspection should be enabled in SafeSquid. If not enabled, you can check our document - How to enable HTTPS Inspection
+HTTPS Inspection should be enabled in SafeSquid. If it is not enabled, see How to enable HTTPS Inspection
 
 
 
@@ -73,7 +73,7 @@ To Request the Category of Specific Video
 
 To extract Video Category from Video ID
 
-Go To https://console.developers.google.com/apis/library [Link](https://console.cloud.google.com/apis/library)
+Go To https://console.developers.google.com/apis/library [Google Cloud API Library](https://console.cloud.google.com/apis/library)
 
 ![Create a Youtube V3 API using google account for Youtube API integration with safesquid](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image2.webp)
 
@@ -221,3 +221,7 @@ To do so, I will help you out in creating a simple Policy which will only allow 
 
 ![Youtube Video policy to allow specific video](/images/How_To/YouTube_API_Integration_With_SafeSquid_To_Allow_Specific_YouTube_Videos/image18.webp)
 
+## Next steps
+
+- **[Allow Specific YouTube Channel and its Playlist](/use_cases/access_restriction/allow_specific_youtube_channel_and_its_playlist)** - block general YouTube but allow specific channels and playlists in SafeSquid for education.
+- **[Block Specific YouTube Channel](/use_cases/access_restriction/block_specific_youtube_channel)** - block a specific YouTube channel using SafeSquid by creating policies based on Channel-ID and List-ID for targeted video restriction.

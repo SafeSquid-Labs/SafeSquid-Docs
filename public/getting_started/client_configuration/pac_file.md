@@ -10,7 +10,7 @@ keywords:
 
 # Route Browsers With PAC
 
-A Proxy Auto-Configuration (PAC) file gives managed browsers a repeatable routing decision. Use it when explicit proxy testing has passed and you need controlled exceptions for internal sites, cloud services, or pilot groups.
+A Proxy Auto-Configuration (PAC) file gives managed browsers a repeatable routing decision. Use it when explicit proxy testing has passed. You then need controlled exceptions for internal sites, cloud services, or pilot groups.
 
 ## Use this method when
 
@@ -57,7 +57,7 @@ Replace `SAFESQUID-IP` and `.internal.example.com` with approved values. Avoid w
 
 <Accordion title="Add proxy failover">
 
-A single `PROXY` return means every browser loses web access when that node is unavailable. The return value accepts an ordered, semicolon-separated list; the browser tries each in turn and moves on when one does not answer.
+A single `PROXY` return means every browser loses web access when that node is unavailable. The return value accepts an ordered, semicolon-separated list. The browser tries each in turn and moves on when one does not answer.
 
 ```javascript
 return "PROXY SAFESQUID-A:8080; PROXY SAFESQUID-B:8080";
@@ -72,7 +72,7 @@ return "PROXY SAFESQUID-A:8080; PROXY SAFESQUID-B:8080; DIRECT";
 ```
 
 <Warning>
-  **A trailing `DIRECT` fails open.** If every SafeSquid node is unreachable, clients browse the internet unfiltered and unlogged, and nothing in the browser tells the user or the operator that enforcement stopped. Use it only where an availability requirement has been weighed against losing the control, and where the decision has a named owner. Omitting `DIRECT` fails closed instead: users lose web access, which is visible and reported immediately.
+  **A trailing `DIRECT` fails open.** If every SafeSquid node is unreachable, clients browse the internet unfiltered and unlogged. Nothing in the browser tells the user or the operator that enforcement stopped. Use it only where an availability requirement has been weighed against losing the control. The decision must also have a named owner. Omitting `DIRECT` fails closed instead: users lose web access, which is visible and reported immediately.
 </Warning>
 
 </Accordion>
@@ -104,7 +104,7 @@ Expected result: the server returns a successful response and the PAC file conte
 {/* source: _migration_source_v3/docs/01-Getting_Started/05-Connect_Your_Client/02-PAC_File.md §Deploy the PAC File, Step 1 */}
 
 <Warning>
-  **Serve the file with the correct MIME type.** Browsers expect `application/x-ns-proxy-autoconfig`. Served as `text/plain` or `text/html`, some browsers silently ignore the file and fall back to direct connections — the most common reason a correct PAC file appears to do nothing.
+  **Serve the file with the correct MIME type.** Browsers expect `application/x-ns-proxy-autoconfig`. Served as `text/plain` or `text/html`, some browsers silently ignore the file and fall back to direct connections. This is the most common reason a correct PAC file appears to do nothing.
 
   ```apache
   # Apache
@@ -129,7 +129,7 @@ Expected result: the server returns a successful response and the PAC file conte
 
 <Accordion title="Point clients at the PAC URL">
 
-Hosting the file does nothing until clients are told where it is. Disable auto-detection at the same time, or WPAD discovery may override the URL you set.
+Hosting the file does nothing until clients are told where it is. Disable auto-detection at the same time, or WPAD discovery can override the URL you set.
 
 **Windows — Chrome, Edge, and most applications**
 
@@ -166,7 +166,7 @@ kwriteconfig5 --file kioslaverc --group 'Proxy Settings' \
   --key 'Proxy Config Script' 'http://proxy-config.example.com/proxy.pac'
 ```
 
-For anything beyond a pilot, deliver the URL through GPO, MDM, or browser policy instead of setting it per machine — see [Enterprise Deployment](/getting_started/client_configuration/enterprise_deployment).
+For anything beyond a pilot, deliver the URL through GPO, MDM, or browser policy. Do not set it per machine. See [Enterprise Deployment](/getting_started/client_configuration/enterprise_deployment).
 
 </Accordion>
 
@@ -243,7 +243,7 @@ Expected result: the command prints the proxy string the client would use, such 
 
 Run one test per routing rule you added, including at least one destination that must go `DIRECT`. Save the output with the change record as proof the file was validated before rollout.
 
-A PAC file is JavaScript, so a syntax error breaks proxy selection for every rule, not only the faulty one. The common causes are a missing semicolon, bracket, or quote; a misspelled function name; and a file served with the wrong MIME type or from an unreachable URL.
+A PAC file is JavaScript, so a syntax error breaks proxy selection for every rule, not only the faulty one. The common causes are a missing semicolon, bracket, or quote and a misspelled function name. A file served with the wrong MIME type or from an unreachable URL also fails.
 
 </Accordion>
 
@@ -259,13 +259,13 @@ If WPAD is approved, three conditions must all hold or discovery silently fails:
 
 1. A DNS A record for `wpad.<your-domain>` points at the host serving the file.
 
-   ```
+   ```text
    wpad.example.com.  IN  A  PAC-SERVER-IP
    ```
 
 2. The file is served as `wpad.dat`, not `proxy.pac`. Browsers request that exact name.
 
-   ```
+   ```text
    http://wpad.example.com/wpad.dat
    ```
 
@@ -286,7 +286,7 @@ Expected result: the server returns a successful response for the `wpad.dat` pat
 On the SafeSquid server:
 
 ```bash
-tail -20 /var/log/safesquid/access/extended.log
+tail -20 /var/log/safesquid/extended/extended.log
 ```
 
 Expected result: proxied internet requests appear; intended internal bypasses do not.

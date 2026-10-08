@@ -11,7 +11,7 @@ keywords:
 
 # Roll Out Proxy Settings Safely
 
-Enterprise proxy deployment turns a working pilot into enforceable web security. The risk is blast radius: a bad GPO, MDM profile, PAC URL, or configuration-management task can break web access across an entire business unit. Deploy in stages, prove traffic evidence, and keep rollback ready before expanding scope.
+Enterprise proxy deployment turns a working pilot into enforceable web security. The risk is blast radius. A bad GPO, MDM profile, PAC URL, or configuration-management task can break web access across an entire business unit. Deploy in stages, prove traffic evidence, and keep rollback ready before expanding scope.
 
 ## Use this method when
 
@@ -64,7 +64,7 @@ Confirm:
 
     If drift remains, rerun the job and inspect local configuration precedence.
   </Step>
-  {/* NEEDS-SME-REVIEW: this Step and Card describe a "browser policy" rollout path, but no "Deploy with browser policy" section exists on this page — unlike the GPO/MDM/configuration-management options above, all of which resolve to a real section. Confirm whether browser-only PAC/proxy-policy deployment belongs on this page as its own section, on a different page (see explicit_proxy.md, pac_file.md), or should be removed as a rollout option here. */}
+  {/* [VERIFY WITH SAFESQUID TEAM]: this Step and Card describe a "browser policy" rollout path, but no "Deploy with browser policy" section exists on this page — unlike the GPO/MDM/configuration-management options above, all of which resolve to a real section. Confirm whether browser-only PAC/proxy-policy deployment belongs on this page as its own section, on a different page (see explicit_proxy.md, pac_file.md), or should be removed as a rollout option here. */}
   <Step title="Choose browser policy">
     <Card title="Browser Policy">
       Use when only managed browsers need PAC or proxy enforcement. Evidence is policy result pages and controlled tests.
@@ -104,7 +104,7 @@ Confirm:
 
 <Accordion title="Ring sizes and dwell time">
 
-Rings only surface problems if each one runs long enough for users to hit their real workload — a ring that advances in a day catches outages but not the weekly finance app.
+Rings only surface problems if each one runs long enough for users to hit their real workload. A ring that advances in a day catches outages but not the weekly finance app.
 
 | Ring | Size | Dwell |
 |---|---|---|
@@ -115,9 +115,9 @@ Rings only surface problems if each one runs long enough for users to hit their 
 
 Review SafeSquid logs and helpdesk tickets at each boundary before advancing.
 
-**PAC hosting.** Host on redundant web servers rather than one host, address it through internal DNS so the endpoint policy never has to change, keep the file body in version control, and stage changes before production.
+**PAC hosting.** Host on redundant web servers rather than one host. Address it through internal DNS so the endpoint policy never has to change. Keep the file body in version control. Stage changes before production.
 
-**Monitoring.** Use Group Policy Modeling in the Group Policy Management Console to predict which machines a change will affect before you link it. Run configuration-compliance reports on a schedule, alert on proxy configuration drift, and confirm through SafeSquid logs that managed endpoints are actually routing.
+**Monitoring.** Use Group Policy Modeling in the Group Policy Management Console. It predicts which machines a change will affect before you link it. Run configuration-compliance reports on a schedule and alert on proxy configuration drift. Confirm through SafeSquid logs that managed endpoints are actually routing.
 
 </Accordion>
 
@@ -165,13 +165,13 @@ Use Group Policy to set proxy or PAC settings for a scoped pilot group.
 
 <Accordion title="GPO console paths and values">
 
-**Create the object** — open the Group Policy Management Console (`gpmc.msc`), right-click the target domain or OU, select **Create a GPO in this domain, and Link it here**, name it for the proxy method and change record, then right-click it and select **Edit**.
+**Create the object** — open the Group Policy Management Console (`gpmc.msc`), right-click the target domain or OU. Select **Create a GPO in this domain, and Link it here**. Name it for the proxy method and change record, then right-click it and select **Edit**.
 
 **Option A — deliver a PAC URL (preferred)**
 
 Navigate to:
 
-```
+```text
 Computer Configuration → Policies → Administrative Templates →
 Windows Components → Internet Explorer
 ```
@@ -467,7 +467,7 @@ proxy:
 On SafeSquid:
 
 ```bash
-tail -20 /var/log/safesquid/access/extended.log
+tail -20 /var/log/safesquid/extended/extended.log
 ```
 
 Expected result: pilot users generate logs from intended source networks, and internal bypasses behave as designed.

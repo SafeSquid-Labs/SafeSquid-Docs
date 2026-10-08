@@ -8,7 +8,7 @@ keywords:
   - SafeSquid support
 ---
 
-# Policy Management Console
+# Find the Right Management Console Page
 
 The Policy Management Console is the administrator workbench for SafeSquid SWG. Use it to review reports, configure controls, and reach support workflows without separating policy intent from operational evidence.
 

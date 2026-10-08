@@ -11,7 +11,7 @@ keywords:
 
 # Know What the Licence Buys
 
-An unactivated instance runs with limited capability regardless of which tier you hold. Planning a deployment around threat intelligence or categorization that the licence does not include produces a control that passes the pilot and fails the first real policy decision.
+An unactivated instance runs with limited capability regardless of which tier you hold. A deployment planned around threat intelligence or categorization that the licence does not include passes the pilot. It fails the first real policy decision.
 
 Settle the tier before sizing and before policy design — both depend on which feeds are available.
 
@@ -42,7 +42,7 @@ Confirm which tier the deployment assumes, and record it, before policy design b
 
 ## Treat licence state as audit evidence
 
-Activation also matters for audit: licensed state is visible in the [Configuration Portal](/architecture/interface/configuration_portal) and serves as evidence that the gateway is correctly licensed. The activation key itself is not the audit artifact — store the key securely and capture licence-state evidence from the interface instead.
+Activation also matters for audit. Licensed state is visible in the [Configuration Portal](/architecture/interface/configuration_portal) and serves as evidence that the gateway is correctly licensed. The activation key itself is not the audit artifact. Store the key securely and capture licence-state evidence from the interface instead.
 
 ## Capture licensing evidence
 

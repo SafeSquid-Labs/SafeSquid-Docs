@@ -2,24 +2,25 @@
 title: Website Not Accessible
 description: Diagnose and resolve SafeSquid website not accessible incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
   - website not accessible
+  - SafeSquid website access failure
+  - conditional DNS troubleshooting
+  - origin unreachable through proxy
 ---
 
-# Website Not Accessible
+# Fix Websites That Are Not Accessible
 
 Website Not Accessible can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
 ## Connection failed to proxy or origin
 
-When the user accesses the website, the browser displays "**Connection to 192.168.27.30:80 failed**". When the user accesses [https://abc.safesquid.com/](https://abc.safesquid.com/) via proxy and logs in with a corporate email ID, the browser may show "**Connection to abc.safesquid.com:443 failed**".
+When the user accesses the website, the browser displays "**Connection to 192.168.27.30:80 failed**". A user accesses [https://abc.safesquid.com/](https://abc.safesquid.com/) via proxy and logs in with a corporate email ID. The browser can then show "**Connection to abc.safesquid.com:443 failed**".
 
 ![Error showing "Connection to abc.safesquid.com:443 failed"](/images/troubleshooting/website_not_accessible_01_error_showing_connection_to_abc_safesquid_com_44.webp)
 
 ## Possible causes
 
-The destination website may be down, or the user may be unable to reach the site because of internet slowness.
+The destination website can be down, or the user can fail to reach the site because of internet slowness.
 
 ### Website or origin unreachable
 
@@ -27,7 +28,7 @@ Check whether the website is opening without proxy configuration inside the brow
 
 If the website is not opening without a proxy, then it is not the problem with SafeSquid.
 
-If it is opening without a proxy, then run the below command to verify whether the website is resolving or not.
+If it is opening without a proxy, run the command below. It verifies whether the website is resolving.
 
 ```text
 nslookup 
@@ -82,7 +83,7 @@ Escape character is '^]'.
 
 When the server is in an on-premises environment with directory services, the directory DNS server performs DNS resolution.
 
-To check the configuration on the local internal network and its address record pointed on an active directory (AD) or local DNS server.
+Check the configuration on the local internal network. Check its address record on an active directory (AD) or local DNS server.
 
 Run the below commands on the command prompt for **abc.safesquid.com**
 
@@ -184,9 +185,11 @@ Verify whether the website is resolving to the local IP successfully or not.
 Collect evidence before restarting services or changing policy. Keep screenshots, command output, and relevant SafeSquid logs with the incident ticket.
 
 ```sh
-tail -100 /var/log/safesquid/safesquid.log
+tail -100 /var/log/safesquid/native/safesquid.log
 tail -100 /var/log/syslog
 ```
+
+Expected result: the native log prints up to 100 recent lines. Each line starts with a date and time, then a `[thread or request id]` and a module name such as `network:`.
 
 Record the affected user, source IP address, requested URL, timestamp, browser error, SafeSquid policy section changed, and verification result.
 
@@ -194,3 +197,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [DNS Failure](/troubleshooting/dns_failure) to fix DNS failures.

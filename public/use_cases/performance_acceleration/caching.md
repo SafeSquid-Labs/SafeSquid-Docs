@@ -11,7 +11,7 @@ keywords:
 
 # Serve Repeated Requests Locally
 
-Every request that reaches the origin costs bandwidth and latency the user feels. Caching stores local copies of requested content and serves later requests from disk; prefetching goes further and retrieves resources referenced in an HTML page before the user asks for them.
+Every request that reaches the origin costs bandwidth and latency the user feels. Caching stores local copies of requested content and serves later requests from disk. Prefetching goes further and retrieves resources referenced in an HTML page before the user asks for them.
 
 They are complementary, and they are configured separately. Caching is the store; prefetching is what fills it ahead of demand.
 
@@ -176,7 +176,7 @@ Keep the regular expression narrow. A broad pattern prefetches every URL the tag
 
 Expected result: content from the categories in the access profile appears in the disk cache after a client requests it.
 
-An empty store after browsing means the access profile is not matching, or the store policy is not enabled — check the profile name in both places before adjusting cache size.
+An empty store after browsing means the access profile is not matching, or the store policy is not enabled. Check the profile name in both places before adjusting cache size.
 
 ## Capture caching evidence
 

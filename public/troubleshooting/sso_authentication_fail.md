@@ -2,12 +2,13 @@
 title: SSO Authentication Fail
 description: Diagnose and resolve SafeSquid sso authentication fail incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
-  - sso authentication fail
+  - SSO authentication failure
+  - SafeSquid Kerberos troubleshooting
+  - SSO login not working
+  - SafeSquid authentication troubleshooting
 ---
 
-# SSO Authentication Fail
+# Fix SSO Authentication Failures
 
 SSO Authentication Fail can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
@@ -108,9 +109,11 @@ find [username@SAFESQUID.TEST](mailto:username@SAFESQUID.TEST)@ 192.168.221.212 
 Collect evidence before restarting services or changing policy. Keep screenshots, command output, and relevant SafeSquid logs with the incident ticket.
 
 ```sh
-tail -100 /var/log/safesquid/safesquid.log
+tail -100 /var/log/safesquid/native/safesquid.log
 tail -100 /var/log/syslog
 ```
+
+Expected result: the native log prints up to 100 recent lines. Each line starts with a date and time, then a `[thread or request id]` and a module name such as `network:`.
 
 Record the affected user, source IP address, requested URL, timestamp, browser error, SafeSquid policy section changed, and verification result.
 
@@ -118,3 +121,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [LDAP Entries Not Fetched](/troubleshooting/failed_to_fetch_ldap_entries) to fix LDAP entries that fail to load.

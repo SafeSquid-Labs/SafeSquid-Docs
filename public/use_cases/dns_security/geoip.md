@@ -15,7 +15,7 @@ keywords:
 ---
 
 
-# Server Geo-Location
+# Apply Location-Aware Policy With Server Geo-Location on SafeSquid SWG
 
 Classify destination servers by country, region, and ASN (Autonomous System Number) to enforce location-aware access policies, meet data residency requirements, and block high-risk regions.
 
@@ -79,7 +79,7 @@ Without destination geography visibility, organizations cannot enforce regional 
 
 - **Interface**: Profile visible, enabled, and referenced in policies.
 - **Logs**: Confirm `server_country`, `server_region`, and `server_asn` in [Security Logs](/use_cases/audit_and_forensics/security_logs).
-- **Demonstrate control to auditor**: Export logs or run a report filtered by `server_country`; show policy configuration that denies or allows by geography; provide a country-based dashboard from the [Reporting Module](/use_cases/audit_and_forensics/reporting_module) as evidence of active enforcement.
+- **Demonstrate control to auditor**: Export logs or run a report filtered by `server_country`. Show policy configuration that denies or allows by geography. Provide a country-based dashboard from the [Reporting Module](/use_cases/audit_and_forensics/reporting_module) as evidence of active enforcement.
 - **Curl test**:
 
 ```bash
@@ -129,7 +129,7 @@ External references:
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | `server_country`, `server_region`, `server_asn` log fields | **Confirmed** | This page (example log snippet) |
 | Profiling Engine / geo profile wiring | **Confirmed** | This page, [Profiling Engine](/use_cases/profiling_engine/profiling_engine) |
 | GDPR / export-control sentence-level mapping | **Draft** | Legal/compliance review outside this KB |

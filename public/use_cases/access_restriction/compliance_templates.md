@@ -13,7 +13,7 @@ keywords:
 ---
 
 
-# Compliance Templates
+# Apply Compliance Templates for Regulated Data
 
 Uncontrolled exfiltration of cardholder data, PHI, or PII creates regulatory exposure, investigation burden, and reputational harm. SafeSquid Text Analyser supports pattern-based detection for PCI, HIPAA, GDPR, and custom data. Use these templates as a starting point for detection and enforcement, not as a substitute for a full compliance program.
 
@@ -32,7 +32,7 @@ Pre-built patterns reduce implementation time for PCI-DSS, HIPAA, GDPR, and simi
 ## Prerequisites
 
 - HTTPS inspection enabled so SafeSquid can inspect request/response body content. See [Configure HTTPS Inspection](/use_cases/ssl_inspection/configure_https_inspection).
-- Access to Configure → Real Time Content Security → Text Analyser in the Configuration Portal.
+- Access to Configure → Real time content security → Text analyzer in the Configuration Portal.
 - Decision on which regulations apply and which data types to protect (assess before configuring).
 
 
@@ -63,7 +63,7 @@ Detect credit card numbers, CVV codes, and cardholder data in transit.
 
 ### Configuration Example
 
-1. Navigate to **Configure → Real Time Content Security → Text Analyser**
+1. Navigate to **Configure → Real time content security → Text analyzer**
 2. Add a new policy with:
    - **Comment:** PCI-DSS Credit Card Detection
    - **Mime type:** `text/.*|application/json|application/xml`
@@ -231,9 +231,9 @@ Use [Reporting Module](/use_cases/audit_and_forensics/reporting_module) to track
 
 ## Verification and Evidence
 
-- **Interface:** Configure → Real Time Content Security → Text Analyser shows policies with patterns, scores, and thresholds. Access Restriction policies reference the same profiles for block/log actions.
+- **Interface:** Configure → Real time content security → Text analyzer shows policies with patterns, scores, and thresholds. Access Restriction policies reference the same profiles for block/log actions.
 - **Logs:** Security and access logs record matches and blocked requests when threshold is exceeded. Filter logs by DLP or Text Analyser events.
-- **Audit evidence:** Export reports from the Reporting Module for the audit period; show configured patterns and count of matches or blocks to demonstrate control operation.
+- **Audit evidence:** Export reports from the Reporting Module for the audit period. Show configured patterns and count of matches or blocks to demonstrate control operation.
 - **Governance check:** Retain the rationale for each enabled pattern and the tuning record that shows why the threshold is safe enough for production.
 
 
@@ -259,3 +259,9 @@ Create organization-specific patterns for:
 - Proprietary terminology
 
 **Related**: [Text Analyser](/use_cases/data_leakage_prevention/text_analyser), [Image Analyser](/use_cases/data_leakage_prevention/image_analyser_ai), [Access Restriction](/use_cases/access_restriction/access_restriction), [Reporting Module](/use_cases/audit_and_forensics/reporting_module)
+
+## Next steps
+
+- **[Access Restriction](/use_cases/access_restriction/access_restriction)** - build SafeSquid access policies that make web decisions by identity, destination, time, application, and content so enforcement stays precise and auditable.
+- **[Configure HTTPS Inspection](/use_cases/ssl_inspection/configure_https_inspection)** - prerequisites, certificate generation, enabling SSL inspection, client certificate import, bypass rules, and verification for SafeSquid HTTPS inspection.
+- **[Reporting Module](/use_cases/audit_and_forensics/reporting_module)** - use SafeSquid reporting to investigate activity, drill into users and destinations, and export time-bounded evidence for operations and audit review.

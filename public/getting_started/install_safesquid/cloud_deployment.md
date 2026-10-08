@@ -17,7 +17,7 @@ Cloud deployment places SafeSquid near cloud workloads, remote users, or hybrid 
 
 ## Avoid backhauling remote traffic
 
-Routing remote and branch traffic back to an on-premises gateway before it reaches the internet adds a round trip to every request, consumes bandwidth twice through the gateway link, and degrades the experience for exactly the users who are least able to report it well.
+Routing remote and branch traffic back to an on-premises gateway adds a round trip to every request. This happens before the traffic reaches the internet. It consumes bandwidth twice through the gateway link. It also degrades the experience for exactly the users who are least able to report it well.
 
 Placing the gateway in the cloud removes that detour:
 
@@ -56,7 +56,7 @@ Confirm:
 
 <Tabs>
   <Tab title="Cloud-IMG or prebuilt image">
-    Use a Cloud-IMG, marketplace, or prebuilt SafeSquid image only when the image source, release, checksum or publisher identity, and update path are approved.
+    Use a Cloud-IMG, marketplace, or prebuilt SafeSquid image only when the image source and release are approved. The checksum or publisher identity and update path must be approved too.
 
     Record the image ID, region, launch date, SafeSquid version, disk mapping, and initial security group rules. After first boot, verify service state, listener state, DNS resolution, activation reachability, and log creation.
 
@@ -107,12 +107,12 @@ Confirm:
     tail -f /var/log/cloud-init-output.log
     ```
 
-    Expected result: the log reaches completion without error. A cloud-init failure often leaves a reachable instance running no proxy at all, so check this before assuming the launch succeeded.
+    Expected result: the log reaches completion without error. A cloud-init failure often leaves a reachable instance running no proxy at all. So check this before assuming the launch succeeded.
   </Tab>
   <Tab title="Existing cloud VM">
     Use an existing cloud VM only when the operating system lifecycle is already owned. Confirm dependencies, hardening, backup, monitoring, and rollback before installing SafeSquid.
 
-    Existing VMs need extra review for local services that may conflict with the proxy listener, disk layouts that cannot handle logs, and security groups that were created for a different workload.
+    Existing VMs need extra review. Check for local services that can conflict with the proxy listener. Also check for disk layouts that cannot handle logs and security groups created for a different workload.
   </Tab>
 </Tabs>
 
@@ -130,7 +130,7 @@ Before routing clients, enforce:
 
 <Accordion title="Network topology, identity, and encryption">
 
-**Topology.** Place SafeSquid in a private subnet with no direct inbound internet path. Give it outbound access through a NAT gateway, and front it with a load balancer when clients must reach it from outside the VPC. The proxy needs to reach the internet; the internet does not need to reach the proxy.
+**Topology.** Place SafeSquid in a private subnet with no direct inbound internet path. Give it outbound access through a NAT gateway. Front it with a load balancer when clients must reach it from outside the VPC. The proxy needs to reach the internet; the internet does not need to reach the proxy.
 
 **Instance identity.** Do not embed long-lived cloud credentials on the instance. Use the platform's workload identity mechanism instead:
 
@@ -140,26 +140,26 @@ Before routing clients, enforce:
 | Azure | Managed Identity assigned to the VM |
 | GCP | Service account with least-privilege scopes |
 
-**Encryption at rest.** Enable volume encryption — EBS encryption, Azure Disk Encryption, or GCP persistent-disk encryption. SafeSquid volumes hold access logs that identify users and destinations, so treat them as sensitive data at rest, not as operational scratch.
+**Encryption at rest.** Enable volume encryption — EBS encryption, Azure Disk Encryption, or GCP persistent-disk encryption. SafeSquid volumes hold access logs that identify users and destinations. Treat them as sensitive data at rest, not as operational scratch.
 
 **Transport for management.** Require TLS 1.2 or higher on the management interface.
 
-{/* NEEDS-SME-REVIEW: no menu section named "SSL settings" (or similar) exists in the live safesquid.cfg admin UI as of 2026-08-28 — SSL/TLS-related controls only appear as individual Access Profile rule entries (e.g. "BYPASS SSL INSPECTION", "ALLOW SELF SIGNED SSL CERTIFICATE"), not as a distinct management-interface TLS-version setting. Confirm whether minimum TLS version for the management interface is actually admin-UI-configurable, or is a server/OS-level setting outside this page's scope, and update this claim accordingly. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: no menu section named "SSL settings" (or similar) exists in the live safesquid.cfg admin UI as of 2026-08-28 — SSL/TLS-related controls only appear as individual Access Profile rule entries (e.g. "BYPASS SSL INSPECTION", "ALLOW SELF SIGNED SSL CERTIFICATE"), not as a distinct management-interface TLS-version setting. Confirm whether minimum TLS version for the management interface is actually admin-UI-configurable, or is a server/OS-level setting outside this page's scope, and update this claim accordingly. */}
 
-**Logging.** Forward SafeSquid logs to the platform's logging service — CloudWatch, Azure Monitor, or Cloud Logging — and enable VPC or VNet flow logs for network-level visibility. Alert on proxy downtime and on sustained connection-drop rates.
+**Logging.** Forward SafeSquid logs to the platform's logging service (CloudWatch, Azure Monitor, or Cloud Logging). Enable VPC or VNet flow logs for network-level visibility. Alert on proxy downtime and on sustained connection-drop rates.
 
 </Accordion>
 
 <Accordion title="Load balancing and auto-scaling guidance">
   Use load balancers only when the selected traffic model is compatible with proxy semantics, source attribution, health checks, and authentication. Record how clients reach the proxy, how failed nodes are removed, and how logs preserve user and source identity.
 
-  Auto-scaling is suitable only when configuration, activation context, certificate trust, logging, and policy state can be synchronized before a node receives traffic. Do not scale out stateless instances that cannot enforce the same policy and logging behavior as the active node.
+  Auto-scaling is suitable only when configuration, activation context, certificate trust, logging, and policy state can be synchronized. They must be synchronized before a node receives traffic. Do not scale out stateless instances that cannot enforce the same policy and logging behavior as the active node.
 
   {/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/02-Cloud_Deployment.md §Load Balancing */}
 
-  Where a load balancer is used, configure the health check against the proxy listener on port `8080` using an HTTP `GET` to `/`. A check that only tests TCP reachability will keep sending traffic to an instance whose proxy has stopped answering.
+  Where a load balancer is used, configure the health check against the proxy listener on port `8080`. Use an HTTP `GET` to `/`. A check that only tests TCP reachability will keep sending traffic to an instance whose proxy has stopped answering.
 
-  Per-platform options are the Network or Application Load Balancer on AWS, Azure Load Balancer or Application Gateway, and the TCP/UDP load balancer on GCP.
+  Per-platform options are the Network or Application Load Balancer on AWS, Azure Load Balancer or Application Gateway. The TCP/UDP load balancer on GCP.
 
 </Accordion>
 
@@ -181,11 +181,15 @@ Check DNS and activation reachability:
 nslookup key.safesquid.com
 ```
 
+Expected result: a `Non-authoritative answer` with `Name: key.safesquid.com` and an `Address` line. A `server can't find` or timeout means DNS resolution is broken.
+
 Check service health:
 
 ```bash
 systemctl status safesquid --no-pager
 ```
+
+Expected result: the first lines read `safesquid.service - SafeSquid Secure Web Gateway Proxy Server`, `Loaded: loaded` and `Active: active (running)`.
 
 Check listener state:
 
@@ -203,7 +207,7 @@ When the instance was launched from a prebuilt image, confirm the dedicated volu
 lsblk
 ```
 
-Expected result: `/var/log/safesquid` and `/var/lib/safesquid` appear as mounted filesystems. If they are folded into the root volume instead, log growth will fill the OS disk and take the service down with it.
+Expected result: `/var/log/safesquid` and `/var/lib/safesquid` appear as mounted filesystems. If they are folded into the root volume instead, log growth fills the OS disk. The service then goes down with it.
 
 ## Plan availability
 

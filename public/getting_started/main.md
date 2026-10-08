@@ -11,7 +11,7 @@ keywords:
 
 # Start SafeSquid in a Controlled Path
 
-SafeSquid SWG becomes a security control only after traffic is deliberately routed through the proxy, the instance is activated, and logs prove policy decisions. Treat the first deployment as a controlled pilot: define scope, prove traffic flow, verify logs, then expand to production users.
+SafeSquid SWG becomes a security control only after traffic is deliberately routed through the proxy. The instance must also be activated, and logs must prove policy decisions. Treat the first deployment as a controlled pilot: define scope, prove traffic flow, verify logs, then expand to production users.
 
 ![SafeSquid SWG control path showing proxy policy, configuration, reporting, and DNS security](/images/getting_started/getting_started_01_safesquid_swg_proxy_layer_policy_and_configuration_repor.webp)
 
@@ -19,18 +19,18 @@ SafeSquid SWG becomes a security control only after traffic is deliberately rout
 
 <Steps>
   <Step title="Understand the control path">
-    Read [Understand SafeSquid SWG](/getting_started/welcome) to confirm why HTTP and HTTPS traffic must pass through a Layer 7 proxy before internet access.
+    Read [Understand SafeSquid SWG](/getting_started/welcome) to confirm why HTTP and HTTPS traffic must pass through a Layer 7 proxy. This applies before internet access.
 
     Confirm the deployment record states which traffic must traverse SafeSquid.
 
     If ownership is unclear, pause onboarding until the proxy control path is approved.
   </Step>
   <Step title="Register and protect the key">
-    Use [Register and Get Your Key](/getting_started/register) to create the Self-Service Portal account and download the `activation_key` file into approved secure storage.
+    Use [Register and Get Your Key](/getting_started/register) to create the Self-Service Portal account. Download the `activation_key` file into approved secure storage.
 
     Confirm the key is stored in approved secure storage and only the storage reference is recorded.
 
-    If the key was copied into tickets or chat, treat it as secret exposure and replace it through the approved process.
+    If the key was copied into tickets or chat, treat it as secret exposure. Replace it through the approved process.
   </Step>
   <Step title="Plan deployment and prerequisites">
     Complete [Deployment](/deployment/licensing_requirements) and [Deployment Checklist](/getting_started/install_safesquid/prerequisites) before installing. Record CPU, RAM, disk, NIC, DNS, NTP, firewall, HA, and evidence-retention decisions.
@@ -49,7 +49,7 @@ SafeSquid SWG becomes a security control only after traffic is deliberately rout
   <Step title="Route one pilot client">
     Use [Connect Your Client](/getting_started/client_configuration/connect_your_client) to send one controlled pilot through SafeSquid and prove an access-log entry.
 
-    Confirm `/var/log/safesquid/access/extended.log` records the pilot request.
+    Confirm `/var/log/safesquid/extended/extended.log` records the pilot request.
 
     If no log appears, verify proxy settings, PAC rules, bypass lists, and route ownership.
   </Step>
@@ -116,7 +116,7 @@ Before routing broad user traffic, confirm:
 
 - A deployment owner and change record exist.
 - The SafeSquid listener is reachable only from approved client networks.
-- A proxied test request appears in `/var/log/safesquid/access/extended.log`.
+- A proxied test request appears in `/var/log/safesquid/extended/extended.log`.
 - The Configuration Portal shows active license details.
 - HTTPS inspection has a trusted Root CA rollout path through GPO, MDM, or approved manual import.
 - Logs are retained locally, forwarded to the Reporting Service, or exported to a SIEM.
@@ -139,7 +139,7 @@ Store these artifacts with the deployment record:
 
 | Symptom | Likely cause | Fix | Verify |
 |---|---|---|---|
-| Pilot traffic bypasses SafeSquid | Client proxy setting, PAC file, or route is wrong | Reconfigure one pilot client before expanding rollout | `/var/log/safesquid/access/extended.log` records the request |
+| Pilot traffic bypasses SafeSquid | Client proxy setting, PAC file, or route is wrong | Reconfigure one pilot client before expanding rollout | `/var/log/safesquid/extended/extended.log` records the request |
 | Configuration Portal does not load | Browser is not using SafeSquid as proxy | Configure explicit proxy and retry `http://safesquid.cfg/` | Configuration Portal loads through the proxy path |
 | Activation cannot be proven | Activation key was not uploaded or evidence was not captured | Complete [Activate Your License](/getting_started/activate) and save the license-state record | Product and subscription details are visible |
 | HTTPS test produces warnings | Root CA rollout is incomplete | Finish CA deployment before production HTTPS inspection | Managed endpoint trusts the SafeSquid Root CA |

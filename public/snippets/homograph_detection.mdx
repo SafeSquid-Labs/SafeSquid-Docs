@@ -104,7 +104,7 @@ tail -f /var/log/safesquid/security.log | grep -i homograph
 **Still having issues?** Contact SafeSquid support with:
 - Screenshot of Homograph Detection configuration
 - Sample blocked domain attempts
-- Contents of `/var/log/safesquid/safesquid.log` and `/var/log/safesquid/security.log`
+- Contents of `/var/log/safesquid/native/safesquid.log` and `/var/log/safesquid/security.log`
 
 ## How Homograph Detection Works
 
@@ -118,7 +118,7 @@ When detected, SafeSquid blocks the request and logs the attempt for audit trail
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | Homograph control + version gate | **Confirmed** | This page (`safesquid -v`), configuration steps |
 | `reason=homograph` style log indicators | **Draft** | **CTO:** confirm exact field strings in shipping logs |
 | Algorithm detail (mixed scripts, lookalikes) | **Draft** | High-level description; engineering SSOT if customers ask |

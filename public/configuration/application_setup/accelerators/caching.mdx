@@ -1,8 +1,17 @@
 ---
 title: "Caching"
+description: "Control in-memory HTTP caching in SafeSquid: set refresh rules, freshness limits, and object size limits for cached content."
+keywords:
+  - SafeSquid caching
+  - proxy cache settings
+  - cache refresh rules
+  - cache freshness
+  - object size limits
 ---
 
-Open **Configure → Application Setup → Accelerators → Caching**. This section sits under the **Accelerators** menu group alongside [Caching](/configuration/application_setup/accelerators/caching) and [Prefetching](/configuration/application_setup/accelerators/prefetching) — they interact, since a prefetched object is only useful if Caching later serves it.
+# Control In-Memory Caching in SafeSquid
+
+Open **Configure → Application Setup → Accelerators → Caching**. This section sits under the **Accelerators** menu group alongside [Caching](/configuration/application_setup/accelerators/caching) and [Prefetching](/configuration/application_setup/accelerators/prefetching). They interact, since a prefetched object is only useful if Caching later serves it.
 
 The **Cache** section controls in-memory HTTP caching, refresh policy, and ICP parameters for forwarding.
 
@@ -33,7 +42,7 @@ Walk Refresh rows top-down; first enabled row whose profiles match sets min/max 
 What each Refresh age field actually does, once an entry has matched:
 
 - **Minimum age** — guards against serving something that changed very recently: if the origin's Last-Modified is more recent than this many seconds ago, the object is not treated as safe to serve without revalidating.
-- **Maximum age** — hard ceiling; SafeSquid expires the object this many seconds after caching regardless of the freshness the origin's own headers promised. `0` disables the ceiling.
+- **Maximum age** — hard ceiling. SafeSquid expires the object this many seconds after caching regardless of the freshness the origin's own headers promised. `0` disables the ceiling.
 - **Revalidate age** — applies only when the origin gave no explicit freshness guidance at all (no `Expires`, no `max-age`): fresh for this many seconds since caching, then must revalidate.
 - **Last-Modified time factor** — last-resort heuristic, used only when the origin gave no freshness guidance but did supply a Last-Modified date: the longer ago the object was modified relative to when it was fetched, the longer it is assumed to stay fresh, scaled by this percentage.
 
@@ -76,8 +85,8 @@ A regular-expression pattern plus "Delete matches" invalidates and removes every
 - **Minimum file size (`minsize`)** / **Maximum file size (`maxsize`)** — see Object size limits above.
 - **Prefetch window (`prefetchwindow`)** — seconds after a Prefetching-driven fetch during which a second prefetch write for the same URL is rejected.
 - **ICP port (`icpport`)** — UDP port for ICP query/reply used by Proxy chain peer selection; `0` leaves ICP unbound.
-- **ICP timeout (`icptimeout`)** — milliseconds to wait for a peer's ICP reply; a slow peer is treated as down for that query.
-- **Store balance method (`sbalancemethod`)** — FILL SIZE picks the store holding the least data; FILL PERCENT picks the store least full by percentage of its own quota. No effect while disk caching is disabled.
+- **ICP timeout (`icptimeout`)** — milliseconds to wait for a peer's ICP reply. A slow peer is treated as down for that query.
+- **Store balance method (`sbalancemethod`)** — FILL SIZE picks the store holding the least data. FILL PERCENT picks the store least full by percentage of its own quota. No effect while disk caching is disabled.
 - **journal size (`journalsize`)** — `0` uses a default of 128,000 records.
 - **Clean interval (`cleaninterval`)** — `0` uses a default of 30 seconds.
 
@@ -139,4 +148,8 @@ time factor.
 2. Repeat URL request; check Detailed logs for hit/miss.
 3. Use Manage cached objects to inspect or purge entries.
 {/* source: https://www.safesquid.com/md/cache.md */}
-4. If an object you expect to be cached never shows as a hit, read the Refresh entries top to bottom — a broader entry above the intended one can be winning, exactly as in any other first-match list.
+4. If an object you expect to be cached never shows as a hit, read the Refresh entries top to bottom. A broader entry above the intended one can be winning, exactly as in any other first-match list.
+
+## Next steps
+
+- **[Prefetching](/configuration/application_setup/accelerators/prefetching)** - prefetch linked stylesheets, scripts, and images into the cache while the HTML page is delivered. So the browser's follow-up requests load faster.

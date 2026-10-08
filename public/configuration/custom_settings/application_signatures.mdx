@@ -1,6 +1,9 @@
 ---
 title: "Application Signatures"
+description: "Legacy reference: how application signatures tag HTTP requests (such as Webmail or BitTorrent) for Access Profiles. This section is not in the current Configure console."
 ---
+
+# Tag Requests With Legacy Application Signatures
 
 <Warning>
   **This section does not appear in the Configure console.** Verified 2026-09-04 against `http://safesquid.cfg`, build `2026.0627.1344.3`: the section is absent from the console's own section registry, not merely hidden from the menu. It is kept here as legacy and reference material, not a current UI path. Confirm against your own build before pointing an administrator at it.
@@ -76,7 +79,7 @@ Category definition rows are saved to the local dev XML for UI autocomplete. Run
 
 {/* source: https://www.safesquid.com/md/applicationSignatures.md */}
 <Note>
-Application Categories List **Enabled** off means the category definition is not loaded into the in-memory category list on the next configuration reload. Neither On nor Off applies a category to live traffic by itself — that still requires an Application Signatures List entry whose **category** field references the same name.
+Application Categories List **Enabled** off means the category definition is not loaded into the in-memory category list on the next configuration reload. Neither On nor Off applies a category to live traffic by itself. That still requires an Application Signatures List entry whose **category** field references the same name.
 </Note>
 
 {/* source: https://www.safesquid.com/md/applicationSignatures.md */}
@@ -108,7 +111,7 @@ Each Application Signatures List entry field, its internal name, and what it act
 | Comment | `comment` | Administrator note; not read by the matching engine |
 | Enabled | `enabled` | When off, this entry is skipped in the top-to-bottom pass |
 
-Removals are applied **after** additions on the same matching entry — an entry that both adds and removes the same signature name ends with it removed.
+Removals are applied **after** additions on the same matching entry. An entry that both adds and removes the same signature name ends with it removed.
 
 Where a tested value is absent from the request (for example, no Referer header when a Referer-based field is set), the entry is skipped.
 
@@ -144,12 +147,12 @@ On match, **category** `SocialMedia` is added to application signatures (same ta
 
 ## How to verify
 
-1. Check **Reports → Modules Status** for application signature load/download state.
+1. Check the module load status for application signature load/download state. {/* [VERIFY WITH SAFESQUID TEAM]: "Reports → Modules Status" was not found in the Reports tabs on the live console (build 2026.0627.1344.3); confirm where this is shown. */}
 2. Reproduce a request; read Detailed logs column `application_signatures`.
 3. Enable **Trace Entry** on a rule where available; confirm tags in Native PROFILE logs.
 4. Debug header `X-SafeSquid-Application-Signatures` when Send Debugging Headers To includes CLIENT — see [Debug response headers](/configuration/start_here/debug_response_headers).
 
-## See also
+## Next steps
 
 - [Request Types](/configuration/custom_settings/request_types)
 - [Access Profiles](/configuration/restriction_policies/access_profiles)

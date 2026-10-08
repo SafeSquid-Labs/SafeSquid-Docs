@@ -92,7 +92,7 @@ Use this once controls are configured, to confirm each one is actually enforcing
 **Authentication and identity**
 
 - [ ] Users authenticate with domain credentials through the configured AD or LDAP integration.
-- [ ] Usernames, not just IP addresses, appear in `/var/log/safesquid/access/extended.log`.
+- [ ] Usernames, not just IP addresses, appear in `/var/log/safesquid/extended/extended.log`.
 - [ ] Where group policies are configured, different groups receive demonstrably different policy.
 
 **Policy enforcement**
@@ -129,13 +129,13 @@ Store these artifacts with the deployment record:
 
 - Service, listener, and resolver output from [Service Health](/deployment/service_health).
 - Screenshot or record showing active license state.
-- HTTP and HTTPS access-log entries from `/var/log/safesquid/access/extended.log`.
+- HTTP and HTTPS access-log entries from `/var/log/safesquid/extended/extended.log`.
 - Certificate issuer evidence for an inspected and an excluded destination.
 - Pilot client proxy configuration.
 - The completed integration checklist above, with the tester named.
 - Change record with rollback owner.
 
-This evidence supports SOC 2 change management, ISO 27001 operational control review, and NIST SP 800-53 audit traceability for first deployment.
+This evidence supports SOC 2 change management, ISO 27001 operational control review, and NIST SP 800-53 audit traceability. Collect it at first deployment.
 
 ## Troubleshoot failed checks
 
@@ -151,7 +151,7 @@ Escalate to the operations owner if service restart, DNS repair, or activation u
 
 ## Verification is complete
 
-The setup is ready for policy rollout when service state, interface access, activation status, client routing, HTTPS inspection, and log evidence all pass, and every artifact above is attached to the deployment record.
+The setup is ready for policy rollout when service state, interface access, and activation status all pass. Client routing, HTTPS inspection, and log evidence must pass too. Attach every artifact above to the deployment record.
 
 ## Next steps
 

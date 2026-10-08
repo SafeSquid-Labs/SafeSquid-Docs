@@ -12,6 +12,8 @@ keywords:
 
 
 
+# Offload Scanning Through ICAP Integration
+
 ## What is the advantage of using ICAP?
 ICAP is a protocol designed to off-load specific Internet-based content to dedicated servers, thereby freeing up resources and standardizing the way in which features are implemented.
 For example, a server that handles only language translation is inherently more efficient than any standard Web server performing many additional tasks.
@@ -85,7 +87,7 @@ ICAP
 
 ![ICAP policies list with ADD icon](/images/ICAP_Config/image8.webp)
 
-Here we can create the policies for ICAP section. Click on ADD icon to create a new policy.
+Create the ICAP policies here. Click on ADD icon to create a new policy.
 
 ### Enabled
 Enable or Disable this Policy.
@@ -144,9 +146,14 @@ requirement.
 
 ## Verification and Evidence
 
-- **Interface Checks**: In [Configuration Portal](/architecture/interface/configuration_portal), Real-time content security → ICAP: Global enabled, policy entries show correct ICAP server Host, Port, and File; Applies to (Requests/Responses) matches intent.
+- **Interface Checks**: In [Configuration Portal](/architecture/interface/configuration_portal), Real-time content security → ICAP: Global enabled, policy entries show correct ICAP server Host, Port, and File. Applies to (Requests/Responses) matches intent.
 - **Log Analysis**: SafeSquid logs show ICAP request/response activity; timeouts or connection errors indicate unreachable ICAP server or wrong port/file.
-- **Performance Validation**: Trigger a request that matches the ICAP policy; verify the ICAP server receives the request and returns a valid response; content is modified or blocked per policy.
+- **Performance Validation**: Trigger a request that matches the ICAP policy. Verify the ICAP server receives the request and returns a valid response; content is modified or blocked per policy.
 
 **Related**: [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection), [Malware Scanners](/use_cases/malware_scanning/malware_scanners), [Troubleshooting](/troubleshooting/troubleshooting)
 
+## Next steps
+
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.
+- **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** - configure HTTPS inspection in SafeSquid to decrypt and analyze encrypted traffic for web security, malware detection, and policy enforcement.
+- **[Malware Scanners](/use_cases/malware_scanning/malware_scanners)** - multi-layer malware detection in SafeSquid using SqScan, ClamAV, ICAP, and adaptable external parsers for threat prevention.

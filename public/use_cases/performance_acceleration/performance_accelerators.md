@@ -48,11 +48,11 @@ SafeSquid performance accelerators help operators improve efficiency while keepi
 
 ### [Caching](/use_cases/performance_acceleration/caching)
 
-Use caching when repeated requests for the same web objects waste bandwidth and increase user wait time. Caching can reduce origin fetches and improve response times, but it should be validated against content freshness requirements and application behavior.
+Use caching when repeated requests for the same web objects waste bandwidth and increase user wait time. Caching can reduce origin fetches and improve response times. But it should be validated against content freshness requirements and application behavior.
 
 ### [Pre Fetching](/configuration/application_setup/accelerators/prefetching)
 
-Use prefetching when perceived latency is driven by predictable follow-on requests. Prefetching can improve browsing responsiveness, but it must be monitored carefully so the proxy does not fetch unnecessary content that provides little operational value.
+Use prefetching when perceived latency is driven by predictable follow-on requests. Prefetching can improve browsing responsiveness. But it must be monitored carefully so the proxy does not fetch unnecessary content that provides little operational value.
 
 ### [Manage Bandwidth](/use_cases/performance_acceleration/manage_bandwidth)
 

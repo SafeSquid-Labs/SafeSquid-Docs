@@ -1,6 +1,9 @@
 ---
 title: "Suggested Profiles"
+description: "Legacy reference: the autocomplete catalog of ready-made profile names in the Web UI. This section is not in the current Configure console."
 ---
+
+# Pick From Suggested Profile Names
 
 <Warning>
   **This section does not appear in the Configure console.** Verified 2026-09-04 against `http://safesquid.cfg`, build `2026.0627.1344.3`: the section is absent from the console's own section registry, not merely hidden from the menu. It is kept here as legacy and reference material, not a current UI path. Confirm against your own build before pointing an administrator at it.
@@ -27,7 +30,7 @@ Does:
 Does not:
 
 - Enforce anything on its own — it appears nowhere in the request-processing path. Enforcement always comes from the section whose entries you configure using these names.
-- Restrict you to only these names — every Profiles-style field elsewhere accepts free text; this catalog is a convenience, not a whitelist.
+- Restrict you to only these names — every Profiles-style field elsewhere accepts free text. This catalog is a convenience, not a whitelist.
 - Require every suggested name to be used — an unused suggestion has no effect of any kind.
 
 ## Subsections
@@ -43,7 +46,7 @@ Does not:
 {/* source: https://www.safesquid.com/md/buitins.md */}
 ## The fourteen suggestion catalogs
 
-Each catalog is tied to one Web UI field elsewhere in the product. Fields accept free text — the catalog is a naming convention, not a whitelist, and an unused suggestion has no effect of any kind.
+Each catalog is tied to one Web UI field elsewhere in the product. Fields accept free text — the catalog is a naming convention, not a whitelist. An unused suggestion has no effect of any kind.
 
 ### Network Settings (`network_settings_profiles`)
 
@@ -64,7 +67,7 @@ Feeds: the Profiles field on **HTTPS Inspection → Scan policies** entries.
 Feeds: the Profiles field on **Clam antivirus** policy entries.
 
 - **BYPASS CLAMAV SCANNING** — keep this profile off scan entries (or exclude it explicitly) so matching connections are not scanned.
-- **ENFORCE CLAMAV SCANNING** — pair with a Clam antivirus entry so matching connections' buffered uploads and downloads are sent to the antivirus engine; a positive detection blocks with that entry's template.
+- **ENFORCE CLAMAV SCANNING** — pair with a Clam antivirus entry so matching connections' buffered uploads and downloads are sent to the antivirus engine. A positive detection blocks with that entry's template.
 
 ### Text Analyzer (`text_analyzer_profiles`)
 
@@ -107,7 +110,7 @@ Feeds: the Profiles field on **DLP** entries.
 
 Feeds: **Time Profiler** entries, and in turn any Time Schedule matching in Access Profiles or Speed Limits.
 
-- **LUNCH** — a Time Profiler entry with the matching clock window adds this profile during that window; other sections' Time Schedule fields match on it like any other Profiles field.
+- **LUNCH** — a Time Profiler entry with the matching clock window adds this profile during that window. Other sections' Time Schedule fields match on it like any other Profiles field.
 - **OFFICE WORKING HOURS** — same mechanism, for a working-hours window.
 
 ### Cookie Filtering (`cookie_profiles`)
@@ -140,8 +143,8 @@ Feeds: the Profiles field on **Elevated Privacy** entries.
 
 Feeds: the Profiles field on **Speed Limits** entries.
 
-- **RESTRICTED DOWNLOAD TRANSFER RATES** — pair with a Speed Limits entry that sets a non-zero Download rate; the lowest matching rate across all matching entries applies.
-- **RESTRICTED UPLOAD TRANSFER RATES** — pair with a Speed Limits entry that caps upload bytes or other upload-side limits; multiple matching entries can contribute stricter caps together.
+- **RESTRICTED DOWNLOAD TRANSFER RATES** — pair with a Speed Limits entry that sets a non-zero Download rate. The lowest matching rate across all matching entries applies.
+- **RESTRICTED UPLOAD TRANSFER RATES** — pair with a Speed Limits entry that caps upload bytes or other upload-side limits. Multiple matching entries can contribute stricter caps together.
 
 ### User/Group suggestions (`suggested_user_group`)
 
@@ -152,7 +155,7 @@ Feeds: **Add to User-Groups** on Access restrictions entries. This one list spli
 - **ACCOUNTANTS** — finance and accounts-payable staff. Commonly paired with DLP Allow-Upload profiles for spreadsheets, word-processor documents, and PDFs, rather than default upload restrictions.
 - **IT SUPPORT TEAM** — helpdesk and infrastructure staff. Commonly paired with bypass-style profiles (HTTPS Inspection, ClamAV, Elevated Privacy) so diagnostic traffic isn't altered.
 - **HR TEAM** — Human Resources staff needing access to recruitment portals, background-check services, and personal data, balanced with stricter DLP controls on uploads.
-- **C-SUITE** — top executives. Often exempted from generic content restrictions, but also the organization's highest-value phishing target — many deployments pair this with stricter anti-spoofing or header-filtering profiles rather than a blanket bypass.
+- **C-SUITE** — top executives. Often exempted from generic content restrictions. But also the organization's highest-value phishing target — many deployments pair this with stricter anti-spoofing or header-filtering profiles rather than a blanket bypass.
 - **DEPARTMENT HEADS** — mid-level managers: broader access than individual contributors, without the targeted-attack profile C-Suite gets.
 - **MARKETING TEAM** — marketing/communications staff needing access to social media, advertising platforms, and analytics tools normally blocked by default.
 - **LEGAL TEAM** — legal and compliance staff needing access to litigation research, e-discovery, and regulatory sites — frequently paired with elevated audit or trace-entry logging rather than a content bypass.
@@ -192,7 +195,7 @@ Feeds: the Request Types field on Request Types **Domains and Urls** entries, an
 - Cookie filter Deny row uses cookie profile tag `READ ONLY` for outbound cookies you want blocked
 - Access Profiles assigns users the matching `cookie_profiles` tag
 
-**Result:** the suggestion is only a naming aid; effective block comes from Cookie filter + Access Profiles, not from Suggested Profiles alone.
+**Result:** the suggestion is only a naming aid. Effective block comes from Cookie filter + Access Profiles, not from Suggested Profiles alone.
 </Tip>
 
 {/* source: https://www.safesquid.com/md/buitins.md */}
@@ -220,7 +223,7 @@ Feeds: the Request Types field on Request Types **Domains and Urls** entries, an
 2. Remember that picking a suggestion changes nothing by itself — after selecting it, configure the entries on both the producing side (the entry that adds the profile or User-Group) and the consuming side (the entry that requires it).
 3. Reproduce a request that should pick up the suggested name and check **Reports → Detailed logs** to confirm the profile or User-Group is actually present on that connection. For the cookie-filter case specifically: configure a Deny row and Access Profiles `cookie_profiles` with the same tag, then reproduce a request with matching cookies — Suggested Profiles alone produces no log lines.
 
-## See also
+## Next steps
 
 - [Cookie filter](/configuration/restriction_policies/privacy_control/cookie_filter)
 - [Access Profiles](/configuration/restriction_policies/access_profiles)

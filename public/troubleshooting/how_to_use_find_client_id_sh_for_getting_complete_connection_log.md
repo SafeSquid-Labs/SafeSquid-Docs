@@ -25,15 +25,20 @@ Follow the checks in order, capture the observed output, and apply the fix that 
 
 # Get complete connection log with find_client_id.sh
 
-Native logs are written in real time by response; entries for one connection can be scattered. To analyze a single connection from start to finish (profiles, categories, headers, errors), use the client id to pull all log lines for that connection. find_client_id.sh extracts complete connection details for a given client id. Below: how to obtain the client id and run the script.
+Native logs are written in real time by response; entries for one connection can be scattered. To analyze a single connection from start to finish (profiles, categories, headers, errors), use the client id. It pulls all log lines for that connection. find_client_id.sh extracts complete connection details for a given client id. Below: how to obtain the client id and run the script.
 
 To use find\_client\_id.sh you are first required to get your connection's client id.
 
 Client id can be extracted from the response headers section in browsers network tab.
 
-(Note: we are assuming that you know how to open developer tools in a browser)
+(Note: this assumes you know how to open developer tools in a browser.)
 
-![find_client_id script output or connection log example](/images/picture1.jpg)
+![find_client_id script output or connection log example](/images/picture1.webp)
 
 Also, client id can be extracted from SafeSquid's native logs
 
+## Next steps
+
+- [Troubleshooting](/troubleshooting/troubleshooting) - find the runbook that matches your symptom.
+- [Security Logs](/use_cases/audit_and_forensics/security_logs) - read the logged decision for the client you identified.
+- [Support](/architecture/policy_management_console/support) - collect evidence before you escalate.

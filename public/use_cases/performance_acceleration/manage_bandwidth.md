@@ -14,7 +14,7 @@ keywords:
 
 Use SafeSquid Limits to set download speed and maximum download or upload size per user. Configure limits in **Configure → Restriction Policies → Speed Limits** and attach to profiles.
 
-### Prerequisites
+## Prerequisites
 When downloading files from HTTPS websites, ensure that [HTTPS Inspection](/use_cases/ssl_inspection/ssl_inspection) in SafeSquid is enabled
 
 ### Setup Download Rate
@@ -45,7 +45,7 @@ When downloading files from HTTPS websites, ensure that [HTTPS Inspection](/use_
 ### Testing Maximum Download Limit
 ![Testing of policy that set maximum limit on Download size](/images/How_To/Setup_Maximum_limit_on_the_Download_size/image4.webp)
 
-# Setup Maximum limit on the Upload size
+## Setup Maximum limit on the Upload size
 This can be achieved using SafeSquid limits feature, the interface provides an option to set up the limit on the Download size for users.
 
 ### Prerequisites
@@ -61,7 +61,10 @@ Here I am selecting the file to Upload
 
 ![Select the file to Upload to check Maximum limit on the Upload size](/images/How_To/Setup_Maximum_limit_on_the_Upload_size/image3.webp)
 
-When I click on upload, I will get the below error, Because I am uploading 4MB file, but I have maximum upload limit of 2MB
+When I click on upload, I will get the below error, Because I am uploading 4MB file. But I have maximum upload limit of 2MB
 
 ![Error template of Maximum limit on the Upload size](/images/How_To/Setup_Maximum_limit_on_the_Upload_size/image4.webp)
 
+## Next steps
+
+- **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** - configure HTTPS inspection in SafeSquid to decrypt and analyze encrypted traffic for web security, malware detection, and policy enforcement.

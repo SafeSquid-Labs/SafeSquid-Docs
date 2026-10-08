@@ -8,7 +8,7 @@ keywords:
 ---
 
 
-# Header Filter Configuration and Reference
+# Review Header Filter Configuration Options
 
 
 
@@ -222,9 +222,14 @@ In this sub-section, you can find the example headers with type and values.
 
 ## Verification and Evidence
 
-- **Interface Checks**: In [Configuration Portal](/architecture/interface/configuration_portal), Restriction Profiles → Header Filter: Global enabled, Allow/Deny/Insert rules match intent; Type, Value, and Applies to are set correctly.
+- **Interface Checks**: In [Configuration Portal](/architecture/interface/configuration_portal), Restriction Profiles → Header Filter: Global enabled, Allow/Deny/Insert rules match intent. Type, Value, and Applies to are set correctly.
 - **Log Analysis**: Requests and responses show modified or stripped headers per policy; WebSocket or target-site behavior matches expected allow/deny/insert.
 - **Performance Validation**: Test with profile (e.g. ALLOW WEBSOCKET, REMOVE WEBSOCKETS, X-GoogApps-Allowed-Domains); expected sites work and restricted behavior is enforced.
 
 **Related**: [Cookie Inspection](/use_cases/cookie_inspection/cookie_inspection), [Access Restriction](/use_cases/access_restriction/access_restriction), [URL Redirection SafeSearch](/use_cases/access_restriction/safesearch), [Troubleshooting](/troubleshooting/troubleshooting)
 
+## Next steps
+
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.
+- **[Cookie Inspection](/use_cases/cookie_inspection/cookie_inspection)** - configure SafeSquid cookie filter to manage, allow, or block cookies for user privacy and policy enforcement.
+- **[Access Restriction](/use_cases/access_restriction/access_restriction)** - build SafeSquid access policies that make web decisions by identity, destination, time, application, and content so enforcement stays precise and auditable.

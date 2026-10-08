@@ -19,7 +19,7 @@ Confirm:
 - SafeSquid is installed and activated.
 - The proxy listener is reachable from the pilot network.
 - The pilot client can resolve DNS and reach the proxy IP.
-- The operator can inspect `/var/log/safesquid/access/extended.log`.
+- The operator can inspect `/var/log/safesquid/extended/extended.log`.
 - Rollback steps exist for the selected client setting.
 
 ## Choose the routing method
@@ -75,14 +75,14 @@ Confirm:
 ## Grant the matching Access restrictions right
 
 {/* source: https://www.safesquid.com/md/browser-configuration.md */}
-Client routing only delivers traffic to SafeSquid — whether that traffic is actually allowed through still depends on the Access restrictions entry that matches the client, and specifically on which rights that entry grants. Configuring the client correctly but leaving the matching right ungranted looks identical to a routing failure: the client reaches SafeSquid, and SafeSquid still blocks it.
+Client routing only delivers traffic to SafeSquid. Whether that traffic is actually allowed through still depends on the Access restrictions entry that matches the client. Specifically, it depends on which rights that entry grants. Configuring the client correctly but leaving the matching right ungranted looks identical to a routing failure. The client reaches SafeSquid, and SafeSquid still blocks it.
 
 | Delivery mode | How the client is configured | Right required |
 |---|---|---|
 | Explicit proxy | The browser or OS is given SafeSquid's address and port directly | Proxy requests |
 | Transparent | Network-level redirection sends traffic to SafeSquid; the client has no proxy setting | Transparent proxying |
 
-These two rights are independent — a client can be granted one and denied the other — and both are independent of CONNECT requests, which separately gates HTTPS tunnels regardless of which delivery mode got the traffic there.
+These two rights are independent: a client can be granted one and denied the other. Both are independent of CONNECT requests, which separately gates HTTPS tunnels regardless of which delivery mode got the traffic there.
 
 Six rights exist on an Access restrictions entry, and none of them implies another:
 
@@ -93,7 +93,7 @@ Six rights exist on an Access restrictions entry, and none of them implies anoth
 - **CONNECT requests** — permits CONNECT tunnels (HTTPS and similar). A denied client fails HTTPS even when HTTP requests are allowed.
 - **Allow bypassing** — permits a temporary continue after an Access Profiles Deny, using a bypass cookie. An Access Profiles entry marked "do not bypass" still blocks regardless of this right. This is narrower than it sounds, and distinct from the per-entry Bypass checkboxes that skip individual filtering modules.
 
-Find SafeSquid's listen address and port in **Network settings → Listen** — port 8080 is common, but it is set per deployment; confirm it before assuming it.
+Find SafeSquid's listen address and port in **Network settings → Listen**. Port 8080 is common, but it is set per deployment. Confirm it before assuming it.
 
 An `ftp://` URL opened in a browser follows the same explicit-proxy or transparent path as HTTP. A standalone FTP client needs its own proxy configuration, if it supports one at all.
 
@@ -126,7 +126,7 @@ Configure the matching entry in [Access restrictions](/configuration/application
   <Step title="Record the result">
     Record whether traffic is allowed, blocked, or bypassed as expected, then compare the result with SafeSquid access logs.
 
-    Confirm `/var/log/safesquid/access/extended.log` records proxied traffic with source, destination, timestamp, and action.
+    Confirm `/var/log/safesquid/extended/extended.log` records proxied traffic with source, destination, timestamp, and action.
 
     If no log appears, retest with `curl --proxy` and confirm the client is not bypassing SafeSquid.
   </Step>
@@ -143,16 +143,16 @@ curl -I --proxy http://SAFESQUID-IP:8080 http://example.com
 On the SafeSquid server:
 
 ```bash
-tail -20 /var/log/safesquid/access/extended.log
+tail -20 /var/log/safesquid/extended/extended.log
 ```
 
-Expected result: the log records the pilot request with source, destination, timestamp, and action.
+Expected result: the log records the pilot request with source, destination, timestamp, and action. Each record is one line of tab-separated, quoted fields. Read `date_time`, `client_ip`, `username`, `method`, `url`, `status`, and `filtering_reason`.
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/05-Connect_Your_Client/main.md §Testing Your Configuration */}
 
 <Accordion title="Confirm routing from the client, without server access">
 
-The access log is the authoritative check, but it needs shell access to the SafeSquid host. When you are walking a pilot user through the change, or verifying an endpoint you cannot log into, check the egress address from the browser instead.
+The access log is the authoritative check, but it needs shell access to the SafeSquid host. For a pilot user, or an endpoint you cannot log into, check the egress address from the browser instead.
 
 Visit an address-reflection service such as `whatismyip.com` from the configured client.
 

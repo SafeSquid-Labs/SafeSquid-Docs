@@ -12,9 +12,9 @@ keywords:
 
 # Size Against Peak, Not Average
 
-Averages hide the burst that drops sessions. A node sized for the mean sails through the working day and fails between 09:00 and 11:00, when every browser tab, background application, and API client opens connections at once. Sizing from a user count alone produces a node that passes a demo and drops sessions at 09:30.
+Averages hide the burst that drops sessions. A node sized for the mean sails through the working day. It fails between 09:00 and 11:00, when every browser tab, background application, and API client opens connections at once. Sizing from a user count alone produces a node that passes a demo and drops sessions at 09:30.
 
-The inputs that actually drive capacity — peak concurrency, inspection scope, and log volume — are measurable, and a short pilot measures them far more cheaply than a production rollback does.
+The inputs that actually drive capacity — peak concurrency, inspection scope, and log volume — are measurable. A short pilot measures them far more cheaply than a production rollback does.
 
 ## Measure before you size
 
@@ -37,7 +37,7 @@ Use the first deployment as a measured pilot, not a blind production cutover.
 | High availability | Plan shared routing, health checks, same activation key, and synchronized configuration |
 | Disaster recovery | Preserve activation key, configuration backup, certificate material, and rebuild procedure |
 
-Size conservatively when HTTPS inspection, [malware scanning](/use_cases/malware_scanning/malware_scanners), [DLP](/use_cases/data_leakage_prevention/data_leakage_prevention), or detailed logging is enabled. These controls add security value, but they also increase CPU, memory, and disk-write demand — a node sized for plain forwarding will not carry the same user count once inspection is on.
+Size conservatively when HTTPS inspection, [malware scanning](/use_cases/malware_scanning/malware_scanners), [DLP](/use_cases/data_leakage_prevention/data_leakage_prevention), or detailed logging is enabled. These controls add security value, but they also increase CPU, memory, and disk-write demand. A node sized for plain forwarding will not carry the same user count once inspection is on.
 
 <Accordion title="Capacity factors to record">
   Include these values in the sizing worksheet:
@@ -61,7 +61,7 @@ Confirm:
 - The candidate CPU supports AES-NI.
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/01-Deployment_Planning.md §Hardware sizing */}
-{/* NEEDS-SME-REVIEW: connection ceilings below are undated in the source and predate the current build. Confirm before quoting to a customer. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: connection ceilings below are undated in the source and predate the current build. Confirm before quoting to a customer. */}
 
 ## Read the sizing matrix
 
@@ -81,16 +81,16 @@ NIC counts are minimums. See the bonding guidance below.
 <Accordion title="Estimate concurrent connections from a user count instead of measured peak data">
   Assume 3 to 5 concurrent connections per active user at peak. Heavy SaaS or streaming environments reach 6 to 8.
 
-  For example, 200 active users at 5 connections each is 1,000 concurrent connections, which maps to 8 cores and 16 GB above.
+  For example, 200 active users at 5 connections each is 1,000 concurrent connections. That maps to 8 cores and 16 GB above.
 
   Average session duration is typically 3 to 5 minutes, with peaks between 09:00 and 11:00 and between 14:00 and 16:00. Size for the peak window, not the daily mean.
 
-  **Above 4,000 concurrent connections**, assign multiple WAN IP addresses to avoid outbound NAT pool exhaustion, and evaluate [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering) rather than a single larger node.
+  **Above 4,000 concurrent connections**, assign multiple WAN IP addresses to avoid outbound NAT pool exhaustion. Evaluate [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering) rather than a single larger node.
 </Accordion>
 
 ## Require AES-NI
 
-A CPU without AES-NI decrypts SSL 3 to 5 times slower, which produces latency spikes and dropped connections under HTTPS inspection load. Verify before committing to hardware:
+A CPU without AES-NI decrypts SSL 3 to 5 times slower. This produces latency spikes and dropped connections under HTTPS inspection load. Verify before committing to hardware:
 
 ```bash
 grep -m1 aes /proc/cpuinfo
@@ -102,7 +102,7 @@ Expected result: the flags line includes `aes`. An empty result means this CPU s
 
 ## Choose the storage media
 
-SafeSquid writes continuously for session logging, behavioural analysis, and threat detection. Storage media choice is a correctness concern, not only a performance one: when writes fall behind, log entries are delayed or missed, and the audit trail you depend on during an incident has holes in it.
+SafeSquid writes continuously for session logging, behavioural analysis, and threat detection. Storage media choice is a correctness concern, not only a performance one. When writes fall behind, log entries are delayed or missed. The audit trail you depend on during an incident has holes in it.
 
 **Use NVMe SSDs** — M.2 or PCIe-attached — for these paths:
 
@@ -117,9 +117,9 @@ SATA-connected SSDs have substantially lower write throughput than PCIe-attached
 {/* source: _migration_source_v3/docs/01-Getting_Started/01-Deployment_Planning.md §Link aggregation (LACP) */}
 
 <Accordion title="NIC, LACP, and routing checks">
-  Use one interface for simple pilot deployments unless a separate management or high-availability design has been approved. For production networks with bonded interfaces, confirm switch-side LACP configuration, VLAN tagging, MTU, gateway selection, and failover behavior before routing users.
+  Use one interface for simple pilot deployments unless a separate management or high-availability design has been approved. For production networks with bonded interfaces, confirm switch-side LACP configuration, VLAN tagging, and MTU. Also confirm gateway selection and failover behavior before routing users.
 
-  Evidence should include interface names, MAC addresses, bond mode, switch ports, VLAN IDs, and the owner of any routing or firewall policy that forwards traffic toward SafeSquid.
+  Evidence should include interface names, MAC addresses, bond mode, switch ports, VLAN IDs. Also record the owner of any routing or firewall policy that forwards traffic toward SafeSquid.
 
   Link Aggregation Control Protocol (LACP) bonding combines physical interfaces into one logical link for bandwidth and redundancy. Without bonding, a single failed NIC can take the proxy offline entirely.
 
@@ -132,17 +132,17 @@ SATA-connected SSDs have substantially lower write throughput than PCIe-attached
   | 8 | Two four-port bonds |
   | 16 | Two eight-port LACP bonds |
 
-  Bonding is configured on both the host and the switch. A host-side bond without matching switch-side configuration fails open or drops frames, so treat the switch change as part of the same change record.
+  Bonding is configured on both the host and the switch. A host-side bond without matching switch-side configuration fails open or drops frames. Treat the switch change as part of the same change record.
 </Accordion>
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/01-Deployment_Planning.md §Verify and document for audits */}
 
 <Accordion title="Post-install baseline and stress test">
-  Pre-install connectivity checks prove the host can reach what it needs. They do not prove the host can carry the load you sized it for. Run a baseline after installation, before production users arrive, so you have a known-good reference to compare against during a later incident.
+  Pre-install connectivity checks prove the host can reach what it needs. They do not prove the host can carry the load you sized it for. Run a baseline after installation, before production users arrive. So you have a known-good reference to compare against during a later incident.
 
-  **Establish a light-load baseline.** Record session latency from `/var/log/safesquid/extended.log`, CPU utilisation, and disk I/O wait while a small number of clients browse. Keep the figures with the deployment record — the absolute values matter less than having a comparison point.
+  **Establish a light-load baseline.** Record session latency from `/var/log/safesquid/extended/extended.log`, CPU utilisation, and disk I/O wait. Do this while a small number of clients browse. Keep the figures with the deployment record — the absolute values matter less than having a comparison point.
 
-  **Stress test to the sizing target.** Simulate the peak concurrent connections you sized for, using a load generator configured for HTTP proxy mode such as JMeter, or multiple concurrent browser sessions driven by Selenium. Confirm session counts hold without dropped connections.
+  **Stress test to the sizing target.** Simulate the peak concurrent connections you sized for. Use a load generator configured for HTTP proxy mode such as JMeter, or multiple concurrent browser sessions driven by Selenium. Confirm session counts hold without dropped connections.
 
   **Check logs during and after the run:**
 

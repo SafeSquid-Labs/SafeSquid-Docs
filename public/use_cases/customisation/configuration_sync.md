@@ -110,7 +110,7 @@ After restart, the slave begins syncing configuration from the master. Policy ch
 
 **Policies not syncing to slave:**
 {/* source: live UI verification, Support → Startup params, and use_cases/scaling_and_high_availability/master_slave.md's own screenshot evidence (image3, image5, image6, image15) */}
-{/* NEEDS-SME-REVIEW: this section previously named port 8888 for the telnet check. No UI section or product log on the verified live instance names 8888; the MASTER_PORT field in the linked page's own screenshots is 8080, matching the master's configured LISTEN_PORT, and its raw sync log records the actual sync connection as `192.168.221.222:8080`. Reinforced 2026-09-08: a full read of Support → Startup params on the live instance lists ~50 named parameters, including MASTER_PORT (present but unset here) and every other port field (LISTEN_PORT 8080, NATIVE_UDP_PORT/EXTENDED_UDP_PORT/CONFIG_UDP_PORT all blank) — 8888 does not appear anywhere in that list either. Still open: MASTER_PORT is free-text, so some other deployment could set it to 8888; this only rules out 8888 being a hardcoded default in this build. Confirm with engineering whether 8888 is ever used on some builds — this is the same open question flagged on use_cases/customisation/configure_cloud_restore.md's former ":8888" claim (now resolved there) and use_cases/scaling_and_high_availability/proxy_clustering.md. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: this section previously named port 8888 for the telnet check. No UI section or product log on the verified live instance names 8888; the MASTER_PORT field in the linked page's own screenshots is 8080, matching the master's configured LISTEN_PORT, and its raw sync log records the actual sync connection as `192.168.221.222:8080`. Reinforced 2026-09-08: a full read of Support → Startup params on the live instance lists ~50 named parameters, including MASTER_PORT (present but unset here) and every other port field (LISTEN_PORT 8080, NATIVE_UDP_PORT/EXTENDED_UDP_PORT/CONFIG_UDP_PORT all blank) — 8888 does not appear anywhere in that list either. Still open: MASTER_PORT is free-text, so some other deployment could set it to 8888; this only rules out 8888 being a hardcoded default in this build. Confirm with engineering whether 8888 is ever used on some builds — this is the same open question flagged on use_cases/customisation/configure_cloud_restore.md's former ":8888" claim (now resolved there) and use_cases/scaling_and_high_availability/proxy_clustering.md. */}
 - Verify slave Startup params show correct master IP and port: Configuration Portal → Support → Startup params
 - Check network connectivity from slave to master's configured LISTEN_PORT (8080 in verified screenshots; confirm the actual value on the master): `telnet <master-ip> <master-port>`
 - If authentication enabled, verify slave IP in master Access restrictions → Allow list
@@ -119,7 +119,7 @@ After restart, the slave begins syncing configuration from the master. Policy ch
 **Sync is slow (>10 minutes):**
 - Check network latency between master and slave: `ping <master-ip>`
 - Verify master is not overloaded (CPU/memory usage)
-- Check slave logs for sync errors: `tail -f /var/log/safesquid/extended.log`
+- Check slave logs for sync errors: `tail -f /var/log/safesquid/extended/extended.log`
 
 **Changes sync but don't apply:**
 - Restart slave to apply configuration changes: Configuration Portal → Support → Restart SafeSquid
@@ -127,3 +127,8 @@ After restart, the slave begins syncing configuration from the master. Policy ch
 
 **Related**: [Master-Slave setup](/use_cases/scaling_and_high_availability/master_slave), [Configuration Portal](/architecture/interface/configuration_portal), [Troubleshooting](/troubleshooting/troubleshooting)
 
+## Next steps
+
+- **[Master-Slave](/use_cases/scaling_and_high_availability/master_slave)** - configure SafeSquid master-slave architecture for centralized policy sync and reporting across slave instances.
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.
+- **[Troubleshooting](/troubleshooting/troubleshooting)** - comprehensive diagnostic procedures and resolution guides for common SafeSquid proxy issues, connection failures, and configuration problems.

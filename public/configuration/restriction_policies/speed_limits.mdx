@@ -1,6 +1,13 @@
 ---
 title: "Speed Limits"
+description: "Cap bandwidth, connection counts, and transfer sizes per profile so no single user consumes the proxy's capacity."
+keywords:
+  - speed limits
+  - bandwidth throttling
+  - connection speed policy
 ---
+
+# Cap Bandwidth Per Profile With Speed Limits
 
 ```mermaid
 flowchart TB
@@ -13,11 +20,10 @@ bytes -->|No| rate[Throttle at lowest non-zero Download rate among matching rows
 rate --> counters[Increment counters unless Per-request limit or cache excluded]
 ```
 
-## Overview
-
+## What does this section do?
 The `Limits` section allows administrators to constrain bandwidth, connection counts, and data transfer sizes on a per-profile basis.
 
-It shares bandwidth fairly and stops any single user or profile from consuming too much capacity. Unlike Access restrictions (first-match-wins) and System configuration's Compression and buffering policies (also first-match-wins), **Speed Limits is cumulative** — every enabled entry whose Profiles condition matches applies, not just the first.
+It shares bandwidth fairly and stops any single user or profile from consuming too much capacity. Unlike Access restrictions (first-match-wins) and System configuration's Compression and buffering policies (also first-match-wins), **Speed Limits is cumulative**. Every enabled entry whose Profiles condition matches applies, not just the first.
 
 ## Core Mechanics (C++ Source Validation)
 
@@ -54,20 +60,20 @@ Check `/var/log/safesquid/native/safesquid.log` for limit enforcement messages. 
 
 1. On each relevant request, every enabled row matching profiles is evaluated.
 2. **Request limit** exceeded → HTTP 429 and the row Template block page, regardless of the row's **Action** field — see the note below.
-3. **Download / upload transfer limits** — remaining bytes are the tightest cap among matching rows; when remaining reaches 0, further transfer on matching connections is blocked and the row's Template block page is shown (built-in example: `maxbandwidth`).
+3. **Download / upload transfer limits** — remaining bytes are the tightest cap among matching rows. When remaining reaches 0, further transfer on matching connections is blocked and the row's Template block page is shown (built-in example: `maxbandwidth`).
 4. **Download rate** — lowest non-zero rate among matching rows wins for throttling.
 5. **Adjust Transfer Limits** flags: Limit cache transfers (count cached responses), Per-request limit (do not accumulate row counters at connection end — each request gets full quota), Group limit (share download rate bucket across matching connections).
-6. After connections complete, byte and request counters increment for matching rows (unless Per-request limit or cache exclusion applies); counters clear on the periodic reset.
+6. After connections complete, byte and request counters increment for matching rows (unless Per-request limit or cache exclusion applies). Counters clear on the periodic reset.
 
 <Note>
-**Action has no runtime effect.** The console's own field help describes Action as enforced — set `Deny` and matching requests are blocked outright, set `Allow` and limits apply until a cap is reached — but a live behavioural test (a disposable profile tag, Action set to `Deny`, numeric caps set high enough to never trigger) showed the connection tagged and evaluated correctly, then proceeding past this section entirely rather than being blocked. Only the numeric caps (Download/Upload transfer limit, Request limit, Download rate) actually gate a connection; set `Action` to whichever value documents your intent, since either behaves identically.
+**Action has no runtime effect.** The console's own field help describes Action as enforced — set `Deny` and matching requests are blocked outright, set `Allow` and limits apply until a cap is reached — but a live behavioural test (a disposable profile tag, Action set to `Deny`, numeric caps set high enough to never trigger) showed the connection tagged and evaluated correctly, then proceeding past this section entirely rather than being blocked. Only the numeric caps (Download/Upload transfer limit, Request limit, Download rate) actually gate a connection. Set `Action` to whichever value documents your intent, since either behaves identically.
 </Note>
 
 ## Important entry fields
 
 - **Profiles** — Limit to connections with these Access Profile tags. Typical tags: `RESTRICTED DOWNLOAD TRANSFER RATES`, `RESTRICTED UPLOAD TRANSFER RATES`.
-- **Action** — Verified to have no runtime effect on this build; the console's own field help describes it as enforced, but only the numeric caps below actually block a connection. See the note above.
-- **Template** — Block page shown when this entry matches. Blank uses `blocked`. This same field also covers download/upload transfer-limit overruns: the console names a `maxbandwidth` template for excessive bandwidth, paired with `maxrequests` for excessive requests — both are shown to the user through this field, not a separate default/bypass path.
+- **Action** — Verified to have no runtime effect on this build. The console's own field help describes it as enforced, but only the numeric caps below actually block a connection. See the note above.
+- **Template** — Block page shown when this entry matches. Blank uses `blocked`. This same field also covers download/upload transfer-limit overruns: the console names a `maxbandwidth` template for excessive bandwidth, paired with `maxrequests` for excessive requests. Both are shown to the user through this field, not a separate default/bypass path.
 - **Download / Upload transfer limit** — Maximum bytes counted against this row since last counter reset (~10 s). `0` = no cap from this row for that direction.
 - **Request limit** — Maximum requests counted since last reset. `0` = unlimited. Exceeded → HTTP 429.
 - **Download rate** — Throttle in bytes/sec. `0` = no rate from this row. Lowest non-zero matching rate wins.
@@ -90,7 +96,7 @@ Adjust Transfer Limits.
 - Profiles: `Guest`
 - Download transfer limit: 50 MB, Download rate: 512000 bytes/sec
 
-**Result:** Guest connections download at most ~500 KB/s and stop receiving data once 50 MB is consumed within the current counter window; other profiles without matching rows are unaffected.
+**Result:** Guest connections download at most ~500 KB/s and stop receiving data once 50 MB is consumed within the current counter window. Other profiles without matching rows are unaffected.
 </Tip>
 
 <Tip>
@@ -108,7 +114,7 @@ Adjust Transfer Limits.
 
 - Download transfer limit: 5 MB, Adjust Transfer Limits: **Per-request limit**
 
-**Result:** each single request may transfer up to 5 MB; counters are not accumulated at connection end for this row, so the cap applies per request rather than shared across the ~10 s window.
+**Result:** each single request may transfer up to 5 MB; counters are not accumulated at connection end for this row. So the cap applies per request rather than shared across the ~10 s window.
 </Tip>
 
 <Tip>
@@ -118,13 +124,17 @@ Adjust Transfer Limits.
 - Row A: Download rate 1 MB/s
 - Row B: Download rate 256 KB/s, same profiles
 
-**Result:** both rows match; lowest non-zero rate (256 KB/s) is applied; if both set byte caps, the tightest remaining bytes win.
+**Result:** both rows match; lowest non-zero rate (256 KB/s) is applied. If both set byte caps, the tightest remaining bytes win.
 </Tip>
 
 ## How to verify
 
 1. Assign a test profile and reproduce large download or many parallel requests.
 2. Enable LIMITS in `LOG_LEVEL` for native `limits:` download/upload limit and rate lines.
-3. Open **Reports → Detailed logs**; blocked transfers show `filter_name` for limits and reason such as `Max Requests` or upload limit text.
+3. Open **Reports → Detailed logs**. Blocked transfers show `filter_name` for limits and reason such as `Max Requests` or upload limit text.
 4. Confirm counter reset behaviour by waiting ~10 seconds and retrying after hitting a window cap.
 5. If an entry seems to have no effect at all, check the section-wide **Enabled** switch first, then confirm the entry's **Profiles** actually matches the connection under test — and remember **Action** has no bearing on whether the entry is active.
+
+## Next steps
+
+- **[Access Profiles](/configuration/restriction_policies/access_profiles)** - decide what each user can fetch by combining time, request type, response type, category, and group labels into ordered allow and deny rules.

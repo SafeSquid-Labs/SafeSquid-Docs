@@ -11,7 +11,7 @@ keywords:
 
 # Prove Traffic Reaches the Proxy
 
-A healthy proxy that clients cannot reach passes every check run on the server. The failure only appears from the client side — and by then users are already escalating, and the fastest workaround an impatient administrator reaches for is removing the proxy setting entirely.
+A healthy proxy that clients cannot reach passes every check run on the server. The failure only appears from the client side. By then users are already escalating. The fastest workaround an impatient administrator reaches for is removing the proxy setting entirely.
 
 Run this check from a pilot client, not from the SafeSquid host.
 
@@ -36,15 +36,15 @@ Expected result: the request returns an HTTP response such as `200`, `301`, or `
 
 ## Confirm the request was logged
 
-The client response alone does not prove the request went through SafeSquid — a bypassed client reaches the site just as successfully. The access log is the proof.
+The client response alone does not prove the request went through SafeSquid. A bypassed client reaches the site just as successfully. The access log is the proof.
 
 On the SafeSquid server:
 
 ```bash
-tail -20 /var/log/safesquid/access/extended.log
+tail -20 /var/log/safesquid/extended/extended.log
 ```
 
-Expected result: the log records the pilot client IP address, destination host, timestamp, and action.
+Expected result: the log records the pilot client IP address, destination host, timestamp, and action. Each record is one line of tab-separated, quoted fields. Read `date_time`, `client_ip`, `username`, `method`, `url`, `status`, and `filtering_reason`.
 
 If the request succeeded but no entry appears, the client is bypassing SafeSquid or the wrong proxy address is configured. Treat that as a failed test, not a logging problem.
 
@@ -52,7 +52,7 @@ If the request succeeded but no entry appears, the client is bypassing SafeSquid
 
 <Accordion title="Client-side checklist">
 
-Run this from a client workstation, not from the SafeSquid host. It catches the failures that server-side checks cannot see — a healthy proxy that clients cannot reach still passes every check on the server.
+Run this from a client workstation, not from the SafeSquid host. It catches the failures that server-side checks cannot see. A healthy proxy that clients cannot reach still passes every check on the server.
 
 **Network connectivity**
 
@@ -87,7 +87,7 @@ Run this from a client workstation, not from the SafeSquid host. It catches the 
 Store these artifacts with the deployment record:
 
 - The `curl` command and its response headers.
-- The matching access-log line from `/var/log/safesquid/access/extended.log`, showing source, destination, timestamp, and action.
+- The matching access-log line from `/var/log/safesquid/extended/extended.log`, showing source, destination, timestamp, and action.
 - The pilot client's proxy configuration.
 - The completed client-side checklist, with the tester named.
 
@@ -96,7 +96,7 @@ Store these artifacts with the deployment record:
 | Symptom | Likely cause | Fix |
 |---|---|---|
 | `curl` fails to connect | Firewall blocks the client network, or the listener is bound elsewhere | Confirm the inbound rule for the client CIDR, then re-run [Service Health](/deployment/service_health) |
-| Request succeeds but no log entry | Client bypasses the proxy, or the wrong log path was checked | Confirm proxy settings on the client and inspect `/var/log/safesquid/access/extended.log` |
+| Request succeeds but no log entry | Client bypasses the proxy, or the wrong log path was checked | Confirm proxy settings on the client and inspect `/var/log/safesquid/extended/extended.log` |
 | Only some clients are logged | Bypass rule or PAC exception is matching more broadly than intended | Review PAC logic and bypass lists; narrow to named destinations |
 | `safesquid.cfg` does not load | Pilot browser is not using SafeSquid | Configure explicit proxy and retry before investigating the portal |
 | Connections work then drop under load | NIC saturation, or bonding configured on the host but not the switch | Compare against the sizing plan in [Hardware Sizing](/deployment/hardware_sizing) |

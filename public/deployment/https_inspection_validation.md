@@ -11,7 +11,7 @@ keywords:
 
 # Prove HTTPS Is Inspected, Not Tunnelled
 
-An HTTPS site that loads through the proxy proves nothing about inspection. SafeSquid can tunnel the session untouched and the page still renders perfectly — so the control appears to work while [malware scanning](/use_cases/malware_scanning/malware_scanners), [DLP](/use_cases/data_leakage_prevention/data_leakage_prevention), and content policy see nothing but an opaque stream.
+An HTTPS site that loads through the proxy proves nothing about inspection. SafeSquid can tunnel the session untouched and the page still renders perfectly. The control appears to work while [malware scanning](/use_cases/malware_scanning/malware_scanners), [DLP](/use_cases/data_leakage_prevention/data_leakage_prevention), and content policy see nothing but an opaque stream.
 
 The certificate issuer is the only reliable positive test. Everything else is a page that loaded.
 
@@ -37,7 +37,7 @@ Expected result: the connection succeeds or fails with a known certificate-trust
 Check the access log on the SafeSquid server:
 
 ```bash
-tail -20 /var/log/safesquid/access/extended.log
+tail -20 /var/log/safesquid/extended/extended.log
 ```
 
 Expected result: the log records the HTTPS destination and policy action.
@@ -46,7 +46,7 @@ Expected result: the log records the HTTPS destination and policy action.
   **TLS warning risk:** A browser certificate warning is not a successful production HTTPS inspection test. It is evidence that endpoint trust, SSL policy, or the test path still needs review.
 </Warning>
 
-If SSL inspection is not configured yet, do not normalise browser certificate-warning bypasses for production users. Limit any warning bypass to an isolated pilot test, record it in the change evidence, and complete Root CA deployment before production HTTPS inspection.
+If SSL inspection is not configured yet, do not normalise browser certificate-warning bypasses for production users. Limit any warning bypass to an isolated pilot test and record it in the change evidence. Complete Root CA deployment before production HTTPS inspection.
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/06-Verify_Your_Setup.md §5 HTTPS Traffic Flows Through the Proxy */}
 
@@ -56,9 +56,9 @@ Once SSL inspection is configured and the Root CA is deployed, the positive test
 
 Expected result: the issuer is the SafeSquid CA, and no warning appears.
 
-An issuer showing the original site's certificate authority means the connection is being tunnelled rather than inspected, even though the page loads normally. That is the failure this page exists to catch.
+An issuer showing the original site's certificate authority means the connection is tunnelled rather than inspected. The page still loads normally. That is the failure this page exists to catch.
 
-Check an excluded destination too. A destination on the bypass list should show its original issuer — if it shows the SafeSquid CA, the exclusion is not matching, and traffic the business agreed not to decrypt is being decrypted.
+Check an excluded destination too. A destination on the bypass list should show its original issuer. If it shows the SafeSquid CA, the exclusion is not matching. Traffic the business agreed not to decrypt is being decrypted.
 
 ## Capture inspection evidence
 

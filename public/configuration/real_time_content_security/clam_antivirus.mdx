@@ -1,6 +1,14 @@
 ---
 title: "Clam antivirus"
+description: Scan HTTP traffic for malware in real time by integrating the ClamAV clamd daemon with SafeSquid.
+keywords:
+  - Clam antivirus
+  - ClamAV scanning
+  - antivirus scanning for web traffic
+  - malware scanning policy
 ---
+
+# Scan Traffic for Malware With Clam Antivirus
 
 ```mermaid
 flowchart TB
@@ -14,12 +22,11 @@ result -->|FOUND| block[DO NOT BYPASS block]
 block --> templ[Resolve template row then Default then built-in error]
 ```
 
-## Overview
-
+## What does this section do?
 The `ClamAV` section configures integration with a clamd daemon for real-time malware scanning of HTTP traffic.
 
 {/* source: https://www.safesquid.com/md/clamav.md */}
-Clam antivirus is one of two built-in scan engines — the other is [SqScan](/configuration/real_time_content_security/sqscan), an in-memory scanner that needs no external daemon. Many deployments run both, or add ICAP, for defense in depth.
+Clam antivirus is one of two built-in scan engines. The other is [SqScan](/configuration/real_time_content_security/sqscan), an in-memory scanner that needs no external daemon. Many deployments run both, or add ICAP, for defense in depth.
 
 ## Core Mechanics (C++ Source Validation)
 
@@ -44,7 +51,7 @@ Policy walk, results cache.
 
 - **Enabled (enabled)**: When disabled, this clamav row is skipped. First matching enabled row wins.
 - **Comment (comment)**: Operator note appended to the filter reason when ClamAV reports FOUND on a matching connection.
-- **Profiles (profiles)**: Limit this entry to connections that already carry these Access Profile tags. SafeSquid tests against the connection’s active profiles: blank ignores profiles; a positive tag applies when present; prefix ! applies when absent. With multiple tags, the first list entry that resolves decides (positive match -\> apply; negated match -\> skip; lone unmatched ! -\> apply). ClamAV walks enabled rows top to bottom; the first matching row triggers scanning of buffered uploads and downloads and selects the block template on FOUND . ENFORCE CLAMAV SCANNING Typical tag on a scan row for connections that must be scanned. !BYPASS CLAMAV SCANNING Row applies only when the connection lacks the bypass tag (scan everyone except bypass-tagged users). (blank) Row can match any connection (subject to list order).
+- **Profiles (profiles)**: Limit this entry to connections that already carry these Access Profile tags. SafeSquid tests against the connection’s active profiles: blank ignores profiles; a positive tag applies when present; prefix ! applies when absent. With multiple tags, the first list entry that resolves decides (positive match -\> apply; negated match -\> skip; lone unmatched ! -\> apply). ClamAV walks enabled rows top to bottom. The first matching row triggers scanning of buffered uploads and downloads and selects the block template on FOUND . ENFORCE CLAMAV SCANNING Typical tag on a scan row for connections that must be scanned. !BYPASS CLAMAV SCANNING Row applies only when the connection lacks the bypass tag (scan everyone except bypass-tagged users). (blank) Row can match any connection (subject to list order).
 - **Template (templ)**: Template name shown when ClamAV blocks this connection. If blank: Default template, then built-in error .
 
 ## How SafeSquid processes policies
@@ -60,12 +67,12 @@ Policy walk, results cache.
 </Warning>
 
 {/* source: https://www.safesquid.com/md/clamav.md */}
-Clam antivirus is first-match-wins — the same evaluation model as Access restrictions, and the **opposite** of Access Profiles, which is cumulative. A broad row with a blank Profiles field above a narrower one means the narrower row can never fire for any connection the broad row also matches.
+Clam antivirus is first-match-wins — the same evaluation model as Access restrictions. The **opposite** of Access Profiles, which is cumulative. A broad row with a blank Profiles field above a narrower one means the narrower row can never fire for any connection the broad row also matches.
 
 ## Bypass and block severity
 
 - Access restrictions **Bypass** with antivirus skips ClamAV entirely for that client.
-- When a virus is found, action is **DO NOT BYPASS** (hard block) unless the connection has Allow bypassing and a valid bypass cookie — then action is **DENY** (soft block with continue option).
+- When a virus is found, action is **DO NOT BYPASS** (hard block) unless the connection has Allow bypassing and a valid bypass cookie. Then action is **DENY** (soft block with continue option).
 
 ## Examples
 
@@ -122,3 +129,7 @@ ClamAV hostname or socket path, ClamAV port, and Default template.
 4. Dashboard stats show Objects Scanned and Threats Detected when scanning is active.
 {/* source: https://www.safesquid.com/md/clamav.md */}
 5. A flat Objects Scanned counter usually means the connection to the scanner, the entry Profiles, or the Access-level Bypass setting needs checking.
+
+## Next steps
+
+- **[SqScan](/configuration/real_time_content_security/sqscan)** - scan uploads and downloads for malware with SafeSquid's built-in in-memory scanner, with no external clamd process.

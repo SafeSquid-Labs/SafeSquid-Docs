@@ -1,14 +1,22 @@
 ---
 title: "WCCP"
+description: "Understand how WCCP router redirection works with SafeSquid, and what to confirm on your build before relying on it."
+keywords:
+  - WCCP
+  - WCCP router redirection
+  - transparent proxy without browser settings
+  - WCCP policy rows
 ---
+
+# Check WCCP Redirection Before You Rely on It
 
 WCCP works with WCCP routers to redirect traffic to SafeSquid without setting a proxy in each browser. The router intercepts traffic and hands it to SafeSquid, so clients need no proxy configuration. The router or switch, not SafeSquid, decides which packets get redirected, based on the service group both sides have agreed on — SafeSquid's role is to register itself with the router(s) as willing to serve one or more service groups, describe which traffic it wants redirected, and accept and process the redirected packets.
 
 {/* source: legacy docs site wccp.html and architecture.html (whole page) */}
-{/* NEEDS-SME-REVIEW: both legacy source pages state WCCP redirection is broken in current builds and recommend explicit proxy instead, with architecture.html listing WCCP under modules not in the live request path. The console at build 2026.0627.1344.3 exposes the full WCCP section with no such caveat, and functional status cannot be tested without a WCCP router in the lab. Confirm with engineering whether redirection works in the shipping build before this page recommends WCCP for production. */}
+{/* [VERIFY WITH SAFESQUID TEAM]: both legacy source pages state WCCP redirection is broken in current builds and recommend explicit proxy instead, with architecture.html listing WCCP under modules not in the live request path. The console at build 2026.0627.1344.3 exposes the full WCCP section with no such caveat, and functional status cannot be tested without a WCCP router in the lab. Confirm with engineering whether redirection works in the shipping build before this page recommends WCCP for production. */}
 
 <Warning>
-**Confirm WCCP redirection works on your build before relying on it.** Legacy SafeSquid documentation states WCCP redirection is broken and recommends explicit proxy configuration instead. That claim could not be confirmed or refuted against build `2026.0627.1344.3` — the console exposes the section normally, but a working router is needed to test redirection end to end.
+**Confirm WCCP redirection works on your build before relying on it.** Legacy SafeSquid documentation states WCCP redirection is broken and recommends explicit proxy configuration instead. That claim could not be confirmed or refuted against build `2026.0627.1344.3` — the console exposes the section normally. But a working router is needed to test redirection end to end.
 
 **Missing:** the functional status of WCCP redirection in the shipping build. Test redirection in a lab with a real WCCP router before committing to it in production, and keep an explicit-proxy or PAC fallback ready. Escalate to engineering rather than treating the section's presence in the console as proof it works.
 </Warning>
@@ -69,14 +77,14 @@ Service Type DYNAMIC, Service Group ID `98` (agreed in advance with the network 
 
 ### Restricting to specific ports
 
-Ports `8081,9000-9010` alongside Application Protocol HTTP. Only traffic on those ports is what SafeSquid told the router it wants for this entry; standard port 80 would need a separate entry or need to be added to this entry's Ports list.
+Ports `8081,9000-9010` alongside Application Protocol HTTP. Only traffic on those ports is what SafeSquid told the router it wants for this entry. Standard port 80 would need a separate entry or need to be added to this entry's Ports list.
 
 ## How to verify
 
 The checks below confirm the configuration is complete, not that transparent redirection is actually working end to end — see the reliability warning above.
 
 1. Confirm the global Enabled switch and the entry's own Enabled switch are both on.
-2. Confirm the Service Group ID (dynamic service) and any Encrypted Password (MD5 security) exactly match what's configured on the router side — SafeSquid does not surface a clear mismatch error in the Web UI.
+2. Confirm the Service Group ID (dynamic service) and any Encrypted Password (MD5 security) exactly match what's configured on the router side. SafeSquid does not surface a clear mismatch error in the Web UI.
 3. Work with the network team to confirm, from the router or switch's own status output, that it has actually formed the service group and is redirecting matching traffic.
 4. Once redirected traffic is confirmed arriving, check Detailed logs for those transactions the same way as explicitly-proxied traffic.
 5. Re-confirm the whole chain after any router firmware change, network re-addressing, or SafeSquid version update.
@@ -85,7 +93,7 @@ The checks below confirm the configuration is complete, not that transparent red
 
 Coordinate service group IDs and passwords with the network team. The **Enabled** global is `FALSE` on a default appliance, so WCCP does nothing until it is switched on. Most WCCP failures come from the two sides of the negotiation (router configuration and this Web UI section) drifting out of agreement, not from either side being wrong in isolation.
 
-## See also
+## Next steps
 
 - [network](/configuration/application_setup/network_settings_and_listeners)
 - [integrations](/configuration/start_here/integrations)

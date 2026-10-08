@@ -99,9 +99,9 @@ Expected result: proxy settings match the approved SafeSquid listener.
 {/* source: _migration_source_v3/docs/01-Getting_Started/05-Connect_Your_Client/03-System_Wide_Proxy.md §Windows */}
 
 <Warning>
-  **Windows keeps two separate proxy stores.** The `netsh winhttp` command above configures **WinHTTP**, used by services and by some background components. Browsers and most desktop applications read **WinINET**, configured through the Settings app, Internet Options, or the `HKCU` registry values below.
+  **Windows keeps two separate proxy stores.** The `netsh winhttp` command above configures **WinHTTP**. Services and some background components use it. Browsers and most desktop applications read **WinINET**, configured through the Settings app, Internet Options, or the `HKCU` registry values below.
 
-  Setting one does not set the other. A host configured only through `netsh winhttp` will show a correct proxy in `netsh winhttp show proxy` while Chrome and Edge continue to browse direct. For host-wide coverage, set both.
+  Setting one does not set the other. A host configured only through `netsh winhttp` shows a correct proxy in `netsh winhttp show proxy`. Chrome and Edge continue to browse direct. For host-wide coverage, set both.
 </Warning>
 
 <Accordion title="Windows: configure the WinINET store">
@@ -137,7 +137,7 @@ These are the underlying WinINET values, useful for automation or for confirming
 | `ProxyServer` | `REG_SZ` | `SAFESQUID-IP:8080` |
 | `ProxyOverride` | `REG_SZ` | `*.local;*.internal.example.com;localhost;127.0.0.1` |
 
-Deploy these through Group Policy preferences rather than by hand where more than one machine is involved — see [Enterprise Deployment](/getting_started/client_configuration/enterprise_deployment).
+Deploy these through Group Policy preferences rather than by hand where more than one machine is involved. See [Enterprise Deployment](/getting_started/client_configuration/enterprise_deployment).
 
 </Accordion>
 
@@ -145,11 +145,11 @@ Deploy these through Group Policy preferences rather than by hand where more tha
 
 <Accordion title="Persist proxy settings on Linux">
 
-Shell exports last only for the current session. Use one of these files when the pilot must survive a reboot, and record which one you changed so it can be reverted.
+Shell exports last only for the current session. Use one of these files when the pilot must survive a reboot. Record which one you changed so it can be reverted.
 
 **All users on the host** — edit `/etc/environment`:
 
-```
+```text
 http_proxy="http://SAFESQUID-IP:8080"
 https_proxy="http://SAFESQUID-IP:8080"
 ftp_proxy="http://SAFESQUID-IP:8080"
@@ -162,7 +162,7 @@ Package managers do not read these variables. Configure them separately or updat
 
 **APT (Debian, Ubuntu)** — create `/etc/apt/apt.conf.d/95proxies`:
 
-```
+```text
 Acquire::http::Proxy "http://SAFESQUID-IP:8080";
 Acquire::https::Proxy "http://SAFESQUID-IP:8080";
 ```
@@ -190,7 +190,7 @@ For applications that ignore both the environment and the package-manager config
 
 <Accordion title="Desktop proxy settings by GUI path">
 
-Use these paths when walking a pilot user through the change, or when confirming what an endpoint is actually set to.
+Use these paths when walking a pilot user through the change. Use them also when confirming what an endpoint is actually set to.
 
 **GNOME (Ubuntu and derivatives)**
 
@@ -234,7 +234,7 @@ Expected result: the registry value matches the approved proxy or PAC deployment
 On the SafeSquid server:
 
 ```bash
-tail -20 /var/log/safesquid/access/extended.log
+tail -20 /var/log/safesquid/extended/extended.log
 ```
 
 Expected result: OS-aware applications from the pilot host generate log entries.

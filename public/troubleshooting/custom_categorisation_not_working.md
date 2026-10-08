@@ -2,12 +2,13 @@
 title: Custom Categorization Not Working
 description: Diagnose and resolve SafeSquid custom categorization not working incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
   - custom categorisation not working
+  - SafeSquid custom categories
+  - category server connection
+  - web categorization troubleshooting
 ---
 
-# Custom Categorization Not Working
+# Fix Custom Categorization That Does Not Apply
 
 Custom Categorization Not Working can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
@@ -15,7 +16,7 @@ Custom Categorization Not Working can interrupt web access, policy enforcement, 
 
 - I am trying to add new websites to the whitelist or blacklist category, but it is not updating
 
-- Uploaded a new file with some websites and added them to specific categories, but I did not find the websites in the respective category
+- Uploaded a new file with some websites and added them to specific categories. But I did not find the websites in the respective category
 
 - SafeSquid interface has hung when I try to add custom websites to any category
 
@@ -54,9 +55,11 @@ rndc flush
 Collect evidence before restarting services or changing policy. Keep screenshots, command output, and relevant SafeSquid logs with the incident ticket.
 
 ```sh
-tail -100 /var/log/safesquid/safesquid.log
+tail -100 /var/log/safesquid/native/safesquid.log
 tail -100 /var/log/syslog
 ```
+
+Expected result: the native log prints up to 100 recent lines. Each line starts with a date and time, then a `[thread or request id]` and a module name such as `network:`.
 
 Record the affected user, source IP address, requested URL, timestamp, browser error, SafeSquid policy section changed, and verification result.
 
@@ -64,3 +67,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [Whitelisted Websites Blocked](/troubleshooting/whitelisted_website_blocked) to fix whitelisted websites that are still blocked.

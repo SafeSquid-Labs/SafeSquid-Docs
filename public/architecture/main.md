@@ -2,11 +2,14 @@
 title: SafeSquid SWG
 description: Navigation hub for the SafeSquid SWG application ecosystem, supporting services, policy console, and files.
 keywords:
-  - safesquid swg
+  - SafeSquid SWG architecture
+  - application ecosystem
+  - files and folders
+  - policy management console
   - SafeSquid documentation
 ---
 
-# SafeSquid SWG
+# Find the Right Architecture Reference
 
 SafeSquid SWG operations span the enforcement service, cloud-linked ecosystem services, host dependencies, policy administration, and server-side evidence. Use this hub to move from architecture understanding to operational control without losing audit context.
 

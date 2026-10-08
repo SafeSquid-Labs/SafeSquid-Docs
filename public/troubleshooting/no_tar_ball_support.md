@@ -2,12 +2,13 @@
 title: Unable to Generate Support Tar-ball
 description: Diagnose and resolve SafeSquid unable to generate support tar-ball incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
-  - no tar ball support
+  - support tar-ball
+  - unable to generate support tar-ball
+  - SafeSquid support bundle
+  - SafeSquid troubleshooting evidence
 ---
 
-# Unable to Generate Support Tar-ball
+# Fix a Failed Support Tar-ball Download
 
 Unable to Generate Support Tar-ball can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
@@ -125,7 +126,7 @@ Disk /dev/mapper/swg--vg-var+db+safesquid doesn't contain a valid partition tabl
 
 2018-06-18::18:06:25.788885128 Creating the tar-ball for sending to SafeSquid Technical Support
 
-2018-06-18::18:06:26.008801780 Extracted contents of the support tar-ball may be confirmed from safesquid-2018-06-18-18-06-24
+2018-06-18::18:06:26.008801780 Extracted contents of the support tar-ball can be confirmed from safesquid-2018-06-18-18-06-24
 
 **The support tarball will generate at below path**
 
@@ -144,9 +145,11 @@ drwxrwxr-- 9 ssquid root 4096 Jun 11 16:29 ../
 Collect evidence before restarting services or changing policy. Keep screenshots, command output, and relevant SafeSquid logs with the incident ticket.
 
 ```sh
-tail -100 /var/log/safesquid/safesquid.log
+tail -100 /var/log/safesquid/native/safesquid.log
 tail -100 /var/log/syslog
 ```
+
+Expected result: the native log prints up to 100 recent lines. Each line starts with a date and time, then a `[thread or request id]` and a module name such as `network:`.
 
 Record the affected user, source IP address, requested URL, timestamp, browser error, SafeSquid policy section changed, and verification result.
 
@@ -154,3 +157,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [Support](/architecture/policy_management_console/support) to collect evidence before you escalate.

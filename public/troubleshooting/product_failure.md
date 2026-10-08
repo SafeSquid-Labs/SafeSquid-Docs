@@ -2,12 +2,13 @@
 title: Product Activation Failure
 description: Diagnose and resolve SafeSquid product activation failure incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
-  - product failure
+  - product activation failure
+  - SafeSquid activation key
+  - activation key file
+  - SafeSquid licensing troubleshooting
 ---
 
-# Product Activation Failure
+# Fix Product Activation Failures
 
 Product Activation Failure can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
@@ -62,7 +63,7 @@ drwxrwxr-- 5 ssquid root 4096 Aug 4 16:09 ssl
 
 If the file was not found, then upload your activation key again and click on restart
 
-Restart SafeSquid service from the SafeSquid Interface will work, only if the [monit service](/architecture/interface/supporting_services_monit) is configured properly on the SafeSquid server.
+Restarting the SafeSquid service from the SafeSquid Interface works only with a correctly configured [monit service](/architecture/interface/supporting_services_monit) on the SafeSquid server.
 
 Otherwise, you can directly restart the SafeSquid service from LINUX box by using below commands
 
@@ -118,9 +119,11 @@ SafeSquid restart was not done, start the SafeSquid from the server console by u
 Collect evidence before restarting services or changing policy. Keep screenshots, command output, and relevant SafeSquid logs with the incident ticket.
 
 ```sh
-tail -100 /var/log/safesquid/safesquid.log
+tail -100 /var/log/safesquid/native/safesquid.log
 tail -100 /var/log/syslog
 ```
+
+Expected result: the native log prints up to 100 recent lines. Each line starts with a date and time, then a `[thread or request id]` and a module name such as `network:`.
 
 Record the affected user, source IP address, requested URL, timestamp, browser error, SafeSquid policy section changed, and verification result.
 
@@ -128,3 +131,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [Self-Service Portal](/architecture/interface/self_service_portal) to manage activation and licensing.

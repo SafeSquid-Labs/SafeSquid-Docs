@@ -34,7 +34,7 @@ HTTPS Inspection should be enabled in SafeSquid. If not enabled, see the documen
 
 
 ## [Access the SafeSquid User Interface](/architecture/interface/configuration_portal)
-![click on configure in safesquid interface](/images/How_To/Block_Particular_User_Login_To_Facebook_Or_Gmail/image1.webp)
+![click on configure in SafeSquid interface](/images/How_To/Block_Particular_User_Login_To_Facebook_Or_Gmail/image1.webp)
 
 
 
@@ -108,3 +108,7 @@ Try login to your Gmail account it will show you the below page:
 
 ![testing the policy by login](/images/How_To/Block_Particular_User_Login_To_Facebook_Or_Gmail/image20.webp)
 
+## Next steps
+
+- **[SSL Inspection](/use_cases/ssl_inspection/ssl_inspection)** - configure HTTPS inspection in SafeSquid to decrypt and analyze encrypted traffic for web security, malware detection, and policy enforcement.
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.

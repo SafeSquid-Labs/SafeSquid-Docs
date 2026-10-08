@@ -8,13 +8,13 @@ keywords:
   - local authentication safesquid
 ---
 
-# Internal user authentication
+# Set Up Internal User Authentication Without Active Directory
 
 When no Active Directory (AD) server is available for SafeSquid LDAP, administrators can authenticate users by assigning usernames and passwords via the SafeSquid interface. This is done using the internal user database.
 
 ## Adding users using SafeSquid interface for authentication
 
-![clicking on configure in safesquid interface](/images/How_To/Adding_users_using_SafeSquid_interface_for_authentication/image1.webp)
+![clicking on configure in SafeSquid interface](/images/How_To/Adding_users_using_SafeSquid_interface_for_authentication/image1.webp)
 
 ![click on search in access profiles](/images/How_To/Adding_users_using_SafeSquid_interface_for_authentication/image2.webp)
 
@@ -33,7 +33,7 @@ When no Active Directory (AD) server is available for SafeSquid LDAP, administra
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ----- |
+|---|---|---|
 | Internal user database via UI | **Confirmed** | Procedure screenshots on this page |
 | Parity with [BASIC](/use_cases/authentication/basic) / credential store | **Draft** | Treat as overlapping capability; align narrative with engineering if titles differ |
 

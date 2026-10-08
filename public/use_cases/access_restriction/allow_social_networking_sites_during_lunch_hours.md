@@ -10,6 +10,8 @@ keywords:
 ---
 
 
+# Allow Social Media During Lunch Hours
+
 ## Problem
 Security teams need predictable control over app and web usage to reduce policy bypass and data-risk exposure.
 
@@ -115,7 +117,7 @@ Click on the top right Icon to save the policy.
 
 - During the configured lunch window: access a social networking site; access is allowed.
 - Outside the lunch window: access a social networking site; the **BLOCK** template appears.
-- **Interface:** Time Profiler shows LUNCH with the correct hour/minute range; Access Profiles shows the policy with Category Socialnetworks, Action ALLOW, and the added profile. Global for Time Profiler is TRUE.
+- **Interface:** Time Profiler shows LUNCH with the correct hour/minute range. Access Profiles shows the policy with Category Socialnetworks, Action ALLOW, and the added profile. Global for Time Profiler is TRUE.
 
 
 
@@ -126,3 +128,7 @@ Click on the top right Icon to save the policy.
 | Social sites always blocked | Ensure Global (Time Profiler) is TRUE. Confirm the LUNCH hour/minute range includes the current time. Confirm Access Profile has Action ALLOW and Category Socialnetworks. |
 | Social sites always allowed | Check policy order; a later ALLOW may override. Confirm the time profile is applied to the Access Profile and the range is correct. |
 
+## Next steps
+
+- **[Configure HTTPS Inspection](/use_cases/ssl_inspection/configure_https_inspection)** - prerequisites, certificate generation, enabling SSL inspection, client certificate import, bypass rules, and verification for SafeSquid HTTPS inspection.
+- **[Policy Management Console](/architecture/interface/configuration_portal)** - administrative interface for defining, simulating, and enforcing SafeSquid access control, URL filtering, SSL inspection, and DLP policies.

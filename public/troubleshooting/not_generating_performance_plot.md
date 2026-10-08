@@ -2,12 +2,13 @@
 title: Unable to Generate Performance Plot
 description: Diagnose and resolve SafeSquid unable to generate performance plot incidents with causes, recovery actions, and audit evidence.
 keywords:
-  - troubleshooting
-  - SafeSquid
-  - not generating performance plot
+  - performance plot not generating
+  - SafeSquid performance graphs
+  - performance plot troubleshooting
+  - SafeSquid reports
 ---
 
-# Unable to Generate Performance Plot
+# Fix a Missing Performance Plot
 
 Unable to Generate Performance Plot can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
@@ -104,9 +105,11 @@ drwxrwxr-- 9 ssquid root 4096 Mar 14 12:05 ../
 Collect evidence before restarting services or changing policy. Keep screenshots, command output, and relevant SafeSquid logs with the incident ticket.
 
 ```sh
-tail -100 /var/log/safesquid/safesquid.log
+tail -100 /var/log/safesquid/native/safesquid.log
 tail -100 /var/log/syslog
 ```
+
+Expected result: the native log prints up to 100 recent lines. Each line starts with a date and time, then a `[thread or request id]` and a module name such as `network:`.
 
 Record the affected user, source IP address, requested URL, timestamp, browser error, SafeSquid policy section changed, and verification result.
 
@@ -114,3 +117,4 @@ Record the affected user, source IP address, requested URL, timestamp, browser e
 
 - Use [Find a complete connection log](/troubleshooting/how_to_use_find_client_id_sh_for_getting_complete_connection_log) to trace a specific client transaction.
 - Use [Troubleshooting](/troubleshooting/troubleshooting) for the broader diagnostic checklist.
+- Use [Support](/architecture/policy_management_console/support) to collect evidence before you escalate.

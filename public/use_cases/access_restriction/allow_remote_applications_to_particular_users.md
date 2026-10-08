@@ -43,3 +43,6 @@ Follow the Link: [Allow anydesk](/use_cases/access_restriction/allow_anydesk)
 3.  Add that User-agent or website into Request Types.
 4.  Bind that created user group and Request Type in Access Profiles and decide whether to block or allow
 
+## Next steps
+
+- **[Allow Anydesk](/use_cases/access_restriction/allow_anydesk)** - allow AnyDesk and other remote desktop apps through SafeSquid with user profiles, SSL bypass, and request-type filters.

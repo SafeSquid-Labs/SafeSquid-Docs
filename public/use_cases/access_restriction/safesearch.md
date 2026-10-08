@@ -57,7 +57,7 @@ Enable the relevant SafeSearch policies in the policy and profile sections if th
 
 ### Use proxy enforcement instead of browser trust
 
-Do not rely on browser-side settings alone. Users can disable SafeSearch in the search engine or browser interface, but proxy-enforced rules keep the safer setting active regardless of local preference.
+Do not rely on browser-side settings alone. Users can disable SafeSearch in the search engine or browser interface. But proxy-enforced rules keep the safer setting active regardless of local preference.
 
 ### Understand the Google behavior
 

@@ -82,7 +82,7 @@ Not every device can participate in Kerberos SSO. Guest devices, non-domain syst
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | Browser prompt + AD bind | **Confirmed** | This page |
 | Time skew / DNS with AD | **Confirmed** | Troubleshooting, [NTP](/architecture/interface/ntp) |
 

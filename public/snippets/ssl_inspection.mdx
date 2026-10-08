@@ -10,7 +10,7 @@ HTTPS hides URLs, payloads, and uploads from a proxy that only sees tunnel metad
 
 ## Technical scope
 
-SafeSquid's documented TLS support covers **TLS 1.0 through TLS 1.3**. This matters because modern threats overwhelmingly use encrypted web sessions, and a proxy that cannot inspect current TLS traffic leaves the main enterprise web path opaque.
+SafeSquid's documented TLS support covers **TLS 1.0 through TLS 1.3**. This matters because modern threats overwhelmingly use encrypted web sessions. A proxy that cannot inspect current TLS traffic leaves the main enterprise web path opaque.
 
 ## Advantages vs “TLS blind proxying”
 
@@ -193,7 +193,7 @@ A: Add those apps' domains to the bypass list. They cannot be inspected.
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | HTTPS inspection workflow (client → SafeSquid → origin) | **Confirmed** | [Configure HTTPS Inspection](/use_cases/ssl_inspection/configure_https_inspection), this page |
 | Client trust requirement for Root CA | **Confirmed** | This page, certificate import guides |
 | PCI / SOC framing as compliance context | **Context only** | Helpful for risk framing, not a compliance guarantee |

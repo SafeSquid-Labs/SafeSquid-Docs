@@ -11,7 +11,7 @@ keywords:
 
 # Restore Policy, Then Rebuild the Rest
 
-Cloud Restore brings back policy and SSL material bound to the activation key. It does not bring back the host — networking, OS configuration, and integration secrets stay missing, and a restore declared complete before those are checked leaves a proxy that looks configured and cannot pass traffic.
+Cloud Restore brings back policy and SSL material bound to the activation key. It does not bring back the host — networking, OS configuration, and integration secrets stay missing. A restore declared complete before those are checked leaves a proxy that looks configured and cannot pass traffic.
 
 Restore in two halves: what the backup covers, then what it does not. The two halves split like this:
 
@@ -70,7 +70,7 @@ These files are restored:
 | `/usr/local/safesquid/security/ssl/ROOT_X509File.cer` | SSL root certificate |
 | `/usr/local/safesquid/security/ssl/ROOT_PrivateKeyFile.pem` | SSL private key |
 
-Restoring the original Root CA is what keeps already-deployed client trust valid. A rebuilt appliance with a newly generated CA forces a fresh trust rollout to every endpoint — which is usually discovered when users start seeing certificate warnings.
+Restoring the original Root CA is what keeps already-deployed client trust valid. A rebuilt appliance with a newly generated CA forces a fresh trust rollout to every endpoint. Teams usually discover this when users start seeing certificate warnings.
 
 ## Verify what was restored
 
@@ -87,7 +87,7 @@ Restoring the original Root CA is what keeps already-deployed client trust valid
 
 5. Test a client connection through the rebuilt appliance.
 
-Expected result: policies, user groups, and SSL certificates match the backed-up configuration, and a pilot client's request appears in the access log.
+Expected result: policies, user groups, and SSL certificates match the backed-up configuration. A pilot client's request appears in the access log.
 
 ## Restore what the backup excluded
 

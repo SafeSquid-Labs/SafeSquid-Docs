@@ -9,7 +9,7 @@ keywords:
   - ldap configuration for SafeSquid
 ---
 
-# Setup Active Directory Integration
+# Complete Active Directory Setup to Sync Users and Groups
 
 Establish a connection between SafeSquid and Active Directory (AD) to synchronize user and group entities. This is the foundational step for both Simple and SSO authentication.
 
@@ -66,14 +66,14 @@ Use LDAP Admin to test connectivity and find the correct DNs (Distinguished Name
 
 - Use a dedicated service account where possible instead of embedding broad administrative dependency in the long-term configuration.
 - Record the Base DN, bind format, and LDAP domain values in deployment notes so later troubleshooting does not begin from guesswork.
-- This step establishes the data plane for later simple-auth or Kerberos-based flows, but it does not by itself prove end-user authentication is working.
+- This step establishes the data plane for later simple-auth or Kerberos-based flows. But it does not by itself prove end-user authentication is working.
 
 ## Verification
 
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | **Check Entities** | Go to **LDAP Entities** in the SafeSquid interface. | You should see a list of users and groups fetched from AD. |
-| **Log Review** | Run `tail -f /var/log/safesquid/safesquid.log` | Look for "LDAP bind successful" or "fetched X entries" messages. |
+| **Log Review** | Run `tail -f /var/log/safesquid/native/safesquid.log` | Look for "LDAP bind successful" or "fetched X entries" messages. |
 | **Test Rule** | Create an access rule with an AD group in **LDAP Profiles**. | The rule should correctly identify members of that group. |
 
 ## Troubleshooting
@@ -90,7 +90,7 @@ Use LDAP Admin to test connectivity and find the correct DNs (Distinguished Name
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | LDAP bind, Base DN, LDAP Entities | **Confirmed** | This page |
 | Ports **389** / **636** | **Confirmed** | Troubleshooting table (standard LDAP/LDAPS) |
 

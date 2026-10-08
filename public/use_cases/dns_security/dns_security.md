@@ -10,7 +10,7 @@ keywords:
 ---
 
 
-# DNS Security
+# Apply DNS-Level Security Controls
 
 ## Problems addressed
 
@@ -24,18 +24,18 @@ Unrestricted DNS resolution reaches malicious, geo-noncompliant, or lookalike do
 
 ## Advantages vs “HTTP-only” policy
 
-DNS-layer controls fail closed earlier in the chain than URL filtering alone for many threats; combine with [Access Restriction](/use_cases/access_restriction/access_restriction) and [Profiling Engine](/use_cases/profiling_engine/profiling_engine) for full coverage.
+DNS-layer controls fail closed earlier in the chain than URL filtering alone for many threats. Combine with [Access Restriction](/use_cases/access_restriction/access_restriction) and [Profiling Engine](/use_cases/profiling_engine/profiling_engine) for full coverage.
 
 **Product-level comparative claims** (for example vs other SWG vendors): **Not SSOT-backed in this doc set**—see [What is SafeSquid SWG?](/architecture/what_is_safesquid_swg).
 
 ## Acquire, deploy, use
 
-Configure DNS security features in the SafeSquid administration UI per each linked guide; verify blocks and log lines as described in those pages.
+Configure DNS security features in the SafeSquid administration UI per each linked guide. Verify blocks and log lines as described in those pages.
 
 SafeSquid provides DNS-level security at the domain resolution layer: DNS-based blacklisting, geographic IP filtering, and internationalized domain name (IDN) homograph detection. For architecture placement inside SWG, see [Integrated DNS Security](/architecture/overview/integrated_dns_security).
 
 ```mermaid
-flowchart LR
+flowchart TB
     Client[Client Request] --> SafeSquid[SafeSquid Proxy]
     SafeSquid --> DNS[DNS Resolution]
     DNS --> DNSBL[DNSBL Check]
@@ -63,11 +63,11 @@ IDN homograph attacks use visually similar characters to impersonate legitimate 
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | DNSBL integration and policy flow | **Confirmed** | [DNS Blacklisting](/use_cases/dns_security/dnsbl), [Integrated DNS Security](/architecture/overview/integrated_dns_security) |
 | GeoIP / `server_country` style fields | **Confirmed** | [Server Geo-Location](/use_cases/dns_security/geoip) |
 | Homograph UI availability by version | **Confirmed** | [Homograph Detection](/getting_started/core_features/homograph_detection) (version checks) |
 
 ## Next steps
 
-Use DNS security together with [Access Restriction](/use_cases/access_restriction/access_restriction) and [Profiling Engine](/use_cases/profiling_engine/profiling_engine) for URL and application policy; see [Integrated DNS Security](/architecture/overview/integrated_dns_security) for architecture context.
+Use DNS security together with [Access Restriction](/use_cases/access_restriction/access_restriction) and [Profiling Engine](/use_cases/profiling_engine/profiling_engine) for URL and application policy. See [Integrated DNS Security](/architecture/overview/integrated_dns_security) for architecture context.
