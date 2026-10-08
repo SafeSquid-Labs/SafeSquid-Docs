@@ -274,7 +274,8 @@ def extra_checks(path, raw, masked_lines, offset, tag, fm, own_words, add):
                     add(i, "WARN", "image-not-webp", src)
                 if src.startswith("/") and not (PUB / src.lstrip("/")).is_file():
                     add(i, "ERROR", "image-missing", src)
-        if re.search(r"<img\b", l):
+        # <Frame><img/></Frame> is the house convention for console screenshots (docs-house-style); flag only a bare <img>
+        if re.search(r"<img\b", l) and not re.search(r"<Frame\b", " ".join(raw_lines[max(0, i - 3):i])):
             add(i, "WARN", "raw-img-tag", l)
     for i, l in enumerate(raw_lines, 1):
         if MAN_PAGE.search(l):
