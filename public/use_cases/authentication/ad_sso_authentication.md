@@ -87,7 +87,7 @@ sequenceDiagram
 |---------|--------------|-----|
 | Repeated prompts (SSO fail) | Time skew | Run `date` on AD and SafeSquid; sync via NTP if they differ by more than 5 minutes. |
 | Prompt on some browsers | Browser config or client eligibility | Ensure the client is domain-joined and the SafeSquid host is treated as an intranet or delegated target where required. |
-| Keytab not generated | Permission or Bind issue | Ensure the bind account has sufficient AD permissions; check `/var/log/safesquid/safesquid.log` for Kerberos errors. |
+| Keytab not generated | Permission or Bind issue | Ensure the bind account has sufficient AD permissions; check `/var/log/safesquid/native/safesquid.log` for Kerberos errors. |
 | DNS resolution fail | Missing or wrong stub zone | Verify `/etc/bind/safesquid.dns.conf` contains the correct AD server IP and is included in your BIND config. |
 
 :::tip

@@ -86,7 +86,7 @@ If the environment is not listed, choose by ownership rather than by platform. U
     If listener state is missing, inspect service logs and network binding configuration.
   </Step>
   <Step title="Route one pilot client">
-    Send one browser or test client through SafeSquid and prove that traffic appears in `/var/log/safesquid/access/extended.log`.
+    Send one browser or test client through SafeSquid and prove that traffic appears in `/var/log/safesquid/extended/extended.log`.
 
     Confirm the access log records source, destination, timestamp, and action.
 

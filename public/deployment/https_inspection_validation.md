@@ -37,7 +37,7 @@ Expected result: the connection succeeds or fails with a known certificate-trust
 Check the access log on the SafeSquid server:
 
 ```bash
-tail -20 /var/log/safesquid/access/extended.log
+tail -20 /var/log/safesquid/extended/extended.log
 ```
 
 Expected result: the log records the HTTPS destination and policy action.

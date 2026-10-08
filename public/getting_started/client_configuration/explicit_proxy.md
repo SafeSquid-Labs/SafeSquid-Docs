@@ -127,10 +127,10 @@ Expected result: the request returns an HTTP response through SafeSquid.
 On the SafeSquid server:
 
 ```bash
-tail -20 /var/log/safesquid/access/extended.log
+tail -20 /var/log/safesquid/extended/extended.log
 ```
 
-Expected result: the access log shows the pilot client, destination, timestamp, and action.
+Expected result: the access log shows the pilot client, destination, timestamp, and action. Each record is one line of tab-separated, quoted fields. Read `date_time`, `client_ip`, `username`, `method`, `url`, `status`, and `filtering_reason`.
 
 For a negative check, remove or bypass the proxy setting only in the test window. Then confirm the request no longer appears in SafeSquid logs. Restore the proxy setting immediately after the test.
 

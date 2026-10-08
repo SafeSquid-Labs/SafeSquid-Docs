@@ -102,7 +102,7 @@ Store:
 - Allowed and blocked URL category tests.
 - Malware scanning test result.
 - DLP test result.
-- Access-log samples from `/var/log/safesquid/access/extended.log`.
+- Access-log samples from `/var/log/safesquid/extended/extended.log`.
 - Reporting Service or SIEM forwarding evidence.
 - Rollback steps for every enabled control.
 

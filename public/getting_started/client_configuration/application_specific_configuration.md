@@ -277,7 +277,7 @@ After configuring the tool:
 3. Inspect SafeSquid access logs.
 
 ```bash
-tail -20 /var/log/safesquid/access/extended.log
+tail -20 /var/log/safesquid/extended/extended.log
 ```
 
 Expected result: external tool traffic appears with source, destination, timestamp, and action.

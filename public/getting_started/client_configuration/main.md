@@ -67,7 +67,7 @@ SafeSquid enforces policy only for traffic that traverses the proxy. Client onbo
 
 <Steps>
   <Step title="Prove one explicit pilot">
-    Configure one browser or test client and verify a new access-log entry under `/var/log/safesquid/access/extended.log`.
+    Configure one browser or test client and verify a new access-log entry under `/var/log/safesquid/extended/extended.log`.
 
     Confirm the access log records the pilot source, destination, timestamp, and action.
 

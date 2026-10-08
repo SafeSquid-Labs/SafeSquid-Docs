@@ -234,7 +234,7 @@ Expected result: the registry value matches the approved proxy or PAC deployment
 On the SafeSquid server:
 
 ```bash
-tail -20 /var/log/safesquid/access/extended.log
+tail -20 /var/log/safesquid/extended/extended.log
 ```
 
 Expected result: OS-aware applications from the pilot host generate log entries.

@@ -391,7 +391,7 @@ Store these artifacts with the deployment record:
 | Installation hangs at mirror selection | Outbound access blocked, an upstream proxy is required, or the gateway is unreachable from the assigned IP | Confirm outbound HTTP and HTTPS and gateway reachability; enter proxy details if the network requires one |
 | `Failed to partition disk` | Disk in use, too small, or the wrong drive was selected | Confirm the target disk against the approved allocation; unselect the USB installation media and detach other drives |
 | Appliance unbootable after removing media | GRUB was installed to the removable device | Reinstall, selecting the internal disk for the bootloader as well as for partitioning |
-| Port `8080` not listening after reboot | SafeSquid failed to start | Run `systemctl status safesquid --no-pager` and check `/var/log/safesquid/safesquid.log` |
+| Port `8080` not listening after reboot | SafeSquid failed to start | Run `systemctl status safesquid --no-pager` and check `/var/log/safesquid/native/safesquid.log` |
 | Management interface unreachable on `:8443` | Host or network firewall blocks the port | Check host firewall rules with `iptables -L` and permit the port from the administrator network only |
 | SSH connection refused after reboot | SSH is not running, or the address changed | Confirm the address with `ip addr`, then check `systemctl status ssh` |
 | Directory integration fails after install | Hostname or domain does not produce the expected FQDN, or reverse DNS is missing | Correct the FQDN and confirm both forward and reverse DNS entries resolve |

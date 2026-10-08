@@ -99,7 +99,7 @@ Whichever path was used, confirm before routing clients:
 - Service and listener state — see [Service Health](/deployment/service_health).
 - DNS resolution from the instance.
 - Activation endpoint reachability — see [Ports and Firewall Rules](/deployment/ports_and_firewall_rules).
-- Access-log creation under `/var/log/safesquid/access/`.
+- Access-log creation under `/var/log/safesquid/extended/`.
 - The default administrator password has been changed.
 
 ## Capture provisioning evidence

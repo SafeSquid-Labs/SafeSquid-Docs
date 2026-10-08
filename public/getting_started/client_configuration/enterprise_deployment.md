@@ -467,7 +467,7 @@ proxy:
 On SafeSquid:
 
 ```bash
-tail -20 /var/log/safesquid/access/extended.log
+tail -20 /var/log/safesquid/extended/extended.log
 ```
 
 Expected result: pilot users generate logs from intended source networks, and internal bypasses behave as designed.

@@ -29,16 +29,16 @@ Confirm:
 On the SafeSquid server:
 
 ```bash
-ls -l /var/log/safesquid/access/
+ls -l /var/log/safesquid/extended/
 ```
 
 Expected result: `extended.log` exists and its modification time is current.
 
 ```bash
-tail -20 /var/log/safesquid/access/extended.log
+tail -20 /var/log/safesquid/extended/extended.log
 ```
 
-Expected result: recent entries record source, destination, timestamp, user where authentication is configured, matched policy, and action.
+Expected result: recent entries record source, destination, timestamp, user where authentication is configured, matched policy, and action. Each record is one line of tab-separated, quoted fields. Read `date_time`, `client_ip`, `username`, `method`, `url`, `status`, and `filtering_reason`.
 
 A log file with an old modification time while traffic is flowing means writes are failing or the path changed. Check disk capacity first — a full log volume truncates evidence silently.
 
@@ -78,7 +78,7 @@ Empty reports with healthy access logs mean the reporting path — not the proxy
 
 Store these artifacts with the deployment record:
 
-- Access-log entries from `/var/log/safesquid/access/extended.log` covering the validation window.
+- Access-log entries from `/var/log/safesquid/extended/extended.log` covering the validation window.
 - `df -h` output for the log volume against the agreed retention target.
 - Proof of receipt at the SIEM or syslog destination, where forwarding is configured.
 - A report exported from the Configuration Portal for the same window.

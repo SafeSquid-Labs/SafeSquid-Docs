@@ -119,7 +119,7 @@ After restart, the slave begins syncing configuration from the master. Policy ch
 **Sync is slow (>10 minutes):**
 - Check network latency between master and slave: `ping <master-ip>`
 - Verify master is not overloaded (CPU/memory usage)
-- Check slave logs for sync errors: `tail -f /var/log/safesquid/extended.log`
+- Check slave logs for sync errors: `tail -f /var/log/safesquid/extended/extended.log`
 
 **Changes sync but don't apply:**
 - Restart slave to apply configuration changes: Configuration Portal → Support → Restart SafeSquid

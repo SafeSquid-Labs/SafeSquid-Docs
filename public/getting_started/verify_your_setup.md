@@ -92,7 +92,7 @@ Use this once controls are configured, to confirm each one is actually enforcing
 **Authentication and identity**
 
 - [ ] Users authenticate with domain credentials through the configured AD or LDAP integration.
-- [ ] Usernames, not just IP addresses, appear in `/var/log/safesquid/access/extended.log`.
+- [ ] Usernames, not just IP addresses, appear in `/var/log/safesquid/extended/extended.log`.
 - [ ] Where group policies are configured, different groups receive demonstrably different policy.
 
 **Policy enforcement**
@@ -129,7 +129,7 @@ Store these artifacts with the deployment record:
 
 - Service, listener, and resolver output from [Service Health](/deployment/service_health).
 - Screenshot or record showing active license state.
-- HTTP and HTTPS access-log entries from `/var/log/safesquid/access/extended.log`.
+- HTTP and HTTPS access-log entries from `/var/log/safesquid/extended/extended.log`.
 - Certificate issuer evidence for an inspected and an excluded destination.
 - Pilot client proxy configuration.
 - The completed integration checklist above, with the tester named.

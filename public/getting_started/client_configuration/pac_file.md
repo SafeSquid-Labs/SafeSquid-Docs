@@ -286,7 +286,7 @@ Expected result: the server returns a successful response for the `wpad.dat` pat
 On the SafeSquid server:
 
 ```bash
-tail -20 /var/log/safesquid/access/extended.log
+tail -20 /var/log/safesquid/extended/extended.log
 ```
 
 Expected result: proxied internet requests appear; intended internal bypasses do not.

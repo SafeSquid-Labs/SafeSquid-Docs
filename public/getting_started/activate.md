@@ -173,19 +173,19 @@ Run these checks immediately after activation.
     If details are missing, verify subscription reachability and re-upload the correct activation key.
   </Step>
   <Step title="Confirm HTTP traffic is logged">
-    Send one pilot HTTP request through SafeSquid and confirm a new record appears in `/var/log/safesquid/access/extended.log`.
+    Send one pilot HTTP request through SafeSquid and confirm a new record appears in `/var/log/safesquid/extended/extended.log`.
 
     ```bash
     curl -I --proxy http://SAFESQUID-IP:8080 http://example.com
     ```
 
     ```bash
-    tail -20 /var/log/safesquid/access/extended.log
+    tail -20 /var/log/safesquid/extended/extended.log
     ```
 
     Confirm the access log records source, destination, timestamp, and action.
 
-    If no log appears, confirm the client is using SafeSquid and inspect `/var/log/safesquid/access/extended.log`.
+    If no log appears, confirm the client is using SafeSquid and inspect `/var/log/safesquid/extended/extended.log`.
   </Step>
 </Steps>
 
@@ -209,7 +209,7 @@ Store these artifacts with the deployment record:
 | `Failed to set Subscription details` | Key file is missing, renamed, or not loaded | Verify `/usr/local/safesquid/security/activation_key` and re-upload the correct file |
 | Proxy refuses connections after upload | Service restart failed | Check service state and start SafeSquid from the server console if needed |
 | Subscription server is unreachable | DNS, routing, or firewall block | Test `nslookup swgupdates2.safesquid.net` and restore outbound access |
-| HTTP request succeeds but no log appears | Client bypasses SafeSquid or wrong log path checked | Confirm proxy path and inspect `/var/log/safesquid/access/extended.log` |
+| HTTP request succeeds but no log appears | Client bypasses SafeSquid or wrong log path checked | Confirm proxy path and inspect `/var/log/safesquid/extended/extended.log` |
 | HTTPS warning appears | Root CA is not trusted or SSL inspection is incomplete | Deploy the Root CA through the approved trust path before retesting HTTPS |
 | Commercial subscription is expiring | Renewal or conservation period was not planned | Confirm renewal status in the Self-Service Portal and record any approved conservation-period action |
 | Commercial features are inert after a successful activation | A free-tier key was uploaded, or the key has expired | Open **Support** and check **License Details**: Product Type should read Commercial and Expiry should be in the future. If not, download the correct key from the Self-Service Portal and re-upload it |

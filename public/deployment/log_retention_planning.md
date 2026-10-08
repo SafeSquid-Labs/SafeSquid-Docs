@@ -17,7 +17,7 @@ Set the target before installation. Retention is a storage decision, and storage
 
 ## Plan what has to be retained
 
-- Local access logs under `/var/log/safesquid/access/`.
+- Local access logs under `/var/log/safesquid/extended/`.
 - Reporting Service or SIEM forwarding where required.
 - Change records for activation, policy, Root CA rollout, and client routing.
 - Time synchronization so log timestamps match incident timelines.
@@ -38,7 +38,7 @@ Forwarding does not remove the need for local retention. Keep enough local histo
 <Accordion title="Disk and retention planning">
   Separate high-write log and cache storage where the deployment model allows it. For production nodes, record the retention target for:
 
-  - `/var/log/safesquid/access/` access logs.
+  - `/var/log/safesquid/extended/` access logs.
   - Configuration backups and exported reports.
   - Support bundles and temporary diagnostics.
   - OS logs, Monit logs, BIND9 logs, and package-manager logs.

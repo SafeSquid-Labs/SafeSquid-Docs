@@ -38,7 +38,7 @@ OpenLDAP is a confirmed directory integration path. Do not assume it provides th
 
 After configuring OpenLDAP:
 1. **Fetch Entries:** Confirm that LDAP users and groups are listed in the **LDAP Entities** section of the SafeSquid interface.
-2. **Log Check:** Verify successful LDAP binds in `/var/log/safesquid/safesquid.log`.
+2. **Log Check:** Verify successful LDAP binds in `/var/log/safesquid/native/safesquid.log`.
 3. **Policy Test:** Ensure that a rule restricted to an LDAP group correctly allows members and blocks others.
 
 ## Troubleshooting

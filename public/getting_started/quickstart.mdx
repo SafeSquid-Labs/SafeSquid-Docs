@@ -60,7 +60,7 @@ Use [Deployment](/deployment/licensing_requirements) and [Deployment Checklist](
   <Step title="Route one pilot client through SafeSquid">
     Use [Connect Your Client](/getting_started/client_configuration/connect_your_client) to configure explicit proxy, PAC, system-wide proxy, or managed rollout.
 
-    Confirm one pilot request appears in `/var/log/safesquid/access/extended.log`.
+    Confirm one pilot request appears in `/var/log/safesquid/extended/extended.log`.
 
     If traffic bypasses the proxy, verify proxy settings, PAC output, and bypass rules.
   </Step>
@@ -78,7 +78,7 @@ Use [Deployment](/deployment/licensing_requirements) and [Deployment Checklist](
 Before expanding beyond pilot users, collect and attach evidence to the deployment record:
 
 - Activation proof: license details visible in the Configuration Portal
-- Routing proof: first pilot transaction in `/var/log/safesquid/access/extended.log`
+- Routing proof: first pilot transaction in `/var/log/safesquid/extended/extended.log`
 - HTTPS trust proof: pilot endpoint trusts the SafeSquid Root CA and browses without trust warnings
 - Policy proof: at least one expected allow or block event mapped to a known policy rule
 - Audit proof: report or log export includes user, source, URL, action, and timestamp
@@ -110,7 +110,7 @@ If a pilot check fails, use the matching symptom below and capture corrected evi
     3. Confirm the client is pointing to the approved proxy IP and port.
     4. Remove unapproved bypass entries from pilot settings.
 
-    **Verify:** `/var/log/safesquid/access/extended.log` records a new pilot entry with source, destination, action, and timestamp.
+    **Verify:** `/var/log/safesquid/extended/extended.log` records a new pilot entry with source, destination, action, and timestamp.
   </Accordion>
 
   <Accordion title="Configuration Portal does not load through proxy">

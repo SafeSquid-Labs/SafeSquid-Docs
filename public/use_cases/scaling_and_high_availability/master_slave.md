@@ -128,7 +128,7 @@ On the master, open [Reporting Service](/architecture/interface/reporting_servic
 - [ ] Master Configuration Portal → Access restrictions → Allow list includes slave IP (if authentication enabled)
 - [ ] Test policy change on master propagates to slave within 5 minutes
 - [ ] Slave traffic appears in master Reporting Service
-- [ ] Slave logs show successful sync events (check `/var/log/safesquid/extended.log`)
+- [ ] Slave logs show successful sync events (check `/var/log/safesquid/extended/extended.log`)
 
 ## Troubleshooting
 
@@ -136,7 +136,7 @@ On the master, open [Reporting Service](/architecture/interface/reporting_servic
 - Verify network connectivity from slave to the master's configured LISTEN_PORT (8080 in this page's verified screenshots; confirm the actual value on the master under Support → Startup params): `telnet <master-ip> <master-port>`
 - Check master firewall allows incoming connections on that port
 - If authentication enabled, verify slave IP in master Access restrictions → Allow list
-- Check slave logs: `tail -f /var/log/safesquid/extended.log` (look for sync errors)
+- Check slave logs: `tail -f /var/log/safesquid/extended/extended.log` (look for sync errors)
 
 **Slave traffic not appearing in master reports:**
 - Verify reporting data path is not blocked by firewall

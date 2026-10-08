@@ -437,7 +437,7 @@ www.google.com (issued by SafeSquid Root CA)
 **On SafeSquid server:**
 
 ```bash
-tail -f /var/log/safesquid/access/extended.log
+tail -f /var/log/safesquid/extended/extended.log
 ```
 
 **Expected for inspected sites:**
@@ -480,8 +480,8 @@ tail -f /var/log/safesquid/access/extended.log
 
 4. **Check SafeSquid logs:**
    ```bash
-   tail -50 /var/log/safesquid/safesquid.log
-   grep -i "ssl\|cert\|handshake" /var/log/safesquid/safesquid.log
+   tail -50 /var/log/safesquid/native/safesquid.log
+   grep -i "ssl\|cert\|handshake" /var/log/safesquid/native/safesquid.log
    ```
 
 ---

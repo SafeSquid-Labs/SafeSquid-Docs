@@ -73,7 +73,7 @@ Use LDAP Admin to test connectivity and find the correct DNs (Distinguished Name
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | **Check Entities** | Go to **LDAP Entities** in the SafeSquid interface. | You should see a list of users and groups fetched from AD. |
-| **Log Review** | Run `tail -f /var/log/safesquid/safesquid.log` | Look for "LDAP bind successful" or "fetched X entries" messages. |
+| **Log Review** | Run `tail -f /var/log/safesquid/native/safesquid.log` | Look for "LDAP bind successful" or "fetched X entries" messages. |
 | **Test Rule** | Create an access rule with an AD group in **LDAP Profiles**. | The rule should correctly identify members of that group. |
 
 ## Troubleshooting

@@ -263,7 +263,7 @@ ss -lntp | grep ':8080'
 Check access-log creation after a pilot request:
 
 ```bash
-tail -20 /var/log/safesquid/access/extended.log
+tail -20 /var/log/safesquid/extended/extended.log
 ```
 
 Expected result: SafeSquid runs, listens on the approved port, and records pilot traffic.

@@ -19,7 +19,7 @@ Confirm:
 - SafeSquid is installed and activated.
 - The proxy listener is reachable from the pilot network.
 - The pilot client can resolve DNS and reach the proxy IP.
-- The operator can inspect `/var/log/safesquid/access/extended.log`.
+- The operator can inspect `/var/log/safesquid/extended/extended.log`.
 - Rollback steps exist for the selected client setting.
 
 ## Choose the routing method
@@ -126,7 +126,7 @@ Configure the matching entry in [Access restrictions](/configuration/application
   <Step title="Record the result">
     Record whether traffic is allowed, blocked, or bypassed as expected, then compare the result with SafeSquid access logs.
 
-    Confirm `/var/log/safesquid/access/extended.log` records proxied traffic with source, destination, timestamp, and action.
+    Confirm `/var/log/safesquid/extended/extended.log` records proxied traffic with source, destination, timestamp, and action.
 
     If no log appears, retest with `curl --proxy` and confirm the client is not bypassing SafeSquid.
   </Step>
@@ -143,10 +143,10 @@ curl -I --proxy http://SAFESQUID-IP:8080 http://example.com
 On the SafeSquid server:
 
 ```bash
-tail -20 /var/log/safesquid/access/extended.log
+tail -20 /var/log/safesquid/extended/extended.log
 ```
 
-Expected result: the log records the pilot request with source, destination, timestamp, and action.
+Expected result: the log records the pilot request with source, destination, timestamp, and action. Each record is one line of tab-separated, quoted fields. Read `date_time`, `client_ip`, `username`, `method`, `url`, `status`, and `filtering_reason`.
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/05-Connect_Your_Client/main.md §Testing Your Configuration */}
 

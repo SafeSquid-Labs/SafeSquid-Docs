@@ -118,7 +118,7 @@ This creates a restore point you can revert to if changes cause issues.
 **Restore completes but policies missing:**
 - Verify you restarted SafeSquid after restore: Configuration Portal → Support → Restart SafeSquid
 - Check file permissions: `ls -l /usr/local/safesquid/security/policies/config.xml` (should be owned by safesquid user)
-- Check logs: `tail -f /var/log/safesquid/extended.log` (look for restore errors)
+- Check logs: `tail -f /var/log/safesquid/extended/extended.log` (look for restore errors)
 
 **SSL certificates not working after restore:**
 - Verify certificate files exist:

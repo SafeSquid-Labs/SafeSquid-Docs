@@ -140,7 +140,7 @@ SATA-connected SSDs have substantially lower write throughput than PCIe-attached
 <Accordion title="Post-install baseline and stress test">
   Pre-install connectivity checks prove the host can reach what it needs. They do not prove the host can carry the load you sized it for. Run a baseline after installation, before production users arrive. So you have a known-good reference to compare against during a later incident.
 
-  **Establish a light-load baseline.** Record session latency from `/var/log/safesquid/extended.log`, CPU utilisation, and disk I/O wait. Do this while a small number of clients browse. Keep the figures with the deployment record — the absolute values matter less than having a comparison point.
+  **Establish a light-load baseline.** Record session latency from `/var/log/safesquid/extended/extended.log`, CPU utilisation, and disk I/O wait. Do this while a small number of clients browse. Keep the figures with the deployment record — the absolute values matter less than having a comparison point.
 
   **Stress test to the sizing target.** Simulate the peak concurrent connections you sized for. Use a load generator configured for HTTP proxy mode such as JMeter, or multiple concurrent browser sessions driven by Selenium. Confirm session counts hold without dropped connections.
 
