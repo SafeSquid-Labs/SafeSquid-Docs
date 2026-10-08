@@ -147,7 +147,7 @@ On match, **category** `SocialMedia` is added to application signatures (same ta
 
 ## How to verify
 
-1. Check **Reports → Modules Status** for application signature load/download state.
+1. Check the module load status for application signature load/download state. {/* [VERIFY WITH SAFESQUID TEAM]: "Reports → Modules Status" was not found in the Reports tabs on the live console (build 2026.0627.1344.3); confirm where this is shown. */}
 2. Reproduce a request; read Detailed logs column `application_signatures`.
 3. Enable **Trace Entry** on a rule where available; confirm tags in Native PROFILE logs.
 4. Debug header `X-SafeSquid-Application-Signatures` when Send Debugging Headers To includes CLIENT — see [Debug response headers](/configuration/start_here/debug_response_headers).

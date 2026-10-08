@@ -154,15 +154,15 @@ See [Onboard Client Traffic](/getting_started/client_configuration/explicit_prox
 
 ### Step 4 — Activate the license and configure policy
 
-Log in to the **Configuration Portal** at `http://safesquid.cfg` (accessible from the proxy host or a routed management network). Activate the license under **Configuration → Activate**. Then enable SSL inspection, configure URL categories, set up user identity integration, and define acceptable-use policies.
+Log in to the **Configuration Portal** at `http://safesquid.cfg` (accessible from the proxy host or a routed management network). Activate the license as described in [Activate Your License](/getting_started/activate). Then enable SSL inspection, configure URL categories, set up user identity integration, and define acceptable-use policies.
 
 See [Configuration Portal](/architecture/interface/configuration_portal) for the full administration reference.
 
 ## Common deployment pitfalls
 
-**SSL inspection not enabled at deployment:** HTTPS traffic bypasses content inspection if SSL inspection is not configured. The gateway logs a connection but cannot evaluate URL, payload, or application signature. Enable SSL inspection under **Configuration → SSL Inspection**. Distribute the SafeSquid Root CA to all managed endpoints before routing production traffic.
+**SSL inspection not enabled at deployment:** HTTPS traffic bypasses content inspection if SSL inspection is not configured. The gateway logs a connection but cannot evaluate URL, payload, or application signature. Enable SSL inspection under **Configure → Real time content security → HTTPS Inspection**. Distribute the SafeSquid Root CA to all managed endpoints before routing production traffic.
 
-**Activation key not applied before traffic routing:** The SafeSquid proxy engine operates in restricted mode without a valid activation key. Apply the key from the Self-Service Portal under **Configuration → Activate** before directing live traffic through the gateway.
+**Activation key not applied before traffic routing:** The SafeSquid proxy engine operates in restricted mode without a valid activation key. Apply the key from the Self-Service Portal as described in [Activate Your License](/getting_started/activate) before directing live traffic through the gateway.
 
 **Client traffic bypasses the proxy:** Transparent proxy mode requires a network-layer redirect rule on the firewall or router. If endpoints can reach the internet directly, policy enforcement and logging do not occur. Verify that all outbound HTTP and HTTPS traffic traverses the SafeSquid listener ports.
 
