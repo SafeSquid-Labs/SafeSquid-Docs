@@ -61,7 +61,7 @@ Here I am selecting the file to Upload
 
 ![Select the file to Upload to check Maximum limit on the Upload size](/images/How_To/Setup_Maximum_limit_on_the_Upload_size/image3.webp)
 
-When I click on upload, I will get the below error, Because I am uploading 4MB file, but I have maximum upload limit of 2MB
+When I click on upload, I will get the below error, Because I am uploading 4MB file. But I have maximum upload limit of 2MB
 
 ![Error template of Maximum limit on the Upload size](/images/How_To/Setup_Maximum_limit_on_the_Upload_size/image4.webp)
 

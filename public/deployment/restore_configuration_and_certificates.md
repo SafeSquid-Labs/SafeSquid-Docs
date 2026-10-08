@@ -87,7 +87,7 @@ Restoring the original Root CA is what keeps already-deployed client trust valid
 
 5. Test a client connection through the rebuilt appliance.
 
-Expected result: policies, user groups, and SSL certificates match the backed-up configuration, and a pilot client's request appears in the access log.
+Expected result: policies, user groups, and SSL certificates match the backed-up configuration. A pilot client's request appears in the access log.
 
 ## Restore what the backup excluded
 

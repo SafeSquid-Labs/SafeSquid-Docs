@@ -99,7 +99,7 @@ For Chrome and Edge to send Kerberos tickets, the SafeSquid proxy URL must be re
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ----- |
+|---|---|---|
 | Kerberos SSO, keytab, time skew | **Confirmed** | This page, [NTP](/architecture/interface/ntp) |
 | BIND stub for AD DNS | **Confirmed** | This page, [BIND](/architecture/interface/bind) |
 | Chrome/Edge intranet zone for Kerberos | **Confirmed** | Tip above (browser behavior) |

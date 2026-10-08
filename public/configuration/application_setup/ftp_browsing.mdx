@@ -33,7 +33,7 @@ Directory HTML listings use **Sort field** and **Sort order** when the client do
 ### Caching anonymous FTP transfers
 
 <Warning>
-  **Caching checks the literal word `anonymous`, not your configured anonymous-login username.** FTP file caching only happens when directory information is available *and* the request's username is exactly the literal word `anonymous` (case-insensitive) — this check is against the fixed word itself, not against whatever value is set in **Username for anonymous login**. Rename that field to anything else (for example `ftpguest`) and anonymous logins keep working exactly as before, but files fetched anonymously silently stop being cached. Authenticated FTP transfers are never cached through this path, regardless of username.
+  **Caching checks the literal word `anonymous`, not your configured anonymous-login username.** FTP file caching only happens when directory information is available *and* the request's username is exactly the literal word `anonymous` (case-insensitive). This check is against the fixed word itself, not against whatever value is set in **Username for anonymous login**. Rename that field to anything else (for example `ftpguest`) and anonymous logins keep working exactly as before. But files fetched anonymously silently stop being cached. Authenticated FTP transfers are never cached through this path, regardless of username.
 </Warning>
 
 ```mermaid
@@ -61,7 +61,7 @@ cacheCheck -->|No| noCache[Not cached - configured anonymous-login Username is n
 - **Sort order / Sort field (`sortorder` / `sortfield`)** — Default directory listing order (name, size, date).
 
 {/* source: https://www.safesquid.com/md/ftp.md */}
-Use passive mode when SafeSquid itself sits behind a firewall or NAT that would block an unsolicited inbound data connection — it keeps both the control and data channels outbound from SafeSquid.
+Use passive mode when SafeSquid itself sits behind a firewall or NAT that would block an unsolicited inbound data connection. It keeps both the control and data channels outbound from SafeSquid.
 
 ## Examples
 
@@ -97,7 +97,7 @@ Timeout, Username/Password for anonymous login, and Sort order/field — no row 
 
 **Config:** Username for anonymous login changed from `anonymous` to `ftpguest`.
 
-**Result:** clients with no credentials of their own still log in successfully (now as `ftpguest`), but files fetched this way are no longer cached — the caching check looks for the literal username `anonymous`, which no longer appears in these requests.
+**Result:** clients with no credentials of their own still log in successfully (now as `ftpguest`). But files fetched this way are no longer cached. The caching check looks for the literal username `anonymous`, which no longer appears in these requests.
 </Tip>
 
 <Tip>

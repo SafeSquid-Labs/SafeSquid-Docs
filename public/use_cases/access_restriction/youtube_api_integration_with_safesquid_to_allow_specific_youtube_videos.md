@@ -31,7 +31,7 @@ YouTube offers entertainment and educational content; unrestricted viewing can r
 ## Client scenario (case study)
 Ganpat University provides graduate programs to various colleges. All the staff's PC/Laptop traffic is going via SafeSquid SWG.
 
-Ganpat University wants to block entire youtube.com for faculty and students, but wants some of the YouTube channels allowed which are helpful for faculty/students.
+Ganpat University wants to block entire youtube.com for faculty and students. But wants some of the YouTube channels allowed which are helpful for faculty/students.
 
 Ganpat University challenges are:
 
@@ -64,7 +64,7 @@ You can now allow/block specific category of videos on YouTube.
 
 
 ## Prerequisites
-HTTPS Inspection should be enabled in SafeSquid. If not enabled, you can check our document - How to enable HTTPS Inspection
+HTTPS Inspection should be enabled in SafeSquid. If it is not enabled, see How to enable HTTPS Inspection
 
 
 

@@ -11,7 +11,7 @@ keywords:
 
 # Complete Your First Configuration Safely
 
-This page is for a new administrator who has a working SafeSquid appliance and needs a safe, minimal setup: browsers can use the proxy, only intended clients are allowed, and you can see why a request was allowed or blocked.
+This page is for a new administrator who has a working SafeSquid appliance and needs a safe, minimal setup: browsers can use the proxy, only intended clients are allowed. You can see why a request was allowed or blocked.
 
 <Note>
 Open the Web UI at `http://safesquid.cfg/` from a machine that can reach the appliance. Policy lives in the Web UI; process tunables live in [startup.ini](/configuration/start_here/startup_ini).
@@ -105,7 +105,7 @@ Full guide: [Access restrictions](/configuration/application_setup/access_restri
 Temporarily change the Allow entry IP to a range that does *not* include your PC, save, and reload a page. The browser should fail to use the proxy. Restore the correct range afterward.
 
 {/* source: https://www.safesquid.com/md/first-configuration.md */}
-This confirms Access restrictions is being *enforced*, not merely present, and catches the most common first-configuration mistake — an Allow entry that looks right but was saved against the wrong subnet.
+This confirms Access restrictions is being *enforced*, not merely present, and catches the most common first-configuration mistake. An Allow entry that looks right but was saved against the wrong subnet.
 </Tip>
 
 ## 5. Add a simple Access Profiles rule
@@ -139,11 +139,11 @@ Full workflow: [Logging and troubleshooting](/configuration/start_here/logging).
 {/* source: https://www.safesquid.com/md/first-configuration.md */}
 ## How to verify
 
-1. Confirm the service reports running before doing anything else — a Web UI you cannot reach means every later step is moot.
-2. Confirm the Listen entry you expect is enabled, and that the service was restarted after any change — Listen entries only bind at service start.
+1. Confirm the service reports running before doing anything else. A Web UI you cannot reach means every later step is moot.
+2. Confirm the Listen entry you expect is enabled. That the service was restarted after any change — Listen entries only bind at service start.
 3. Read the Allow list top to bottom before trusting it: first-match-wins means a broad entry above your intended one silently claims its connections, with no warning anywhere in the Web UI.
 4. Generate one allowed and one denied request, and confirm both appear in Detailed logs with the outcome you expect.
-5. Confirm Detailed logs attribute the Access Profiles block to Access Profiles rather than Access restrictions — the two sections produce different filter reasons, and confusing one for the other is a common early debugging mistake.
+5. Confirm Detailed logs attribute the Access Profiles block to Access Profiles rather than Access restrictions. The two sections produce different filter reasons, and confusing one for the other is a common early debugging mistake.
 
 ## What to do next
 

@@ -14,7 +14,7 @@ keywords:
 
 # Survive a Proxy Node Failure
 
-A single SafeSquid node is a single point of failure for every user behind it. When the proxy stops answering, browsing stops — and so does policy enforcement, logging, and the audit trail that proves enforcement happened. Users escalate, and the fastest workaround an impatient administrator reaches for is disabling the proxy entirely.
+A single SafeSquid node is a single point of failure for every user behind it. When the proxy stops answering, browsing stops — and so does policy enforcement, logging. The audit trail that proves enforcement happened. Users escalate, and the fastest workaround an impatient administrator reaches for is disabling the proxy entirely.
 
 Active-passive high availability removes that pressure. Clients connect to a virtual IP (VIP) that always points at a healthy node. Keepalived moves the VIP on failure in 2–3 seconds; Monit independently restarts a crashed SafeSquid process on either node.
 
@@ -121,7 +121,7 @@ Make it executable on both nodes:
 sudo chmod +x /etc/keepalived/check_safesquid.sh
 ```
 
-The second check matters. A process that is running but not accepting connections still fails users, and a PID check alone will not catch it.
+The second check matters. A process that is running but not accepting connections still fails users. A PID check alone will not catch it.
 
 ## Configure Keepalived on both nodes
 
@@ -226,7 +226,7 @@ The weight must push the Master's effective priority below the Backup's, not mer
 
 - The Master starts at priority 101.
 - On check failure, `weight -101` makes the effective priority `101 - 101 = 0`.
-- `0` is below the Backup's `100`, so the Backup wins the VRRP election, advertises the higher priority, and the Master releases the VIP.
+- `0` is below the Backup's `100`. So the Backup wins the VRRP election, advertises the higher priority, and the Master releases the VIP.
 
 A weight of `-60` yields `101 - 60 = 41`. That is still below 100, but it does not reliably drive the BACKUP state transition across Keepalived versions. Use `-101` so the outcome is unambiguous.
 

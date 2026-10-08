@@ -83,4 +83,4 @@ Configuration drift across nodes causes inconsistent enforcement and troubleshoo
 
 ## Next steps
 
-Place a load balancer in front of slave nodes; see [Disaster Recovery](/use_cases/scaling_and_high_availability/disaster_recovery) for backup and restore, and Verify your setup for post-cluster validation.
+Place a load balancer in front of slave nodes. See [Disaster Recovery](/use_cases/scaling_and_high_availability/disaster_recovery) for backup and restore, and Verify your setup for post-cluster validation.

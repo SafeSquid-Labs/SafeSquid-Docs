@@ -25,7 +25,7 @@ You keep actionable policy control close to operations, with verifiable outcomes
 Use the steps in this guide to implement the control, then validate behavior with a real user-flow test.
 
 ## Client Scenario
-Ganpat University provides graduate programs to various colleges. Ganpat University distributes the internet to its students. Ganpat University wants to block entire www.youtube.com for their students, but wants some of the YouTube channels allowed which are helpful for students.
+Ganpat University provides graduate programs to various colleges. Ganpat University distributes the internet to its students. Ganpat University wants to block entire www.youtube.com for their students. But wants some of the YouTube channels allowed which are helpful for students.
 
 Ganpat University's challenges are:
 
@@ -64,7 +64,7 @@ Select any playlist of the channel and click **PLAY ALL**. This example uses the
 
 **List-ID** is the preceding portion of the URL after the **'&list='** part. Save this part on a notepad for reference.
 
-In our case we have taken playlist **CBT Nuggets Webinars** and its URL is https://www.youtube.com/watch?v=PcB0j6uBJCA&list=PLQVJk9oC5JKo_bMWae3xsavpPMKAzIeGb
+This example uses the playlist **CBT Nuggets Webinars**, whose URL is https://www.youtube.com/watch?v=PcB0j6uBJCA&list=PLQVJk9oC5JKo_bMWae3xsavpPMKAzIeGb
 
 Extracted **List-ID: PLQVJk9oC5JKo_bMWae3xsavpPMKAzIeGb**
 

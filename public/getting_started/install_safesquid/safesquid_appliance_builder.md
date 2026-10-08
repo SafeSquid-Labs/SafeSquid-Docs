@@ -31,7 +31,7 @@ Use SAB when:
 - The organisation wants a repeatable baseline instead of adapting an existing server.
 - You need a clean VM or hardware appliance for production, pilot, or DR testing.
 
-Do not use SAB when the host must preserve an existing OS, application stack, or custom hardening image — the install erases the target disk. Use [Install on a Managed Linux Host](/getting_started/install_safesquid/linux_server) instead.
+Do not use SAB when the host must preserve an existing OS, application stack, or custom hardening image. The install erases the target disk. Use [Install on a Managed Linux Host](/getting_started/install_safesquid/linux_server) instead.
 
 ## Know what SAB automates
 
@@ -153,7 +153,7 @@ Record the download date and, where the organization's process requires it, a ch
 
     Confirm **Standard Installation** is selected. It is the recommended path and the one this page documents.
 
-    If the host is reachable only over a serial console, use the matching serial variant — the prompt sequence is the same.
+    If the host is reachable only over a serial console, use the matching serial variant. The prompt sequence is the same.
 
     ![SafeSquid Appliance Builder boot menu showing Standard, Expert, and two Serial Console installation modes](/images/getting_started/safesquid_appliance_builder_01_sab_boot_menu.webp)
   </Step>
@@ -162,7 +162,7 @@ Record the download date and, where the organization's process requires it, a ch
 
     Confirm the choice matches the approved network plan. Production appliances use a static address.
 
-    If DHCP is selected for a production host, restart the installer — a proxy whose address moves breaks every client that points at it.
+    If DHCP is selected for a production host, restart the installer. A proxy whose address moves breaks every client that points at it.
 
     ![Network autoconfiguration prompt asking whether to use DHCP](/images/getting_started/safesquid_appliance_builder_02_dhcp_prompt.webp)
   </Step>
@@ -193,7 +193,7 @@ Record the download date and, where the organization's process requires it, a ch
 
     Confirm the gateway is reachable **from the address you just assigned**, not merely that it is correct in general.
 
-    If the gateway is unreachable, the installer fails later at mirror selection rather than here, so the real cause surfaces several screens away.
+    If the gateway is unreachable, the installer fails later at mirror selection rather than here. So the real cause surfaces several screens away.
 
     ![Installer prompt for the default gateway address](/images/getting_started/safesquid_appliance_builder_07_gateway.webp)
   </Step>
@@ -202,14 +202,14 @@ Record the download date and, where the organization's process requires it, a ch
 
     Confirm both resolve names correctly from the appliance network.
 
-    If only one resolver is given and it fails, categorization and update paths fail with it — SafeSquid cannot categorise a destination it cannot resolve.
+    If only one resolver is given and it fails, categorization and update paths fail with it. SafeSquid cannot categorise a destination it cannot resolve.
 
     ![Installer prompt for name server addresses](/images/getting_started/safesquid_appliance_builder_08_dns.webp)
   </Step>
   <Step title="Assign hostname and domain">
     Set a hostname that fits your naming convention, then the domain name.
 
-    Confirm the resulting fully qualified domain name is the one you intend, and that both forward and reverse DNS entries exist for it.
+    Confirm the resulting fully qualified domain name is the one you intend. That both forward and reverse DNS entries exist for it.
 
     If the FQDN is wrong, directory integration is the first thing to break — Active Directory integration depends on it. Changing the hostname later means revisiting certificate and logging references, so settle it now.
 
@@ -260,11 +260,11 @@ Record the download date and, where the organization's process requires it, a ch
 </Steps>
 
 <Warning>
-  **Do not defer the password reset.** The appliance ships with `administrator` / `safesquid`, and those credentials are printed on the login screen. Complete the reset before the host is reachable from any client network, and record that it was done in the deployment evidence. Leaving the shipped password in place on a proxy that sees all corporate web traffic is a direct compromise path.
+  **Do not defer the password reset.** The appliance ships with `administrator` / `safesquid`. Those credentials are printed on the login screen. Complete the reset before the host is reachable from any client network, and record that it was done in the deployment evidence. Leaving the shipped password in place on a proxy that sees all corporate web traffic is a direct compromise path.
 </Warning>
 
 <Warning>
-  **Confirm the GRUB target disk.** The bootloader prompt is separate from the partitioning prompt, and it is easy to accept an external USB device instead of the internal disk. Installing GRUB to the wrong drive leaves the appliance unbootable once the media is removed.
+  **Confirm the GRUB target disk.** The bootloader prompt is separate from the partitioning prompt. It is easy to accept an external USB device instead of the internal disk. Installing GRUB to the wrong drive leaves the appliance unbootable once the media is removed.
 </Warning>
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/03-Install_SafeSquid/01-SafeSquid_Appliance_Builder.md §Installation Steps step 6 SSH tip */}
@@ -354,7 +354,7 @@ Expected result: the SafeSquid admin login loads. If it prompts for license acti
 | Configuration Portal | `http://safesquid.cfg/` — an embedded interface reachable only through the proxy, and deliberately not resolved by SafeSquid's own DNS resolver |
 | Direct management access | `https://SAFESQUID-SERVER-IP:8443/` — before a proxy is configured, or when the proxy path is unavailable |
 
-Use the direct `:8443` path only from an approved administrator network. It bypasses the proxy path that every other client uses, so it changes the trust boundary and should not become the routine way in.
+Use the direct `:8443` path only from an approved administrator network. It bypasses the proxy path that every other client uses. So it changes the trust boundary and should not become the routine way in.
 
 </Accordion>
 

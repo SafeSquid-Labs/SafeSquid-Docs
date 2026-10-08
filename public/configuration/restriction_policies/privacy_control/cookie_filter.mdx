@@ -36,22 +36,22 @@ Dual-list Allow/Deny walk, **last** match in pass wins — unlike most other sec
 - **Time-Based Evaluation**: Unlike other modules, the time profiles here (`limitmonths`, `limitdays`, etc.) are checked against the cookie's literal `Expires` attribute (`COOKIE_HAS_EXPIRES`), not the proxy's current system time.
 - **Action**: Matches result in the cookie being silently stripped from the HTTP stream (`HEADER_FILTERED`).
 {/* source: https://www.safesquid.com/md/cookies-filtering.md */}
-- **Clear-Site-Data**: whenever any cookie is dropped from a connection, SafeSquid adds a `Clear-Site-Data: "*"` header, asking the browser to clear stored site data — a stronger cleanup than simply not forwarding the one cookie field.
+- **Clear-Site-Data**: whenever any cookie is dropped from a connection, SafeSquid adds a `Clear-Site-Data: "*"` header, asking the browser to clear stored site data. A stronger cleanup than simply not forwarding the one cookie field.
 
 ### How SafeSquid processes the lists
 
 1. If Policy is **Deny**, SafeSquid walks **Allow** first, then **Deny**.
 2. If Policy is **Allow**, SafeSquid walks **Deny** first, then **Allow**.
-3. Within each list, every enabled matching row is evaluated; the **last** match in that list pass sets the outcome (not first-match like Access restrictions).
+3. Within each list, every enabled matching row is evaluated. The **last** match in that list pass sets the outcome (not first-match like Access restrictions).
 4. Each `Cookie` header field is processed separately; denied fields are erased from the header list.
-5. Domain, path, and expiry filters on a row apply only when Direction is **IN** (Set-Cookie). The live request/response header hooks call filtering with outbound (`Cookie`) direction only — Set-Cookie rows are configured for server→browser cookies but are not applied by the active `filter_cookies` path in this tree.
+5. Domain, path, and expiry filters on a row apply only when Direction is **IN** (Set-Cookie). The live request/response header hooks call filtering with outbound (`Cookie`) direction only. Set-Cookie rows are configured for server→browser cookies but are not applied by the active `filter_cookies` path in this tree.
 
 <Warning>
   **Order matters.** Put specific host or profile rules above broad catch-alls. Because the last match in a list pass wins, a lower row can override an upper row in the same list.
 </Warning>
 
 <Warning>
-  **IN direction is configured but not enforced.** Domain/Path/expiry filters on IN (Set-Cookie) rows are evaluated in code, but the active `filter_cookies` path only calls filtering for OUT (browser→server `Cookie`) direction. Do not rely on an IN row to block a server's `Set-Cookie` in the current build.
+  **IN direction is configured but not enforced.** Domain/Path/expiry filters on IN (Set-Cookie) rows are evaluated in code. But the active `filter_cookies` path only calls filtering for OUT (browser→server `Cookie`) direction. Do not rely on an IN row to block a server's `Set-Cookie` in the current build.
 </Warning>
 
 {/* source: https://www.safesquid.com/md/cookies-filtering.md */}
@@ -84,7 +84,7 @@ documented once, under **Allow**.
 
     - **Profiles** — Limit the row to connections that carry these Access Profile tags. Blank ignores profiles. Prefix `!` negates a tag.
     {/* source: https://www.safesquid.com/md/cookies-filtering.md */}
-    - **The built-in `Read Only` profile** is meant for Deny rows: apply it to a connection and matching cookies are blocked, so the user cannot stay signed in to that site. See the `cookie_profiles` catalog in [Suggested profiles](/configuration/custom_settings/suggested_profiles).
+    - **The built-in `Read Only` profile** is meant for Deny rows: apply it to a connection and matching cookies are blocked. So the user cannot stay signed in to that site. See the `cookie_profiles` catalog in [Suggested profiles](/configuration/custom_settings/suggested_profiles).
     - **Direction** — **OUT** — browser→server `Cookie` headers (what the live hooks filter). **IN** — server→browser `Set-Cookie` (domain, path, expiry tests in code; not invoked by current hooks). **BOTH** — either direction when filtering runs.
     - **Domain / Path** — Regular expressions. Used for Direction IN when Set-Cookie filtering runs. For OUT rows, only profiles and direction are tested.
     {/* source: https://www.safesquid.com/md/cookies-filtering.md */}
@@ -131,7 +131,7 @@ separate sub-tabs holding the override row lists.
 - Policy: **Deny**
 - Allow row: Profiles `Staff`, Direction OUT, Domain `corp\.example\.com`
 
-**Result:** staff users keep `Cookie` headers for `corp.example.com`; all other outbound cookies on matching requests are stripped and `Clear-Site-Data: "*"` is added when any cookie is dropped.
+**Result:** staff users keep `Cookie` headers for `corp.example.com`. All other outbound cookies on matching requests are stripped and `Clear-Site-Data: "*"` is added when any cookie is dropped.
 </Tip>
 
 <Tip>
@@ -142,13 +142,13 @@ separate sub-tabs holding the override row lists.
 - Allow row 1 (top): Domain `.*` — permits all
 - Allow row 2 (below): Profiles `Guest`, Direction OUT — no domain
 
-**Result:** for Guest connections, row 2 is the last Allow match and permits cookies; for others, row 1 is the last Allow match.
+**Result:** for Guest connections, row 2 is the last Allow match and permits cookies. For others, row 1 is the last Allow match.
 </Tip>
 
 ## How to verify
 
 1. From a test client, browse a site that sets cookies and watch the browser devtools Network tab for request `Cookie` headers upstream of SafeSquid.
-2. Open **Reports → Detailed logs**; look for `filter_name` related to cookies and native `cookie:` lines when COOKIE is enabled in `LOG_LEVEL`.
+2. Open **Reports → Detailed logs**. Look for `filter_name` related to cookies and native `cookie:` lines when COOKIE is enabled in `LOG_LEVEL`.
 3. Check debug response header `X-Cookie-Filter` on the connection (`Dropped-Cookie-Out` when cookies were stripped).
 4. Enable **Trace Entry** on one row to confirm profile and domain matching in Native logs.
 {/* source: https://www.safesquid.com/md/cookies-filtering.md */}

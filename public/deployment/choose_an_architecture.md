@@ -51,7 +51,7 @@ Each mode trades control, coverage, and rollback differently. Open the one that 
 </Accordion>
 
 <Accordion title="What transparent proxy requires">
-  Intercepts traffic through network-level redirection, with no client configuration. Coverage is comprehensive for everything on the redirected path, including devices you cannot configure. The cost moves to the network team, and a routing change made without coordination can take the control offline for everyone at once.
+  Intercepts traffic through network-level redirection, with no client configuration. Coverage is comprehensive for everything on the redirected path, including devices you cannot configure. The cost moves to the network team. A routing change made without coordination can take the control offline for everyone at once.
 </Accordion>
 
 <Accordion title="What TCP proxy requires">

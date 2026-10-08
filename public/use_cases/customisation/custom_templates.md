@@ -90,7 +90,7 @@ You must edit the original entry, because the entries in template section are pr
 ## Verification and Evidence
 
 - **Interface Checks**: In [Configuration Portal](/architecture/interface/configuration_portal), Custom Settings → Custom Templates: new template appears in the list with correct content and is assigned to the intended policy or block page.
-- **Log Analysis**: When a block or redirect occurs, the custom template is served; config logs show the template change if applicable.
+- **Log Analysis**: When a block or redirect occurs, the custom template is served. Config logs show the template change if applicable.
 - **Performance Validation**: Trigger a block or use case that invokes the template; the custom message or page displays as designed.
 
 **Related**: [Startup Parameters](/use_cases/customisation/startup_parameters), [Customisation](/use_cases/customisation/customisation), [Access Restriction](/use_cases/access_restriction/access_restriction), [Troubleshooting](/troubleshooting/troubleshooting)

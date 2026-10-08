@@ -17,8 +17,8 @@ The Web UI includes Reports and Support utilities that are not policy sections. 
 - **Dashboard and Statistics** — traffic overview and module counters (DLP blocks, scan totals, and similar).
 - **Native logs, Detailed logs, Config logs** — see [Logging and troubleshooting](/configuration/start_here/logging).
 - **Active Connections, Connection Pool** — live appliance state. Useful for diagnosing a specific client's session in real time, or when suspecting connection exhaustion under heavy load.
-- **DNS Cache** — live appliance state. Check here before assuming a stale DNS answer is a resolver problem outside SafeSquid — the appliance's own cache may be the one serving it.
-- **Password Cache** — live appliance state. Clear it when troubleshooting a credential change that doesn't seem to take effect — a cached failure or cached stale success can otherwise mask the real state for the remainder of the cache's expiry window.
+- **DNS Cache** — live appliance state. Check here before assuming a stale DNS answer is a resolver problem outside SafeSquid. The appliance's own cache may be the one serving it.
+- **Password Cache** — live appliance state. Clear it when troubleshooting a credential change that doesn't seem to take effect. A cached failure or cached stale success can otherwise mask the real state for the remainder of the cache's expiry window.
 - **SSL Certs/Cache** — live appliance state. Relevant when a client reports certificate errors that persist even after you believe the underlying HTTPS Inspection configuration is fixed.
 - **LDAP Entries** — directory browse after [Integrate LDAP](/configuration/application_setup/integrate_ldap) is configured. Use it to confirm a directory sync actually populated the expected users and groups before writing Access restrictions or Access Profiles rules that depend on them.
 
@@ -31,7 +31,7 @@ backup/restore, upgrade, restart, diagnostics, live chat).
 
 {/* source: live UI verification, build 2026.0627.1344.3, 2026-09-08 */}
 - **password** — confirmed live as the `xx--password` mode of **Support → URL Commands** (the same "URL command executor" dialog used for Test the Functionalities), not a separate card. Whether individual password fields (for example HTTPS Inspection's cached cert password) also carry their own dedicated button that opens this same tool pre-filled was not exercised — confirmed only that the mode itself exists and is reachable this way.
-- **Upload templates** — not a standalone tool. Each entry under [Custom Settings → Templates](/configuration/custom_settings/templates) carries its own **File** field (for example `blocked.html`); uploading a custom block/info template is done per-entry there, via that field's own upload control, not through a separate global "Upload templates" utility. Any policy section's Template field (Access Profiles DENY actions, ClamAV, DNS Blacklist, and others) can then reference the uploaded template by name.
+- **Upload templates** — not a standalone tool. Each entry under [Custom Settings → Templates](/configuration/custom_settings/templates) carries its own **File** field (for example `blocked.html`). Uploading a custom block/info template is done per-entry there, via that field's own upload control, not through a separate global "Upload templates" utility. Any policy section's Template field (Access Profiles DENY actions, ClamAV, DNS Blacklist, and others) can then reference the uploaded template by name.
 - **[Subscription](/configuration/infrastructure_and_access/subscription)** — activation key upload and license view (on-appliance side; distinct from the Support page's License Details).
 - **[Categorize Web-Sites](/configuration/custom_settings/categorize_web_sites)** — local category overrides (Web UI app, not a policy section list).
 

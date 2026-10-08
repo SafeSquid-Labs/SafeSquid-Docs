@@ -11,7 +11,7 @@ keywords:
 
 # Configure SSL Inspection for HTTPS Traffic
 
-This guide covers the complete HTTPS inspection setup: generate or import a Root CA certificate, enable inspection in SafeSquid, deploy the certificate to clients, and configure bypass rules for sensitive domains.
+Complete HTTPS inspection setup means you generate or import a Root CA certificate, enable inspection in SafeSquid, deploy the certificate to clients, and configure bypass rules for sensitive domains.
 
 **Time to complete (Draft):** Plan **30–60 minutes** including client trust rollout; duration varies by fleet size and MDM maturity.
 
@@ -489,7 +489,7 @@ tail -f /var/log/safesquid/access/extended.log
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | Root CA via Self-Service Portal | **Confirmed** | This guide, [Self-Service Portal](/architecture/interface/self_service_portal) |
 | Enable inspection UI path | **Confirmed** | Steps in this guide |
 | Client trust stores (Windows, Firefox, macOS) | **Confirmed** | This guide, [Import Certificate Chrome/IE](/use_cases/ssl_inspection/import_certificate_chrome_ie) |

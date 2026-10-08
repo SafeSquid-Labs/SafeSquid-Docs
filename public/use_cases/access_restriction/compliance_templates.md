@@ -233,7 +233,7 @@ Use [Reporting Module](/use_cases/audit_and_forensics/reporting_module) to track
 
 - **Interface:** Configure → Real Time Content Security → Text Analyser shows policies with patterns, scores, and thresholds. Access Restriction policies reference the same profiles for block/log actions.
 - **Logs:** Security and access logs record matches and blocked requests when threshold is exceeded. Filter logs by DLP or Text Analyser events.
-- **Audit evidence:** Export reports from the Reporting Module for the audit period; show configured patterns and count of matches or blocks to demonstrate control operation.
+- **Audit evidence:** Export reports from the Reporting Module for the audit period. Show configured patterns and count of matches or blocks to demonstrate control operation.
 - **Governance check:** Retain the rationale for each enabled pattern and the tuning record that shows why the threshold is safe enough for production.
 
 

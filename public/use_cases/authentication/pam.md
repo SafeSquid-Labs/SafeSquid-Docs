@@ -61,7 +61,7 @@ If you create a user via `useradd` on the Linux host, SafeSquid will be able to 
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | PAM stack delegation to OS | **Confirmed** | This page |
 | Allow List **PAM Authentication** = TRUE | **Confirmed** | Verification table |
 

@@ -33,7 +33,7 @@ When no Active Directory (AD) server is available for SafeSquid LDAP, administra
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ----- |
+|---|---|---|
 | Internal user database via UI | **Confirmed** | Procedure screenshots on this page |
 | Parity with [BASIC](/use_cases/authentication/basic) / credential store | **Draft** | Treat as overlapping capability; align narrative with engineering if titles differ |
 

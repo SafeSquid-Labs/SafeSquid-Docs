@@ -107,7 +107,7 @@ Confirm:
     tail -f /var/log/cloud-init-output.log
     ```
 
-    Expected result: the log reaches completion without error. A cloud-init failure often leaves a reachable instance running no proxy at all, so check this before assuming the launch succeeded.
+    Expected result: the log reaches completion without error. A cloud-init failure often leaves a reachable instance running no proxy at all. So check this before assuming the launch succeeded.
   </Tab>
   <Tab title="Existing cloud VM">
     Use an existing cloud VM only when the operating system lifecycle is already owned. Confirm dependencies, hardening, backup, monitoring, and rollback before installing SafeSquid.
@@ -159,7 +159,7 @@ Before routing clients, enforce:
 
   Where a load balancer is used, configure the health check against the proxy listener on port `8080` using an HTTP `GET` to `/`. A check that only tests TCP reachability will keep sending traffic to an instance whose proxy has stopped answering.
 
-  Per-platform options are the Network or Application Load Balancer on AWS, Azure Load Balancer or Application Gateway, and the TCP/UDP load balancer on GCP.
+  Per-platform options are the Network or Application Load Balancer on AWS, Azure Load Balancer or Application Gateway. The TCP/UDP load balancer on GCP.
 
 </Accordion>
 

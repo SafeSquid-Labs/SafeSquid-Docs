@@ -11,7 +11,7 @@ keywords:
 
 # Set Up URL Redirection Between Websites
 
-### [Access the SafeSquid User Interface ](/architecture/interface/configuration_portal)
+## [Access the SafeSquid User Interface ](/architecture/interface/configuration_portal)
 SafeSquid includes sample policies to support policy creation. The sample policy "Enable interface access through authentication" is already present. Enable those policies to make them applicable.
 
 Click on 'Configure' which is at top right of the SafeSquid Interface.
@@ -32,10 +32,10 @@ Create a policy in **Configure** → **Access Profiles** (or **Templates**) with
 
 Click on save (Save button is placed at right bottom)
 
-### Verify redirect
+## Verify redirect
 In this the URL value 'rediff.com' is redirect to 'SafeSquid.com' and the port to redirect to 80.
 
-In a browser, open https://www.rediff.com/, it must redirect to SafeSquid.com; verify in SafeSquid under Native logs on SafeSquid interface Reports >> Native logs as like below.
+In a browser, open https://www.rediff.com/, it must redirect to SafeSquid.com. Verify in SafeSquid under Native logs on SafeSquid interface Reports >> Native logs as like below.
 
 ![Verify Redirect One Website To Another Website in Native logs on](/images/How_To/Redirect_One_Website_To_Another_Website/image4.webp)
 

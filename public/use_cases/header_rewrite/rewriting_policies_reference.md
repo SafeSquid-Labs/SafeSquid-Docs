@@ -13,7 +13,7 @@ keywords:
 
 # Rewriting policies control what SafeSquid modifies
 
-Content Modifier uses regex-based rewriting policies to modify web page body content, client request headers, server response headers, and POST data in real time. Each policy defines a match pattern, a replacement, a MIME scope, and a target (body, client header, server header, or POST data). Policies are ordered; SafeSquid evaluates them top-to-bottom and applies all matching rules to each connection.
+Content Modifier uses regex-based rewriting policies to modify web page body content, client request headers, server response headers, and POST data in real time. Each policy defines a match pattern, a replacement, a MIME scope. A target (body, client header, server header, or POST data). Policies are ordered; SafeSquid evaluates them top-to-bottom and applies all matching rules to each connection.
 
 
 

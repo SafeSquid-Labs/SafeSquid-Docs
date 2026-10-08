@@ -88,7 +88,7 @@ The two paths diverge from here — prebuilt image for the fastest known-good ba
 
     Expected result: the log reaches completion without error.
 
-    A cloud-init failure often leaves a reachable instance running no proxy at all, so check this before assuming the launch succeeded. An instance that answers SSH is not an instance that is proxying.
+    A cloud-init failure often leaves a reachable instance running no proxy at all. So check this before assuming the launch succeeded. An instance that answers SSH is not an instance that is proxying.
   </Tab>
 </Tabs>
 

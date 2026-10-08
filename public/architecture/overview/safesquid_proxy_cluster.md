@@ -15,7 +15,7 @@ keywords:
 
 ## Problem statement
 
-A single SWG node creates two enterprise risks: it becomes a single point of failure, and it limits growth to the capacity of one server. For large enterprises and mission-critical environments, that is not enough. The organisation needs multiple enforcement points with consistent policy, shared evidence, and a failover design that does not create policy drift.
+A single SWG node creates two enterprise risks: it becomes a single point of failure. It limits growth to the capacity of one server. For large enterprises and mission-critical environments, that is not enough. The organisation needs multiple enforcement points with consistent policy, shared evidence. A failover design that does not create policy drift.
 
 ## Client scenario
 

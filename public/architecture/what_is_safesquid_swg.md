@@ -16,7 +16,7 @@ SafeSquid is a high-performance, multi-threaded Content Security Gateway that en
 
 ## Encrypted traffic leaves the network blind
 
-The majority of enterprise web traffic is encrypted. Traditional firewalls stop at IP address, port, and domain reputation — the Layer 7 transaction, authenticated user context, POST body, and file payload remain invisible. This inspection gap is the entry point for modern attacks.
+The majority of enterprise web traffic is encrypted. Traditional firewalls stop at IP address, port, and domain reputation. The Layer 7 transaction, authenticated user context, POST body, and file payload remain invisible. This inspection gap is the entry point for modern attacks.
 
 Attackers deliver zero-day malware, ransomware, and phishing through HTTPS connections that legacy perimeter controls treat as trusted. Sensitive data leaves through SaaS storage, browser uploads, and personal webmail without triggering any firewall alert. Unsanctioned remote-access tools such as **AnyDesk** and **TeamViewer** operate over standard HTTPS ports. Employees consume streaming media, personal social networks, and non-work applications during business hours — a pattern known as cyber-slacking — reducing productivity and consuming bandwidth. When an incident occurs, investigation stalls because request-level logs, user attribution, and enforcement evidence do not exist.
 

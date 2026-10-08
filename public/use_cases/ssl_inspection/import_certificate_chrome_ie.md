@@ -178,7 +178,7 @@ For enterprise rollouts, GPO or another managed certificate-deployment path is s
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ----- |
+|---|---|---|
 | Windows Trusted Root import path | **Confirmed** | This guide, `certmgr.msc` |
 | GPO deployment (tip) | **Draft** | Standard Windows CA deployment pattern; validate against org GPO practice |
 

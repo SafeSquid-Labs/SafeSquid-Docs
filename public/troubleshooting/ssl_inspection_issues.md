@@ -209,9 +209,9 @@ To allow domain mismatch errors for specific HTTPS websites, create a policy:
 
 - **Interface Checks**: Confirm the SafeSquid Root CA is installed in the browser trust store ([Import Certificate into Chrome or IE](/use_cases/ssl_inspection/import_certificate_chrome_ie)). In Configuration Portal, HTTPS Inspection policies match the intended bypass/enforce rules; SSL Certs/Cache cleared if DNS mismatch was the issue.
 
-- **Log Analysis**: Native logs show successful client encryption for previously failing domains; no `S_X509_DNS_MISMATCH` or transfer failed errors for the fixed cases.
+- **Log Analysis**: Native logs show successful client encryption for previously failing domains. No `S_X509_DNS_MISMATCH` or transfer failed errors for the fixed cases.
 
-- **Performance Validation**: Previously failing HTTPS sites load without "connection not secured" or "secured connection fail"; YouTube and other sites work per policy.
+- **Performance Validation**: Previously failing HTTPS sites load without "connection not secured" or "secured connection fail". YouTube and other sites work per policy.
 
 ## Next steps
 

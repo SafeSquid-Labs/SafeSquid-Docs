@@ -78,7 +78,7 @@ Seven SPNs are required. The hostname used by `msktutil` must match the AD objec
 Use this table to identify which values in the commands and scripts need to be replaced with your environment's specific details.
 
 | Placeholder | Description | Example Value |
-| :--- | :--- | :--- |
+|:---|:---|:---|
 | `<SafeSquid_ISO_Hostname>` | The hostname of your SafeSquid ISO/Virtual Machine. | `safesquid-proxy-01` |
 | `<your.domain.name>` | Your Active Directory domain name (FQDN). | `company.local` |
 | `<REALM>` | Your AD domain name in ALL CAPS. | `COMPANY.LOCAL` |
@@ -93,7 +93,7 @@ Use this table to identify which values in the commands and scripts need to be r
 These seven SPNs must be registered on the SafeSquid computer object. Replace placeholders with your actual values.
 
 | SPN Type | Service Principal Name Format | Description |
-| :--- | :--- | :--- |
+|:---|:---|:---|
 | **ISO Host (FQDN)** | `HOST/<SafeSquid_ISO_Hostname>.<REALM>` | Kerberos identity for the ISO hostname. |
 | **ISO HTTP (FQDN)** | `HTTP/<SafeSquid_ISO_Hostname>.<REALM>` | Used for web-based Kerberos authentication. |
 | **ISO LDAP (FQDN)** | `LDAP/<SafeSquid_ISO_Hostname>.<REALM>` | Used for LDAP/AD communication. |
@@ -261,7 +261,7 @@ Navigate to **Application Setup** > **Integrate LDAP** > **LDAP servers**.
 ![LDAP CONFIG IN SAFESQUID FOR RODC](/images/How_To/Configure_LDAP_In_Safesquid_For_RHOD/image1.webp)
 
 | Parameter | Configuration Value |
-| :--- | :--- |
+|:---|:---|
 | **Enabled** | `TRUE` |
 | **Ldap FQDN\IP** | `` `<RODC_Hostname>\<RODC_IP>` `` |
 | **Ldap Bind Method** | `NEGOTIATE_LDAP_AUTH` |
@@ -289,7 +289,7 @@ Ensure the **Ldap Bind Method** is set to **NEGOTIATE_LDAP_AUTH**. This is the t
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ----- |
+|---|---|---|
 | `NEGOTIATE_LDAP_AUTH` bind method | **Confirmed** | This page (required for Kerberos path) |
 | RODC replication / keytab errors | **Confirmed** | Troubleshooting above |
 | Time skew tolerance | **Draft** | **5 minutes** aligns with common Kerberos practice; **CTO** confirm against supported AD policy |

@@ -34,7 +34,7 @@ When all traffic is blocked for security, some users may need access to remote a
 When a user tries to access a remote application, First SafeSquid checks for that user and decides whether this user is allowed to access a remote application or not, if yes then SafeSquid gives access to that user, and before giving the access it will check for user-agent. If access is allowed to both users and the application, then only the user can able to access that application. If the user **Samidha wants access** to the XYZ application but is trying to access the **ABC** application, SafeSquid will block to user Samidha.
 
 ```mermaid
-flowchart LR
+flowchart TB
     User[User request]
     CheckUser[Check user allowed]
     CheckApp[Check application]
@@ -109,7 +109,7 @@ Bind that created user group and Request Type in Access Profiles and decide whet
 ## Verification and Evidence
 
 - **Interface Checks**: In [Configuration Portal](/architecture/interface/configuration_portal), confirm Real-time content security → HTTPS Inspection has Bypass SSL Inspection policy enabled, and Restriction Policies → Access profiles show the allow policy for the remote desktop application with the correct request type and Bypass SSL Inspection profile.
-- **Log Analysis**: SafeSquid access logs should show successful CONNECT or requests for the remote app when allowed; blocked attempts appear with deny or policy response codes.
+- **Log Analysis**: SafeSquid access logs should show successful CONNECT or requests for the remote app when allowed. Blocked attempts appear with deny or policy response codes.
 - **Performance Validation**: From an allowed user and device, launch [AnyDesk](https://anydesk.com/) (or the configured app) with proxy set; connection should succeed. From a non-allowed user or app, access should be blocked.
 
 **Related**: [SSL Inspection](/use_cases/ssl_inspection/ssl_inspection), [Access Restriction](/use_cases/access_restriction/access_restriction), [Architecture](/architecture/overview/safesquid_swg), [Restrict AnyDesk](/use_cases/access_restriction/restrict_anydesk), [Troubleshooting](/troubleshooting/troubleshooting)

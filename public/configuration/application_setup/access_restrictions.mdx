@@ -21,7 +21,7 @@ Configure authentication mechanisms in [Authentication](/configuration/start_her
 
 {/* source: https://www.safesquid.com/md/access.md */}
 <Warning>
-**Access restrictions is not cumulative — it is first-match-wins, per list.** Access Profiles evaluates every enabled entry top to bottom, and a later entry can add to or override an earlier one. Access restrictions does not: within a list, the first enabled entry whose fields all match wins the pass, and every entry after it in that same list is skipped for that pass. A broad entry with no restriction (for example, a catch-all Allow meant for "everyone who authenticates") sitting above a narrower entry makes the narrow entry unreachable — it never fires, never logs as matched, and nothing in the Web UI flags the conflict. The only way to catch it is to read the list top to bottom, in order, before relying on it.
+**Access restrictions is not cumulative — it is first-match-wins, per list.** Access Profiles evaluates every enabled entry top to bottom. A later entry can add to or override an earlier one. Access restrictions does not: within a list, the first enabled entry whose fields all match wins the pass. Every entry after it in that same list is skipped for that pass. A broad entry with no restriction (for example, a catch-all Allow meant for "everyone who authenticates") sitting above a narrower entry makes the narrow entry unreachable. It never fires, never logs as matched, and nothing in the Web UI flags the conflict. The only way to catch it is to read the list top to bottom, in order, before relying on it.
 </Warning>
 
 ### Default policy and list order
@@ -132,10 +132,10 @@ All configured criteria on a row must match. Blank means any.
 - **Negation** — `LDAP Profiles` and `Profiles` both accept `!value` to negate a match.
 - **Add to User-Groups (`add_user_groups`)** — group names added to the connection's User-Groups on match. LDAP groups and the user's directory identity are added automatically alongside these, regardless of this field — see "User-Groups assembly on match" above.
 - **Bypass (`bypass`)** — modules skipped on match: Header filtering, Redirect, Cookie filtering, Rewrite, External, Forward, Text analyzer/Keyword filtering, DNSBL, Limits, Antivirus, ICAP, DLP.
-- **Interface username / Interface password (`ifusername` / `ifpassword`)** — optional second Web UI login, required together; only relevant when this entry also grants the **Web interface** Access right.
+- **Interface username / Interface password (`ifusername` / `ifpassword`)** — optional second Web UI login, required together. Only relevant when this entry also grants the **Web interface** Access right.
 - **Comment (`comment`)** — written to native security logs when this entry matches.
 - **Trace Entry (`profile_tracing`)** — logs each User-Group this entry adds; turn off after testing.
-- **MAX Concurrent Connections — the uncapped case** — `0` removes the connection ceiling, but connections are still counted against the entry, not skipped from counting.
+- **MAX Concurrent Connections — the uncapped case** — `0` removes the connection ceiling. But connections are still counted against the entry, not skipped from counting.
 
 ## Examples
 

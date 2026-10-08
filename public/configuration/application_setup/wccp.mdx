@@ -16,7 +16,7 @@ WCCP works with WCCP routers to redirect traffic to SafeSquid without setting a 
 {/* [VERIFY WITH SAFESQUID TEAM]: both legacy source pages state WCCP redirection is broken in current builds and recommend explicit proxy instead, with architecture.html listing WCCP under modules not in the live request path. The console at build 2026.0627.1344.3 exposes the full WCCP section with no such caveat, and functional status cannot be tested without a WCCP router in the lab. Confirm with engineering whether redirection works in the shipping build before this page recommends WCCP for production. */}
 
 <Warning>
-**Confirm WCCP redirection works on your build before relying on it.** Legacy SafeSquid documentation states WCCP redirection is broken and recommends explicit proxy configuration instead. That claim could not be confirmed or refuted against build `2026.0627.1344.3` — the console exposes the section normally, but a working router is needed to test redirection end to end.
+**Confirm WCCP redirection works on your build before relying on it.** Legacy SafeSquid documentation states WCCP redirection is broken and recommends explicit proxy configuration instead. That claim could not be confirmed or refuted against build `2026.0627.1344.3` — the console exposes the section normally. But a working router is needed to test redirection end to end.
 
 **Missing:** the functional status of WCCP redirection in the shipping build. Test redirection in a lab with a real WCCP router before committing to it in production, and keep an explicit-proxy or PAC fallback ready. Escalate to engineering rather than treating the section's presence in the console as proof it works.
 </Warning>
@@ -77,14 +77,14 @@ Service Type DYNAMIC, Service Group ID `98` (agreed in advance with the network 
 
 ### Restricting to specific ports
 
-Ports `8081,9000-9010` alongside Application Protocol HTTP. Only traffic on those ports is what SafeSquid told the router it wants for this entry; standard port 80 would need a separate entry or need to be added to this entry's Ports list.
+Ports `8081,9000-9010` alongside Application Protocol HTTP. Only traffic on those ports is what SafeSquid told the router it wants for this entry. Standard port 80 would need a separate entry or need to be added to this entry's Ports list.
 
 ## How to verify
 
 The checks below confirm the configuration is complete, not that transparent redirection is actually working end to end — see the reliability warning above.
 
 1. Confirm the global Enabled switch and the entry's own Enabled switch are both on.
-2. Confirm the Service Group ID (dynamic service) and any Encrypted Password (MD5 security) exactly match what's configured on the router side — SafeSquid does not surface a clear mismatch error in the Web UI.
+2. Confirm the Service Group ID (dynamic service) and any Encrypted Password (MD5 security) exactly match what's configured on the router side. SafeSquid does not surface a clear mismatch error in the Web UI.
 3. Work with the network team to confirm, from the router or switch's own status output, that it has actually formed the service group and is redirecting matching traffic.
 4. Once redirected traffic is confirmed arriving, check Detailed logs for those transactions the same way as explicitly-proxied traffic.
 5. Re-confirm the whole chain after any router firmware change, network re-addressing, or SafeSquid version update.

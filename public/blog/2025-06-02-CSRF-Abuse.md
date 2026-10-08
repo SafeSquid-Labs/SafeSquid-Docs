@@ -16,7 +16,7 @@ mode: "center"
 
 ## Legacy Defences: Ship Now, Secure Later
 
-Modern web apps ship faster than security reviews can keep pace. Free JavaScript libraries come and go; developers copy snippets, unaware they inherit unvetted attack surface. **Cross‑Site Scripting (XSS)** still ranks in the OWASP Top 10, and when an attacker combines XSS with **Cross‑Site Request Forgery (CSRF)**, they can weaponise the victim’s own browser to execute privileged actions—no credentials required.
+Modern web apps ship faster than security reviews can keep pace. Free JavaScript libraries come and go; developers copy snippets, unaware they inherit unvetted attack surface. **Cross‑Site Scripting (XSS)** still ranks in the OWASP Top 10. When an attacker combines XSS with **Cross‑Site Request Forgery (CSRF)**, they can weaponise the victim’s own browser to execute privileged actions—no credentials required.
 
 Pressure to release new features drives teams to adopt “good‑enough” escape‑html helpers or CSP headers and call it a day. Yet libraries age, input filters miss polyglot payloads, and security debt accumulates. XSS sneaks in; CSRF exploits the trust browsers place in first‑party cookies and passwords already present in the session.
 
@@ -45,7 +45,7 @@ The payload is posted in a public “Contact Us” thread. Because the field str
 
 ### 4 Victim Engagement: Trust Exploited
 
-A logged‑in BankEase customer views the thread. The browser parses the HTML, triggers `onerror`, and the hidden image fires a **POST** request that changes the account phone number—complete with session cookies—no click needed.
+A logged‑in BankEase customer views the thread. The browser parses the HTML, triggers `onerror`. The hidden image fires a **POST** request that changes the account phone number—complete with session cookies—no click needed.
 
 ### 5 Stealth Persistence: Hijack & Harvest
 

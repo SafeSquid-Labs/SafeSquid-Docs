@@ -12,7 +12,7 @@ Web pages and responses can contain unwanted scripts, tracking, or sensitive dat
 
 ## Key benefits of Content Modifier
 
-Content Modifier enables security and operational control: strip or replace ActiveX, JavaScript, and cookies by profile; rewrite titles or inject inspection notices for audit; normalize Accept headers (e.g. request PNG/JPG instead of AVIF/WEBP). Supports compliance use cases where content must be altered before delivery (e.g. data masking, branding). **Limitation:** Regex errors or broad MIME matching can affect page layout or break applications; test rules in a non-production profile first.
+Content Modifier enables security and operational control: strip or replace ActiveX, JavaScript, and cookies by profile. Rewrite titles or inject inspection notices for audit; normalize Accept headers (e.g. request PNG/JPG instead of AVIF/WEBP). Supports compliance use cases where content must be altered before delivery (e.g. data masking, branding). **Limitation:** Regex errors or broad MIME matching can affect page layout or break applications. Test rules in a non-production profile first.
 
 
 
@@ -117,7 +117,7 @@ This option is to select what the rewrite entry applies to.
 
 ## Example
 ### Rule#1
-I want to modify the title tag of webpages which will indicate that it has been the webpage is inspected by SafeSquid. This rule is to be applied to every connection. To ensure the title tag is modified the chunked response needs to be buffered. Using regex (Regular Expression) we can use pattern matching to select the title tag of webpages. Replace with the title tag Inspected by SafeSquid.
+This rule modifies the title tag of webpages to indicate that SafeSquid inspected the webpage. This rule is to be applied to every connection. To ensure the title tag is modified the chunked response needs to be buffered. Regex (Regular Expression) pattern matching selects the title tag of webpages. Replace with the title tag Inspected by SafeSquid.
 
 ![Example rule: modify title tag to show inspected by SafeSquid](/images/Configure/Real_Time_Content_Activity/Content_modifier/image10.webp)
 
@@ -126,7 +126,7 @@ We want to request PNG & JPG images instead of AVIF & WEBP from a remote server.
 
 AVIF images and ignore by SafeSquid's image analyzer.
 
-Using regex (Regular Expression) we can use pattern matching to select the header request sent from the client to SafeSquid.
+Regex (Regular Expression) pattern matching selects the header request sent from the client to SafeSquid.
 
 Modify the header response and request for PNG & JPG images instead of AVIF & WEBP.
 
@@ -139,8 +139,8 @@ Modify the header response and request for PNG & JPG images instead of AVIF & WE
 ## Verification and Evidence
 
 - **Interface:** **Configure** → **Real-time content security** → **Content Modifier** shows **Enabled** and the list of rewriting policies. Confirm each entry has the intended **Profiles**, **Mime type**, **Pattern**, and **Replace** values.
-- **Traffic:** Load a page or trigger a request that matches a rule; confirm the response body or headers reflect the replacement (e.g. title contains "Inspected by SafeSquid", or Accept header requests image types as configured).
-- **Logs:** SafeSquid access and content logs can indicate requests that matched modifier profiles; use for audit when demonstrating that content was altered per policy.
+- **Traffic:** Load a page or trigger a request that matches a rule. Confirm the response body or headers reflect the replacement (e.g. title contains "Inspected by SafeSquid", or Accept header requests image types as configured).
+- **Logs:** SafeSquid access and content logs can indicate requests that matched modifier profiles. Use for audit when demonstrating that content was altered per policy.
 
 
 

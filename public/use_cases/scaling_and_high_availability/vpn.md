@@ -350,8 +350,8 @@ wg genkey | tee privatekey | wg pubkey > publickey
 
 ## Verification and Evidence
 
-- **Interface Checks**: Confirm [WireGuard](https://www.wireguard.com/) interface is up (`wg show`); SafeSquid listens on the expected ports and is reachable over the VPN tunnel from clients.
-- **Log Analysis**: VPN peer handshakes and traffic appear in system logs; SafeSquid access logs show requests from VPN client IPs when traffic is routed through the proxy.
+- **Interface Checks**: Confirm [WireGuard](https://www.wireguard.com/) interface is up (`wg show`). SafeSquid listens on the expected ports and is reachable over the VPN tunnel from clients.
+- **Log Analysis**: VPN peer handshakes and traffic appear in system logs. SafeSquid access logs show requests from VPN client IPs when traffic is routed through the proxy.
 - **Performance Validation**: From a client connected via VPN, browse through SafeSquid; traffic is inspected and policies apply. Load balancer (if used) distributes connections correctly.
 
 ## Next steps

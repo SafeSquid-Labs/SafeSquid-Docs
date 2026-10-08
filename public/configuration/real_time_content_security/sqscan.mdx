@@ -23,7 +23,7 @@ Enabled virus scanning policy rows are walked top to bottom. The **first** row w
 
 ### Scan levels — BYPASS only
 
-Malware Security Level **BYPASS** skips scanning. Values STANDARD, HIGH, and PARANOID are stored but the engine uses fixed scan options — only **BYPASS** changes runtime behaviour today.
+Malware Security Level **BYPASS** skips scanning. Values STANDARD, HIGH, and PARANOID are stored but the engine uses fixed scan options. Only **BYPASS** changes runtime behaviour today.
 
 ### Malware Types unused
 
@@ -89,7 +89,7 @@ are Enabled, Comment, Malware Security Level, and Malware Types.
 1. **sqscan status** — module Ready, signatures current.
 2. Download EICAR test file through proxy.
 3. Enable ANTIVIRUS log level for native `sqscan:` lines.
-4. Dashboard counters: Objects Scanned, Threats Detected, Scan bypassed — a rising Scan Bypassed count with no corresponding BYPASS entries usually points to the scanner not being Ready, not to a misconfigured policy.
+4. Dashboard counters: Objects Scanned, Threats Detected, Scan bypassed. A rising Scan Bypassed count with no corresponding BYPASS entries usually points to the scanner not being Ready, not to a misconfigured policy.
 
 ## Next steps
 

@@ -11,7 +11,7 @@ keywords:
 
 # Prove Traffic Reaches the Proxy
 
-A healthy proxy that clients cannot reach passes every check run on the server. The failure only appears from the client side. By then users are already escalating, and the fastest workaround an impatient administrator reaches for is removing the proxy setting entirely.
+A healthy proxy that clients cannot reach passes every check run on the server. The failure only appears from the client side. By then users are already escalating. The fastest workaround an impatient administrator reaches for is removing the proxy setting entirely.
 
 Run this check from a pilot client, not from the SafeSquid host.
 
@@ -36,7 +36,7 @@ Expected result: the request returns an HTTP response such as `200`, `301`, or `
 
 ## Confirm the request was logged
 
-The client response alone does not prove the request went through SafeSquid — a bypassed client reaches the site just as successfully. The access log is the proof.
+The client response alone does not prove the request went through SafeSquid. A bypassed client reaches the site just as successfully. The access log is the proof.
 
 On the SafeSquid server:
 
@@ -52,7 +52,7 @@ If the request succeeded but no entry appears, the client is bypassing SafeSquid
 
 <Accordion title="Client-side checklist">
 
-Run this from a client workstation, not from the SafeSquid host. It catches the failures that server-side checks cannot see — a healthy proxy that clients cannot reach still passes every check on the server.
+Run this from a client workstation, not from the SafeSquid host. It catches the failures that server-side checks cannot see. A healthy proxy that clients cannot reach still passes every check on the server.
 
 **Network connectivity**
 

@@ -57,7 +57,7 @@ Replace `SAFESQUID-IP` and `.internal.example.com` with approved values. Avoid w
 
 <Accordion title="Add proxy failover">
 
-A single `PROXY` return means every browser loses web access when that node is unavailable. The return value accepts an ordered, semicolon-separated list; the browser tries each in turn and moves on when one does not answer.
+A single `PROXY` return means every browser loses web access when that node is unavailable. The return value accepts an ordered, semicolon-separated list. The browser tries each in turn and moves on when one does not answer.
 
 ```javascript
 return "PROXY SAFESQUID-A:8080; PROXY SAFESQUID-B:8080";

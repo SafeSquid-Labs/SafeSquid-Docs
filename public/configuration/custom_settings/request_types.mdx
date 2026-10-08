@@ -13,7 +13,7 @@ keywords:
 
 The **Request Types** section labels HTTP requests with tags consumed by [Access Profiles](/configuration/restriction_policies/access_profiles) and other filters. It does not block traffic.
 
-Request Types only ever inspects the **request** side — what the client sent. It has no visibility into what the destination returns; that is Response Types. So it can tell you what destination and what kind of activity a client is attempting, but never what was actually delivered, and it must not be relied on for that.
+Request Types only ever inspects the **request** side — what the client sent. It has no visibility into what the destination returns; that is Response Types. So it can tell you what destination and what kind of activity a client is attempting. But never what was actually delivered, and it must not be relied on for that.
 
 ## Core mechanics
 
@@ -27,7 +27,7 @@ The section does not evaluate any entry at all if the connection has no host to 
 
 1. Application Signatures (unless subscription expired).
 2. **Domains and Urls** — substring match; every matching row applies.
-3. **Request Types** rows — all gates must pass; every match applies. Where two entries act on the same label, whichever runs later wins — an entry lower in the list can remove a label an entry above it just added.
+3. **Request Types** rows — all gates must pass; every match applies. Where two entries act on the same label, whichever runs later wins. An entry lower in the list can remove a label an entry above it just added.
 
 ```mermaid
 flowchart TB
@@ -70,7 +70,7 @@ When Host Name regex misses and Smart TLD is on, same regex retried against site
 ### Domains and Urls entry
 
 - **Enabled** (`enabled`), **Comment** (`comment`) — standard entry controls.
-- **Domains and URLs** (`hosts`) — a list of needles separated by comma, space, tab, newline, or semicolon, searched as plain substrings against host/TLD plus path — not a regular expression, not a wildcard; do not include a scheme prefix or a `*`.
+- **Domains and URLs** (`hosts`) — a list of needles separated by comma, space, tab, newline, or semicolon, searched as plain substrings against host/TLD plus path — not a regular expression, not a wildcard. Do not include a scheme prefix or a `*`.
 - **Match** (`where`) — Host, Referer, or Both.
 - **Added / Removed Request Types** — labels applied when a needle matches.
 - **Bypass DNSBL and Categorization** — skips DNS Blacklist checking and website categorization for a matching connection. When more than one matching Domains and Urls entry sets this differently, the last matching entry's setting takes effect.

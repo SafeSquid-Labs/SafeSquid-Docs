@@ -32,7 +32,7 @@ Roughly **-10** (unlikely inappropriate) through **0** (very likely). Block when
 
 ### Debug mode
 
-On responses with Debug enabled, images at or above threshold are blurred and annotated in-place; connection still marked blocked but block template not sent.
+On responses with Debug enabled, images at or above threshold are blurred and annotated in-place. Connection still marked blocked but block template not sent.
 
 ### Bypass
 
@@ -67,7 +67,7 @@ debug -->|No| templ[Block template]
 ### Policy rows
 
 - **Profiles (profiles)** — Limit to tagged connections. Blank matches all.
-- **Threshold (threshold)** — Block when score ≥ this value. A **lower** Threshold number is **stricter** (blocks more); a higher one is more permissive — for example, a Threshold of `-2` blocks less aggressively than a Threshold of `0`.
+- **Threshold (threshold)** — Block when score ≥ this value. A **lower** Threshold number is **stricter** (blocks more). A higher one is more permissive — for example, a Threshold of `-2` blocks less aggressively than a Threshold of `0`.
 - **Bypass Image Scanning (bypass)** — Skip scan for matching profiles.
 - **Debug (debug)** — Blur/annotate on response instead of block template. Has no equivalent effect on the upload path, which always uses the block template.
 - **Template (template)** — Replacement on block. Falls back through the matching entry's own Template, then the section's Default template, then the built-in checkered placeholder — whichever is first non-blank.

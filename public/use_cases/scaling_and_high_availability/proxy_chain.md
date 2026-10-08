@@ -17,7 +17,7 @@ Use SafeSquid as a child proxy in front of a corporate (parent) proxy. A simple 
 Traffic flows from the client through the child SafeSquid to the parent proxy, then to the internet:
 
 ```mermaid
-flowchart LR
+flowchart TB
     Client[Client browser]
     Child[Child SafeSquid]
     Parent[Parent proxy]
@@ -54,7 +54,7 @@ Deploy SafeSquid, it is up and running, no extra configuration required in paren
 
 
 ## Prerequisites
-Enable HTTPS inspection on child proxy (optionally on parent proxy also). Check our document to configure HTTPS inspection on SafeSquid - [How to configure HTTPS inspection](/use_cases/ssl_inspection/ssl_inspection)
+Enable HTTPS inspection on child proxy (optionally on parent proxy also). To configure HTTPS inspection on SafeSquid, see [How to configure HTTPS inspection](/use_cases/ssl_inspection/ssl_inspection)
 
 Import SafeSquid child proxy ROOT CA in client browser
 
@@ -141,8 +141,8 @@ Otherwise select No and click on submit.
 ## Verification and Evidence
 
 - **Interface Checks**: In [Configuration Portal](/architecture/interface/configuration_portal), open Application Setup → Proxy chain. Confirm Global is enabled and the forwarding proxy entry shows the correct parent IP and port.
-- **Log Analysis**: Check SafeSquid access logs for requests showing the parent proxy as upstream; connection failures to the parent appear in logs with connect errors.
-- **Performance Validation**: From a client behind the child proxy, browse an external site; traffic should succeed and appear in both child and parent proxy logs.
+- **Log Analysis**: Check SafeSquid access logs for requests showing the parent proxy as upstream. Connection failures to the parent appear in logs with connect errors.
+- **Performance Validation**: From a client behind the child proxy, browse an external site. Traffic should succeed and appear in both child and parent proxy logs.
 
 
 

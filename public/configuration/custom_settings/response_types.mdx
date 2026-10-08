@@ -68,7 +68,7 @@ MIME regex tries response Content-Type header, then detected body type. Extensio
 - **Enabled** (`enabled`), **Comment** (`comment`) — standard entry controls.
 - **Trace Entry** (`profile_tracing`) — logs each label this entry adds or removes.
 - **Response Types** (`res_types`) — gates on a label an earlier entry already applied; supports `!` negation, blank ignores the gate.
-- **Content type** (`mime`) — tried against the actual Content-Type header first, then against a body-detected type if that doesn't match; skipped if neither is available.
+- **Content type** (`mime`) — tried against the actual Content-Type header first, then against a body-detected type if that doesn't match. Skipped if neither is available.
 - **File Extension** (`file_extension`) — tried against the request URL path with the query string removed first, then against the response's attachment filename from a Content-Disposition header.
 - **Transfer Encoding Chunk** (`transfer_encoding_chunk`) — YES applies only to a chunked response, NO only to non-chunked, ANY ignores chunking.
 - **Minimum / Maximum Content Size** — see [Content size](#content-size) above.

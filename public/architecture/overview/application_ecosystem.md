@@ -18,7 +18,7 @@ SafeSquid is not only a proxy. The production system also depends on intelligenc
 
 ## Problem statement
 
-Enterprises often assemble web security from unrelated parts. These include a proxy, a DNS control, a reporting platform, a SIEM connector, a licensing workflow, and a set of update feeds. That fragmented model creates policy drift, operational friction, inconsistent evidence, and hidden dependencies that fail during rollout or outage conditions.
+Enterprises often assemble web security from unrelated parts. These include a proxy, a DNS control, a reporting platform, a SIEM connector, a licensing workflow. A set of update feeds. That fragmented model creates policy drift, operational friction, inconsistent evidence, and hidden dependencies that fail during rollout or outage conditions.
 
 ## Client scenario
 

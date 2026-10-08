@@ -24,7 +24,7 @@ You keep actionable policy control close to operations, with verifiable outcomes
 ## Call to action
 Use the steps in this guide to implement the control, then validate behavior with a real user-flow test.
 
-There have been several instances where it has been reported that certain applications that the organizations use do not work through SafeSquid. This article describes a generalized way of identifying what is wrong with the application and solving it.
+Some business applications stop working once traffic goes through SafeSquid. The steps below identify what is blocking the application and fix it.
 
 There is more than one reason because of why the application may not work through SafeSquid. They can be listed as:
 

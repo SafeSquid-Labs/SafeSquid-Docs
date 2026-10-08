@@ -16,7 +16,7 @@ Custom Categorization Not Working can interrupt web access, policy enforcement, 
 
 - I am trying to add new websites to the whitelist or blacklist category, but it is not updating
 
-- Uploaded a new file with some websites and added them to specific categories, but I did not find the websites in the respective category
+- Uploaded a new file with some websites and added them to specific categories. But I did not find the websites in the respective category
 
 - SafeSquid interface has hung when I try to add custom websites to any category
 

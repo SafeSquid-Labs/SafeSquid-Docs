@@ -184,7 +184,7 @@ For automated password policy enforcement, migrate to [Directory Services](/use_
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | RFC 7617 BASIC flow | **Confirmed** | This page, UI paths |
 | Local credential store vs PAM toggle | **Confirmed** | This page |
 | `identity.log` evidence | **Confirmed** | Verification section above |

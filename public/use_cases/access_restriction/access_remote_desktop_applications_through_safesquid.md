@@ -55,7 +55,7 @@ How to block in the above(B) scenario:
 
 **Any desk** :  Any desk is able to connect to the remote server (It should not use proxy settings if there is a direct Internet connection).
 
-**Team viewer** : Team viewer is able to connect to the remote  server through proxy (It should use proxy settings, but if we apply blocking rules on proxy, then it will use direct Internet connection, so it is not possible to block team viewer with proxy in direct internet connection ).
+**Team viewer** : Team viewer is able to connect to the remote  server through proxy (It should use proxy settings, but if blocking rules are applied on the proxy, it uses a direct Internet connection, so it is not possible to block team viewer with proxy in direct internet connection ).
 
 **AmmyAdmin** : AmmyAdmin is not able to connect to  the remote  server through proxy.
 

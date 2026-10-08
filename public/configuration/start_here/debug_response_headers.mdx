@@ -10,7 +10,7 @@ keywords:
 
 # Turn On Debug Response Headers
 
-SafeSquid can attach diagnostic information to HTTP messages as `X-SafeSquid-*` and module-specific headers. Modules push entries onto the connection `dheader` list; when headers are sent, SafeSquid may insert a fixed identity block plus every marked `dheader` entry.
+SafeSquid can attach diagnostic information to HTTP messages as `X-SafeSquid-*` and module-specific headers. Modules push entries onto the connection `dheader` list. When headers are sent, SafeSquid may insert a fixed identity block plus every marked `dheader` entry.
 
 This is the supported way to see which profiles, categories, and filters applied to a request.
 
@@ -30,7 +30,7 @@ Enable CLIENT or BOTH only on a test profile or management network. These header
 </Note>
 
 {/* source: https://www.safesquid.com/md/debug-headers.md */}
-The headers reflect the state of the connection at the point they are attached — the identity, categorisation, and policy results already resolved earlier in the pipeline for this same request.
+The headers reflect the state of the connection at the point they are attached. The identity, categorisation, and policy results already resolved earlier in the pipeline for this same request.
 
 ## Always included (when enabled)
 

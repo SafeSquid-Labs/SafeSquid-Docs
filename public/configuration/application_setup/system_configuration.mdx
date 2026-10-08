@@ -20,7 +20,7 @@ The **General** section sets global hostname, connection pool, debug headers, an
 Each getter walks **Compression and buffering policies** top-down. The first enabled row whose `profiles` match wins. Empty profiles match all. No match → built-in defaults.
 
 {/* source: https://www.safesquid.com/md/general.md */}
-That one matching entry supplies every timing, buffering, and compression value for the connection — values are never mixed across entries, and no entry below it is consulted. It is strictly first-match, not cumulative.
+That one matching entry supplies every timing, buffering, and compression value for the connection — values are never mixed across entries. No entry below it is consulted. It is strictly first-match, not cumulative.
 
 ### CONNECT ports (cportrange)
 
@@ -38,7 +38,7 @@ The CONNECT port check applies only when a row matched. Port must be in the row 
 {/* source: https://www.safesquid.com/md/general.md */}
 ### Buffer and compression caveats
 
-`maxdbuffer` only applies when Content-Length is known and the body is not chunked — a chunked or Content-Length-less response streams through without full buffering regardless of the configured size. `bufferwait` is the interval between re-sends of the "downloading" holding page while a large response is still buffering. Compress outgoing is effectively always on for SafeSquid's own Web interface, regardless of what the matched entry says — only traffic to external origins honours the matched entry's Compress outgoing setting.
+`maxdbuffer` only applies when Content-Length is known and the body is not chunked. A chunked or Content-Length-less response streams through without full buffering regardless of the configured size. `bufferwait` is the interval between re-sends of the "downloading" holding page while a large response is still buffering. Compress outgoing is effectively always on for SafeSquid's own Web interface, regardless of what the matched entry says. Only traffic to external origins honours the matched entry's Compress outgoing setting.
 
 ```mermaid
 flowchart TB
@@ -68,9 +68,9 @@ fields, not a tab of their own — the pool view is a read-only panel reached fr
 
     {/* source: https://www.safesquid.com/md/general.md */}
     - **Proxy hostname (`hostname`)** — Identity in Via and Kerberos scripts; blank uses system hostname. Setting it to your organization's single LDAP domain name lets users log in without typing the domain themselves.
-    - **Connection pool size / timeout (`poolsize` / `pooltimeout`)** — Resizes upstream `serverpool` immediately on config update. When the pool is full the oldest pooled connection is dropped to make room; the idle clock resets each time a pooled connection is reused.
+    - **Connection pool size / timeout (`poolsize` / `pooltimeout`)** — Resizes upstream `serverpool` immediately on config update. When the pool is full the oldest pooled connection is dropped to make room. The idle clock resets each time a pooled connection is reused.
     - **Send Debugging Headers To (`dheaders`)** — CLIENT, SERVER, BOTH, or NONE — see [Debug headers](/configuration/start_here/debug_response_headers).
-    - **Dynamic Categorization (`catreferer`)** — Referer categories applied to dependency requests, so a permitted page's sub-resources render instead of showing broken pieces.
+    - **Dynamic Categorization (`catreferer`)** — Referer categories applied to dependency requests. So a permitted page's sub-resources render instead of showing broken pieces.
 
     ### Connection pool panel
 
@@ -129,7 +129,7 @@ size, Buffer wait time, CONNECT ports, and the compression fields.
 
 **Config:** Row 1 profiles `text-filter`, maxdbuffer 128K above catch-all maxdbuffer 0.
 
-**Result:** Text-filter connections buffer up to 128K; others stream without full download buffer — and a streamed response never reaches the downloaded-body scanners (SqScan, Clam antivirus, Image analyzer, Text analyzer, ICAP). See [Architecture and request pipeline](/configuration/start_here/architecture) for the verified buffered-vs-streamed scanning test.
+**Result:** Text-filter connections buffer up to 128K. Others stream without full download buffer — and a streamed response never reaches the downloaded-body scanners (SqScan, Clam antivirus, Image analyzer, Text analyzer, ICAP). See [Architecture and request pipeline](/configuration/start_here/architecture) for the verified buffered-vs-streamed scanning test.
 </Tip>
 
 <Tip>

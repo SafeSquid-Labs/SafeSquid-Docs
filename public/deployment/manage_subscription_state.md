@@ -11,7 +11,7 @@ keywords:
 
 # Handle Expiry Before It Degrades Enforcement
 
-Expiry degrades the deployment; it does not stop it. Core proxy and filtering keep running, so nothing obvious breaks — and that is the risk. Threat feeds quietly drop to a weekly schedule while the deployment reports itself healthy, and the gap only becomes visible when something current gets through.
+Expiry degrades the deployment; it does not stop it. Core proxy and filtering keep running, so nothing obvious breaks — and that is the risk. Threat feeds quietly drop to a weekly schedule while the deployment reports itself healthy. The gap only becomes visible when something current gets through.
 
 Knowing which half still works prevents an unnecessary emergency, and knowing which half does not prevents a false sense of coverage.
 
@@ -72,7 +72,7 @@ Restart SafeSquid from the interface after either action — see
 
     Confirm the account owner approves the renewal or conservation-period path.
 
-    If subscription ownership is unclear, pause and resolve it — an extension applied without an owner defers the problem without assigning it.
+    If subscription ownership is unclear, pause and resolve it. An extension applied without an owner defers the problem without assigning it.
   </Step>
   <Step title="Apply the renewal or extension">
     Use the Self-Service Portal workflow for the approved option.

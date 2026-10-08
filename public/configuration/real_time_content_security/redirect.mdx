@@ -53,8 +53,8 @@ First-match URL/Location rewrite, send302 branching.
 1. On the client request, SafeSquid builds `proto://host/file` and tests rows whose Applies to includes URL (or BOTH).
 2. On redirect responses, SafeSquid tests the response `Location` value for rows that include LOCATION (or BOTH).
 3. First enabled row that matches profiles, URL regex, and direction wins; processing stops.
-4. **302 redirect = No** (default): rewrite `proto`, `host`, `file`, and optional port on the request and fetch internally; request type may become HTTP proxy.
-5. **302 redirect = Yes**: send HTTP 302 to the client with the rewritten URL as Location; no origin fetch for that request.
+4. **302 redirect = No** (default): rewrite `proto`, `host`, `file`, and optional port on the request and fetch internally. Request type may become HTTP proxy.
+5. **302 redirect = Yes**: send HTTP 302 to the client with the rewritten URL as Location. No origin fetch for that request.
 6. Options: percent-decode before PCRE match; URL-encode or decode the path portion after substitution.
 
 <Warning>
@@ -88,7 +88,7 @@ default rows enforce safe search on Bing, Google, Yahoo, and DuckDuckGo.
 - Redirect: `https://www.google.com/search?safe=active&$2`
 - 302 redirect: **No**, Applies to: URL
 
-**Result:** matching Google search requests are rewritten and fetched by SafeSquid with `safe=active`; the browser address bar stays on the original URL pattern.
+**Result:** matching Google search requests are rewritten and fetched by SafeSquid with `safe=active`. The browser address bar stays on the original URL pattern.
 </Tip>
 
 <Tip>
@@ -99,7 +99,7 @@ default rows enforce safe search on Bing, Google, Yahoo, and DuckDuckGo.
 - Redirect: `https://intranet.example.com/moved.html`
 - 302 redirect: **Yes**
 
-**Result:** client receives HTTP 302 with Location set to the new URL; SafeSquid does not fetch the old portal for that request.
+**Result:** client receives HTTP 302 with Location set to the new URL. SafeSquid does not fetch the old portal for that request.
 </Tip>
 
 <Tip>

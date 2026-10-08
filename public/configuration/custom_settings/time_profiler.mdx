@@ -10,7 +10,7 @@ keywords:
 
 # Apply Policy by Time With the Time Profiler
 
-The **Time Profiler** section tags connections with time labels from the appliance local clock. [Access Profiles](/configuration/restriction_policies/access_profiles) **Time Schedule** matches these tags. Every enabled entry that matches applies — this is not first-match-wins — and a later entry's condition can even depend on a label an earlier entry just added. Time Profiler runs early in request processing, before Request Types and Access Profiles, so its labels are already available by the time those sections evaluate the connection.
+The **Time Profiler** section tags connections with time labels from the appliance local clock. [Access Profiles](/configuration/restriction_policies/access_profiles) **Time Schedule** matches these tags. Every enabled entry that matches applies — this is not first-match-wins — and a later entry's condition can even depend on a label an earlier entry just added. Time Profiler runs early in request processing, before Request Types and Access Profiles. So its labels are already available by the time those sections evaluate the connection.
 
 ## Core mechanics
 
@@ -41,7 +41,7 @@ all -->|No| skip
 </Warning>
 
 <Warning>
-**A backwards hour range matches nothing.** If the configured start hour is later than the end hour (for example 17 to 9, intending "evening through morning"), the resulting time-of-day window can end up empty rather than wrapping past midnight — the entry silently never matches. Split an overnight window into two entries instead: one from the start hour to 23:59, one from 00:00 to the end hour.
+**A backwards hour range matches nothing.** If the configured start hour is later than the end hour (for example 17 to 9, intending "evening through morning"), the resulting time-of-day window can end up empty rather than wrapping past midnight. The entry silently never matches. Split an overnight window into two entries instead: one from the start hour to 23:59, one from 00:00 to the end hour.
 </Warning>
 
 ### Match modes
@@ -67,7 +67,7 @@ all -->|No| skip
 
 ## Layering Time Profiles
 
-Because every matching entry applies, a specific label can be built from a general one across several entries — an early entry adds a broad label like `weekend`, a later entry restricts itself to connections already carrying `weekend` in its own Time Profiles field and adds a narrower label like `weekend-evening` on top. This lets Access Profiles gate on the specific label without repeating the weekday/hour logic downstream.
+Because every matching entry applies, a specific label can be built from a general one across several entries. An early entry adds a broad label like `weekend`, a later entry restricts itself to connections already carrying `weekend` in its own Time Profiles field and adds a narrower label like `weekend-evening` on top. This lets Access Profiles gate on the specific label without repeating the weekday/hour logic downstream.
 
 ## Examples
 
@@ -110,7 +110,7 @@ profiles.
 
 ### Layering a narrower label on a broader one
 
-**Config:** entry A adds `weekend` on weekend days; entry B below it, gated on `weekend` as a prerequisite, adds `weekend-evening` during evening hours.
+**Config:** entry A adds `weekend` on weekend days. Entry B below it, gated on `weekend` as a prerequisite, adds `weekend-evening` during evening hours.
 
 **Result:** Saturday-night traffic carries both labels.
 </Tip>

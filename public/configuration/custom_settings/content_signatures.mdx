@@ -40,7 +40,7 @@ When off, the section reports itself disabled — signature database download/re
 
 ### Legacy UI options
 
-Selectors such as **Transfer Encoding Chunk**, **multi-part byte-range**, and **Trace Entry** under Content Signatures are not bound to any template field in this tree — they have no effect here (the same labels on Response Types do affect matching).
+Selectors such as **Transfer Encoding Chunk**, **multi-part byte-range**, and **Trace Entry** under Content Signatures are not bound to any template field in this tree. They have no effect here (the same labels on Response Types do affect matching).
 
 {/* source: https://www.safesquid.com/md/contentSignatures.md */}
 ## Schema fields
@@ -66,10 +66,10 @@ None of the fields below are matched against live traffic in the current build �
 ### Content File Extensions
 
 - **`enabled`**, **`comment`** — same fields as above.
-- **File Extension (`valueField`)** — a regex; comma-separated patterns are combined as an OR, the same convention Response Types uses; blank represents all extensions.
+- **File Extension (`valueField`)** — a regex. Comma-separated patterns are combined as an OR, the same convention Response Types uses; blank represents all extensions.
 - **`add_file_extensions`**, **`group`** — the extension value(s) this entry defines, and its category.
 
-A category name does **not** require a matching entry in Content Categories List to be usable — that list exists only to populate autocomplete pickers.
+A category name does **not** require a matching entry in Content Categories List to be usable. That list exists only to populate autocomplete pickers.
 
 ## Examples
 

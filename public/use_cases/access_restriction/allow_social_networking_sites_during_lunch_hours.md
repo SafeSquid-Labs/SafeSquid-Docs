@@ -117,7 +117,7 @@ Click on the top right Icon to save the policy.
 
 - During the configured lunch window: access a social networking site; access is allowed.
 - Outside the lunch window: access a social networking site; the **BLOCK** template appears.
-- **Interface:** Time Profiler shows LUNCH with the correct hour/minute range; Access Profiles shows the policy with Category Socialnetworks, Action ALLOW, and the added profile. Global for Time Profiler is TRUE.
+- **Interface:** Time Profiler shows LUNCH with the correct hour/minute range. Access Profiles shows the policy with Category Socialnetworks, Action ALLOW, and the added profile. Global for Time Profiler is TRUE.
 
 
 

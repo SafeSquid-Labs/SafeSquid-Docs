@@ -44,7 +44,7 @@ prove is reachable. Confirm both groups in
 
 <Accordion title="Which endpoints block activation, and which do not">
 
-Only one endpoint has to be reachable for activation itself to succeed. The rest affect ongoing updates, so a blocked path there produces a licensed gateway with stale intelligence rather than a failed activation. It is a quieter failure, and an easier one to miss.
+Only one endpoint has to be reachable for activation itself to succeed. The rest affect ongoing updates. So a blocked path there produces a licensed gateway with stale intelligence rather than a failed activation. It is a quieter failure, and an easier one to miss.
 
 **Required for activation**
 

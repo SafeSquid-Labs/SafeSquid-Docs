@@ -33,7 +33,7 @@ Enabled and Heuristic.
 
 SSqore is the last-resort cloud tier: it runs only if the site is still uncategorized after local [Categorize Web-Sites](/configuration/custom_settings/categorize_web_sites) entries and DNS category feeds have already been checked.
 
-1. During request profiling, SSqore first checks a fast in-memory cache of recently-categorized destinations, then a second, larger on-disk cache of previously-seen results; only on a double miss does it perform a live lookup against CCS for the request host (and referer host where applicable), caching the result for next time.
+1. During request profiling, SSqore first checks a fast in-memory cache of recently-categorized destinations, then a second, larger on-disk cache of previously-seen results. Only on a double miss does it perform a live lookup against CCS for the request host (and referer host where applicable), caching the result for next time.
 2. Returned category names are added to `website_categories` / connection profiles used by Access Profiles and other sections. The result is always a Category **label** — SSqore never returns a numeric score, a risk rating, or a confidence percentage. Whatever filtering decision follows is entirely up to how an Access Profiles entry is written to match on that label.
 3. Results are cached under `/var/lib/safesquid/ssqore/cache` to reduce repeat lookups.
 4. URLs that cannot be categorized may be queued as uncategorized for later retry.
@@ -48,7 +48,7 @@ SSqore is the last-resort cloud tier: it runs only if the site is still uncatego
 
 Access Profiles Secondary Policies typically match SSqore category tags (for example block Social Networking). Categories appear as profile strings on the connection after lookup — design profiles to reference the exact category names CCS returns.
 
-Custom or local categories may also come from the [Categorize Web-Sites](/configuration/custom_settings/categorize_web_sites) tool and DNS category zone settings in startup.ini; SSqore is the cloud lookup path.
+Custom or local categories may also come from the [Categorize Web-Sites](/configuration/custom_settings/categorize_web_sites) tool and DNS category zone settings in startup.ini. SSqore is the cloud lookup path.
 
 ## Examples
 

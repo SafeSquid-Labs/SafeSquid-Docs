@@ -27,7 +27,7 @@ thresh -->|No| next
 ## What does this section do?
 The `Keywords-filtering` section (`safesquid-keywords-filtering(5)`) scans the textual content of HTTP payloads for specific patterns and assigns scores to determine if the content should be blocked.
 
-Cumulative scoring suits content that no single keyword proves is a problem, but that is clearly objectionable once several related terms appear on the same page — acceptable-use enforcement against gambling, adult, or extremist material.
+Cumulative scoring suits content that no single keyword proves is a problem. But that is clearly objectionable once several related terms appear on the same page — acceptable-use enforcement against gambling, adult, or extremist material.
 
 ## Core Mechanics (C++ Source Validation)
 
@@ -39,7 +39,7 @@ Cumulative scoring, early exit at threshold.
 - **Enforcement**: Once the threshold is breached, the connection action becomes **DO NOT BYPASS**, serving the specified block template and populating the `_SCORE_` and `_REASON_` template variables.
 
 <Warning>
-**A Text analyzer block is not click-through-able.** Even when the matching Access restrictions entry grants **Allow bypassing**, a Text analyzer block offers the user no continue-anyway link — that override applies to some other block reasons, not this one.
+**A Text analyzer block is not click-through-able.** Even when the matching Access restrictions entry grants **Allow bypassing**, a Text analyzer block offers the user no continue-anyway link. That override applies to some other block reasons, not this one.
 </Warning>
 
 ## Schema Fields
@@ -66,7 +66,7 @@ Cumulative scoring, early exit at threshold.
 3. Mime type regex must match `Content-Type`. Blank mime defaults to matching `text` (same family as text/css/javascript/xml/json).
 4. Keyword regex is searched in the buffered body; each match adds that row's Score (negative scores reduce the total).
 5. Rows with Score 0 or blank Keyword are never applied.
-6. At or above Threshold: HTTP 451 block page, bypass disallowed, cache code `TCP_DENIED` — the connection's cache entry is marked so the blocked response is never served from cache.
+6. At or above Threshold: HTTP 451 block page, bypass disallowed, cache code `TCP_DENIED`. The connection's cache entry is marked so the blocked response is never served from cache.
 
 ## Important entry fields
 
@@ -131,7 +131,7 @@ keyword rows contain explicit search terms, unsuitable to publish verbatim.
 2. Check debug response header `X-Text-Analyzer` (shows score vs threshold, `Buffering Requested` when mime matched, or `Disabled` when the section is off for that connection).
 3. Enable TEXT\_ANALYZER in `LOG_LEVEL` for native `match:` and `blocked` / `allowed` lines.
 4. Open **Reports → Detailed logs**; blocked responses show `filter_name` for text analyzer and the score reason.
-5. If a page you expect to be blocked passes through, check its actual `Content-Type` first — a Mime type mismatch is the most common reason a response is never scanned.
+5. If a page you expect to be blocked passes through, check its actual `Content-Type` first. A Mime type mismatch is the most common reason a response is never scanned.
 
 ## Next steps
 

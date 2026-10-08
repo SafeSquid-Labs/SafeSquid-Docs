@@ -132,7 +132,7 @@ meanings, called out in that tab.
     Content-Security-Policy (CSP) is a response header that controls what an already-loaded page is allowed to do — which hosts its scripts may connect to, whether it may embed frames, whether it may submit forms elsewhere. Insert rows can write one, which makes Header filter a meaningful defense even for destinations you have chosen to allow: a legitimate site can still be abused to run injected scripts, load third-party tracking, or exfiltrate data to an unexpected destination.
 
     <Warning>
-      **Browsers combine multiple CSP headers by intersecting them**, taking whichever directive is more restrictive. A SafeSquid-authored CSP only takes clean effect if the destination's **own** `Content-Security-Policy` is stripped first with a Deny row. Skip that step and the browser merges the two — the practical result is usually **more** restrictive than intended, and pages can appear broken (missing fonts, broken widgets) for reasons that are not obvious from the Insert row alone.
+      **Browsers combine multiple CSP headers by intersecting them**, taking whichever directive is more restrictive. A SafeSquid-authored CSP only takes clean effect if the destination's **own** `Content-Security-Policy` is stripped first with a Deny row. Skip that step and the browser merges the two. The practical result is usually **more** restrictive than intended, and pages can appear broken (missing fonts, broken widgets) for reasons that are not obvious from the Insert row alone.
     </Warning>
 
     SafeSquid's built-in Profile catalog offers three tiers of increasing openness, applied via an Access Profile and referenced from Insert rows:
@@ -200,7 +200,7 @@ lets you inspect real header names and values from a live connection before writ
 - Insert row: applies the minimal-access CSP tier to all connections by default.
 - Insert row: gated to a line-of-business Profile, applies the standard-access tier instead.
 
-**Result:** every response gets a clean, SafeSquid-authored CSP instead of a merged one. Most sites run under the tight, same-origin-only policy; the one tool that needs to reach its own backend gets the slightly more permissive tier.
+**Result:** every response gets a clean, SafeSquid-authored CSP instead of a merged one. Most sites run under the tight, same-origin-only policy. The one tool that needs to reach its own backend gets the slightly more permissive tier.
 </Tip>
 
 <Tip>
@@ -210,7 +210,7 @@ lets you inspect real header names and values from a live connection before writ
 - Policy: **Allow**
 - Deny row: Type `Server`, Applies to SERVER HEADER
 
-**Result:** the `Server` field is stripped from every response, hiding the origin's web-server signature; all other fields pass through unless another Deny row matches.
+**Result:** the `Server` field is stripped from every response, hiding the origin's web-server signature. All other fields pass through unless another Deny row matches.
 </Tip>
 
 ## How to verify
@@ -220,7 +220,7 @@ lets you inspect real header names and values from a live connection before writ
 3. Open **Reports → Detailed logs** while reproducing from a known client.
 4. Enable System configuration debug response headers (see [Debug response headers](/configuration/start_here/debug_response_headers)) to inspect policy outcomes on the wire.
 {/* source: https://www.safesquid.com/md/header-filtering.md */}
-5. Use browser devtools to confirm the `Content-Security-Policy` header a page actually received matches the tier you intended — a page that looks broken after adding a CSP entry is the classic symptom of the site's own CSP not having been stripped first.
+5. Use browser devtools to confirm the `Content-Security-Policy` header a page actually received matches the tier you intended. A page that looks broken after adding a CSP entry is the classic symptom of the site's own CSP not having been stripped first.
 
 ## Next steps
 

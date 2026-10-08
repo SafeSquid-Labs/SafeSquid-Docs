@@ -66,7 +66,7 @@ Use LDAP Admin to test connectivity and find the correct DNs (Distinguished Name
 
 - Use a dedicated service account where possible instead of embedding broad administrative dependency in the long-term configuration.
 - Record the Base DN, bind format, and LDAP domain values in deployment notes so later troubleshooting does not begin from guesswork.
-- This step establishes the data plane for later simple-auth or Kerberos-based flows, but it does not by itself prove end-user authentication is working.
+- This step establishes the data plane for later simple-auth or Kerberos-based flows. But it does not by itself prove end-user authentication is working.
 
 ## Verification
 
@@ -90,7 +90,7 @@ Use LDAP Admin to test connectivity and find the correct DNs (Distinguished Name
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | LDAP bind, Base DN, LDAP Entities | **Confirmed** | This page |
 | Ports **389** / **636** | **Confirmed** | Troubleshooting table (standard LDAP/LDAPS) |
 

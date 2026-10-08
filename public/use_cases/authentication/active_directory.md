@@ -74,7 +74,7 @@ After completing the integration:
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | Setup → Simple → SSO flow | **Confirmed** | Linked task pages in this hub |
 | Kerberos / time sync prerequisites | **Confirmed** | [SSO Authentication](/use_cases/authentication/ad_sso_authentication), [NTP](/architecture/interface/ntp) |
 | RODC path | **Confirmed** | [Kerberos with RODC](/use_cases/authentication/configure_kerberos_authentication_with_rodc) |

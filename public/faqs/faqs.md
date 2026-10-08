@@ -129,7 +129,7 @@ Yes. SafeSquid can prevent users from accessing social networking sites. When co
 
 Allow social networking sites in lunch hours: [Allow Social Networking Sites During Lunch Hours](/use_cases/access_restriction/allow_social_networking_sites_during_lunch_hours).
 
-Facebook is a social networking website that allows users to interact with other users in a multimedia environment on the Web. Facebook users can install and use applications to enhance their experience. Many organizations want to allow Facebook access to maintain morale, increase retention, and boost hiring, but they also want to control access to it.
+Facebook is a social networking website that allows users to interact with other users in a multimedia environment on the Web. Facebook users can install and use applications to enhance their experience. Many organizations want to allow Facebook access to maintain morale, increase retention, and boost hiring. But they also want to control access to it.
 
 SafeSquid allows full Facebook access for a social media group, partial access to a customer service group, and read-only access to other groups. Access to Facebook can also be assigned by time of day. For more details: [Facebook Read-Only Mode](/use_cases/content_modifier/facebook_read_only_mode), [Allow Specific Page on Facebook](/use_cases/content_modifier/allowing_specific_page_on_facebook).
 
@@ -208,7 +208,7 @@ Administrators can select any number of filtering options.
 
 
 ## How to get reports in PDF format
-SafeSquid reporting supports export to PDF and Excel. Open the SafeSquid interface, go to Reports > Dashboard; the PDF button is at the bottom right, just above the SafeSquid version.
+SafeSquid reporting supports export to PDF and Excel. Open the SafeSquid interface, go to Reports > Dashboard. The PDF button is at the bottom right, just above the SafeSquid version.
 
 
 

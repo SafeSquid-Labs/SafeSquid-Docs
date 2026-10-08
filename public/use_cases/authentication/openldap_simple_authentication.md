@@ -69,7 +69,7 @@ OpenLDAP environments still need directory-backed user identity on the proxy pat
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ----- |
+|---|---|---|
 | OpenLDAP bind, **LDAP Entities** | **Confirmed** | This page |
 | Port **389** | **Confirmed** | Troubleshooting (standard LDAP) |
 

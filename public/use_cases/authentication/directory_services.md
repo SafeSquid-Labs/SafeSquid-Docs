@@ -67,7 +67,7 @@ After integration, confirm:
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | AD: SSO + Simple paths | **Confirmed** | [Active Directory hub](/use_cases/authentication/active_directory) |
 | OpenLDAP: Simple LDAP integration | **Confirmed** | [OpenLDAP hub](/use_cases/authentication/openldap) |
 | Group-based policy linkage | **Confirmed** | [Access Restriction](/use_cases/access_restriction/access_restriction) |

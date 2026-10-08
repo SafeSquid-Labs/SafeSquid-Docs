@@ -58,7 +58,7 @@ After configuring OpenLDAP:
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ------ |
+|---|---|---|
 | Simple LDAP bind flow | **Confirmed** | [Simple Authentication](/use_cases/authentication/openldap_simple_authentication) |
 | OpenLDAP “SSO” wording | **Needs scope check** | Keep the wording bounded to the implementation page unless transparent SSO is proven in the target design |
 

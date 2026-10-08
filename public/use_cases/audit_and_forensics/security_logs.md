@@ -330,13 +330,13 @@ The details of the fields in performance.log are as follows:
 
 **Performance Plot**
 
-From the interface go to the Support page; open the **Performance Plot** tab, select two time intervals to generate the performance plot for that range.
+From the interface go to the Support page. Open the **Performance Plot** tab, select two time intervals to generate the performance plot for that range.
 
 See More about [How to generate the Performance Plot](/use_cases/performance_acceleration/performance_plot)
 
 ### Bypass logs
 
-Bypass logs contain the details related to the execution of bypass privilege granted to any user. When users with bypass privilege, execute their privilege to access a web-site that is not explicitly allowed, it is recorded in the bypass logs. It also records the users' opinions about the site, and the URLs that were additionally bypassed, to present a seamless experience.
+Bypass logs contain the details related to the execution of bypass privilege granted to any user. When users with bypass privilege, execute their privilege to access a web-site that is not explicitly allowed, it is recorded in the bypass logs. It also records the users' opinions about the site. The URLs that were additionally bypassed, to present a seamless experience.
 
 **FORMAT / LEGEND**:
 

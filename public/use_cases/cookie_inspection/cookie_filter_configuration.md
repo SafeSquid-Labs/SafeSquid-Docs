@@ -125,7 +125,7 @@ Here you can mention the domain (website) names by separating with pipe (|) whic
 A regular expression matching the cookie's path attribute.
 
 ### Direction
-The direction of the cookie this entry applies to; can be either in (Set-cookie sent by website), out (Cookie sent by browser), or both.
+The direction of the cookie this entry applies to. Can be either in (Set-cookie sent by website), out (Cookie sent by browser), or both.
 
 -   **IN:** For Inbound Connections only. That is only for the cookies sent by the hosts(websites).
 -   **OUT:** For Outbound Connections only. That is only for the cookies sent by the browser.
@@ -156,12 +156,12 @@ So, it will be active every day from Monday to Friday between 9 AM to 5 PM.
 
 ### Example
 #### Rule#1
-I want to allow cookie filtering for connections with the profile "COOKIE ALLOW". Users who require access to log-in webpages and personal accounts need cookie access. We can use the cookie -> Allow subsection to allow Cookies.
+This rule allows cookie filtering for connections with the profile "COOKIE ALLOW". Users who require access to log-in webpages and personal accounts need cookie access. Use the cookie -> Allow subsection to allow cookies.
 
 ![Allow rule for COOKIE ALLOW profile](/images/Configure/Restriction_Profiles/Cookie_Filter/image4.webp)
 
 #### Rule#2
-I want to allow cookies for domain safesquid.com Despite the deny rule, connections to domain safesquid.com will not drop cookies This can be used in a situation where login is required for mission-critical applications.
+This rule allows cookies for domain safesquid.com Despite the deny rule, connections to domain safesquid.com will not drop cookies This can be used in a situation where login is required for mission-critical applications.
 
 ![Allow cookies for domain safesquid.com rule](/images/Configure/Restriction_Profiles/Cookie_Filter/image5.webp)
 
@@ -247,7 +247,7 @@ Here you can mention the domain(website) names by separating with pipe (|) which
 A regular expression matching the cookie's path attribute.
 
 ### Direction
-The direction of the cookie this entry applies to; can be either in (Set-cookie sent by website), out (Cookie sent by browser), or both.
+The direction of the cookie this entry applies to. Can be either in (Set-cookie sent by website), out (Cookie sent by browser), or both.
 
 -   **IN:** For Inbound Connections only. That is only for the cookies sent by the hosts(websites).
 -   **OUT:** For Outbound Connections only. That is only for the cookies sent by the browser.
@@ -299,7 +299,7 @@ Cookies will be dropped for both incoming and outgoing requests.
 
 - **Interface Checks**: In [Configuration Portal](/architecture/interface/configuration_portal), Restriction Profiles → Cookie Filter: Global and policy entries match intent (Allow/Deny, profiles). Test URLs or domains show correct category in Categorize Web-sites if used.
 - **Log Analysis**: Access logs reflect cookie allow/deny per policy; blocked cookie exchange may show in response or request logs.
-- **Performance Validation**: Browsing with Allow profile allows login and cookies; with Deny or Drop profile, target sites do not receive or retain cookies as configured.
+- **Performance Validation**: Browsing with Allow profile allows login and cookies. With Deny or Drop profile, target sites do not receive or retain cookies as configured.
 
 **Related**: [Access Restriction](/use_cases/access_restriction/access_restriction), [Header Obfuscation](/use_cases/header_rewrite/header_obfuscation), [Configuration Portal](/architecture/interface/configuration_portal), [Troubleshooting](/troubleshooting/troubleshooting)
 

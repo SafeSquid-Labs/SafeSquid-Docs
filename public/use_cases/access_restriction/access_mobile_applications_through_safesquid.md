@@ -39,7 +39,7 @@ By default all devices are allowed to access the Internet
 
 
 ## Working of Mobile Applications with Proxy
-If there is no direct Internet access to the mobiles, and you configured proxy in the mobile, then some of the applications will work through proxy, as they designed such that to use proxy settings. And some of the applications will not work.
+If there is no direct Internet access to the mobiles. You configured proxy in the mobile, then some of the applications will work through proxy, as they designed such that to use proxy settings. And some of the applications will not work.
 
 **why?**
 

@@ -66,7 +66,7 @@ SafeSquid includes default entries under the **Allow List**. You can edit these 
 ## Source register
 
 | Topic | Status | Source |
-| ----- | ------ | ----- |
+|---|---|---|
 | OpenLDAP identity in Allow List + **PAM Authentication** | **Confirmed** | This page (scope: transparent identity via rule wiring documented here) |
 | “SSO” naming vs Kerberos AD | **Draft** | OpenLDAP flow differs from AD Kerberos SSO; use exact feature names with customers |
 

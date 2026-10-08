@@ -79,7 +79,7 @@ Category definition rows are saved to the local dev XML for UI autocomplete. Run
 
 {/* source: https://www.safesquid.com/md/applicationSignatures.md */}
 <Note>
-Application Categories List **Enabled** off means the category definition is not loaded into the in-memory category list on the next configuration reload. Neither On nor Off applies a category to live traffic by itself — that still requires an Application Signatures List entry whose **category** field references the same name.
+Application Categories List **Enabled** off means the category definition is not loaded into the in-memory category list on the next configuration reload. Neither On nor Off applies a category to live traffic by itself. That still requires an Application Signatures List entry whose **category** field references the same name.
 </Note>
 
 {/* source: https://www.safesquid.com/md/applicationSignatures.md */}
@@ -111,7 +111,7 @@ Each Application Signatures List entry field, its internal name, and what it act
 | Comment | `comment` | Administrator note; not read by the matching engine |
 | Enabled | `enabled` | When off, this entry is skipped in the top-to-bottom pass |
 
-Removals are applied **after** additions on the same matching entry — an entry that both adds and removes the same signature name ends with it removed.
+Removals are applied **after** additions on the same matching entry. An entry that both adds and removes the same signature name ends with it removed.
 
 Where a tested value is absent from the request (for example, no Referer header when a Referer-based field is set), the entry is skipped.
 

@@ -102,7 +102,7 @@ Expected result: the flags line includes `aes`. An empty result means this CPU s
 
 ## Choose the storage media
 
-SafeSquid writes continuously for session logging, behavioural analysis, and threat detection. Storage media choice is a correctness concern, not only a performance one. When writes fall behind, log entries are delayed or missed, and the audit trail you depend on during an incident has holes in it.
+SafeSquid writes continuously for session logging, behavioural analysis, and threat detection. Storage media choice is a correctness concern, not only a performance one. When writes fall behind, log entries are delayed or missed. The audit trail you depend on during an incident has holes in it.
 
 **Use NVMe SSDs** — M.2 or PCIe-attached — for these paths:
 
@@ -138,7 +138,7 @@ SATA-connected SSDs have substantially lower write throughput than PCIe-attached
 {/* source: _migration_source_v3/docs/01-Getting_Started/01-Deployment_Planning.md §Verify and document for audits */}
 
 <Accordion title="Post-install baseline and stress test">
-  Pre-install connectivity checks prove the host can reach what it needs. They do not prove the host can carry the load you sized it for. Run a baseline after installation, before production users arrive, so you have a known-good reference to compare against during a later incident.
+  Pre-install connectivity checks prove the host can reach what it needs. They do not prove the host can carry the load you sized it for. Run a baseline after installation, before production users arrive. So you have a known-good reference to compare against during a later incident.
 
   **Establish a light-load baseline.** Record session latency from `/var/log/safesquid/extended.log`, CPU utilisation, and disk I/O wait while a small number of clients browse. Keep the figures with the deployment record — the absolute values matter less than having a comparison point.
 
