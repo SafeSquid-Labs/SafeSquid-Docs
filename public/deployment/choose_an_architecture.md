@@ -15,7 +15,7 @@ The interception point determines what SafeSquid can enforce. Choose it before s
 
 SafeSquid cannot enforce policy on traffic that bypasses the proxy. Every mode below is a different answer to how you stop that from happening.
 
-Work through the decision in this order: direction of traffic, then whether the client can be configured, then protocol and upstream constraints. Confirm the result against the table below.
+Work through the decision in this order: direction of traffic, then whether the client can be configured. Then consider protocol and upstream constraints. Confirm the result against the table below.
 
 ```mermaid
 flowchart TB
@@ -63,7 +63,7 @@ Each mode trades control, coverage, and rollback differently. Open the one that 
 </Accordion>
 
 <Accordion title="What proxy chain requires">
-  [Proxy chain](/use_cases/scaling_and_high_availability/proxy_chain) places SafeSquid in a multi-tier architecture, forwarding to or receiving from another proxy. Use it where an existing upstream proxy cannot be removed, and confirm which tier owns policy before splitting enforcement across both.
+  [Proxy chain](/use_cases/scaling_and_high_availability/proxy_chain) places SafeSquid in a multi-tier architecture, forwarding to or receiving from another proxy. Use it where an existing upstream proxy cannot be removed. Confirm which tier owns policy before splitting enforcement across both.
 </Accordion>
 
 ## Design the network placement

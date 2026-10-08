@@ -14,11 +14,11 @@ keywords:
 
 ## Problem statement
 
-Enterprise web traffic is now the delivery path for phishing, ransomware, shadow IT, remote administration abuse, session hijacking, and data exfiltration. If the organisation cannot inspect and govern HTTP and HTTPS at Layer 7, it cannot reliably separate legitimate business use from malicious or unsafe use.
+Enterprise web traffic is now the delivery path for phishing, ransomware, and shadow IT. It also carries remote administration abuse, session hijacking, and data exfiltration. Without Layer 7 inspection and governance of HTTP and HTTPS, the organisation cannot reliably separate legitimate use from unsafe use.
 
 ## Client scenario
 
-Use this overview when you need to understand what SafeSquid actually is before you deploy it, size it, or integrate it. This page is especially relevant when you are deciding:
+Use this overview to understand what SafeSquid is before you deploy it, size it, or integrate it. This page is especially relevant when you are deciding:
 
 - where to place the enforcement point
 - how to onboard users and applications
@@ -36,7 +36,7 @@ Use this overview when you need to understand what SafeSquid actually is before 
 
 ## Core architecture
 
-SafeSquid SWG is a purpose-built HTTP(S) proxy for enterprise secure web gateway deployments. It is described internally as a software-defined appliance: the product runs as software on standard server or cloud infrastructure rather than on vendor-locked hardware.
+SafeSquid SWG is a purpose-built HTTP(S) proxy for enterprise secure web gateway deployments. It is described internally as a software-defined appliance. The product runs as software on standard server or cloud infrastructure rather than on vendor-locked hardware.
 
 The architecture combines these main components:
 
@@ -50,7 +50,7 @@ The architecture combines these main components:
 
 ## Deployment model
 
-SafeSquid supports on-premise, off-premise, and hybrid deployment patterns. Cloud-init deployment paths are documented for major cloud providers, while on-premise deployments use either the SafeSquid Appliance Builder or Linux-based installation paths.
+SafeSquid supports on-premise, off-premise, and hybrid deployment patterns. Cloud-init deployment paths are documented for major cloud providers. On-premise deployments use either the SafeSquid Appliance Builder or Linux-based installation paths.
 
 This flexibility matters because deployment location changes trust boundaries:
 
@@ -82,7 +82,7 @@ SafeSquid documents two browser-security modes:
 - **Native Browser Sandboxing** through CSP sandbox header injection
 - **Remote Browser Isolation (RBI)** for isolated browsing sessions
 
-These modes matter for high-risk browsing scenarios where policy alone is not enough and the organisation needs stronger containment of active web content.
+These modes matter for high-risk browsing scenarios where policy alone is not enough. The organisation then needs stronger containment of active web content.
 
 ### Logging and evidence
 
@@ -118,7 +118,7 @@ Use this page to understand how SafeSquid extends protection into DNS-layer risk
 
 ### [Supporting Services](/architecture/interface/supporting_services_monit)
 
-Use the supporting services pages for Monit, BIND, and NTP because those services directly affect reliability, DNS performance, authentication, and TLS validation.
+Use the supporting services pages for Monit, BIND, and NTP. Those services directly affect reliability, DNS performance, authentication, and TLS validation.
 
 ## Related controls / next steps
 

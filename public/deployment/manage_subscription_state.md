@@ -13,7 +13,7 @@ keywords:
 
 Expiry degrades the deployment; it does not stop it. Core proxy and filtering keep running, so nothing obvious breaks — and that is the risk. Threat feeds quietly drop to a weekly schedule while the deployment reports itself healthy. The gap only becomes visible when something current gets through.
 
-Knowing which half still works prevents an unnecessary emergency, and knowing which half does not prevents a false sense of coverage.
+Knowing which half still works prevents an unnecessary emergency. Knowing which half does not prevents a false sense of coverage.
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/04-Activate.md §Troubleshooting case4 License Expired */}
 
@@ -80,7 +80,7 @@ Restart SafeSquid from the interface after either action — see
     Confirm the action completes and the updated key is downloaded, where renewing.
 
     {/* [VERIFY WITH SAFESQUID TEAM]: this screenshot is stale — dated 1 July 2022 (Subscription ID 2263), and shows the action button labeled "Extend Conservation Period". The live portal as of 2026-09-02 labels the equivalent button "Conserve Subscription". Recapture before publishing further revisions of this page. */}
-    ![Conserve Subscription option on the Manage Account tab — screenshot predates the current "Conserve Subscription" label, shown here as "Extend Conservation Period"](/images/getting_started/activate_06_extend_conservation_period.webp)
+    ![Manage Account tab showing the Extend Conservation Period option, now labelled Conserve Subscription](/images/getting_started/activate_06_extend_conservation_period.webp)
   </Step>
   <Step title="Restart and verify">
     Restart SafeSquid from the interface, then confirm subscription state in the [Configuration Portal](/architecture/interface/configuration_portal).

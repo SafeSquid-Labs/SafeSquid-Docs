@@ -129,7 +129,7 @@ If a pilot check fails, use the matching symptom below and capture corrected evi
   </Accordion>
 
   <Accordion title="HTTPS browsing fails after inspection enablement">
-    HTTPS controls cannot be trusted in production when endpoints do not trust the SafeSquid Root CA or inspection scope is too broad for pilot stage.
+    HTTPS controls cannot be trusted in production when endpoints do not trust the SafeSquid Root CA. The same applies when inspection scope is too broad for the pilot stage.
 
     **Likely cause:** Root CA deployment is incomplete, or inspection policy includes destinations not ready for decryption.
 

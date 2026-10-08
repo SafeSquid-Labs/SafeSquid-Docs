@@ -18,7 +18,7 @@ When SafeSquid partitions or RAM are full, the proxy can fail or behave unpredic
 
 Give the enough size to backup store.
 
-Example: If you want to take a backup of files of size 5GB then consider the store up to 5.5 GB
+Example: to back up files of size 5GB, allow for a store of 5.5 GB.
 
 Don't delete the original log files (.log extension) and database files.
 
@@ -62,7 +62,7 @@ none 100M 0 100M 0% /run/user
 
 ## /dev/ram1 62M 1.3M 58M 3% /tmp/safesquid
 
-If any of the above partitions is used over 80%, back up the following files and then delete files as required.
+If any of the above partitions is used over 80%, back up the following files. Then delete files as required.
 
 ## Partitions
 
@@ -120,7 +120,7 @@ These files will be used to store the data required for reports generation
 
 you can take a backup or directly delete these files.
 
-If you delete or move the above files to another destination then restart the SafeSquid server, in order to create the deleted or moved files.
+If you delete or move the above files to another destination, restart the SafeSquid server. This recreates the deleted or moved files.
 
 ### /var/log/safesquid
 

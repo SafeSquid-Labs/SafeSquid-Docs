@@ -10,7 +10,7 @@ keywords:
 
 # Locate Policy, Security, and UI Files
 
-Policy, security, and interface files define who can use SafeSquid, which controls apply, how SSL material is stored, and how the management interface renders. Treat these paths as sensitive. Unreviewed edits can stop the service, expose certificates, break policy rollback, or make support evidence unreliable.
+Policy, security, and interface files define who can use SafeSquid and which controls apply. They also define how SSL material is stored and how the management interface renders. Treat these paths as sensitive. Unreviewed edits can stop the service, expose certificates, break policy rollback, or make support evidence unreliable.
 
 ## Product-owned root
 
@@ -42,7 +42,7 @@ Policy, security, and interface files define who can use SafeSquid, which contro
 
 ## Rollback guidance
 
-Before changing policy, SSL, activation, UI, or script paths, preserve the original files and record owner, timestamp, reason, and rollback path. For policy rollback, use timestamped `config_XXXX@YYYY_ZZZZ.xml` files only after confirming the correct user, source IP, and modification time.
+Before changing policy, SSL, activation, UI, or script paths, preserve the original files. Record owner, timestamp, reason, and rollback path. For policy rollback, use timestamped `config_XXXX@YYYY_ZZZZ.xml` files only after confirming the correct user, source IP, and modification time.
 
 ## Next steps
 

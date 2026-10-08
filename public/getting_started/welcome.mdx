@@ -30,7 +30,7 @@ Phishing, malware delivery, credential abuse, command-and-control traffic, appli
 
 Network firewalls authorize connections. URL filters classify destinations. Endpoint controls enforce host-local policy. TLS protects transport confidentiality. Authentication establishes identity.
 
-None of those controls, independently, determines whether a specific HTTP request, upload, download, API call, or application action satisfies security policy.
+None of those controls, independently, determines whether a specific request satisfies security policy. That applies to any HTTP request, upload, download, API call, or application action.
 
 The resulting gap appears inside already permitted traffic. A trusted SaaS service can receive prohibited data. An authenticated account can perform prohibited operations. A valid TLS session can carry malware. A newly registered destination can evade reputation-based filtering.
 
@@ -88,11 +88,11 @@ SafeSquid converts network reachability into transaction-level authorization.
 
 SafeSquid integrates inspection, correlation, enforcement, and logging inside a multi-threaded proxy process.
 
-SMP-aware execution distributes concurrent processing across available CPU cores. Shared-memory structures expose common context to active security processors. In-memory DNS caching, upstream connection reuse, TLS session reuse, configurable object caching, streaming controls, and multi-queue NIC support reduce avoidable proxy-path overhead.
+SMP-aware execution distributes concurrent processing across available CPU cores. Shared-memory structures expose common context to active security processors. In-memory DNS caching, upstream connection reuse, and TLS session reuse reduce avoidable proxy-path overhead. So do configurable object caching, streaming controls, and multi-queue NIC support.
 
 Standard x86_64 Linux infrastructure supports bare-metal, virtual-machine, cloud, and clustered deployments. Deployment modes include [explicit forward proxy](/use_cases/scaling_and_high_availability/forward_proxy), [transparent interception](/use_cases/scaling_and_high_availability/transparent_proxy), [reverse proxy](/use_cases/scaling_and_high_availability/reverse_proxy), [proxy chaining](/use_cases/scaling_and_high_availability/proxy_chain), and selected [TCP-proxy configurations](/use_cases/scaling_and_high_availability/tcp_proxy).
 
-LDAP, Active Directory, PAM, Kerberos, ICAP, SNMP, [WCCP](/use_cases/scaling_and_high_availability/wccp), REST-based management, external parsers, SIEM pipelines, and [open-format logs](/use_cases/audit_and_forensics/security_logs) support integration with existing infrastructure.
+LDAP, Active Directory, PAM, Kerberos, ICAP, and SNMP support integration with existing infrastructure. So do [WCCP](/use_cases/scaling_and_high_availability/wccp), REST-based management, external parsers, SIEM pipelines, and [open-format logs](/use_cases/audit_and_forensics/security_logs).
 
 [Cluster deployments](/use_cases/scaling_and_high_availability/proxy_clustering) support active-active or [active-standby](/use_cases/scaling_and_high_availability/master_slave) operation with synchronization of supported policy, categorization, and certificate state.
 
@@ -106,7 +106,7 @@ Supported protocol and integration capabilities include HTTP/HTTPS proxying, `CO
 
 Inline control requires explainable decisions.
 
-SafeSquid records web activity, authentication events, filtering results, bypasses, security processing, DNS activity, connection failures, integration state, resource utilization, and proxy performance.
+SafeSquid records web activity, authentication events, filtering results, bypasses, and security processing. It also records DNS activity, connection failures, integration state, resource utilization, and proxy performance.
 
 [Detailed Logs](/use_cases/audit_and_forensics/security_logs) expose request processing, matched filters, and enforcement reasons. Process logs expose daemon activity, module operation, security updates, external integrations, [cluster synchronization](/use_cases/customisation/configuration_sync), and diagnostic failures.
 

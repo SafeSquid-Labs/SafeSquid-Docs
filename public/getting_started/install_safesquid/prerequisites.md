@@ -11,7 +11,7 @@ keywords:
 
 # Confirm Readiness Before Install
 
-Most failed SafeSquid pilots are caused by missing prerequisites. These include wrong sizing, blocked proxy ports, no DNS or NTP, no activation key, or no plan for Root CA deployment. Every one of them is cheaper to fix now than during the cutover window.
+Most failed SafeSquid pilots are caused by missing prerequisites. These include wrong sizing, blocked proxy ports, and no DNS or NTP. They also include no activation key and no plan for Root CA deployment. Every one of them is cheaper to fix now than during the cutover window.
 
 Work this checklist to completion before starting any installer.
 
@@ -88,7 +88,7 @@ The specific ports, endpoints, and source scopes are listed in [Ports and Firewa
 
   Expected result: the current mode is known and recorded before installation begins.
 
-  Once the deployment is operational, review the audit log and write a targeted policy rather than leaving mandatory access control permanently disabled. Record which choice was made and who owns the follow-up; "temporarily permissive" that is never revisited is a finding waiting to happen.
+  Once the deployment is operational, review the audit log. Write a targeted policy rather than leaving mandatory access control permanently disabled. Record which choice was made and who owns the follow-up. A "temporarily permissive" setting that is never revisited is a finding waiting to happen.
 </Accordion>
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/01-Deployment_Planning.md §Prepare the host before install, steps 6-7 */}
@@ -111,7 +111,7 @@ The specific ports, endpoints, and source scopes are listed in [Ports and Firewa
   | `80`, `443` | Web access on behalf of clients, plus update and subscription paths |
   | `53` | Upstream DNS resolution |
 
-  [Ports and Firewall Rules](/deployment/ports_and_firewall_rules) and [Activate Your License](/getting_started/activate) list the specific licensing, update, and categorization hosts that must be reachable on 80 and 443.
+  [Ports and Firewall Rules](/deployment/ports_and_firewall_rules) and [Activate Your License](/getting_started/activate) list the licensing, update, and categorization hosts. Those hosts must be reachable on 80 and 443.
 </Accordion>
 
 ## Validate identity and trust

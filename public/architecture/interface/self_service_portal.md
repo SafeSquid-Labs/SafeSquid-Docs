@@ -18,7 +18,7 @@ The Self-Service Portal is a SafeSquid-managed cloud service at `https://key.saf
 
 ## Problem statement
 
-If licensing, categorization, backup, or certificate workflows are scattered across email threads and manual files, deployments become fragile and support-dependent. Teams need a controlled place to retrieve activation material, manage cloud-linked settings, and align multiple installations to the same organizational context.
+If licensing, categorization, backup, or certificate workflows are scattered across email threads and manual files, deployments become fragile and support-dependent. Teams need a controlled place to retrieve activation material and manage cloud-linked settings. They also need to align multiple installations to the same organizational context.
 
 ## Client scenario
 
@@ -48,7 +48,7 @@ Confirmed live (2026-09-02, logged-in session, all six tabs inspected):
 - **Manage Signatures**: "Available Signatures for [C-code]", Add New, a Keywords/Signature table.
 - **Manage Account**: subscription details, Conserve Subscription.
 
-A standing **Download Key** action and **Download latest ISO** / **Download latest tarball** links (`downloads.safesquid.com/appliance/safesquid.iso` and `.../binary/safesquid_latest.tar.gz`) appear on every tab.
+A standing **Download Key** action appears on every tab. So do the **Download latest ISO** and **Download latest tarball** links (`downloads.safesquid.com/appliance/safesquid.iso` and `.../binary/safesquid_latest.tar.gz`).
 
 ## What the portal is used for
 

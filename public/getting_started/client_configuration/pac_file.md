@@ -10,7 +10,7 @@ keywords:
 
 # Route Browsers With PAC
 
-A Proxy Auto-Configuration (PAC) file gives managed browsers a repeatable routing decision. Use it when explicit proxy testing has passed and you need controlled exceptions for internal sites, cloud services, or pilot groups.
+A Proxy Auto-Configuration (PAC) file gives managed browsers a repeatable routing decision. Use it when explicit proxy testing has passed. You then need controlled exceptions for internal sites, cloud services, or pilot groups.
 
 ## Use this method when
 
@@ -72,7 +72,7 @@ return "PROXY SAFESQUID-A:8080; PROXY SAFESQUID-B:8080; DIRECT";
 ```
 
 <Warning>
-  **A trailing `DIRECT` fails open.** If every SafeSquid node is unreachable, clients browse the internet unfiltered and unlogged. Nothing in the browser tells the user or the operator that enforcement stopped. Use it only where an availability requirement has been weighed against losing the control, and where the decision has a named owner. Omitting `DIRECT` fails closed instead: users lose web access, which is visible and reported immediately.
+  **A trailing `DIRECT` fails open.** If every SafeSquid node is unreachable, clients browse the internet unfiltered and unlogged. Nothing in the browser tells the user or the operator that enforcement stopped. Use it only where an availability requirement has been weighed against losing the control. The decision must also have a named owner. Omitting `DIRECT` fails closed instead: users lose web access, which is visible and reported immediately.
 </Warning>
 
 </Accordion>
@@ -166,7 +166,7 @@ kwriteconfig5 --file kioslaverc --group 'Proxy Settings' \
   --key 'Proxy Config Script' 'http://proxy-config.example.com/proxy.pac'
 ```
 
-For anything beyond a pilot, deliver the URL through GPO, MDM, or browser policy instead of setting it per machine — see [Enterprise Deployment](/getting_started/client_configuration/enterprise_deployment).
+For anything beyond a pilot, deliver the URL through GPO, MDM, or browser policy. Do not set it per machine. See [Enterprise Deployment](/getting_started/client_configuration/enterprise_deployment).
 
 </Accordion>
 

@@ -10,7 +10,7 @@ keywords:
 
 # Locate SafeSquid Files and Folders
 
-SafeSquid server paths are part of the enforcement boundary. They hold service control scripts, module binaries, policy XML, activation material, SSL data, reporting databases, signature stores, runtime files, and logs. Uncontrolled edits can break proxy availability, weaken inspection, erase rollback evidence, or create audit gaps.
+SafeSquid server paths are part of the enforcement boundary. They hold service control scripts, module binaries, policy XML, and activation material. They also hold SSL data, reporting databases, signature stores, runtime files, and logs. Uncontrolled edits can break proxy availability, weaken inspection, erase rollback evidence, or create audit gaps.
 
 Use this section to prove what changed, locate operational evidence, and decide which files need change control. Do this before an upgrade or incident response.
 

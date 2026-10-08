@@ -63,7 +63,7 @@ drwxrwxr-- 5 ssquid root 4096 Aug 4 16:09 ssl
 
 If the file was not found, then upload your activation key again and click on restart
 
-Restart SafeSquid service from the SafeSquid Interface will work, only if the [monit service](/architecture/interface/supporting_services_monit) is configured properly on the SafeSquid server.
+Restarting the SafeSquid service from the SafeSquid Interface works only with a correctly configured [monit service](/architecture/interface/supporting_services_monit) on the SafeSquid server.
 
 Otherwise, you can directly restart the SafeSquid service from LINUX box by using below commands
 

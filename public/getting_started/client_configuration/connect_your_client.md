@@ -75,7 +75,7 @@ Confirm:
 ## Grant the matching Access restrictions right
 
 {/* source: https://www.safesquid.com/md/browser-configuration.md */}
-Client routing only delivers traffic to SafeSquid. Whether that traffic is actually allowed through still depends on the Access restrictions entry that matches the client. Specifically, it depends on which rights that entry grants. Configuring the client correctly but leaving the matching right ungranted looks identical to a routing failure: the client reaches SafeSquid, and SafeSquid still blocks it.
+Client routing only delivers traffic to SafeSquid. Whether that traffic is actually allowed through still depends on the Access restrictions entry that matches the client. Specifically, it depends on which rights that entry grants. Configuring the client correctly but leaving the matching right ungranted looks identical to a routing failure. The client reaches SafeSquid, and SafeSquid still blocks it.
 
 | Delivery mode | How the client is configured | Right required |
 |---|---|---|

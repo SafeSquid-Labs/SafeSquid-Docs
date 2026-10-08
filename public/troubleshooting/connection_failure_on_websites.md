@@ -14,7 +14,7 @@ Connection Failure to Websites can interrupt web access, policy enforcement, or 
 
 ## Connection failed to proxy or origin
 
-When the user accesses the website, the browser displays "**Connection to 192.168.27.30:80 failed**". When the user accesses [https://abc.safesquid.com/](https://abc.safesquid.com/) via proxy and logs in with a corporate email ID, the browser can show "**Connection to abc.safesquid.com:443 failed**".
+When the user accesses the website, the browser displays "**Connection to 192.168.27.30:80 failed**". A user accesses [https://abc.safesquid.com/](https://abc.safesquid.com/) via proxy and logs in with a corporate email ID. The browser can then show "**Connection to abc.safesquid.com:443 failed**".
 
 ![Error showing "Connection to abc.safesquid.com:443 failed"](/images/troubleshooting/connection_failure_on_websites_01_error_showing_connection_to_abc_safesquid_com_44.webp)
 
@@ -30,7 +30,7 @@ Check whether the website is opening without proxy configuration inside the brow
 
 If the website is not opening without a proxy, then it is not the problem with SafeSquid.
 
-If it is opening without a proxy, then run the below command to verify whether the website is resolving or not.
+If it is opening without a proxy, run the command below. It verifies whether the website is resolving.
 
 Command: nslookup 192.168.27.30
 
@@ -70,7 +70,7 @@ Escape character is '^]'.
 
 For an on-premises server integrated with directory services, DNS resolution is done by the directory DNS server.
 
-To check the configuration on the local internal network and its address record pointed on an active directory (AD) or local DNS server.
+Check the configuration on the local internal network. Check its address record on an active directory (AD) or local DNS server.
 
 Run the below commands on the command prompt for **abc.safesquid.com**
 

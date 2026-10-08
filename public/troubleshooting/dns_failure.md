@@ -30,9 +30,9 @@ Via proxy sometimes occur an error "DNS Lookup for safesqddns.com failed".
 
 ## Solution
 
-If the FQDN of the website is incorrect you will face a DNS failure issue to that website while accessing via proxy. So, you have to enter the correct FQDN of that particular website.
+If the website FQDN is incorrect, accessing it via proxy gives a DNS failure. So, you have to enter the correct FQDN of that particular website.
 
-If the website FQDN is correct but the local DNS server service is not running, you can still hit a DNS failure. So, you make sure that the local DNS server service is running.
+If the website FQDN is correct, you can still hit a DNS failure. This happens when the local DNS server service is not running. So, you make sure that the local DNS server service is running.
 
 Run the below commands to verify DNS server service
 

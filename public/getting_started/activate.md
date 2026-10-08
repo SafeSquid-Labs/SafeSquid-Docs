@@ -74,7 +74,7 @@ Each of these is reached on port `8080` at the path `/URLCategorizerService/URLC
 | `prourl.itonlinesecure.in` |
 | `encurl.itonlinesecure.in` |
 
-If categorization is blocked while everything else is reachable, policies that depend on category matching will fail open rather than error. Verify this group explicitly rather than inferring it from a working activation.
+If categorization is blocked while everything else is reachable, policies that depend on category matching fail open. They do not error. Verify this group explicitly rather than inferring it from a working activation.
 
 </Accordion>
 
@@ -91,11 +91,11 @@ If categorization is blocked while everything else is reachable, policies that d
     ![Upload activation key prompt in the SafeSquid Configuration Portal](/images/getting_started/activate_01_upload_activation_key_prompt.webp)
   </Step>
   <Step title="Select the activation key">
-    When the first-run activation prompt appears, click **Choose File** or the file-selector control and select the `activation_key` file from the approved secure location.
+    When the first-run activation prompt appears, click **Choose File** or the file-selector control. Then select the `activation_key` file from the approved secure location.
 
     Confirm the selected file is named exactly `activation_key`.
 
-    If the key is missing or renamed, retrieve the original file from approved secure storage or re-download it from the Self-Service Portal.
+    If the key is missing or renamed, retrieve the original file from approved secure storage. You can also re-download it from the Self-Service Portal.
 
     ![Select the activation key file and upload it](/images/getting_started/activate_02_select_and_upload_key.webp)
   </Step>

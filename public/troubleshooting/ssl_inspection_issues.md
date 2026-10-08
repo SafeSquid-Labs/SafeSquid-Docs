@@ -25,13 +25,13 @@ SSL Certification Errors can interrupt web access, policy enforcement, or eviden
 
 **Details (numbered items):**
 
-1. When the SSL certificate is imported into the Chrome browser and the browser still shows **Your connection is not private** (or similar) for HTTPS sites.
+1. This applies when the SSL certificate is imported into the Chrome browser. The browser still shows **Your connection is not private** (or similar) for HTTPS sites.
 
 ->Policies in the HTTPS Inspection subsection are misconfigured.
 
 1. While the **successful configuration of HTTPS Inspection**, accessing youtube.com shows an error while all other HTTPS sites work fine.
 
-->In the HTTPS inspection section, if the Global subsection is not set to Enabled as TRUE then this problem can arise.
+->In the HTTPS inspection section, this problem can arise if the Global subsection is not set to Enabled as TRUE.
 
 1. While the SafeSquid certificate is installed inside the browser however HTTPS sites show the error **Secured connection fail**.
 
@@ -53,7 +53,7 @@ Follow [Configure HTTPS Inspection](/use_cases/ssl_inspection/ssl_inspection) an
 
 ### Case 2: Check SSL certs/cache for these symptoms
 
-SafeSquid certificate is imported in the browser but a secured connection still fails when accessing HTTPS websites. Some HTTPS sites work while others do not. After removing the old activation key, installing a new key, and configuring the new SSL certificate, clear SSL cache if issues persist.
+SafeSquid certificate is imported in the browser but a secured connection still fails when accessing HTTPS websites. Some HTTPS sites work while others do not. After removing the old activation key, installing a new key, and configuring the new SSL certificate, clear the SSL cache. Do this if issues persist.
 
 Native Logs
 
@@ -99,7 +99,7 @@ Repeat the above step for **goodcerts**/ and **badcerts**/ **and access those we
 
 ### S_X509_DNS_MISMATCH: SSL certificate has DNS errors
 
-When the browser shows "S_X509_DNS_MISMATCH: SSL Certificate has DNS errors" via proxy despite a correct certificate in the browser, the origin website's certificate is broken. SafeSquid stores such sites under **/var/db/safesquid/ssl/badcerts/**. Locate the domain in that path.
+The origin website's certificate is broken when the browser shows "S_X509_DNS_MISMATCH: SSL Certificate has DNS errors" via proxy. This holds despite a correct certificate in the browser. SafeSquid stores such sites under **/var/db/safesquid/ssl/badcerts/**. Locate the domain in that path.
 
 Go to that domain name folder by command:
 

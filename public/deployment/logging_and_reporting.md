@@ -11,7 +11,7 @@ keywords:
 
 # Prove the Audit Trail Exists
 
-Enforcement you cannot evidence is enforcement you cannot defend. A deployment that blocks correctly but logs nothing fails the review that matters. The gap is usually discovered during an incident, when the logs for the window in question turn out never to have been written or forwarded.
+Enforcement you cannot evidence is enforcement you cannot defend. A deployment that blocks correctly but logs nothing fails the review that matters. The gap is usually discovered during an incident. The logs for the window in question turn out never to have been written or forwarded.
 
 Confirm the evidence path end to end before declaring the deployment ready.
 
@@ -50,7 +50,7 @@ Check the volume that holds the logs:
 df -h /var/log/safesquid
 ```
 
-Expected result: free capacity is consistent with the agreed retention target, with headroom for support bundles and packet captures during an incident.
+Expected result: free capacity is consistent with the agreed retention target. There is headroom for support bundles and packet captures during an incident.
 
 Where logs are forwarded, confirm arrival at the destination rather than departure from the host. A forwarder that is running is not proof that anything is being received.
 
@@ -84,7 +84,7 @@ Store these artifacts with the deployment record:
 - A report exported from the Configuration Portal for the same window.
 - The named owner of log retention and the review cadence.
 
-This evidence supports SOC 2 change management, ISO 27001 operational control review, and NIST SP 800-53 audit traceability for first deployment.
+This evidence supports SOC 2 change management, ISO 27001 operational control review, and NIST SP 800-53 audit traceability. Collect it at first deployment.
 
 ## Troubleshoot logging failures
 

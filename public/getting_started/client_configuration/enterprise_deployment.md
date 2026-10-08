@@ -11,7 +11,7 @@ keywords:
 
 # Roll Out Proxy Settings Safely
 
-Enterprise proxy deployment turns a working pilot into enforceable web security. The risk is blast radius: a bad GPO, MDM profile, PAC URL, or configuration-management task can break web access across an entire business unit. Deploy in stages, prove traffic evidence, and keep rollback ready before expanding scope.
+Enterprise proxy deployment turns a working pilot into enforceable web security. The risk is blast radius. A bad GPO, MDM profile, PAC URL, or configuration-management task can break web access across an entire business unit. Deploy in stages, prove traffic evidence, and keep rollback ready before expanding scope.
 
 ## Use this method when
 
@@ -117,7 +117,7 @@ Review SafeSquid logs and helpdesk tickets at each boundary before advancing.
 
 **PAC hosting.** Host on redundant web servers rather than one host. Address it through internal DNS so the endpoint policy never has to change. Keep the file body in version control. Stage changes before production.
 
-**Monitoring.** Use Group Policy Modeling in the Group Policy Management Console to predict which machines a change will affect before you link it. Run configuration-compliance reports on a schedule, alert on proxy configuration drift, and confirm through SafeSquid logs that managed endpoints are actually routing.
+**Monitoring.** Use Group Policy Modeling in the Group Policy Management Console. It predicts which machines a change will affect before you link it. Run configuration-compliance reports on a schedule and alert on proxy configuration drift. Confirm through SafeSquid logs that managed endpoints are actually routing.
 
 </Accordion>
 

@@ -11,7 +11,7 @@ keywords:
 
 # Register and Download the Activation Key
 
-SafeSquid activation starts before installation. The Self-Service Portal issues the `activation_key` file that binds a SafeSquid deployment to licensing, subscription, update, and cloud-linked operational workflows. Without this key, operators cannot complete the activation checkpoint before SSL inspection, URL filtering, malware scanning, DLP, or production policy rollout.
+SafeSquid activation starts before installation. The Self-Service Portal issues the `activation_key` file that binds a SafeSquid deployment to licensing, subscription, update, and cloud-linked operational workflows. Without this key, operators cannot complete the activation checkpoint. That checkpoint comes before SSL inspection, URL filtering, malware scanning, DLP, or production policy rollout.
 
 Treat the key as deployment evidence and operational secret material. Keep it under the same change-control and storage discipline used for firewall credentials, certificate private keys, and recovery runbooks.
 
@@ -181,7 +181,7 @@ After the profile is saved, the portal generates the activation key.
 
     Confirm the deployment record stores only the secure storage reference, not the key contents.
 
-    If the key was pasted into an unapproved channel, treat it as a secret-handling incident and regenerate or replace it through the approved process.
+    If the key was pasted into an unapproved channel, treat it as a secret-handling incident. Regenerate or replace it through the approved process.
   </Step>
 </Steps>
 

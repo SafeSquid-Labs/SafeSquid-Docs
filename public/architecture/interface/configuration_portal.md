@@ -11,11 +11,11 @@ keywords:
 
 # Control Policy From the Management Console
 
-The Policy Management Console (Configuration Portal) is the SafeSquid web interface for defining, simulating, and enforcing access control, URL filtering, SSL inspection, and DLP policies. Administrators use it to configure restriction profiles, real-time content security, authentication, and operational settings.
+The Policy Management Console (Configuration Portal) is the SafeSquid web interface for defining, simulating, and enforcing policy. It covers access control, URL filtering, SSL inspection, and DLP. Administrators use it to configure restriction profiles, real-time content security, authentication, and operational settings.
 
 ## Problems addressed
 
-Operators need a single **authoritative** place to define Layer 7 policy, simulate or review impact, and push consistent rules to proxy nodes. Fragmented tooling increases misconfiguration risk and weakens audit narratives.
+Operators need a single **authoritative** place to define Layer 7 policy. They also need to simulate or review impact and push consistent rules to proxy nodes. Fragmented tooling increases misconfiguration risk and weakens audit narratives.
 
 ## Outcomes operators expect
 
@@ -29,7 +29,7 @@ SafeSquid ships the console **with** the SWG so policy and enforcement stay prod
 
 ## Acquire, deploy, use
 
-Install SafeSquid, reach the UI via **Access Methods** below, then follow linked sections (SSL Inspection, Authentication, Access Restriction) for each control.
+Install SafeSquid and reach the UI via **Access Methods** below. Then follow the linked sections (SSL Inspection, Authentication, Access Restriction) for each control.
 
 ## Access Methods
 

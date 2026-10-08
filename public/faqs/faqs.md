@@ -48,14 +48,14 @@ Register to create an account on **SafeSquid self-service portal** and **downloa
 ## What is SafeSquid Self Service portal?
 The SafeSquid Self-Service Portal is the cloud-based management console for SafeSquid.
 
-The SafeSquid Self-Service Portal manages these activities: cloud-backed features, Custom Web Categorization, Web Security Clients for Roaming users (VPN), Confidential Data Signatures, and Subscription management.
+The SafeSquid Self-Service Portal manages these activities: cloud-backed features, Custom Web Categorization, and Web Security Clients for Roaming users (VPN). It also manages Confidential Data Signatures and Subscription management.
 
 Read more: [Self-Service Portal](/architecture/interface/self_service_portal).
 
 
 
 ## Who has access to the SafeSquid Web GUI
-SafeSquid has an intrinsic Web GUI, that enables administrators to manage the installation, setup required policies, and monitor the secure web gateway.
+SafeSquid has an intrinsic Web GUI. It enables administrators to manage the installation, set up required policies, and monitor the secure web gateway.
 
 Configure SafeSquid policies to allow access of the Web GUI to only security administrators.
 
@@ -90,13 +90,13 @@ Used to enhance security of WIFI network by authenticating users before granting
 
 Users receive the SafeSquid Captive Portal landing page when accessing the internet via the WIFI network and enter credentials there.
 
-SafeSquid captive portal validates user credentials using various authentication mechanisms and maintains database of authenticated source IP addresses and usernames for lookup.
+SafeSquid captive portal validates user credentials using various authentication mechanisms. It maintains a database of authenticated source IP addresses and usernames for lookup.
 
 If a user from a source IP address authenticated through captive portal, SafeSquid picks the username from the database. It attaches that username to the traffic coming from the same source IP address.
 
 This way SafeSquid captive portal secures WIFI network by only granting access to valid users
 
-Combining SafeSquid Captive Portal with SafeSquid secure web gateway allows monitoring of internet usage, filtering of traffic, and other security enhancements to enhance security levels.
+Combining SafeSquid Captive Portal with SafeSquid secure web gateway allows monitoring of internet usage and filtering of traffic. It also adds other security enhancements.
 
 
 
@@ -105,14 +105,14 @@ Yes, SafeSquid supports transparent proxy.
 
 SafeSquid support both HTTP and HTTPS websites in transparent mode. The HTTPS websites in transparent mode called as SSL transparent proxy
 
-The traffic will come to router and router will send traffic to SafeSquid Secure web gate way with port 80 and 443 respectively.
+The traffic comes to the router. The router sends traffic to SafeSquid Secure web gateway on ports 80 and 443 respectively.
 
-The **redirection rules on SafeSquid Secure web gateway** redirect traffic to SafeSquid Proxy on ports 8080 and 8443 (SSL transparent) respectively. This requires IP forwarding to be enabled.
+The **redirection rules on SafeSquid Secure web gateway** redirect traffic to SafeSquid Proxy. They use ports 8080 and 8443 (SSL transparent) respectively. This requires IP forwarding to be enabled.
 
 
 
 ## When to enable WCCP
-For transparent redirection of traffic, Load balance traffic & scaling up or Service assurance & high availability, enable WCCP in SafeSquid. Enable WCCP support on routers that support WCCP.
+To redirect traffic transparently, load balance and scale up, or assure service and high availability, enable WCCP in SafeSquid. Enable WCCP support on routers that support WCCP.
 
 Ex: CISCO ASA routers.
 
@@ -129,33 +129,33 @@ Yes. SafeSquid can prevent users from accessing social networking sites. When co
 
 Allow social networking sites in lunch hours: [Allow Social Networking Sites During Lunch Hours](/use_cases/access_restriction/allow_social_networking_sites_during_lunch_hours).
 
-Facebook is a social networking website that allows users to interact with other users in a multimedia environment on the Web. Facebook users can install and use applications to enhance their experience. Many organizations want to allow Facebook access to maintain morale, increase retention, and boost hiring. But they also want to control access to it.
+Facebook is a social networking website. It allows users to interact with other users in a multimedia environment on the Web. Facebook users can install and use applications to enhance their experience. Many organizations want to allow Facebook access to maintain morale, increase retention, and boost hiring. But they also want to control access to it.
 
-SafeSquid allows full Facebook access for a social media group, partial access to a customer service group, and read-only access to other groups. Access to Facebook can also be assigned by time of day. For more details: [Facebook Read-Only Mode](/use_cases/content_modifier/facebook_read_only_mode), [Allow Specific Page on Facebook](/use_cases/content_modifier/allowing_specific_page_on_facebook).
+SafeSquid allows full Facebook access for a social media group and partial access to a customer service group. It allows read-only access to other groups. Access to Facebook can also be assigned by time of day. For more details: [Facebook Read-Only Mode](/use_cases/content_modifier/facebook_read_only_mode), [Allow Specific Page on Facebook](/use_cases/content_modifier/allowing_specific_page_on_facebook).
 
 
 
 ## Preventing users from uploading confidential data
 Yes. SafeSquid can prevent users from uploading confidential data. When an organization has confidential information and an internal user leaks it intentionally or unintentionally, productivity loss can be large.
 
-Data leakage can occur through many channels. Users can upload important documents to the internet. Even when content filtering blocks Microsoft Word and Excel files, users can create archives of those files and attempt to upload them. Blocking all archives is not practical because staff use archives to transfer large log files.
+Data leakage can occur through many channels. Users can upload important documents to the internet. Even when content filtering blocks Microsoft Word and Excel files, users can create archives of those files. They can then attempt to upload them. Blocking all archives is not practical because staff use archives to transfer large log files.
 
-There are other users who simply take information out of Microsoft Word and Microsoft XL and simply send an Email to third party.
+Other users simply take information out of Microsoft Word and Microsoft Excel. They then send it by email to a third party.
 
 In modern era, these kind of data leaks become a challenge for organizations. Organizations look for content filtering software that can deeply inspect archive files. It must also identify whether an archive or email contains certain keyword matches.
 
-This challenge is also big for security experts. The post data format of an upload differs for Gmail, Google Drive, Mediafire, Dropbox, and similar services. The wide range of formations of post data made it difficult for security experts to derive concrete solution to these challenges.
+This challenge is also big for security experts. The post data format of an upload differs for Gmail, Google Drive, Mediafire, Dropbox, and similar services. The wide range of post data formats made it difficult for security experts to derive concrete solutions.
 
-SafeSquid embeds an **Advanced DLP** solution in the **SafeSquid SWG**. It analyzes post data, inspects archives deeply using file decomposition methods, and identifies whether archives, emails, or social media posts contain certain keyword matches. Based on the match, the administrator can block uploads by user or by destination website. The Advanced DLP solution is managed from the SafeSquid Self-Service Portal, where administrators create keyword expression matches. SafeSquid SWG will download those keyword expressions and loads into memory. When an archive uploads or an email write, SafeSquid SWG analyses Post data and transmit it to the Clam AV daemon for Signatures verification. If the keyword expression matches Clam AV daemon responds with match. SafeSquid will take respective action based on match.
+SafeSquid embeds an **Advanced DLP** solution in the **SafeSquid SWG**. It analyzes post data and inspects archives deeply using file decomposition methods. It identifies whether archives, emails, or social media posts contain certain keyword matches. Based on the match, the administrator can block uploads by user or by destination website. The Advanced DLP solution is managed from the SafeSquid Self-Service Portal, where administrators create keyword expression matches. SafeSquid SWG will download those keyword expressions and loads into memory. When an archive is uploaded or an email is written, SafeSquid SWG analyses the post data. It then transmits it to the ClamAV daemon for signature verification. If the keyword expression matches Clam AV daemon responds with match. SafeSquid will take respective action based on match.
 
 
 
 ## Preventing upload of specific file extensions
 Yes. SafeSquid can prevent users from uploading specific file extensions.
 
-SafeSquid DLP section is nothing but **Data Loss Prevention module**, used to protect from sending sensitive or critical information outside the corporate network.
+SafeSquid DLP section is the **Data Loss Prevention module**. It protects against sending sensitive or critical information outside the corporate network.
 
-It is possible by blocking the specific file types or file extensions based on Content type and extension of file types.
+It is possible by blocking specific file types or file extensions. The block is based on content type and file extension.
 
 
 
@@ -213,12 +213,12 @@ SafeSquid reporting supports export to PDF and Excel. Open the SafeSquid interfa
 
 
 ## Can reports be generated for specific dates?
-Yes. SafeSquid has a reporting module that reduces processing time. It provides detailed reports, hour-wise reports, filtering options, deeper data analysis, an automated data mining engine, and export to PDF and Excel.
+Yes. SafeSquid has a reporting module that reduces processing time. It provides detailed reports, hour-wise reports, and filtering options. It also provides deeper data analysis, an automated data mining engine, and export to PDF and Excel.
 
 
 
 ## Why does SafeSquid become slow after running for some time?
-Slowness after sustained operation is often due to resource exhaustion (disk, memory, or connection state). Check the [Troubleshooting](/troubleshooting/troubleshooting) guide for resource diagnostics, clear or rotate logs, and review the **Performance Plot** card on the [Support](/configuration/infrastructure_and_access/support) page for resource usage. Restart the proxy after freeing resources if needed.
+Slowness after sustained operation is often due to resource exhaustion (disk, memory, or connection state). Check the [Troubleshooting](/troubleshooting/troubleshooting) guide for resource diagnostics and for clearing or rotating logs. Review the **Performance Plot** card on the [Support](/configuration/infrastructure_and_access/support) page for resource usage. Restart the proxy after freeing resources if needed.
 
 
 

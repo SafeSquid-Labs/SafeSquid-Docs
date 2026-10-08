@@ -10,7 +10,7 @@ keywords:
 
 # Install on a Managed Linux Host
 
-Use the Linux server path only when the organization already owns the operating system lifecycle, hardening baseline, monitoring, backup, and rollback. For new deployments, the SafeSquid Appliance Builder is the standard path because it provides a repeatable appliance build and supporting services.
+Use the Linux server path only when the organization already owns the operating system lifecycle. It must also own the hardening baseline, monitoring, backup, and rollback. For new deployments, the SafeSquid Appliance Builder is the standard path. It provides a repeatable appliance build and supporting services.
 
 ## Use this method when
 
@@ -123,7 +123,7 @@ Package names drift between releases. If one is not found, locate the equivalent
 
 <Accordion title="Prepare directories, firewall, SELinux, and time">
 
-**Create the data directories** so the installer writes into a known layout, and so you can mount dedicated volumes underneath them:
+**Create the data directories** so the installer writes into a known layout. This also lets you mount dedicated volumes underneath them:
 
 ```bash
 sudo mkdir -p /var/log/safesquid /var/lib/safesquid /var/db/safesquid
@@ -152,7 +152,7 @@ sudo iptables -A INPUT -p tcp --dport 8443 -j ACCEPT
 sudo iptables-save
 ```
 
-**Set SELinux to permissive for the setup window** on RHEL-family hosts, then write a targeted policy once the deployment is stable:
+**Set SELinux to permissive for the setup window** on RHEL-family hosts. Then write a targeted policy once the deployment is stable:
 
 ```bash
 sudo setenforce 0
@@ -223,14 +223,14 @@ On a Debian-based system, `setup.sh` above carries out the whole post-install se
 - Removes leftovers from a previous installation on the same machine, if one existed.
 - Installs the supporting packages SafeSquid depends on.
 - Stops the service if it is already running (relevant on a re-install or upgrade).
-- Configures a local DNS resolver tuned for appliance use, with IPv6 disabled and the zone data **DNS Blacklist** depends on already in place.
+- Configures a local DNS resolver tuned for appliance use, with IPv6 disabled. The zone data **DNS Blacklist** depends on is already in place.
 - Copies the appliance file tree into place.
 - Stands up a local DNS blacklist server bound only to loopback.
 - Enables and starts the service.
 
-**On a Red Hat-based system only the dependency-package installation step runs automatically.** The DNS resolver and DNS Blacklist setup is **not** configured for you and must be done separately. If DNS Blacklist does not appear to resolve anything, confirm the local resolver and blacklist server were actually set up. On a RHEL-family install this is a manual step, not an assumption.
+**On a Red Hat-based system only the dependency-package installation step runs automatically.** The DNS resolver and DNS Blacklist setup is **not** configured for you. Do it separately. If DNS Blacklist does not appear to resolve anything, confirm the local resolver and blacklist server were actually set up. On a RHEL-family install this is a manual step, not an assumption.
 
-Two reasons some features need no extra setup on this path: the Kerberos and SASL components are installed by that step. That is why Kerberos/SSO and LDAP authentication need no extra package installation. The OCR components are installed there too. That is why DLP and Image analyzer can score text in images without extra setup. If Kerberos/SSO or LDAP authentication misbehaves, confirm you are on the fully-automated Debian-based path.
+Some features need no extra setup on this path for two reasons. That step installs the Kerberos and SASL components. That is why Kerberos/SSO and LDAP authentication need no extra package installation. The OCR components are installed there too. That is why DLP and Image analyzer can score text in images without extra setup. If Kerberos/SSO or LDAP authentication misbehaves, confirm you are on the fully-automated Debian-based path.
 
 </Accordion>
 

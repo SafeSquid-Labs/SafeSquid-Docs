@@ -11,7 +11,7 @@ keywords:
 
 # Prove the Node Is Actually Serving
 
-A node that answers `systemctl status` is not necessarily serving traffic. The process can be running while the listener never bound, or the listener can be up while local DNS resolution is dead. In both cases users see failures that look like network problems, so the proxy is the last thing anyone checks.
+A node that answers `systemctl status` is not necessarily serving traffic. The process can be running while the listener never bound. The listener can also be up while local DNS resolution is dead. In both cases users see failures that look like network problems, so the proxy is the last thing anyone checks.
 
 Run these checks first. Everything else in validation assumes the service is genuinely up.
 

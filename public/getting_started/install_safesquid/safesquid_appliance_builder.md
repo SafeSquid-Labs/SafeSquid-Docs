@@ -18,7 +18,7 @@ keywords:
 
 # Build the Standard Appliance
 
-Installing SafeSquid by hand means hardening the OS, partitioning disks correctly, resolving dependency libraries, configuring networking, and standing up Monit and BIND9. One mistake in partitioning or networking costs hours — and it costs them again on the next node, because nothing about the build is repeatable.
+Installing SafeSquid by hand means hardening the OS and partitioning disks correctly. It also means resolving dependency libraries, configuring networking, and standing up Monit and BIND9. One mistake in partitioning or networking costs hours. It costs them again on the next node, because nothing about the build is repeatable.
 
 SafeSquid Appliance Builder (SAB) is a security-hardened Debian ISO that does all of it from one boot. You answer a short sequence of prompts; a preseed script does the rest and reboots into a working appliance.
 
@@ -64,7 +64,7 @@ Obtain the ISO from the SafeSquid appliance download path:
 https://downloads.safesquid.com/appliance/safesquid.iso
 ```
 
-Record the download date and, where the organisation's process requires it, a checksum of the retrieved image in the change record.
+Record the download date in the change record. Where the organisation's process requires it, record a checksum of the retrieved image too.
 
 <Accordion title="Prepare physical hardware">
 
@@ -76,7 +76,7 @@ Record the download date and, where the organisation's process requires it, a ch
    lscpu | grep aes
    ```
 
-   Expected result: `aes` appears in the CPU flags. If it does not, HTTPS inspection will be substantially slower on this host — see the AES-NI requirement in [Hardware Sizing](/deployment/hardware_sizing).
+   Expected result: `aes` appears in the CPU flags. If it does not, HTTPS inspection will be substantially slower on this host. See the AES-NI requirement in [Hardware Sizing](/deployment/hardware_sizing).
 
 </Accordion>
 
@@ -94,7 +94,7 @@ SAB runs on both Type 1 and Type 2 hypervisors. On a Type 2 hypervisor such as V
    | **NAT** | The VM sits behind the host, routing through the host's address | Isolated lab only |
 
    Bridged is the recommended choice. NAT complicates client routing and certificate testing later.
-4. Allocate CPU, RAM, and disk according to the approved sizing plan, and confirm the hypervisor actually reserves them rather than overcommitting.
+4. Allocate CPU, RAM, and disk according to the approved sizing plan. Confirm the hypervisor actually reserves them rather than overcommitting.
 
 </Accordion>
 
@@ -110,7 +110,7 @@ Obtain the ISO from the SafeSquid appliance download path:
 https://downloads.safesquid.com/appliance/safesquid.iso
 ```
 
-Record the download date and, where the organization's process requires it, a checksum of the retrieved image in the change record.
+Record the download date in the change record. Where the organization's process requires it, record a checksum of the retrieved image too.
 
 <Accordion title="Prepare physical hardware">
 
@@ -131,7 +131,7 @@ Record the download date and, where the organization's process requires it, a ch
 1. Create the VM on VMware, Hyper-V, KVM, or VirtualBox.
 2. Attach the ISO as a virtual CD or DVD drive.
 3. Configure networking as **bridged** so the appliance holds a routable address on the client network. NAT works for an isolated lab but complicates client routing and certificate testing later.
-4. Allocate CPU, RAM, and disk according to the approved sizing plan, and confirm the hypervisor actually reserves them rather than overcommitting.
+4. Allocate CPU, RAM, and disk according to the approved sizing plan. Confirm the hypervisor actually reserves them rather than overcommitting.
 
 </Accordion>
 
@@ -229,11 +229,11 @@ Record the download date and, where the organization's process requires it, a ch
     ![Installer prompt for HTTP proxy information, blank for none](/images/getting_started/safesquid_appliance_builder_12_http_proxy.webp)
   </Step>
   <Step title="Confirm the disk and the GRUB target">
-    SAB auto-partitions the selected disk. Select the target drive — typically `/dev/sda` or `/dev/nvme0n1` — for partitioning, then the same drive again for the GRUB bootloader.
+    SAB auto-partitions the selected disk. Select the target drive for partitioning, typically `/dev/sda` or `/dev/nvme0n1`. Then select the same drive again for the GRUB bootloader.
 
     Confirm the selected disk matches the allocation approved for SafeSquid, and that the GRUB target is the same internal disk.
 
-    If you are installing from a USB stick, unselect the USB drive at the partitioning prompt so it cannot be chosen by mistake.
+    If you are installing from a USB stick, unselect the USB drive at the partitioning prompt. This stops it being chosen by mistake.
 
     ![Disk partitioning prompt listing available disks](/images/getting_started/safesquid_appliance_builder_14_disk_selection.webp)
 
@@ -260,7 +260,7 @@ Record the download date and, where the organization's process requires it, a ch
 </Steps>
 
 <Warning>
-  **Do not defer the password reset.** The appliance ships with `administrator` / `safesquid`. Those credentials are printed on the login screen. Complete the reset before the host is reachable from any client network, and record that it was done in the deployment evidence. Leaving the shipped password in place on a proxy that sees all corporate web traffic is a direct compromise path.
+  **Do not defer the password reset.** The appliance ships with `administrator` / `safesquid`. Those credentials are printed on the login screen. Complete the reset before the host is reachable from any client network. Record that it was done in the deployment evidence. Leaving the shipped password in place on a proxy that sees all corporate web traffic is a direct compromise path.
 </Warning>
 
 <Warning>

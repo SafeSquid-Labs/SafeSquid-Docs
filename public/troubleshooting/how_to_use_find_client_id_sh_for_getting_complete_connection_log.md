@@ -25,7 +25,7 @@ Follow the checks in order, capture the observed output, and apply the fix that 
 
 # Get complete connection log with find_client_id.sh
 
-Native logs are written in real time by response; entries for one connection can be scattered. To analyze a single connection from start to finish (profiles, categories, headers, errors), use the client id to pull all log lines for that connection. find_client_id.sh extracts complete connection details for a given client id. Below: how to obtain the client id and run the script.
+Native logs are written in real time by response; entries for one connection can be scattered. To analyze a single connection from start to finish (profiles, categories, headers, errors), use the client id. It pulls all log lines for that connection. find_client_id.sh extracts complete connection details for a given client id. Below: how to obtain the client id and run the script.
 
 To use find\_client\_id.sh you are first required to get your connection's client id.
 

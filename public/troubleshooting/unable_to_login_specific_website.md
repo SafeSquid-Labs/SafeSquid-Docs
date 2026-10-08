@@ -34,11 +34,11 @@ Confirm the target website is HTTP or HTTPS. For HTTPS, configure the HTTPS Insp
 
 ### Case 3: Facebook login works but Google account login fails
 
-When login works on [https://www.facebook.com/](https://www.facebook.com/) and other sites but fails only on [https://accounts.google.com/](https://accounts.google.com/), the corporate policy under Header Filter > Insert is likely enabled. Set the policy under Privacy Control > Header Filter > Insert to Enabled FALSE. Search for "Enforce use of corporate Google Account, for all users who are NOT ALLOWED PERSONAL GOOGLE ACCOUNTS" to find it.
+Login works on [https://www.facebook.com/](https://www.facebook.com/) and other sites but fails only on [https://accounts.google.com/](https://accounts.google.com/). In that case, the corporate policy under Header Filter > Insert is likely enabled. Set the policy under Privacy Control > Header Filter > Insert to Enabled FALSE. Search for "Enforce use of corporate Google Account, for all users who are NOT ALLOWED PERSONAL GOOGLE ACCOUNTS" to find it.
 
 ### Case 4: Login fails on both Google and Facebook
 
-When login fails only on [https://accounts.google.com/](https://accounts.google.com/) and [https://www.facebook.com/](https://www.facebook.com/), the "Block Particular User Login to Facebook or Gmail" policy is likely enabled. Set the policy under Real Time Content Security > Content modifier > Rewrite Policies to Enabled FALSE.
+Login fails only on [https://accounts.google.com/](https://accounts.google.com/) and [https://www.facebook.com/](https://www.facebook.com/). In that case, the "Block Particular User Login to Facebook or Gmail" policy is likely enabled. Set the policy under Real Time Content Security > Content modifier > Rewrite Policies to Enabled FALSE.
 
 If the global section is enabled but the policy under that section is disabled, that individual policy does not work.
 

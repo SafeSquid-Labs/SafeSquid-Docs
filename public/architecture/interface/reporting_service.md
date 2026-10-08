@@ -96,7 +96,7 @@ Use a dedicated reporting service or SIEM path when:
 
 ### External SIEM integration
 
-Use external SIEM when the organization already has an established investigation platform and wants SafeSquid evidence to appear in the same operational workflow.
+Use external SIEM when the organization already has an established investigation platform. SafeSquid evidence then appears in the same operational workflow.
 
 ## Verification and validation
 

@@ -71,7 +71,7 @@ For managed fleets, deliver these through Firefox enterprise policy rather than 
 
 <Accordion title="Windows: legacy Internet Options path">
 
-On older Windows builds, or where the Settings app is restricted by policy, the same WinINET configuration is reachable through Control Panel:
+On older Windows builds, or where policy restricts the Settings app, the same WinINET configuration is reachable through Control Panel:
 
 **Control Panel → Internet Options → Connections → LAN Settings**
 
@@ -132,7 +132,7 @@ tail -20 /var/log/safesquid/access/extended.log
 
 Expected result: the access log shows the pilot client, destination, timestamp, and action.
 
-For a negative check, remove or bypass the proxy setting only in the test window and confirm the request no longer appears in SafeSquid logs. Restore the proxy setting immediately after the test.
+For a negative check, remove or bypass the proxy setting only in the test window. Then confirm the request no longer appears in SafeSquid logs. Restore the proxy setting immediately after the test.
 
 ## Capture deployment evidence
 

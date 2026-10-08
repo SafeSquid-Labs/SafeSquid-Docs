@@ -14,7 +14,7 @@ keywords:
 
 ## Problem statement
 
-DNS is often the first successful step in phishing, malware delivery, command-and-control, and covert exfiltration. If malicious or deceptive resolution succeeds, the organisation pays for the connection attempt even when a later HTTP policy can still block the session. In tunnelling scenarios, DNS itself becomes the covert channel.
+DNS is often the first successful step in phishing, malware delivery, command-and-control, and covert exfiltration. If malicious or deceptive resolution succeeds, the organisation pays for the connection attempt. This holds even when a later HTTP policy can still block the session. In tunnelling scenarios, DNS itself becomes the covert channel.
 
 ## Client scenario
 

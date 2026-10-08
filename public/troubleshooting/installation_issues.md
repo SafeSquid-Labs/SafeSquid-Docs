@@ -12,11 +12,11 @@ keywords:
 
 Troubleshooting Installation Issues can interrupt web access, policy enforcement, or evidence collection. Use this runbook to restore service, preserve logs, and prove the corrective action during security review.
 
-If you see **Bad archive mirror**, **Failed to retrieve pre-configuration**, or other installation failures, use the sections below to diagnose and fix. Symptoms are grouped by stage: before install, during install, and network-related.
+If you see **Bad archive mirror**, **Failed to retrieve pre-configuration**, or other installation failures, use the sections below. They help you diagnose and fix the failure. Symptoms are grouped by stage: before install, during install, and network-related.
 
 ## Before Installation
 
-Common issues in this stage include system compatibility, creating a bootable USB or attaching the appropriate .iso file, and correctly setting up the BIOS/UEFI settings.
+Common issues in this stage include system compatibility and creating a bootable USB or attaching the appropriate .iso file. Another is correctly setting up the BIOS/UEFI settings.
 
 Solutions involve checking system requirements, verifying the integrity of the installation media, and ensuring correct boot order.
 
@@ -30,7 +30,7 @@ For the network-related issues below, use the installer console to identify the 
 
 ## Network Checks for Issue Identification
 
-Network issues can significantly impact the installation and functionality of SafeSquid. If you see **"Bad archive mirror"** or **"Failed to retrieve the pre-configuration file"** during installation, use the checks below to fix DNS and gateway settings.
+Network issues can significantly impact the installation and functionality of SafeSquid. If you see **"Bad archive mirror"** or **"Failed to retrieve the pre-configuration file"** during installation, use the checks below. They fix DNS and gateway settings.
 
 Administrators can perform various checks to identify and resolve network-related problems:
 
@@ -42,7 +42,7 @@ Administrators can perform various checks to identify and resolve network-relate
    - No IP address shown -> interface not configured or DHCP failed
    - No default route -> gateway not set during network configuration step
 
-2. **DNS Resolution and Ping check**: Since busybox is a minimal Linux environment, use `ping` to verify both DNS resolution and connectivity. `ping -c 3 google.com`
+2. **DNS Resolution and Ping check**: busybox is a minimal Linux environment. Use `ping` to verify both DNS resolution and connectivity. `ping -c 3 google.com`
 
    **Expected success output:** `PING google.com (142.250.x.x): 56 data bytes 64 bytes from 142.250.x.x: icmp_seq=0 ttl=xx time=x.x ms`
 
@@ -55,7 +55,7 @@ Administrators can perform various checks to identify and resolve network-relate
 
 By performing these network checks and using the available networking commands, administrators can pinpoint network-related problems and take corrective actions.
 
-Once you have identified and solved your network problem, come back to the installer tty using ctrl + alt + F1 and select continue.
+Once you have solved the network problem, return to the installer tty using ctrl + alt + F1. Then select continue.
 
 Select continue again.
 
@@ -71,7 +71,7 @@ For additional assistance, consult the SafeSquid forums and community resources.
 
 ### Symptoms
 
-**"Failed to retrieve the pre-configuration file"** Appears during installation when the installer cannot download the automated configuration script from SafeSquid servers. This typically indicates DNS or gateway misconfiguration.
+**"Failed to retrieve the pre-configuration file"** appears during installation. The installer cannot download the automated configuration script from SafeSquid servers. This typically indicates DNS or gateway misconfiguration.
 
 **"Bad archive mirror"** Appears when the installer cannot reach Debian package repositories. This indicates:
 

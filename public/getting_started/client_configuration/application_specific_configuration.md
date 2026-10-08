@@ -12,7 +12,7 @@ keywords:
 
 # Handle Applications That Bypass OS Proxy
 
-Some applications ignore browser, PAC, or operating system proxy settings. Developer tools, package managers, containers, email clients, and command-line utilities can create unlogged egress unless they are configured directly or blocked from direct internet access.
+Some applications ignore browser, PAC, or operating system proxy settings. Developer tools, package managers, containers, email clients, and command-line utilities can create unlogged egress. Configure them directly or block them from direct internet access.
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/05-Connect_Your_Client/05-Application_Specific_Configuration.md §Use this method for and §Time to configure */}
 
@@ -80,7 +80,7 @@ npm config get proxy
 
 Expected result: npm package requests route through SafeSquid and match package-management policy.
 
-Set the registry explicitly where an internal mirror is in use, so package resolution is not left to whatever the client defaults to:
+Set the registry explicitly where an internal mirror is in use. This stops package resolution depending on client defaults:
 
 ```bash
 npm config set registry https://registry.npmjs.org/
@@ -220,9 +220,9 @@ Record the mail domains, identity method, and whether SSL inspection is bypassed
 
 1. **File → Account Settings → Account Settings**.
 2. Select the account, then **Change → More Settings**.
-3. On the **Connection** tab, select **Connect using Internet Explorer or a 3rd party dialer**, which routes Outlook through the Windows system proxy.
+3. On the **Connection** tab, select **Connect using Internet Explorer or a 3rd party dialer**. This routes Outlook through the Windows system proxy.
 
-If Outlook will not connect after the change, temporarily disabling Cached Exchange Mode isolates whether the failure is in the connection or the local cache.
+If Outlook will not connect after the change, temporarily disable Cached Exchange Mode. This isolates whether the failure is in the connection or the local cache.
 
 **Thunderbird** keeps its own settings and ignores the OS configuration:
 
@@ -258,7 +258,7 @@ Common runtime patterns:
 | Ruby gems | `gem install --http-proxy http://SAFESQUID-IP:8080 <package>` |
 | Go modules | `export GOPROXY=http://SAFESQUID-IP:8080` |
 
-Any tool that cannot be routed needs a recorded exception with an owner and a review date, not a silent direct path to the internet.
+Any tool that cannot be routed needs a recorded exception with an owner and a review date. Do not leave a silent direct path to the internet.
 
 </Accordion>
 

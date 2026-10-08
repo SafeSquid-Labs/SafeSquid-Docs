@@ -30,9 +30,9 @@ Scenario: three entries in the Allow list of Access Restrictions:
 
 3. Third entry: the entry used for general internet access.
 
-A fourth entry is added with Web interface removed from the Access field, then moved up to third. The third position now matches the administrator's connection (the first is for SSH, the second for AUTHENTICATION BYPASS) and has Web interface disabled. The administrator is locked out and sees Access Denied. To avoid this, always keep at least one entry that allows access to the Web interface.
+A fourth entry is added with Web interface removed from the Access field, then moved up to third. The third position now matches the administrator's connection and has Web interface disabled. The first is for SSH, and the second is for AUTHENTICATION BYPASS. The administrator is locked out and sees Access Denied. To avoid this, always keep at least one entry that allows access to the Web interface.
 
-Two options to recover access: restart the SafeSquid service, or use an SSH tunnel to reach the interface and correct the Access Restrictions entries.
+There are two options to recover access. Restart the SafeSquid service, or use an SSH tunnel to reach the interface and correct the Access Restrictions entries.
 
 ## Capture useful evidence
 

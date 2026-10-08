@@ -10,7 +10,7 @@ keywords:
 
 # Keep the Proxy Service Enforcing Policy
 
-The SafeSquid proxy service is the enforcement point for user web traffic. It receives client requests, evaluates policy, applies inspection controls, and generates evidence that administrators use for operations, audit, and incident response.
+The SafeSquid proxy service is the enforcement point for user web traffic. It receives client requests, evaluates policy and applies inspection controls. It also generates evidence that administrators use for operations, audit, and incident response.
 
 The Application Eco-system source calls out SafeSquid startup parameters as part of the operating model. Treat those parameters as production controls because incorrect service startup can change listening behavior, logging behavior, or enforcement availability.
 

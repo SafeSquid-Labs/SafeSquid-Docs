@@ -81,16 +81,16 @@ NIC counts are minimums. See the bonding guidance below.
 <Accordion title="Estimate concurrent connections from a user count instead of measured peak data">
   Assume 3 to 5 concurrent connections per active user at peak. Heavy SaaS or streaming environments reach 6 to 8.
 
-  For example, 200 active users at 5 connections each is 1,000 concurrent connections, which maps to 8 cores and 16 GB above.
+  For example, 200 active users at 5 connections each is 1,000 concurrent connections. That maps to 8 cores and 16 GB above.
 
   Average session duration is typically 3 to 5 minutes, with peaks between 09:00 and 11:00 and between 14:00 and 16:00. Size for the peak window, not the daily mean.
 
-  **Above 4,000 concurrent connections**, assign multiple WAN IP addresses to avoid outbound NAT pool exhaustion, and evaluate [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering) rather than a single larger node.
+  **Above 4,000 concurrent connections**, assign multiple WAN IP addresses to avoid outbound NAT pool exhaustion. Evaluate [Proxy Clustering](/use_cases/scaling_and_high_availability/proxy_clustering) rather than a single larger node.
 </Accordion>
 
 ## Require AES-NI
 
-A CPU without AES-NI decrypts SSL 3 to 5 times slower, which produces latency spikes and dropped connections under HTTPS inspection load. Verify before committing to hardware:
+A CPU without AES-NI decrypts SSL 3 to 5 times slower. This produces latency spikes and dropped connections under HTTPS inspection load. Verify before committing to hardware:
 
 ```bash
 grep -m1 aes /proc/cpuinfo
@@ -117,7 +117,7 @@ SATA-connected SSDs have substantially lower write throughput than PCIe-attached
 {/* source: _migration_source_v3/docs/01-Getting_Started/01-Deployment_Planning.md §Link aggregation (LACP) */}
 
 <Accordion title="NIC, LACP, and routing checks">
-  Use one interface for simple pilot deployments unless a separate management or high-availability design has been approved. For production networks with bonded interfaces, confirm switch-side LACP configuration, VLAN tagging, MTU, gateway selection, and failover behavior before routing users.
+  Use one interface for simple pilot deployments unless a separate management or high-availability design has been approved. For production networks with bonded interfaces, confirm switch-side LACP configuration, VLAN tagging, and MTU. Also confirm gateway selection and failover behavior before routing users.
 
   Evidence should include interface names, MAC addresses, bond mode, switch ports, VLAN IDs. Also record the owner of any routing or firewall policy that forwards traffic toward SafeSquid.
 
@@ -132,7 +132,7 @@ SATA-connected SSDs have substantially lower write throughput than PCIe-attached
   | 8 | Two four-port bonds |
   | 16 | Two eight-port LACP bonds |
 
-  Bonding is configured on both the host and the switch. A host-side bond without matching switch-side configuration fails open or drops frames, so treat the switch change as part of the same change record.
+  Bonding is configured on both the host and the switch. A host-side bond without matching switch-side configuration fails open or drops frames. Treat the switch change as part of the same change record.
 </Accordion>
 
 {/* source: _migration_source_v3/docs/01-Getting_Started/01-Deployment_Planning.md §Verify and document for audits */}
@@ -140,7 +140,7 @@ SATA-connected SSDs have substantially lower write throughput than PCIe-attached
 <Accordion title="Post-install baseline and stress test">
   Pre-install connectivity checks prove the host can reach what it needs. They do not prove the host can carry the load you sized it for. Run a baseline after installation, before production users arrive. So you have a known-good reference to compare against during a later incident.
 
-  **Establish a light-load baseline.** Record session latency from `/var/log/safesquid/extended.log`, CPU utilisation, and disk I/O wait while a small number of clients browse. Keep the figures with the deployment record — the absolute values matter less than having a comparison point.
+  **Establish a light-load baseline.** Record session latency from `/var/log/safesquid/extended.log`, CPU utilisation, and disk I/O wait. Do this while a small number of clients browse. Keep the figures with the deployment record — the absolute values matter less than having a comparison point.
 
   **Stress test to the sizing target.** Simulate the peak concurrent connections you sized for. Use a load generator configured for HTTP proxy mode such as JMeter, or multiple concurrent browser sessions driven by Selenium. Confirm session counts hold without dropped connections.
 

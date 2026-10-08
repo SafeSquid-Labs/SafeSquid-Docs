@@ -12,7 +12,7 @@ keywords:
 
 # See How the Application Ecosystem Fits Together
 
-SafeSquid is not only a proxy. The production system also depends on intelligence feeds, licensing workflows, reporting paths, backup and restore paths, directory integration, DNS behavior, and supporting services. If those relationships are not understood, deployment succeeds in the lab but becomes fragile in production.
+SafeSquid is not only a proxy. The production system also depends on intelligence feeds, licensing workflows, and reporting paths. It also depends on backup and restore paths, directory integration, DNS behavior, and supporting services. If those relationships are not understood, deployment succeeds in the lab but becomes fragile in production.
 
 ![SafeSquid Application Ecosystem overview](/images/Application_Eco-System/Application_Eco-System/image1.webp)
 
@@ -59,7 +59,7 @@ SafeSquid consumes named cloud-based feeds that enrich policy decisions:
 - Geo-Location
 - SSL Updates
 
-These feeds matter because URL reputation, application detection, image-based DLP, malware heuristics, SSL trust evaluation, and geographic policy cannot stay current through static rules alone.
+These feeds matter because static rules alone cannot keep several controls current. Those controls are URL reputation, application detection, image-based DLP, malware heuristics, SSL trust evaluation, and geographic policy.
 
 The internal product language describes the feed-consumption model as **Zero Threat Window**. Intelligence is injected directly into the processing pipeline so updated knowledge is available immediately to policy decisions.
 
@@ -118,13 +118,13 @@ Production deployments should treat these as operational requirements, not optio
 - **[BIND](/architecture/interface/bind)** for local DNS resolver behavior and caching
 - **[NTP](/architecture/interface/ntp)** for time synchronization, Kerberos, and TLS validation
 
-If these are misconfigured, operators can see symptoms that look like proxy failure but are really time, DNS, or supervision failures.
+If these are misconfigured, operators can see symptoms that look like proxy failure. The real cause is time, DNS, or supervision failures.
 
 ## Deployment considerations
 
 - Restricted environments must allowlist the required SafeSquid cloud dependencies for licensing and intelligence updates.
 - Air-gap or sovereignty-sensitive designs should explicitly account for the Self-Service Portal and feed-delivery paths.
-- Reporting design must be planned early so logs do not remain trapped on the proxy node when SIEM evidence is required.
+- Plan reporting design early. Otherwise logs stay trapped on the proxy node when SIEM evidence is required.
 - Clustered deployments should treat policy replication and backup as separate operational concerns.
 
 ## Related controls / next steps

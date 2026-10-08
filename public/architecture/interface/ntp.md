@@ -14,7 +14,7 @@ keywords:
 
 NTP (Network Time Protocol) keeps your SafeSquid server's clock synchronized with enterprise time sources. Accurate time is critical for SSO/Kerberos authentication, TLS certificate validation, and audit log timestamps.
 
-**Why you need this:** Clock drift breaks Kerberos (requires ≤5 minutes skew), causes TLS certificate errors, and makes log correlation unreliable.
+**Why you need this:** Clock drift breaks Kerberos (requires ≤5 minutes skew) and causes TLS certificate errors. It also makes log correlation unreliable.
 
 ## Prerequisites
 
